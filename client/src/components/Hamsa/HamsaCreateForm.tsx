@@ -302,15 +302,78 @@ const HamsaCreateForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> 
+                              <Label className="w-1/4  text-end font-semibold ">Total Receiving : </Label>
+                                            {props.borma[0] ? <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{props.borma[0].current_backlog} Kg</Label>  : <Label className="w-1/4 text-center font-semibold text-red-500">0</Label> }
+                                            </div>
 
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef} />
+                            <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].issue_pw_210) +
+                                        Number(rows[0].issue_w_210) +
+                                        Number(rows[0].issue_ww_210) +
+                                        Number(rows[0].issue_pw_240) +
+                                        Number(rows[0].issue_w_240) +
+                                        Number(rows[0].issue_ww_240) +
+                                        Number(rows[0].issue_pw_280) +
+                                        Number(rows[0].issue_w_280) +
+                                        Number(rows[0].issue_ww_280) +
+                                        Number(rows[0].issue_pw_320) +
+                                        Number(rows[0].issue_w_320) +
+                                        Number(rows[0].issue_ww_320) +
+                                         Number(rows[0].issue_add_1) +
+                                        Number(rows[0].issue_add_2) +
+                                        Number(rows[0].issue_add_3) +
+                                        Number(rows[0].issue_pw_400) +
+                                        Number(rows[0].issue_w_400) +
+                                        Number(rows[0].issue_ww_400) +
+                                        Number(rows[0].issue_lw) +
+                                        Number(rows[0].issue_bigTaiho) +
+                                        Number(rows[0].issue_jb)
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
                         </div>
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef} />
+                          <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
+                          <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {props.borma[0] && rows[0] ? (
+                                    (
+                                        Number(props.borma[0].current_backlog) -
+                                        (
+                                            Number(rows[0].issue_pw_210) +
+                                            Number(rows[0].issue_w_210) +
+                                            Number(rows[0].issue_ww_210) +
+                                            Number(rows[0].issue_pw_240) +
+                                            Number(rows[0].issue_w_240) +
+                                            Number(rows[0].issue_ww_240) +
+                                            Number(rows[0].issue_pw_280) +
+                                            Number(rows[0].issue_w_280) +
+                                            Number(rows[0].issue_ww_280) +
+                                            Number(rows[0].issue_pw_320) +
+                                            Number(rows[0].issue_w_320) +
+                                            Number(rows[0].issue_ww_320) +
+                                             Number(rows[0].issue_add_1) +
+                                        Number(rows[0].issue_add_2) +
+                                        Number(rows[0].issue_add_3) +
+                                            Number(rows[0].issue_pw_400) +
+                                            Number(rows[0].issue_w_400) +
+                                            Number(rows[0].issue_ww_400) +
+                                            Number(rows[0].issue_lw) +
+                                            Number(rows[0].issue_bigTaiho) +
+                                            Number(rows[0].issue_jb)
+                                        )
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
+                        
                         </div>
 
 

@@ -278,15 +278,28 @@ const RCNMayurReCreateForm = (props:Props) => {
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required />
+                
+                 <Label className="w-1/4  text-end font-semibold ">Total Opening : </Label>
+                                {props.borma[0] ? <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{props.borma[0].current_backlog} Kg</Label>  : <Label className="w-1/4 text-center font-semibold text-red-500">0</Label> }
+                                
+                                 </div>
                
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                                     <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">{rows[0] ?(Number(rows[0].issue_w_lot)+Number(rows[0].issue_village)+
+                                        Number(rows[0].issue_ww)+Number(rows[0].issue_pw_w)+Number(rows[0].issue_JB)+Number(rows[0].issue_LW)+Number(rows[0].issue_bigTaiho)+Number(rows[0].issue_rejection)).toFixed(2):0} Kg</Label> 
+                                      
                      </div>
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                      <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
+                                     <Label className="w-1/4 text-left font-semibold ml-2 text-red-500 " >{props.borma[0] && rows[0] ?(Number(props.borma[0].current_backlog)-(Number(rows[0].issue_w_lot)+Number(rows[0].issue_village)+
+                                        Number(rows[0].issue_ww)+Number(rows[0].issue_pw_w)+Number(rows[0].issue_JB)+Number(rows[0].issue_LW)+Number(rows[0].issue_bigTaiho)+Number(rows[0].issue_rejection))).toFixed(2):0} Kg</Label>
+                                      
                      </div>
                    
                      
@@ -356,15 +369,15 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
                                      
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholespeel)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholesunpeel)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input type="number" className="bg-yellow-200" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input type="number" className="bg-cyan-200" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_DPDS ?formatNumber(props.borma[0].rcv_DPDS):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_DPDS} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_DPDS', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_DPDS} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_DPDS', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
                                         <TableCell className="bg-black-100"> -</TableCell>
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
