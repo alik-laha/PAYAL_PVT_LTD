@@ -384,15 +384,101 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required />
+                <Label className="w-1/4  text-end font-semibold ">Total Opening : </Label>
+                                  <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{rows[0] ? rows[0].issue_add_1:0} Kg</Label> 
+                
+                 </div>
                
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of Operator(Day)" ref={dayOpRef}  />
+                     <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].issue_ssp) +
+                                        Number(rows[0].issue_ssp_small) +
+                                        Number(rows[0].issue_swp_1) +
+                                        Number(rows[0].issue_wsp) +
+                                        Number(rows[0].issue_bits) +
+                                        Number(rows[0].issue_swp) +
+                                        Number(rows[0].issue_bb) +
+                                        Number(rows[0].issue_w_bb) +
+                                        Number(rows[0].issue_bb_A) +
+                                        Number(rows[0].issue_bb1) +
+                                        Number(rows[0].issue_bb1_A) +
+                                        Number(rows[0].issue_bb_2) +
+                                        Number(rows[0].issue_ssp_1) +
+                                        Number(rows[0].issue_ssp_1_small) +
+                                        Number(rows[0].issue_ssp_2) +
+                                        Number(rows[0].issue_ssp_2_small) +
+                                        Number(rows[0].issue_sdp) +
+                                        Number(rows[0].issue_ext_grade_1) +
+                                        Number(rows[0].issue_ext_grade_2) +
+                                        Number(rows[0].issue_ext_grade_3) +
+                                        Number(rows[0].issue_ext_grade_4) +
+                                        Number(rows[0].issue_ext_grade_5) +
+                                        Number(rows[0].issue_ext_grade_6) +
+                                        Number(rows[0].issue_ext_grade_7) +
+                                        Number(rows[0].issue_ext_grade_8) +
+                                        Number(rows[0].issue_ext_grade_9) +
+                                        Number(rows[0].issue_ext_grade_10) +
+                                        Number(rows[0].issue_husk) +
+                                        Number(rows[0].issue_rejection) +
+                                        Number(rows[0].issue_village) +
+                                        Number(rows[0].issue_dpds) +
+                                        Number(rows[0].issue_sorting)
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
                      </div>
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of Operator(Night)" ref={nightOpRef}  />
+                    <Label className="w-1/4 text-end font-semibold float-right ">Backlog : </Label>
+                                                <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                                    {rows[0] ? (
+                                                        (
+                                                            Number(rows[0].issue_add_1) 
+                                                                 -
+                                                            (
+                                                                 Number(rows[0].issue_ssp) +
+                                                            Number(rows[0].issue_ssp_small) +
+                                                            Number(rows[0].issue_swp_1) +
+                                                            Number(rows[0].issue_wsp) +
+                                                            Number(rows[0].issue_bits) +
+                                                            Number(rows[0].issue_swp) +
+                                                            Number(rows[0].issue_bb) +
+                                                            Number(rows[0].issue_w_bb) +
+                                                            Number(rows[0].issue_bb_A) +
+                                                            Number(rows[0].issue_bb1) +
+                                                            Number(rows[0].issue_bb1_A) +
+                                                            Number(rows[0].issue_bb_2) +
+                                                            Number(rows[0].issue_ssp_1) +
+                                                            Number(rows[0].issue_ssp_1_small) +
+                                                            Number(rows[0].issue_ssp_2) +
+                                                            Number(rows[0].issue_ssp_2_small) +
+                                                            Number(rows[0].issue_sdp) +
+                                                            Number(rows[0].issue_ext_grade_1) +
+                                                            Number(rows[0].issue_ext_grade_2) +
+                                                            Number(rows[0].issue_ext_grade_3) +
+                                                            Number(rows[0].issue_ext_grade_4) +
+                                                            Number(rows[0].issue_ext_grade_5) +
+                                                            Number(rows[0].issue_ext_grade_6) +
+                                                            Number(rows[0].issue_ext_grade_7) +
+                                                            Number(rows[0].issue_ext_grade_8) +
+                                                            Number(rows[0].issue_ext_grade_9) +
+                                                            Number(rows[0].issue_ext_grade_10) +
+                                                            Number(rows[0].issue_husk) +
+                                                            Number(rows[0].issue_rejection) +
+                                                            Number(rows[0].issue_village) +
+                                                            Number(rows[0].issue_dpds) +
+                                                            Number(rows[0].issue_sorting)
+                                                            )
+                                                        ).toFixed(2)
+                                                    ) : 0} Kg
+                                                </Label>
                      </div>
                    
                      
@@ -470,26 +556,26 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
                                         <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                        
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_dpds ?formatNumber(props.borma[0].rcv_dpds):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required /></TableCell>
                                  
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_mayur ?formatNumber(props.borma[0].rcv_mayur):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_hamsa ?formatNumber(props.borma[0].rcv_hamsa):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200"  type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200"  type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_lw ?formatNumber(props.borma[0].rcv_lw):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_wholes ?formatNumber(props.borma[0].rcv_wholes):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required /></TableCell>
 
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="bg-black-100"> -</TableCell>
