@@ -389,15 +389,137 @@ const LWReCreateForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> 
+                                                         <Label className="w-1/4  text-end font-semibold ">Total Opening : </Label>
+                                                        <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{rows[0] ? rows[0].rcv_openingN:0} Kg</Label>
+                                                        </div>
 
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
+                             <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                                                        <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                                            {rows[0] ? (
+                                                                (
+                                                                    Number(rows[0].issue_kw) +
+                                                                    Number(rows[0].issue_kw_1) +
+                                                                    Number(rows[0].issue_kw_2) +
+                                                                    Number(rows[0].issue_kn) +
+                                                                    Number(rows[0].issue_dw) +
+                                                                    Number(rows[0].issue_dw_1) +
+                                                                    Number(rows[0].issue_dw_2) +
+                                                                    Number(rows[0].issue_ow) +
+                                                                    Number(rows[0].issue_ow_1) +
+                                                                    Number(rows[0].issue_ow_2) +
+                                                                    Number(rows[0].issue_jw) +
+                                                                    Number(rows[0].issue_pw) +
+                                                                    Number(rows[0].issue_row) +
+                                                                    Number(rows[0].issue_rej_1) +
+                                                                    Number(rows[0].issue_lw3_180) +
+                                                                    Number(rows[0].issue_lw3_210) +
+                                                                    Number(rows[0].issue_lw3_240) +
+                                                                    Number(rows[0].issue_lw3_280) +
+                                                                    Number(rows[0].issue_lw3_360) +
+                                                                    Number(rows[0].issue_lw2) +
+                                                                    Number(rows[0].issue_lw4) +
+                                                                    Number(rows[0].issue_lw5) +
+                                                                    Number(rows[0].issue_lw6) +
+                                                                    Number(rows[0].issue_lw7) +
+                                                                    Number(rows[0].issue_rej_3) +
+                                                                    Number(rows[0].issue_rej_4) +
+                                                                    Number(rows[0].issue_jb2) +
+                                                                    Number(rows[0].issue_sjb) +
+                                                                    Number(rows[0].issue_k_240) +
+                                                                    Number(rows[0].issue_k_280) +
+                                                                    Number(rows[0].issue_k_360) +
+                                                                    Number(rows[0].issue_pkw) +
+                                                                    Number(rows[0].issue_bw) +
+                                                                    Number(rows[0].issue_rw) +
+                                                                    Number(rows[0].issue_rrw) +
+                                                                    Number(rows[0].issue_fw) +
+                                                                    Number(rows[0].issue_lw) +
+                                                                    Number(rows[0].issue_ext_grade_1) +
+                                                                    Number(rows[0].issue_ext_grade_2) +
+                                                                    Number(rows[0].issue_ext_grade_3) +
+                                                                    Number(rows[0].issue_ext_grade_4) +
+                                                                    Number(rows[0].issue_ext_grade_5) +
+                                                                    Number(rows[0].issue_ext_grade_6) +
+                                                                    Number(rows[0].issue_ext_grade_7) +
+                                                                    Number(rows[0].issue_ext_grade_8) +
+                                                                    Number(rows[0].issue_ext_grade_9) +
+                                                                    Number(rows[0].issue_ext_grade_10) +
+                                                                    Number(rows[0].issue_village) +
+                                                                    Number(rows[0].issue_hamsa) +
+                                                                    Number(rows[0].issue_bigTaiho) +
+                                                                    Number(rows[0].issue_rejection)
+                                                                ).toFixed(2)
+                                                            ) : 0} Kg
+                                                        </Label>
                         </div>
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
+                            <Label className="w-1/4 text-end font-semibold float-right ">Backlog : </Label>
+                                                                        <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                                                          {rows[0] ? (
+                                                                            (
+                                                                              (rows[0].rcv_openingN) -
+                                                                              (
+                                                                                Number(rows[0].issue_kw) +
+                                                                    Number(rows[0].issue_kw_1) +
+                                                                    Number(rows[0].issue_kw_2) +
+                                                                    Number(rows[0].issue_kn) +
+                                                                    Number(rows[0].issue_dw) +
+                                                                    Number(rows[0].issue_dw_1) +
+                                                                    Number(rows[0].issue_dw_2) +
+                                                                    Number(rows[0].issue_ow) +
+                                                                    Number(rows[0].issue_ow_1) +
+                                                                    Number(rows[0].issue_ow_2) +
+                                                                    Number(rows[0].issue_jw) +
+                                                                    Number(rows[0].issue_pw) +
+                                                                    Number(rows[0].issue_row) +
+                                                                    Number(rows[0].issue_rej_1) +
+                                                                    Number(rows[0].issue_lw3_180) +
+                                                                    Number(rows[0].issue_lw3_210) +
+                                                                    Number(rows[0].issue_lw3_240) +
+                                                                    Number(rows[0].issue_lw3_280) +
+                                                                    Number(rows[0].issue_lw3_360) +
+                                                                    Number(rows[0].issue_lw2) +
+                                                                    Number(rows[0].issue_lw4) +
+                                                                    Number(rows[0].issue_lw5) +
+                                                                    Number(rows[0].issue_lw6) +
+                                                                    Number(rows[0].issue_lw7) +
+                                                                    Number(rows[0].issue_rej_3) +
+                                                                    Number(rows[0].issue_rej_4) +
+                                                                    Number(rows[0].issue_jb2) +
+                                                                    Number(rows[0].issue_sjb) +
+                                                                    Number(rows[0].issue_k_240) +
+                                                                    Number(rows[0].issue_k_280) +
+                                                                    Number(rows[0].issue_k_360) +
+                                                                    Number(rows[0].issue_pkw) +
+                                                                    Number(rows[0].issue_bw) +
+                                                                    Number(rows[0].issue_rw) +
+                                                                    Number(rows[0].issue_rrw) +
+                                                                    Number(rows[0].issue_fw) +
+                                                                    Number(rows[0].issue_lw) +
+                                                                    Number(rows[0].issue_ext_grade_1) +
+                                                                    Number(rows[0].issue_ext_grade_2) +
+                                                                    Number(rows[0].issue_ext_grade_3) +
+                                                                    Number(rows[0].issue_ext_grade_4) +
+                                                                    Number(rows[0].issue_ext_grade_5) +
+                                                                    Number(rows[0].issue_ext_grade_6) +
+                                                                    Number(rows[0].issue_ext_grade_7) +
+                                                                    Number(rows[0].issue_ext_grade_8) +
+                                                                    Number(rows[0].issue_ext_grade_9) +
+                                                                    Number(rows[0].issue_ext_grade_10) +
+                                                                    Number(rows[0].issue_village) +
+                                                                    Number(rows[0].issue_hamsa) +
+                                                                    Number(rows[0].issue_bigTaiho) +
+                                                                    Number(rows[0].issue_rejection)
+                                                                              )
+                                                                            ).toFixed(2)
+                                                                          ) : 0} Kg
+                                                                        </Label>
                         </div>
 
 
@@ -453,15 +575,15 @@ const LWReCreateForm = (props: Props) => {
                                           
                                           
                                           <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
-                                          <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
+                                          <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
                                           <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
-                                          <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required />
+                                          <TableCell className="text-center">r
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required />
                                           </TableCell>
 
                                           <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_wholes)} Kg</TableCell>
                                           <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required />
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required />
                                           </TableCell>
 
                                            
