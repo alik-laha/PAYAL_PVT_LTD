@@ -330,15 +330,47 @@ const RejectionReCreateForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required />
+                             <Label className="w-1/4  text-end font-semibold ">Total Opening : </Label>
+                                                        <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">
+                                                        {rows[0] ? rows[0].rcv_openingN : 0} Kg</Label>
+                             </div>
 
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
+                            <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].issue_packing) +
+                                        Number(rows[0].issue_village) +
+                                        Number(rows[0].issue_uncut_unscoop) +
+                                        Number(rows[0].issue_shell) +
+                                        Number(rows[0].issue_catelfeed) 
+                                       
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
                         </div>
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
+                            <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].rcv_openingN)
+                                        -
+                                        ( Number(rows[0].issue_packing) +
+                                        Number(rows[0].issue_village) +
+                                        Number(rows[0].issue_uncut_unscoop) +
+                                        Number(rows[0].issue_shell) +
+                                        Number(rows[0].issue_catelfeed)
+                                        )
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
                         </div>
 
 
