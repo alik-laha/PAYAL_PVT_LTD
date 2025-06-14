@@ -525,23 +525,10 @@ const RCNDPDSReCreateForm = (props:Props) => {
                      
                    
                 </div>
-                <div className="my-2 text-sm flex font-semibold text-red-600 ">
-                * Current  [  DP +  DS + DP1 + Sorting + BigTaiho ] should be equal to {props.borma[0].current_backlog} Kg</div>
-
-            
-                   <Table className="mt-3">
-                   <TableHeader className="bg-neutral-100 text-stone-950 ">
-                    <TableHead className="text-center">Sl. No.</TableHead>
-                    <TableHead className="text-center">Lot_No</TableHead>
-              
-                    <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Incoming_Mixed_Lot_&_Origin</TableHead>
-                    <TableHead className="text-center">Opening_Backlog</TableHead>
-                    <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
-                    <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Borma Loss(%)</TableHead>
-                    
-                    <TableHead className="text-center">Previous DP</TableHead>
+                
+<Table className="mt-3">
+                                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                            <TableHead className="text-center">Previous DP</TableHead>
              
                     <TableHead className="text-center">Current DP</TableHead>
                     <TableHead className="text-center">Previous DS</TableHead>
@@ -555,6 +542,53 @@ const RCNDPDSReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Current Sorting</TableHead>
                     <TableHead className="text-center">Previous BigTaiho</TableHead>
                     <TableHead className="text-center">Current BigTaiho</TableHead>
+                                </TableHeader>
+                
+                                <TableBody>
+                                        {props.borma.length > 0 ? (
+                                            rows.map(( row:DPDSRowData,idx:number) => {
+                                              
+                                                return (
+                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                             
+                    <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_ds', e.target.value)} required /></TableCell>
+                                        
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_dp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp1', e.target.value)} required /></TableCell>
+                                       
+                                        <TableCell className="text-center font-semibold ">{props.borma[0].rcv_Sorting ?formatNumber(props.borma[0].rcv_Sorting):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_Sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_Sorting', e.target.value)} required /></TableCell>
+                                 
+                                        <TableCell className="text-center font-semibold ">{props.borma[0].rcv_transfer ?formatNumber(props.borma[0].rcv_transfer):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_transfer} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_transfer', e.target.value)} required /></TableCell>
+                
+                
+                                                   
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : null}
+                                    </TableBody>
+                                    </Table> 
+                                    <div className="my-2 text-sm flex font-semibold text-red-600 ">
+                * Current  [  DP +  DS + DP1 + Sorting + BigTaiho ] should be equal to {props.borma[0].current_backlog} Kg</div>
+            
+                   <Table className="mt-3">
+                   <TableHeader className="bg-neutral-100 text-stone-950 ">
+                    <TableHead className="text-center">Sl. No.</TableHead>
+                    <TableHead className="text-center">Lot_No</TableHead>
+              
+                    <TableHead className="text-center">Origin</TableHead>
+                    <TableHead className="text-center">Incoming_Mixed_Lot_&_Origin</TableHead>
+                    <TableHead className="text-center">Opening_Backlog</TableHead>
+                    <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
+                    <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma Loss(%)</TableHead>
+                    
+                   
                     <TableHead className="text-center">-</TableHead>
                  
                     <TableHead className="text-center">Issue Rejection</TableHead>
@@ -572,7 +606,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.rcv_peeling)} Kg</TableCell>
                                         <TableCell className="text-center">
                                          <Input className='bg-yellow-200' type="number" 
                                         value={row.issue_add_1} placeholder="Pr."  onChange={(e) => handleOpeningChange(idx, e)} required /> </TableCell>
@@ -580,19 +614,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
                                         <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_ds', e.target.value)} required /></TableCell>
-                                        
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_dp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp1', e.target.value)} required /></TableCell>
-                                       
-                                        <TableCell className="text-center font-semibold ">{props.borma[0].rcv_Sorting ?formatNumber(props.borma[0].rcv_Sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_Sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_Sorting', e.target.value)} required /></TableCell>
-                                 
-                                        <TableCell className="text-center font-semibold ">{props.borma[0].rcv_transfer ?formatNumber(props.borma[0].rcv_transfer):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_transfer} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_transfer', e.target.value)} required /></TableCell>
+                                      
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_dp', e.target.value)} required /></TableCell>

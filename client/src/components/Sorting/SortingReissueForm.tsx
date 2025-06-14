@@ -509,22 +509,8 @@ const RCNSortingReCreateForm = (props: Props) => {
 
 
                     </div>
-                    <div className="my-2 text-sm flex font-semibold text-red-600 ">
-                        * Current  [  JJH +  SJH + SJH1 + JK/K + SP1 + JH1 + BigTaiho ] should be equal to {props.borma[0].current_backlog} Kg</div>
-
-
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl. No.</TableHead>
-                            <TableHead className="text-center">Lot_No</TableHead>
-
-                            <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Mixed_Lot</TableHead>
-                            <TableHead className="text-center">Opening_Backlog</TableHead>
-                            <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
-                            <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-                            <TableHead className="text-center">Borma Loss(%)</TableHead>
-
                             <TableHead className="text-center">Previous JJH</TableHead>
                             <TableHead className="text-center">Current JJH</TableHead>
                             <TableHead className="text-center">Previous SJH</TableHead>
@@ -540,13 +526,6 @@ const RCNSortingReCreateForm = (props: Props) => {
                             <TableHead className="text-center">Current SP1</TableHead>
                             <TableHead className="text-center">Previous BigTaiho</TableHead>
                             <TableHead className="text-center">Current BigTaiho</TableHead>
-                            <TableHead className="text-center">-</TableHead>
-                       
-                            <TableHead className="text-center">Issue Village</TableHead>
-                            <TableHead className="text-center">Issue Mayur</TableHead>
-                            <TableHead className="text-center">Issue BigTaiho</TableHead>
-                            <TableHead className="text-center">Issue DPDS</TableHead>
-                            <TableHead className="text-center">Issue Rejection</TableHead>
                         </TableHeader>
                         <TableBody>
                             {props.borma.length > 0 ? (
@@ -554,19 +533,7 @@ const RCNSortingReCreateForm = (props: Props) => {
 
                                     return (
                                         <TableRow key={idx} className="boiling-row-height-scoop">
-                                            <TableCell className="text-center">{idx + 1}</TableCell>
-                                            <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
-                                            <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
-                                            <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
-                                            <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
-                                            <TableCell className="text-center">
-                                                <Input className='bg-yellow-200' type="number"
-                                                    value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /> </TableCell>
-
-                                            <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-                                            <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
-
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
+                                             <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jjh', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh', e.target.value)} required /></TableCell>
@@ -585,6 +552,63 @@ const RCNSortingReCreateForm = (props: Props) => {
 
                                             <TableCell className="text-center font-semibold ">{props.borma[0].rcv_bigTaiho ? formatNumber(props.borma[0].rcv_bigTaiho) : 0} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required /></TableCell>
+
+
+                                           
+                                           
+
+
+
+                                        </TableRow>
+                                    );
+                                })
+                            ) : null}
+                        </TableBody>
+                    </Table>
+                    <div className="my-2 text-sm flex font-semibold text-red-600 ">
+                        * Current  [  JJH +  SJH + SJH1 + JK/K + SP1 + JH1 + BigTaiho ] should be equal to {props.borma[0].current_backlog} Kg</div>
+
+
+                    <Table className="mt-3">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                            <TableHead className="text-center">Sl. No.</TableHead>
+                            <TableHead className="text-center">Lot_No</TableHead>
+
+                            <TableHead className="text-center">Origin</TableHead>
+                            <TableHead className="text-center">Mixed_Lot</TableHead>
+                            <TableHead className="text-center">Opening_Backlog</TableHead>
+                            <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
+                            <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                            <TableHead className="text-center">Borma Loss(%)</TableHead>
+
+                           
+                            <TableHead className="text-center">-</TableHead>
+                       
+                            <TableHead className="text-center">Issue Village</TableHead>
+                            <TableHead className="text-center">Issue Mayur</TableHead>
+                            <TableHead className="text-center">Issue BigTaiho</TableHead>
+                            <TableHead className="text-center">Issue DPDS</TableHead>
+                            <TableHead className="text-center">Issue Rejection</TableHead>
+                        </TableHeader>
+                        <TableBody>
+                            {props.borma.length > 0 ? (
+                                rows.map((row: SortingRowData, idx: number) => {
+
+                                    return (
+                                        <TableRow key={idx} className="boiling-row-height-scoop">
+                                            <TableCell className="text-center">{idx + 1}</TableCell>
+                                            <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
+                                            <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
+                                            <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
+                                            <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                            <TableCell className="text-center">
+                                                <Input className='bg-yellow-200' type="number"
+                                                    value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /> </TableCell>
+
+                                            <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+
+                                          
 
 
                                             {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
