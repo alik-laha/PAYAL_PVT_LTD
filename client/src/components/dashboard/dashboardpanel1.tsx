@@ -4,10 +4,10 @@ import DashboardHeader from './DashboardHeader';
 import DashboardSidebar from './DashboardSidebar';
 import axios from 'axios';
 
-import { Button } from '../ui/button';
-import { FaWhatsapp } from "react-icons/fa6";
-import { pendingCheckRole } from '../common/exportData';
-import { pendingCheckRoles, PermissionRole } from '@/type/type';
+// import { Button } from '../ui/button';
+// import { FaWhatsapp } from "react-icons/fa6";
+// import { pendingCheckRole } from '../common/exportData';
+// import { pendingCheckRoles, PermissionRole } from '@/type/type';
 
 
 type PanelData = {
@@ -24,21 +24,21 @@ const DashboardPanel1: React.FC = () => {
   const [data, setData] = useState<PanelData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const handlesendWp = async () => {
+  // const handlesendWp = async () => {
 
-    setLoading(true);
-    try {
-      const response = await fetch('/api/dashboard/wp-dashboard-basic', {
-        method: 'POST',
-      });
-      const data = await response.json();
-      alert(data.message);
-    } catch (error) {
-      alert('Failed to send whatsapp.');
-    } finally {
-      setLoading(false);
-    }
-  }
+  //   setLoading(true);
+  //   try {
+  //     const response = await fetch('/api/dashboard/wp-dashboard-basic', {
+  //       method: 'POST',
+  //     });
+  //     const data = await response.json();
+  //     alert(data.message);
+  //   } catch (error) {
+  //     alert('Failed to send whatsapp.');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
   useEffect(() => {
     const fetchPanelData = async () => {
       try {
@@ -86,14 +86,23 @@ const DashboardPanel1: React.FC = () => {
           const latestLotrej = result?.latestLotrej?.LotNo ?? 'N/A';
           const latestvLotrej = result?.latestvLotrej?.LotNo ?? 'N/A';
 
+          const peelbacklog = result?.backlogpeeldata?.[0]?.current_backlog ?? '0';
           const latestLotpeel = result?.latestLotpeel?.LotNo ?? 'N/A';
           const latestvLotpeel = result?.latestvLotpeel?.LotNo ?? 'N/A';
 
           const latestvLotborma = result?.latestLotborma?.LotNo ?? 'N/A';
+          const bormabacklog1 = result?.backlogbormadata?.[0]?.current_backlog1 ?? '0';
+          const bormabacklog2 = result?.backlogbormadata?.[0]?.current_backlog2 ?? '0';
+
           const latestLothumid = result?.latestLothumid?.LotNo ?? 'N/A';
+          const humidbacklog = result?.backloghumiddata?.[0]?.current_backlog ?? '0';
+          //console.log(humidbacklog)
 
           const latestLotboil = result?.latestLotboil?.LotNo ?? 'N/A';
           const latestLotscoop = result?.latestLotscoop?.LotNo ?? 'N/A';
+          const scoopbacklog1 = result?.backlogscoopdata?.[0]?.current_backlog1 ?? '0';
+          const scoopbacklog2 = result?.backlogscoopdata?.[0]?.current_backlog2 ?? '0';
+        
 
 
           const updatedData: PanelData[] = [
@@ -101,33 +110,34 @@ const DashboardPanel1: React.FC = () => {
               id: 1,
               title: 'Boiling ',
               value1: `${latestLotboil} `,
-              value2: '',
+              value2: 'N/A',
               value3: '',
             }, {
               id: 2,
               title: 'Scooping ',
               value1: `${latestLotscoop} `,
-              value2: '',
-              value3: '',
+              value2: 'N/A',
+              value3: ` ${formatNumber(String(Number(scoopbacklog1) + Number(scoopbacklog2)
+             ))} `
             }, {
               id: 3,
               title: 'Borma ',
               value1: `${latestvLotborma} `,
-              value2: '',
-              value3: ''
+              value2: 'N/A',
+              value3: ` ${formatNumber(String(Number(bormabacklog1) + Number(bormabacklog2)))} `
             }, {
               id: 4,
               title: 'Humidifier ',
               value1: `${latestLothumid} `,
-              value2: '',
-              value3: ''
+              value2: 'N/A',
+              value3: ` ${formatNumber(humidbacklog)} `
             },
             {
               id: 5,
               title: 'Peeling ',
               value1: `${latestLotpeel} `,
               value2: ` ${latestvLotpeel} `,
-              value3: ''
+              value3: ` ${formatNumber(peelbacklog)} `
             }, {
               id: 6,
               title: 'Mayur ',
@@ -217,17 +227,17 @@ const DashboardPanel1: React.FC = () => {
     return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
   }
 
-  const Role = localStorage.getItem('role') as keyof PermissionRole
-  const checkpending = (tab: string) => {
-    //console.log(Role)
-    if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-      return true
-    }
-    else {
-      return false;
-    }
+  //const Role = localStorage.getItem('role') as keyof PermissionRole
+  // const checkpending = (tab: string) => {
+  //   //console.log(Role)
+  //   if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+  //     return true
+  //   }
+  //   else {
+  //     return false;
+  //   }
 
-  }
+  // }
 
   return (
     <>
@@ -251,10 +261,10 @@ const DashboardPanel1: React.FC = () => {
               </div>
             ))}
           </div>
-           {checkpending('LW') &&<div className='flex w-100 mt-5 text-center items-center'>
+           {/* {checkpending('LW') &&<div className='flex w-100 mt-5 text-center items-center'>
             <Button className="bg-green-400 mb-2  responsive-button-adjust"
               disabled={loading} onClick={handlesendWp} >  {loading ? 'Sending...' : 'Send'} <FaWhatsapp size={20} className="ml-2" /></Button>
-          </div>}
+          </div>} */}
         </div>
       </div>
     </>

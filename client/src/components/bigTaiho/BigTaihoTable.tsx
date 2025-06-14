@@ -129,57 +129,57 @@ const BigTaihoTable = () => {
                     Item_Lot_No: item.LotNo,
                     Origin: item.origin,
                     Issue_No: item.altid,
-                    DPDS_Entry_Date: handletimezone(item.date),
+                    BigTaiho_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
-                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                    Receive_Peeling: Number(item.rcv_peeling) ||0,
                     Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
                     Borma_Loss_Kg: formatNumber(item.issue_add_2),
                     Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                    Receive_Sorting: item.rcv_sorting ? Number(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? Number(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? Number(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? Number(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? Number(item.rcv_wholes) : 0,
+                    Receive_Total: Number(((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
                         (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
                         (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
                         (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
-                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
-                    Issue_ssp: formatNumber(item.issue_ssp),
-                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
-                    Issue_swp_1: formatNumber(item.issue_swp_1),
-                    Issue_wsp: formatNumber(item.issue_wsp),
-                    Issue_bits: formatNumber(item.issue_bits),
-                    Issue_swp: formatNumber(item.issue_swp),
-                    Issue_bb: formatNumber(item.issue_bb),
-                    Issue_w_bb: formatNumber(item.issue_w_bb),
-                    Issue_bb_A: formatNumber(item.issue_bb_A),
-                    Issue_bb_1: formatNumber(item.issue_bb1),
-                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
-                    Issue_bb_2: formatNumber(item.issue_bb_2),
-                    Issue_ssp1: formatNumber(item.issue_ssp_1),
-                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-                    Issue_ssp2: formatNumber(item.issue_ssp_2),
-                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-                    Issue_sdp: formatNumber(item.issue_sdp),
-                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2))||0,
+                    Issue_ssp: Number(item.issue_ssp)||0,
+                    Issue_ssp_small: Number(item.issue_ssp_small)||0,
+                    Issue_swp_1: Number(item.issue_swp_1)||0,
+                    Issue_wsp: Number(item.issue_wsp)||0,
+                    Issue_bits: Number(item.issue_bits)||0,
+                    Issue_swp: Number(item.issue_swp)||0,
+                    Issue_bb: Number(item.issue_bb)||0,
+                    Issue_w_bb: Number(item.issue_w_bb)||0,
+                    Issue_bb_A: Number(item.issue_bb_A)||0,
+                    Issue_bb_1: Number(item.issue_bb1)||0,
+                    Issue_bb1_A: Number(item.issue_bb1_A)||0,
+                    Issue_bb_2: Number(item.issue_bb_2)||0,
+                    Issue_ssp1: Number(item.issue_ssp_1)||0,
+                    Issue_ssp1_small: Number(item.issue_ssp_1_small)||0,
+                    Issue_ssp2: Number(item.issue_ssp_2)||0,
+                    Issue_ssp2_small: Number(item.issue_ssp_2_small)||0,
+                    Issue_sdp: Number(item.issue_sdp)||0,
+                    Issue_Packing: Number(formatNumber((parseFloat(item.issue_ssp) +
                         parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
                         parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
                         parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
                         parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
                         parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
-                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
-                    Issue_Husk: formatNumber(item.issue_husk),
-                    Issue_Rejection: formatNumber(item.issue_rejection),
-                    Issue_Village: formatNumber(item.issue_village),
-                    Issue_Sorting: formatNumber(item.issue_sorting),
-                    Issue_DPDS: formatNumber(item.issue_dpds),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()))||0,
+                    Issue_Husk: Number(item.issue_husk)||0,
+                    Issue_Rejection: Number(item.issue_rejection)||0,
+                    Issue_Village: Number(item.issue_village)||0,
+                    Issue_Sorting: Number(item.issue_sorting)||0,
+                    Issue_DPDS: Number(item.issue_dpds)||0,
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -192,8 +192,8 @@ const BigTaihoTable = () => {
                     Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
                     Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
                     Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -208,63 +208,58 @@ const BigTaihoTable = () => {
                     Item_Lot_No: item.LotNo,
                     Origin: item.origin,
                     Issue_No: item.altid,
-                    DPDS_Entry_Date: handletimezone(item.date),
+                    BigTaiho_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
 
-                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                  Receive_Peeling: Number(item.rcv_peeling) ||0,
                     Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
                     Borma_Loss_Kg: formatNumber(item.issue_add_2),
                     Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                    Receive_Sorting: item.rcv_sorting ? Number(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? Number(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? Number(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? Number(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? Number(item.rcv_wholes) : 0,
+                    Receive_Total: Number(((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
                         (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
                         (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
                         (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
-                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
-
-
-                    Issue_ssp: formatNumber(item.issue_ssp),
-                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
-                    Issue_swp_1: formatNumber(item.issue_swp_1),
-                    Issue_wsp: formatNumber(item.issue_wsp),
-                    Issue_bits: formatNumber(item.issue_bits),
-                    Issue_swp: formatNumber(item.issue_swp),
-                    Issue_bb: formatNumber(item.issue_bb),
-                    Issue_w_bb: formatNumber(item.issue_w_bb),
-                    Issue_bb_A: formatNumber(item.issue_bb_A),
-                    Issue_bb_1: formatNumber(item.issue_bb1),
-                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
-                    Issue_bb_2: formatNumber(item.issue_bb_2),
-                    Issue_ssp1: formatNumber(item.issue_ssp_1),
-                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-                    Issue_ssp2: formatNumber(item.issue_ssp_2),
-                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-                    Issue_sdp: formatNumber(item.issue_sdp),
-
-
-                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2))||0,
+                    Issue_ssp: Number(item.issue_ssp)||0,
+                    Issue_ssp_small: Number(item.issue_ssp_small)||0,
+                    Issue_swp_1: Number(item.issue_swp_1)||0,
+                    Issue_wsp: Number(item.issue_wsp)||0,
+                    Issue_bits: Number(item.issue_bits)||0,
+                    Issue_swp: Number(item.issue_swp)||0,
+                    Issue_bb: Number(item.issue_bb)||0,
+                    Issue_w_bb: Number(item.issue_w_bb)||0,
+                    Issue_bb_A: Number(item.issue_bb_A)||0,
+                    Issue_bb_1: Number(item.issue_bb1)||0,
+                    Issue_bb1_A: Number(item.issue_bb1_A)||0,
+                    Issue_bb_2: Number(item.issue_bb_2)||0,
+                    Issue_ssp1: Number(item.issue_ssp_1)||0,
+                    Issue_ssp1_small: Number(item.issue_ssp_1_small)||0,
+                    Issue_ssp2: Number(item.issue_ssp_2)||0,
+                    Issue_ssp2_small: Number(item.issue_ssp_2_small)||0,
+                    Issue_sdp: Number(item.issue_sdp)||0,
+                    Issue_Packing: Number(formatNumber((parseFloat(item.issue_ssp) +
                         parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
                         parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
                         parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
                         parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
                         parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
-                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
-                    Issue_Husk: formatNumber(item.issue_husk),
-                    Issue_Rejection: formatNumber(item.issue_rejection),
-                    Issue_Village: formatNumber(item.issue_village),
-                    Issue_Sorting: formatNumber(item.issue_sorting),
-                    Issue_DPDS: formatNumber(item.issue_dpds),
-
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()))||0,
+                    Issue_Husk: Number(item.issue_husk)||0,
+                    Issue_Rejection: Number(item.issue_rejection)||0,
+                    Issue_Village: Number(item.issue_village)||0,
+                    Issue_Sorting: Number(item.issue_sorting)||0,
+                    Issue_DPDS: Number(item.issue_dpds)||0,
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -277,8 +272,8 @@ const BigTaihoTable = () => {
                     Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
                     Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
                     Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -312,57 +307,57 @@ const BigTaihoTable = () => {
                     Item_Lot_No: item.LotNo,
                     Origin: item.origin,
                     Issue_No: item.altid,
-                    DPDS_Entry_Date: handletimezone(item.date),
+                    Bigtaiho_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
-                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                  Receive_Peeling: Number(item.rcv_peeling) ||0,
                     Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
                     Borma_Loss_Kg: formatNumber(item.issue_add_2),
                     Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                    Receive_Sorting: item.rcv_sorting ? Number(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? Number(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? Number(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? Number(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? Number(item.rcv_wholes) : 0,
+                    Receive_Total: Number(((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
                         (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
                         (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
                         (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
-                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
-                    Issue_ssp: formatNumber(item.issue_ssp),
-                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
-                    Issue_swp_1: formatNumber(item.issue_swp_1),
-                    Issue_wsp: formatNumber(item.issue_wsp),
-                    Issue_bits: formatNumber(item.issue_bits),
-                    Issue_swp: formatNumber(item.issue_swp),
-                    Issue_bb: formatNumber(item.issue_bb),
-                    Issue_w_bb: formatNumber(item.issue_w_bb),
-                    Issue_bb_A: formatNumber(item.issue_bb_A),
-                    Issue_bb_1: formatNumber(item.issue_bb1),
-                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
-                    Issue_bb_2: formatNumber(item.issue_bb_2),
-                    Issue_ssp1: formatNumber(item.issue_ssp_1),
-                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-                    Issue_ssp2: formatNumber(item.issue_ssp_2),
-                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-                    Issue_sdp: formatNumber(item.issue_sdp),
-                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2))||0,
+                    Issue_ssp: Number(item.issue_ssp)||0,
+                    Issue_ssp_small: Number(item.issue_ssp_small)||0,
+                    Issue_swp_1: Number(item.issue_swp_1)||0,
+                    Issue_wsp: Number(item.issue_wsp)||0,
+                    Issue_bits: Number(item.issue_bits)||0,
+                    Issue_swp: Number(item.issue_swp)||0,
+                    Issue_bb: Number(item.issue_bb)||0,
+                    Issue_w_bb: Number(item.issue_w_bb)||0,
+                    Issue_bb_A: Number(item.issue_bb_A)||0,
+                    Issue_bb_1: Number(item.issue_bb1)||0,
+                    Issue_bb1_A: Number(item.issue_bb1_A)||0,
+                    Issue_bb_2: Number(item.issue_bb_2)||0,
+                    Issue_ssp1: Number(item.issue_ssp_1)||0,
+                    Issue_ssp1_small: Number(item.issue_ssp_1_small)||0,
+                    Issue_ssp2: Number(item.issue_ssp_2)||0,
+                    Issue_ssp2_small: Number(item.issue_ssp_2_small)||0,
+                    Issue_sdp: Number(item.issue_sdp)||0,
+                    Issue_Packing: Number(formatNumber((parseFloat(item.issue_ssp) +
                         parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
                         parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
                         parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
                         parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
                         parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
-                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
-                    Issue_Husk: formatNumber(item.issue_husk),
-                    Issue_Rejection: formatNumber(item.issue_rejection),
-                    Issue_Village: formatNumber(item.issue_village),
-                    Issue_Sorting: formatNumber(item.issue_sorting),
-                    Issue_DPDS: formatNumber(item.issue_dpds),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()))||0,
+                    Issue_Husk: Number(item.issue_husk)||0,
+                    Issue_Rejection: Number(item.issue_rejection)||0,
+                    Issue_Village: Number(item.issue_village)||0,
+                    Issue_Sorting: Number(item.issue_sorting)||0,
+                    Issue_DPDS: Number(item.issue_dpds)||0,
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -375,8 +370,8 @@ const BigTaihoTable = () => {
                     Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
                     Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
                     Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -391,63 +386,58 @@ const BigTaihoTable = () => {
                     Item_Lot_No: item.LotNo,
                     Origin: item.origin,
                     Issue_No: item.altid,
-                    DPDS_Entry_Date: handletimezone(item.date),
+                    BigTaiho_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
 
-                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                   Receive_Peeling: Number(item.rcv_peeling) ||0,
                     Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
                     Borma_Loss_Kg: formatNumber(item.issue_add_2),
                     Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                    Receive_Sorting: item.rcv_sorting ? Number(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? Number(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? Number(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? Number(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? Number(item.rcv_wholes) : 0,
+                    Receive_Total: Number(((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
                         (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
                         (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
                         (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
-                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
-
-
-                    Issue_ssp: formatNumber(item.issue_ssp),
-                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
-                    Issue_swp_1: formatNumber(item.issue_swp_1),
-                    Issue_wsp: formatNumber(item.issue_wsp),
-                    Issue_bits: formatNumber(item.issue_bits),
-                    Issue_swp: formatNumber(item.issue_swp),
-                    Issue_bb: formatNumber(item.issue_bb),
-                    Issue_w_bb: formatNumber(item.issue_w_bb),
-                    Issue_bb_A: formatNumber(item.issue_bb_A),
-                    Issue_bb_1: formatNumber(item.issue_bb1),
-                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
-                    Issue_bb_2: formatNumber(item.issue_bb_2),
-                    Issue_ssp1: formatNumber(item.issue_ssp_1),
-                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-                    Issue_ssp2: formatNumber(item.issue_ssp_2),
-                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-                    Issue_sdp: formatNumber(item.issue_sdp),
-
-
-                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2))||0,
+                    Issue_ssp: Number(item.issue_ssp)||0,
+                    Issue_ssp_small: Number(item.issue_ssp_small)||0,
+                    Issue_swp_1: Number(item.issue_swp_1)||0,
+                    Issue_wsp: Number(item.issue_wsp)||0,
+                    Issue_bits: Number(item.issue_bits)||0,
+                    Issue_swp: Number(item.issue_swp)||0,
+                    Issue_bb: Number(item.issue_bb)||0,
+                    Issue_w_bb: Number(item.issue_w_bb)||0,
+                    Issue_bb_A: Number(item.issue_bb_A)||0,
+                    Issue_bb_1: Number(item.issue_bb1)||0,
+                    Issue_bb1_A: Number(item.issue_bb1_A)||0,
+                    Issue_bb_2: Number(item.issue_bb_2)||0,
+                    Issue_ssp1: Number(item.issue_ssp_1)||0,
+                    Issue_ssp1_small: Number(item.issue_ssp_1_small)||0,
+                    Issue_ssp2: Number(item.issue_ssp_2)||0,
+                    Issue_ssp2_small: Number(item.issue_ssp_2_small)||0,
+                    Issue_sdp: Number(item.issue_sdp)||0,
+                    Issue_Packing: Number(formatNumber((parseFloat(item.issue_ssp) +
                         parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
                         parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
                         parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
                         parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
                         parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
-                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
-                    Issue_Husk: formatNumber(item.issue_husk),
-                    Issue_Rejection: formatNumber(item.issue_rejection),
-                    Issue_Village: formatNumber(item.issue_village),
-                    Issue_Sorting: formatNumber(item.issue_sorting),
-                    Issue_DPDS: formatNumber(item.issue_dpds),
-
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()))||0,
+                    Issue_Husk: Number(item.issue_husk)||0,
+                    Issue_Rejection: Number(item.issue_rejection)||0,
+                    Issue_Village: Number(item.issue_village)||0,
+                    Issue_Sorting: Number(item.issue_sorting)||0,
+                    Issue_DPDS: Number(item.issue_dpds)||0,
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -460,8 +450,8 @@ const BigTaihoTable = () => {
                     Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
                     Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
                     Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -598,13 +588,7 @@ const BigTaihoTable = () => {
         }
     }
 
-    const formatNumberWithSign = (number: number) => {
-        if (number > 0) {
-            return `+${number}`;
-        } else {
-            return `${number}`;
-        }
-    };
+  
     const handleAMPM = (time: string) => {
 
         let [hours, minutes] = time.split(':').map(Number);

@@ -135,45 +135,45 @@ const HamsaTable = () => {
                     Issue_No: item.altid,
                     Hamsa_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
-                    Receive_PW_W: formatNumber(item.rcv_pw_w),
-                    Receive_W_LOT: formatNumber(item.rcv_w_lot),
-                    Receive_WW: formatNumber(item.rcv_ww),
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Total: (parseFloat(item.rcv_pw_w) +
+                    Receive_PW_W: Number(item.rcv_pw_w) ||0,
+                    Receive_W_LOT: Number(item.rcv_w_lot) ||0,
+                    Receive_WW: Number(item.rcv_ww) ||0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0 ,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Total: Number((parseFloat(item.rcv_pw_w) +
                         parseFloat(item.rcv_w_lot) + parseFloat(item.rcv_ww) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
-                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
-                    issue_pw_210: formatNumber(item.issue_pw_210),
-                    issue_w_210: formatNumber(item.issue_w_210),
-                    issue_ww_210: formatNumber(item.issue_ww_210),
-                    issue_pw_240: formatNumber(item.issue_pw_240),
-                    issue_w_240: formatNumber(item.issue_w_240),
-                    issue_ww_240: formatNumber(item.issue_ww_240),
-                    issue_pw_280: formatNumber(item.issue_pw_280),
-                    issue_w_280: formatNumber(item.issue_w_280),
-                    issue_ww_280: formatNumber(item.issue_ww_280),
-                    issue_pw_320: formatNumber(item.issue_pw_320),
-                    issue_w_320: formatNumber(item.issue_w_320),
-                    issue_ww_320: formatNumber(item.issue_ww_320),
-                    issue_pw_360: formatNumber(item.issue_add_1),
-                    issue_w_360: formatNumber(item.issue_add_2),
-                    issue_ww_360: formatNumber(item.issue_add_3),
-                    issue_pw_400: formatNumber(item.issue_pw_400),
-                    issue_w_400: formatNumber(item.issue_w_400),
-                    issue_ww_400: formatNumber(item.issue_ww_400),
-                    Issue_Wholes: formatNumber((parseFloat(item.issue_pw_210) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2))||0,
+                    issue_pw_210: Number(item.issue_pw_210)||0,
+                    issue_w_210: Number(item.issue_w_210)||0,
+                    issue_ww_210: Number(item.issue_ww_210)||0,
+                    issue_pw_240: Number(item.issue_pw_240)||0,
+                    issue_w_240: Number(item.issue_w_240)||0,
+                    issue_ww_240: Number(item.issue_ww_240)||0,
+                    issue_pw_280: Number(item.issue_pw_280)||0,
+                    issue_w_280: Number(item.issue_w_280)||0,
+                    issue_ww_280: Number(item.issue_ww_280)||0,
+                    issue_pw_320: Number(item.issue_pw_320)||0,
+                    issue_w_320: Number(item.issue_w_320)||0,
+                    issue_ww_320: Number(item.issue_ww_320)||0,
+                    issue_pw_360: Number(item.issue_add_1)||0,
+                    issue_w_360: Number(item.issue_add_2)||0,
+                    issue_ww_360: Number(item.issue_add_3)||0,
+                    issue_pw_400: Number(item.issue_pw_400)||0,
+                    issue_w_400: Number(item.issue_w_400)||0,
+                    issue_ww_400: Number(item.issue_ww_400)||0,
+                    Issue_Wholes: Number(formatNumber((parseFloat(item.issue_pw_210) +
                         parseFloat(item.issue_w_210) + parseFloat(item.issue_ww_210) +
                         parseFloat(item.issue_pw_240) + parseFloat(item.issue_w_240) + parseFloat(item.issue_ww_240) +
                         parseFloat(item.issue_pw_280) + parseFloat(item.issue_w_280) + parseFloat(item.issue_ww_280) +
                         parseFloat(item.issue_pw_320) + parseFloat(item.issue_w_320) + parseFloat(item.issue_ww_320) +
                         parseFloat(item.issue_add_1) + parseFloat(item.issue_add_2) + parseFloat(item.issue_add_3) +
-                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()),
-                    Issue_JB: formatNumber(item.issue_jb),
-                    Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
-                    Issue_LW: formatNumber(item.issue_lw),
+                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()))||0,
+                    Issue_JB: Number(item.issue_jb)||0,
+                    Issue_BigTaiho: Number(item.issue_bigTaiho)||0,
+                    Issue_LW: Number(item.issue_lw)||0,
 
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Hamsa_1: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -204,8 +204,8 @@ const HamsaTable = () => {
                     Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -223,44 +223,45 @@ const HamsaTable = () => {
                     Issue_No: item.altid,
                     Hamsa_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
-                    Receive_PW_W: formatNumber(item.rcv_pw_w),
-                    Receive_W_LOT: formatNumber(item.rcv_w_lot),
-                    Receive_WW: formatNumber(item.rcv_ww),
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Total: (parseFloat(item.rcv_pw_w) +
+                    Receive_PW_W: Number(item.rcv_pw_w) ||0,
+                    Receive_W_LOT: Number(item.rcv_w_lot) ||0,
+                    Receive_WW: Number(item.rcv_ww) ||0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0 ,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Total: Number((parseFloat(item.rcv_pw_w) +
                         parseFloat(item.rcv_w_lot) + parseFloat(item.rcv_ww) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
-                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
-                    issue_pw_210: formatNumber(item.issue_pw_210),
-                    issue_w_210: formatNumber(item.issue_w_210),
-                    issue_ww_210: formatNumber(item.issue_ww_210),
-                    issue_pw_240: formatNumber(item.issue_pw_240),
-                    issue_w_240: formatNumber(item.issue_w_240),
-                    issue_ww_240: formatNumber(item.issue_ww_240),
-                    issue_pw_280: formatNumber(item.issue_pw_280),
-                    issue_w_280: formatNumber(item.issue_w_280),
-                    issue_ww_280: formatNumber(item.issue_ww_280),
-                    issue_pw_320: formatNumber(item.issue_pw_320),
-                    issue_w_320: formatNumber(item.issue_w_320),
-                    issue_ww_320: formatNumber(item.issue_ww_320),
-                    issue_pw_360: formatNumber(item.issue_add_1),
-                    issue_w_360: formatNumber(item.issue_add_2),
-                    issue_ww_360: formatNumber(item.issue_add_3),
-                    issue_pw_400: formatNumber(item.issue_pw_400),
-                    issue_w_400: formatNumber(item.issue_w_400),
-                    issue_ww_400: formatNumber(item.issue_ww_400),
-                    Issue_Wholes: formatNumber((parseFloat(item.issue_pw_210) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2))||0,
+                    issue_pw_210: Number(item.issue_pw_210)||0,
+                    issue_w_210: Number(item.issue_w_210)||0,
+                    issue_ww_210: Number(item.issue_ww_210)||0,
+                    issue_pw_240: Number(item.issue_pw_240)||0,
+                    issue_w_240: Number(item.issue_w_240)||0,
+                    issue_ww_240: Number(item.issue_ww_240)||0,
+                    issue_pw_280: Number(item.issue_pw_280)||0,
+                    issue_w_280: Number(item.issue_w_280)||0,
+                    issue_ww_280: Number(item.issue_ww_280)||0,
+                    issue_pw_320: Number(item.issue_pw_320)||0,
+                    issue_w_320: Number(item.issue_w_320)||0,
+                    issue_ww_320: Number(item.issue_ww_320)||0,
+                    issue_pw_360: Number(item.issue_add_1)||0,
+                    issue_w_360: Number(item.issue_add_2)||0,
+                    issue_ww_360: Number(item.issue_add_3)||0,
+                    issue_pw_400: Number(item.issue_pw_400)||0,
+                    issue_w_400: Number(item.issue_w_400)||0,
+                    issue_ww_400: Number(item.issue_ww_400)||0,
+                    Issue_Wholes: Number(formatNumber((parseFloat(item.issue_pw_210) +
                         parseFloat(item.issue_w_210) + parseFloat(item.issue_ww_210) +
                         parseFloat(item.issue_pw_240) + parseFloat(item.issue_w_240) + parseFloat(item.issue_ww_240) +
                         parseFloat(item.issue_pw_280) + parseFloat(item.issue_w_280) + parseFloat(item.issue_ww_280) +
                         parseFloat(item.issue_pw_320) + parseFloat(item.issue_w_320) + parseFloat(item.issue_ww_320) +
                         parseFloat(item.issue_add_1) + parseFloat(item.issue_add_2) + parseFloat(item.issue_add_3) +
-                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()),
-                    Issue_JB: formatNumber(item.issue_jb),
-                    Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
-                    Issue_LW: formatNumber(item.issue_lw),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()))||0,
+                    Issue_JB: Number(item.issue_jb)||0,
+                    Issue_BigTaiho: Number(item.issue_bigTaiho)||0,
+                    Issue_LW: Number(item.issue_lw)||0,
+
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Hamsa_1: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -285,17 +286,14 @@ const HamsaTable = () => {
                     Mc_Off_Spectrum: handleAMPM(item.Mc_off_6.slice(0, 5)),
                     Mc_Breakdown_Spectrum: item.Mc_breakdown_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
                     Other_Time_Spectrum: item.otherTime_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-
                     Runtime_Hamsa_1: item.Mc_runTime_1.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_2: item.Mc_runTime_2.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_3: item.Mc_runTime_3.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-
                     Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -326,51 +324,51 @@ const HamsaTable = () => {
             if (EditData.length > 0) {
                 transformed = EditData.map((item: HamsaData, idx: number) => ({
                     Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                   Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
                     Item_Lot_No: item.LotNo,
                     Origin: item.origin,
                     Issue_No: item.altid,
                     Hamsa_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
-                    Receive_PW_W: formatNumber(item.rcv_pw_w),
-                    Receive_W_LOT: formatNumber(item.rcv_w_lot),
-                    Receive_WW: formatNumber(item.rcv_ww),
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Total: (parseFloat(item.rcv_pw_w) +
+                    Receive_PW_W: Number(item.rcv_pw_w) ||0,
+                    Receive_W_LOT: Number(item.rcv_w_lot) ||0,
+                    Receive_WW: Number(item.rcv_ww) ||0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0 ,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Total: Number((parseFloat(item.rcv_pw_w) +
                         parseFloat(item.rcv_w_lot) + parseFloat(item.rcv_ww) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
-                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
-                    issue_pw_210: formatNumber(item.issue_pw_210),
-                    issue_w_210: formatNumber(item.issue_w_210),
-                    issue_ww_210: formatNumber(item.issue_ww_210),
-                    issue_pw_240: formatNumber(item.issue_pw_240),
-                    issue_w_240: formatNumber(item.issue_w_240),
-                    issue_ww_240: formatNumber(item.issue_ww_240),
-                    issue_pw_280: formatNumber(item.issue_pw_280),
-                    issue_w_280: formatNumber(item.issue_w_280),
-                    issue_ww_280: formatNumber(item.issue_ww_280),
-                    issue_pw_320: formatNumber(item.issue_pw_320),
-                    issue_w_320: formatNumber(item.issue_w_320),
-                    issue_ww_320: formatNumber(item.issue_ww_320),
-                    issue_pw_360: formatNumber(item.issue_add_1),
-                    issue_w_360: formatNumber(item.issue_add_2),
-                    issue_ww_360: formatNumber(item.issue_add_3),
-                    issue_pw_400: formatNumber(item.issue_pw_400),
-                    issue_w_400: formatNumber(item.issue_w_400),
-                    issue_ww_400: formatNumber(item.issue_ww_400),
-                    Issue_Wholes: formatNumber((parseFloat(item.issue_pw_210) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2))||0,
+                    issue_pw_210: Number(item.issue_pw_210)||0,
+                    issue_w_210: Number(item.issue_w_210)||0,
+                    issue_ww_210: Number(item.issue_ww_210)||0,
+                    issue_pw_240: Number(item.issue_pw_240)||0,
+                    issue_w_240: Number(item.issue_w_240)||0,
+                    issue_ww_240: Number(item.issue_ww_240)||0,
+                    issue_pw_280: Number(item.issue_pw_280)||0,
+                    issue_w_280: Number(item.issue_w_280)||0,
+                    issue_ww_280: Number(item.issue_ww_280)||0,
+                    issue_pw_320: Number(item.issue_pw_320)||0,
+                    issue_w_320: Number(item.issue_w_320)||0,
+                    issue_ww_320: Number(item.issue_ww_320)||0,
+                    issue_pw_360: Number(item.issue_add_1)||0,
+                    issue_w_360: Number(item.issue_add_2)||0,
+                    issue_ww_360: Number(item.issue_add_3)||0,
+                    issue_pw_400: Number(item.issue_pw_400)||0,
+                    issue_w_400: Number(item.issue_w_400)||0,
+                    issue_ww_400: Number(item.issue_ww_400)||0,
+                    Issue_Wholes: Number(formatNumber((parseFloat(item.issue_pw_210) +
                         parseFloat(item.issue_w_210) + parseFloat(item.issue_ww_210) +
                         parseFloat(item.issue_pw_240) + parseFloat(item.issue_w_240) + parseFloat(item.issue_ww_240) +
                         parseFloat(item.issue_pw_280) + parseFloat(item.issue_w_280) + parseFloat(item.issue_ww_280) +
                         parseFloat(item.issue_pw_320) + parseFloat(item.issue_w_320) + parseFloat(item.issue_ww_320) +
                         parseFloat(item.issue_add_1) + parseFloat(item.issue_add_2) + parseFloat(item.issue_add_3) +
-                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()),
-                    Issue_JB: formatNumber(item.issue_jb),
-                    Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
-                    Issue_LW: formatNumber(item.issue_lw),
+                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()))||0,
+                    Issue_JB: Number(item.issue_jb)||0,
+                    Issue_BigTaiho: Number(item.issue_bigTaiho)||0,
+                    Issue_LW: Number(item.issue_lw)||0,
 
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Hamsa_1: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -401,8 +399,8 @@ const HamsaTable = () => {
                     Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -414,50 +412,51 @@ const HamsaTable = () => {
             else {
                 transformed = data1.rcnEntries.map((item: HamsaData, idx: number) => ({
                     Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                   Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
                     Item_Lot_No: item.LotNo,
                     Origin: item.origin,
                     Issue_No: item.altid,
                     Hamsa_Entry_Date: handletimezone(item.date),
                     Mixing_Lot: item.mixingLot,
-                    Receive_PW_W: formatNumber(item.rcv_pw_w),
-                    Receive_W_LOT: formatNumber(item.rcv_w_lot),
-                    Receive_WW: formatNumber(item.rcv_ww),
-                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-                    Receive_Total: (parseFloat(item.rcv_pw_w) +
+                    Receive_PW_W: Number(item.rcv_pw_w) ||0,
+                    Receive_W_LOT: Number(item.rcv_w_lot) ||0,
+                    Receive_WW: Number(item.rcv_ww) ||0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0 ,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Total: Number((parseFloat(item.rcv_pw_w) +
                         parseFloat(item.rcv_w_lot) + parseFloat(item.rcv_ww) +
                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
-                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
-                    issue_pw_210: formatNumber(item.issue_pw_210),
-                    issue_w_210: formatNumber(item.issue_w_210),
-                    issue_ww_210: formatNumber(item.issue_ww_210),
-                    issue_pw_240: formatNumber(item.issue_pw_240),
-                    issue_w_240: formatNumber(item.issue_w_240),
-                    issue_ww_240: formatNumber(item.issue_ww_240),
-                    issue_pw_280: formatNumber(item.issue_pw_280),
-                    issue_w_280: formatNumber(item.issue_w_280),
-                    issue_ww_280: formatNumber(item.issue_ww_280),
-                    issue_pw_320: formatNumber(item.issue_pw_320),
-                    issue_w_320: formatNumber(item.issue_w_320),
-                    issue_ww_320: formatNumber(item.issue_ww_320),
-                    issue_pw_360: formatNumber(item.issue_add_1),
-                    issue_w_360: formatNumber(item.issue_add_2),
-                    issue_ww_360: formatNumber(item.issue_add_3),
-                    issue_pw_400: formatNumber(item.issue_pw_400),
-                    issue_w_400: formatNumber(item.issue_w_400),
-                    issue_ww_400: formatNumber(item.issue_ww_400),
-                    Issue_Wholes: formatNumber((parseFloat(item.issue_pw_210) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2))||0,
+                    issue_pw_210: Number(item.issue_pw_210)||0,
+                    issue_w_210: Number(item.issue_w_210)||0,
+                    issue_ww_210: Number(item.issue_ww_210)||0,
+                    issue_pw_240: Number(item.issue_pw_240)||0,
+                    issue_w_240: Number(item.issue_w_240)||0,
+                    issue_ww_240: Number(item.issue_ww_240)||0,
+                    issue_pw_280: Number(item.issue_pw_280)||0,
+                    issue_w_280: Number(item.issue_w_280)||0,
+                    issue_ww_280: Number(item.issue_ww_280)||0,
+                    issue_pw_320: Number(item.issue_pw_320)||0,
+                    issue_w_320: Number(item.issue_w_320)||0,
+                    issue_ww_320: Number(item.issue_ww_320)||0,
+                    issue_pw_360: Number(item.issue_add_1)||0,
+                    issue_w_360: Number(item.issue_add_2)||0,
+                    issue_ww_360: Number(item.issue_add_3)||0,
+                    issue_pw_400: Number(item.issue_pw_400)||0,
+                    issue_w_400: Number(item.issue_w_400)||0,
+                    issue_ww_400: Number(item.issue_ww_400)||0,
+                    Issue_Wholes: Number(formatNumber((parseFloat(item.issue_pw_210) +
                         parseFloat(item.issue_w_210) + parseFloat(item.issue_ww_210) +
                         parseFloat(item.issue_pw_240) + parseFloat(item.issue_w_240) + parseFloat(item.issue_ww_240) +
                         parseFloat(item.issue_pw_280) + parseFloat(item.issue_w_280) + parseFloat(item.issue_ww_280) +
                         parseFloat(item.issue_pw_320) + parseFloat(item.issue_w_320) + parseFloat(item.issue_ww_320) +
                         parseFloat(item.issue_add_1) + parseFloat(item.issue_add_2) + parseFloat(item.issue_add_3) +
-                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()),
-                    Issue_JB: formatNumber(item.issue_jb),
-                    Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
-                    Issue_LW: formatNumber(item.issue_lw),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                        parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400) + parseFloat(item.issue_ww_400)).toString()))||0,
+                    Issue_JB: Number(item.issue_jb)||0,
+                    Issue_BigTaiho: Number(item.issue_bigTaiho)||0,
+                    Issue_LW: Number(item.issue_lw)||0,
+
+                    Current_Backlog: Number(item.current_backlog) ||0,
                     Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
                     Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
                     Mc_Breakdown_Hamsa_1: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
@@ -482,17 +481,14 @@ const HamsaTable = () => {
                     Mc_Off_Spectrum: handleAMPM(item.Mc_off_6.slice(0, 5)),
                     Mc_Breakdown_Spectrum: item.Mc_breakdown_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
                     Other_Time_Spectrum: item.otherTime_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-
                     Runtime_Hamsa_1: item.Mc_runTime_1.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_2: item.Mc_runTime_2.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_3: item.Mc_runTime_3.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-
                     Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
                     Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-
-                    Operator_Day: item.noOfdayOperators,
-                    Operator_Night: item.noOfnightOperators,
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
                     Edit_Status: item.editStatus,
                     Created_By: item.CreatedBy,
                     Modified_By: item.modifiedBy
@@ -626,13 +622,7 @@ const HamsaTable = () => {
         }
     }
 
-    const formatNumberWithSign = (number: number) => {
-        if (number > 0) {
-            return `+${number}`;
-        } else {
-            return `${number}`;
-        }
-    };
+  
     const handleAMPM = (time: string) => {
 
         let [hours, minutes] = time.split(':').map(Number);

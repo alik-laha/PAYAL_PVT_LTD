@@ -474,6 +474,18 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             }
         }) as any;
 
+        const backlogpeeldata = await RcnPeeling.findAll({
+            attributes: [
+                [sequelize.fn('sum', sequelize.col('TotalInput')), 'current_backlog']
+            ],
+            where: {
+                [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ],Status:0
+            }
+        });
+
         const latestLotborma: any = await RcnBorma.findOne({
             attributes: 
                 ['LotNo']
@@ -488,6 +500,19 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 
             }
         }) as any;
+
+        const backlogbormadata = await RcnBorma.findAll({
+            attributes: [
+                [sequelize.fn('sum', sequelize.col('InputWholes')), 'current_backlog1'],
+                [sequelize.fn('sum', sequelize.col('InputPieces')), 'current_backlog2']
+            ],
+            where: {
+                [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ],BormaStatus:0
+            }
+        });
 
         const latestLothumid: any = await Humidifier.findOne({
             attributes: 
@@ -504,6 +529,18 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             }
         }) as any;
 
+        const backloghumiddata = await Humidifier.findAll({
+            attributes: [
+                [sequelize.fn('sum', sequelize.col('TotalInput')), 'current_backlog']
+            ],
+            where: {
+                [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ],Status:0
+            }
+        });
+
         const latestLotscoop: any = await RcnScooping.findOne({
             attributes: 
                 ['LotNo']
@@ -518,7 +555,22 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 
             }
         }) as any;
-const latestLotboil: any = await RcnBoiling.findOne({
+
+        const backlogscoopdata = await RcnScooping.findAll({
+            attributes: [
+                [sequelize.fn('sum', sequelize.col('Opening_Qty')), 'current_backlog1'],
+                [sequelize.fn('sum', sequelize.col('Receiving_Qty')), 'current_backlog2']
+               
+            ],
+            where: {
+                [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ],scoopStatus:0
+            }
+        });
+
+        const latestLotboil: any = await RcnBoiling.findOne({
             attributes: 
                 ['LotNo']
             ,
@@ -545,8 +597,9 @@ const latestLotboil: any = await RcnBoiling.findOne({
                 latestLotlw,latestvLotlw,backloglwdata,
                 latestLotbigT,latestvLotbigT,backlogbigTdata,
                 latestLotvil,latestvLotvil,backlogvildata,
-                latestLotrej,latestvLotrej,backlogrejdata,latestLotpeel,latestvLotpeel,
-                latestLotborma,latestLothumid,latestLotscoop,latestLotboil
+                latestLotrej,latestvLotrej,backlogrejdata,latestLotpeel,latestvLotpeel,backlogpeeldata,
+                latestLotborma,backlogbormadata,
+                latestLothumid,backloghumiddata,latestLotscoop,backlogscoopdata,latestLotboil
                 
              });
         }

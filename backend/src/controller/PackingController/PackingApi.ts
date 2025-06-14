@@ -980,7 +980,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: {[Op.notLike]:0},editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,

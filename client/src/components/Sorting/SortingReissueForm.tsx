@@ -383,20 +383,188 @@ const RCNSortingReCreateForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required />
+                            <Label className="w-1/4  text-end font-semibold ">Total Opening : </Label>
+                                  <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{rows[0] ? rows[0].issue_add_1:0} Kg</Label>  
+                             </div>
 
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of labour" ref={dayOpRef} />
+                            <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].issue_jjh) +
+                                        Number(rows[0].issue_jjh1) +
+                                        Number(rows[0].issue_sjh) +
+                                        Number(rows[0].issue_jk) +
+                                        Number(rows[0].issue_jk1) +
+                                        Number(rows[0].issue_k) +
+                                        Number(rows[0].issue_k1) +
+                                        Number(rows[0].issue_lwp) +
+                                        Number(rows[0].issue_lwp1) +
+                                        Number(rows[0].issue_s) +
+                                        Number(rows[0].issue_ss) +
+                                        Number(rows[0].issue_yk) +
+                                        Number(rows[0].issue_sp2) +
+                                        Number(rows[0].issue_kp) +
+                                        Number(rows[0].issue_in_k) +
+                                        Number(rows[0].issue_in_jh) +
+                                        Number(rows[0].issue_V_sjh) +
+                                        Number(rows[0].issue_V_k) +
+                                        Number(rows[0].issue_V_k1) +
+                                        Number(rows[0].issue_V_lwp) +
+                                        Number(rows[0].issue_V_lwp1) +
+                                        Number(rows[0].issue_V_jk) +
+                                        Number(rows[0].issue_V_jk1) +
+                                        Number(rows[0].issue_V_ss) +
+                                        Number(rows[0].issue_V_sp) +
+                                        Number(rows[0].issue_V_sp2) +
+                                        Number(rows[0].issue_V_jh1) +
+                                        Number(rows[0].issue_V_yk) +
+                                        Number(rows[0].issue_V_m_jk1) +
+                                        Number(rows[0].issue_ext_grade_1) +
+                                        Number(rows[0].issue_ext_grade_2) +
+                                        Number(rows[0].issue_ext_grade_3) +
+                                        Number(rows[0].issue_ext_grade_4) +
+                                        Number(rows[0].issue_ext_grade_5) +
+                                        Number(rows[0].issue_ext_grade_6) +
+                                        Number(rows[0].issue_ext_grade_7) +
+                                        Number(rows[0].issue_ext_grade_8) +
+                                        Number(rows[0].issue_ext_grade_9) +
+                                        Number(rows[0].issue_ext_grade_10) +
+                                        Number(rows[0].issue_village) +
+                                        Number(rows[0].issue_mayur) +
+                                        Number(rows[0].issue_bigTaiho) +
+                                        Number(rows[0].issue_dpds) +
+                                        Number(rows[0].issue_rejection)
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
                         </div>
-                        {/* <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
+                       <div className="flex">
+                      <Label className="w-1/4 pt-1"></Label>
+                        <Label className="w-1/4 pt-1"></Label>
+                            <Label className="w-1/4 text-end font-semibold float-right ">Backlog : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].issue_add_1)
+                                        -
+                                        (
+                                            Number(rows[0].issue_jjh) +
+                                            Number(rows[0].issue_jjh1) +
+                                            Number(rows[0].issue_sjh) +
+                                            Number(rows[0].issue_jk) +
+                                            Number(rows[0].issue_jk1) +
+                                            Number(rows[0].issue_k) +
+                                            Number(rows[0].issue_k1) +
+                                            Number(rows[0].issue_lwp) +
+                                            Number(rows[0].issue_lwp1) +
+                                            Number(rows[0].issue_s) +
+                                            Number(rows[0].issue_ss) +
+                                            Number(rows[0].issue_yk) +
+                                            Number(rows[0].issue_sp2) +
+                                            Number(rows[0].issue_kp) +
+                                            Number(rows[0].issue_in_k) +
+                                            Number(rows[0].issue_in_jh) +
+                                            Number(rows[0].issue_V_sjh) +
+                                            Number(rows[0].issue_V_k) +
+                                            Number(rows[0].issue_V_k1) +
+                                            Number(rows[0].issue_V_lwp) +
+                                            Number(rows[0].issue_V_lwp1) +
+                                            Number(rows[0].issue_V_jk) +
+                                            Number(rows[0].issue_V_jk1) +
+                                            Number(rows[0].issue_V_ss) +
+                                            Number(rows[0].issue_V_sp) +
+                                            Number(rows[0].issue_V_sp2) +
+                                            Number(rows[0].issue_V_jh1) +
+                                            Number(rows[0].issue_V_yk) +
+                                            Number(rows[0].issue_V_m_jk1) +
+                                            Number(rows[0].issue_ext_grade_1) +
+                                            Number(rows[0].issue_ext_grade_2) +
+                                            Number(rows[0].issue_ext_grade_3) +
+                                            Number(rows[0].issue_ext_grade_4) +
+                                            Number(rows[0].issue_ext_grade_5) +
+                                            Number(rows[0].issue_ext_grade_6) +
+                                            Number(rows[0].issue_ext_grade_7) +
+                                            Number(rows[0].issue_ext_grade_8) +
+                                            Number(rows[0].issue_ext_grade_9) +
+                                            Number(rows[0].issue_ext_grade_10) +
+                                            Number(rows[0].issue_village) +
+                                            Number(rows[0].issue_mayur) +
+                                            Number(rows[0].issue_bigTaiho) +
+                                            Number(rows[0].issue_dpds) +
+                                            Number(rows[0].issue_rejection)
+                                        )
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
+                      {/* <Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
                     <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required />
-                    <Input className="w-2/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
-                     </div> */}
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  /> */}
+                     </div>
 
 
 
                     </div>
+                    <Table className="mt-3">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                            <TableHead className="text-center">Previous JJH</TableHead>
+                            <TableHead className="text-center">Current JJH</TableHead>
+                            <TableHead className="text-center">Previous SJH</TableHead>
+                            <TableHead className="text-center">Current SJH</TableHead>
+                            <TableHead className="text-center">Previous SJH1</TableHead>
+                            <TableHead className="text-center">Current SJH1</TableHead>
+
+                            <TableHead className="text-center">Previous JH1</TableHead>
+                            <TableHead className="text-center">Current JH1</TableHead>
+                            <TableHead className="text-center">Previous JK/K</TableHead>
+                            <TableHead className="text-center">Current JK/K</TableHead>
+                            <TableHead className="text-center">Previous SP1</TableHead>
+                            <TableHead className="text-center">Current SP1</TableHead>
+                            <TableHead className="text-center">Previous BigTaiho</TableHead>
+                            <TableHead className="text-center">Current BigTaiho</TableHead>
+                        </TableHeader>
+                        <TableBody>
+                            {props.borma.length > 0 ? (
+                                rows.map((row: SortingRowData, idx: number) => {
+
+                                    return (
+                                        <TableRow key={idx} className="boiling-row-height-scoop">
+                                             <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jjh', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh', e.target.value)} required /></TableCell>
+
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_sjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh1', e.target.value)} required /></TableCell>
+
+
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_jh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jh1', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_jk_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jk_k', e.target.value)} required /></TableCell>
+
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_9)} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_sp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sp1', e.target.value)} required /></TableCell>
+
+                                            <TableCell className="text-center font-semibold ">{props.borma[0].rcv_bigTaiho ? formatNumber(props.borma[0].rcv_bigTaiho) : 0} Kg</TableCell>
+                                            <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required /></TableCell>
+
+
+                                           
+                                           
+
+
+
+                                        </TableRow>
+                                    );
+                                })
+                            ) : null}
+                        </TableBody>
+                    </Table>
                     <div className="my-2 text-sm flex font-semibold text-red-600 ">
                         * Current  [  JJH +  SJH + SJH1 + JK/K + SP1 + JH1 + BigTaiho ] should be equal to {props.borma[0].current_backlog} Kg</div>
 
@@ -413,21 +581,7 @@ const RCNSortingReCreateForm = (props: Props) => {
                             <TableHead className="text-center">Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Borma Loss(%)</TableHead>
 
-                            <TableHead className="text-center">Previous JJH</TableHead>
-                            <TableHead className="text-center">Current JJH</TableHead>
-                            <TableHead className="text-center">Previous SJH</TableHead>
-                            <TableHead className="text-center">Current SJH</TableHead>
-                            <TableHead className="text-center">Previous SJH1</TableHead>
-                            <TableHead className="text-center">Current SJH1</TableHead>
-
-                            <TableHead className="text-center">Previous JH1</TableHead>
-                            <TableHead className="text-center">Current JH1</TableHead>
-                            <TableHead className="text-center">Previous JK/K</TableHead>
-                            <TableHead className="text-center">Current JK/K</TableHead>
-                            <TableHead className="text-center">Previous SP1</TableHead>
-                            <TableHead className="text-center">Current SP1</TableHead>
-                            <TableHead className="text-center">Previous BigTaiho</TableHead>
-                            <TableHead className="text-center">Current BigTaiho</TableHead>
+                           
                             <TableHead className="text-center">-</TableHead>
                        
                             <TableHead className="text-center">Issue Village</TableHead>
@@ -446,7 +600,7 @@ const RCNSortingReCreateForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
                                             <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
                                             <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
-                                            <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.rcv_peeling)} Kg</TableCell>
                                             <TableCell className="text-center">
                                                 <Input className='bg-yellow-200' type="number"
                                                     value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /> </TableCell>
@@ -454,25 +608,7 @@ const RCNSortingReCreateForm = (props: Props) => {
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jjh', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh', e.target.value)} required /></TableCell>
-
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh1', e.target.value)} required /></TableCell>
-
-
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_jh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jh1', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_jk_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jk_k', e.target.value)} required /></TableCell>
-
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_9)} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sp1', e.target.value)} required /></TableCell>
-
-                                            <TableCell className="text-center font-semibold ">{props.borma[0].rcv_bigTaiho ? formatNumber(props.borma[0].rcv_bigTaiho) : 0} Kg</TableCell>
-                                            <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required /></TableCell>
+                                          
 
 
                                             {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}

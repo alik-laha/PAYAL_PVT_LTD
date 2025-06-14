@@ -374,15 +374,53 @@ const VillageReCreateForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> 
+                            
+                            <Label className="w-1/4  text-end font-semibold ">Total Opening : </Label>
+                            <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">
+                            {rows[0] ? rows[0].rcv_openingN : 0} Kg</Label>
+                        </div>
+                                                       
 
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
+                            <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+
+                                        Number(rows[0].issue_packing) +
+                                        Number(rows[0].issue_hamsa) +
+                                        Number(rows[0].issue_mayur) +
+                                        Number(rows[0].issue_bigTaiho) +
+                                        Number(rows[0].issue_outside) +
+                                        Number(rows[0].issue_rejection)
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
                         </div>
                         <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
+                       
+                            <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                {rows[0] ? (
+                                    (
+                                        Number(rows[0].rcv_openingN)
+                                        -
+                                        (Number(rows[0].issue_packing) +
+                                            Number(rows[0].issue_hamsa) +
+                                            Number(rows[0].issue_mayur) +
+                                            Number(rows[0].issue_bigTaiho) +
+                                            Number(rows[0].issue_outside) +
+                                            Number(rows[0].issue_rejection)
+                                        )
+                                    ).toFixed(2)
+                                ) : 0} Kg
+                            </Label>
+                        
                         </div>
 
 
@@ -444,36 +482,36 @@ const VillageReCreateForm = (props: Props) => {
                                           <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                           
                                                 <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_10)} Kg</TableCell>
-                                          <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
+                                          <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                           
                                           <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_11)} Kg</TableCell>
-                                          <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
+                                          <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
                                                 
                                                 <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_12)} Kg</TableCell>
-                                          <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_rejection', e.target.value)} required /></TableCell>
+                                          <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_rejection', e.target.value)} required /></TableCell>
 
 
                                         <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_dpds)} Kg</TableCell>
                                           <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required />
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required />
                                           </TableCell>
 
                                           <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_sorting)} Kg</TableCell>
                                           <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required />
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required />
                                           </TableCell>
 
                                           <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_wholes)} Kg</TableCell>
                                           <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required />
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required />
                                           </TableCell>
                                           <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_lw)} Kg</TableCell>
                                           <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required />
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required />
                                           </TableCell>
                                           <TableCell className="text-center font-semibold">{props.borma[0].rcv_bigTaiho ?formatNumber(props.borma[0].rcv_bigTaiho):0} Kg</TableCell>
                                           <TableCell className="text-center">
-                                              <Input className="bg-yellow-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required />
+                                              <Input className="bg-cyan-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required />
                                           </TableCell>
 
                                            

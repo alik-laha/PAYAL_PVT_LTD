@@ -522,8 +522,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
                     <TableHead className="text-center" >Rejection_Entry_Date</TableHead>
-
+                    <TableHead className="text-center font-bold">Current_Backlog</TableHead> 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
+                      <TableHead className="text-center" >Action</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Peeling Borma_Loss(Kg)</TableHead>
@@ -559,13 +560,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
                      <TableHead className="text-center font-bold">Rejection Total_Issue(Kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
-                    <TableHead className="text-center font-bold">Current_Backlog</TableHead>  
+                    
                     <TableHead className="text-center">No of Labour</TableHead>
                     <TableHead className="text-center">No of Supervisor</TableHead>
                
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Created By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                  
                 </TableHeader>
                 <TableBody>
 
@@ -581,47 +582,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.mixingLot}</TableCell>
-                                {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
-                                <TableCell className="text-center ">{formatNumber(item.rcv_peeling)}</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
-                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_7)}
-                                </TableCell>
-                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_8)}
-                                </TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
-                                    + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)
-                                    + (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0)
-                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) + (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toString())
-                                } Kg</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_village)}</TableCell>
-                                <TableCell className="text-center ">{formatNumber(item.issue_packing)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_uncut_unscoop)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_shell)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_catelfeed)}</TableCell>
-                                {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                               
-                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_village) + parseFloat(item.issue_packing)+parseFloat(item.issue_uncut_unscoop)
-                                +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
                                 <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
-                                <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
-                                <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
-                                <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
-                            <TableCell className="text-center">
+                                <TableCell className="text-center font-semibold">{item.mixingLot}</TableCell>
+                                <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>
                                             <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
@@ -658,6 +622,45 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>
+                                {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
+                                <TableCell className="text-center ">{formatNumber(item.rcv_peeling)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber(item.issue_add_7)}
+                                </TableCell>
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber(item.issue_add_8)}
+                                </TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
+                                    + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)
+                                    + (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0)
+                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) + (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toString())
+                                } Kg</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_village)}</TableCell>
+                                <TableCell className="text-center ">{formatNumber(item.issue_packing)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_uncut_unscoop)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_shell)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_catelfeed)}</TableCell>
+                                {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
+                               
+                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_village) + parseFloat(item.issue_packing)+parseFloat(item.issue_uncut_unscoop)
+                                +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
+                                <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                                <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                                <TableCell className="text-center">{item.CreatedBy}</TableCell>
+
+                            
                             </TableRow>
                         ) })): (
                         Data.length > 0 ? (Data.map((item: RejectionData, idx) => {
@@ -669,7 +672,62 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
                                 <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                <TableCell className="text-center">
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-screen">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RejectionEDitForm borma={[item]} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>
+                                                {Number(item.current_backlog) > 0 && <Dialog>
+                                                    <DialogTrigger className="flex"><CiBoxes size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-screen">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Re-issue</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RejectionReCreateForm borma={[item]} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>}
+                                                {Number(item.current_backlog) > 0 && <Dialog>
+                                                    <DialogTrigger className="flex"><CiCrop size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-screen">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
+                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RejectionReMix borma={item} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>}
+                                            </PopoverContent>
+                                            
+                                        </Popover>
+                                    </TableCell>
                                 {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                 <TableCell className="text-center font-semibold">{formatNumber(item.rcv_peeling)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
@@ -703,64 +761,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                
                                 <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_village) + parseFloat(item.issue_packing)+parseFloat(item.issue_uncut_unscoop)
                                 +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                 <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                                 <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
-                                                <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-screen">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Modification</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RejectionEDitForm borma={[item]} />
-                                                    </DialogContent>
-                                                    
-                                                </Dialog>
-                                                {Number(item.current_backlog) > 0 && <Dialog>
-                                                    <DialogTrigger className="flex"><CiBoxes size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Re-issue</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RejectionReCreateForm borma={[item]} />
-                                                    </DialogContent>
-                                                    
-                                                </Dialog>}
-                                                {Number(item.current_backlog) > 0 && <Dialog>
-                                                    <DialogTrigger className="flex"><CiCrop size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-screen">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RejectionReMix borma={item} />
-                                                    </DialogContent>
-                                                    
-                                                </Dialog>}
-                                            </PopoverContent>
-                                            
-                                        </Popover>
-                                    </TableCell>
+                                    
                                 </TableRow>
                             );
                         })) : (<TableRow>

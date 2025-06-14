@@ -332,15 +332,149 @@ const RCNDPDSCreateForm = (props:Props) => {
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> 
+                   <Label className="w-1/4  text-end font-semibold ">Total Receiving : </Label>
+                    <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                                   {rows[0] ? (
+                                                       (
+                                                           Number(rows[0].issue_add_1) +
+                                                           (rows[0].rcv_Sorting ?Number(rows[0].rcv_Sorting):0) +
+                                                           (rows[0].rcv_transfer ?Number(rows[0].rcv_transfer):0)
+                                                       ).toFixed(2)
+                                                   ) : 0} Kg
+                                               </Label>
+                   
+                   </div>
                
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
+                     <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                     <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                  {rows[0] ? (
+                    (
+                      Number(rows[0].issue_m_ds) +
+                      Number(rows[0].issue_m_dp) +
+                      Number(rows[0].issue_k_dp) +
+                      Number(rows[0].issue_ds_1) +
+                      Number(rows[0].issue_ds_2) +
+                      Number(rows[0].issue_sp_2) +
+                      Number(rows[0].issue_yjh) +
+                      Number(rows[0].issue_yk) +
+                      Number(rows[0].issue_kp) +
+                      Number(rows[0].issue_wp) +
+                      Number(rows[0].issue_rs) +
+                      Number(rows[0].issue_dp_2) +
+                      Number(rows[0].issue_dp_3) +
+                      Number(rows[0].issue_dp_4) +
+                      Number(rows[0].issue_dp_3l) +
+                      Number(rows[0].issue_ss) +
+                      Number(rows[0].issue_os) +
+                      Number(rows[0].issue_os1) +
+                      Number(rows[0].issue_V_ds) +
+                      Number(rows[0].issue_V_m_ds) +
+                      Number(rows[0].issue_V_dp) +
+                      Number(rows[0].issue_V_m_dp) +
+                      Number(rows[0].issue_V_lp) +
+                      Number(rows[0].issue_V_lp_2) +
+                      Number(rows[0].issue_V_k_dp) +
+                      Number(rows[0].issue_V_ss) +
+                      Number(rows[0].issue_V_yjh) +
+                      Number(rows[0].issue_V_yk) +
+                      Number(rows[0].issue_V_sp_2) +
+                      Number(rows[0].issue_V_kp) +
+                      Number(rows[0].issue_V_dp_2) +
+                      Number(rows[0].issue_V_dp_3) +
+                      Number(rows[0].issue_V_dp_4) +
+                      Number(rows[0].issue_V_os) +
+                      Number(rows[0].issue_V_os_1) +
+                      Number(rows[0].issue_V_wp) +
+                      Number(rows[0].issue_V_rs) +
+                      Number(rows[0].issue_ext_grade_1) +
+                      Number(rows[0].issue_ext_grade_2) +
+                      Number(rows[0].issue_ext_grade_3) +
+                      Number(rows[0].issue_ext_grade_4) +
+                      Number(rows[0].issue_ext_grade_5) +
+                      Number(rows[0].issue_ext_grade_6) +
+                      Number(rows[0].issue_ext_grade_7) +
+                      Number(rows[0].issue_ext_grade_8) +
+                      Number(rows[0].issue_ext_grade_9) +
+                      Number(rows[0].issue_ext_grade_10)+
+                       Number(rows[0].issue_village) +
+                      Number(rows[0].issue_bigTaiho) +
+                      Number(rows[0].issue_mayur) +
+                      Number(rows[0].issue_rejection) 
+                    ).toFixed(2)
+                  ) : 0} Kg
+                </Label>
                      </div>
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
+                      <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
+                                               <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                                                     {props.borma[0] && rows[0] ? (
+                                                         (
+                                                          (Number(rows[0].issue_add_1) +
+                                                          (rows[0].rcv_Sorting ?Number(rows[0].rcv_Sorting):0) +
+                                                          (rows[0].rcv_transfer ?Number(rows[0].rcv_transfer):0)) -
+                                                             (
+                                                            Number(rows[0].issue_m_ds) +
+                                                            Number(rows[0].issue_m_dp) +
+                                                            Number(rows[0].issue_k_dp) +
+                                                            Number(rows[0].issue_ds_1) +
+                                                            Number(rows[0].issue_ds_2) +
+                                                            Number(rows[0].issue_sp_2) +
+                                                            Number(rows[0].issue_yjh) +
+                                                            Number(rows[0].issue_yk) +
+                                                            Number(rows[0].issue_kp) +
+                                                            Number(rows[0].issue_wp) +
+                                                            Number(rows[0].issue_rs) +
+                                                            Number(rows[0].issue_dp_2) +
+                                                            Number(rows[0].issue_dp_3) +
+                                                            Number(rows[0].issue_dp_4) +
+                                                            Number(rows[0].issue_dp_3l) +
+                                                            Number(rows[0].issue_ss) +
+                                                            Number(rows[0].issue_os) +
+                                                            Number(rows[0].issue_os1) +
+                                                            Number(rows[0].issue_V_ds) +
+                                                            Number(rows[0].issue_V_m_ds) +
+                                                            Number(rows[0].issue_V_dp) +
+                                                            Number(rows[0].issue_V_m_dp) +
+                                                            Number(rows[0].issue_V_lp) +
+                                                            Number(rows[0].issue_V_lp_2) +
+                                                            Number(rows[0].issue_V_k_dp) +
+                                                            Number(rows[0].issue_V_ss) +
+                                                            Number(rows[0].issue_V_yjh) +
+                                                            Number(rows[0].issue_V_yk) +
+                                                            Number(rows[0].issue_V_sp_2) +
+                                                            Number(rows[0].issue_V_kp) +
+                                                            Number(rows[0].issue_V_dp_2) +
+                                                            Number(rows[0].issue_V_dp_3) +
+                                                            Number(rows[0].issue_V_dp_4) +
+                                                            Number(rows[0].issue_V_os) +
+                                                            Number(rows[0].issue_V_os_1) +
+                                                            Number(rows[0].issue_V_wp) +
+                                                            Number(rows[0].issue_V_rs) +
+                                                            Number(rows[0].issue_ext_grade_1) +
+                                                            Number(rows[0].issue_ext_grade_2) +
+                                                            Number(rows[0].issue_ext_grade_3) +
+                                                            Number(rows[0].issue_ext_grade_4) +
+                                                            Number(rows[0].issue_ext_grade_5) +
+                                                            Number(rows[0].issue_ext_grade_6) +
+                                                            Number(rows[0].issue_ext_grade_7) +
+                                                            Number(rows[0].issue_ext_grade_8) +
+                                                            Number(rows[0].issue_ext_grade_9) +
+                                                            Number(rows[0].issue_ext_grade_10) +
+                                                            Number(rows[0].issue_village) +
+                                                            Number(rows[0].issue_bigTaiho) +
+                                                            Number(rows[0].issue_mayur) +
+                                                            Number(rows[0].issue_rejection)
+                                                             )
+                                                         ).toFixed(2)
+                                                     ) : 0} Kg
+                                                 </Label>
+                     
                      </div>
                    
                      
