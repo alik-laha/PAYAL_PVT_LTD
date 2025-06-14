@@ -922,21 +922,9 @@ const RCNWholesReCreateForm = (props: Props) => {
 
 
                     </div>
-                  <div className="my-2 text-sm flex font-semibold text-red-600 text-justify ">
-                      * Current Receiving [ pw_210 + w_210 + ww_210 + pw_240 + w_240 + ww_240 + pw_280 + w_280 + ww_280 + pw_320 + w_320 + ww_320 + pw_360 + w_360 + ww_360 + pw_400 + w_400 + ww_400 + jb_mayur + jb_hamsa ] should be equal to {props.borma[0].current_backlog} Kg
-                  </div>
-
-                  <Table className="mt-3">
+                    <Table className="mt-3">
                       <TableHeader className="bg-neutral-100 text-stone-950 ">
-                          <TableHead className="text-center">Sl. No.</TableHead>
-                          <TableHead className="text-center">Lot_No</TableHead>
-
-                          <TableHead className="text-center">Origin</TableHead>
-                          <TableHead className="text-center">Incoming_Mixed_Lot</TableHead>
-                          <TableHead className="text-center">Opening_Backlog</TableHead>
-                          <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
-                          <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-                          <TableHead className="text-center">Borma Loss(%)</TableHead>
+                         
 
                           <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Previous V_PW_210' : 'Previous PW_210') : 'Previous PW_210'}</TableHead>
                           <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Current V_PW_210' : 'Current PW_210') : 'Current PW_210'}</TableHead>
@@ -999,11 +987,7 @@ const RCNWholesReCreateForm = (props: Props) => {
                           <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Current V_JB_HAMSA' : 'Current JB_HAMSA') : 'Current JB_HAMSA'}</TableHead>
 
 
-                          <TableHead className="text-center">-</TableHead>
-                          <TableHead className="text-center">Issue Rejection</TableHead>
-                          <TableHead className="text-center">Issue Village</TableHead>
-                          <TableHead className="text-center">Issue BigTaiho</TableHead>
-                          <TableHead className="text-center">Issue LW</TableHead>
+                         
 
                       </TableHeader>
                       <TableBody>
@@ -1012,17 +996,7 @@ const RCNWholesReCreateForm = (props: Props) => {
 
                                   return (
                                       <TableRow key={idx} className="boiling-row-height-scoop">
-                                          <TableCell className="text-center">{idx + 1}</TableCell>
-                                          <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
-                                          <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
-                                          <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
-                                          <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_opening)} Kg</TableCell>
-                                          <TableCell className="text-center">
-                                              <Input className='bg-yellow-200' type="number"
-                                                  value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /> </TableCell>
-
-                                          <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-                                          <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                         
                                           
                                           
                                           
@@ -1127,7 +1101,64 @@ const RCNWholesReCreateForm = (props: Props) => {
 
 
 
-                                          <TableCell className="bg-black-100"> -</TableCell>
+                                        
+                                     
+                                     
+                                     
+                                     
+                                      </TableRow>
+                                  );
+                              })
+                          ) : null}
+                      </TableBody>
+                  </Table>
+                  <div className="my-2 text-sm flex font-semibold text-red-600 text-justify ">
+                      * Current Receiving [ PW_210 + W_210 + WW_210 + PW_240 + W_240 + WW_240 + PW_280 + W_280 + WW_280 + PW_320 + W_320 + WW_320 + PW_360 + W_360 + WW_360 + PW_400 + W_400 + WW_400 + jb_mayur + jb_hamsa ] should be equal to {props.borma[0].current_backlog} Kg
+                  </div>
+
+                  <Table className="mt-3">
+                      <TableHeader className="bg-neutral-100 text-stone-950 ">
+                          <TableHead className="text-center">Sl. No.</TableHead>
+                          <TableHead className="text-center">Lot_No</TableHead>
+
+                          <TableHead className="text-center">Origin</TableHead>
+                          <TableHead className="text-center">Incoming_Mixed_Lot</TableHead>
+                          <TableHead className="text-center">Opening_Backlog</TableHead>
+                          <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
+                          <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                          <TableHead className="text-center">Borma Loss(%)</TableHead>
+
+                         
+
+
+                         
+                          <TableHead className="text-center">Issue Rejection</TableHead>
+                          <TableHead className="text-center">Issue Village</TableHead>
+                          <TableHead className="text-center">Issue BigTaiho</TableHead>
+                          <TableHead className="text-center">Issue LW</TableHead>
+
+                      </TableHeader>
+                      <TableBody>
+                          {props.borma.length > 0 ? (
+                              rows.map((row: WholesRowData, idx: number) => {
+
+                                  return (
+                                      <TableRow key={idx} className="boiling-row-height-scoop">
+                                          <TableCell className="text-center">{idx + 1}</TableCell>
+                                          <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
+                                          <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
+                                          <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
+                                          <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.rcv_opening)} Kg</TableCell>
+                                          <TableCell className="text-center">
+                                              <Input className='bg-yellow-200' type="number"
+                                                  value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /> </TableCell>
+
+                                          <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                          
+                                          
+                                          
+                                        
                                           <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
