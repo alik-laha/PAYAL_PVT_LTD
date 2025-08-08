@@ -218,14 +218,40 @@ console.log(vilLot)
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
-                     </div>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required />
+                <Label className="w-1/4  text-end font-semibold ">Total Receiving : </Label>
+                                {props.borma[0] ? <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{props.borma[0].TotalInput} Kg</Label> :
+                                 <Label className="w-1/4 text-center font-semibold text-red-500">0</Label> }
+                 </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
+
+                            {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
+                            <Input className="w-1/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
+
+                            <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
+                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                            {rows[0] ? (Number(rows[0].UnpeelPiece) + Number(rows[0].WholesPeel) +
+                                Number(rows[0].WholesUnpeel) + Number(rows[0].DP) + 
+                                Number(rows[0].DP1) + Number(rows[0].DS) + 
+                                Number(rows[0].Big_Taiho) + Number(rows[0].Rejection)
+                                + Number(rows[0].Husk) + Number(rows[0].SJH) 
+                                + Number(rows[0].SJH1) +Number(rows[0].JJH) +
+                                 Number(rows[0].JH1) + Number(rows[0].JK_K)+
+                                  Number(rows[0].SP1) ).toFixed(2) : 0} Kg</Label>
+                        </div>
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                     <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+
+                    <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
+                                     <Label className="w-1/4 text-left font-semibold ml-2 text-red-500 " >{props.borma[0] && rows[0] ?(Number(props.borma[0].TotalInput)-(Number(rows[0].UnpeelPiece) + Number(rows[0].WholesPeel) +
+                                Number(rows[0].WholesUnpeel) + Number(rows[0].DP) + 
+                                Number(rows[0].DP1) + Number(rows[0].DS) + 
+                                Number(rows[0].Big_Taiho) + Number(rows[0].Rejection)
+                                + Number(rows[0].Husk) + Number(rows[0].SJH) 
+                                + Number(rows[0].SJH1) +Number(rows[0].JJH) +
+                                 Number(rows[0].JH1) + Number(rows[0].JK_K)+
+                                  Number(rows[0].SP1))).toFixed(2):0} Kg</Label>
                      </div>
                      <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
