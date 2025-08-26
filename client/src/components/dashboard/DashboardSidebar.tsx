@@ -121,9 +121,12 @@ const DashboardSidebar = () => {
                             <p>Dashboard</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/dashboard1" >
-                                <p className="flex"><MdOutlineSpaceDashboard size={22} /> <p className="pl-3">Lot Position</p></p>
+                                <p className="flex"><MdOutlineSpaceDashboard size={22} /> <p className="pl-3">General</p></p>
                             </NavLink>
-                        </CollapsibleContent ></Collapsible >
+                            
+                        </CollapsibleContent >
+                  
+                        </Collapsible >
 
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={20} />

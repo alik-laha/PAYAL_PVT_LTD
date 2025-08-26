@@ -134,6 +134,7 @@ export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
 export const FY=['2025-26']
+export const FY_Array=['2024-25','2025-26']
 export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','MIXED(WHOLES+PIECE)','BW/HW','OTHERS']
 
 export const sectionDataonTypeGate = {
