@@ -48,6 +48,8 @@ import Village from './components/Village Production/Village'
 import RcvVillageIn from './components/Rcv Village In/RcvVillageIn'
 import CashewOut from './components/Cashew Out/cashewOut'
 import DashboardPanel1 from './components/dashboard/dashboardpanel1'
+import FactoryManager from './components/dashboard/factoryManager'
+
 
 
 
@@ -315,9 +317,19 @@ function App() {
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
         </Route>
 
-        
+        {/*Dashboard  */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'ProductionManager', 'DeputyProductionManager']} />}>
+          <Route path="/dashboard/dashboard1" element={<DashboardPanel1 />} />
+        </Route>
 
-        <Route path="/dashboard/dashboard1" element={<DashboardPanel1 />} />
+        {/*Factory Manager Dashboard  */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager'
+          ]} />}>
+          <Route path="/dashboard/dashboard1/factoryManager" element={<FactoryManager />} />
+        </Route>
+
+       
 
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />

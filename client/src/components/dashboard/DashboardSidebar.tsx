@@ -125,12 +125,7 @@ const DashboardSidebar = () => {
                             </NavLink>
                             
                         </CollapsibleContent >
-                        <CollapsibleContent className="Items-pvt">
-                            <NavLink to="/dashboard/dashboard1" >
-                                <p className="flex"><MdOutlineSpaceDashboard size={22} /> <p className="pl-3">Stake Holder</p></p>
-                            </NavLink>
-                            
-                        </CollapsibleContent >
+                  
                         </Collapsible >
 
                     {rendersection('HR & Admin') && <Collapsible >

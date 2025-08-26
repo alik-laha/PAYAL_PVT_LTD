@@ -3,6 +3,7 @@ import './dashboard1.css'; // Optional CSS file
 import DashboardHeader from './DashboardHeader';
 import DashboardSidebar from './DashboardSidebar';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 // import { Button } from '../ui/button';
 // import { FaWhatsapp } from "react-icons/fa6";
@@ -182,7 +183,7 @@ const DashboardPanel1: React.FC = () => {
             },
             {
               id: 12,
-              title: 'Big Taiho',
+              title: 'Taiho',
               value1: `${latestLotbig} `,
               value2: ` ${latestvLotbig} `,
               value3: ` ${formatNumber(bigbacklog)} `
@@ -227,17 +228,7 @@ const DashboardPanel1: React.FC = () => {
     return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
   }
 
-  //const Role = localStorage.getItem('role') as keyof PermissionRole
-  // const checkpending = (tab: string) => {
-  //   //console.log(Role)
-  //   if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-  //     return true
-  //   }
-  //   else {
-  //     return false;
-  //   }
-
-  // }
+  
 
   return (
     <>
@@ -249,13 +240,24 @@ const DashboardPanel1: React.FC = () => {
 
           <div className='panel-container mb-5'>
            <div className='panel1'>
-              <h2 className=''>Factory Manager</h2>
+              
+              <p className=' mt-3'>Factory Manager</p>
+              <NavLink to="/dashboard/dashboard1/factoryManager" >
+                                               <p className="mt-2 text-sm underline">Click here</p>
+                                          </NavLink>
+           </div><div className='panel1 '>
+              
+              <p className=' mt-3'>Production Manager</p>
+               <p className="mt-2 text-sm underline">Click here</p>
            </div>
           </div>
+          
+          
           <div className='text-center bg-yellow-100 py-5'>
-            <p className='text-2xl'>Current Lot & Backlog</p>
+            <p className='text-xl'>Current Lot & Backlog</p>
           </div>
-          <div className="panel-container mt-2">
+          
+          <div className="panel-container mt-5">
             
            
                {data.map((item) => (
