@@ -21,6 +21,8 @@ import RcnPrimary from "../../model/RcnEntryModel";
 import RcnAllScooping from "../../model/scoopingAllmodel";
 import orderPrimaryModel from "../../model/orderModel";
 import orderMappingModel from "../../model/orderMappingModel";
+import RcvVillageModel from "../../model/RcvVillageModel";
+import RcvVillageInModel from "../../model/RcvVillageInModel";
 
 
 export const infoOfallSection = async (req: Request, res: Response) => {
@@ -706,7 +708,7 @@ export const factorymanagerDashboard = async (req: Request, res: Response) => {
         }, {});
 
         const stockString = Object.entries(Stock)
-            .map(([k, v]) => `${k}:${v} Kg`)
+            .map(([k, v]) => `${k}:${v}`)
             .join(',\n');
 
         //2.Total Stock/////////////////////////////////////////////////////////////////////////////
@@ -750,7 +752,7 @@ export const factorymanagerDashboard = async (req: Request, res: Response) => {
         }, {});
 
         const BoilingstockString = Object.entries(BoilingStock)
-            .map(([k, v]) => `${k}:${v} Kg`)
+            .map(([k, v]) => `${k}:${v}`)
             .join(',\n');
 
         //4.Total Boiling ///////////////////////////////////////////////////////////////////////////////////   
@@ -764,6 +766,44 @@ export const factorymanagerDashboard = async (req: Request, res: Response) => {
                 date: { [Op.between]: [targetDate, today] }
             }
         });
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Outside_Gatepass = await RcvVillageModel.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('totalWt')), 'Final_Village_Out']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                recevingDate: { [Op.between]: [targetDate, today] }
+            }
+        });
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Outside_Production = await villageProduction.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('issue_outside')), 'Production_Village_Out']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'NA' }],
+                date: { [Op.between]: [targetDate, today] }
+            }
+        });
+
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Inside_gatepass = await RcvVillageInModel.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('totalWt')), 'Village_In']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                recevingDate: { [Op.between]: [targetDate, today] }
+            }
+        });
+
+        const village_out_prod = Number(Ville_Outside_Production?.dataValues.Production_Village_Out) || 0;
+        const village_out_gate = Number(Ville_Outside_Gatepass?.dataValues.Final_Village_Out) || 0;
+        const village_pending = village_out_prod - village_out_gate;
         //5.Total Uncut /////////////////////////////////////////////////////////////////////////////////// 
         const scoopingUncut = await RcnAllScooping.findOne({
             attributes: [
@@ -805,10 +845,18 @@ export const factorymanagerDashboard = async (req: Request, res: Response) => {
 
         let Peeling_Unpeel = 0;
         let Peeling_Chura = 0;
+        let Peeling_Broken = 0;
 
         if (denominator > 0) {
-            Peeling_Unpeel = (Number(PeelingDetails?.dataValues.UnpeelPiece) || 0) / denominator;
+            Peeling_Unpeel = ((Number(PeelingDetails?.dataValues.UnpeelPiece) || 0) +(Number(PeelingDetails?.dataValues.WholesUnpeel) || 0))/ denominator;
             Peeling_Chura = (Number(PeelingDetails?.dataValues.Big_Taiho) || 0) / denominator;
+            Peeling_Broken = ((Number(PeelingDetails?.dataValues.UnpeelPiece) || 0) 
+            +(Number(PeelingDetails?.dataValues.DP) || 0)+(Number(PeelingDetails?.dataValues.DS) || 0)
+            +(Number(PeelingDetails?.dataValues.DP1) || 0)+(Number(PeelingDetails?.dataValues.JJH) || 0)
+            +(Number(PeelingDetails?.dataValues.SJH) || 0)+(Number(PeelingDetails?.dataValues.SJH1) || 0)
+            +(Number(PeelingDetails?.dataValues.JH1) || 0)+(Number(PeelingDetails?.dataValues.JK_K) || 0)
+            +(Number(PeelingDetails?.dataValues.SP1) || 0))/ denominator;
+
         }
 
          //7.Order  ///////////////////////////////////////////////////////////////////////////////////
@@ -828,16 +876,20 @@ export const factorymanagerDashboard = async (req: Request, res: Response) => {
         const extraData2 = {
             Peeling_Unpeel: Peeling_Unpeel.toFixed(2),
             Peeling_Chura: Peeling_Chura.toFixed(2),
+            Peeling_Broken:Peeling_Broken.toFixed(2)
         };
 
         const extraData3 = {
+            Village_Out_Pending:village_pending || 0,
             Order_Pending_Approval:PendingApproval || 0,
             Order_Pending_Mapping:PendingMapping || 0,
             Order_Pending_Packing:PendingPacking||0
         };
 
 
-        const mergedData = { ...ReceivingTotal?.dataValues,...BoilingTotal?.dataValues, ...extraData,...extraData3 ,
+        const mergedData = { ...ReceivingTotal?.dataValues,...BoilingTotal?.dataValues, ...extraData,
+            ...Ville_Outside_Gatepass?.dataValues,...Ville_Inside_gatepass?.dataValues,...Ville_Outside_Production?.dataValues,
+            ...extraData3 ,
             ...scoopingUncutData,...scoopingBrokenData,
             ...extraData2};
         return res.status(200).json({ mergedData });

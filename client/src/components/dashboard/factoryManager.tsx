@@ -6,9 +6,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FY_Array, Origin } from "../common/exportData";
 import { Input } from "../ui/input";
-import { toZonedTime } from "date-fns-tz/toZonedTime";
-import { format } from "date-fns-tz";
+
 import { FaSearch } from "react-icons/fa";
+import { Table, TableBody, TableCell, TableRow } from "../ui/table";
 
 
 
@@ -83,10 +83,10 @@ const FactoryManager: React.FC = () => {
                 <div className="dashboard-container" style={{ backgroundColor: 'ghostwhite' }}>
 
 
-                    <div className='text-lg text-center bg-yellow-200 py-5'>Factory Manager Dashboard
+                    <div className='text-2xl text-red-600 text-center bg-yellow-200 py-5 shadow-md '>Factory Manager Dashboard
 
                         <NavLink to="/dashboard/dashboard1/" >
-                            <Button className="mr-6  right bg-orange-500 float-right h-7">Back</Button>
+                            <Button className="mr-6  right bg-orange-500 float-right h-8">Back</Button>
 
                         </NavLink>
                     </div>
@@ -154,37 +154,37 @@ const FactoryManager: React.FC = () => {
 
 
                     <div className="mt-5 p-4" >
-                        <table className="table-auto border border-gray-300 w-full text-left bg-blue-100">
-                            <tbody>
+                        <Table className="mt-4 text-md border border-gray-500">
+                            <TableBody>
                                 {entries.map(([key, value], index) => {
-                                    // Start new row after every 2 key-value pairs
                                     if (index % 2 === 0) {
                                         return (
-                                            <tr key={index} className="border-b border-gray-200">
-                                                <td className="px-2 py-2 font-semibold ">{key}</td>
-                                                <td className="px-2 py-2">{value}</td>
+                                            <TableRow key={index} className="border border-gray-500">
+                                                <TableCell className="px-2 py-2 font-semibold bg-gray-200 italic border border-gray-500">{index+1}.  {key}</TableCell>
+                                                <TableCell className="px-2 py-2 font-semibold bg-gray-100 text-blue-700 border border-gray-500">{value}</TableCell>
 
-                                                {/* Check if next pair exists */}
                                                 {entries[index + 1] ? (
                                                     <>
-                                                        <td className="px-2 py-2 font-semibold ">
-                                                            {entries[index + 1][0]}
-                                                        </td>
-                                                        <td className="px-2 py-2">{entries[index + 1][1]}</td>
+                                                        <TableCell className="px-2 py-2 font-semibold italic bg-gray-200 border border-gray-500">
+                                                            {index+2}.  {entries[index + 1][0]}
+                                                        </TableCell>
+                                                        <TableCell className="px-2 py-2 font-semibold text-blue-700 bg-gray-100 border border-gray-500">
+                                                            {entries[index + 1][1]}
+                                                        </TableCell>
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <TableCell className="border border-gray-500"></TableCell>
+                                                        <TableCell className="border border-gray-500"></TableCell>
                                                     </>
                                                 )}
-                                            </tr>
+                                            </TableRow>
                                         );
                                     }
-                                    return null; // Skip odd indexes (they are handled in previous iteration)
+                                    return null;
                                 })}
-                            </tbody>
-                        </table>
+                            </TableBody>
+                        </Table>
                     </div>
 
 
