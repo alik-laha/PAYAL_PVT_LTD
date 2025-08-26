@@ -247,12 +247,18 @@ const DashboardPanel1: React.FC = () => {
 
         <div className="dashboard-container">
 
-
-
-          <div className="panel-container">
-
-
-            {data.map((item) => (
+          <div className='panel-container mb-5'>
+           <div className='panel1'>
+              <h2 className=''>Factory Manager</h2>
+           </div>
+          </div>
+          <div className='text-center bg-yellow-100 py-5'>
+            <p className='text-2xl'>Current Lot & Backlog</p>
+          </div>
+          <div className="panel-container mt-2">
+            
+           
+               {data.map((item) => (
               <div key={item.id} className="panel">
                 <h2 className=''>{item.title}</h2>
                 <p className='font-semibold pt-2 text-blue-500'> {item.value1}</p>
@@ -260,6 +266,9 @@ const DashboardPanel1: React.FC = () => {
                 <p className='pt-2 text-2xl font-bold text-red-500'>{item.value3 ? `Backlog: ${item.value3} Kg` : ''}</p>
               </div>
             ))}
+          
+
+           
           </div>
            {/* {checkpending('LW') &&<div className='flex w-100 mt-5 text-center items-center'>
             <Button className="bg-green-400 mb-2  responsive-button-adjust"
