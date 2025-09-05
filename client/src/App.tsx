@@ -49,6 +49,7 @@ import RcvVillageIn from './components/Rcv Village In/RcvVillageIn'
 import CashewOut from './components/Cashew Out/cashewOut'
 import DashboardPanel1 from './components/dashboard/dashboardpanel1'
 import FactoryManager from './components/dashboard/factoryManager'
+import QCOnline from './components/QCOnline/QCOnline'
 
 
 
@@ -202,6 +203,11 @@ function App() {
         {/* Quality Water */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qc_water" element={<QCWater />} />
+        </Route>
+
+         {/* Quality Online */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
+          <Route path="/dashboard/qc_online" element={<QCOnline />} />
         </Route>
 
         {/* Production Grading */}
