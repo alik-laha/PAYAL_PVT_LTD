@@ -7,6 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 // import {
 //     Table,
 //     TableBody,
@@ -17,12 +18,15 @@ import {
 // } from "@/components/ui/table"
 import { Button } from "../ui/button";
 import { pendingCheckRoles, PermissionRole} from "@/type/type";
-import { pendingCheckRole } from "../common/exportData";
+import { pendingCheckRole, QC_Online_Section } from "../common/exportData";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
+import { Label } from "../ui/label";
+import QCOnlineBoiler from "./QCOnlineBoiler";
+import QCOnlineBoiling from "./QCOnlineBoiling";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -30,6 +34,7 @@ import UseQueryData from "../common/dataFetcher";
 
 const QCOnline = () => {
     const { setEditPendiningQCWaterData } = useContext(Context)
+    const [section,setSection]=useState<string>('')
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
         
@@ -91,8 +96,34 @@ const QCOnline = () => {
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>QC Online Test</p></DialogTitle>
 
                             </DialogHeader>
+  <div className="flex mt-2">
+                    <Label className="w-2/4 pt-1 ">Section Name</Label>
+                    <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
+                        <SelectTrigger className="w-2/4">
+                            <SelectValue placeholder="Section Name" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    QC_Online_Section.map((item: any, indx) => {
+                                        return (
+                                            <SelectItem key={indx} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div> 
 
+                    {section==='BOILER' && <QCOnlineBoiler/>}
+                    {section==='BOILING' && <QCOnlineBoiling/>}
                             {/* <QCWaterCreate /> */}
+
+
+
                         </DialogContent>
                     </Dialog>
                    
