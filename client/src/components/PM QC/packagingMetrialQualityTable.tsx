@@ -70,7 +70,7 @@ import Carousel from "./ModalCarousel"
 const QCPackageMaterialTable = () => {
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
-    const [hidetodate, sethidetoDate] = React.useState<string>('');
+   // const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>("")
     const [Data, setData] = useState<PackagingMeterialQc[]>([])
     const [page, setPage] = useState(pageNo)
@@ -325,23 +325,23 @@ const QCPackageMaterialTable = () => {
         return finaldate;
     }
 
-    const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        const selected = e.target.value;
-        if (!selected) {
-            settoDate('')
-            sethidetoDate('')
-            return
-        }
-        //console.log(selected)
-        const date = new Date(selected)
-        date.setDate(date.getDate() + 1);
-        //console.log(date)
-        const nextday = date.toISOString().split('T')[0];
-        //console.log(nextday)
-        sethidetoDate(selected)
-        settoDate(nextday)
-    }
+    //     const selected = e.target.value;
+    //     if (!selected) {
+    //         settoDate('')
+    //         sethidetoDate('')
+    //         return
+    //     }
+    //     //console.log(selected)
+    //     const date = new Date(selected)
+    //     date.setDate(date.getDate() + 1);
+    //     //console.log(date)
+    //     const nextday = date.toISOString().split('T')[0];
+    //     //console.log(nextday)
+    //     sethidetoDate(selected)
+    //     settoDate(nextday)
+    // }
     const handleDownload = async (path: string) => {
         try {
             console.log(path);
@@ -395,8 +395,10 @@ const QCPackageMaterialTable = () => {
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                 <Input className="w-1/6 flexbox-search-width-calender"
                     type="date"
-                    value={hidetodate}
-                    onChange={handleTodate}
+                    // value={hidetodate}
+                    // onChange={handleTodate}
+                        value={todate}
+                    onChange={(e) => settoDate(e.target.value)}
                     placeholder="To Date"
 
                 />
