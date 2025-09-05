@@ -70,7 +70,7 @@ const GeneralStoreTable = () => {
     const [EditSumData, setEditSumData] = useState<sumofGeneralPrimary>()
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
-    const [hidetodate, sethidetoDate] = useState('')
+    //const [hidetodate, sethidetoDate] = useState('')
     const [todate, settoDate] = useState('')
     const [page, setPage] = useState(1)
     const [selectType, setselectType] = useState<string>("")
@@ -103,20 +103,20 @@ const GeneralStoreTable = () => {
     }
 
 
-    const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        const selected = e.target.value;
-        if (!selected) {
-            settoDate('')
-            sethidetoDate('')
-            return
-        }
-        const date = new Date(selected)
-        date.setDate(date.getDate() + 1);
-        const nextday = date.toISOString().split('T')[0];
-        sethidetoDate(selected)
-        settoDate(nextday)
-    }
+    //     const selected = e.target.value;
+    //     if (!selected) {
+    //         settoDate('')
+    //         sethidetoDate('')
+    //         return
+    //     }
+    //     const date = new Date(selected)
+    //     date.setDate(date.getDate() + 1);
+    //     const nextday = date.toISOString().split('T')[0];
+    //     sethidetoDate(selected)
+    //     settoDate(nextday)
+    // }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -307,8 +307,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                     <Input className="w-1/6 flexbox-search-width-calender"
                         type="date"
-                        value={hidetodate}
-                        onChange={handleTodate}
+                        // value={hidetodate}
+                        // onChange={handleTodate}
+                         value={todate}
+                        onChange={(e) => settoDate(e.target.value)}
                         placeholder="To Date"
 
                     />
