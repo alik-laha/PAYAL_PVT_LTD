@@ -32,6 +32,7 @@ import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
 import { GiChopsticks } from "react-icons/gi";
 import { IoArrowRedoOutline } from "react-icons/io5";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 
 //import { GiPizzaCutter } from "react-icons/gi";
 
@@ -41,7 +42,7 @@ const DashboardSidebar = () => {
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const Dept = localStorage.getItem('dept') as keyof PermissionDept
     const [sidebarOpen, setSidebarOpen] = useState(false);
-
+    const [openSection, setOpenSection] = useState<string | null>(null);
     const [currentHour, setCurrentHour] = useState(new Date().getHours());
 
     // Time ranges for each role
@@ -52,6 +53,10 @@ const DashboardSidebar = () => {
         WholesSupervisor: {  start: 0, end: 23 },
         PeelingSupervisor: { start: 0, end: 23 },
     };
+
+const toggleSection = (sectionKey: string) => {
+    setOpenSection(prev => (prev === sectionKey ? null : sectionKey));
+};
 
     const isRestrictedRole = Object.keys(roleAccess).includes(Role);
     const roleConfig = roleAccess[Role];
@@ -117,9 +122,13 @@ const DashboardSidebar = () => {
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
 
-                    <Collapsible>
-                        <CollapsibleTrigger className="flex user-pvt "><RxDashboard  size={20} />
-                            <p>Dashboard</p></CollapsibleTrigger>
+                   <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>
+                        <CollapsibleTrigger  className={`user-pvt ${openSection === 'dashboard' ? 'trigger-open' : ''}`}><RxDashboard  size={20} />
+                            <p className="ml-2">Dashboard</p>
+                              <span className="ml-auto">
+                                {openSection === 'dashboard' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                             </CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/dashboard1" >
                                 <p className="flex"><MdOutlineSpaceDashboard size={22} /> <p className="pl-3">General</p></p>
@@ -129,9 +138,15 @@ const DashboardSidebar = () => {
                   
                         </Collapsible >
 
-                    {rendersection('HR & Admin') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={20} />
-                            <p>Admin & HR</p></CollapsibleTrigger>
+                    {rendersection('HR & Admin') && 
+                    
+                 <Collapsible open={openSection === 'admin'} onOpenChange={() => toggleSection('admin')}>
+                        <CollapsibleTrigger  className={`user-pvt ${openSection === 'admin' ? 'trigger-open' : ''}`}><MdOutlineAdminPanelSettings size={20} />
+                            <p className="ml-2">Admin & HR</p>
+                            <span className="ml-auto">
+                                   {openSection === 'admin' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                             </CollapsibleTrigger>
                         {renderlink('Dashboard User')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
@@ -163,9 +178,14 @@ const DashboardSidebar = () => {
 
 
                     </Collapsible>}
-                    {rendersection('GatePass') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><GiGate size={20} />
-                            <p>Gate Pass</p></CollapsibleTrigger>
+                    {rendersection('GatePass') && 
+                 <Collapsible open={openSection === 'gatepass'} onOpenChange={() => toggleSection('gatepass')}>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'gatepass' ? 'trigger-open' : ''}`}><GiGate size={20} />
+                            <p className="ml-2">Gate Pass</p>
+                            <span className="ml-auto">
+                                  {openSection === 'gatepass' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                             </CollapsibleTrigger>
                         {renderlink('Gatepass')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
@@ -177,9 +197,13 @@ const DashboardSidebar = () => {
                     </Collapsible>}
 
                     {Role !== 'Security' && rendersection('Receiving') &&
-                        <Collapsible >
-                            <CollapsibleTrigger className="user-pvt"><MdCallReceived size={20} />
-                                <p>Logistics</p></CollapsibleTrigger>
+                     <Collapsible open={openSection === 'receiving'} onOpenChange={() => toggleSection('receiving')}>
+                            <CollapsibleTrigger className={`user-pvt ${openSection === 'receiving' ? 'trigger-open' : ''}`}><MdCallReceived size={20} />
+                                <p className="ml-2">Logistics</p>
+                                 <span className="ml-auto">
+                                 {openSection === 'receiving' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                                </CollapsibleTrigger>
                             {renderlink('VendorSKU')
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
@@ -286,9 +310,13 @@ const DashboardSidebar = () => {
 
                         </Collapsible>}
                     {Role !== 'Security' && rendersection('Production') &&
-                        <Collapsible >
-                            <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={20} />
-                                <p>Production</p></CollapsibleTrigger>
+                     <Collapsible open={openSection === 'production'} onOpenChange={() => toggleSection('production')}>
+                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory size={20} />
+                                <p className="ml-2">Production</p>
+                                 <span className="ml-auto">
+                                 {openSection==='production'? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                                </CollapsibleTrigger>
 
                             {renderlink('Grading')
                                 && <CollapsibleContent className="Items-pvt">
@@ -432,9 +460,14 @@ const DashboardSidebar = () => {
                         
                         </Collapsible>}
 
-                    {rendersection('Quality') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={20} />
-                            <p>Quality</p></CollapsibleTrigger>
+                    {rendersection('Quality') && 
+                    <Collapsible open={openSection === 'quality'} onOpenChange={() => toggleSection('quality')}>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'quality' ? 'trigger-open' : ''}`}><LuBadgeCheck size={20} />
+                            <p className="ml-2">Quality</p>
+                              <span className="ml-auto">
+                                 {openSection==='quality' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                            </CollapsibleTrigger>
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
@@ -485,9 +518,13 @@ const DashboardSidebar = () => {
                     </Collapsible>} */}
 
 
-                    <Collapsible>
-                        <CollapsibleTrigger className="flex user-pvt "><IoMdSettings size={20} />
-                            <p>Profile</p></CollapsibleTrigger>
+                     <Collapsible open={openSection === 'account'} onOpenChange={() => toggleSection('account')}>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'account' ? 'trigger-open' : ''}`}><IoMdSettings size={20} />
+                            <p className="ml-2">Profile</p>
+                            <span className="ml-auto">
+                                 {openSection==='account' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                             </span>
+                             </CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/userprofile" >
                                 Account
