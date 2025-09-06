@@ -27,6 +27,7 @@ import UseQueryData from "../common/dataFetcher";
 import { Label } from "../ui/label";
 import QCOnlineBoiler from "./QCOnlineBoiler";
 import QCOnlineBoiling from "./QCOnlineBoiling";
+import QCOnlineGrading from "./QCOnlineGrading";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -96,10 +97,10 @@ const QCOnline = () => {
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>QC Online Test</p></DialogTitle>
 
                             </DialogHeader>
-  <div className="flex mt-2">
+                <div className="flex mt-2 px-6 pt-6 pb-3">
                     <Label className="w-2/4 pt-1 ">Section Name</Label>
                     <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
-                        <SelectTrigger className="w-2/4">
+                        <SelectTrigger className="w-2/4 justify-center bg-cyan-100">
                             <SelectValue placeholder="Section Name" />
                         </SelectTrigger>
                         <SelectContent>
@@ -120,6 +121,7 @@ const QCOnline = () => {
 
                     {section==='BOILER' && <QCOnlineBoiler/>}
                     {section==='BOILING' && <QCOnlineBoiling/>}
+                    {section==='GRADING' && <QCOnlineGrading/>}
                             {/* <QCWaterCreate /> */}
 
 

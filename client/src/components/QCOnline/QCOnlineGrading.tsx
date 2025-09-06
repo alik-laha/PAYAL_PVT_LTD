@@ -16,25 +16,18 @@ import {
 import { QC_Online_Status } from "../common/exportData" // ["OK","NOT OK","NA"]
 import { Textarea } from "../ui/textarea"
 
-const cookerOptions = ["Cooker 1", "Cooker 2", "Cooker 3", "Cooker 4", "Cooker 5"]
-
-const QCOnlineBoiling = () => {
+const QCOnlineGrading = () => {
   const [errortext, setErrorText] = useState<string>("")
   const [isdisable, setIsDisable] = useState<boolean>(false)
 
-  const [cookerNo, setCookerNo] = useState<string>("")
-  const cookerPressureRef = useRef<HTMLInputElement>(null)
-  const cookerTimeRef = useRef<HTMLInputElement>(null)
-
-  const [cashewStatus, setCashewStatus] = useState<string>("")
-  const [cleaningStatus, setCleaningStatus] = useState<string>("")
-  const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
-
-  const cleanRemarksRef = useRef<HTMLTextAreaElement>(null)
-  const maintenanceRemarksRef = useRef<HTMLTextAreaElement>(null)
-
+  const vibrator1Ref = useRef<HTMLInputElement>(null)
+  const vibrator2Ref = useRef<HTMLInputElement>(null)
   const [date, setDate] = useState<string>("")
   const [time, setTime] = useState<string>("")
+  const [cleaningStatus, setCleaningStatus] = useState<string>("")
+  const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
+  const cleanRemarksRef = useRef<HTMLTextAreaElement>(null)
+  const maintenanceRemarksRef = useRef<HTMLTextAreaElement>(null)
 
   const successdialog = document.getElementById("successDialog") as HTMLDialogElement
   const errordialog = document.getElementById("errorDialog") as HTMLDialogElement
@@ -44,10 +37,8 @@ const QCOnlineBoiling = () => {
     setIsDisable(true)
 
     const payload = {
-      cookerNo,
-      cookerPressure: cookerPressureRef.current?.value,
-      cookerTime: cookerTimeRef.current?.value,
-      cashewStatus,
+      vibratorspeed1: vibrator1Ref.current?.value,
+      vibratorspeed2: vibrator2Ref.current?.value,
       date,
       time,
       cleaningStatus,
@@ -56,14 +47,12 @@ const QCOnlineBoiling = () => {
       maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarksRef.current?.value : "",
     }
 
-    axios.post("/api/cooker/create", payload)
+    axios.post("/api/vibrator/create", payload)
       .then(() => {
         if (successdialog) successdialog.showModal()
         // reset form
-        setCookerNo("")
-        cookerPressureRef.current!.value = ""
-        cookerTimeRef.current!.value = ""
-        setCashewStatus("")
+        vibrator1Ref.current!.value = ""
+        vibrator2Ref.current!.value = ""
         setCleaningStatus("")
         setMaintenanceStatus("")
         if (cleanRemarksRef.current) cleanRemarksRef.current.value = ""
@@ -109,66 +98,26 @@ const QCOnlineBoiling = () => {
             />
           </div>
 
-          {/* Cooker No */}
           <div className="flex">
-            <Label className="w-2/4 pt-1">Cooker No</Label>
-            <Select value={cookerNo} onValueChange={setCookerNo} required>
-              <SelectTrigger className="w-2/4 justify-center">
-                <SelectValue placeholder="Select Cooker" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {cookerOptions.map((cooker) => (
-                    <SelectItem key={cooker} value={cooker}>
-                      {cooker}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex">
-            <Label className="w-2/4 pt-1">Cooker Pressure (Bar)</Label>
+            <Label className="w-2/4 pt-1">Vibrator Speed 1 </Label>
             <Input
               className="w-2/4 text-center"
-              ref={cookerPressureRef}
+              ref={vibrator1Ref}
               type="number"
               step="0.01"
-              required
-              placeholder="Pressure"
+              required placeholder="speed"
             />
           </div>
 
           <div className="flex">
-            <Label className="w-2/4 pt-1">Cooking Time (min)</Label>
+            <Label className="w-2/4 pt-1">Vibrator Speed 2 </Label>
             <Input
               className="w-2/4 text-center"
-              ref={cookerTimeRef}
+              ref={vibrator2Ref}
               type="number"
               step="0.01"
-              required
-              placeholder="Time"
+              required placeholder="speed"
             />
-          </div>
-
-          {/* Cashew Status */}
-          <div className="flex">
-            <Label className="w-2/4 pt-1">Cashew Status After Boiling</Label>
-            <Select value={cashewStatus} onValueChange={setCashewStatus} required>
-              <SelectTrigger className="w-2/4 justify-center">
-                <SelectValue placeholder="Select Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
           </div>
 
           {/* Cleaning Status */}
@@ -181,9 +130,7 @@ const QCOnlineBoiling = () => {
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
+                    <SelectItem key={status} value={status}>{status}</SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -207,9 +154,7 @@ const QCOnlineBoiling = () => {
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
+                    <SelectItem key={status} value={status}>{status}</SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -236,7 +181,7 @@ const QCOnlineBoiling = () => {
         </button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">Cooker entry created successfully!</p>
+          <p className="pl-3 mt-1 font-medium">QC-Online Grading entry created successfully!</p>
         </span>
       </dialog>
 
@@ -254,4 +199,4 @@ const QCOnlineBoiling = () => {
   )
 }
 
-export default QCOnlineBoiling
+export default QCOnlineGrading
