@@ -28,6 +28,8 @@ import { Label } from "../ui/label";
 import QCOnlineBoiler from "./QCOnlineBoiler";
 import QCOnlineBoiling from "./QCOnlineBoiling";
 import QCOnlineGrading from "./QCOnlineGrading";
+import QCOnlineScooping from "./QCOnlineScooping";
+import QCOnlineBorma from "./QCOnlineBorma";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -122,6 +124,8 @@ const QCOnline = () => {
                     {section==='BOILER' && <QCOnlineBoiler/>}
                     {section==='BOILING' && <QCOnlineBoiling/>}
                     {section==='GRADING' && <QCOnlineGrading/>}
+                    {section==='SCOOPING' && <QCOnlineScooping/>}
+                      {section==='BORMA' && <QCOnlineBorma/>}
                             {/* <QCWaterCreate /> */}
 
 
