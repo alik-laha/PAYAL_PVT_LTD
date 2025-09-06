@@ -1,10 +1,10 @@
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { useState, useRef, useEffect } from "react"
-import axios from "axios"
-import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
-import cross from '../../assets/Static_Images/error_img.png'
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import tick from "../../assets/Static_Images/Flat_tick_icon.svg.png";
+import cross from "../../assets/Static_Images/error_img.png";
 import {
   Select,
   SelectContent,
@@ -12,29 +12,33 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { QC_Online_Status } from "../common/exportData" // ["OK","NOT OK","NA"]
-import { Textarea } from "../ui/textarea"
+} from "@/components/ui/select";
+import { QC_Online_Status } from "../common/exportData"; // ["OK","NOT OK","NA"]
+import { Textarea } from "../ui/textarea";
 
 const QCOnlineGrading = () => {
-  const [errortext, setErrorText] = useState<string>("")
-  const [isdisable, setIsDisable] = useState<boolean>(false)
+  const [errortext, setErrorText] = useState<string>("");
+  const [isdisable, setIsDisable] = useState<boolean>(false);
 
-  const vibrator1Ref = useRef<HTMLInputElement>(null)
-  const vibrator2Ref = useRef<HTMLInputElement>(null)
-  const [date, setDate] = useState<string>("")
-  const [time, setTime] = useState<string>("")
-  const [cleaningStatus, setCleaningStatus] = useState<string>("")
-  const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
-  const cleanRemarksRef = useRef<HTMLTextAreaElement>(null)
-  const maintenanceRemarksRef = useRef<HTMLTextAreaElement>(null)
+  const vibrator1Ref = useRef<HTMLInputElement>(null);
+  const vibrator2Ref = useRef<HTMLInputElement>(null);
+  const [date, setDate] = useState<string>("");
+  const [time, setTime] = useState<string>("");
+  const [cleaningStatus, setCleaningStatus] = useState<string>("");
+  const [maintenanceStatus, setMaintenanceStatus] = useState<string>("");
+  const cleanRemarksRef = useRef<HTMLTextAreaElement>(null);
+  const maintenanceRemarksRef = useRef<HTMLTextAreaElement>(null);
 
-  const successdialog = document.getElementById("successDialog") as HTMLDialogElement
-  const errordialog = document.getElementById("errorDialog") as HTMLDialogElement
+  const successdialog = document.getElementById(
+    "successDialog"
+  ) as HTMLDialogElement;
+  const errordialog = document.getElementById(
+    "errorDialog"
+  ) as HTMLDialogElement;
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsDisable(true)
+    e.preventDefault();
+    setIsDisable(true);
 
     const payload = {
       vibratorspeed1: vibrator1Ref.current?.value,
@@ -42,33 +46,39 @@ const QCOnlineGrading = () => {
       date,
       time,
       cleaningStatus,
-      cleanRemarks: cleaningStatus === "NOT OK" ? cleanRemarksRef.current?.value : "",
+      cleanRemarks:
+        cleaningStatus === "NOT OK" ? cleanRemarksRef.current?.value : "",
       maintainance: maintenanceStatus,
-      maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarksRef.current?.value : "",
-    }
+      maintainanceRemarks:
+        maintenanceStatus === "NOT OK"
+          ? maintenanceRemarksRef.current?.value
+          : "",
+    };
 
-    axios.post("/api/vibrator/create", payload)
+    axios
+      .post("/api/qconline/createQCOnlineGrading", payload)
       .then(() => {
-        if (successdialog) successdialog.showModal()
+        if (successdialog) successdialog.showModal();
         // reset form
-        vibrator1Ref.current!.value = ""
-        vibrator2Ref.current!.value = ""
-        setCleaningStatus("")
-        setMaintenanceStatus("")
-        if (cleanRemarksRef.current) cleanRemarksRef.current.value = ""
-        if (maintenanceRemarksRef.current) maintenanceRemarksRef.current.value = ""
+        vibrator1Ref.current!.value = "";
+        vibrator2Ref.current!.value = "";
+        setCleaningStatus("");
+        setMaintenanceStatus("");
+        if (cleanRemarksRef.current) cleanRemarksRef.current.value = "";
+        if (maintenanceRemarksRef.current)
+          maintenanceRemarksRef.current.value = "";
       })
       .catch((err) => {
-        setErrorText(err.response?.data?.message || "Something went wrong")
-        if (errordialog) errordialog.showModal()
+        setErrorText(err.response?.data?.message || "Something went wrong");
+        if (errordialog) errordialog.showModal();
       })
-      .finally(() => setIsDisable(false))
-  }
+      .finally(() => setIsDisable(false));
+  };
 
   useEffect(() => {
-    setDate(new Date().toISOString().slice(0, 10))
-    setTime(new Date().toTimeString().slice(0, 5))
-  }, [])
+    setDate(new Date().toISOString().slice(0, 10));
+    setTime(new Date().toTimeString().slice(0, 5));
+  }, []);
 
   return (
     <>
@@ -105,7 +115,8 @@ const QCOnlineGrading = () => {
               ref={vibrator1Ref}
               type="number"
               step="0.01"
-              required placeholder="speed"
+              required
+              placeholder="speed"
             />
           </div>
 
@@ -116,21 +127,27 @@ const QCOnlineGrading = () => {
               ref={vibrator2Ref}
               type="number"
               step="0.01"
-              required placeholder="speed"
+              required
+              placeholder="speed"
             />
           </div>
 
           {/* Cleaning Status */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Cleaning Status</Label>
-            <Select value={cleaningStatus} onValueChange={setCleaningStatus} required>
+            <Select
+              value={cleaningStatus}
+              onValueChange={setCleaningStatus}
+              required>
               <SelectTrigger className="w-2/4 justify-center">
                 <SelectValue placeholder="Select Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -140,21 +157,30 @@ const QCOnlineGrading = () => {
           {cleaningStatus === "NOT OK" && (
             <div className="flex">
               <Label className="w-2/4 pt-1">Cleaning Remarks</Label>
-              <Textarea className="w-2/4 text-center" ref={cleanRemarksRef} required />
+              <Textarea
+                className="w-2/4 text-center"
+                ref={cleanRemarksRef}
+                required
+              />
             </div>
           )}
 
           {/* Maintenance Status */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Maintenance Status</Label>
-            <Select value={maintenanceStatus} onValueChange={setMaintenanceStatus} required>
+            <Select
+              value={maintenanceStatus}
+              onValueChange={setMaintenanceStatus}
+              required>
               <SelectTrigger className="w-2/4 justify-center">
                 <SelectValue placeholder="Select Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -164,7 +190,11 @@ const QCOnlineGrading = () => {
           {maintenanceStatus === "NOT OK" && (
             <div className="flex">
               <Label className="w-2/4 pt-1">Maintenance Remarks</Label>
-              <Textarea className="w-2/4 text-center" ref={maintenanceRemarksRef} required />
+              <Textarea
+                className="w-2/4 text-center"
+                ref={maintenanceRemarksRef}
+                required
+              />
             </div>
           )}
 
@@ -176,18 +206,24 @@ const QCOnlineGrading = () => {
 
       {/* Success Dialog */}
       <dialog id="successDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>
+        <button
+          className="dashboard-modal-close-btn"
+          onClick={() => successdialog?.close()}>
           X
         </button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">QC-Online Grading entry created successfully!</p>
+          <p className="pl-3 mt-1 font-medium">
+            QC-Online Grading Reported successfully!
+          </p>
         </span>
       </dialog>
 
       {/* Error Dialog */}
       <dialog id="errorDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => errordialog?.close()}>
+        <button
+          className="dashboard-modal-close-btn"
+          onClick={() => errordialog?.close()}>
           X
         </button>
         <span className="flex">
@@ -196,7 +232,7 @@ const QCOnlineGrading = () => {
         </span>
       </dialog>
     </>
-  )
-}
+  );
+};
 
-export default QCOnlineGrading
+export default QCOnlineGrading;

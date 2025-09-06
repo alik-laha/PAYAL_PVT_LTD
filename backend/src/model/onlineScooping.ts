@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 
 
-const OnlineScooping = sequelize.define('onlineBoiling', {
+const OnlineScooping = sequelize.define('onlineScooping', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

@@ -52,7 +52,7 @@ const QCOnlineScooping = () => {
       maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarksRef.current?.value : "",
     }
 
-    axios.post("/api/oilchalna/create", payload)
+    axios.post("/api/qconline/createQCOnlineScooping", payload)
       .then(() => {
         if (successdialog) successdialog.showModal()
         // reset form
@@ -220,7 +220,7 @@ const QCOnlineScooping = () => {
         </button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">Oil & Chalna entry created successfully!</p>
+          <p className="pl-3 mt-1 font-medium">QC Online Scooping Reported Successfully!</p>
         </span>
       </dialog>
 

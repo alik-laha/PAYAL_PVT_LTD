@@ -13,20 +13,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { QC_Online_Status } from "../common/exportData" // ["OK","NOT OK","NA"]
+import { Origin, QC_Online_Status } from "../common/exportData" // ["OK","NOT OK","NA"]
 import { Textarea } from "../ui/textarea"
 
-const cookerOptions = ["Cooker 1", "Cooker 2", "Cooker 3", "Cooker 4", "Cooker 5"]
 
-const QCOnlineBoiling = () => {
+
+const QCOnlineHumid = () => {
   const [errortext, setErrorText] = useState<string>("")
   const [isdisable, setIsDisable] = useState<boolean>(false)
 
-  const [cookerNo, setCookerNo] = useState<string>("")
-  const cookerPressureRef = useRef<HTMLInputElement>(null)
-  const cookerTimeRef = useRef<HTMLInputElement>(null)
+  const lotNoRef = useRef<HTMLInputElement>(null)
+  const pressureRef = useRef<HTMLInputElement>(null)
 
-  const [cashewStatus, setCashewStatus] = useState<string>("")
+  const [origin, setOrigin] = useState<string>("")
+
+
   const [cleaningStatus, setCleaningStatus] = useState<string>("")
   const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
 
@@ -44,26 +45,27 @@ const QCOnlineBoiling = () => {
     setIsDisable(true)
 
     const payload = {
-      cookerNo,
-      cookerPressure: cookerPressureRef.current?.value,
-      cookerTime: cookerTimeRef.current?.value,
-      cashewStatus,
+      LotNo: lotNoRef.current?.value,
+      moisture: pressureRef.current?.value,
+      Origin: origin,
+ 
       date,
       time,
       cleaningStatus,
       cleanRemarks: cleaningStatus === "NOT OK" ? cleanRemarksRef.current?.value : "",
       maintainance: maintenanceStatus,
       maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarksRef.current?.value : "",
+      createdBy: "admin", // TODO: replace with logged-in user
     }
 
-    axios.post("/api/qconline/createQCOnlineBoiling", payload)
+    axios.post("/api/qconline/createQCOnlineHumid", payload)
       .then(() => {
         if (successdialog) successdialog.showModal()
-        // reset form
-        setCookerNo("")
-        cookerPressureRef.current!.value = ""
-        cookerTimeRef.current!.value = ""
-        setCashewStatus("")
+        // reset
+        lotNoRef.current!.value = ""
+        pressureRef.current!.value = ""
+        setOrigin("")
+   
         setCleaningStatus("")
         setMaintenanceStatus("")
         if (cleanRemarksRef.current) cleanRemarksRef.current.value = ""
@@ -87,89 +89,43 @@ const QCOnlineBoiling = () => {
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <div className="flex mt-1">
             <Label className="w-2/4 pt-1">Date</Label>
-            <Input
-              className="w-2/4 text-center justify-center"
-              placeholder="Date"
-              value={date}
-              type="date"
-              readOnly
-              required
-            />
+            <Input className="w-2/4 text-center justify-center" value={date} type="date" readOnly required />
           </div>
 
           <div className="flex mt-1">
             <Label className="w-2/4 pt-1">Time</Label>
-            <Input
-              className="w-2/4 text-center justify-center"
-              placeholder="Time"
-              value={time}
-              type="time"
-              readOnly
-              required
-            />
+            <Input className="w-2/4 text-center justify-center" value={time} type="time" readOnly required />
           </div>
 
-          {/* Cooker No */}
+          
+
           <div className="flex">
-            <Label className="w-2/4 pt-1">Cooker No</Label>
-            <Select value={cookerNo} onValueChange={setCookerNo} required>
+            <Label className="w-2/4 pt-1">Moisture % Before Peeling</Label>
+            <Input className="w-2/4 text-center" ref={pressureRef} type="number" step="0.01" required placeholder="%" />
+          </div>
+          <div className="flex">
+            <Label className="w-2/4 pt-1">Lot No</Label>
+            <Input className="w-2/4 text-center" ref={lotNoRef} required placeholder="Lot No" />
+          </div>
+
+          {/* Origin Dropdown */}
+          <div className="flex">
+            <Label className="w-2/4 pt-1">Origin</Label>
+            <Select value={origin} onValueChange={setOrigin} required>
               <SelectTrigger className="w-2/4 justify-center">
-                <SelectValue placeholder="Select Cooker" />
+                <SelectValue placeholder="Select Origin" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {cookerOptions.map((cooker) => (
-                    <SelectItem key={cooker} value={cooker}>
-                      {cooker}
-                    </SelectItem>
+                  {Origin.map((opt) => (
+                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
 
-          <div className="flex">
-            <Label className="w-2/4 pt-1">Cooker Pressure (Bar)</Label>
-            <Input
-              className="w-2/4 text-center"
-              ref={cookerPressureRef}
-              type="number"
-              step="0.01"
-              required
-              placeholder="Pressure"
-            />
-          </div>
-
-          <div className="flex">
-            <Label className="w-2/4 pt-1">Cooking Time (min)</Label>
-            <Input
-              className="w-2/4 text-center"
-              ref={cookerTimeRef}
-              type="number"
-              step="0.01"
-              required
-              placeholder="Time"
-            />
-          </div>
-
-          {/* Cashew Status */}
-          <div className="flex">
-            <Label className="w-2/4 pt-1">Cashew Status After Boiling</Label>
-            <Select value={cashewStatus} onValueChange={setCashewStatus} required>
-              <SelectTrigger className="w-2/4 justify-center">
-                <SelectValue placeholder="Select Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+         
 
           {/* Cleaning Status */}
           <div className="flex">
@@ -181,9 +137,7 @@ const QCOnlineBoiling = () => {
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
+                    <SelectItem key={status} value={status}>{status}</SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -207,9 +161,7 @@ const QCOnlineBoiling = () => {
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
+                    <SelectItem key={status} value={status}>{status}</SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -231,20 +183,16 @@ const QCOnlineBoiling = () => {
 
       {/* Success Dialog */}
       <dialog id="successDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>
-          X
-        </button>
+        <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>X</button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">QC Online Boiling Reported Successfully!</p>
+          <p className="pl-3 mt-1 font-medium">QC Online Humidifier Reported successfully!</p>
         </span>
       </dialog>
 
       {/* Error Dialog */}
       <dialog id="errorDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => errordialog?.close()}>
-          X
-        </button>
+        <button className="dashboard-modal-close-btn" onClick={() => errordialog?.close()}>X</button>
         <span className="flex">
           <img src={cross} height={25} width={25} alt="error" />
           <p className="pl-3 mt-1 font-medium">{errortext}</p>
@@ -254,4 +202,4 @@ const QCOnlineBoiling = () => {
   )
 }
 
-export default QCOnlineBoiling
+export default QCOnlineHumid

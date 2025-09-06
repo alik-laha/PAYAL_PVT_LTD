@@ -50,7 +50,7 @@ const QCOnlineBoiler = () => {
 
      
 
-    axios.post("/api/boiler/create", payload)
+    axios.post("/api/qconline/createQCOnlineBoiler", payload)
       .then(() => {
         if (successdialog) successdialog.showModal()
         // reset form
@@ -188,7 +188,7 @@ const QCOnlineBoiler = () => {
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
           <p className="pl-3 mt-1 font-medium">
-            Boiler entry created successfully!
+            Online QC Boiler Reported Successfully!
           </p>
         </span>
       </dialog>

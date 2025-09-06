@@ -42,6 +42,7 @@ import VillageOutRouter from "./router/VillageOutRouter";
 import RcvVillageInRouter from "./router/RcvVillageInRouter";
 import cashewOutRouter from "./router/cashewOutRouter";
 import dashboardRouter from "./router/dashboardRouter";
+import QCOnlineRouter from "./router/QCOnlineRouter";
 
 
 
@@ -94,4 +95,5 @@ app.use("/api/formlock", formLockRouter)
 app.use("/api/packing", packingRouter)
 app.use("/api/villageout", VillageOutRouter)
 app.use("/api/dashboard", dashboardRouter)
+app.use("/api/qconline", QCOnlineRouter)
 export default app

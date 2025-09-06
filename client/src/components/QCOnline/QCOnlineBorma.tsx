@@ -62,7 +62,7 @@ const QCOnlineBorma = () => {
       createdBy: "admin", // TODO: replace with logged-in user
     }
 
-    axios.post("/api/borma/create", payload)
+    axios.post("/api/qconline/createQCOnlineBorma", payload)
       .then(() => {
         if (successdialog) successdialog.showModal()
         // reset
@@ -241,7 +241,7 @@ const QCOnlineBorma = () => {
         <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>X</button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">Borma entry created successfully!</p>
+          <p className="pl-3 mt-1 font-medium">QC Online Borma Reported successfully!</p>
         </span>
       </dialog>
 

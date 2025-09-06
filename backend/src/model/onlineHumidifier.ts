@@ -2,28 +2,27 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 
 
-const OnlineBoiling = sequelize.define('onlineBoiling', {
+const OnlineHumidifier = sequelize.define('onlineHumidifier', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    cookerNo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    cookerPressure: {
+    pressure: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
-    cookerTime: {
-        type: DataTypes.DECIMAL(10,2),
+    LotNo: {
+         type: DataTypes.STRING,
         allowNull: false
     },
-    cashewStatus: {
-        type: DataTypes.STRING,
+ 
+    Origin: {
+         type: DataTypes.STRING,
         allowNull: false
     },
+
+
     date: {
         type: DataTypes.DATE,
         allowNull: true
@@ -67,4 +66,4 @@ const OnlineBoiling = sequelize.define('onlineBoiling', {
         }
     ]
 })
-export default OnlineBoiling;
+export default OnlineHumidifier;
