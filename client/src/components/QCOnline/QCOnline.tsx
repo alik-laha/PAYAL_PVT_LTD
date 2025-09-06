@@ -26,7 +26,7 @@ import {
 import { Button } from "../ui/button";
 
 import { QC_Online_Section } from "../common/exportData";
-import axios from "axios";
+
 import { useState } from "react";
 
 import Loader from "../common/Loader";
@@ -38,6 +38,7 @@ import QCOnlineGrading from "./QCOnlineGrading";
 import QCOnlineScooping from "./QCOnlineScooping";
 import QCOnlineBorma from "./QCOnlineBorma";
 import QCOnlineHumid from "./QCOnlineHumid";
+import QCOnlineBoilerTable from "./QCOnlineBoilerTable";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -45,7 +46,7 @@ import QCOnlineHumid from "./QCOnlineHumid";
 
 const QCOnline = () => {
   const [section, setSection] = useState<string>("");
-
+  const [tablesection, setTablesection] = useState<string>("BOILER");
   const { data, isLoading, error } = UseQueryData(
     "/api/qconline/sumofallQCOnline",
     "GET",
@@ -149,7 +150,29 @@ const QCOnline = () => {
               </DialogContent>
             </Dialog>
           </div>
-          {/* <QCWaterTable/> */}
+          <div className="mt-2 mb-5 flex justify-center items-center">
+            <Select
+                    value={tablesection}
+                    onValueChange={(value) => setTablesection(value)}
+                    required={true}>
+                    <SelectTrigger className="w-1/4 justify-center">
+                      <SelectValue placeholder="Section Name" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {QC_Online_Section.map((item: any, indx) => {
+                          return (
+                            <SelectItem key={indx} value={item}>
+                              {item}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+          </div>
+          
+          <QCOnlineBoilerTable/>
         </div>
       </div>
     </>
