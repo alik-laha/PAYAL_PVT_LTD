@@ -86,6 +86,7 @@ export const sumOfallQCOnline = async (req: Request, res: Response) => {
     }
 }
 
+
 export const CreateBoiler = async (req: Request, res: Response) => {
   try {
     let {
@@ -119,6 +120,67 @@ export const CreateBoiler = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+export const SearchBoiler = async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const { fromDate, toDate } = req.body;
+       
+        const offset = (page - 1) * size;
+        const limit = size;
+        let whereClause = []
+       
+        if (fromDate && toDate) {
+           
+                whereClause.push({
+                    date: {
+                        [Op.between]: [fromDate, toDate]
+                    }
+                });
+            
+         
+           
+            
+        }
+
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+  
+        let GradingEntries;
+        if (limit === 0 && offset === 0) {
+
+         
+                GradingEntries = await OnlineBoiler.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+
+                });
+
+            
+            
+
+        }
+        else {
+           
+                GradingEntries = await OnlineBoiler.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
+                });
+            
+            
+
+        }
+        return res.status(200).json(GradingEntries);
+
+    }
+
+
+    catch (err) {
+        return res.status(500).json({ message: "Internal server Error", err });
+    }
+}
+
 export const CreateGrading = async (req: Request, res: Response) => {
   try {
     let {
@@ -152,6 +214,66 @@ export const CreateGrading = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+export const SearchGrading = async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const { fromDate, toDate } = req.body;
+       
+        const offset = (page - 1) * size;
+        const limit = size;
+        let whereClause = []
+       
+        if (fromDate && toDate) {
+           
+                whereClause.push({
+                    date: {
+                        [Op.between]: [fromDate, toDate]
+                    }
+                });
+            
+         
+           
+            
+        }
+
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+  
+        let GradingEntries;
+        if (limit === 0 && offset === 0) {
+
+         
+                GradingEntries = await OnlineGrading.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+
+                });
+
+            
+            
+
+        }
+        else {
+           
+                GradingEntries = await OnlineGrading.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
+                });
+            
+            
+
+        }
+        return res.status(200).json(GradingEntries);
+
+    }
+
+
+    catch (err) {
+        return res.status(500).json({ message: "Internal server Error", err });
+    }
+}
 
 export const CreateBoiling = async (req: Request, res: Response) => {
   try {
@@ -188,6 +310,66 @@ export const CreateBoiling = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+export const SearchBoiling = async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const { fromDate, toDate } = req.body;
+       
+        const offset = (page - 1) * size;
+        const limit = size;
+        let whereClause = []
+       
+        if (fromDate && toDate) {
+           
+                whereClause.push({
+                    date: {
+                        [Op.between]: [fromDate, toDate]
+                    }
+                });
+            
+         
+           
+            
+        }
+
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+  
+        let GradingEntries;
+        if (limit === 0 && offset === 0) {
+
+         
+                GradingEntries = await OnlineBoiling.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+
+                });
+
+            
+            
+
+        }
+        else {
+           
+                GradingEntries = await OnlineBoiling.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
+                });
+            
+            
+
+        }
+        return res.status(200).json(GradingEntries);
+
+    }
+
+
+    catch (err) {
+        return res.status(500).json({ message: "Internal server Error", err });
+    }
+}
 
 export const CreateScooping = async (req: Request, res: Response) => {
   try {
@@ -224,6 +406,7 @@ export const CreateScooping = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+
 
 export const CreateBorma= async (req: Request, res: Response) => {
   try {

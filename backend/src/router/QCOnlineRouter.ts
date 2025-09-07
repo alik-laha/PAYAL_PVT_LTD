@@ -2,13 +2,10 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-import SearchQCWater from '../controller/QCWaterController/searchQCWater';
-
-
 import editQCWater from '../controller/QCWaterController/editQCWater';
 
 
-import { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, sumOfallQCOnline } from '../controller/QCOnline/QCOnlineApi';
+import { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, SearchBoiler, SearchBoiling, SearchGrading, sumOfallQCOnline } from '../controller/QCOnline/QCOnlineApi';
 
 const router = express.Router();
 
@@ -26,7 +23,11 @@ const router = express.Router();
 
 
 
-router.post("/searchQCWater", jwtVerify, SearchQCWater)
+router.post("/searchQCOnlineBoiler", jwtVerify, SearchBoiler)
+router.post("/searchQCOnlineGrading", jwtVerify, SearchGrading)
+router.post("/searchQCOnlineBoiling", jwtVerify, SearchBoiling)
+
+
 router.post("/editQCWater/:id",jwtVerify, editQCWater)
 
 

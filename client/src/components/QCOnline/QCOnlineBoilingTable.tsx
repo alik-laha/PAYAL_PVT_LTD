@@ -26,21 +26,20 @@ import {
 import { format, toZonedTime } from 'date-fns-tz'
 import { LuDownload } from "react-icons/lu";
 import {
-    Dialog,
-    DialogContent,
-    // DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
 
-const QCOnlineBoilerTable = () => {
+const QCOnlineBoilingTable = () => {
 
   const [fromdate, setfromDate] = useState<string>('');
   const [todate, settoDate] = useState<string>('');
@@ -57,7 +56,7 @@ const QCOnlineBoilerTable = () => {
   }, [page])
 
   const handleSearch = async () => {
-    const response = await axios.post('/api/qconline/searchQCOnlineBoiler', {
+    const response = await axios.post('/api/qconline/searchQCOnlineBoiling', {
       fromDate: fromdate,
       toDate: todate,
     }, {
@@ -76,36 +75,7 @@ const QCOnlineBoilerTable = () => {
     return format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
   }
 
-  const exportToExcel = async () => {
-    const response = await axios.post('/api/qconline/searchQCOnlineBoiler', {
-      fromDate: fromdate,
-      toDate: todate,
-    })
-    const data = await response.data
-
-    const transformed = data.map((item: any, idx: number) => ({
-      Sl_No: idx + 1,
-      Date: handletimezone(item.date),
-      Time: handleAMPM(item.time),
-      Boiler1_Pressure: item.boiler1pressure,
-      Boiler2_Pressure: item.boiler2pressure,
-      Cleaning_Status: item.cleaningStatus,
-      Cleaning_Remarks: item.cleanRemarks,
-      Maintainance_Status: item.maintainance,
-      Maintainance_Remarks: item.maintainanceRemarks,
-      Created_By: item.createdBy,
-      Modified_By: item.modifiedBy,
-    }))
-
-    const ws = XLSX.utils.json_to_sheet(transformed);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Boiler_Report');
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([wbout], { type: 'application/octet-stream' });
-    saveAs(blob, 'QC_Boiler_Report_' + currDate + '.xlsx');
-  }
-    const handleAMPM = (time: string) => {
-
+  const handleAMPM = (time: string) => {
     let [hours, minutes] = time.split(':').map(Number);
     let period = ' AM';
 
@@ -117,10 +87,38 @@ const QCOnlineBoilerTable = () => {
       hours -= 12;
       period = ' PM';
     }
-    const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+    return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period;
+  }
 
-    // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
-    return finalTime;
+  const exportToExcel = async () => {
+    const response = await axios.post('/api/qconline/searchQCOnlineBoiling', {
+      fromDate: fromdate,
+      toDate: todate,
+    })
+    const data = await response.data
+
+    const transformed = data.map((item: any, idx: number) => ({
+      Sl_No: idx + 1,
+      Date: handletimezone(item.date),
+      Time: handleAMPM(item.time),
+      Cooker_No: item.cookerNo,
+      Cooker_Pressure: item.cookerPressure,
+      Cooker_Time: item.cookerTime,
+      Cashew_Status: item.cashewStatus,
+      Cleaning_Status: item.cleaningStatus,
+      Cleaning_Remarks: item.cleanRemarks,
+      Maintainance_Status: item.maintainance,
+      Maintainance_Remarks: item.maintainanceRemarks,
+      Created_By: item.createdBy,
+      Modified_By: item.modifiedBy,
+    }))
+
+    const ws = XLSX.utils.json_to_sheet(transformed);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Cooker_Report');
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    saveAs(blob, 'QC_Cooker_Report_' + currDate + '.xlsx');
   }
 
   return (
@@ -156,60 +154,77 @@ const QCOnlineBoilerTable = () => {
           <TableHead className="text-center">Id</TableHead>
           <TableHead className="text-center">Date</TableHead>
           <TableHead className="text-center">Time</TableHead>
-          <TableHead className="text-center">Boiler 1 Pressure</TableHead>
-          <TableHead className="text-center">Boiler 2 Pressure</TableHead>
+          <TableHead className="text-center">Cooker No</TableHead>
+          <TableHead className="text-center">Cooker Pressure</TableHead>
+          <TableHead className="text-center">Cooker Time</TableHead>
+          <TableHead className="text-center">Cashew Status</TableHead>
           <TableHead className="text-center">Cleaning Status</TableHead>
           <TableHead className="text-center">Maintainance Status</TableHead>
           <TableHead className="text-center">Cleaning Remarks</TableHead>
-          
           <TableHead className="text-center">Maintainance Remarks</TableHead>
           <TableHead className="text-center">Created By</TableHead>
           <TableHead className="text-center">Modified By</TableHead>
-            <TableHead className="text-center">Action</TableHead>
+          <TableHead className="text-center">Action</TableHead>
         </TableHeader>
         <TableBody>
           {
-            ItemWiseData.length > 0 ? (ItemWiseData.map((item: any, idx) => (
+            ItemWiseData.length > 0 ? (ItemWiseData.map((item: any, idx: number) => (
               <TableRow key={item.id}>
                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                 <TableCell className="text-center">{handleAMPM(item.time)}</TableCell>
-                <TableCell className="text-center">{item.boiler1pressure} Bar</TableCell>
-                <TableCell className="text-center">{item.boiler2pressure} Bar</TableCell>
-                <TableCell className="text-center"> {item.cleaningStatus==='OK' ? <button className="p-2 text-white rounded bg-green-500 fix-button-width" >OK</button>: <button className="bg-red-500 p-2 text-white rounded fix-button-width" >{item.cleaningStatus}</button>}</TableCell>
-                <TableCell className="text-center"> {item.maintainance==='OK' ? <button className="p-2 text-white rounded bg-green-500 fix-button-width" >OK</button>: <button className="bg-red-500 p-2 text-white rounded fix-button-width" >{item.maintainance}</button>}</TableCell>
+                <TableCell className="text-center">{item.cookerNo}</TableCell>
+                <TableCell className="text-center">{item.cookerPressure} Bar</TableCell>
+                <TableCell className="text-center">{item.cookerTime} Min</TableCell>
+                <TableCell className="text-center">
+                  {item.cashewStatus === 'OK'
+                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
+                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.cashewStatus}</button>}
+                </TableCell>
+                <TableCell className="text-center">
+                  {item.cleaningStatus === 'OK'
+                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
+                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.cleaningStatus}</button>}
+                </TableCell>
+                <TableCell className="text-center">
+                  {item.maintainance === 'OK'
+                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
+                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.maintainance}</button>}
+                </TableCell>
                 <TableCell className="text-center">{item.cleanRemarks}</TableCell>
-               
                 <TableCell className="text-center">{item.maintainanceRemarks}</TableCell>
                 <TableCell className="text-center">{item.createdBy}</TableCell>
                 <TableCell className="text-center">{item.modifiedBy ?? "-"}</TableCell>
                 <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className='max-w-3xl'>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>QC Online Boiler Modify</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}
-                                                            {/* <QCWaterModify data={item} /> */}
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                  <Popover>
+                    <PopoverTrigger>
+                      <button
+                        className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`}
+                        disabled={item.editStatus === 'Pending'}>
+                        Action
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                      <Dialog>
+                        <DialogTrigger className="flex"><CiEdit size={20} />
+                          <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
+                        </DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
+                          <DialogHeader>
+                            <DialogTitle>
+                              <p className='text-1xl pb-1 text-center mt-5'>QC Online Cooker Modify</p>
+                            </DialogTitle>
+                          </DialogHeader>
+                          {/* <QCCookerModify data={item} /> */}
+                        </DialogContent>
+                      </Dialog>
+                    </PopoverContent>
+                  </Popover>
+                </TableCell>
               </TableRow>
             ))) : (
               <TableRow>
-                <TableCell colSpan={11} className="text-center text-red-500 py-6">
+                <TableCell colSpan={14} className="text-center text-red-500 py-6">
                   No Result
                 </TableCell>
               </TableRow>
@@ -238,4 +253,4 @@ const QCOnlineBoilerTable = () => {
   )
 }
 
-export default QCOnlineBoilerTable;
+export default QCOnlineBoilingTable;

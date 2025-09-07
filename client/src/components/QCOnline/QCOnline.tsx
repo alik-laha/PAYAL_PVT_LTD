@@ -39,6 +39,8 @@ import QCOnlineScooping from "./QCOnlineScooping";
 import QCOnlineBorma from "./QCOnlineBorma";
 import QCOnlineHumid from "./QCOnlineHumid";
 import QCOnlineBoilerTable from "./QCOnlineBoilerTable";
+import QCOnlineGradingTable from "./QCOnlineGradingTable";
+import QCOnlineBoilingTable from "./QCOnlineBoilingTable";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -97,7 +99,7 @@ const QCOnline = () => {
             </div>
           </div>
           <p className="text-lg font-semibold text-center py-1 ">
-            QC Online Test
+            QC Daily Online Test
           </p>
           <div>
             <Dialog>
@@ -152,27 +154,29 @@ const QCOnline = () => {
           </div>
           <div className="mt-2 mb-5 flex justify-center items-center">
             <Select
-                    value={tablesection}
-                    onValueChange={(value) => setTablesection(value)}
-                    required={true}>
-                    <SelectTrigger className="w-1/4 justify-center">
-                      <SelectValue placeholder="Section Name" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {QC_Online_Section.map((item: any, indx) => {
-                          return (
-                            <SelectItem key={indx} value={item}>
-                              {item}
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+              value={tablesection}
+              onValueChange={(value) => setTablesection(value)}
+              required={true}>
+              <SelectTrigger className="w-1/4 justify-center">
+                <SelectValue placeholder="Section Name" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {QC_Online_Section.map((item: any, indx) => {
+                    return (
+                      <SelectItem key={indx} value={item}>
+                        {item}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
-          
-          <QCOnlineBoilerTable/>
+
+          {tablesection==='BOILER' && <QCOnlineBoilerTable />}
+          {tablesection==='GRADING' && <QCOnlineGradingTable />}
+          {tablesection==='BOILING' && <QCOnlineBoilingTable />}
         </div>
       </div>
     </>
