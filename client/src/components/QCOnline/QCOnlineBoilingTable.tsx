@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
+import QCOnlineBoilingModify from "./QCOnlineBoilingModify";
 
 const QCOnlineBoilingTable = () => {
 
@@ -104,7 +105,7 @@ const QCOnlineBoilingTable = () => {
       Cooker_No: item.cookerNo,
       Cooker_Pressure: item.cookerPressure,
       Cooker_Time: item.cookerTime,
-      Cashew_Status: item.cashewStatus,
+      Cashew_After_Boiling_Status: item.cashewStatus,
       Cleaning_Status: item.cleaningStatus,
       Cleaning_Remarks: item.cleanRemarks,
       Maintainance_Status: item.maintainance,
@@ -157,7 +158,7 @@ const QCOnlineBoilingTable = () => {
           <TableHead className="text-center">Cooker No</TableHead>
           <TableHead className="text-center">Cooker Pressure</TableHead>
           <TableHead className="text-center">Cooker Time</TableHead>
-          <TableHead className="text-center">Cashew Status</TableHead>
+          <TableHead className="text-center">Cashew Status After Boiling</TableHead>
           <TableHead className="text-center">Cleaning Status</TableHead>
           <TableHead className="text-center">Maintainance Status</TableHead>
           <TableHead className="text-center">Cleaning Remarks</TableHead>
@@ -171,8 +172,8 @@ const QCOnlineBoilingTable = () => {
             ItemWiseData.length > 0 ? (ItemWiseData.map((item: any, idx: number) => (
               <TableRow key={item.id}>
                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                <TableCell className="text-center">{handleAMPM(item.time)}</TableCell>
+                <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                <TableCell className="text-center font-semibold">{handleAMPM(item.time)}</TableCell>
                 <TableCell className="text-center">{item.cookerNo}</TableCell>
                 <TableCell className="text-center">{item.cookerPressure} Bar</TableCell>
                 <TableCell className="text-center">{item.cookerTime} Min</TableCell>
@@ -215,7 +216,7 @@ const QCOnlineBoilingTable = () => {
                               <p className='text-1xl pb-1 text-center mt-5'>QC Online Cooker Modify</p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <QCCookerModify data={item} /> */}
+                          <QCOnlineBoilingModify data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

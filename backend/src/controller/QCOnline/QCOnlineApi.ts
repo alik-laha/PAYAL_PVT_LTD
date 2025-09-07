@@ -7,6 +7,7 @@ import OnlineBorma from "../../model/onlineBorma";
 import OnlineHumidifier from "../../model/onlineHumidifier";
 import { Op } from "sequelize";
 
+
 export const sumOfallQCOnline = async (req: Request, res: Response) => {
 
     
@@ -180,6 +181,59 @@ export const SearchBoiler = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal server Error", err });
     }
 }
+export const editQCOnlineBoiler = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      boiler1pressure,
+      boiler2pressure,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    // Check if record exists
+    const existing = await OnlineBoiler.findOne({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ message: "QC Online Boiler entry not found" });
+    }
+
+    // Direct update
+    const updated = await OnlineBoiler.update(
+      {
+        boiler1pressure,
+        boiler2pressure,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    if (!updated) {
+      return res.status(500).json({ message: "Error updating QC Online Boiler" });
+    }
+
+    return res.status(200).json({ message: "QC Online Boiler entry updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCOnlineBoiler:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 
 export const CreateGrading = async (req: Request, res: Response) => {
   try {
@@ -370,6 +424,54 @@ export const SearchBoiling = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal server Error", err });
     }
 }
+export const editQCOnlineBoiling = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      cookerNo,
+      cookerPressure,
+      cookerTime,
+      cashewStatus,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) return res.status(400).json({ message: "id is required" });
+
+    const existing = await OnlineBoiling.findOne({ where: { id } });
+    if (!existing) return res.status(404).json({ message: "QC Online Boiling entry not found" });
+
+    await OnlineBoiling.update(
+      {
+        cookerNo,
+        cookerPressure,
+        cookerTime,
+        cashewStatus,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res.status(200).json({ message: "QC Online Boiling updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCOnlineBoiling:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export default editQCOnlineBoiling;
 
 export const CreateScooping = async (req: Request, res: Response) => {
   try {
@@ -406,6 +508,66 @@ export const CreateScooping = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+export const SearchScooping = async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const { fromDate, toDate } = req.body;
+       
+        const offset = (page - 1) * size;
+        const limit = size;
+        let whereClause = []
+       
+        if (fromDate && toDate) {
+           
+                whereClause.push({
+                    date: {
+                        [Op.between]: [fromDate, toDate]
+                    }
+                });
+            
+         
+           
+            
+        }
+
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+  
+        let GradingEntries;
+        if (limit === 0 && offset === 0) {
+
+         
+                GradingEntries = await OnlineScooping.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+
+                });
+
+            
+            
+
+        }
+        else {
+           
+                GradingEntries = await OnlineScooping.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
+                });
+            
+            
+
+        }
+        return res.status(200).json(GradingEntries);
+
+    }
+
+
+    catch (err) {
+        return res.status(500).json({ message: "Internal server Error", err });
+    }
+  }
 
 
 export const CreateBorma= async (req: Request, res: Response) => {
@@ -449,6 +611,66 @@ export const CreateBorma= async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+export const SearchBorma = async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const { fromDate, toDate } = req.body;
+       
+        const offset = (page - 1) * size;
+        const limit = size;
+        let whereClause = []
+       
+        if (fromDate && toDate) {
+           
+                whereClause.push({
+                    date: {
+                        [Op.between]: [fromDate, toDate]
+                    }
+                });
+            
+         
+           
+            
+        }
+
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+  
+        let GradingEntries;
+        if (limit === 0 && offset === 0) {
+
+         
+                GradingEntries = await OnlineBorma.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+
+                });
+
+            
+            
+
+        }
+        else {
+           
+                GradingEntries = await OnlineBorma.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
+                });
+            
+            
+
+        }
+        return res.status(200).json(GradingEntries);
+
+    }
+
+
+    catch (err) {
+        return res.status(500).json({ message: "Internal server Error", err });
+    }
+  }
 
 export const CreateHumidifier = async (req: Request, res: Response) => {
   try {
@@ -485,3 +707,63 @@ export const CreateHumidifier = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+export const SearchHumidifier = async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const { fromDate, toDate } = req.body;
+       
+        const offset = (page - 1) * size;
+        const limit = size;
+        let whereClause = []
+       
+        if (fromDate && toDate) {
+           
+                whereClause.push({
+                    date: {
+                        [Op.between]: [fromDate, toDate]
+                    }
+                });
+            
+         
+           
+            
+        }
+
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+  
+        let GradingEntries;
+        if (limit === 0 && offset === 0) {
+
+         
+                GradingEntries = await OnlineHumidifier.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+
+                });
+
+            
+            
+
+        }
+        else {
+           
+                GradingEntries = await OnlineHumidifier.findAll({
+                    where,
+                    order: [['id', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
+                });
+            
+            
+
+        }
+        return res.status(200).json(GradingEntries);
+
+    }
+
+
+    catch (err) {
+        return res.status(500).json({ message: "Internal server Error", err });
+    }
+  }

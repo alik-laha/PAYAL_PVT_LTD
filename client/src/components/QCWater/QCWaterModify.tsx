@@ -1,26 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface QCWaterModifyProps {
-    data: {
-        id: number;
-        date: string;
-        Mc_on: string;
-        feedph: string;
-        feedtds: string;
-        feedhardness: string;
-        boilertype: string;
-        ph: string;
-        tds: string;
-        day: string;
-        night: string;
-        wateruse: string;
-        reading: string;
-        remarks: string;
-        CreatedBy: string;
-        editStatus: string;
-        modifiedBy:string;
-    }
-}
+
 
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -33,7 +13,7 @@ import {  QC_Boiler } from "../common/exportData";
 
 import TimePicker from "../common/TimePicker";
 
-const QCWaterModify = (props: QCWaterModifyProps) => {
+const QCWaterModify = (props: any) => {
   
     const [date, setdate] = useState<string>('')
     const [Mc_on, setMc_on] = useState<string>('')

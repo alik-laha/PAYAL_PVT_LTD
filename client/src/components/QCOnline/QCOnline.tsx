@@ -41,6 +41,9 @@ import QCOnlineHumid from "./QCOnlineHumid";
 import QCOnlineBoilerTable from "./QCOnlineBoilerTable";
 import QCOnlineGradingTable from "./QCOnlineGradingTable";
 import QCOnlineBoilingTable from "./QCOnlineBoilingTable";
+import QCOnlineScoopingTable from "./QCOnlineScoopingTable";
+import QCOnlineBormaTable from "./QCOnlineBormaTable";
+import QCOnlineHumidifierTable from "./QCOnlineHumidifierTable";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -177,6 +180,9 @@ const QCOnline = () => {
           {tablesection==='BOILER' && <QCOnlineBoilerTable />}
           {tablesection==='GRADING' && <QCOnlineGradingTable />}
           {tablesection==='BOILING' && <QCOnlineBoilingTable />}
+          {tablesection==='SCOOPING' && <QCOnlineScoopingTable />}
+          {tablesection==='BORMA' && <QCOnlineBormaTable />}
+           {tablesection==='HUMIDIFIER' && <QCOnlineHumidifierTable />}
         </div>
       </div>
     </>

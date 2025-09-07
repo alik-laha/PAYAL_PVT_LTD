@@ -170,7 +170,7 @@ const QCOnlineGradingTable = () => {
       <Table className="mt-4">
         <TableHeader className="bg-neutral-100 text-stone-950 ">
           <TableHead className="text-center">Id</TableHead>
-          <TableHead className="text-center">Date</TableHead>
+          <TableHead className="text-center ">Date</TableHead>
           <TableHead className="text-center">Time</TableHead>
           <TableHead className="text-center">Vibrator Speed 1</TableHead>
           <TableHead className="text-center">Vibrator Speed 2</TableHead>
@@ -189,10 +189,10 @@ const QCOnlineGradingTable = () => {
                 <TableCell className="text-center">
                   {limit * (page - 1) + idx + 1}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center font-semibold">
                   {handletimezone(item.date)}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center font-semibold">
                   {handleAMPM(item.time)}
                 </TableCell>
                 <TableCell className="text-center">
