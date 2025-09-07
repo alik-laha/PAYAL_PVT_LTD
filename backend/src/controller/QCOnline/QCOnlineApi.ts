@@ -328,6 +328,56 @@ export const SearchGrading = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal server Error", err });
     }
 }
+export const editQCOnlineGrading = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      vibratorspeed1,
+      vibratorspeed2,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineGrading.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Grading entry not found" });
+    }
+
+    await OnlineGrading.update(
+      {
+        vibratorspeed1,
+        vibratorspeed2,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Grading updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCOnlineGrading:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 export const CreateBoiling = async (req: Request, res: Response) => {
   try {
@@ -471,7 +521,7 @@ export const editQCOnlineBoiling = async (req: Request, res: Response) => {
   }
 };
 
-export default editQCOnlineBoiling;
+
 
 export const CreateScooping = async (req: Request, res: Response) => {
   try {
@@ -568,6 +618,58 @@ export const SearchScooping = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal server Error", err });
     }
   }
+export const editQCOnlineScooping = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      oilcontainStatus,
+      chalnacontainStatus,
+      cashewHuskprcnt,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineScooping.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Scooping entry not found" });
+    }
+
+    await OnlineScooping.update(
+      {
+        oilcontainStatus,
+        chalnacontainStatus,
+        cashewHuskprcnt,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Scooping updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCOnlineScooping:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 
 export const CreateBorma= async (req: Request, res: Response) => {

@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
+import QCOnlineGradingModify from "./QCOnlineGradingModify";
 
 const QCOnlineGradingTable = () => {
   const [fromdate, setfromDate] = useState<string>("");
@@ -254,11 +255,12 @@ const QCOnlineGradingTable = () => {
                           <DialogHeader>
                             <DialogTitle>
                               <p className="text-1xl pb-1 text-center mt-5">
-                                QC Online Vibrator Modify
+                                QC Online Grading Modify
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* Add Modify Component Here */}
+                         
+                             <QCOnlineGradingModify data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

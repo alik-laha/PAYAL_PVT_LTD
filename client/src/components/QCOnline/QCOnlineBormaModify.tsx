@@ -99,12 +99,12 @@ const BormaModify = ({ data }: Props) => {
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <div className="flex mt-1">
             <Label className="w-2/4 pt-1">Date</Label>
-            <Input className="w-2/4 text-center" value={date} type="date" onChange={(e) => setDate(e.target.value)} required />
+            <Input className="w-2/4 text-center justify-center bg-yellow-100" value={date} type="date" onChange={(e) => setDate(e.target.value)} required />
           </div>
 
           <div className="flex mt-1">
             <Label className="w-2/4 pt-1">Time</Label>
-            <Input className="w-2/4 text-center" value={time} type="time" onChange={(e) => setTime(e.target.value)} required />
+            <Input className="w-2/4 text-center justify-center bg-yellow-100" value={time} type="time" onChange={(e) => setTime(e.target.value)} required />
           </div>
 
           <div className="flex">
@@ -241,7 +241,9 @@ const BormaModify = ({ data }: Props) => {
 
       {/* Success Dialog */}
       <dialog id="successDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>X</button>
+        <button className="dashboard-modal-close-btn" onClick={() => {successdialog?.close()
+             window.location.reload()}
+        }>X</button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
           <p className="pl-3 mt-1 font-medium">QC Online Borma updated successfully!</p>

@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
+import QCOnlineScoopingModify from "./QCOnlineScoopingModify";
 
 const QCOnlineScoopingTable = () => {
 
@@ -215,10 +216,10 @@ const QCOnlineScoopingTable = () => {
                         <DialogContent className='max-w-3xl'>
                           <DialogHeader>
                             <DialogTitle>
-                              <p className='text-1xl pb-1 text-center mt-5'>QC Online Oil Contain Modify</p>
+                              <p className='text-1xl pb-1 text-center mt-5'>QC Online Scooping Modify</p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <QCOilContainModify data={item} /> */}
+                          <QCOnlineScoopingModify data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

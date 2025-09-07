@@ -2,7 +2,7 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-import editQCOnlineBoiling, { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, SearchHumidifier, SearchScooping, sumOfallQCOnline } from '../controller/QCOnline/QCOnlineApi';
+import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline } from '../controller/QCOnline/QCOnlineApi';
 
 const router = express.Router();
 
@@ -31,6 +31,9 @@ router.post("/searchQCOnlineHumidifier", jwtVerify, SearchHumidifier)
 router.post("/editQCOnlineBoiler/:id",jwtVerify, editQCOnlineBoiler)
 router.put("/editQCOnlineBoiling/:id",jwtVerify, editQCOnlineBoiling)
 router.put("/updateQCOnlineBorma/:id",jwtVerify, editQCOnlineBorma)
+router.put("/editQCOnlineGrading/:id",jwtVerify, editQCOnlineGrading)
+router.put("/updateQCOnlineScooping/:id",jwtVerify, editQCOnlineScooping)
+router.put("/editQCOnlineGrading/:id",jwtVerify, editQCOnlineGrading)
 
 
 export default router
