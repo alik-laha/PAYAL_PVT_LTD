@@ -68,7 +68,7 @@ const OilMillTable = () => {
 
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
-    const [hidetodate, sethidetoDate] = useState<string>('');
+    //const [hidetodate, sethidetoDate] = useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
@@ -279,23 +279,23 @@ const OilMillTable = () => {
 
 
 
-    const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        const selected = e.target.value;
-        if (!selected) {
-            settoDate('')
-            sethidetoDate('')
-            return
-        }
-        //console.log(selected)
-        const date = new Date(selected)
-        date.setDate(date.getDate() + 1);
-        //console.log(date)
-        const nextday = date.toISOString().split('T')[0];
-        //console.log(nextday)
-        sethidetoDate(selected)
-        settoDate(nextday)
-    }
+    //     const selected = e.target.value;
+    //     if (!selected) {
+    //         settoDate('')
+    //         sethidetoDate('')
+    //         return
+    //     }
+    //     //console.log(selected)
+    //     const date = new Date(selected)
+    //     date.setDate(date.getDate() + 1);
+    //     //console.log(date)
+    //     const nextday = date.toISOString().split('T')[0];
+    //     //console.log(nextday)
+    //     sethidetoDate(selected)
+    //     settoDate(nextday)
+    // }
 
     return (
         <>
@@ -329,8 +329,10 @@ const OilMillTable = () => {
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                     <Input className="w-1/7 flexbox-search-width-calender"
                         type="date"
-                        value={hidetodate}
-                        onChange={handleTodate}
+                        // value={hidetodate}
+                        // onChange={handleTodate}
+                          value={todate}
+                        onChange={(e) => settoDate(e.target.value)}
                         placeholder="To Date"
 
                     />

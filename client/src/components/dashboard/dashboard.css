@@ -91,9 +91,26 @@
     background-color: inherit;
     outline: none;
     cursor: pointer;
-    margin: 10px 5px 10px 10px;
+    margin: 10px 5px 15px 15px;
     display: flex;
   text-shadow: 0px 0px 1px  #7ba5bc;
+   /* transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; */
+   
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+
+  transition: background-color 0.2s ease;
+  z-index: 1;
+  position: relative;
+}
+
+
+.user-pvt.trigger-open {
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  
+   
 }
 .user-pvt p{
     float: right;
@@ -109,9 +126,42 @@
     font-size: 12px;
     font-weight: 500;
     color: #ecf0f1;
+
+    
     
 }
+/* Smooth expand/collapse transition */
+.Items-pvt[data-state="open"] {
+  animation: slideDown 300ms ease-out;
+  overflow: hidden;
+}
 
+.Items-pvt[data-state="closed"] {
+  animation: slideUp 300ms ease-in;
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height, auto);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-collapsible-content-height, auto);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
 
 .Items-pvt:hover{
     background-color: #928dab;
@@ -124,7 +174,7 @@
 .Items-pvt a:hover{
  color: white;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 14px;
     
 }
 

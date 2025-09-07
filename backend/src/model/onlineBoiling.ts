@@ -9,7 +9,7 @@ const OnlineBoiling = sequelize.define('onlineBoiling', {
         autoIncrement: true
     },
     cookerNo: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.STRING,
         allowNull: false
     },
     cookerPressure: {
