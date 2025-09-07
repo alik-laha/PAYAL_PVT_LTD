@@ -672,6 +672,61 @@ export const SearchBorma = async (req: Request, res: Response) => {
     }
   }
 
+export const editQCOnlineBorma = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      LotNo,
+      pressure,
+      Origin,
+      bormaNo,
+      nwQuality,
+      burnQuality,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) return res.status(400).json({ message: "id is required" });
+
+    const existing = await OnlineBorma.findOne({ where: { id } });
+    if (!existing)
+      return res.status(404).json({ message: "QC Online Borma entry not found" });
+
+    await OnlineBorma.update(
+      {
+        LotNo,
+        pressure,
+        Origin,
+        bormaNo,
+        nwQuality,
+        burnQuality,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Borma updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCOnlineBorma:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
 export const CreateHumidifier = async (req: Request, res: Response) => {
   try {
     let {

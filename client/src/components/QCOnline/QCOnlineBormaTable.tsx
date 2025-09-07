@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
+import QCOnlineBormaModify from "./QCOnlineBormaModify";
 
 const QCOnlineBormaTable = () => {
   const [fromdate, setfromDate] = useState<string>('');
@@ -230,7 +231,7 @@ const QCOnlineBormaTable = () => {
                               <p className='text-1xl pb-1 text-center mt-5'>QC Online Borma Modify</p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <QCBormaModify data={item} /> */}
+                          <QCOnlineBormaModify data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>
