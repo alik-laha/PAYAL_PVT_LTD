@@ -924,3 +924,55 @@ export const SearchHumidifier = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal server Error", err });
     }
   }
+export const editQCOnlineHumidifier = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      LotNo,
+      pressure,
+      Origin,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineHumidifier.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Humidifier entry not found" });
+    }
+
+    await OnlineHumidifier.update(
+      {
+        LotNo,
+        pressure,
+        Origin,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Humidifier updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCOnlineHumidifier:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};

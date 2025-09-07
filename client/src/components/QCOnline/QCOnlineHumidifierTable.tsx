@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
+import EditQCOnlineHumidifier from "./QCOnlineHumidifierModify";
 
 const QCOnlineHumidifierTable = () => {
   const [fromdate, setfromDate] = useState<string>('');
@@ -209,7 +210,7 @@ const QCOnlineHumidifierTable = () => {
                               <p className='text-1xl pb-1 text-center mt-5'>QC Online Humidifier Modify</p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <QCHumidifierModify data={item} /> */}
+                          <EditQCOnlineHumidifier data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

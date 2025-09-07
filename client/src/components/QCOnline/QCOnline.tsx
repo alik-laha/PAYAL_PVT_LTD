@@ -104,7 +104,7 @@ const QCOnline = () => {
           <p className="text-lg font-semibold text-center py-1 ">
             QC Daily Online Test
           </p>
-          <div>
+          <div className="flex">
             <Dialog>
               <DialogTrigger disabled={data.EditData > 0 ? true : false}>
                 {" "}
@@ -154,13 +154,12 @@ const QCOnline = () => {
                 {/* <QCWaterCreate /> */}
               </DialogContent>
             </Dialog>
-          </div>
-          <div className="mt-2 mb-5 flex justify-center items-center">
-            <Select
+           <div className="mb-2 mt-5 responsive-button-adjust no-margin-left ml-4">
+<Select
               value={tablesection}
               onValueChange={(value) => setTablesection(value)}
               required={true}>
-              <SelectTrigger className="w-1/4 justify-center">
+              <SelectTrigger className="w-40 justify-center h-10">
                 <SelectValue placeholder="Section Name" />
               </SelectTrigger>
               <SelectContent>
@@ -175,7 +174,12 @@ const QCOnline = () => {
                 </SelectGroup>
               </SelectContent>
             </Select>
+           </div>
+           
           </div>
+          {/* <div className="mt-2 mb-5 flex justify-center items-center">
+           
+          </div> */}
 
           {tablesection==='BOILER' && <QCOnlineBoilerTable />}
           {tablesection==='GRADING' && <QCOnlineGradingTable />}
