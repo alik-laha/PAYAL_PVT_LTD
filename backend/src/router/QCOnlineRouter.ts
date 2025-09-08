@@ -2,12 +2,9 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline, editQCOnlineHumidifier } from '../controller/QCOnline/QCOnlineApi';
+import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline, editQCOnlineHumidifier, CreateHandGrade, SearchHandGrade, editQCHandGrade, CreatePouch, SearchPouch, editQCPouch, CreatePeeling, SearchPeeling, editQCPeeling, CreateNanopix, SearchNanopix, editQCNanopix, CreateTaiho, SearchTaiho, editQCTaiho } from '../controller/QCOnline/QCOnlineApi';
 
 const router = express.Router();
-
-
-
 
  router.get("/sumofallQCOnline", jwtVerify, sumOfallQCOnline)
 
@@ -34,6 +31,32 @@ router.put("/updateQCOnlineBorma/:id",jwtVerify, editQCOnlineBorma)
 router.put("/editQCOnlineGrading/:id",jwtVerify, editQCOnlineGrading)
 router.put("/updateQCOnlineScooping/:id",jwtVerify, editQCOnlineScooping)
 router.put("/editQCOnlineHumidifier/:id",jwtVerify, editQCOnlineHumidifier)
+
+/* ---------------------- New Routes ---------------------- */
+// Hand Grade
+router.post("/createQCOnlineHandGrade", jwtVerify, CreateHandGrade);
+router.post("/searchQCOnlineHandGrade", jwtVerify, SearchHandGrade);
+router.put("/editQCOnlineHandGrade/:id", jwtVerify, editQCHandGrade);
+
+// Pouch
+router.post("/createQCOnlinePouch", jwtVerify, CreatePouch);
+router.post("/searchQCOnlinePouch", jwtVerify, SearchPouch);
+router.put("/editQCOnlinePouch/:id", jwtVerify, editQCPouch);
+
+// Peeling
+router.post("/createQCOnlinePeeling", jwtVerify, CreatePeeling);
+router.post("/searchQCOnlinePeeling", jwtVerify, SearchPeeling);
+router.put("/editQCOnlinePeeling/:id", jwtVerify, editQCPeeling);
+
+// Nanopix
+router.post("/createQCOnlineNanopix", jwtVerify, CreateNanopix);
+router.post("/searchQCOnlineNanopix", jwtVerify, SearchNanopix);
+router.put("/editQCOnlineNanopix/:id", jwtVerify, editQCNanopix);
+
+// Taiho
+router.post("/createQCOnlineTaiho", jwtVerify, CreateTaiho);
+router.post("/searchQCOnlineTaiho", jwtVerify, SearchTaiho);
+router.put("/editQCOnlineTaiho/:id", jwtVerify, editQCTaiho);
 
 
 export default router
