@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Origin, QC_Online_Status, GradeNames } from "../common/exportData" 
+import { Origin, QC_Online_Status } from "../common/exportData" 
 import { Textarea } from "../ui/textarea"
 import { findskutypeData } from "@/type/type"
 import { ScrollArea } from "../ui/scroll-area"
