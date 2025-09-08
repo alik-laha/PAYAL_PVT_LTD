@@ -50,6 +50,7 @@ import QCOnlineBucket from "./QCOnlineBucket";
 import QCOnlineNanopix from "./QCOnlineNanopix";
 import QCOnlinePeeling from "./QCOnlinePeeling";
 import QCOnlineHandGrade from "./QCOnlineHandGrade";
+import QCOnlinePeelingTable from "./QCOnlinePeelingTable";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -200,7 +201,14 @@ const QCOnline = () => {
           {tablesection==='BOILING' && <QCOnlineBoilingTable />}
           {tablesection==='SCOOPING' && <QCOnlineScoopingTable />}
           {tablesection==='BORMA' && <QCOnlineBormaTable />}
-           {tablesection==='HUMIDIFIER' && <QCOnlineHumidifierTable />}
+          {tablesection==='HUMIDIFIER' && <QCOnlineHumidifierTable />}
+          
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
         </div>
       </div>
     </>
