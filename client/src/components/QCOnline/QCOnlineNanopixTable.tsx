@@ -38,9 +38,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
-//import EditQCOnlinePeeling from "./QCOnlinePeelingModify";
+//import EditQCOnlineNanopix from "./QCOnlineNanopixModify";
 
-const QCOnlinePeelingTable = () => {
+const QCOnlineNanopixTable = () => {
   const [fromdate, setfromDate] = useState<string>("");
   const [todate, settoDate] = useState<string>("");
   const [page, setPage] = useState(pageNo);
@@ -57,11 +57,8 @@ const QCOnlinePeelingTable = () => {
 
   const handleSearch = async () => {
     const response = await axios.post(
-      "/api/qconline/searchQCOnlinePeeling",
-      {
-        fromDate: fromdate,
-        toDate: todate,
-      },
+      "/api/qconline/searchQCOnlineNanopix",
+      { fromDate: fromdate, toDate: todate },
       { params: { page, limit } }
     );
     const data = await response.data;
@@ -98,7 +95,7 @@ const QCOnlinePeelingTable = () => {
   };
 
   const exportToExcel = async () => {
-    const response = await axios.post("/api/qconline/searchQCOnlinePeeling", {
+    const response = await axios.post("/api/qconline/searchQCOnlineNanopix", {
       fromDate: fromdate,
       toDate: todate,
     });
@@ -108,11 +105,9 @@ const QCOnlinePeelingTable = () => {
       Sl_No: idx + 1,
       Date: handletimezone(item.date),
       Time: handleAMPM(item.time),
-      Pressure: item.pressure,
-      Peeling_Time: item.peelingTime,
-      Unpeeled_Pcnt: item.unpeelPcntng,
-      Cashew_Pcnt: item.cashewPcntng,
-      Peeling_Qty: item.peelingQty,
+      Cup_Cleaning_Status: item.cupcleaningStatus,
+      Magic_Cleaning_Status: item.magiccleaningStatus,
+      Grading_Count: item.gradingCount,
       Cleaning_Status: item.cleaningStatus,
       Cleaning_Remarks: item.cleanRemarks,
       Maintainance_Status: item.maintainance,
@@ -123,10 +118,10 @@ const QCOnlinePeelingTable = () => {
 
     const ws = XLSX.utils.json_to_sheet(transformed);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Peeling_Report");
+    XLSX.utils.book_append_sheet(wb, ws, "Nanopix_Report");
     const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const blob = new Blob([wbout], { type: "application/octet-stream" });
-    saveAs(blob, "QC_Peeling_Report_" + currDate + ".xlsx");
+    saveAs(blob, "QC_Nanopix_Report_" + currDate + ".xlsx");
   };
 
   return (
@@ -170,11 +165,10 @@ const QCOnlinePeelingTable = () => {
           <TableHead className="text-center">Id</TableHead>
           <TableHead className="text-center">Date</TableHead>
           <TableHead className="text-center">Time</TableHead>
-          <TableHead className="text-center">Peeling MC Pressure</TableHead>
-          <TableHead className="text-center">Peeling Time</TableHead>
-          <TableHead className="text-center">Unpeeled % in 250 Gm</TableHead>
-          <TableHead className="text-center">Cashew % in Husk</TableHead>
-          <TableHead className="text-center">Input Peeling Qty</TableHead>
+              <TableHead className="text-center">After Grading Count</TableHead>
+          <TableHead className="text-center">Cup Cleaning Status</TableHead>
+          <TableHead className="text-center">Magic Cleaning Status</TableHead>
+      
           <TableHead className="text-center">Cleaning Status</TableHead>
           <TableHead className="text-center">Maintainance Status</TableHead>
           <TableHead className="text-center">Cleaning Remarks</TableHead>
@@ -196,17 +190,32 @@ const QCOnlinePeelingTable = () => {
                 <TableCell className="text-center font-semibold">
                   {handleAMPM(item.time)}
                 </TableCell>
-                <TableCell className="text-center">{item.pressure} Bar</TableCell>
-                <TableCell className="text-center">{item.peelingTime} sec</TableCell>
-                <TableCell className="text-center text-red-500">
-                  {item.unpeelPcntng} 
-                </TableCell>
-                <TableCell className="text-center text-cyan-500">
-                  {item.cashewPcntng} 
-                </TableCell>
+                <TableCell className="text-center">{item.gradingCount}</TableCell>
+                 {/* Status Buttons */}
                 <TableCell className="text-center">
-                  {item.peelingQty} Kg
+                  {item.cupcleaningStatus === "OK" ? (
+                    <button className="p-2 text-white rounded bg-green-500 fix-button-width">
+                      OK
+                    </button>
+                  ) : (
+                    <button className="bg-red-500 p-2 text-white rounded fix-button-width">
+                      {item.cupcleaningStatus}
+                    </button>
+                  )}
                 </TableCell>
+                  {/* Status Buttons */}
+                <TableCell className="text-center">
+                  {item.magiccleaningStatus === "OK" ? (
+                    <button className="p-2 text-white rounded bg-green-500 fix-button-width">
+                      OK
+                    </button>
+                  ) : (
+                    <button className="bg-red-500 p-2 text-white rounded fix-button-width">
+                      {item.magiccleaningStatus}
+                    </button>
+                  )}
+                </TableCell>
+                
 
                 {/* Status Buttons */}
                 <TableCell className="text-center">
@@ -269,11 +278,11 @@ const QCOnlinePeelingTable = () => {
                           <DialogHeader>
                             <DialogTitle>
                               <p className="text-1xl pb-1 text-center mt-5">
-                                QC Online Peeling Modify
+                                QC Online Nanopix Modify
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlinePeeling data={item} /> */}
+                          {/* <EditQCOnlineNanopix data={item} /> */}
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>
@@ -317,4 +326,4 @@ const QCOnlinePeelingTable = () => {
   );
 };
 
-export default QCOnlinePeelingTable;
+export default QCOnlineNanopixTable;

@@ -51,6 +51,11 @@ import QCOnlineNanopix from "./QCOnlineNanopix";
 import QCOnlinePeeling from "./QCOnlinePeeling";
 import QCOnlineHandGrade from "./QCOnlineHandGrade";
 import QCOnlinePeelingTable from "./QCOnlinePeelingTable";
+import QCOnlineTaihoTable from "./QCOnlineTaihoTable";
+import QCOnlineNanopixTable from "./QCOnlineNanopixTable";
+import QCOnlinePouchTable from "./QCOnlinePouchTable";
+import QCOnlineBucketTable from "./QCOnlineBucketTable";
+import QCOnlineHandGradeTable from "./QCOnlineHandGradeTable";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -204,11 +209,11 @@ const QCOnline = () => {
           {tablesection==='HUMIDIFIER' && <QCOnlineHumidifierTable />}
           
            {tablesection==='PEELING' && <QCOnlinePeelingTable />}
-           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
-           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
-           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
-           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
-           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='TAIHO' && <QCOnlineTaihoTable />}
+           {tablesection==='NANOPIX' && <QCOnlineNanopixTable />}
+           {tablesection==='POUCH' && <QCOnlinePouchTable />}
+           {tablesection==='BUCKET' && <QCOnlineBucketTable />}
+           {tablesection==='HAND_GRADE' && <QCOnlineHandGradeTable />}
         </div>
       </div>
     </>

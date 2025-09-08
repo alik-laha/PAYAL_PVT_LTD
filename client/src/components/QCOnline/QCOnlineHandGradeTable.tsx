@@ -38,9 +38,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
-//import EditQCOnlinePeeling from "./QCOnlinePeelingModify";
+//import EditQCOnlineHandGrade from "./QCOnlineHandGradeModify";
 
-const QCOnlinePeelingTable = () => {
+const QCOnlineHandGradeTable = () => {
   const [fromdate, setfromDate] = useState<string>("");
   const [todate, settoDate] = useState<string>("");
   const [page, setPage] = useState(pageNo);
@@ -57,11 +57,8 @@ const QCOnlinePeelingTable = () => {
 
   const handleSearch = async () => {
     const response = await axios.post(
-      "/api/qconline/searchQCOnlinePeeling",
-      {
-        fromDate: fromdate,
-        toDate: todate,
-      },
+      "/api/qconline/searchQCOnlineHandGrade",
+      { fromDate: fromdate, toDate: todate },
       { params: { page, limit } }
     );
     const data = await response.data;
@@ -98,7 +95,7 @@ const QCOnlinePeelingTable = () => {
   };
 
   const exportToExcel = async () => {
-    const response = await axios.post("/api/qconline/searchQCOnlinePeeling", {
+    const response = await axios.post("/api/qconline/searchQCOnlineHandGrade", {
       fromDate: fromdate,
       toDate: todate,
     });
@@ -108,11 +105,10 @@ const QCOnlinePeelingTable = () => {
       Sl_No: idx + 1,
       Date: handletimezone(item.date),
       Time: handleAMPM(item.time),
-      Pressure: item.pressure,
-      Peeling_Time: item.peelingTime,
-      Unpeeled_Pcnt: item.unpeelPcntng,
-      Cashew_Pcnt: item.cashewPcntng,
-      Peeling_Qty: item.peelingQty,
+      Lot_No: item.LotNo,
+      Origin: item.Origin,
+      Grade: item.Grade,
+      Moisture: item.moisture,
       Cleaning_Status: item.cleaningStatus,
       Cleaning_Remarks: item.cleanRemarks,
       Maintainance_Status: item.maintainance,
@@ -123,10 +119,10 @@ const QCOnlinePeelingTable = () => {
 
     const ws = XLSX.utils.json_to_sheet(transformed);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Peeling_Report");
+    XLSX.utils.book_append_sheet(wb, ws, "HandGrade_Report");
     const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const blob = new Blob([wbout], { type: "application/octet-stream" });
-    saveAs(blob, "QC_Peeling_Report_" + currDate + ".xlsx");
+    saveAs(blob, "QC_HandGrade_Report_" + currDate + ".xlsx");
   };
 
   return (
@@ -170,11 +166,10 @@ const QCOnlinePeelingTable = () => {
           <TableHead className="text-center">Id</TableHead>
           <TableHead className="text-center">Date</TableHead>
           <TableHead className="text-center">Time</TableHead>
-          <TableHead className="text-center">Peeling MC Pressure</TableHead>
-          <TableHead className="text-center">Peeling Time</TableHead>
-          <TableHead className="text-center">Unpeeled % in 250 Gm</TableHead>
-          <TableHead className="text-center">Cashew % in Husk</TableHead>
-          <TableHead className="text-center">Input Peeling Qty</TableHead>
+          <TableHead className="text-center">Lot No</TableHead>
+          <TableHead className="text-center">Origin</TableHead>
+          <TableHead className="text-center">Grade</TableHead>
+          <TableHead className="text-center">Moisture</TableHead>
           <TableHead className="text-center">Cleaning Status</TableHead>
           <TableHead className="text-center">Maintainance Status</TableHead>
           <TableHead className="text-center">Cleaning Remarks</TableHead>
@@ -196,17 +191,10 @@ const QCOnlinePeelingTable = () => {
                 <TableCell className="text-center font-semibold">
                   {handleAMPM(item.time)}
                 </TableCell>
-                <TableCell className="text-center">{item.pressure} Bar</TableCell>
-                <TableCell className="text-center">{item.peelingTime} sec</TableCell>
-                <TableCell className="text-center text-red-500">
-                  {item.unpeelPcntng} 
-                </TableCell>
-                <TableCell className="text-center text-cyan-500">
-                  {item.cashewPcntng} 
-                </TableCell>
-                <TableCell className="text-center">
-                  {item.peelingQty} Kg
-                </TableCell>
+                <TableCell className="text-center font-semibold text-red-500">{item.LotNo}</TableCell>
+                <TableCell className="text-center font-semibold text-cyan-500">{item.Origin}</TableCell>
+                <TableCell className="text-center">{item.Grade}</TableCell>
+                <TableCell className="text-center">{item.moisture} %</TableCell>
 
                 {/* Status Buttons */}
                 <TableCell className="text-center">
@@ -232,16 +220,10 @@ const QCOnlinePeelingTable = () => {
                   )}
                 </TableCell>
 
-                <TableCell className="text-center">
-                  {item.cleanRemarks}
-                </TableCell>
-                <TableCell className="text-center">
-                  {item.maintainanceRemarks}
-                </TableCell>
+                <TableCell className="text-center">{item.cleanRemarks}</TableCell>
+                <TableCell className="text-center">{item.maintainanceRemarks}</TableCell>
                 <TableCell className="text-center">{item.createdBy}</TableCell>
-                <TableCell className="text-center">
-                  {item.modifiedBy ?? "-"}
-                </TableCell>
+                <TableCell className="text-center">{item.modifiedBy ?? "-"}</TableCell>
 
                 <TableCell className="text-center">
                   <Popover>
@@ -269,11 +251,11 @@ const QCOnlinePeelingTable = () => {
                           <DialogHeader>
                             <DialogTitle>
                               <p className="text-1xl pb-1 text-center mt-5">
-                                QC Online Peeling Modify
+                                QC Online Hand Grade Modify
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlinePeeling data={item} /> */}
+                          {/* <EditQCOnlineHandGrade data={item} /> */}
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>
@@ -317,4 +299,4 @@ const QCOnlinePeelingTable = () => {
   );
 };
 
-export default QCOnlinePeelingTable;
+export default QCOnlineHandGradeTable;
