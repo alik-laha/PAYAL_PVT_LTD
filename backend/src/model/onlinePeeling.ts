@@ -17,7 +17,7 @@ const OnlinePeeling = sequelize.define('onlinePeeling', {
         allowNull: false
     },
     unpeelPcntng: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.STRING,
         allowNull: false
     },
     cashewPcntng: {

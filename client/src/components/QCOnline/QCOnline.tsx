@@ -47,6 +47,9 @@ import QCOnlineHumidifierTable from "./QCOnlineHumidifierTable";
 import QCOnlinePouch from "./QCOnlinePouch";
 import QCOnlineTaiho from "./QCOnlineTaiho";
 import QCOnlineBucket from "./QCOnlineBucket";
+import QCOnlineNanopix from "./QCOnlineNanopix";
+import QCOnlinePeeling from "./QCOnlinePeeling";
+import QCOnlineHandGrade from "./QCOnlineHandGrade";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -154,9 +157,14 @@ const QCOnline = () => {
                 {section === "SCOOPING" && <QCOnlineScooping />}
                 {section === "BORMA" && <QCOnlineBorma />}
                 {section === "HUMIDIFIER" && <QCOnlineHumid />}
+
                 {section === "TAIHO" && <QCOnlineTaiho />}
                 {section === "POUCH" && <QCOnlinePouch />}
-                  {section === "BUCKET" && <QCOnlineBucket />}
+                {section === "BUCKET" && <QCOnlineBucket />}
+                {section === "NANOPIX" && <QCOnlineNanopix />}
+                {section === "PEELING" && <QCOnlinePeeling />}
+                {section === "HAND_GRADE" && <QCOnlineHandGrade />}
+                  
                 {/* <QCWaterCreate /> */}
               </DialogContent>
             </Dialog>
