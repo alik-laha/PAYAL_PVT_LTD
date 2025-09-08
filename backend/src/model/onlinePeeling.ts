@@ -13,7 +13,7 @@ const OnlinePeeling = sequelize.define('onlinePeeling', {
         allowNull: false
     },
     peelingTime: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     unpeelPcntng: {
@@ -21,7 +21,7 @@ const OnlinePeeling = sequelize.define('onlinePeeling', {
         allowNull: false
     },
     cashewPcntng: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     peelingQty: {
@@ -31,7 +31,7 @@ const OnlinePeeling = sequelize.define('onlinePeeling', {
    
     date: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: false
     },
     time: {
         type: DataTypes.TIME,

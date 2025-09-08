@@ -18,7 +18,7 @@ import { Textarea } from "../ui/textarea"
 import { findskutypeData } from "@/type/type"
 import { ScrollArea } from "../ui/scroll-area"
 
-const QCOnlinePouch = () => {
+const QCOnlineBucket = () => {
   const [errortext, setErrorText] = useState<string>("")
   const [isdisable, setIsDisable] = useState<boolean>(false)
 
@@ -117,7 +117,7 @@ const QCOnlinePouch = () => {
       createdBy: "admin", // TODO: replace with logged-in user
     }
 
-    axios.post("/api/qconline/createQCOnlinePouch", payload)
+    axios.post("/api/qconline/createQCOnlineBucket", payload)
       .then(() => {
         if (successdialog) successdialog.showModal()
         // reset
@@ -306,7 +306,7 @@ const QCOnlinePouch = () => {
         <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>X</button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">QC Online Pouch Reported successfully!</p>
+          <p className="pl-3 mt-1 font-medium">QC Online Bucket Reported successfully!</p>
         </span>
       </dialog>
 
@@ -322,4 +322,4 @@ const QCOnlinePouch = () => {
   )
 }
 
-export default QCOnlinePouch
+export default QCOnlineBucket

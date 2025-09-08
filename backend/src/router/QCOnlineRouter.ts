@@ -2,7 +2,7 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline, editQCOnlineHumidifier, CreateHandGrade, SearchHandGrade, editQCHandGrade, CreatePouch, SearchPouch, editQCPouch, CreatePeeling, SearchPeeling, editQCPeeling, CreateNanopix, SearchNanopix, editQCNanopix, CreateTaiho, SearchTaiho, editQCTaiho } from '../controller/QCOnline/QCOnlineApi';
+import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline, editQCOnlineHumidifier, CreateHandGrade, SearchHandGrade, editQCHandGrade, CreatePouch, SearchPouch, editQCPouch, CreatePeeling, SearchPeeling, editQCPeeling, CreateNanopix, SearchNanopix, editQCNanopix, CreateTaiho, SearchTaiho, editQCTaiho, editQCBucket, SearchBucket, CreateBucket } from '../controller/QCOnline/QCOnlineApi';
 
 const router = express.Router();
 
@@ -42,6 +42,11 @@ router.put("/editQCOnlineHandGrade/:id", jwtVerify, editQCHandGrade);
 router.post("/createQCOnlinePouch", jwtVerify, CreatePouch);
 router.post("/searchQCOnlinePouch", jwtVerify, SearchPouch);
 router.put("/editQCOnlinePouch/:id", jwtVerify, editQCPouch);
+
+// Bucket
+router.post("/createQCOnlineBucket", jwtVerify, CreateBucket);
+router.post("/searchQCOnlineBucket", jwtVerify, SearchBucket);
+router.put("/editQCOnlineBucket/:id", jwtVerify, editQCBucket);
 
 // Peeling
 router.post("/createQCOnlinePeeling", jwtVerify, CreatePeeling);
