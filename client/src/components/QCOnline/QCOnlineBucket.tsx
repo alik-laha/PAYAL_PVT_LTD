@@ -153,22 +153,44 @@ const QCOnlineBucket = () => {
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <div className="flex mt-1">
             <Label className="w-2/4 pt-1">Date</Label>
-            <Input className="w-2/4 text-center justify-center" value={date} type="date" readOnly required />
+            <Input
+              className="w-2/4 text-center justify-center"
+              value={date}
+              type="date"
+              readOnly
+              required
+            />
           </div>
 
           <div className="flex mt-1">
             <Label className="w-2/4 pt-1">Time</Label>
-            <Input className="w-2/4 text-center justify-center" value={time} type="time" readOnly required />
+            <Input
+              className="w-2/4 text-center justify-center"
+              value={time}
+              type="time"
+              readOnly
+              required
+            />
           </div>
 
           <div className="flex">
             <Label className="w-2/4 pt-1">Lot No</Label>
-            <Input className="w-2/4 text-center" ref={lotNoRef} required placeholder="Lot No" />
+            <Input
+              className="w-2/4 text-center"
+              ref={lotNoRef}
+              required
+              placeholder="Lot No"
+            />
           </div>
 
           <div className="flex">
             <Label className="w-2/4 pt-1">Batch No</Label>
-            <Input className="w-2/4 text-center" ref={batchNoRef} required placeholder="Batch No" />
+            <Input
+              className="w-2/4 text-center"
+              ref={batchNoRef}
+              required
+              placeholder="Batch No"
+            />
           </div>
 
           {/* Origin Dropdown */}
@@ -181,7 +203,9 @@ const QCOnlineBucket = () => {
               <SelectContent>
                 <SelectGroup>
                   {Origin.map((opt) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -191,36 +215,64 @@ const QCOnlineBucket = () => {
           {/* Grade Dropdown */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Grade</Label>
-            <Input value={grade} placeholder="Final Grade" className="w-2/4 text-center"
-                                                        onChange={(e) => handleGradechange( e)} required />
-                                                   
+            <Input
+              value={grade}
+              placeholder="Final Grade"
+              className="w-2/4 text-center"
+              onChange={(e) => handleGradechange(e)}
+              required
+            />
           </div>
-            <ScrollArea className="max-h-24 w-2/4 overflow-scroll dropdown-content w-30" style={{ display: gradeview }}>
-                                                        {
-                                                            gradeData.map((item: any) => (
-                                                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
-                                                                    onClick={() => handleGradeidClick(item)}>
-                                                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
-
-                                                                </div>
-                                                            ))
-                                                        }
-                                                    </ScrollArea>
+          <ScrollArea
+            className="max-h-24 w-2/4 overflow-scroll dropdown-content w-30"
+            style={{ display: gradeview }}>
+            {gradeData.map((item: any) => (
+              <div
+                key={item.id}
+                className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
+                onClick={() => handleGradeidClick(item)}>
+                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">
+                  {item.sku}
+                </p>
+              </div>
+            ))}
+          </ScrollArea>
 
           {/* Moisture, Nutcount, AvgWeight */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Moisture %</Label>
-            <Input className="w-2/4 text-center" ref={moistureRef} type="number" step="0.01" required placeholder="%" />
+            <Input
+              className="w-2/4 text-center"
+              ref={moistureRef}
+              type="number"
+              step="0.01"
+              required
+              placeholder="%"
+            />
           </div>
 
           <div className="flex">
             <Label className="w-2/4 pt-1">Nut count</Label>
-            <Input className="w-2/4 text-center" ref={nutcountRef} type="number" step="0.01" required placeholder="Value" />
+            <Input
+              className="w-2/4 text-center"
+              ref={nutcountRef}
+              type="number"
+              step="0.01"
+              required
+              placeholder="Value"
+            />
           </div>
 
           <div className="flex">
             <Label className="w-2/4 pt-1">Avg. Weight</Label>
-            <Input className="w-2/4 text-center" ref={avgWeightRef} type="number" step="0.01" required placeholder="Grams" />
+            <Input
+              className="w-2/4 text-center"
+              ref={avgWeightRef}
+              type="number"
+              step="0.01"
+              required
+              placeholder="Grams"
+            />
           </div>
 
           {/* Packet Quality Status */}
@@ -233,7 +285,9 @@ const QCOnlineBucket = () => {
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -243,21 +297,30 @@ const QCOnlineBucket = () => {
           {pktQuality === "NOT OK" && (
             <div className="flex">
               <Label className="w-2/4 pt-1">Packet Quality Remarks</Label>
-              <Textarea className="w-2/4 text-center" ref={pktQualityRemarksRef} required />
+              <Textarea
+                className="w-2/4 text-center"
+                ref={pktQualityRemarksRef}
+                required
+              />
             </div>
           )}
 
           {/* Cleaning Status */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Cleaning Status</Label>
-            <Select value={cleaningStatus} onValueChange={setCleaningStatus} required>
+            <Select
+              value={cleaningStatus}
+              onValueChange={setCleaningStatus}
+              required>
               <SelectTrigger className="w-2/4 justify-center">
                 <SelectValue placeholder="Select Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -267,21 +330,30 @@ const QCOnlineBucket = () => {
           {cleaningStatus === "NOT OK" && (
             <div className="flex">
               <Label className="w-2/4 pt-1">Cleaning Remarks</Label>
-              <Textarea className="w-2/4 text-center" ref={cleanRemarksRef} required />
+              <Textarea
+                className="w-2/4 text-center"
+                ref={cleanRemarksRef}
+                required
+              />
             </div>
           )}
 
           {/* Maintenance Status */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Maintenance Status</Label>
-            <Select value={maintenanceStatus} onValueChange={setMaintenanceStatus} required>
+            <Select
+              value={maintenanceStatus}
+              onValueChange={setMaintenanceStatus}
+              required>
               <SelectTrigger className="w-2/4 justify-center">
                 <SelectValue placeholder="Select Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {QC_Online_Status.map((status) => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -291,7 +363,11 @@ const QCOnlineBucket = () => {
           {maintenanceStatus === "NOT OK" && (
             <div className="flex">
               <Label className="w-2/4 pt-1">Maintenance Remarks</Label>
-              <Textarea className="w-2/4 text-center" ref={maintenanceRemarksRef} required />
+              <Textarea
+                className="w-2/4 text-center"
+                ref={maintenanceRemarksRef}
+                required
+              />
             </div>
           )}
 
@@ -303,23 +379,33 @@ const QCOnlineBucket = () => {
 
       {/* Success Dialog */}
       <dialog id="successDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => successdialog?.close()}>X</button>
+        <button
+          className="dashboard-modal-close-btn"
+          onClick={() => successdialog?.close()}>
+          X
+        </button>
         <span className="flex">
           <img src={tick} height={25} width={25} alt="success" />
-          <p className="pl-3 mt-1 font-medium">QC Online Bucket Reported successfully!</p>
+          <p className="pl-3 mt-1 font-medium">
+            QC Online Bucket Reported successfully!
+          </p>
         </span>
       </dialog>
 
       {/* Error Dialog */}
       <dialog id="errorDialog" className="dashboard-modal">
-        <button className="dashboard-modal-close-btn" onClick={() => errordialog?.close()}>X</button>
+        <button
+          className="dashboard-modal-close-btn"
+          onClick={() => errordialog?.close()}>
+          X
+        </button>
         <span className="flex">
           <img src={cross} height={25} width={25} alt="error" />
           <p className="pl-3 mt-1 font-medium">{errortext}</p>
         </span>
       </dialog>
     </>
-  )
+  );
 }
 
 export default QCOnlineBucket
