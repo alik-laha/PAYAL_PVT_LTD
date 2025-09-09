@@ -321,7 +321,7 @@ const IssueCreateForm = () => {
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Sub_Section</TableHead>
                                 <TableHead className="text-center" >Category</TableHead>
-                                <TableHead className="text-center" >SKU/Item_Name</TableHead>
+                                <TableHead className="text-center" >Issue_SKU_/_Issue_Item_Code_/_Issue_Item_Name</TableHead>
                                 <TableHead className="text-center" >Unit</TableHead>
                                 <TableHead className="text-center" >Quantity_Left</TableHead>
                                 <TableHead className="text-center" >Unit_Price(Rs)</TableHead>
@@ -420,7 +420,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </select>
                                             </TableCell>
                                             <TableCell className="text-center" >
-                                                <Input value={row.material} placeholder="material"
+                                                <Input value={row.material} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
                                                 {actvskuindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: skuview }}>
                                                     {

@@ -44,6 +44,18 @@ import QCOnlineBoilingTable from "./QCOnlineBoilingTable";
 import QCOnlineScoopingTable from "./QCOnlineScoopingTable";
 import QCOnlineBormaTable from "./QCOnlineBormaTable";
 import QCOnlineHumidifierTable from "./QCOnlineHumidifierTable";
+import QCOnlinePouch from "./QCOnlinePouch";
+import QCOnlineTaiho from "./QCOnlineTaiho";
+import QCOnlineBucket from "./QCOnlineBucket";
+import QCOnlineNanopix from "./QCOnlineNanopix";
+import QCOnlinePeeling from "./QCOnlinePeeling";
+import QCOnlineHandGrade from "./QCOnlineHandGrade";
+import QCOnlinePeelingTable from "./QCOnlinePeelingTable";
+import QCOnlineTaihoTable from "./QCOnlineTaihoTable";
+import QCOnlineNanopixTable from "./QCOnlineNanopixTable";
+import QCOnlinePouchTable from "./QCOnlinePouchTable";
+import QCOnlineBucketTable from "./QCOnlineBucketTable";
+import QCOnlineHandGradeTable from "./QCOnlineHandGradeTable";
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -106,11 +118,11 @@ const QCOnline = () => {
           </p>
           <div className="flex">
             <Dialog>
-              <DialogTrigger disabled={data.EditData > 0 ? true : false}>
+              <DialogTrigger >
                 {" "}
                 <Button
                   className="bg-red-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4"
-                  disabled={data.EditData > 0 ? true : false}>
+                  >
                   + Add New Entry
                 </Button>
               </DialogTrigger>
@@ -151,6 +163,14 @@ const QCOnline = () => {
                 {section === "SCOOPING" && <QCOnlineScooping />}
                 {section === "BORMA" && <QCOnlineBorma />}
                 {section === "HUMIDIFIER" && <QCOnlineHumid />}
+
+                {section === "TAIHO" && <QCOnlineTaiho />}
+                {section === "POUCH" && <QCOnlinePouch />}
+                {section === "BUCKET" && <QCOnlineBucket />}
+                {section === "NANOPIX" && <QCOnlineNanopix />}
+                {section === "PEELING" && <QCOnlinePeeling />}
+                {section === "HAND_GRADE" && <QCOnlineHandGrade />}
+                  
                 {/* <QCWaterCreate /> */}
               </DialogContent>
             </Dialog>
@@ -186,7 +206,14 @@ const QCOnline = () => {
           {tablesection==='BOILING' && <QCOnlineBoilingTable />}
           {tablesection==='SCOOPING' && <QCOnlineScoopingTable />}
           {tablesection==='BORMA' && <QCOnlineBormaTable />}
-           {tablesection==='HUMIDIFIER' && <QCOnlineHumidifierTable />}
+          {tablesection==='HUMIDIFIER' && <QCOnlineHumidifierTable />}
+          
+           {tablesection==='PEELING' && <QCOnlinePeelingTable />}
+           {tablesection==='TAIHO' && <QCOnlineTaihoTable />}
+           {tablesection==='NANOPIX' && <QCOnlineNanopixTable />}
+           {tablesection==='POUCH' && <QCOnlinePouchTable />}
+           {tablesection==='BUCKET' && <QCOnlineBucketTable />}
+           {tablesection==='HAND_GRADE' && <QCOnlineHandGradeTable />}
         </div>
       </div>
     </>

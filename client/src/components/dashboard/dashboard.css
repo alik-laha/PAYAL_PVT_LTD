@@ -18,15 +18,17 @@
     transition: 0.4s;
     padding-top: 60px;
 
-
     height: 100vh;
-    /* background: linear-gradient(90deg, #1f1c2c, #928dab); */
-    background:#1f1c2ce9;
+    background: linear-gradient(135deg, #0f0d15, #5b576a);
+    /* background:#080224e9; */
+    
     color: white;
     padding: 20px 0;
      /* background: linear-gradient(to bottom, #2c3e50, #34495e); */
     color: #ffffff;
-  
+      background-size: cover;
+      background-blend-mode: overlay;
+
 }
 
 /* Sidebar links */
@@ -54,9 +56,9 @@
 /* Sidebar close button */
 .sidebar .closebtn {
     position: absolute;
-    top: 45px;
-    right: 25px;
-    font-size: 30px;
+    top: 55px;
+    right: 20px;
+    font-size: 25px;
 }
 
 /* When the sidebar is open */
@@ -64,7 +66,6 @@
     width: 18%;
     padding-top: 6vw;
     /* height: 190vh; */
-   
    min-height: 180vh;
 }
 
@@ -93,7 +94,7 @@
     cursor: pointer;
     margin: 10px 5px 15px 15px;
     display: flex;
-  text-shadow: 0px 0px 1px  #7ba5bc;
+    text-shadow: 0px 0px 1px  #7ba5bc;
    /* transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; */
    
     align-items: center;
@@ -103,12 +104,18 @@
   transition: background-color 0.2s ease;
   z-index: 1;
   position: relative;
+  letter-spacing: 0.05vw;
 }
 
 
 .user-pvt.trigger-open {
-  border-right: 1px solid white;
+  /* border-right: 1px solid white; */
+  padding-bottom: 5px;
   border-bottom: 1px solid white;
+  border-top: 1px solid white;
+   padding-top: 5px;
+   background: #082c41;
+  
   
    
 }
@@ -121,14 +128,13 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 5px 0px 5px 20px;
+    padding: 6px 0px 6px 23px;
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: #ecf0f1;
-
-    
-    
+    letter-spacing: 0.05vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 /* Smooth expand/collapse transition */
 .Items-pvt[data-state="open"] {
@@ -174,7 +180,7 @@
 .Items-pvt a:hover{
  color: white;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
     
 }
 

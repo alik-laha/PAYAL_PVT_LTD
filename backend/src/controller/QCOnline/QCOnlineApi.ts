@@ -6,6 +6,12 @@ import OnlineScooping from "../../model/onlineScooping";
 import OnlineBorma from "../../model/onlineBorma";
 import OnlineHumidifier from "../../model/onlineHumidifier";
 import { Op } from "sequelize";
+import OnlinePouch from "../../model/onlinePouch";
+import OnlineBucket from "../../model/onlineBucket";
+import OnlineHandGrade from "../../model/onlineHandGrading";
+import OnlinePeeling from "../../model/onlinePeeling";
+import OnlineNanopix from "../../model/onlineNanopix";
+import OnlineTaiho from "../../model/onlineTaiho";
 
 
 export const sumOfallQCOnline = async (req: Request, res: Response) => {
@@ -86,7 +92,6 @@ export const sumOfallQCOnline = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal Server Error", err });
     }
 }
-
 
 export const CreateBoiler = async (req: Request, res: Response) => {
   try {
@@ -521,8 +526,6 @@ export const editQCOnlineBoiling = async (req: Request, res: Response) => {
   }
 };
 
-
-
 export const CreateScooping = async (req: Request, res: Response) => {
   try {
     let {
@@ -617,7 +620,7 @@ export const SearchScooping = async (req: Request, res: Response) => {
     catch (err) {
         return res.status(500).json({ message: "Internal server Error", err });
     }
-  }
+}
 export const editQCOnlineScooping = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
@@ -670,7 +673,6 @@ export const editQCOnlineScooping = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 export const CreateBorma= async (req: Request, res: Response) => {
   try {
@@ -772,8 +774,7 @@ export const SearchBorma = async (req: Request, res: Response) => {
     catch (err) {
         return res.status(500).json({ message: "Internal server Error", err });
     }
-  }
-
+}
 export const editQCOnlineBorma = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
@@ -827,7 +828,6 @@ export const editQCOnlineBorma = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 export const CreateHumidifier = async (req: Request, res: Response) => {
   try {
@@ -923,7 +923,7 @@ export const SearchHumidifier = async (req: Request, res: Response) => {
     catch (err) {
         return res.status(500).json({ message: "Internal server Error", err });
     }
-  }
+}
 export const editQCOnlineHumidifier = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
@@ -973,6 +973,865 @@ export const editQCOnlineHumidifier = async (req: Request, res: Response) => {
       .json({ message: "QC Online Humidifier updated successfully" });
   } catch (err) {
     console.error("Error in editQCOnlineHumidifier:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const CreatePeeling = async (req: Request, res: Response) => {
+  try {
+    const {
+      pressure,
+      peelingTime,
+      unpeelPcntng,
+      cashewPcntng,
+      peelingQty,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    const createdBy = req.cookies.user;
+
+    const entry = await OnlinePeeling.create({
+      pressure,
+      peelingTime,
+      unpeelPcntng,
+      cashewPcntng,
+      peelingQty,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+      createdBy,
+    });
+
+    if (entry) {
+      return res
+        .status(201)
+        .json({ message: "QC Online Peeling Entry Created Successfully" });
+    }
+  } catch (error) {
+    console.error("Error in CreatePeeling:", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+export const SearchPeeling = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let peelingEntries;
+    if (limit === 0 && offset === 0) {
+      peelingEntries = await OnlinePeeling.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      peelingEntries = await OnlinePeeling.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(peelingEntries);
+  } catch (err) {
+    console.error("Error in SearchPeeling:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+export const editQCPeeling = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      pressure,
+      peelingTime,
+      unpeelPcntng,
+      cashewPcntng,
+      peelingQty,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlinePeeling.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Peeling entry not found" });
+    }
+
+    await OnlinePeeling.update(
+      {
+        pressure,
+        peelingTime,
+        unpeelPcntng,
+        cashewPcntng,
+        peelingQty,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Peeling updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCPeeling:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const CreatePouch = async (req: Request, res: Response) => {
+  try {
+    const {
+      LotNo,
+      BatchNo,
+      Origin,
+      Grade,
+      moisture,
+      nutcount,
+      avgWeight,
+      date,
+      time,
+      pktQuality,
+      pktQualityRemarks,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    const createdBy = req.cookies.user;
+
+    const entry = await OnlinePouch.create({
+      LotNo,
+      BatchNo,
+      Origin,
+      Grade,
+      moisture,
+      nutcount,
+      avgWeight,
+      date,
+      time,
+      pktQuality,
+      pktQualityRemarks,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+      createdBy,
+    });
+
+    if (entry) {
+      return res
+        .status(201)
+        .json({ message: "QC Online Pouch Entry Created Successfully" });
+    }
+  } catch (error) {
+    console.error("Error in CreatePouch:", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+export const SearchPouch = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let pouchEntries;
+    if (limit === 0 && offset === 0) {
+      pouchEntries = await OnlinePouch.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      pouchEntries = await OnlinePouch.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(pouchEntries);
+  } catch (err) {
+    console.error("Error in SearchPouch:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+export const editQCPouch = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      LotNo,
+      BatchNo,
+      Origin,
+      Grade,
+      moisture,
+      nutcount,
+      avgWeight,
+      date,
+      time,
+      pktQuality,
+      pktQualityRemarks,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlinePouch.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Pouch entry not found" });
+    }
+
+    await OnlinePouch.update(
+      {
+        LotNo,
+        BatchNo,
+        Origin,
+        Grade,
+        moisture,
+        nutcount,
+        avgWeight,
+        date,
+        time,
+        pktQuality,
+        pktQualityRemarks,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Pouch updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCPouch:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+export const CreateBucket = async (req: Request, res: Response) => {
+  try {
+    const {
+      LotNo,
+      BatchNo,
+      Origin,
+      Grade,
+      moisture,
+      nutcount,
+      avgWeight,
+      date,
+      time,
+      pktQuality,
+      pktQualityRemarks,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    const createdBy = req.cookies.user;
+
+    const entry = await OnlineBucket.create({
+      LotNo,
+      BatchNo,
+      Origin,
+      Grade,
+      moisture,
+      nutcount,
+      avgWeight,
+      date,
+      time,
+      pktQuality,
+      pktQualityRemarks,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+      createdBy,
+    });
+
+    if (entry) {
+      return res
+        .status(201)
+        .json({ message: "QC Online Pouch Entry Created Successfully" });
+    }
+  } catch (error) {
+    console.error("Error in CreatePouch:", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+export const SearchBucket = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let pouchEntries;
+    if (limit === 0 && offset === 0) {
+      pouchEntries = await OnlineBucket.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      pouchEntries = await OnlineBucket.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(pouchEntries);
+  } catch (err) {
+    console.error("Error in SearchPouch:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+export const editQCBucket= async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      LotNo,
+      BatchNo,
+      Origin,
+      Grade,
+      moisture,
+      nutcount,
+      avgWeight,
+      date,
+      time,
+      pktQuality,
+      pktQualityRemarks,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineBucket.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Pouch entry not found" });
+    }
+
+    await OnlineBucket.update(
+      {
+        LotNo,
+        BatchNo,
+        Origin,
+        Grade,
+        moisture,
+        nutcount,
+        avgWeight,
+        date,
+        time,
+        pktQuality,
+        pktQualityRemarks,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Pouch updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCPouch:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+export const CreateHandGrade = async (req: Request, res: Response) => {
+  try {
+    const {
+      LotNo,
+      Origin,
+      Grade,
+      moisture,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    const createdBy = req.cookies.user;
+
+    const entry = await OnlineHandGrade.create({
+      LotNo,
+      Origin,
+      Grade,
+      moisture,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+      createdBy,
+    });
+
+    if (entry) {
+      return res
+        .status(201)
+        .json({ message: "QC Online Hand Grade Entry Created Successfully" });
+    }
+  } catch (error) {
+    console.error("Error in CreateHandGrade:", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+export const SearchHandGrade = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let handGradeEntries;
+    if (limit === 0 && offset === 0) {
+      handGradeEntries = await OnlineHandGrade.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      handGradeEntries = await OnlineHandGrade.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(handGradeEntries);
+  } catch (err) {
+    console.error("Error in SearchHandGrade:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+export const editQCHandGrade = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      LotNo,
+      Origin,
+      Grade,
+      moisture,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineHandGrade.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Hand Grade entry not found" });
+    }
+
+    await OnlineHandGrade.update(
+      {
+        LotNo,
+        Origin,
+        Grade,
+        moisture,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Hand Grade updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCHandGrade:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const CreateNanopix = async (req: Request, res: Response) => {
+  try {
+    const {
+      cupcleaningStatus,
+      magiccleaningStatus,
+      gradingCount,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    const createdBy = req.cookies.user;
+
+    const entry = await OnlineNanopix.create({
+      cupcleaningStatus,
+      magiccleaningStatus,
+      gradingCount,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+      createdBy,
+    });
+
+    if (entry) {
+      return res
+        .status(201)
+        .json({ message: "QC Online Nanopix Entry Created Successfully" });
+    }
+  } catch (error) {
+    console.error("Error in CreateNanopix:", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+export const SearchNanopix = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let nanopixEntries;
+    if (limit === 0 && offset === 0) {
+      nanopixEntries = await OnlineNanopix.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      nanopixEntries = await OnlineNanopix.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(nanopixEntries);
+  } catch (err) {
+    console.error("Error in SearchNanopix:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+export const editQCNanopix = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      cupcleaningStatus,
+      magiccleaningStatus,
+      gradingCount,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineNanopix.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Nanopix entry not found" });
+    }
+
+    await OnlineNanopix.update(
+      {
+        cupcleaningStatus,
+        magiccleaningStatus,
+        gradingCount,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Nanopix updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCNanopix:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+export const CreateTaiho = async (req: Request, res: Response) => {
+  try {
+    const {
+      pressure,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    const createdBy = req.cookies.user;
+
+    const entry = await OnlineTaiho.create({
+      pressure,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+      createdBy,
+    });
+
+    if (entry) {
+      return res
+        .status(201)
+        .json({ message: "QC Online Taiho Entry Created Successfully" });
+    }
+  } catch (error) {
+    console.error("Error in CreateTaiho:", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+export const SearchTaiho = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let taihoEntries;
+    if (limit === 0 && offset === 0) {
+      taihoEntries = await OnlineTaiho.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      taihoEntries = await OnlineTaiho.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(taihoEntries);
+  } catch (err) {
+    console.error("Error in SearchTaiho:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+export const editQCTaiho = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const modifiedBy = req.cookies.user;
+
+    const {
+      pressure,
+      date,
+      time,
+      cleaningStatus,
+      cleanRemarks,
+      maintainance,
+      maintainanceRemarks,
+    } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "id is required" });
+    }
+
+    const existing = await OnlineTaiho.findOne({ where: { id } });
+    if (!existing) {
+      return res
+        .status(404)
+        .json({ message: "QC Online Taiho entry not found" });
+    }
+
+    await OnlineTaiho.update(
+      {
+        pressure,
+        date,
+        time,
+        cleaningStatus,
+        cleanRemarks,
+        maintainance,
+        maintainanceRemarks,
+        modifiedBy,
+      },
+      { where: { id } }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "QC Online Taiho updated successfully" });
+  } catch (err) {
+    console.error("Error in editQCTaiho:", err);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
