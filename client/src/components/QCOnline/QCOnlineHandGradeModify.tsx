@@ -67,6 +67,7 @@ const QCeditHandGrade = ({ data }: Props) => {
     axios.put('/api/vendorSKU/getItembySection/Final Grade', { section: 'Packing' })
       .then(res => {
         setGradeD(res.data)
+        console.log(gradeD)
       })
       .catch(err => {
         console.log(err)
