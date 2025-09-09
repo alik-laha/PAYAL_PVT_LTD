@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
+import ModifyBucket from "./QCOnlineBucketModify";
 //import EditQCOnlinePouch from "./QCOnlinePouchModify";
 
 const QCOnlineBucketTable = () => {
@@ -282,7 +283,7 @@ const QCOnlineBucketTable = () => {
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlinePouch data={item} /> */}
+                          <ModifyBucket data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

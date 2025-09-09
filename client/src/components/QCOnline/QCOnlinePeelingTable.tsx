@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
+import PeelingModify from "./QCOnlinePeelingModify";
 //import EditQCOnlinePeeling from "./QCOnlinePeelingModify";
 
 const QCOnlinePeelingTable = () => {
@@ -273,7 +274,7 @@ const QCOnlinePeelingTable = () => {
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlinePeeling data={item} /> */}
+                          <PeelingModify data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
+import QCeditHandGrade from "./QCOnlineHandGradeModify";
 //import EditQCOnlineHandGrade from "./QCOnlineHandGradeModify";
 
 const QCOnlineHandGradeTable = () => {
@@ -255,7 +256,7 @@ const QCOnlineHandGradeTable = () => {
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlineHandGrade data={item} /> */}
+                          <QCeditHandGrade data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

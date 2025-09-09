@@ -61,7 +61,7 @@ router.put("/editQCOnlineNanopix/:id", jwtVerify, editQCNanopix);
 // Taiho
 router.post("/createQCOnlineTaiho", jwtVerify, CreateTaiho);
 router.post("/searchQCOnlineTaiho", jwtVerify, SearchTaiho);
-router.put("/editQCOnlineTaiho/:id", jwtVerify, editQCTaiho);
+router.put("/updateQCOnlineTaiho/:id", jwtVerify, editQCTaiho);
 
 
 export default router

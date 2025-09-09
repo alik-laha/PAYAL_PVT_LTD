@@ -217,7 +217,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/storePrimary" >
 
-                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">Store Item </p></p>
+                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">Store External </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -226,7 +226,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/StoreIssue" >
-                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Store Issue</p></p>
+                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Store Internal</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -360,13 +360,7 @@ const toggleSection = (sectionKey: string) => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                            {(!isRestrictedRole || (Role === 'PeelingSupervisor' && isVisible)) && renderlink('BigTaiho')
-                                && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/BigTaiho" >
-
-                                        <p className="flex"> <AiOutlineProduct size={20} /><p className="pl-4"> BigTaiho </p></p>
-                                    </NavLink>
-                                </CollapsibleContent>}
+                          
 
                             {(!isRestrictedRole || (Role === 'MayurSupervisor' && isVisible)) && renderlink('Mayur')
                                 && <CollapsibleContent className="Items-pvt">
@@ -397,17 +391,26 @@ const toggleSection = (sectionKey: string) => {
                                 </CollapsibleContent>}
 
 
+                                  {(!isRestrictedRole || (Role === 'PeelingSupervisor' && isVisible)) && renderlink('BigTaiho')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/BigTaiho" >
+
+                                        <p className="flex"> <AiOutlineProduct size={20} /><p className="pl-4"> BigTaiho </p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+
                                 {(!isRestrictedRole || (Role === 'WholesSupervisor' && isVisible)) && renderlink('Wholes')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Wholes" >
-                                        <p className="flex"> <CiPill size={20} /><p className="pl-4">  Wholes Grade</p></p>
+                                        <p className="flex"> <CiPill size={20} /><p className="pl-4">  Wholes Grading</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                                 {(!isRestrictedRole || (Role === 'WholesSupervisor' && isVisible)) && renderlink('LW')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/LW" >
-                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-4">  Lower Grade</p></p>
+                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-4">  Lower Grading</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 

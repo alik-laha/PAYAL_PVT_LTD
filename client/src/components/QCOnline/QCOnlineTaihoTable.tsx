@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
+import EditTaiho from "./QCOnlineTaihoModify";
 //import EditQCOnlineTaiho from "./QCOnlineTaihoModify";
 
 const QCOnlineTaihoTable = () => {
@@ -255,7 +256,7 @@ const QCOnlineTaihoTable = () => {
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlineTaiho data={item} /> */}
+                          <EditTaiho data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>

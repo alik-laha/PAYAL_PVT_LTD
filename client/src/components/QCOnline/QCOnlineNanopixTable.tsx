@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
+import EditNanopix from "./QCOnlineNanopixModify";
 //import EditQCOnlineNanopix from "./QCOnlineNanopixModify";
 
 const QCOnlineNanopixTable = () => {
@@ -282,7 +283,7 @@ const QCOnlineNanopixTable = () => {
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          {/* <EditQCOnlineNanopix data={item} /> */}
+                          <EditNanopix data={item} />
                         </DialogContent>
                       </Dialog>
                     </PopoverContent>
