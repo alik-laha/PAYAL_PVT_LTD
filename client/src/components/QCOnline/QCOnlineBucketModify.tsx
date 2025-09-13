@@ -263,8 +263,7 @@ const ModifyBucket = ({ data }: Props) => {
             <Label className="w-2/4 pt-1">Nut Count</Label>
             <Input
               className="w-2/4 text-center"
-              type="number"
-              step="0.01"
+           
               value={nutcount}
               onChange={(e) => setNutcount(e.target.value)}
               required

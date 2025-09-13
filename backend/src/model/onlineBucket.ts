@@ -29,7 +29,7 @@ const OnlineBucket = sequelize.define('OnlineBucket', {
         allowNull: false
     },
     nutcount: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.STRING,
         allowNull: false
     },
     avgWeight: {

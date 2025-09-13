@@ -83,9 +83,58 @@ export const sumOfallQCOnline = async (req: Request, res: Response) => {
                 }
             }
         });
+
+        const peelingData = await OnlinePeeling.count({
+            where: {
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
+
+        const handgradeData = await OnlineHandGrade.count({
+            where: {
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
         
+        const nanopixData = await OnlineNanopix.count({
+            where: {
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
+
+         const taihodata = await OnlineTaiho.count({
+            where: {
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
+
+         const pouchData = await OnlinePouch.count({
+            where: {
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
+
+         const bucketData = await OnlineBucket.count({
+            where: {
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
     
-            return res.status(200).json({ boilerdata, boilingdata, scoopingdata,gradingdata,bormadata,humiddata});
+            return res.status(200).json({ boilerdata, boilingdata, scoopingdata,gradingdata,bormadata,humiddata
+              ,peelingData,bucketData,pouchData,taihodata,handgradeData,nanopixData
+            });
         
     }
     catch (err) {

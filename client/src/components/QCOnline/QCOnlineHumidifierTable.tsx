@@ -94,7 +94,7 @@ const QCOnlineHumidifierTable = () => {
       Sl_No: idx + 1,
       Date: handletimezone(item.date),
       Time: handleAMPM(item.time),
-      Pressure: item.pressure,
+      Moisture: item.pressure,
       Lot_No: item.LotNo,
       Origin: item.Origin,
       Cleaning_Status: item.cleaningStatus,
@@ -151,7 +151,7 @@ const QCOnlineHumidifierTable = () => {
           <TableHead className="text-center">Time</TableHead>
              <TableHead className="text-center">Lot No</TableHead>
           <TableHead className="text-center">Origin</TableHead>
-          <TableHead className="text-center">Pressure</TableHead>
+          <TableHead className="text-center">Moisture</TableHead>
        
           <TableHead className="text-center">Cleaning Status</TableHead>
           <TableHead className="text-center">Maintainance Status</TableHead>
@@ -170,7 +170,7 @@ const QCOnlineHumidifierTable = () => {
                 <TableCell className="text-center font-semibold">{handleAMPM(item.time)}</TableCell>
                   <TableCell className="text-center font-semibold text-red-500">{item.LotNo}</TableCell>
                 <TableCell className="text-center font-semibold text-cyan-500">{item.Origin}</TableCell>
-                <TableCell className="text-center">{item.pressure} Bar</TableCell>
+                <TableCell className="text-center">{item.pressure} %</TableCell>
               
 
                 {/* Status Buttons */}
