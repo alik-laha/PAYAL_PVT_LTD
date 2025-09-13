@@ -256,8 +256,7 @@ const QCOnlineBucket = () => {
             <Input
               className="w-2/4 text-center"
               ref={nutcountRef}
-              type="number"
-              step="0.01"
+            
               required
               placeholder="Value"
             />

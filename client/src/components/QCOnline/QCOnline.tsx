@@ -112,6 +112,47 @@ const QCOnline = () => {
               <br />
               <p>{data.humiddata} </p>
             </div>
+
+           
+          </div>
+           <div className="flexbox-header">
+            
+
+            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+              Peeling
+              <br />
+              <p>{data.peelingData} </p>
+            </div>
+
+            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+              Hand Grading
+              <br />
+              <p>{data.handgradeData} </p>
+            </div>
+
+            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+              Nanopix
+              <br />
+              <p>{data.nanopixData} </p>
+            </div>
+
+            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+              Taiho
+              <br />
+              <p>{data.taihodata} </p>
+            </div>
+
+            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+              Bucket
+              <br />
+              <p>{data.bucketData} </p>
+            </div>
+
+            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+              Pouch
+              <br />
+              <p>{data.pouchData} </p>
+            </div>
           </div>
           <p className="text-lg font-semibold text-center py-1 ">
             QC Daily Online Test
