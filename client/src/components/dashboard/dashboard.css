@@ -8,6 +8,9 @@ textarea,
 input {
   font-size: 0.75rem !important;
 }
+dialog p{
+  font-family: cursive;
+}
 
 .font-cursive{
   font-family: cursive;
@@ -27,10 +30,11 @@ input {
   height: 100vh;
   /* background: #1e293b; */
   /* Dark slate background */
-  /* background: hsl(199, 26%, 33%); */
-  background: hsl(199, 31%, 32%);
+  background: hsl(210, 40%, 98%);
+  /* background: hsl(199, 31%, 32%); */
   /* Dark slate background */
-  color: #f8fafc;
+  /* color: #f8fafc; */
+  color: rgb(4, 30, 21);
   /* Light text */
   font-family: 'Inter', sans-serif;
   display: flex;
@@ -59,7 +63,7 @@ input {
   align-items: center;
   cursor: pointer;
   /* color: rgba(198, 220, 241, 0.796); */
-  color: rgba(255, 255, 255, 0.797);
+  color: rgba(18, 2, 2, 0.797);
   display: block;
   font-size: 13px;
   font-weight: 500;
@@ -137,9 +141,9 @@ input {
   padding-top: 5px;
   /* background: #082c41; */
   /* background: #c4d2ef; */
-  background: hsl(199, 26%, 72%);
+  background: hsl(198, 37%, 93%);
   /* blue highlight */
-  color: rgb(241, 247, 249);
+  color: rgb(241, 247, 249)!important;
   font-weight: 600;
   letter-spacing: 0.1vw;
   padding-left: 5px;
@@ -168,7 +172,7 @@ input {
   /* letter-spacing: 0.03vw; */
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   font-family: cursive;
-  color: #cbd5e1;
+  color: #05101e;
   /* muted text */
   text-decoration: none;
   font-size: 0.95rem;
@@ -188,12 +192,13 @@ input {
   overflow: hidden;
 }
   .pdpl-heading{
-    font-size:16px!important;
-    color: white;
+    font-size:17px!important;
+    color: rgb(10, 150, 61);
     padding: 6px;
     width: 87%;
     font-family:cursive;
     font-weight: 800;
+    
 
   }
 

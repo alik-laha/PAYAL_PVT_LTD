@@ -283,14 +283,14 @@ const IssueModify = (props: IssueModifyProps) => {
                     <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setSectionUnit(e.target.value)}
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50 font-cursive" onChange={(e) => setSectionUnit(e.target.value)}
                         value={sectionunit} required>
                         {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Grade</option> */}
  
                         {grade ? (
                             grade.map((item: findskutypeData) => (
-                                <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                <option className='font-cursive' key={item.sku} value={item.sku}>{item.sku}</option>
                             ))
                         ) : null}
                     </select>
@@ -298,7 +298,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Section</Label>
 
-                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+                    <select className="font-cursive text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  setsection(e.target.value)}
@@ -307,7 +307,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
        
                                                {sku.map((item) => (
-                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                            <option className='font-cursive' key={item.sku} value={item.sku}>{item.sku}</option>
                                                         ))} 
                                                     
                                                 </select>
@@ -315,7 +315,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Sub Section</Label>
 
-                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+                    <select className="font-cursive text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  setsubsection(e.target.value)}
@@ -324,7 +324,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
        
                                                {subgrade.map((item) => (
-                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                            <option className='font-cursive' key={item.sku} value={item.sku}>{item.sku}</option>
                                                         ))} 
                                                     
                                                 </select>
@@ -332,7 +332,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Category</Label>
 
-                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+                    <select className="font-cursive text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  setcategory(e.target.value)}
@@ -342,7 +342,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
        
        {type ? (
                                                         TypeOnSection[type as keyof typeof TypeOnSection].map((item) => (
-                                                            <option key={item} value={item}>{item}</option>
+                                                            <option className='font-cursive' key={item} value={item}>{item}</option>
                                                         ))
                                                     ) : null}
                                                     
@@ -354,8 +354,8 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
-                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
-                                    <p className="text-sm py-1 focus:text-base">{item.unit}</p>
+                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base font-cursive">{item.sku}</p>
+                                    <p className="text-sm py-1 focus:text-base font-cursive">{item.unit}</p>
                                 </div>
                             ))
                         }

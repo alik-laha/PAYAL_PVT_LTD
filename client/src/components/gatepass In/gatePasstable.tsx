@@ -56,7 +56,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { FcApprove, FcCancel } from "react-icons/fc";
-import { MdOutlineDriveFolderUpload } from "react-icons/md";
+import { MdOutlineDriveFolderUpload, MdOutlinePendingActions } from "react-icons/md";
 import GatepassApprove from "./gatePassApprove";
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
@@ -66,6 +66,7 @@ import { Textarea } from "../ui/textarea";
 interface pdfprops {
   data: GatePassData;
 }
+import { SiTicktick } from "react-icons/si";
 
 const GatePassTable = () => {
 
@@ -1054,12 +1055,12 @@ const GatePassTable = () => {
             <TableHead className="text-center" >GatePass_ID</TableHead>
 
             <TableHead className="text-center" >Entry(In/Out)</TableHead>
-            <TableHead className="text-center" >Rcv/Dispatch_Section</TableHead>
+            <TableHead className="text-center" >Receiving/Dispatch Section</TableHead>
 
-            <TableHead className="text-center" >Receiving/Dispatch</TableHead>
-            <TableHead className="text-center" >NetWeight_Entry</TableHead>
-            <TableHead className="text-center" >Verification/Approval</TableHead>
-            <TableHead className="text-center" >Closure</TableHead>
+            <TableHead className="text-center" >Receiving /Dispatch</TableHead>
+            <TableHead className="text-center" >NetWeight Entry</TableHead>
+            <TableHead className="text-center" >Verification /Approval</TableHead>
+            <TableHead className="text-center" >Item Closure</TableHead>
 
             <TableHead className="text-center" >Gate_Entry_Date</TableHead>
             <TableHead className="text-center" >Entry_Time</TableHead>
@@ -1094,36 +1095,28 @@ const GatePassTable = () => {
                   <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                   <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
 
-                  <TableCell className="text-center  font-semibold mt-3 flex"> {item.type === 'IN' ? <FaRegArrowAltCircleRight color="blue" size={22} className="mr-5 " /> : <FaRegArrowAltCircleLeft color='red' size={22} className="mr-2" />} {item.type}</TableCell>
+                  <TableCell className="text-center"> {item.type === 'IN' ? <p className="flex flex-row justify-center"><FaRegArrowAltCircleRight color="blue" size={20} className="mr-3" />{item.type}</p> : <p className="flex flex-row justify-center"><FaRegArrowAltCircleLeft color="red" size={20}  />{item.type}</p>} </TableCell>
                   <TableCell className="text-center font-semibold shadow-md ">{handlesection(item.section)}</TableCell>
 
                   <TableCell className="text-center ">
                     {item.receivingStatus === 0 ? (
-                      <button className="bg-red-500 rounded shadow-md drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary">Pending</button>
-                    ) : (
-                      <button className="bg-green-400 rounded shadow-md drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary ">Completed</button>
-                    )}
+                      <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
                   </TableCell>
                   <TableCell className="text-center ">
                     {!item.netWeight ? (
-                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
-                    ) : (
-                      <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
-                    )}
+                     <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.approvalStatus === 0 ? (
-                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
-                    ) : (
-                      <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
-                    )}
+                       <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.status !== 'Closed' ? (
-                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
-                    ) : (
-                      <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
-                    )}
+                     <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
                   </TableCell>
 
 
