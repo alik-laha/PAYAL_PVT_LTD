@@ -51,7 +51,7 @@ const VendorSKU = () => {
                 </div>
               
 
-                <p className='text-lg font-semibold text-center py-1 '>SKU & VENDOR</p>
+                <p className='text-lg text-center py-1 font-cursive'>SKU & VENDOR</p>
          
 
                 <Dialog>

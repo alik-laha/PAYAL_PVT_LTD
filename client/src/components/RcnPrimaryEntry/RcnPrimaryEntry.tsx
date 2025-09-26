@@ -18,7 +18,7 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import RCNInitialForm from './RcnInitialForm';
 
@@ -81,7 +81,7 @@ const RcnPrimaryEntry = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.origin}>
+                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400" key={item.origin}>
                                     {item.origin} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
@@ -91,7 +91,7 @@ const RcnPrimaryEntry = () => {
 
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '>RCN INCOMING</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY : {FY} RCN INCOMING COUNT </p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>

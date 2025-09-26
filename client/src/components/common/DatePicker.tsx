@@ -18,7 +18,7 @@ const DatePicker = (props: DatePickerProps) => {
                 <Button
                     variant={"ghost"}
                     className={cn(
-                        "w-[280px] justify-start text-left font-normal w-100 mr-2 h-7",
+                        "text-xs w-[280px] justify-start text-left font-normal w-100 mr-2 h-7",
                         !props.value && "text-muted-foreground"
                         
                     )}
@@ -27,7 +27,7 @@ const DatePicker = (props: DatePickerProps) => {
                     {props.value ? format(props.value, "PPP") : <span>{props.buttonName}</span>}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className="w-auto p-0 text-xs">
                 <Calendar
                     mode="single"
                     selected={props.value}

@@ -128,7 +128,7 @@ const IssueItem = () => {
 
                         data.data && data.data.map((item: any,idx:any) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={idx}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={idx}>
                                     {item.sectionunit} <br /><p>{item.count} </p>
                                 </div>
                             )
@@ -137,7 +137,7 @@ const IssueItem = () => {
                     }
 
                 </div>
-                <p className='text-lg font-semibold text-center py-1 '>ITEM ISSUE</p>
+                <p className='text-lg font-cursive text-center py-1 '>SECTION WISE INSIDE STORE TRANSACTION COUNT</p>
                 <div>
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
@@ -154,7 +154,7 @@ const IssueItem = () => {
 
                     {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
                     
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
+                    <Button className="bg-blue-500 mb-2 ml-8 responsive-button-adjust" 
                     disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
 
                     <Button className="bg-green-700 mb-2 ml-8 responsive-button-adjust" onClick={exportToExcel}><LuDownload size={12} className="mr-2"/> Stock</Button>  
