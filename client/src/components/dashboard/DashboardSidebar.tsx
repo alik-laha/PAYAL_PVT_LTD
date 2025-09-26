@@ -126,8 +126,8 @@ const toggleSection = (sectionKey: string) => {
                 <a>
 
                    <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>
-                        <CollapsibleTrigger  className={`user-pvt ${openSection === 'dashboard' ? 'trigger-open' : ''}`}><RxDashboard color="gray" size={18} />
-                            <p className="ml-2 text-zinc-500">DASHBOARD</p>
+                        <CollapsibleTrigger  className={`user-pvt ${openSection === 'dashboard' ? 'trigger-open' : ''}`}><RxDashboard color="red" size={18} />
+                            <p className="ml-2 text-red-500">DASHBOARD</p>
                               <span className="ml-auto">
                                 {openSection === 'dashboard' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -145,7 +145,7 @@ const toggleSection = (sectionKey: string) => {
                     
                  <Collapsible open={openSection === 'admin'} onOpenChange={() => toggleSection('admin')}>
                         <CollapsibleTrigger  className={`user-pvt ${openSection === 'admin' ? 'trigger-open' : ''}`}><MdOutlineAdminPanelSettings size={22} color="purple"/>
-                            <p className="ml-2 text-yellow-600">ADMIN & HR</p>
+                            <p className="ml-2 text-yellow-500">ADMIN & HR</p>
                             <span className="ml-auto">
                                    {openSection === 'admin' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -324,8 +324,8 @@ const toggleSection = (sectionKey: string) => {
                         </Collapsible>}
                     {Role !== 'Security' && rendersection('Production') &&
                      <Collapsible open={openSection === 'production'} onOpenChange={() => toggleSection('production')}>
-                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory color='red' size={19} />
-                                <p className="ml-2 text-rose-500">PRODUCTION</p>
+                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory color='green' size={19} />
+                                <p className="ml-2 text-green-500">PRODUCTION</p>
                                  <span className="ml-auto">
                                  {openSection==='production'? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>

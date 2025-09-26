@@ -140,7 +140,7 @@ const IssueItem = () => {
                 <p className='text-lg font-cursive text-center py-1 '>SECTION WISE INSIDE STORE TRANSACTION</p>
                 <div>
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
-                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-screen' style={{display:'block'}}>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Item Issue Form</p></DialogTitle>
@@ -154,7 +154,7 @@ const IssueItem = () => {
 
                     {checkpending('RCNPrimary') && <Button className="bg-orange-500 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
                     
-                    <Button className="bg-yellow-600 mb-2 ml-8 responsive-button-adjust" 
+                    <Button className="bg-red-500 mb-2 ml-8 responsive-button-adjust" 
                     disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2"/></Button>
 
                     <Button className="bg-green-700 mb-2 ml-8 responsive-button-adjust" onClick={exportToExcel}><LuDownload size={12} /> </Button>  

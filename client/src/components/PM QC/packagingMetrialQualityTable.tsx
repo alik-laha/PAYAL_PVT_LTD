@@ -65,6 +65,8 @@ import { CiEdit } from "react-icons/ci"
 // import PackagingMetirialQcEditForm from "./packageMeterialModify"
 import { LuDownload } from "react-icons/lu"
 import Carousel from "./ModalCarousel"
+import { SiTicktick } from "react-icons/si"
+import { MdOutlinePendingActions } from "react-icons/md"
 
 
 const QCPackageMaterialTable = () => {
@@ -465,9 +467,13 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                         <TableCell className="text-center">
                                             {item.packagingMaterialreceving.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
+                                                 <p className="flex flex-row justify-center">
+                                                                        <SiTicktick color="green" size={18} />
+                                                                      </p>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                                <p className="flex flex-row justify-center">
+                                                                        <MdOutlinePendingActions color="red" size={23} />
+                                                                      </p>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
@@ -610,9 +616,13 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                         <TableCell className="text-center">
                                             {item.packagingMaterialreceving.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
+                                               <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                               <p className="flex flex-row justify-center">
+                                                                       <MdOutlinePendingActions color="red" size={23} />
+                                                                     </p>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>

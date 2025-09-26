@@ -43,7 +43,7 @@ const GatepassIn = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-lime-400 hover:bg-lime-300">
+                <div className="flexbox-tile bg-purple-400 hover:bg-purple-300">
                         Total Issued <br /><p>{data.Issued} </p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
@@ -59,7 +59,7 @@ const GatepassIn = () => {
                         Pending Approval<br /><p>{data.Pendingapprove} </p>
                     </div>
                     
-                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
+                    <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
                        Pending Release<br /><p>{data.Pendingrelease} </p>
                     </div>
                    
@@ -75,7 +75,7 @@ const GatepassIn = () => {
                 <p className='text-lg  text-center py-1 font-cursive'>CURRENT F.Y. {FY} GATE PASS COUNT</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>GatePass Entry Form</p></DialogTitle>

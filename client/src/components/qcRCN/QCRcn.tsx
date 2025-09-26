@@ -5,6 +5,7 @@ import UseQueryData from '../common/dataFetcher';
 import QCRcnTable from "./QCRcnTable"
 import { useContext } from "react";
 import Context from "../context/context";
+import { FY } from "../common/exportData";
 
 
 
@@ -28,16 +29,16 @@ const QCRcn = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-blue-500 hover:bg-blue-600">
+                <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                        Initial QC Approved<br /><p>{data.approvedQC}</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-600">
+                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
                         QC Report Uploaded<br /><p>{data.completereport}</p>
                     </div>
-                <div className="flexbox-tile bg-green-500 hover:bg-green-600">
+                <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                         Pending Approval<br/><p>{data.pendingQC}</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                         Pending QC Report<br /><p>{data.pendingReport}</p>
                     </div>
                     
@@ -45,7 +46,7 @@ const QCRcn = () => {
 
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '>QC RCN </p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY {FY} QC RCN TRANSACTION </p>
                 <QCRcnTable/>
                 </div>
             
