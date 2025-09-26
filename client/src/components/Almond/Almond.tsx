@@ -17,7 +17,7 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import AlmondInitialForm from './AlmondInitial';
 import AlmondTable from './AlmondTable';
@@ -92,7 +92,7 @@ const Almond = () => {
 
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '>ALMOND</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} ALMOND TRANSACTION</p>
 
                 <div>
                 {checkreceiving('AlmondPrimaryEntry') && <Dialog>

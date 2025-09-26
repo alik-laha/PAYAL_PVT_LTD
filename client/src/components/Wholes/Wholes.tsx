@@ -19,7 +19,7 @@ import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { pendingCheckRoles, PermissionRole } from '@/type/type';
-import { pendingCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole } from '../common/exportData';
 import WholesInitial from './WholesInitial';
 import WholesTable from './WholesTable';
 import WholesHistoryTable from './WholesHistoryTable';
@@ -291,7 +291,7 @@ const Wholes = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-cursive text-center capitalize'>CURRENT F.Y. REPORT (WHOLES GRADING)</p>
+                <p className='text-lg font-cursive text-center capitalize'>CURRENT F.Y. {FY} REPORT (WHOLES GRADING)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

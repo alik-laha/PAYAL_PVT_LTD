@@ -17,7 +17,7 @@ import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { pendingCheckRoles, PermissionRole } from '@/type/type';
-import { pendingCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole } from '../common/exportData';
 import RejectionInitial from './RejectionInitial';
 //import RejectionTable from './RejectionTable';
 import RejectionHistoryTable from './RejectionHistory';
@@ -93,7 +93,7 @@ const Rejection = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                         Issue Packing <br />
                         <p>
                             {
@@ -112,29 +112,29 @@ const Rejection = () => {
                         Issue Uncut & Unscoop <br /><p>{data.data[0].issue_uncut_unscoop ? formatNumber(parseFloat(data.data[0].issue_uncut_unscoop)) : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                         Issue Shell <br /><p>{data.data[0].issue_shell ? formatNumber(parseFloat(data.data[0].issue_shell)) : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
                         Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village)) : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-green-500 hover:bg-green-400">
                         Issue Catelfeed <br /><p>{data.data[0].issue_catelfeed ? formatNumber(parseFloat(data.data[0].issue_catelfeed)) : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
                        Current Backlog <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
                     </div>
 
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center capitalize'>CURRENT F.Y. REPORT (REJECTION)</p>
+                <p className='text-lg font-cursive text-center capitalize'>CURRENT F.Y. {FY} REPORT (REJECTION)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Rejection Entry Form</p></DialogTitle>
@@ -147,7 +147,7 @@ const Rejection = () => {
 
 
                     {checkpending('Rejection') && <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>}
-                    <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
+                    <Button className="bg-slate-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
                     <RejectionTable />

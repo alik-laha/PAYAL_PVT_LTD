@@ -43,7 +43,7 @@ const GatepassIn = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-zinc-400 hover:bg-zinc-300">
+                <div className="flexbox-tile bg-lime-400 hover:bg-lime-300">
                         Total Issued <br /><p>{data.Issued} </p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">

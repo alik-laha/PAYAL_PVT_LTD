@@ -16,7 +16,7 @@ import Context from '../context/context';
 
 import axios from "axios"
 import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
-import { rcvCheckRole } from "../common/exportData"
+import { FY, rcvCheckRole } from "../common/exportData"
 import RcvVillageInitial from "./RcvVillageInitial";
 import RcvVillageTable from "./RcvVillageTable";
 // import StorePrimaryTable from "./StorePrimaryTable"
@@ -51,12 +51,12 @@ const RcvVillage = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                    
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Financial Year Entry <br /><p>{RcvVillagePrimaryOverView?.sumofRcvVillagePrimary}</p>
+                    <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500">
+                        FY {FY} <br /><p>{RcvVillagePrimaryOverView?.sumofRcvVillagePrimary}</p>
                     </div>
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '> Village Out Primary</p>
+                <p className='text-lg font-cursive text-center py-1'>VILLAGE OUT TRANSACTION</p>
                 {checkreceiving('VillagePrimaryEntry') && <Dialog>
                 <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

@@ -86,7 +86,7 @@ const CashewOut = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataCashewOut) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400" key={item.origin}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.origin}>
                                     {item.origin} <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
                                 </div>
                             )
