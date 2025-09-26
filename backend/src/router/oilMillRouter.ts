@@ -2,12 +2,6 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-
-
-
-import EditAlmondEntry from '../controller/almondController/EditAlmondEntry';
-
-
 import getAllOilMillEditPending from '../controller/OilMillController/getOilMillEditPending';
 import sumofAllTypeOilMill from '../controller/OilMillController/sumOfAllOilMillPending';
 import getUnEntriedOilMill from '../controller/OilMillController/getUnEntriedOilMill';

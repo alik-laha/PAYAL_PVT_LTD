@@ -11,6 +11,7 @@ import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
 import cashewOutModel from "../../model/cashewOutModel";
+import creditNoteModel from "../../model/creditNoteModel";
 
 
 
@@ -179,7 +180,22 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
-            }    
+            }   
+            if (section==='CreditNote') {
+
+                const pmdelete=await creditNoteModel.destroy({
+                    where: {
+                        gatePassNo: gatepassNo
+                    }
+                });
+        
+                if(pmdelete){
+                  //  const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"cancel_gatepass",feeledBy)
+           // console.log(data)
+                    return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
+                }
+                
+            }   
         }
     }
  catch (err) {

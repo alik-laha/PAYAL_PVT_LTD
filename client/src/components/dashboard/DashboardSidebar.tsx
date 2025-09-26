@@ -25,7 +25,7 @@ import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated, Fa
 import { PiPackageLight, PiWashingMachineLight,PiTestTubeDuotone  } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine, GiBoxUnpacking, GiVillage, GiOpenedFoodCan } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
-import { CiPill } from "react-icons/ci";
+import { CiCreditCard1, CiPill } from "react-icons/ci";
 import { GrEject } from "react-icons/gr";
 
 import { CgSmartHomeBoiler } from "react-icons/cg";
@@ -114,7 +114,7 @@ const toggleSection = (sectionKey: string) => {
 
     return (
         <>
-            <div className="main">
+            <div className="main ">
                 <span className="openbtn" onClick={openSidebar}>&#9776; </span>
             </div>
 
@@ -263,6 +263,16 @@ const toggleSection = (sectionKey: string) => {
 
                                         <p className="flex"><GiOpenedFoodCan  size={20} /> <p className="pl-3">Finished Cachew OUT</p></p>
 
+                                    </NavLink>
+
+                                </CollapsibleContent>}
+
+
+                             {renderlink('Cashew Exit')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/creditNote" >
+
+                                        <p className="flex"><CiCreditCard1 size={22} /> <p className="pl-3">Credit Note </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}

@@ -79,12 +79,6 @@ const OnlinePouch = sequelize.define('OnlinePouch', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlinePouch;

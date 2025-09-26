@@ -139,7 +139,7 @@ export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','M
 export const QC_Online_Section=['BOILER','GRADING','BOILING','SCOOPING','BORMA','HUMIDIFIER','PEELING','TAIHO','NANOPIX','HAND_GRADE','POUCH','BUCKET']
 export const QC_Online_Status=['OK','NOT OK','N/A']
 export const sectionDataonTypeGate = {
-    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
+    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati','CreditNote'],
     OUT: ["Store",'General','Almond','Village','Agarbati','OilMill','FinishedCashew'],
 }
 export const SelectGatePassType = ["IN","OUT"]

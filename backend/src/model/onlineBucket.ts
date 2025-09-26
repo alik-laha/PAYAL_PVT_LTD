@@ -79,12 +79,6 @@ const OnlineBucket = sequelize.define('OnlineBucket', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineBucket;

@@ -906,6 +906,10 @@ const GatePassTable = () => {
 
       tabnew = 'OilMill'
     }
+    else if (tab === 'CreditNote') {
+
+      tabnew = 'Credit Note'
+    }
 
 
     const returnString = tabnew

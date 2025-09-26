@@ -12,6 +12,7 @@ import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
 import cashewOutModel from "../../model/cashewOutModel";
+import creditNoteModel from "../../model/creditNoteModel";
 
 
 
@@ -259,6 +260,27 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
             }
+            if (section === 'CreditNote' ) {
+                const generalupdate = await creditNoteModel.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (generalupdate) {
+                    //const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
+                }
+            }
         }
         else{
             const gatepassupdate=await gatePassMaster.update(
@@ -324,6 +346,12 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
     
                     }
                     if (section === 'OilMill'){
+                        //const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
+                        return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
+    
+                    }
+                    if (section === 'CreditNote'){
                         //const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_modify",feeledBy)
                         //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });

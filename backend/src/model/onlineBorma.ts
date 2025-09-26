@@ -68,12 +68,6 @@ const OnlineBorma = sequelize.define('onlineBorma', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineBorma;

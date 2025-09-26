@@ -55,12 +55,6 @@ const OnlineNanopix = sequelize.define('OnlineNanopix', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineNanopix;

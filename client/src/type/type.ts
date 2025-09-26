@@ -181,13 +181,38 @@ export interface OilMillPrimaryEntryData {
     gateType: string,
     invoicedate: string;  
     invoice: string;  
-
     type: string;  
     vendorName: string;  
     totalWt:string;  
     totalBill:string;  
  
 }
+
+export interface creditNoteEntryData {
+  id: number;
+  gateType: string;
+  recevingDate: string; // ISO date string
+  truckNo: string;
+  creditNoteDate: string | null;
+  creditNoteNo: string | null;
+  gradeName: string | null;
+  origin: string | null;
+  vendorName: string | null;
+  quantity: string | null;
+  totalWt: string | null;
+  unitPrice: string | null;
+  editStatus: string;
+  type: string | null;
+  createdBy: string | null;
+  approvedBy: string | null;
+  status: number;
+  netWeight: string | null;
+  gatePassNo: string;
+  grossWt: string;
+  totalBill: string | null;
+  remarks: string | null;
+}
+
 export interface AgarbatiPrimaryEntryData {
    
     approvedBy: string;
@@ -1442,6 +1467,10 @@ export interface SumofAllTypeDataAlmond {
     totalBags: number;
 }
 export interface SumofAllTypeDataCashewOut {
+    origin: string;
+    quantity: number;
+}
+export interface SumofAllTypeDataCreditNote {
     origin: string;
     quantity: number;
 }
