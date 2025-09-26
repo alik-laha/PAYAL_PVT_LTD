@@ -23,7 +23,8 @@ input {
   height: 100vh;
   /* background: #1e293b; */
   /* Dark slate background */
-  background: hsl(199, 26%, 33%);
+  /* background: hsl(199, 26%, 33%); */
+  background: hsl(199, 31%, 32%);
   /* Dark slate background */
   color: #f8fafc;
   /* Light text */
@@ -66,16 +67,19 @@ input {
 
 /* Sidebar close button */
 .sidebar .closebtn {
-  position: absolute;
+  /* position: absolute;
   top: 25px;
-  right: 20px;
+  right: 20px; */
   font-size: 25px;
+  float: right;
+  width: 100%;
+  display: flex;
 }
 
 /* When the sidebar is open */
 .sidebar.open {
   width: 18%;
-  padding-top: 4vw;
+  /* padding-top: 4vw; */
   /* height: 190vh; */
   min-height: 180vh;
 }
@@ -117,6 +121,7 @@ input {
   position: relative;
   letter-spacing: 0.05vw;
   vertical-align: middle;
+  font-family: cursive;
 }
 
 
@@ -156,9 +161,9 @@ input {
   /* font-size: 11px; */
   font-weight: 500;
   /* color: #ecf0f1; */
-  letter-spacing: 0.05vw;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+  /* letter-spacing: 0.03vw; */
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: cursive;
   color: #cbd5e1;
   /* muted text */
   text-decoration: none;
@@ -178,6 +183,15 @@ input {
   animation: slideUp 300ms ease-in;
   overflow: hidden;
 }
+  .pdpl-heading{
+    font-size:16px!important;
+    color: white;
+    padding: 6px;
+    width: 87%;
+    font-family:cursive;
+    font-weight: 800;
+
+  }
 
 @keyframes slideDown {
   from {
@@ -445,12 +459,13 @@ input {
   color: white;
   /* background: linear-gradient(145deg, #4a86d531, #060a50); */
   /* background: linear-gradient(135deg, #3052e9, #1f013c); */
-  background: linear-gradient(45deg, #474066, #22c55e);
+  /* background: white; */
   /* background-color: #ccf305; */
   border-radius: 12px;
   /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  font-family: cursive;
 }
 
 .flexbox-tile-clean-select {
@@ -717,7 +732,7 @@ p#modal-text {
   .sidebar.open {
     /* width: 20%; */
     /* padding-top: 8.5vw; */
-    padding-top: 6.5vw;
+    /* padding-top: 6.5vw; */
   }
 
   .flexbox-tile p {
@@ -758,10 +773,11 @@ p#modal-text {
   .sidebar.open {
     width: 65%;
     /* padding-top: 25vw; */
-    padding-top: 15vw;
+    /* padding-top: 15vw; */
 
 
   }
+
 
   .responsive-100-width {
 
