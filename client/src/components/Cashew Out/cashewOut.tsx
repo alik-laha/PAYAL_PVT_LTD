@@ -17,7 +17,7 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import CashewOutInitialForm from './cashewOutInitial';
 import CashewOutTable from './cashewOutTable';
@@ -86,7 +86,7 @@ const CashewOut = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataCashewOut) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.origin}>
+                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400" key={item.origin}>
                                     {item.origin} <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
                                 </div>
                             )
@@ -96,11 +96,11 @@ const CashewOut = () => {
 
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '>Cashew Out</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl text-center mt-5'>Cashew Out Pending List</p></DialogTitle>

@@ -47,13 +47,13 @@ const PackagingMetirialReceiving = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                    
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                         FY : {FY} <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
                     </div>
                 </div>
-                <p className='text-lg font-cursive text-center py-1 '>INCOMING PACKAGING MATERIAL COUNT</p>
+                <p className='text-lg font-cursive text-center py-1 '>INCOMING PACKAGING MATERIAL TRANSACTION</p>
                 {checkreceiving('PMPrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>

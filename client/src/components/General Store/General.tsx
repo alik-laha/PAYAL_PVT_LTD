@@ -49,13 +49,13 @@ const GeneralStore = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                    
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
+                    <div className="flexbox-tile bg-green-500 hover:bg-green-400">
                         FY:{FY} <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
                     </div>
                 </div>
-                <p className='text-lg font-cursive text-center py-1 '>GENERAL ITEM TRANSACTION COUNT</p>
+                <p className='text-lg font-cursive text-center py-1 '>GENERAL ITEM TRANSACTION </p>
                 {checkreceiving('GeneralPrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>

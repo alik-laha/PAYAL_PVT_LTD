@@ -87,7 +87,7 @@ const Agarbati = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAgarbati) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.grade}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.grade}>
                                     {item.grade} <br /><p>{item.totalBags ? formatNumber(String(item.totalBags)):0} Kg</p>
                                 </div>
                             )

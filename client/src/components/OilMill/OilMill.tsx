@@ -17,7 +17,7 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import OilMillInitialForm from './OilMillInitial';
 import OilMillTable from './OilMillTable';
@@ -84,7 +84,7 @@ const OilMill = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAlmond) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.type}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.type}>
                                     {item.type} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
@@ -95,7 +95,7 @@ const OilMill = () => {
                 </div>
 
 
-                <p className='text-lg font-semibold text-center py-1 '>OILMILL</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY : {FY} OILMILL TRANSACTION</p>
                 <div>
                 {checkreceiving('OilMillPrimaryEntry') && <Dialog>
                         <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

@@ -81,7 +81,7 @@ const RcnPrimaryEntry = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400" key={item.origin}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.origin}>
                                     {item.origin} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
@@ -91,11 +91,11 @@ const RcnPrimaryEntry = () => {
 
                 </div>
 
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY : {FY} RCN INCOMING COUNT </p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY : {FY} RCN INCOMING TRANSACTION </p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl text-center mt-5'>RCN Receiving Pending List</p></DialogTitle>

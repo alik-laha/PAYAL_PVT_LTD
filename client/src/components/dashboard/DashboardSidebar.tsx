@@ -119,7 +119,7 @@ const toggleSection = (sectionKey: string) => {
             </div>
 
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}> 
-                <a href="#" className="closebtn float-right" onClick={closeSidebar}><p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><LuPanelLeftClose color="green"/></a>
+                <a href="#" className="closebtn float-right" onClick={closeSidebar}><p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><LuPanelLeftClose /></a>
                 <a>
 
                    <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>
@@ -142,7 +142,7 @@ const toggleSection = (sectionKey: string) => {
                     
                  <Collapsible open={openSection === 'admin'} onOpenChange={() => toggleSection('admin')}>
                         <CollapsibleTrigger  className={`user-pvt ${openSection === 'admin' ? 'trigger-open' : ''}`}><MdOutlineAdminPanelSettings size={22} color="purple"/>
-                            <p className="ml-2 text-purple-500 hover:text-purple-600">ADMIN & HR</p>
+                            <p className="ml-2 text-yellow-600">ADMIN & HR</p>
                             <span className="ml-auto">
                                    {openSection === 'admin' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -198,8 +198,8 @@ const toggleSection = (sectionKey: string) => {
 
                     {Role !== 'Security' && rendersection('Receiving') &&
                      <Collapsible open={openSection === 'receiving'} onOpenChange={() => toggleSection('receiving')}>
-                            <CollapsibleTrigger className={`user-pvt ${openSection === 'receiving' ? 'trigger-open' : ''}`}><MdCallReceived size={20} />
-                                <p className="ml-2">LOGISTICS</p>
+                            <CollapsibleTrigger className={`user-pvt ${openSection === 'receiving' ? 'trigger-open' : ''}`}><MdCallReceived size={20} color="purple"/>
+                                <p className="ml-2 text-purple-600" >LOGISTICS</p>
                                  <span className="ml-auto">
                                  {openSection === 'receiving' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -321,8 +321,8 @@ const toggleSection = (sectionKey: string) => {
                         </Collapsible>}
                     {Role !== 'Security' && rendersection('Production') &&
                      <Collapsible open={openSection === 'production'} onOpenChange={() => toggleSection('production')}>
-                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory size={19} />
-                                <p className="ml-2">PRODUCTION</p>
+                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory color='gray' size={19} />
+                                <p className="ml-2 text-zinc-500">PRODUCTION</p>
                                  <span className="ml-auto">
                                  {openSection==='production'? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -475,8 +475,8 @@ const toggleSection = (sectionKey: string) => {
 
                     {rendersection('Quality') && 
                     <Collapsible open={openSection === 'quality'} onOpenChange={() => toggleSection('quality')}>
-                        <CollapsibleTrigger className={`user-pvt ${openSection === 'quality' ? 'trigger-open' : ''}`}><LuBadgeCheck size={20} />
-                            <p className="ml-2">QUALITY</p>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'quality' ? 'trigger-open' : ''}`}><LuBadgeCheck size={20} color="indigo"/>
+                            <p className="ml-2 text-indigo-500">QUALITY</p>
                               <span className="ml-auto">
                                  {openSection==='quality' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -532,8 +532,8 @@ const toggleSection = (sectionKey: string) => {
 
 
                      <Collapsible open={openSection === 'account'} onOpenChange={() => toggleSection('account')}>
-                        <CollapsibleTrigger className={`user-pvt ${openSection === 'account' ? 'trigger-open' : ''}`}><IoMdSettings size={20} />
-                            <p className="ml-4">PROFILE</p>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'account' ? 'trigger-open' : ''}`}><IoMdSettings size={20} color="black"/>
+                            <p className="ml-4 text-stone-500">PROFILE</p>
                             <span className="ml-auto">
                                  {openSection==='account' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>

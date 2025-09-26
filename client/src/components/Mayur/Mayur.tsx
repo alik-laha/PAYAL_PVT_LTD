@@ -23,7 +23,7 @@ import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import {  pendingCheckRoles, PermissionRole } from '@/type/type';
 // import RCNHumidCreateForm from './HumidifierCreateForm';
-import { pendingCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole } from '../common/exportData';
 import MayurInitial from './MayurInitial';
 import MayurTable from './MayurTable';
 import MayurHistoryTable from './MayurHistoryTable';
@@ -99,28 +99,28 @@ const Mayur = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
+                <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                         Issue Hamsa <br /><p>{data.data[0].issue_pw_w && data.data[0].issue_w_lot && data.data[0].issue_ww ? formatNumber
                         (parseFloat(data.data[0].issue_pw_w)+parseFloat(data.data[0].issue_w_lot)+parseFloat(data.data[0].issue_ww)
                         )  : 0}  Kg</p>
                     </div>
                
-                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                     Issue Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
                     Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                     Issue LW <br /><p>{data.data[0].issue_LW ? formatNumber(parseFloat(data.data[0].issue_LW))  : 0}  Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
                     Issue Wholes(JB) <br /><p>{data.data[0].issue_JB ? formatNumber(parseFloat(data.data[0].issue_JB))  : 0}  Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                     Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
                     Current Backlog <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
                     </div>
                   
@@ -134,10 +134,10 @@ const Mayur = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>CURRENT F.Y. REPORT (MAYUR)</p>
+                <p className='text-lg font-cursive text-center '>CURRENT F.Y. {FY} REPORT (MAYUR)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Mayur Entry Form</p></DialogTitle>
@@ -150,7 +150,7 @@ const Mayur = () => {
 
 
                     {checkpending('Mayur') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
-                    <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
+                    <Button className="bg-slate-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
                     <MayurTable/>

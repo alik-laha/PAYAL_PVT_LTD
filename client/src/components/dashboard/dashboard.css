@@ -10,6 +10,14 @@ input {
 }
 dialog p{
   font-family: cursive;
+  font-size: 13px!important;
+}
+dialog img{
+  height:3vh;
+  width: 3vh;
+}
+label,select,option{
+  font-family: cursive!important;
 }
 
 .font-cursive{
@@ -97,7 +105,8 @@ dialog p{
   transition: margin-left 0.4s;
   padding-left: 10px;
   /* padding-top: 10px; */
-  background-color: #e6f0f3;
+  /* background-color: #e6f0f3; */
+  background-color: ghostwhite;
   color: #1e293b;
   font-family: 'Inter', sans-serif;
 }
@@ -434,7 +443,8 @@ dialog p{
   padding-right: 16px;
   transition: margin-left 0.4s;
   height: 100%;
-  background-color: #e6f0f3;
+  /* background-color: #e6f0f3; */
+  background-color: ghostwhite;
   color: #1e1e2f;
   font-family: 'Inter', sans-serif;
 }

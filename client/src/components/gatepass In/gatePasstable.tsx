@@ -1095,7 +1095,7 @@ const GatePassTable = () => {
                   <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                   <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
 
-                  <TableCell className="text-center"> {item.type === 'IN' ? <p className="flex flex-row justify-center"><FaRegArrowAltCircleRight color="blue" size={20} className="mr-3" />{item.type}</p> : <p className="flex flex-row justify-center"><FaRegArrowAltCircleLeft color="red" size={20}  />{item.type}</p>} </TableCell>
+                  <TableCell className="text-center"> {item.type === 'IN' ? <p className="flex flex-row justify-center"><FaRegArrowAltCircleRight color="green" size={20} className="mr-3 text-sm text-green-500 font-semibld" />{item.type}</p> : <p className="flex flex-row justify-center"><FaRegArrowAltCircleLeft color="red" size={20} className="mr-3 text-sm" />{item.type}</p>} </TableCell>
                   <TableCell className="text-center font-semibold shadow-md ">{handlesection(item.section)}</TableCell>
 
                   <TableCell className="text-center ">
