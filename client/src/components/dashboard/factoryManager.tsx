@@ -54,6 +54,9 @@ const FactoryManager: React.FC = () => {
 
         fetchPanelData();
     }, []);
+    const formatString = (input:string)  => {
+  return input.replace(/_/g, " ");
+};
 
     const handleSearch = async () => {
         const res = await axios.put('/api/dashboard/factory-manager', {
@@ -83,7 +86,7 @@ const FactoryManager: React.FC = () => {
                 <div className="dashboard-container" style={{ backgroundColor: 'ghostwhite' }}>
 
 
-                    <div className='text-2xl text-red-600 text-center bg-yellow-200 py-5 shadow-md '>Factory Manager Dashboard
+                    <div className='text-2xl text-white text-center bg-rose-200 py-5 shadow-md font-cursive'>Factory Manager Dashboard
 
                         <NavLink to="/dashboard/dashboard1/" >
                             <Button className="mr-6  right bg-orange-500 float-right h-8">Back</Button>
@@ -160,15 +163,15 @@ const FactoryManager: React.FC = () => {
                                     if (index % 2 === 0) {
                                         return (
                                             <TableRow key={index} className="border border-gray-500">
-                                                <TableCell className="px-2 py-2 font-semibold bg-gray-200 italic border border-gray-500">{index+1}.  {key}</TableCell>
-                                                <TableCell className="px-2 py-2 font-semibold bg-gray-100 text-blue-700 border border-gray-500">{value}</TableCell>
+                                                <TableCell className="p-3 font-semibold  text-md  text-white bg-cyan-500 ">{index+1}.  {formatString(key)}</TableCell>
+                                                <TableCell className="p-3 font-semibold text-md  bg-cyan-100 text-blue-700 border border-gray-500">{value}</TableCell>
 
                                                 {entries[index + 1] ? (
                                                     <>
-                                                        <TableCell className="px-2 py-2 font-semibold italic bg-gray-200 border border-gray-500">
-                                                            {index+2}.  {entries[index + 1][0]}
+                                                        <TableCell className="p-3 font-semibold text-md text-white  bg-cyan-500 ">
+                                                            {index+2}.  {formatString(entries[index + 1][0])}
                                                         </TableCell>
-                                                        <TableCell className="px-2 py-2 font-semibold text-blue-700 bg-gray-100 border border-gray-500">
+                                                        <TableCell className="p-3 font-semibold text-md text-blue-700 bg-cyan-100 border border-gray-500">
                                                             {entries[index + 1][1]}
                                                         </TableCell>
                                                     </>

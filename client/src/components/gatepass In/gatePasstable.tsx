@@ -968,6 +968,9 @@ const GatePassTable = () => {
   function formatNumber(num: string) {
     return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
   }
+      const formatString2 = (input:string)  => {
+  return input.replace(/_/g, " ");
+};
   const Role = localStorage.getItem('role') as keyof PermissionRole
 
 
@@ -1075,7 +1078,7 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Entried_By_Seurity</TableHead>
             <TableHead className="text-center" >Created_By_User</TableHead>
             <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-            <TableHead className="text-center" >GatePass_Status</TableHead>
+            <TableHead className="text-center" >Current_GatePass_Status</TableHead>
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
             <TableHead className="text-center" >Gatepass_Remarks(Any)</TableHead>
 
@@ -1134,7 +1137,7 @@ const GatePassTable = () => {
                   <TableCell className="text-center">{item.createdBy}</TableCell>
                   <TableCell className="text-center font-semibold">{item.netWeight ? formatNumber(item.netWeight) : 0} kg </TableCell>
                   {item.status !== 'Cancelled' ?
-                    <TableCell className="text-center font-semibold text-yellow-600">{item.status}</TableCell> :
+                    <TableCell className="text-center font-semibold text-green-500 tracking-wide">{formatString2(item.status)}</TableCell> :
                     <TableCell className="text-center ">
                       <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Cancelled</button>
                     </TableCell>}

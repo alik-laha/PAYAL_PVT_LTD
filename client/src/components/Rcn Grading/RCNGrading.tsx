@@ -22,7 +22,7 @@ import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { PermissionRole, pendingCheckRoles } from '@/type/type';
-import { pendingCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole } from '../common/exportData';
 
 
 const RcnGrading = () => {
@@ -78,28 +78,28 @@ const RcnGrading = () => {
             <div className='dashboard-main-container'>
           
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                         A <br /><p>{data.data[0].totalA ? formatNumber(parseFloat(data.data[0].totalA)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
                         B <br /><p>{data.data[0].totalB ? formatNumber(parseFloat(data.data[0].totalB)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                         C <br /><p>{data.data[0].totalC ? formatNumber(parseFloat(data.data[0].totalC)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
                         D <br /><p>{data.data[0].totalD ? formatNumber(parseFloat(data.data[0].totalD)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-green-500 hover:bg-green-400">
                         E <br /><p>{data.data[0].totalE ? formatNumber(parseFloat(data.data[0].totalE)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                         F <br /><p>{data.data[0].totalF ? formatNumber(parseFloat(data.data[0].totalF)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
                         G <br /><p>{data.data[0].totalG ? formatNumber(parseFloat(data.data[0].totalG)) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                         Dust <br /><p>{data.data[0].totalDust ? formatNumber(parseFloat(data.data[0].totalDust)) : 0} Bag</p>
                     </div>
 
@@ -109,10 +109,10 @@ const RcnGrading = () => {
                 </div>
                 
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center py-1 '>CURRENT F.Y. REPORT (GRADING)</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} REPORT (GRADING)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Grading Entry Form</p></DialogTitle>

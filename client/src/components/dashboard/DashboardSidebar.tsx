@@ -5,6 +5,7 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 // import { useNavigate } from "react-router-dom"
+import img from '../../assets/Static_Images/Company Logo.jpeg'
 import "./dashboard.css"
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
@@ -119,7 +120,9 @@ const toggleSection = (sectionKey: string) => {
             </div>
 
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}> 
-                <a href="#" className="closebtn float-right" onClick={closeSidebar}><p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><LuPanelLeftClose /></a>
+                <a href="#" className="closebtn float-right" onClick={closeSidebar}>
+                    <img src={img} width={30} height={10}></img>
+                    <p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><LuPanelLeftClose /></a>
                 <a>
 
                    <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>
@@ -142,7 +145,7 @@ const toggleSection = (sectionKey: string) => {
                     
                  <Collapsible open={openSection === 'admin'} onOpenChange={() => toggleSection('admin')}>
                         <CollapsibleTrigger  className={`user-pvt ${openSection === 'admin' ? 'trigger-open' : ''}`}><MdOutlineAdminPanelSettings size={22} color="purple"/>
-                            <p className="ml-2 text-yellow-600">ADMIN & HR</p>
+                            <p className="ml-2 text-yellow-500">ADMIN & HR</p>
                             <span className="ml-auto">
                                    {openSection === 'admin' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -321,8 +324,8 @@ const toggleSection = (sectionKey: string) => {
                         </Collapsible>}
                     {Role !== 'Security' && rendersection('Production') &&
                      <Collapsible open={openSection === 'production'} onOpenChange={() => toggleSection('production')}>
-                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory color='gray' size={19} />
-                                <p className="ml-2 text-zinc-500">PRODUCTION</p>
+                            <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory color='green' size={19} />
+                                <p className="ml-2 text-green-500">PRODUCTION</p>
                                  <span className="ml-auto">
                                  {openSection==='production'? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
