@@ -12,13 +12,16 @@ import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 import { RxDashboard } from "react-icons/rx";
+import { RiMenuUnfoldLine ,RiMenuFoldLine   } from "react-icons/ri";
+
 import {
     MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
     MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality,
-    MdOutlineSpaceDashboard
+    MdOutlineSpaceDashboard,
+    
 } from "react-icons/md";
 import { IoIosNavigate, IoMdSettings   } from "react-icons/io";
-import { LuDonut, LuBadgeCheck ,LuPanelLeftClose } from "react-icons/lu";
+import { LuDonut, LuBadgeCheck  } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
@@ -115,14 +118,14 @@ const toggleSection = (sectionKey: string) => {
 
     return (
         <>
-            <div className="main ">
-                <span className="openbtn" onClick={openSidebar}>&#9776; </span>
+            <div className="main">
+                <span className="openbtn bg-slate-500" onClick={openSidebar}><RiMenuUnfoldLine    size={24} /> </span>
             </div>
 
-            <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}> 
+            <div className={`sidebar  ${sidebarOpen ? 'open' : ''}`}> 
                 <a href="#" className="closebtn float-right" onClick={closeSidebar}>
                     <img src={img} width={30} height={10}></img>
-                    <p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><LuPanelLeftClose /></a>
+                    <p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><RiMenuFoldLine  className="mt-1" /></a>
                 <a>
 
                    <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>

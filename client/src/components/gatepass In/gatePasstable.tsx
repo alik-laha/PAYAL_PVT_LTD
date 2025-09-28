@@ -1104,22 +1104,22 @@ const GatePassTable = () => {
                   <TableCell className="text-center ">
                     {item.receivingStatus === 0 ? (
                       <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
                   </TableCell>
                   <TableCell className="text-center ">
                     {!item.netWeight ? (
                      <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.approvalStatus === 0 ? (
                        <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.status !== 'Closed' ? (
                      <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={22}/></p> }
+                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
                   </TableCell>
 
 
