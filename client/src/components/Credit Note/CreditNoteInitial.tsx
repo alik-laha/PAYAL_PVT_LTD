@@ -19,6 +19,7 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
+import CreditNoteCreate from "./CreditNoteCreate";
 //import OilMillPrimaryEntryForm from "./OilMillCreate";
 
 
@@ -84,7 +85,7 @@ const CreditNoteInitial = (props: any) => {
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Credit Note Receiving</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                {/* <OilMillPrimaryEntryForm rcn={rcnData}/> */}
+                                                <CreditNoteCreate rcn={rcnData}/>
                                                     
                                                 </DialogContent>
                                             </Dialog>

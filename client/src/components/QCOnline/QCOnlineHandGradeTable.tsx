@@ -39,6 +39,8 @@ import {
 } from "@/components/ui/popover";
 import { CiEdit } from "react-icons/ci";
 import QCeditHandGrade from "./QCOnlineHandGradeModify";
+import { BiErrorCircle } from "react-icons/bi";
+import { SiTicktick } from "react-icons/si";
 //import EditQCOnlineHandGrade from "./QCOnlineHandGradeModify";
 
 const QCOnlineHandGradeTable = () => {
@@ -198,28 +200,34 @@ const QCOnlineHandGradeTable = () => {
                 <TableCell className="text-center">{item.moisture} %</TableCell>
 
                 {/* Status Buttons */}
-                <TableCell className="text-center">
-                  {item.cleaningStatus === "OK" ? (
-                    <button className="p-2 text-white rounded bg-green-500 fix-button-width">
-                      OK
-                    </button>
-                  ) : (
-                    <button className="bg-red-500 p-2 text-white rounded fix-button-width">
-                      {item.cleaningStatus}
-                    </button>
-                  )}
-                </TableCell>
-                <TableCell className="text-center">
-                  {item.maintainance === "OK" ? (
-                    <button className="p-2 text-white rounded bg-green-500 fix-button-width">
-                      OK
-                    </button>
-                  ) : (
-                    <button className="bg-red-500 p-2 text-white rounded fix-button-width">
-                      {item.maintainance}
-                    </button>
-                  )}
-                </TableCell>
+                   <TableCell className="text-center">
+                                                                 
+                                                                  {item.cleaningStatus === "OK" ? (
+                                                                    <p className="flex flex-row justify-center">
+                                                                      <SiTicktick color="green" size={18} />
+                                                                    </p>
+                                                                  ) : item.cleaningStatus === "NOT OK" ? (
+                                                                    <p className="flex flex-row justify-center">
+                                                                      <BiErrorCircle color="red" size={23} />
+                                                                    </p>
+                                                                  ) : (
+                                                                    item.cleaningStatus
+                                                                  )}
+                                                                </TableCell>
+                                                                <TableCell className="text-center">
+                                                               
+                                                                  {item.maintainance === "OK" ? (
+                                                                    <p className="flex flex-row justify-center">
+                                                                      <SiTicktick color="green" size={18} />
+                                                                    </p>
+                                                                  ) : item.maintainance === "NOT OK" ? (
+                                                                    <p className="flex flex-row justify-center">
+                                                                      <BiErrorCircle color="red" size={23} />
+                                                                    </p>
+                                                                  ) : (
+                                                                    item.maintainance
+                                                                  )}
+                                                                </TableCell>
 
                 <TableCell className="text-center">{item.cleanRemarks}</TableCell>
                 <TableCell className="text-center">{item.maintainanceRemarks}</TableCell>

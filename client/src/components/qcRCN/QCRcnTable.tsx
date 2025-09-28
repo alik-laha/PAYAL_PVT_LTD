@@ -481,11 +481,11 @@ const QCRcnTable = () => {
           <TableHead className="text-center">Origin</TableHead>
           <TableHead className="text-center">Incoming_Date </TableHead>
           <TableHead className="text-center">GatePass_No</TableHead>
-          <TableHead className="text-center">BL No.</TableHead>
-          <TableHead className="text-center">Con No.</TableHead>
-          <TableHead className="text-center">Truck No.</TableHead>
-          <TableHead className="text-center">BL Weight</TableHead>
-          <TableHead className="text-center">Bag Count</TableHead>
+          <TableHead className="text-center">BL_No.</TableHead>
+          <TableHead className="text-center">Con_No.</TableHead>
+          <TableHead className="text-center">Truck_No.</TableHead>
+          <TableHead className="text-center">BL_Weight</TableHead>
+          <TableHead className="text-center">Bag_Count</TableHead>
           <TableHead className="text-center">QC_Approval Status</TableHead>
           <TableHead className="text-center">Checked_By </TableHead>
 
@@ -558,31 +558,31 @@ const QCRcnTable = () => {
                                     }
                                   />
                                 </TableCell> */}
-                  <TableCell className="text-center font-semibold">
+                <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-100':''}`}>
                     {item.sampling ? `${item.sampling} %` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-100':''}`}>
                     {item.moisture ? `${item.moisture} %` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-100':''}`}>
                     {item.nutCount ? `${item.nutCount} Pcs` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-100':''}`}>
                     {item.fluteRate ? `${item.fluteRate} g/kg` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-100':''}`}>
                     {item.goodKernel ? `${item.goodKernel} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-100':''}`}>
                     {item.spIm ? `${item.spIm} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-100':''}`}>
                     {item.reject ? `${item.reject} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-100':''}`}>
                     {item.shell ? `${item.shell} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold text-red-500">
+                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-100':''}`}>
                     {item.outTurn ? `${item.outTurn} Lbs` : ""}
                   </TableCell>
                   <TableCell className="text-center">
@@ -813,31 +813,31 @@ const QCRcnTable = () => {
 
                                             <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                         </TableCell> */}
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-100':''}`}>
                     {item.sampling ? `${item.sampling} %` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-100':''}`}>
                     {item.moisture ? `${item.moisture} %` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-100':''}`}>
                     {item.nutCount ? `${item.nutCount} Pcs` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-100':''}`}>
                     {item.fluteRate ? `${item.fluteRate} g/kg` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-100':''}`}>
                     {item.goodKernel ? `${item.goodKernel} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-100':''}`}>
                     {item.spIm ? `${item.spIm} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-100':''}`}>
                     {item.reject ? `${item.reject} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold">
+                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-100':''}`}>
                     {item.shell ? `${item.shell} g` : ""}
                   </TableCell>
-                  <TableCell className="text-center font-semibold text-red-500">
+                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-100':''}`}>
                     {item.outTurn ? `${item.outTurn} Lbs` : ""}
                   </TableCell>
                   <TableCell className="text-center">

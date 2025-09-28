@@ -818,7 +818,7 @@ p#modal-text {
     display: block;
     font-size: 13px;
     font-weight: 500;
-    color: rgba(198, 220, 241, 0.796);
+    /* color: rgba(198, 220, 241, 0.796); */
 
   }
 

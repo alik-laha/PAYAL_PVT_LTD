@@ -193,24 +193,24 @@ export interface creditNoteEntryData {
   gateType: string;
   recevingDate: string; // ISO date string
   truckNo: string;
-  creditNoteDate: string | null;
-  creditNoteNo: string | null;
-  gradeName: string | null;
-  origin: string | null;
-  vendorName: string | null;
-  quantity: string | null;
-  totalWt: string | null;
-  unitPrice: string | null;
+  creditNoteDate: string;
+  creditNoteNo: string;
+  gradeName: string;
+  origin: string;
+  vendorName: string;
+  quantity: string;
+  totalWt: string;
+  unitPrice: string;
   editStatus: string;
-  type: string | null;
-  createdBy: string | null;
-  approvedBy: string | null;
+  type: string;
+  createdBy: string;
+  approvedBy: string;
   status: number;
-  netWeight: string | null;
+  netWeight: string;
   gatePassNo: string;
   grossWt: string;
-  totalBill: string | null;
-  remarks: string | null;
+  totalBill: string;
+  remarks: string;
 }
 
 export interface AgarbatiPrimaryEntryData {
@@ -235,6 +235,8 @@ export interface AgarbatiPrimaryEntryData {
     totalWt:string;  
     totalBill:string;  
 }
+
+
 
 export interface CashewOutEntryData {
     id: number;
