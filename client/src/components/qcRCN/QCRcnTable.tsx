@@ -531,7 +531,7 @@ const QCRcnTable = () => {
                   <TableCell className="text-center">
                     {item.rcnEntry.noOfBags}
                   </TableCell>
-                  <TableCell className="text-center">
+                 <TableCell className="text-center">
                     {item.rcnEntry.rcnStatus === "QC Approved" ? (
                       <p className="flex flex-row justify-center">
                         <SiTicktick color="green" size={18} />
@@ -547,46 +547,46 @@ const QCRcnTable = () => {
                     )}
                   </TableCell>
                   <TableCell className="text-center">
-                    {item.qcapprovedBy}
+                    {item.qcapprovedBy? item.qcapprovedBy:<p className="flex flex-row justify-center text-red-500 font-semibold">
+                        Pending
+                      </p>}
                   </TableCell>
 
                   {/* <TableCell className="text-center">
-                                  <input
-                                    type="checkbox"
-                                    checked={
-                                      item.reportStatus === 1 ? true : false
-                                    }
-                                  />
-                                </TableCell> */}
-                <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-100':''}`}>
-                    {item.sampling ? `${item.sampling} %` : ""}
+
+                                            <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
+                                        </TableCell> */}
+                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.sampling ? `${item.sampling} %` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-100':''}`}>
-                    {item.moisture ? `${item.moisture} %` : ""}
+                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.moisture ? `${item.moisture} %` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-100':''}`}>
-                    {item.nutCount ? `${item.nutCount} Pcs` : ""}
+                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.nutCount ? `${item.nutCount} Pcs` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-100':''}`}>
-                    {item.fluteRate ? `${item.fluteRate} g/kg` : ""}
+                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.fluteRate ? `${item.fluteRate} g/kg` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-100':''}`}>
-                    {item.goodKernel ? `${item.goodKernel} g` : ""}
+                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.goodKernel ? `${item.goodKernel} g` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-100':''}`}>
-                    {item.spIm ? `${item.spIm} g` : ""}
+                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.spIm ? `${item.spIm} g` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-100':''}`}>
-                    {item.reject ? `${item.reject} g` : ""}
+                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.reject ? `${item.reject} g` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-100':''}`}>
-                    {item.shell ? `${item.shell} g` : ""}
+                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.shell ? `${item.shell} g` : "NA"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-100':''}`}>
-                    {item.outTurn ? `${item.outTurn} Lbs` : ""}
+                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.outTurn ? `${item.outTurn} Lbs` : "NA"}
                   </TableCell>
                   <TableCell className="text-center">
-                    {item.createdBy}
+                      {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>}
                   </TableCell>
                   <TableCell className="text-center">
                     {item.editStatus}
@@ -816,34 +816,36 @@ const QCRcnTable = () => {
                                             <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                         </TableCell> */}
                   <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.sampling ? `${item.sampling} %` : "--"}
+                    {item.sampling ? `${item.sampling} %` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.moisture ? `${item.moisture} %` : "--"}
+                    {item.moisture ? `${item.moisture} %` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.nutCount ? `${item.nutCount} Pcs` : "--"}
+                    {item.nutCount ? `${item.nutCount} Pcs` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.fluteRate ? `${item.fluteRate} g/kg` : "--"}
+                    {item.fluteRate ? `${item.fluteRate} g/kg` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.goodKernel ? `${item.goodKernel} g` : "--"}
+                    {item.goodKernel ? `${item.goodKernel} g` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.spIm ? `${item.spIm} g` : "--"}
+                    {item.spIm ? `${item.spIm} g` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.reject ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.reject ? `${item.reject} g` : "--"}
+                    {item.reject ? `${item.reject} g` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.shell ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.shell ? `${item.shell} g` : "--"}
+                    {item.shell ? `${item.shell} g` : "NA"}
                   </TableCell>
                   <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.outTurn ? `${item.outTurn} Lbs` : "--"}
+                    {item.outTurn ? `${item.outTurn} Lbs` : "NA"}
                   </TableCell>
                   <TableCell className="text-center">
-                    {item.createdBy}
+                    {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>}
                   </TableCell>
                   <TableCell className="text-center">
                     {item.editStatus}

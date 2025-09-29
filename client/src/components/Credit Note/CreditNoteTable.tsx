@@ -66,6 +66,7 @@ import { LuDownload } from "react-icons/lu";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import Context from "../context/context";
+import CreditNoteModify from "./CreditNoteModify";
 //import RcvVillageInModify from "./RcvVillageInModify"
 
 const CreditNoteTable = () => {
@@ -780,11 +781,11 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                   </DialogTitle>
                                   <DialogDescription>
                                     <p className="text-1xl text-center">
-                                      To Be Filled Up By Village Supervisor
+                                      To Be Filled Up By Dispatch Supervisor
                                     </p>
                                   </DialogDescription>
                                 </DialogHeader>
-                                {/* <RcvVillageInModify data={item} /> */}
+                                <CreditNoteModify data={item} />
                               </DialogContent>
                             </Dialog>
                           </PopoverContent>

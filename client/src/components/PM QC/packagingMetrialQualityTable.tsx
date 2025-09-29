@@ -433,25 +433,28 @@ const QCPackageMaterialTable = () => {
                  
 
                     <TableHead className="text-center" >Testing_Date</TableHead>
-                    <TableHead className="text-center" >Length(mm)</TableHead>
-                    <TableHead className="text-center" >Width(mm)</TableHead>
-                    <TableHead className="text-center" >Height(mm)</TableHead>
-                    <TableHead className="text-center" >Gsm</TableHead>
-                    <TableHead className="text-center" >Avg_Weight(gm)</TableHead>
-                  <TableHead className="text-center" >Passed Leakage_Test</TableHead>
+                         <TableHead className="text-center" >Passed Leakage_Test</TableHead>
                     <TableHead className="text-center" >Passed Drop_Test</TableHead>
                     <TableHead className="text-center" >Seal_Condition</TableHead>
                     <TableHead className="text-center" >Label_Condition</TableHead>
-                    {/* <TableHead className="text-center" >COA</TableHead> */}
-                    <TableHead className="text-center" >COA</TableHead>
-                    {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
-                    <TableHead className="text-center" >FoodGrade Certificate</TableHead>
-                    <TableHead className="text-center" >Remarks(Regarding_Quality_PM)</TableHead>
+                    <TableHead className="text-center" >Length(mm)</TableHead>
+                    <TableHead className="text-center" >Width(mm)</TableHead>
+                    <TableHead className="text-center" >Height(mm)</TableHead>
+                    <TableHead className="text-center" >Gsm_Value</TableHead>
+                    <TableHead className="text-center" >Avg_Weight(gm)</TableHead>
+                              <TableHead className="text-center" >Remarks(Regarding_Quality_PM)</TableHead>
                    
                     
                     <TableHead className="text-center" >Damage_Image</TableHead>
+             
+              
+                    {/* <TableHead className="text-center" >COA</TableHead> */}
+                    <TableHead className="text-center" >COA Certificate</TableHead>
+                    {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
+                    <TableHead className="text-center" >FoodGrade Certificate</TableHead>
+                
 
-                    <TableHead className="text-center" >Report By</TableHead>
+                    <TableHead className="text-center" >Reported_By</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
@@ -640,14 +643,8 @@ const QCPackageMaterialTable = () => {
                           
                                        
                                      
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?'text-white bg-blue-500':''}`}>{item.testingDate ? handletimezone(item.testingDate):''}</TableCell>
-                                        <TableCell className={`text-center ${item.testingDate ?' bg-yellow-100':''}`}>{item.length}</TableCell>
-                                        <TableCell className={`text-center ${item.testingDate ?' bg-yellow-100':''}`}>{item.width}</TableCell>
-                                        <TableCell className={`text-center ${item.testingDate ?' bg-yellow-100':''}`}>{item.height}</TableCell>
-                                        <TableCell className={`text-center ${item.testingDate ?' bg-yellow-100':''}`}>{item.gsm}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-100':''}`}>{item.avgWeight}</TableCell>
-
-                                           <TableCell className={`text-center font-semibold ${item.leakageTest ?' bg-stone-100':''}`}>{
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?'text-white bg-blue-500':'bg-blue-500 text-white '}`}>{item.testingDate ? handletimezone(item.testingDate):'NA'}</TableCell>
+                                                <TableCell className={`text-center font-semibold ${item.leakageTest ?' ':'text-red-500 font-semibold'}`}>{
                                             item.leakageTest === "Pass" ? (
                                                 <p className="flex flex-row justify-center">
                                                                        <SiTicktick color="green" size={18} />
@@ -657,10 +654,10 @@ const QCPackageMaterialTable = () => {
                                                     <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                                ) : item.leakageTest
+                                                ) : 'NA'
                                             )
                                         }</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.dropTest ?' bg-stone-100':''}`}>{item.dropTest === "Pass" ? (
+                                        <TableCell className={`text-center font-semibold ${item.dropTest ?' ':'text-red-500 font-semibold'}`}>{item.dropTest === "Pass" ? (
                                            <p className="flex flex-row justify-center">
                                                                        <SiTicktick color="green" size={18} />
                                                                      </p>
@@ -669,9 +666,9 @@ const QCPackageMaterialTable = () => {
                                                 <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                            ) : item.dropTest
+                                            ) : 'NA'
                                         )}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.sealCondition ?' bg-stone-100':''}`}>{item.sealCondition === "OK" ? (
+                                        <TableCell className={`text-center font-semibold ${item.sealCondition ?' ':'text-red-500 font-semibold'}`}>{item.sealCondition === "OK" ? (
                                             <p className="flex flex-row justify-center">
                                                                        <SiTicktick color="green" size={18} />
                                                                      </p>
@@ -680,9 +677,9 @@ const QCPackageMaterialTable = () => {
                                                <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                            ) : item.sealCondition
+                                            ) : 'NA'
                                         )}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.labelingCondition ?' bg-stone-100':''}`}>{item.labelingCondition === "OK" ? (
+                                        <TableCell className={`text-center font-semibold ${item.labelingCondition ?' ':'text-red-500 font-semibold'}`}>{item.labelingCondition === "OK" ? (
                                             <p className="flex flex-row justify-center">
                                                                        <SiTicktick color="green" size={18} />
                                                                      </p>
@@ -691,8 +688,28 @@ const QCPackageMaterialTable = () => {
                                                 <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                            ) : item.labelingCondition
+                                            ) : 'NA'
                                         )}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.length ?item.length:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.width ?item.width:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.height?item.height:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.gsm ?item.gsm:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.avgWeight ?item.avgWeight:'NA'}</TableCell>
+                                         <TableCell className={`text-center font-semibold ${item.testingDate ?' ':'text-red-500 '}`}>{item.remarks ? item.remarks :'NA'}</TableCell>
+                                        
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' ':'text-red-500 '}`}>
+                                            {
+                                               (item.damageFile && item.damageFile.length > 3) ? (
+                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
+                                                ) : (
+                                                   'NA'
+                                                )
+
+                                            }
+                                        </TableCell>
+
+                                   
+                                       
                                         {/* <TableCell className="text-center ">
                                             { item.qualityStatus && (item.coa === "Yes" ? (
                                             <Input type="checkbox" className="h-4" checked/>
@@ -700,11 +717,11 @@ const QCPackageMaterialTable = () => {
                                         
                                      
                                         </TableCell> */}
-                                        <TableCell className="text-center ">
+                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus==='Uploaded' ?' ':'text-orange-500 font-semibold'}`}>
                                         {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
                                         style={{ background: 'white', color: 'orange' }} 
                                          onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={20} /></button> : 
-                                       null}
+                                       '--'}
                                         </TableCell>
 
 
@@ -713,25 +730,16 @@ const QCPackageMaterialTable = () => {
                                         }
                                         </TableCell> */}
                                        
-                                        <TableCell className="text-center ">
+                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus ==='Uploaded'?' ':'text-orange-500 font-semibold'}`}>
                                         {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
                                         style={{ background: 'white', color: 'orange' }} 
                                         onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={20} /></button>
-                                             : null}
+                                             : '--'}
                                         </TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
                                         
-                                        <TableCell className="text-center">
-                                            {
-                                               (item.damageFile && item.damageFile.length > 3) ? (
-                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
-                                                ) : (
-                                                   ''
-                                                )
-
-                                            }
-                                        </TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy ?item.createdBy:<p className="flex flex-row justify-center">
+                                                                       <MdOutlinePendingActions  color="red" size={23} />
+                                                                     </p>}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
