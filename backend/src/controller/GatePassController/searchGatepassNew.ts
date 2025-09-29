@@ -11,6 +11,8 @@ import oilMillModel from "../../model/oilMillModel";
 import creditNoteModel from "../../model/creditNoteModel";
 import cashewOutModel from "../../model/cashewOutModel";
 import RcnPrimary from "../../model/RcnEntryModel";
+import RcvVillageInModel from "../../model/RcvVillageInModel";
+import RcvVillageModel from "../../model/RcvVillageModel";
 
 // Import your section models
 
@@ -26,8 +28,28 @@ const sectionModelMap: Record<string, any> = {
   creditnote: creditNoteModel,
   finishedcashew: cashewOutModel,
   rawcashew:RcnPrimary
-  // oilmill: oilMillPrimaryModel,
   // add more mappings as needed
+};
+
+const sectionTypeModelMap: Record<string, Record<string, any>> = {
+  IN: {
+    store: storePrimaryModel,
+    general: generalPrimaryModel,
+    packagingmaterial: PackagingMaterial,
+    agarbati: agarbatiPrimaryEntryModel,
+    creditnote: creditNoteModel,
+    village: RcvVillageInModel,
+    rawcashew:RcnPrimary
+  },
+  OUT: {
+    store: storePrimaryModel,
+    general: generalPrimaryModel,
+   finishedcashew: cashewOutModel,
+    agarbati: agarbatiPrimaryEntryModel,
+    oilmill: oilMillModel,
+   
+    village: RcvVillageModel,
+  },
 };
 
 const sectionColumnMap: Record<string, string> = {
@@ -38,7 +60,8 @@ const sectionColumnMap: Record<string, string> = {
   oilmill: "totalWt",
   creditnote: "totalWt",
   finishedcashew: "actualQuantity", // <- special case
-  rawcashew:"blWeight"
+  rawcashew:"blWeight",
+  village:'totalWt'
 };
 
 const SearchGatePassNew = async (req: Request, res: Response) => {
@@ -82,50 +105,40 @@ const SearchGatePassNew = async (req: Request, res: Response) => {
       return res.status(200).json({ msg: "No entries found", rcnEntries: [] });
     }
 
-    // ---- Group by section ----
-    const sectionGroups: Record<string, string[]> = {};
-    rcnEntries.forEach((entry: any) => {
-      const sec = entry.section?.toLowerCase().trim();
-      if (!sec) return;
-      if (!sectionGroups[sec]) sectionGroups[sec] = [];
-      sectionGroups[sec].push(entry.gatePassNo);
-    });
-
-    // ---- Collect sums ----
+     // Group entries by gatePassNo + section
     const sumMap: Record<string, number> = {};
+    for (const entry of rcnEntries) {
+      const entryType = entry.dataValues.type;
+      const sec = entry.dataValues.section?.toLowerCase().trim();
+      if (!sec) continue;
 
-    for (const [sec, gatePassNos] of Object.entries(sectionGroups)) {
-      const model = sectionModelMap[sec];
-      if (!model) continue; // skip sections without totalWt
+      const model = sectionTypeModelMap[entryType]?.[sec];
+      if (!model) continue;
 
-      const sumColumn = sectionColumnMap[sec] || "totalWt"; // fallback
+      const sumColumn = sectionColumnMap[sec] || "totalWt";
 
-      const sumResults = await model.findAll({
-    attributes: [
-      "gatePassNo",
-      [fn("SUM", col(sumColumn)), "sumTotalWt"] // <-- use dynamic column
-    ],
-    where: { gatePassNo: { [Op.in]: gatePassNos } },
-    group: ["gatePassNo"],
-  });
+      const sumResult = await model.findOne({
+        attributes: [[fn("SUM", col(sumColumn)), "sumTotalWt"]],
+        where: { gatePassNo: entry.dataValues.gatePassNo },
+      });
 
-   sumResults.forEach((s: any) => {
-    const key = `${sec}__${s.gatePassNo}`;
-    sumMap[key] = parseFloat(s.get("sumTotalWt") || "0");
-  });
-}
+      const sumTotalWt = parseFloat(sumResult?.get("sumTotalWt") || "0");
+      const key = `${entry.dataValues.gatePassNo}__${sec}`;
+      sumMap[key] = sumTotalWt;
+    }
 
-// ---- Attach sums safely ----
-const entriesWithSum = rcnEntries.map((entry: any) => {
-  const sec = entry.section?.toLowerCase().trim();
-  const key = `${sec}__${entry.gatePassNo}`;
+    // Attach sums and difference
+    const entriesWithSum = rcnEntries.map((entry: any) => {
+      const sec = entry.section?.toLowerCase().trim();
+      const key = `${entry.gatePassNo}__${sec}`;
+      const sumTotalWt = sumMap[key] || 0;
 
-  return {
-    ...entry.toJSON(),
-    sumTotalWt: sumMap[key] || 0,  // now section-specific
-    
-  };
-});
+      return {
+        ...entry.toJSON(),
+        sumTotalWt,
+        difference: (entry.netWeight || 0) - sumTotalWt,
+      };
+    });
 
     return res.status(200).json({
       msg: "GatePass Entry found",
@@ -136,5 +149,6 @@ const entriesWithSum = rcnEntries.map((entry: any) => {
     return res.status(500).json({ msg: "Internal server error", error: err });
   }
 };
+
 
 export default SearchGatePassNew;

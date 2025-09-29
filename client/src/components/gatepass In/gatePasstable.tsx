@@ -1079,8 +1079,8 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Created_By_User</TableHead>
             
             <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-            <TableHead className="text-center" >Receiving_Wt(Kg)</TableHead>
-            <TableHead className="text-center" >Mismatch_Wt(Kg)</TableHead>
+               {Role !== 'Security' &&  <TableHead className="text-center" >Receiving_Wt(Kg)</TableHead>}
+                {Role !== 'Security' && <TableHead className="text-center" >Mismatch_Wt(Kg)</TableHead>}
           <TableHead className="text-center" >Current_GatePass_Status</TableHead>
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
             <TableHead className="text-center" >Gatepass_Remarks(Any)</TableHead>
@@ -1205,10 +1205,10 @@ const GatePassTable = () => {
                   <TableCell className="text-center font-bold bg-yellow-50">
                     {item.netWeight ? formatNumber(item.netWeight) : '--'} 
                   </TableCell>
-                  <TableCell className="text-center font-bold bg-yellow-50 ">
+                  {Role !== "Security" &&<TableCell className="text-center font-bold bg-yellow-50 ">
                     {item.sumTotalWt ? formatNumber(item.sumTotalWt) : '--'} 
-                  </TableCell>
-                  <TableCell
+                  </TableCell>}
+                 {Role !== "Security" && <TableCell
                     className={`text-center font-semibold ${
                       Number(item.netWeight) - Number(item.sumTotalWt) > 0
                         ? "text-green-600"
@@ -1216,12 +1216,12 @@ const GatePassTable = () => {
                         ? "text-red-600"
                         : "text-gray-600"
                     }`}>
-                    {item.netWeight || item.sumTotalWt
+                    {item.netWeight 
                       ? `${
                            Number(item.netWeight) - Number(item.sumTotalWt)  > 0 ? "+" : ""
                         }${formatNumber( (Number(item.netWeight) - Number(item.sumTotalWt)).toString() )} kg`
                       : "0 kg"}
-                  </TableCell>
+                  </TableCell>}
                       {item.status !== "Cancelled" ? (
                     <TableCell className="text-center font-semibold tracking-wide text-cyean-500">
                       {formatString2(item.status)}
