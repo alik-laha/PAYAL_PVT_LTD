@@ -143,7 +143,7 @@ export const sectionDataonTypeGate = {
     OUT: ["Store",'General','Almond','Village','Agarbati','OilMill','FinishedCashew'],
 }
 export const SelectGatePassType = ["IN","OUT"]
-export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati','Issue','OilMill','Packing']
+export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati','Issue','OilMill','Packing','CreditNote']
 export const SectionStatusAll = ['Pending_Receiving', 'Pending_NetWeight' ,'Pending_Verification','Pending_Release','Closed','Cancelled']
 export const OrderStatusAll = ['Pending Approval','Pending Mapping', 'Pending Packing','Closed','Cancelled']
 
@@ -160,7 +160,8 @@ export const TypeOnSection = {
     Agarbati:['Agarbati Type','Agarbati Grade'],
     Issue:['Issue Unit','Issue Section','Issue SubSection'],
     OilMill:['Item Type'],
-    Packing:['Final Grade']
+    Packing:['Final Grade'],
+    CreditNote:['Item Type'],
 }
 
 

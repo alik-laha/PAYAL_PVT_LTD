@@ -806,39 +806,41 @@ const QCRcnTable = () => {
                     )}
                   </TableCell>
                   <TableCell className="text-center">
-                    {item.qcapprovedBy}
+                    {item.qcapprovedBy? item.qcapprovedBy:<p className="flex flex-row justify-center text-red-500 font-semibold">
+                        Pending
+                      </p>}
                   </TableCell>
 
                   {/* <TableCell className="text-center">
 
                                             <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                         </TableCell> */}
-                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-100':''}`}>
-                    {item.sampling ? `${item.sampling} %` : ""}
+                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.sampling ? `${item.sampling} %` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-100':''}`}>
-                    {item.moisture ? `${item.moisture} %` : ""}
+                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.moisture ? `${item.moisture} %` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-100':''}`}>
-                    {item.nutCount ? `${item.nutCount} Pcs` : ""}
+                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.nutCount ? `${item.nutCount} Pcs` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-100':''}`}>
-                    {item.fluteRate ? `${item.fluteRate} g/kg` : ""}
+                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.fluteRate ? `${item.fluteRate} g/kg` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-100':''}`}>
-                    {item.goodKernel ? `${item.goodKernel} g` : ""}
+                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.goodKernel ? `${item.goodKernel} g` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-100':''}`}>
-                    {item.spIm ? `${item.spIm} g` : ""}
+                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.spIm ? `${item.spIm} g` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-100':''}`}>
-                    {item.reject ? `${item.reject} g` : ""}
+                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.reject ? `${item.reject} g` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-100':''}`}>
-                    {item.shell ? `${item.shell} g` : ""}
+                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.shell ? `${item.shell} g` : "--"}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-100':''}`}>
-                    {item.outTurn ? `${item.outTurn} Lbs` : ""}
+                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.outTurn ? `${item.outTurn} Lbs` : "--"}
                   </TableCell>
                   <TableCell className="text-center">
                     {item.createdBy}

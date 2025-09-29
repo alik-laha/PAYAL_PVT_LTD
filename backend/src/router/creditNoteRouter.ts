@@ -1,19 +1,21 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
-import { approveCashewOut, batchdataFind, EditCashewOutEntry, EditRejectCashewOut, getAllcashewOutEditPending, getCashewOutByGatePass, getUnEntriedCashewOut, SearchCashewOutPrimary, sumofAllTypeCashewOut, updateCashewOut, updateCashewOutEntire } from '../controller/cashewOutController/cashewOutApi';
+import { approveCashewOut, batchdataFind, EditCashewOutEntry, EditRejectCashewOut } from '../controller/cashewOutController/cashewOutApi';
 
-import { getCreditNoteByGatePass, getCreditNoteeditpending, getUnEntriedCreditNote, sumofAllTypeCreditNote } from '../controller/CreditNoteController/CreditNoteApi';
+import { getCreditNoteByGatePass, getCreditNoteeditpending, getUnEntriedCreditNote, searchCreditNote, sumofAllTypeCreditNote, updateCreditNote, updateCreditNoteEntire } from '../controller/CreditNoteController/CreditNoteApi';
 const router = express.Router();
 
 router.get('/getCreditNoteeditpending', jwtVerify, getCreditNoteeditpending);
 router.get('/sumofAllCreditNoteEntry', jwtVerify, sumofAllTypeCreditNote);
 router.get("/getCreditNoteNotEntried/:status", jwtVerify, getUnEntriedCreditNote)
-
 router.get("/getCreditNoteByGatePass/:lotNO", jwtVerify, getCreditNoteByGatePass)
-router.put("/updateRcvCashewOut/:id",jwtVerify, updateCashewOut)
-router.put("/updateRcvCashewOutEntire/:id",jwtVerify, updateCashewOutEntire)
-router.put('/CashewOutprimarysearch', jwtVerify, SearchCashewOutPrimary);
+
+
+router.put("/updateRcvCreditNote/:id",jwtVerify, updateCreditNote)
+router.put("/updateRcvCreditNotetEntire/:id",jwtVerify, updateCreditNoteEntire)
+
+router.post('/getcreditNotePrimary', jwtVerify, searchCreditNote);
 //Edit Reject Rcn Entry by Id
 router.delete('/rejectededitCashewOut/:id', jwtVerify, EditRejectCashewOut);
 //Edit Approve Rcn Entry by Id

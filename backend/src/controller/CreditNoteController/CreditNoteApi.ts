@@ -62,7 +62,7 @@ export const sumofAllTypeCreditNote = async (req: Request, res: Response): Promi
                
                 [Op.or]: [
                     { editStatus: 'Approved' },
-                    { editStatus: 'NA' }
+                    { editStatus: 'N/A' }
                 ],status:1,
                 recevingDate: {
                     [Op.between]: [targetDate, today]
@@ -137,33 +137,231 @@ export const getCreditNoteByGatePass = async (req: Request, res: Response) => {
 }
 
 
-
-export const getRcvVillageInbyGatePass = async (req: Request, res: Response) => {
-
+export const updateCreditNote = async (req: Request, res: Response) => {
     try {
-        const lotNO = req.params.lotNO
-        const rcnmainLot = await RcvVillageInModel.findAll({
+        const {  creditNoteNo,
+    grade,
+    origin,
+    vendorName,
+    quantity,
+    totalWt,
+    type,
+    unitPrice,
+    remarks,
+    totalBill } = req.body.data;
+    
+        const id=req.params.id;
+        const createdBy = req.cookies.user;
+       
+        const newPackageMaterial = await creditNoteModel.update(
+          {
+            creditNoteNo,
+            gradeName:grade,
+            origin,
+            vendorName,
+            quantity,
+            totalWt,
+            type,
+            unitPrice,
+            remarks,
+            totalBill,
+            status: 1,
+            createdBy: createdBy,
+          },
+          {
             where: {
-                gatePassNo: lotNO
-            }, order: [['id', 'ASC']]
-
-        }
+              id: id,
+            },
+          }
         );
-        if (rcnmainLot) {
-            res.status(200).json({ message: "UnEntried Village In Entry", rcnmainLot });
+        if(newPackageMaterial){
+            return res.status(201).json({ message: "Credit Note Items Received Successfully", newPackageMaterial });
         }
-        else {
-            res.status(500).json({ message: "Error in Finding UnEntried Village In Entry" });
+        else{
+            return res.status(500).json({ message: "internal error while creating Credit Note Receiving" });
         }
+    
 
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "Internal error while Receiving Credit Note" });
 
     }
+}
+
+export const updateCreditNoteEntire = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        // console.log(req.body)
+        const createdBy = req.cookies.user;
+        const formData = req.body.formData
+        const firstrow = formData[0]
+        const { creditNoteNo,
+    grade,
+    origin,
+    vendorName,
+    quantity,
+    totalWt,
+    type,
+    unitPrice,
+    remarks,
+        totalBill   } = firstrow;
+
+
+      await sequelize.transaction(async (transaction: any) => {
+
+            const newPackageMaterial = await creditNoteModel.update({
+            creditNoteNo,
+            gradeName:grade,
+            origin,
+            vendorName,
+            quantity,
+            totalWt,
+            type,
+            unitPrice,
+            remarks,
+            totalBill,
+            status: 1,
+            createdBy: createdBy
+            }, {
+                where: {
+                    id: id
+                },transaction
+            });
+        
+            if (newPackageMaterial ) {
+                const dataToUpdate = formData.slice(1)
+                for (let data of dataToUpdate) {
+                    //console.log(data)
+                    await creditNoteModel.create({
+                        gatePassNo: data.GatePassNo,
+                        recevingDate: data.recevingDate,
+                        grossWt: data.GrossWt,
+                        truckNo: data.TruckNo,
+                        gateType: data.gateType,
+
+                        creditNoteNo:data.creditNoteNo,
+            gradeName:data.grade,
+            origin:data.origin,
+            vendorName:data.vendorName,
+            quantity:data.quantity,
+            totalWt:data.totalWt,
+            type:data.type,
+            unitPrice:data.unitPrice,
+            remarks:data.remarks,
+            totalBill:data.totalBill,
+            status: 1,
+            createdBy: createdBy
+                    }, { transaction })
+
+                }
+
+                
+                return res.status(201).json({ message: "Credit Note Items Received successfully" });
+
+            }
+            else{
+                return res.status(500).json({ message: "internal error while receiving Credit Note" });
+            }
+
+        })
+
+   } catch (error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "internal error while receiving CreditNote Entry" ,error});
+        }
+   
+
+    }
+}
+
+
+export const searchCreditNote = async (req: Request, res: Response) => {
+    try {
+        const { searchitem, fromDate, toDate, almondtype, origin } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+        if (searchitem) {
+            whereClause.push({
+                [Op.or]: [
+                    { gatePassNo: { [Op.like]: `%${searchitem}%` } },
+                    { creditNoteNo: { [Op.like]: `%${searchitem}%` } }
+                ]
+            });
+        }
+
+        if (fromDate && toDate) {
+            whereClause.push({
+                recevingDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+
+        if (almondtype) {
+            whereClause.push({
+                type: almondtype
+            });
+        }
+     
+   
+        if (origin) {
+            whereClause.push({
+                origin: {
+                    [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        whereClause.push({
+            status: {
+                [Op.eq]: 1
+            }
+        });
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        if (limit === 0 && offset === 0) {
+            rcnEntries = await creditNoteModel.findAll({
+                where,
+                order: [['gatePassNo', 'DESC'], ['recevingDate', 'DESC']], // Order by date descending
+
+            });
+        }
+        else {
+            rcnEntries = await creditNoteModel.findAll({
+                where,
+                order: [['gatePassNo', 'DESC'], ['recevingDate', 'DESC']], // Order by date descending
+                limit: limit,
+                offset: offset
+            });
+        }
+
+        return res.status(200).json({ msg: 'Credit Note Entry found', rcnEntries })
+    }
     catch (err) {
-        console.log(err);
-        res.status(500).json({ message: "Internal Server Error", error: err });
+        console.log(err)
+        return res.status(500).json({ msg: 'Internal server error', error: err })
     }
 
 }
+
+
+
+
+
+
+
+
+
 
 export const getRcvVillageInbyDate = async (req: Request, res: Response) => {
 

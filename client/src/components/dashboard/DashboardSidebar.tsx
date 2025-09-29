@@ -5,7 +5,7 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 // import { useNavigate } from "react-router-dom"
-import img from '../../assets/Static_Images/Company Logo.jpeg'
+import img from '../../assets/Static_Images/backgroundsidebar.png'
 import "./dashboard.css"
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
@@ -124,13 +124,14 @@ const toggleSection = (sectionKey: string) => {
 
             <div className={`sidebar  ${sidebarOpen ? 'open' : ''}`}> 
                 <a href="#" className="closebtn float-right" onClick={closeSidebar}>
-                    <img src={img} width={30} height={10}></img>
-                    <p className="pdpl-heading">Payal Dealers Pvt. Ltd.</p><RiMenuFoldLine  className="mt-1" /></a>
+                    <img src={img} width={30} height={10} className="shadow-md  "></img>
+                    <p className="pdpl-heading text-shadow-md">Payal Dealers Pvt. Ltd.</p><RiMenuFoldLine  className="mt-1" />
+                    </a>
                 <a>
 
                    <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>
                         <CollapsibleTrigger  className={`user-pvt ${openSection === 'dashboard' ? 'trigger-open' : ''}`}><RxDashboard color="red" size={18} />
-                            <p className="ml-2 text-red-500">DASHBOARD</p>
+                            <p className="ml-2 text-red-500 ">DASHBOARD</p>
                               <span className="ml-auto">
                                 {openSection === 'dashboard' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>

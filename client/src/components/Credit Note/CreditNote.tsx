@@ -17,9 +17,10 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import CreditNoteInitial from './CreditNoteInitial';
+import CreditNoteTable from './CreditNoteTable';
 //import OilMillInitialForm from './OilMillInitial';
 //import OilMillTable from './OilMillTable';
 
@@ -29,6 +30,7 @@ const CreditNote = () => {
     const { setEditPendingCreditNoteData } = useContext(Context);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
+    const [rlotdata, setRLotData] = useState<any[]>([])
 
     const handleEditFetch = async () => {
         const Data = await axios.get('/api/creditNote/getCreditNoteeditpending');
@@ -72,6 +74,16 @@ const CreditNote = () => {
         })
 
     }
+
+       const handleOpenRLotNo = async () => {
+        axios.get('/api/creditNote/getRcvCreditNoteRLOT').then(res => {
+            console.log(res)
+            setRLotData(res.data.vlotsum)
+        })
+
+    }
+
+
       function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
@@ -103,7 +115,7 @@ const CreditNote = () => {
               )}
           </div>
 
-          <p className="text-lg font-semibold text-center py-1 ">CREDIT NOTE</p>
+          <p className="text-lg font-cursive text-center py-1 ">CURRENT FY {FY} CREDIT NOTE TRANSACTION</p>
           <div>
             {checkreceiving("RCNPrimaryEntry") && (
               <Dialog>
@@ -129,6 +141,19 @@ const CreditNote = () => {
               </Dialog>
             )}
 
+            {checkreceiving('RCNPrimaryEntry') && <Dialog>
+                <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                onClick={handleOpenRLotNo}>+ Create R-LOT</Button></DialogTrigger>
+                <DialogContent className='max-w-2xl'>
+                    <DialogHeader>
+                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Day-Wise Pending List</p></DialogTitle>
+                       
+                    </DialogHeader>
+
+                    {/* <VLOTInitial props={rlotdata}/> */}
+                </DialogContent>
+            </Dialog>}
+
             {checkpending("RCNPrimary") && (
               <Button
                 className="bg-orange-400 mb-2 ml-8 responsive-button-adjust"
@@ -138,7 +163,7 @@ const CreditNote = () => {
               </Button>
             )}
           </div>
-          {/* <OilMillTable /> */}
+          <CreditNoteTable />
         </div>
       </div>
     );
