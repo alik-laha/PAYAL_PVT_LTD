@@ -1059,7 +1059,7 @@ const GatePassTable = () => {
 
             <TableHead className="text-center" >Entry(In/Out)</TableHead>
             <TableHead className="text-center" >Receiving/Dispatch Section</TableHead>
-
+  
             <TableHead className="text-center" >Receiving /Dispatch</TableHead>
             <TableHead className="text-center" >NetWeight Entry</TableHead>
             <TableHead className="text-center" >Verification /Approval</TableHead>
@@ -1077,8 +1077,11 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Driver_Contact</TableHead>
             <TableHead className="text-center" >Entried_By_Seurity</TableHead>
             <TableHead className="text-center" >Created_By_User</TableHead>
+            
             <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-            <TableHead className="text-center" >Current_GatePass_Status</TableHead>
+            <TableHead className="text-center" >Receiving_Wt(Kg)</TableHead>
+            <TableHead className="text-center" >Mismatch_Wt(Kg)</TableHead>
+          <TableHead className="text-center" >Current_GatePass_Status</TableHead>
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
             <TableHead className="text-center" >Gatepass_Remarks(Any)</TableHead>
 
@@ -1095,226 +1098,448 @@ const GatePassTable = () => {
 
               return (
                 <TableRow key={item.id}>
-                  <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                  <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
+                  <TableCell className="text-center">
+                    {limit * (page - 1) + idx + 1}
+                  </TableCell>
+                  <TableCell className="text-center font-bold">
+                    {item.gatePassNo}
+                  </TableCell>
 
-                  <TableCell className="text-center"> {item.type === 'IN' ? <p className="flex flex-row font-bold text-green-600 justify-center">{item.type}</p> : <p className="flex flex-row justify-center font-bold text-red-600">{item.type}</p>} </TableCell>
-                  <TableCell className="text-center font-semibold shadow-md text-cyan-600">{handlesection(item.section)}</TableCell>
+                  <TableCell className="text-center">
+                    {" "}
+                    {item.type === "IN" ? (
+                      <p className="flex flex-row font-bold text-green-600 justify-center">
+                        {item.type}
+                      </p>
+                    ) : (
+                      <p className="flex flex-row justify-center font-bold text-red-600">
+                        {item.type}
+                      </p>
+                    )}{" "}
+                  </TableCell>
+                  <TableCell className="text-center font-semibold shadow-md text-cyan-600">
+                    {handlesection(item.section)}
+                  </TableCell>
+                   
 
                   <TableCell className="text-center ">
                     {item.receivingStatus === 0 ? (
-                      <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
+                      <p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>
+                    ) : (
+                      <p className="flex flex-row justify-center">
+                        <SiTicktick color="green" size={20} />
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {!item.netWeight ? (
-                     <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
+                      <p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>
+                    ) : (
+                      <p className="flex flex-row justify-center">
+                        <SiTicktick color="green" size={20} />
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.approvalStatus === 0 ? (
-                       <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
+                      <p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>
+                    ) : (
+                      <p className="flex flex-row justify-center">
+                        <SiTicktick color="green" size={20} />
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell className="text-center ">
-                    {item.status !== 'Closed' ? (
-                     <p className="flex flex-row justify-center"><MdOutlinePendingActions  color="red" size={23}/></p>
-                    ) : <p className="flex flex-row justify-center"><SiTicktick color="green" size={20}/></p> }
+                    {item.status !== "Closed" ? (
+                      <p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>
+                    ) : (
+                      <p className="flex flex-row justify-center">
+                        <SiTicktick color="green" size={20} />
+                      </p>
+                    )}
                   </TableCell>
-
-
-                  <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                  <TableCell className="text-center  font-semibold">{handleAMPM(item.time)}</TableCell>
-                  <TableCell className="text-center">{item.exitdate ? (handletimezone(item.exitdate)) : ''}</TableCell>
-                  <TableCell className="text-center font-semibold">{item.OutTime === null ? '' : (handleAMPM(item.OutTime))}</TableCell>
-                  <TableCell className="text-center">{item.DocNo}</TableCell>
-                  <TableCell className="text-center ">{formatNumber(item.grosswt)} kg </TableCell>
-                  <TableCell className="text-center">{item.grosswtNo}</TableCell>
-                  <TableCell className="text-center">{item.vehicleNo}</TableCell>
-                  <TableCell className="text-center">{item.driverName}</TableCell>
-                  <TableCell className="text-center">{item.driverContact}</TableCell>
-                  <TableCell className="text-center">{item.securityName}</TableCell>
-                  <TableCell className="text-center">{item.createdBy}</TableCell>
-                  <TableCell className="text-center font-semibold">{item.netWeight ? formatNumber(item.netWeight) : 0} kg </TableCell>
-                  {item.status !== 'Cancelled' ?
-                    <TableCell className="text-center font-semibold text-green-500 tracking-wide">{formatString2(item.status)}</TableCell> :
-                    <TableCell className="text-center ">
-                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Cancelled</button>
-                    </TableCell>}
-
-                  <TableCell className="text-center">{item.modifiedBy}</TableCell>
-                  <TableCell className="text-justify ">{item.Remarks}</TableCell>
-
-
 
                   <TableCell className="text-center">
+                    {handletimezone(item.date)}
+                  </TableCell>
+                  <TableCell className="text-center  font-semibold">
+                    {handleAMPM(item.time)}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.exitdate ? handletimezone(item.exitdate) : "--"}
+                  </TableCell>
+                  <TableCell className="text-center font-semibold">
+                    {item.OutTime === null ? "--" : handleAMPM(item.OutTime)}
+                  </TableCell>
+                  <TableCell className="text-center">{item.DocNo}</TableCell>
+                  <TableCell className="text-center ">
+                    {formatNumber(item.grosswt)} 
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.grosswtNo}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.vehicleNo}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.driverName}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.driverContact}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.securityName}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.createdBy}
+                  </TableCell>
+                  
+                  <TableCell className="text-center font-bold bg-yellow-50">
+                    {item.netWeight ? formatNumber(item.netWeight) : '--'} 
+                  </TableCell>
+                  <TableCell className="text-center font-bold bg-yellow-50 ">
+                    {item.sumTotalWt ? formatNumber(item.sumTotalWt) : '--'} 
+                  </TableCell>
+                  <TableCell
+                    className={`text-center font-semibold ${
+                      Number(item.netWeight) - Number(item.sumTotalWt) > 0
+                        ? "text-green-600"
+                        : Number(item.netWeight) - Number(item.sumTotalWt)  < 0
+                        ? "text-red-600"
+                        : "text-gray-600"
+                    }`}>
+                    {item.netWeight || item.sumTotalWt
+                      ? `${
+                           Number(item.netWeight) - Number(item.sumTotalWt)  > 0 ? "+" : ""
+                        }${formatNumber( (Number(item.netWeight) - Number(item.sumTotalWt)).toString() )} kg`
+                      : "0 kg"}
+                  </TableCell>
+                      {item.status !== "Cancelled" ? (
+                    <TableCell className="text-center font-semibold tracking-wide text-cyean-500">
+                      {formatString2(item.status)}
+                    </TableCell>
+                  ) : (
+                    <TableCell className="text-center ">
+                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">
+                        Cancelled
+                      </button>
+                    </TableCell>
+                  )}
+             
 
-                    {item.status!=='Cancelled' && (item.status === 'Closed' ?
-                     (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>) : 
-                     (<Popover>
-                      <PopoverTrigger>
-                        <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
-                      </PopoverTrigger>
-
-
-
-                      <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-
-                        {/* Net Weight  Gatepass */}
-                        {!item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 && <AlertDialog>
-                          <AlertDialogTrigger className="flex">
-                            <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Net Weight Entry</button>
-                          </AlertDialogTrigger>
-
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle> Enter Net Weight (Gross Initial Wt. - Final Wt.)</AlertDialogTitle>
-                              <AlertDialogDescription>
-
-                                This will Link Corresponding Receiving Section
-                                <Input type="number" style={{color:'black'}} placeholder="Net Weight" className='mt-3 w-100 text-center justify-center items-center' value={netWeight} onChange={(e) => setNetWeight(Number(e.target.value))} required />
-                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Net Weight is Required</span>
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => handleNetWeight(item)}>Continue</AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-
-                        </AlertDialog>}
-
-
-
-                        {/* Verify Gatepass   */}
-
-                        {checkpending('Gatepass') && item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 &&
-                          <Dialog>
-                            <DialogTrigger className="flex py-1">
-                              <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
-                                Verify GatePass</button>
-                            </DialogTrigger>
-                            <DialogContent>
-                              <DialogHeader>
-                                <DialogTitle>
-                                  <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Verification </p>
-                                </DialogTitle>
-                              </DialogHeader>
-                              {/* <QCreportForm data={item} /> */}
-                              <GatepassApprove data={item} />
-                            </DialogContent>
-                          </Dialog>}
-
-                        {/* Close Gatepass   */}
-                        {item.receivingStatus === 1 && item.approvalStatus === 1 && <AlertDialog>
-                          <AlertDialogTrigger className="flex">
-                            <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Release</button>
-                          </AlertDialogTrigger>
-
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle> Do You want to Release Incoming Vehicle at Exit Point?</AlertDialogTitle>
-                              <AlertDialogDescription>
-
-                                This will close the GatePass
-
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => handleRelease(item.id)}>Continue</AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-
-                        </AlertDialog>}
-
-                      </PopoverContent>
-
-                    </Popover>))}
-
-                    
-
+                  <TableCell className="text-center">
+                    {item.modifiedBy ? item.modifiedBy:'--'}
+                  </TableCell>
+                  <TableCell className={`${item.Remarks ?'text-justify':'text-center'}`}>
+                    {item.Remarks ? item.Remarks:'--'}
                   </TableCell>
 
-                  {Role !== 'Security' && <TableCell className="text-center">
-                    {item.status!=='Cancelled' && <Popover>
-                      <PopoverTrigger>
-                        <button className='p-2 text-white rounded bg-red-500' >Action</button>
-                      </PopoverTrigger>
-                      <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                  <TableCell className="text-center">
+                    {item.status !== "Cancelled" &&
+                      (item.status === "Closed" ? (
+                        <button
+                          className="bg-red-500  p-2 text-white rounded opacity-40 "
+                          disabled={true}>
+                          Closed
+                        </button>
+                      ) : (
+                        <Popover>
+                          <PopoverTrigger>
+                            <button
+                              className={`p-2 text-white rounded ${
+                                item.receivingStatus === 0
+                                  ? "bg-cyan-200"
+                                  : "bg-cyan-500"
+                              }`}
+                              disabled={
+                                item.receivingStatus === 0 ? true : false
+                              }>
+                              Action
+                            </button>
+                          </PopoverTrigger>
 
-                        {/* Gatepass Cancel */}
-                        {item.receivingStatus === 0 && <AlertDialog>
-                          <AlertDialogTrigger className="flex">
-                            <FcCancel size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Gate Pass Cancel</button>
-                          </AlertDialogTrigger>
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                            {/* Net Weight  Gatepass */}
+                            {!item.netWeight &&
+                              item.receivingStatus === 1 &&
+                              item.approvalStatus === 0 && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger className="flex">
+                                    <FcApprove size={25} />{" "}
+                                    <button className="bg-transparent  pl-1 text-left hover:text-green-500">
+                                      Net Weight Entry
+                                    </button>
+                                  </AlertDialogTrigger>
 
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle> Enter Cancel Reason</AlertDialogTitle>
-                              <AlertDialogDescription>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>
+                                        {" "}
+                                        Enter Net Weight (Gross Initial Wt. -
+                                        Final Wt.)
+                                      </AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        This will Link Corresponding Receiving
+                                        Section
+                                        <Input
+                                          type="number"
+                                          style={{ color: "black" }}
+                                          placeholder="Net Weight"
+                                          className="mt-3 w-100 text-center justify-center items-center"
+                                          value={netWeight}
+                                          onChange={(e) =>
+                                            setNetWeight(Number(e.target.value))
+                                          }
+                                          required
+                                        />
+                                        <span
+                                          id="nameError"
+                                          className={`text-red-500 pt-2 font-bold ${errview}`}>
+                                          Net Weight is Required
+                                        </span>
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
 
-                                This will Delete Corresponding Receiving Section
-                                <Textarea style={{color:'black'}} placeholder="Cancel Remark" className='mt-3 w-100 text-center justify-center items-center' value={cancelremark} onChange={(e) => setCancelremark(e.target.value)} required />
-                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Cancel Reason is Required</span>
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => handleNetWeight(item)}>
+                                        Continue
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              )}
 
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => handleGateCanel(item)}>Continue</AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
+                            {/* Verify Gatepass   */}
 
-                        </AlertDialog>}
+                            {checkpending("Gatepass") &&
+                              item.netWeight &&
+                              item.receivingStatus === 1 &&
+                              item.approvalStatus === 0 && (
+                                <Dialog>
+                                  <DialogTrigger className="flex py-1">
+                                    <MdOutlineDriveFolderUpload
+                                      size={20}
+                                      color="green"
+                                    />{" "}
+                                    <button className="bg-transparent pl-2 text-left hover:text-green-500">
+                                      Verify GatePass
+                                    </button>
+                                  </DialogTrigger>
+                                  <DialogContent>
+                                    <DialogHeader>
+                                      <DialogTitle>
+                                        <p className="text-1xl pb-1 text-center mt-5">
+                                          Gate Pass Verification{" "}
+                                        </p>
+                                      </DialogTitle>
+                                    </DialogHeader>
+                                    {/* <QCreportForm data={item} /> */}
+                                    <GatepassApprove data={item} />
+                                  </DialogContent>
+                                </Dialog>
+                              )}
 
-                        {/* Gatepass Cancel */}
-                        {item.status === 'Closed' && <Dialog>
-                          <DialogTrigger className="flex py-1">
-                            <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
-                              Modify GatePass</button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>
-                                <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Modify </p>
-                              </DialogTitle>
-                            </DialogHeader>
-                            {/* <QCreportForm data={item} /> */}
-                            <GatepassApproveFinal data={item} />
-                          </DialogContent>
-                        </Dialog>}
+                            {/* Close Gatepass   */}
+                            {item.receivingStatus === 1 &&
+                              item.approvalStatus === 1 && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger className="flex">
+                                    <FcApprove size={25} />{" "}
+                                    <button className="bg-transparent  pl-1 text-left hover:text-green-500">
+                                      Release
+                                    </button>
+                                  </AlertDialogTrigger>
 
-                      </PopoverContent>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>
+                                        {" "}
+                                        Do You want to Release Incoming Vehicle
+                                        at Exit Point?
+                                      </AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        This will close the GatePass
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
 
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => handleRelease(item.id)}>
+                                        Continue
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              )}
+                          </PopoverContent>
+                        </Popover>
+                      ))}
+                  </TableCell>
 
+                  {Role !== "Security" && (
+                    <TableCell className="text-center">
+                      {item.status !== "Cancelled" && (
+                        <Popover>
+                          <PopoverTrigger>
+                            <button className="p-2 text-white rounded bg-red-500">
+                              Action
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                            {/* Gatepass Cancel */}
+                            {item.receivingStatus === 0 && (
+                              <AlertDialog>
+                                <AlertDialogTrigger className="flex">
+                                  <FcCancel size={25} />{" "}
+                                  <button className="bg-transparent  pl-1 text-left hover:text-green-500">
+                                    Gate Pass Cancel
+                                  </button>
+                                </AlertDialogTrigger>
 
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                      {" "}
+                                      Enter Cancel Reason
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      This will Delete Corresponding Receiving
+                                      Section
+                                      <Textarea
+                                        style={{ color: "black" }}
+                                        placeholder="Cancel Remark"
+                                        className="mt-3 w-100 text-center justify-center items-center"
+                                        value={cancelremark}
+                                        onChange={(e) =>
+                                          setCancelremark(e.target.value)
+                                        }
+                                        required
+                                      />
+                                      <span
+                                        id="nameError"
+                                        className={`text-red-500 pt-2 font-bold ${errview}`}>
+                                        Cancel Reason is Required
+                                      </span>
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
 
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() => handleGateCanel(item)}>
+                                      Continue
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            )}
 
-
-                    </Popover>}
-
-
-
-                  </TableCell>}
+                            {/* Gatepass Cancel */}
+                            {item.status === "Closed" && (
+                              <Dialog>
+                                <DialogTrigger className="flex py-1">
+                                  <MdOutlineDriveFolderUpload
+                                    size={20}
+                                    color="green"
+                                  />{" "}
+                                  <button className="bg-transparent pl-2 text-left hover:text-green-500">
+                                    Modify GatePass
+                                  </button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>
+                                      <p className="text-1xl pb-1 text-center mt-5">
+                                        Gate Pass Modify{" "}
+                                      </p>
+                                    </DialogTitle>
+                                  </DialogHeader>
+                                  {/* <QCreportForm data={item} /> */}
+                                  <GatepassApproveFinal data={item} />
+                                </DialogContent>
+                              </Dialog>
+                            )}
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    </TableCell>
+                  )}
 
                   <TableCell>
-                  {item.status!=='Cancelled' && Role !== 'Security' && item.status === 'Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4'
-                      style={{ background: 'orange', color: 'white', float: 'right' }}>
-                      <PDFDownloadLink document={<MyDocument data={item} />} fileName={"Gate_Pass_Report_" + item.gatePassNo + ".pdf"} >
-                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
-                      </PDFDownloadLink></button>}
+                    {item.status !== "Cancelled" &&
+                      Role !== "Security" &&
+                      item.status === "Closed" && (
+                        <button
+                          className="bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4"
+                          style={{
+                            background: "orange",
+                            color: "white",
+                            float: "right",
+                          }}>
+                          <PDFDownloadLink
+                            document={<MyDocument data={item} />}
+                            fileName={
+                              "Gate_Pass_Report_" + item.gatePassNo + ".pdf"
+                            }>
+                            {({ loading }) =>
+                              loading ? (
+                                <LuDownload size={18} />
+                              ) : (
+                                <LuDownload size={18} />
+                              )
+                            }
+                          </PDFDownloadLink>
+                        </button>
+                      )}
 
-                    {item.status!=='Cancelled' && !item.netWeight && item.receivingStatus === 0 && item.approvalStatus === 0 && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4'
-                      style={{ background: 'grey', color: 'white', float: 'right' }}>
-                      <PDFDownloadLink document={<MyDocument2 data={item} />} fileName={"Gate_Pass_Initial_Report_" + item.gatePassNo + ".pdf"} >
-                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
-                      </PDFDownloadLink></button>}
+                    {item.status !== "Cancelled" &&
+                      !item.netWeight &&
+                      item.receivingStatus === 0 &&
+                      item.approvalStatus === 0 && (
+                        <button
+                          className="bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4"
+                          style={{
+                            background: "grey",
+                            color: "white",
+                            float: "right",
+                          }}>
+                          <PDFDownloadLink
+                            document={<MyDocument2 data={item} />}
+                            fileName={
+                              "Gate_Pass_Initial_Report_" +
+                              item.gatePassNo +
+                              ".pdf"
+                            }>
+                            {({ loading }) =>
+                              loading ? (
+                                <LuDownload size={18} />
+                              ) : (
+                                <LuDownload size={18} />
+                              )
+                            }
+                          </PDFDownloadLink>
+                        </button>
+                      )}
                   </TableCell>
-
-                </TableRow>)
+                </TableRow>
+              );
 
             })) : (<TableRow>
               <TableCell></TableCell>

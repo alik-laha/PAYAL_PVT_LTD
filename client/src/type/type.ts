@@ -2026,6 +2026,8 @@ export interface GatePassData {
             OutTime:string;
             Remarks:string;
             exitdate:string;
+            sumTotalWt:string;
+            difference:string;
           
 }
 export interface GatePassExcelData {
