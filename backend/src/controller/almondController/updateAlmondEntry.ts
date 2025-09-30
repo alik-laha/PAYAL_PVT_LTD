@@ -8,7 +8,7 @@ import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 
 const updateAlmondPrimaryEntry = async (req: Request, res: Response) => {
     try {
-        let { id, origin, gateType, blNo, conNo, noOfBags, gatepass, Vendor, totalBill } = req.body;
+        let { id, origin, gateType, blNo, conNo, noOfBags, gatepass, Vendor, totalBill,totalWt } = req.body;
         // const date = new Date();
         const receivedBy = req.cookies.user;
         let vendortype: string
@@ -35,7 +35,7 @@ const updateAlmondPrimaryEntry = async (req: Request, res: Response) => {
             type: origin,
             createdBy: receivedBy,
             vendorName: Vendor,totalBill,
-
+            totalWt,
             status: 1
         }, {
             where: {

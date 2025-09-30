@@ -948,6 +948,8 @@ const GatePassTable = () => {
         'SecurityName': item.securityName,
         'CreatedByUser': item.createdBy,
         'NetWeight': item.netWeight,
+        'ReceivingWeight':item.sumTotalWt!=='0'?Number(item.sumTotalWt):'',
+        'Mismatch': (item.netWeight && item.sumTotalWt) ? (Number(item.netWeight)-Number(item.sumTotalWt)):'--',
         'BillAmount': item.billAmount,
         'Verified_By': item.modifiedBy,
         'Remarks': item.Remarks
@@ -1209,7 +1211,7 @@ const GatePassTable = () => {
                     {item.sumTotalWt ? formatNumber(item.sumTotalWt) : '--'} 
                   </TableCell>}
                  {Role !== "Security" && <TableCell
-                    className={`text-center font-semibold ${
+                    className={`text-center font-bold shadow-md ${
                       Number(item.netWeight) - Number(item.sumTotalWt) > 0
                         ? "text-green-600"
                         : Number(item.netWeight) - Number(item.sumTotalWt)  < 0
@@ -1220,15 +1222,20 @@ const GatePassTable = () => {
                       ? `${
                            Number(item.netWeight) - Number(item.sumTotalWt)  > 0 ? "+" : ""
                         }${formatNumber( (Number(item.netWeight) - Number(item.sumTotalWt)).toString() )} kg`
-                      : "0 kg"}
+                      : "--"}
                   </TableCell>}
                       {item.status !== "Cancelled" ? (
-                    <TableCell className="text-center font-semibold tracking-wide text-cyean-500">
-                      {formatString2(item.status)}
+                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600">
+                     
+                   
+
+                      <button className="bg-purple-500 p-1 h-7 shadow-md text-white rounded w-40 drop-shadow-lg">{formatString2(item.status)}</button>
+                     
+                     
                     </TableCell>
                   ) : (
                     <TableCell className="text-center ">
-                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">
+                      <button className="bg-red-500 h-7 rounded shadow-md w-40 drop-shadow-lg p-1 text-white ">
                         Cancelled
                       </button>
                     </TableCell>
@@ -1273,7 +1280,7 @@ const GatePassTable = () => {
                               item.approvalStatus === 0 && (
                                 <AlertDialog>
                                   <AlertDialogTrigger className="flex">
-                                    <FcApprove size={25} />{" "}
+                                    <FcApprove size={25} />
                                     <button className="bg-transparent  pl-1 text-left hover:text-green-500">
                                       Net Weight Entry
                                     </button>
@@ -1282,7 +1289,7 @@ const GatePassTable = () => {
                                   <AlertDialogContent>
                                     <AlertDialogHeader>
                                       <AlertDialogTitle>
-                                        {" "}
+                                       
                                         Enter Net Weight (Gross Initial Wt. -
                                         Final Wt.)
                                       </AlertDialogTitle>
@@ -1345,7 +1352,7 @@ const GatePassTable = () => {
                                         </p>
                                       </DialogTitle>
                                     </DialogHeader>
-                                    {/* <QCreportForm data={item} /> */}
+                               
                                     <GatepassApprove data={item} />
                                   </DialogContent>
                                 </Dialog>
@@ -1356,7 +1363,7 @@ const GatePassTable = () => {
                               item.approvalStatus === 1 && (
                                 <AlertDialog>
                                   <AlertDialogTrigger className="flex">
-                                    <FcApprove size={25} />{" "}
+                                    <FcApprove size={25} />
                                     <button className="bg-transparent  pl-1 text-left hover:text-green-500">
                                       Release
                                     </button>
@@ -1365,7 +1372,7 @@ const GatePassTable = () => {
                                   <AlertDialogContent>
                                     <AlertDialogHeader>
                                       <AlertDialogTitle>
-                                        {" "}
+                                  
                                         Do You want to Release Incoming Vehicle
                                         at Exit Point?
                                       </AlertDialogTitle>

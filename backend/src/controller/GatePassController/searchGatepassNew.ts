@@ -18,18 +18,18 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 
 // import oilMillPrimaryModel from "../models/oilMillPrimaryModel";
 
-const sectionModelMap: Record<string, any> = {
-  store: storePrimaryModel,
-  general: generalPrimaryModel,
-  packagingmaterial: PackagingMaterial,
-  // Almond:almondPrimaryEntryModel,
-  agarbati: agarbatiPrimaryEntryModel,
-  oilmill: oilMillModel,
-  creditnote: creditNoteModel,
-  finishedcashew: cashewOutModel,
-  rawcashew:RcnPrimary
-  // add more mappings as needed
-};
+// const sectionModelMap: Record<string, any> = {
+//   store: storePrimaryModel,
+//   general: generalPrimaryModel,
+//   packagingmaterial: PackagingMaterial,
+//   // Almond:almondPrimaryEntryModel,
+//   agarbati: agarbatiPrimaryEntryModel,
+//   oilmill: oilMillModel,
+//   creditnote: creditNoteModel,
+//   finishedcashew: cashewOutModel,
+//   rawcashew:RcnPrimary
+//   // add more mappings as needed
+// };
 
 const sectionTypeModelMap: Record<string, Record<string, any>> = {
   IN: {
@@ -38,16 +38,17 @@ const sectionTypeModelMap: Record<string, Record<string, any>> = {
     packagingmaterial: PackagingMaterial,
     agarbati: agarbatiPrimaryEntryModel,
     creditnote: creditNoteModel,
+    almond:almondPrimaryEntryModel,
     village: RcvVillageInModel,
     rawcashew:RcnPrimary
   },
   OUT: {
     store: storePrimaryModel,
     general: generalPrimaryModel,
-   finishedcashew: cashewOutModel,
+    finishedcashew: cashewOutModel,
     agarbati: agarbatiPrimaryEntryModel,
     oilmill: oilMillModel,
-   
+    almond:almondPrimaryEntryModel,
     village: RcvVillageModel,
   },
 };
@@ -61,7 +62,8 @@ const sectionColumnMap: Record<string, string> = {
   creditnote: "totalWt",
   finishedcashew: "actualQuantity", // <- special case
   rawcashew:"blWeight",
-  village:'totalWt'
+  village:'totalWt',
+  almond:'totalWt'
 };
 
 const SearchGatePassNew = async (req: Request, res: Response) => {
