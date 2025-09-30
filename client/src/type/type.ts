@@ -30,7 +30,6 @@ export interface PermissionRole {
     PackingSupervisor:string[];
     DispatchManager:string[];
 }
-
 export interface PermissionDept {
     Admin: string[];
     Receiving: string[];
@@ -79,7 +78,6 @@ export interface DatePickerProps {
     setValue: (value: Date | undefined) => void;
 
 }
-
 export interface RcnPrimaryEntryData {
    
     approvedBy: string;
@@ -187,7 +185,6 @@ export interface OilMillPrimaryEntryData {
     totalBill:string;  
  
 }
-
 export interface creditNoteEntryData {
   id: number;
   gateType: string;
@@ -212,7 +209,6 @@ export interface creditNoteEntryData {
   totalBill: string;
   remarks: string;
 }
-
 export interface AgarbatiPrimaryEntryData {
    
     approvedBy: string;
@@ -235,9 +231,6 @@ export interface AgarbatiPrimaryEntryData {
     totalWt:string;  
     totalBill:string;  
 }
-
-
-
 export interface CashewOutEntryData {
     id: number;
     date: string; // ISO date string (e.g. "2025-05-12T00:00:00.000Z")
@@ -288,7 +281,44 @@ export interface BormaEntryData {
             modifiedBy:string
  
 }
-
+export interface rcnScoopingData {
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    TotBagCutting: string;
+    KOR: string;
+    noOfEmployees: number;
+    noOfLadies: number;
+    noOfGents: number;
+    noOfSupervisors: number;
+    noOfOperators: number,
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+    Mc_on: string;
+    Mc_off: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Mc_breakdown: string;
+    Brkdwn_reason: string;
+    otherTime: string;
+    scoopStatus: string;
+    Mc_runTime: string;
+    SizeName: string;
+    Scooping_Line_Mc:string;
+    Transfered_Qty:string;
+    Transfered_To:string;
+}
 export interface RcvVillagePrimaryEntryData {
    
     approvedBy: string;
@@ -312,7 +342,6 @@ export interface RcvVillagePrimaryEntryData {
 
  
 }
-
 export interface AlmondPrimaryExcelEntryData {
    
     ApprovedBy: string;
@@ -402,44 +431,7 @@ export interface RcvVillagePrimaryExcelEntryData {
  
 }
 
-export interface rcnScoopingData {
-    id: number;
-    LotNo: string;
-    date: string;
-    origin: string;
-    Opening_Qty: string;
-    Receiving_Qty: string;
-    Wholes: string;
-    Broken: string;
-    Uncut: string;
-    Unscoop: string;
-    NonCut: string;
-    Rejection: string;
-    Dust: string;
-    TotBagCutting: string;
-    KOR: string;
-    noOfEmployees: number;
-    noOfLadies: number;
-    noOfGents: number;
-    noOfSupervisors: number;
-    noOfOperators: number,
-    CreatedBy: string;
-    editStatus: string;
-    modifiedBy: string;
-    Mc_on: string;
-    Mc_off: string;
-    Trolley_Broken: string;
-    Trolley_Small_JB: string;
-    Mc_breakdown: string;
-    Brkdwn_reason: string;
-    otherTime: string;
-    scoopStatus: string;
-    Mc_runTime: string;
-    SizeName: string;
-    Scooping_Line_Mc:string;
-    Transfered_Qty:string;
-    Transfered_To:string;
-}
+
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
@@ -1700,14 +1692,14 @@ export interface BoilingExcelData {
     Entry_Date: string;
     Origin: string;
     Size: string;
-    Boiling_Qty: Number;
+    Boiling_Qty: number;
     Scooping_Line: string;
     Pressure: string;
     Moisture: string;
     Machine: string;
     MC_On: string;
     MC_Off: string;
-    Labour_No: Number;
+    Labour_No: number;
     Breakdown_Duration: string;
     Other_Duration: string;
     Cooking_Time: string;
@@ -1715,10 +1707,6 @@ export interface BoilingExcelData {
     Edit_Status: string;
     Entried_By: string;
     ApprovedOrRejectedBy: string;
-
-
-
-
 }
 
 

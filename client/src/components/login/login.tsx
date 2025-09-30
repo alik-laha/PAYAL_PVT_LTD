@@ -111,7 +111,7 @@ export const Login = () => {
 
                     <Input type="text" placeholder="Username" ref={usernameRef} className="bg-yellow-100"/>
                     <Input type="password" placeholder="Password" ref={passwordRef} className="bg-yellow-100"/>
-                    <Label className="w-full flex justify-center font-semibold text-xs text-cyan-700">Enter Captcha</Label>
+                    <Label className="w-full flex justify-center font-semibold text-xs  text-cyan-700">Enter Captcha</Label>
                     <Captcha />
                     <p><NavLink to="/forgotpass" className='text-xs mt-1 font-cursive font-semibold text-purple-700 float-right '>Forgot/Reset Password</NavLink></p>
                     <span style={{ display: errView }} className="text-red-600 text-xs font-sans font-semibold w-100 text-center">{errMsg}</span>

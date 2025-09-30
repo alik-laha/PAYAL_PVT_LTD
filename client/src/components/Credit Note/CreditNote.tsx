@@ -21,8 +21,8 @@ import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import CreditNoteInitial from './CreditNoteInitial';
 import CreditNoteTable from './CreditNoteTable';
-//import OilMillInitialForm from './OilMillInitial';
-//import OilMillTable from './OilMillTable';
+import RLOTInitial from './RlotInitial';
+
 
 
 
@@ -75,18 +75,20 @@ const CreditNote = () => {
 
     }
 
-       const handleOpenRLotNo = async () => {
+    const handleOpenRLotNo = async () => {
         axios.get('/api/creditNote/getRcvCreditNoteRLOT').then(res => {
             console.log(res)
-            setRLotData(res.data.vlotsum)
+            setRLotData(res.data.rlotsum)
         })
 
     }
 
 
       function formatNumber(num: string) {
-        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
-    }
+        return Number.isInteger(Number(num))
+          ? parseInt(num)
+          : parseFloat(num).toFixed(2);
+      }
     return (
       <div>
         <DashboardHeader />
@@ -150,7 +152,7 @@ const CreditNote = () => {
                        
                     </DialogHeader>
 
-                    {/* <VLOTInitial props={rlotdata}/> */}
+                    <RLOTInitial props={rlotdata}/>
                 </DialogContent>
             </Dialog>}
 

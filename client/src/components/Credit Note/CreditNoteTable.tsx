@@ -51,7 +51,6 @@ import {
   Origin,
   pagelimit,
   pendingCheckRole,
-  SelectGatePassType,
 } from "../common/exportData";
 import {
   pendingCheckRoles,
@@ -67,13 +66,10 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import Context from "../context/context";
 import CreditNoteModify from "./CreditNoteModify";
-//import RcvVillageInModify from "./RcvVillageInModify"
+
 
 const CreditNoteTable = () => {
   const [Data, setData] = useState([]);
-
-  // const [EditPendingData, setEditPendingData] = useState()
-
   const [fromdate, setfromDate] = useState("");
   // const [hidetodate, sethidetoDate] = useState('')
   const [todate, settoDate] = useState("");
@@ -96,7 +92,6 @@ const CreditNoteTable = () => {
   const [sku, setsku] = useState<findskutypeData[]>([]);
   const [EditData, setEditData] = useState<creditNoteEntryData[]>([]);
   const { editPendingCreditNoteData } = useContext(Context);
-  const [gradeor, setgradeor] = useState<string>("");
   const [blConNo, setBlConNo] = useState<string>("");
   const [origin, setOrigin] = useState<string>("");
   const [originp, setOriginp] = useState<string>("");
@@ -162,7 +157,7 @@ const CreditNoteTable = () => {
   const handleApprove = (item: number) => {
     console.log(item);
     axios
-      .get(`/api/rcvVillageIn/acceptEditVillageInPrimary/${item}`)
+      .get(`/api/creditNote/acceptEditCreditNotePrimary/${item}`)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -175,7 +170,7 @@ const CreditNoteTable = () => {
   };
   const handleRejection = (item: number) => {
     axios
-      .get(`/api/rcvVillageIn/rejectEditVillageInPrimary/${item}`)
+      .get(`/api/creditnote/rejectEditCreditNotePrimary/${item}`)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -194,7 +189,6 @@ const CreditNoteTable = () => {
           "/api/creditNote/getcreditNotePrimary",
           {
             searchitem: blConNo,
-
             fromDate: fromdate,
             toDate: todate,
             almondtype: origin,
@@ -261,16 +255,14 @@ const CreditNoteTable = () => {
   const exportToExcel = async () => {
     if (searchType === "Credit Details") {
       const response = await axios.post(
-        "/api/rcvVillageIn/getVillageInPrimary",
-        {
-          searchitem: blConNo,
-          gatetype: selectType,
-          fromDate: fromdate,
-          toDate: todate,
-          almondtype: origin,
-          origin: originp,
-          almondgrade: gradeor,
-        }
+        "/api/creditNote/getcreditNotePrimary",
+          {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            almondtype: origin,
+            origin: originp,
+          }
       );
       const data1 = response.data.rcnEntries;
       console.log(data1);
@@ -279,7 +271,7 @@ const CreditNoteTable = () => {
       let transformed: any[] = [];
       if (EditData.length > 0) {
         transformed = EditData.map(
-          (item: rcvVillageInprimaryData, idx: number) => ({
+          (item: creditNoteEntryData, idx: number) => ({
             id: idx + 1,
             gatePassNo: item.gatePassNo,
             gateType: item.gateType,
@@ -436,7 +428,7 @@ const CreditNoteTable = () => {
           <Input
             className="no-padding w-1/7 "
             placeholder={
-              searchType === "Credit Details" ? " GatePass No" : "V-Lot No"
+              searchType === "Credit Details" ? " GatePass No" : "R-Lot No"
             }
             value={blConNo}
             onChange={(e) => setBlConNo(e.target.value)}
@@ -466,7 +458,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
           )}
 
           <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">
-            From{" "}
+            From
           </label>
           <Input
             className="w-1/7 flexbox-search-width-calender"
@@ -476,7 +468,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
             placeholder="From Date"
           />
           <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">
-            To{" "}
+            To
           </label>
           <Input
             className="w-1/7 flexbox-search-width-calender"
@@ -516,7 +508,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
             </Button>
           </span>
         </div>
-        {checkpending("Village") && (
+        {checkpending("RCNPrimary") && (
           <span className="w-1/8 ">
             <Button
               className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4"
@@ -591,7 +583,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                       </TableCell>
 
                       <TableCell className="text-center">
-                        {item.netWeight ? item.netWeight : 0}{" "}
+                        {item.netWeight ? item.netWeight : 0}
                       </TableCell>
                       <TableCell className="text-center">
                         {item.vendorName}
@@ -634,7 +626,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                           <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                             <AlertDialog>
                               <AlertDialogTrigger className="flex">
-                                <FcApprove size={25} />{" "}
+                                <FcApprove size={25} />
                                 <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">
                                   Approve
                                 </button>
@@ -776,7 +768,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                 <DialogHeader>
                                   <DialogTitle>
                                     <p className="text-1xl pb-1 text-center mt-5">
-                                      Village Item Modification
+                                      Credit Note Item Modification
                                     </p>
                                   </DialogTitle>
                                   <DialogDescription>
@@ -822,7 +814,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
           <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
               <TableHead className="text-center">Id</TableHead>
-              <TableHead className="text-center">VLOT-NO</TableHead>
+              <TableHead className="text-center">RLOT-NO</TableHead>
               <TableHead className="text-center">Origin</TableHead>
               <TableHead className="text-center">Date Of Entry</TableHead>
               <TableHead className="text-center">Receive Qty(Kg)</TableHead>
@@ -843,7 +835,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                       </TableCell>
                       <TableCell className="text-center font-bold text-red-500 ">
                        
-                        {item.vlotNo}
+                        {item.rlotNo}
                       </TableCell>
                       <TableCell className="text-center font-semibold  ">
                         {item.origin}
@@ -875,7 +867,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                   <TableCell>
                     <p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">
-                      No Result{" "}
+                      No Result
                     </p>
                   </TableCell>
                   <TableCell></TableCell>

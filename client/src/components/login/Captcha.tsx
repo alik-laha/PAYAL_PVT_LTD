@@ -33,7 +33,7 @@ const Captcha: React.FC = () => {
     }
 
     // Set CAPTCHA text properties
-    ctx.font = '16px Arial';
+    ctx.font = '16px cursive';
     if (ctx.fillStyle === "#000000") {
       ctx.fillStyle = 'white';
     } else {
@@ -44,7 +44,7 @@ const Captcha: React.FC = () => {
 
     // Draw CAPTCHA text with some random transformations
     for (let i = 0; i < generatedText.length; i++) {
-      const x = (i + 1) * (canvas.width / 7);
+      const x = (i + 1) * (canvas.width / 6);
       const y = canvas.height / 2;
       const rotation = (Math.random() - 0.5) * 0.4;
 
@@ -75,10 +75,10 @@ const Captcha: React.FC = () => {
   return (
     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row',marginTop:'3px' }} >
 
-      <canvas id="captchaCanvas"  ref={canvasRef} width="100" height="28" style={{ border: '1px solid #ccc', marginRight: '3%'}}></canvas>
+      <canvas id="captchaCanvas"  ref={canvasRef} width="100" height="24" style={{ border: '1px solid #ccc' }} className='h-7 rounded text-center mr-2 justify-center drop-shadow-md '></canvas>
 
       <button type="button" onClick={generateCaptcha}><HiRefresh /></button>
-      <Input height={40} type="text" placeholder="Captcha Text" className=' ml-2 h-7 bg-yellow-100' value={typedCaptcha} onChange={(e) => setTypedCaptcha(e.target.value)} />
+      <Input height={40} type="text" placeholder="Captcha Text" className=' h-7 ml-2 text-center rounded-sm border-gray-400 tracking-wider' value={typedCaptcha} onChange={(e) => setTypedCaptcha(e.target.value)} />
       {/* <p>CAPTCHA Text: {captchaText}</p> */}
     </div>
   );

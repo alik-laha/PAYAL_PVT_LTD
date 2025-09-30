@@ -86,7 +86,7 @@ const DashboardHeader = () => {
 
         <div className='navbar-custom-menu'>
           <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white',position:'fixed',zIndex:'99999'}}>
-            <li className="user-header mx-1 my-1">
+            <li className="user-header mx-1 my-1 font-cursive">
 
            
               {/* <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span> */}
@@ -94,7 +94,7 @@ const DashboardHeader = () => {
               <span className="flex flex-col justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} 
               alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span>
 
-              <p className="text-logout">Welcome, {localStorage.getItem('user')}</p>
+              <p className="text-logout ">Welcome, {localStorage.getItem('user')}</p>
               <p className="text-logout-2"> Dept: {localStorage.getItem('dept')}</p>
               <p className="text-logout-2"> Role: {localStorage.getItem('role')}</p>
             </li>
