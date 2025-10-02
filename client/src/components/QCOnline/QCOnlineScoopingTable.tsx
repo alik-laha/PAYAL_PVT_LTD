@@ -245,12 +245,9 @@ const QCOnlineScoopingTable = () => {
                     item.maintainance
                   )}
                 </TableCell>
-                <TableCell className="text-center">
-                  {item.cleanRemarks}
-                </TableCell>
-                <TableCell className="text-center">
-                  {item.maintainanceRemarks}
-                </TableCell>
+                <TableCell className="text-center">{item.cleanRemarks ? item.cleanRemarks:'OK'}</TableCell>
+               
+                <TableCell className="text-center">{item.maintainanceRemarks ? item.maintainanceRemarks:'OK'}</TableCell>
                 <TableCell className="text-center">{item.createdBy}</TableCell>
                 <TableCell className="text-center">
                   {item.modifiedBy ?? "-"}

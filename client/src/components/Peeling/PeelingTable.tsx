@@ -213,7 +213,7 @@ const PeelingTable = () => {
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'Peeling_Entry_' + currDate + '.xlsx');
          }
-         if (searchType === 'R-LOT') {
+         else if (searchType === 'R-LOT') {
               const response = await axios.put('/api/peeling/peelingprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,

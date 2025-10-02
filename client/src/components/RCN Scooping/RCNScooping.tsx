@@ -90,7 +90,7 @@ const RCNScooping = () => {
                     <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                         Issue DNW  <br /><p> A <br />{data.data[0].WholesA && data.data[0].BrokenA ? formatNumber(Number(data.data[0].WholesA) + Number(data.data[0].BrokenA)) : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-slate-500 hover:bg-slate-400">
+                    <div className="flexbox-tile bg-slate-400 hover:bg-slate-500">
                     Issue DNW  <br /><p>B<br /> {data.data[0].WholesB && data.data[0].BrokenB ? formatNumber(Number(data.data[0].WholesB) + Number(data.data[0].BrokenB)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">

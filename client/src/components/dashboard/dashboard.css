@@ -72,11 +72,11 @@ label,select,option{
   align-items: center;
   cursor: pointer;
   /* color: rgba(198, 220, 241, 0.796); */
-  color: rgba(18, 2, 2, 0.797);
+  color: rgba(3, 13, 60, 0.797);
   display: block;
   font-size: 13px;
   font-weight: 500;
-  /* letter-spacing: 0.1vw; */
+  /* letter-spacing: 0.02vw; */
 
 
 
@@ -99,6 +99,7 @@ label,select,option{
   /* padding-top: 4vw; */
   /* height: 190vh; */
   min-height: 180vh;
+  
 }
 
 /* The main content */

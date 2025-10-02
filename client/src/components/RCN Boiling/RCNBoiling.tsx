@@ -86,7 +86,7 @@ const RCNBoiling = () => {
                 <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                     Issue Scooping  <br /><p>A <br />{data.data[0].totalA ? (parseFloat(data.data[0].totalA)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-slate-500 hover:bg-slate-400">
+                    <div className="flexbox-tile bg-slate-400 hover:bg-slate-500">
                     Issue Scooping <br /><p>B<br />{data.data[0].totalB ? (parseFloat(data.data[0].totalB)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
