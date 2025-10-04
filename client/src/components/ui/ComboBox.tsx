@@ -20,6 +20,7 @@ export function ComboBox<T extends { id: number }>({
 }: ComboBoxProps<T>) {
   const [open, setOpen] = useState(false)
   const [inputValue, setInputValue] = useState(value)
+  const [type, setType] = useState(value)
   const [options, setOptions] = useState<T[]>([])
 
   // debounce
@@ -30,7 +31,7 @@ export function ComboBox<T extends { id: number }>({
     }
 
     const timeout = setTimeout(() => {
-      fetchData(inputValue).then(setOptions).catch(() => setOptions([]))
+      fetchData(inputValue,type).then(setOptions).catch(() => setOptions([]))
     }, 300) // wait 300ms after typing
 
     return () => clearTimeout(timeout)
@@ -48,6 +49,11 @@ export function ComboBox<T extends { id: number }>({
           <CommandInput
             value={inputValue}
             onValueChange={setInputValue}
+            placeholder={placeholder}
+          />
+          <CommandInput
+            value={type}
+            onValueChange={setType}
             placeholder={placeholder}
           />
           <CommandList>
