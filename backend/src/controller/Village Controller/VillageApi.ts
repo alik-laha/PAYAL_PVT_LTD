@@ -598,20 +598,26 @@ export const SearchRCNVillage = async (req: Request, res: Response) => {
             }
         });
 
-        if (type === 'LOT') {
-            whereClause.push({
-                LotNo: {
-                    [Op.notLike]: '%V%'
-                }
-            });
-        }
-        else {
-            whereClause.push({
-                LotNo: {
-                    [Op.like]: '%V%'
-                }
-            });
-        }
+        if (type === "LOT") {
+         whereClause.push({
+           [Op.and]: [
+             { LotNo: { [Op.notLike]: "%V%" } },
+             { LotNo: { [Op.notLike]: "%R%" } },
+           ],
+         });
+       } else if (type === "RLOT") {
+         whereClause.push({
+           LotNo: {
+             [Op.like]: "%R%",
+           },
+         });
+       } else {
+         whereClause.push({
+           LotNo: {
+             [Op.like]: "%V%",
+           },
+         });
+       }
   
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};

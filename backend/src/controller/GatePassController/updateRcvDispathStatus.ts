@@ -57,6 +57,11 @@ try{
                 //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
+            if(section==='CreditNote'){
+                //const data = await WpMsgGatePassRcv("OilMill", gatePassNo,"rcv_dispatch_complt",'OilMill Dispatch')
+                //console.log(data)
+                res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
+            }
 
             if(section==='FinishedCashew'){
                 //const data = await WpMsgGatePassRcv("Finished Cashew", gatePassNo,"rcv_dispatch_complt",'Finished Cashew Dispatch')

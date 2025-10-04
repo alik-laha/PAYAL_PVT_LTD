@@ -73,7 +73,7 @@ const DPDSTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editDPDSLotWiseData } = useContext(Context);
     const [Data, setData] = useState<DPDSData[]>([])
-    const dropdown = ['LOT', 'V-LOT']
+    const dropdown = ['LOT', 'V-LOT','R-LOT']
     const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
@@ -110,13 +110,248 @@ const DPDSTable = () => {
     }, [page])
     const exportToExcel = async () => { 
 
-      if (searchType === 'LOT') {
+        if (searchType === 'LOT') {
 const response = await axios.put('/api/dpds/dpdsprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
             type:'LOT'
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: any[] = [];
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: DPDSData, idx: number) => ({
+            Sl_No: idx + 1, 
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            DPDS_Entry_Date: handletimezone(item.date),
+            Mixing_Lot: item.mixingLot,
+            Opening_DP: formatNumber(item.rcv_dp),
+            Opening_DS: formatNumber(item.rcv_ds),
+            Opening_DP1: formatNumber(item.rcv_dp1),
+            Borma_DP: formatNumber(item.issue_add_4),
+            Borma_DS: formatNumber(item.issue_add_5),
+            Borma_DP1: formatNumber(item.issue_add_6),
+            Receive_Peeling: Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1)),
+            Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5))+ Number(formatNumber(item.issue_add_6)),
+            Borma_Loss_Kg: formatNumber(item.issue_add_2),
+            Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+            Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
+            Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+            Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+            +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString()) ,
+            Issue_M_DS: formatNumber(item.issue_m_ds),
+            Issue_M_DP: formatNumber(item.issue_m_dp),
+            Issue_K_DP: formatNumber(item.issue_k_dp),
+            Issue_DS1: formatNumber(item.issue_ds_1),
+            Issue_DS2: formatNumber(item.issue_ds_2),
+            Issue_SP2: formatNumber(item.issue_sp_2),
+            Issue_YJH: formatNumber(item.issue_yjh),
+            Issue_YK: formatNumber(item.issue_yk),
+            Issue_KP: formatNumber(item.issue_kp),
+            Issue_WP: formatNumber(item.issue_wp),
+            Issue_RS: formatNumber(item.issue_rs),
+           
+            Issue_DP2: formatNumber(item.issue_dp_2),
+            Issue_DP3: formatNumber(item.issue_dp_3),
+            Issue_DP4: formatNumber(item.issue_dp_4),
+            Issue_3L: formatNumber(item.issue_dp_3l),
+           
+            Issue_SS: formatNumber(item.issue_ss),
+            Issue_OS: formatNumber(item.issue_os),
+            Issue_OS1: formatNumber(item.issue_os1),
+
+                Issue_V_DS: formatNumber(item.issue_V_ds),
+                Issue_V_M_DS: formatNumber(item.issue_V_m_ds),
+                Issue_V_DP: formatNumber(item.issue_V_dp),
+                Issue_V_M_DP: formatNumber(item.issue_V_m_dp),
+                Issue_V_LP: formatNumber(item.issue_V_lp),
+                Issue_V_LP_2: formatNumber(item.issue_V_lp_2),
+                Issue_V_K_DP: formatNumber(item.issue_V_k_dp),
+                Issue_V_SS: formatNumber(item.issue_V_ss),
+                Issue_V_YJH: formatNumber(item.issue_V_yjh),
+                Issue_V_YK: formatNumber(item.issue_V_yk),
+                Issue_V_SP_2: formatNumber(item.issue_V_sp_2),
+                Issue_V_KP: formatNumber(item.issue_V_kp),
+                Issue_V_DP_2: formatNumber(item.issue_V_dp_2),
+                Issue_V_DP_3: formatNumber(item.issue_V_dp_3),
+                Issue_V_DP_4: formatNumber(item.issue_V_dp_4),
+                Issue_V_OS: formatNumber(item.issue_V_os),
+                Issue_V_OS_1: formatNumber(item.issue_V_os_1),
+                Issue_V_WP: formatNumber(item.issue_V_wp),
+                Issue_V_RS: formatNumber(item.issue_V_rs),
+
+
+            Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+            parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+            parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+            parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+            parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+            parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+            parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+            parseFloat(item.issue_V_ds) +
+            parseFloat(item.issue_V_m_ds) +
+            parseFloat(item.issue_V_dp) +
+            parseFloat(item.issue_V_m_dp) +
+            parseFloat(item.issue_V_lp) +
+            parseFloat(item.issue_V_lp_2) +
+            parseFloat(item.issue_V_k_dp) +
+            parseFloat(item.issue_V_ss) +
+            parseFloat(item.issue_V_yjh) +
+            parseFloat(item.issue_V_yk) +
+            parseFloat(item.issue_V_sp_2) +
+            parseFloat(item.issue_V_kp) +
+            parseFloat(item.issue_V_dp_2) +
+            parseFloat(item.issue_V_dp_3) +
+            parseFloat(item.issue_V_dp_4) +
+            parseFloat(item.issue_V_os) +
+            parseFloat(item.issue_V_os_1) +
+            parseFloat(item.issue_V_wp) +
+            parseFloat(item.issue_V_rs) ).toString()),
+
+
+            Issue_Rejection: formatNumber(item.issue_rejection),
+            Issue_Village: formatNumber(item.issue_village),
+            Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+            Issue_Mayur: formatNumber(item.issue_mayur),
+      
+            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+           
+            No_Labour: item.noOfdayOperators,
+            No_Supervisor: item.noOfnightOperators,
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
+
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: DPDSData, idx: number) => ({
+                Sl_No: idx + 1, 
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            DPDS_Entry_Date: handletimezone(item.date),
+            Mixing_Lot: item.mixingLot,
+            Opening_DP: formatNumber(item.rcv_dp),
+            Opening_DS: formatNumber(item.rcv_ds),
+            Opening_DP1: formatNumber(item.rcv_dp1),
+            Borma_DP: formatNumber(item.issue_add_4),
+            Borma_DS: formatNumber(item.issue_add_5),
+            Borma_DP1: formatNumber(item.issue_add_6),
+            Receive_Peeling: Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1)),
+            Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5))+ Number(formatNumber(item.issue_add_6)),
+            Borma_Loss_Kg: formatNumber(item.issue_add_2),
+            Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+            Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
+            Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+            Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+            +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString()) ,
+            Issue_M_DS: formatNumber(item.issue_m_ds),
+            Issue_M_DP: formatNumber(item.issue_m_dp),
+            Issue_K_DP: formatNumber(item.issue_k_dp),
+            Issue_DS1: formatNumber(item.issue_ds_1),
+            Issue_DS2: formatNumber(item.issue_ds_2),
+            Issue_SP2: formatNumber(item.issue_sp_2),
+            Issue_YJH: formatNumber(item.issue_yjh),
+            Issue_YK: formatNumber(item.issue_yk),
+            Issue_KP: formatNumber(item.issue_kp),
+            Issue_WP: formatNumber(item.issue_wp),
+            Issue_RS: formatNumber(item.issue_rs),
+           
+            Issue_DP2: formatNumber(item.issue_dp_2),
+            Issue_DP3: formatNumber(item.issue_dp_3),
+            Issue_DP4: formatNumber(item.issue_dp_4),
+            Issue_3L: formatNumber(item.issue_dp_3l),
+           
+            Issue_SS: formatNumber(item.issue_ss),
+            Issue_OS: formatNumber(item.issue_os),
+            Issue_OS1: formatNumber(item.issue_os1),
+
+                Issue_V_DS: formatNumber(item.issue_V_ds),
+                Issue_V_M_DS: formatNumber(item.issue_V_m_ds),
+                Issue_V_DP: formatNumber(item.issue_V_dp),
+                Issue_V_M_DP: formatNumber(item.issue_V_m_dp),
+                Issue_V_LP: formatNumber(item.issue_V_lp),
+                Issue_V_LP_2: formatNumber(item.issue_V_lp_2),
+                Issue_V_K_DP: formatNumber(item.issue_V_k_dp),
+                Issue_V_SS: formatNumber(item.issue_V_ss),
+                Issue_V_YJH: formatNumber(item.issue_V_yjh),
+                Issue_V_YK: formatNumber(item.issue_V_yk),
+                Issue_V_SP_2: formatNumber(item.issue_V_sp_2),
+                Issue_V_KP: formatNumber(item.issue_V_kp),
+                Issue_V_DP_2: formatNumber(item.issue_V_dp_2),
+                Issue_V_DP_3: formatNumber(item.issue_V_dp_3),
+                Issue_V_DP_4: formatNumber(item.issue_V_dp_4),
+                Issue_V_OS: formatNumber(item.issue_V_os),
+                Issue_V_OS_1: formatNumber(item.issue_V_os_1),
+                Issue_V_WP: formatNumber(item.issue_V_wp),
+                Issue_V_RS: formatNumber(item.issue_V_rs),
+
+                Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+                parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+                parseFloat(item.issue_V_ds) +
+                parseFloat(item.issue_V_m_ds) +
+                parseFloat(item.issue_V_dp) +
+                parseFloat(item.issue_V_m_dp) +
+                parseFloat(item.issue_V_lp) +
+                parseFloat(item.issue_V_lp_2) +
+                parseFloat(item.issue_V_k_dp) +
+                parseFloat(item.issue_V_ss) +
+                parseFloat(item.issue_V_yjh) +
+                parseFloat(item.issue_V_yk) +
+                parseFloat(item.issue_V_sp_2) +
+                parseFloat(item.issue_V_kp) +
+                parseFloat(item.issue_V_dp_2) +
+                parseFloat(item.issue_V_dp_3) +
+                parseFloat(item.issue_V_dp_4) +
+                parseFloat(item.issue_V_os) +
+                parseFloat(item.issue_V_os_1) +
+                parseFloat(item.issue_V_wp) +
+                parseFloat(item.issue_V_rs) ).toString()),
+            Issue_Rejection: formatNumber(item.issue_rejection),
+            Issue_Village: formatNumber(item.issue_village),
+            Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+            Issue_Mayur: formatNumber(item.issue_mayur),
+      
+            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+           
+            No_Labour: item.noOfdayOperators,
+            No_Supervisor: item.noOfnightOperators,
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'DPDS_Entry_' + currDate + '.xlsx');
+        }
+        else  if (searchType === 'R-LOT') {
+            const response = await axios.put('/api/dpds/dpdsprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'RLOT'
         })
         const data1 = await response.data
 
@@ -594,6 +829,28 @@ const response = await axios.put('/api/dpds/dpdsprimarysearch', {
             toDate: todate,
             origin: origin,
             type:'LOT'
+
+
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+        }
+        else if (searchType === 'R-LOT') {
+            const response = await axios.put('/api/dpds/dpdsprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'RLOT'
 
 
         }, {

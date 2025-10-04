@@ -64,12 +64,6 @@ const OnlinePeeling = sequelize.define('onlinePeeling', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlinePeeling;

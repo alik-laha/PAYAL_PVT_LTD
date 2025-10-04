@@ -61,6 +61,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
     const [isdisable,setisdisable]=useState<boolean>(false)
 
     const noOfBagsRef = useRef<HTMLInputElement>(null)
+    const totalWtRef = useRef<HTMLInputElement>(null)
     //console.log(props)
 
     useEffect(() => {  
@@ -214,11 +215,11 @@ const AlmondPrimaryEntryForm = (props:Props) => {
        // const blWeight = blWeightRef.current?.value
     
         const noOfBags = noOfBagsRef.current?.value
-     
+        const totalWt = totalWtRef.current?.value
         console.log({ origin, gateType,noOfBags })
 
 
-        axios.post('/api/almondPrimary/updateAlmondEntry', { id,origin,blNo, conNo,gateType, noOfBags,gatepass ,Vendor:VendorName,totalBill:billAmt})
+        axios.post('/api/almondPrimary/updateAlmondEntry', { id,origin,blNo, conNo,gateType, noOfBags,gatepass ,Vendor:VendorName,totalBill:billAmt,totalWt})
             .then((res) => {
 
                 console.log(res)
@@ -241,79 +242,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
             })
 
     }
-    // const handleSubmit2 = async (e: React.FormEvent) => {
-    //     e.preventDefault()
-    //     const blNo = blNoRef.current?.value
-    //     const conNo = conNoRef.current?.value
-     
- 
-    //     const formData = rows.map(row => ({
-    //         GatePassNo: gatepass,
-    //         recevingDate: date,
-    //         TruckNo: truck,
-    //         gateType:gateType,
-    //         GrossWt: grossWt,
-    //         invoicedate:conNo,
-    //         invoice:blNo,
-    //         vendorName:VendorName,
-    //         ...row
-    // }))
-    // console.log(formData)
-
-    // try 
-    // {
-    //     if(formData.length===1){
-    //         for (var data of formData) 
-    //             {
-    //                 await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data })
-    //                 await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-    //                     section:'Almond' })
-    //                     setErrorText('Almond Items Dispatched Successfully')
-    //                 if(successdialog){
-    //                     (successdialog as any).showModal();
-    //                 }
-                    
-    //             }
-    //         }  
-       
-    //         else if(formData.length>1){
-    //         const firstrow=formData[0]
-          
-    //             await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data:firstrow })
-           
-    //             let pmrescount=0
-    //         for(let i=1;i<formData.length;i++){
-                
-    //             const data1=formData[i];
-    //             await axios.post('/api/almondPrimary/createAlmondPrimary', {data:data1 })
-    //             pmrescount++
-    //             if(pmrescount==(formData.length-1))
-    //             {
-                    
-    //                 await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-    //                     section:'Almond' })
-    //                     setErrorText('Almond Items Dispatched Successfully')
-    //                 if(successdialog){
-    //                     (successdialog as any).showModal();
-    //                 }
-    //             }
-    //         }
-           
-    //     } 
-    // }
-    // catch(err){
-    //     console.log(err)
-    //     await axios.post('/api/almondPrimary/deleteAlmondByID',{ id:id,gatepass:gatepass})
-    //     if(axios.isAxiosError(err)){
-    //         setErrorText(err.response?.data.message ||'An Unexpected Error Occured')
-    //     }
-    //     if(errordialog){
-    //         (errordialog as any).showModal()
-    //     }
-
-    // }
-
-    // }
+    
     const [VendorName, setVendorName] = useState<string>('')
     const [vendorNameView, setVendorNameView] = useState("none")
     const [vendorData, setVendorData] = useState<VendorData[]>([])
@@ -421,6 +350,10 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 <div className="flex">
                         <Label className="w-2/4 pt-1">Physical Bag Count</Label>
                         <Input className="w-2/4 text-center" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
+                </div>
+                <div className="flex">
+                        <Label className="w-2/4 pt-1">Weight</Label>
+                        <Input className="w-2/4 text-center" placeholder="Weight" ref={totalWtRef} type="number" required step="0.01"/>
                 </div>
                 <div className="flex">
                         <Label className="w-2/4 pt-1">Bill Amount</Label>

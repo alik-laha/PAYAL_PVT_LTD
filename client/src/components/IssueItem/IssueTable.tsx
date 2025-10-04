@@ -348,20 +348,20 @@ const IssueTable = () => {
             <div className="flex flexbox-search" >
 
                 <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Issue No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='font-cursive flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setUnit(e.target.value)} value={unit}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Unit (All)</option>
                     {sku.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
                             {data.sku}
                         </option>
                     ))}
                 </select>
                 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <label className="font-cursive font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
                 <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
                     value={fromdate}
@@ -369,7 +369,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     placeholder="From Date"
 
                 />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                <label className="font-cursive font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                 <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
                     //value={hidetodate}
@@ -380,32 +380,32 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 />
                 
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='font-cursive flexbox-search-width flex h-8 w-1/7 ml-10 qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setSection(e.target.value)} value={section}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
                     {grade.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
                             {data.sku}
                         </option>
                     ))}
                 </select>
-                <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='font-cursive flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setSubSection(e.target.value)} value={subsection}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Sub Section (All)</option>
                     {subgrade.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
                             {data.sku}
                         </option>
                     ))}
                 </select>
                 
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 font-semibold qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='font-cursive flexbox-search-width flex h-8 w-1/7 ml-10 font-semibold qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => {
                         setselectType(e.target.value)
@@ -413,7 +413,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     }} value={selectType}>
 
                     {SelectTypeIssue.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>

@@ -58,12 +58,6 @@ const OnlineHumidifier = sequelize.define('onlineHumidifier', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineHumidifier;

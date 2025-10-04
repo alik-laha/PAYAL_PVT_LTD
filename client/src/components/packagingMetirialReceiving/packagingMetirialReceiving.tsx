@@ -16,7 +16,7 @@ import Context from '../context/context';
 import PMInitial from "./PMInitial"
 import axios from "axios"
 import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
-import { rcvCheckRole } from "../common/exportData"
+import { FY, rcvCheckRole } from "../common/exportData"
 
 const PackagingMetirialReceiving = () => {
     const { recevingPackagematerialOverView } = useContext(Context);
@@ -47,11 +47,11 @@ const PackagingMetirialReceiving = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                    
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Financial Year Entry <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
+                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
+                        FY : {FY} <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
                     </div>
                 </div>
-                <p className='text-lg font-semibold text-center py-1 '>PACKAGING MATERIAL</p>
+                <p className='text-lg font-cursive text-center py-1 '>INCOMING PACKAGING MATERIAL TRANSACTION</p>
                 {checkreceiving('PMPrimaryEntry') && <Dialog>
                 <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

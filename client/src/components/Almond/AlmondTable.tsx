@@ -62,8 +62,8 @@ import * as XLSX from 'xlsx';
 const AlmondTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-    const [selectType, setselectType] = useState<string>("IN")
-    const [tablesearch, settablesearch] = useState<string>("IN")
+    const [selectType, setselectType] = useState<string>("")
+  
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
    // const [hidetodate, sethidetoDate] = useState<string>('');
@@ -114,7 +114,7 @@ const AlmondTable = () => {
     }, [page])
 
     const handleSearch = async () => {
-        settablesearch(selectType)
+       
         setEditData([])
         setblockpagen('flex')
         const response = await axios.put('/api/almondPrimary/almondprimarysearch', {
@@ -358,7 +358,8 @@ const AlmondTable = () => {
                     <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setselectType(e.target.value)} value={selectType}>
-
+<option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
                         {SelectGatePassType.map((data, index) => (
                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
@@ -384,8 +385,8 @@ const AlmondTable = () => {
                         <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
 
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Type</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0) ? <TableHead className="text-center" >Grade</TableHead> : ''}
+                        <TableHead className="text-center" >Almond_Type</TableHead>
+                     <TableHead className="text-center" >Almond_Grade</TableHead> 
                         <TableHead className="text-center" >Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
@@ -393,7 +394,7 @@ const AlmondTable = () => {
 
                         <TableHead className="text-center" >Vendor_Name(Almond)</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0 )? <TableHead className="text-center" >Row_Weight(Kg)</TableHead> : ''}
+                        <TableHead className="text-center" >Row_Weight(Kg)</TableHead> 
                         <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
 
@@ -415,7 +416,7 @@ const AlmondTable = () => {
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
                                 <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
                                 <TableCell className="text-center">{item.type}</TableCell>
-                                {(tablesearch === 'OUT' || EditData.length > 0 )? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
+                                <TableCell className="text-center" >{item.grade}</TableCell> 
                                 <TableCell className="text-center">{item.invoice}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
                                 <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
@@ -423,7 +424,7 @@ const AlmondTable = () => {
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
-                                {(tablesearch === 'OUT' || EditData.length > 0 ) ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
+                                <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
@@ -479,7 +480,7 @@ const AlmondTable = () => {
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                         <TableCell className="text-center">{item.type}</TableCell>
-                                        {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
+                                        <TableCell className="text-center" >{item.grade}</TableCell> 
                                         <TableCell className="text-center">{item.invoice}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
                                         <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
@@ -487,7 +488,7 @@ const AlmondTable = () => {
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
-                                        {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
+                                        <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
 

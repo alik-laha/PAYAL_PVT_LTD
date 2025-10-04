@@ -813,20 +813,26 @@ export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
                 }
             });
         }
-        if (type === 'LOT') {
-            whereClause.push({
-                LotNo: {
-                    [Op.notLike]: '%V%'
-                }
-            });
-        }
-        else {
-            whereClause.push({
-                LotNo: {
-                    [Op.like]: '%V%'
-                }
-            });
-        }
+        if (type === "LOT") {
+         whereClause.push({
+           [Op.and]: [
+             { LotNo: { [Op.notLike]: "%V%" } },
+             { LotNo: { [Op.notLike]: "%R%" } },
+           ],
+         });
+       } else if (type === "RLOT") {
+         whereClause.push({
+           LotNo: {
+             [Op.like]: "%R%",
+           },
+         });
+       } else {
+         whereClause.push({
+           LotNo: {
+             [Op.like]: "%V%",
+           },
+         });
+       }
         whereClause.push({
             Status: {
                 [Op.eq]: 1

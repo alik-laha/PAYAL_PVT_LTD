@@ -432,11 +432,11 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: skuview }}>
+                                                {actvskuindex === index && <ScrollArea className="max-h-28 w-auto overflow-auto dropdown-content " style={{ display: skuview }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
+                                                            <div key={item.id} className="gap-y-10  hover:bg-gray-300 "  onClick={() => handleSkuidClick(index, item)}>
+                                                                <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
 
                                                             </div>
                                                         ))

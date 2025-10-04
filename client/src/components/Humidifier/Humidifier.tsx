@@ -23,7 +23,7 @@ import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { HumidpendingLotData, pendingCheckRoles, PermissionRole } from '@/type/type';
 import RCNHumidCreateForm from './HumidifierCreateForm';
-import { pendingCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole } from '../common/exportData';
 import HumidTable from './HumidifierTable';
 
 // import BormaTable from './RCNBormaTable';
@@ -88,25 +88,25 @@ const Humidifier = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                     Issue Peeling <br /><p>India <br />{data.data[0].India ? formatNumber(Number(data.data[0].India))  : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-slate-500 hover:bg-slate-400">
                     Issue Peeling <br /><p> Ghana <br />{data.data[0].Ghana? formatNumber(Number(data.data[0].Ghana)) : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                     Issue Peeling <br /><p> Togo <br />{data.data[0].Togo? formatNumber(Number(data.data[0].Togo)) : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
                     Issue Peeling <br /><p> Tanzania <br />{data.data[0].Tanzania ? formatNumber(Number(data.data[0].Tanzania)) : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-green-500 hover:bg-green-400">
                     Issue Peeling <br /><p> Nigeria <br />{data.data[0].Nigeria  ? formatNumber(Number(data.data[0].Nigeria)) : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                     Issue Peeling <br /><p> Benin <br />{data.data[0].Benin  ?  formatNumber(Number(data.data[0].Benin)): 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
                     Issue Peeling<br /><p>IVC <br />{data.data[0].IVC ?  formatNumber(Number(data.data[0].IVC)) : 0} Kg</p>
                     </div>
 
@@ -116,10 +116,10 @@ const Humidifier = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>CURRENT F.Y. REPORT (HUMIDIFIER)</p>
+                <p className='text-lg font-cursive text-center '>CURRENT F.Y. {FY} REPORT (HUMIDIFIER)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Humidifier Entry Form</p></DialogTitle>

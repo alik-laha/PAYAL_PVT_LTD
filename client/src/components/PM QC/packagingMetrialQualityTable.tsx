@@ -65,6 +65,9 @@ import { CiEdit } from "react-icons/ci"
 // import PackagingMetirialQcEditForm from "./packageMeterialModify"
 import { LuDownload } from "react-icons/lu"
 import Carousel from "./ModalCarousel"
+import { SiTicktick } from "react-icons/si"
+import { MdOutlinePendingActions } from "react-icons/md"
+import { IoMdCloseCircle } from "react-icons/io"
 
 
 const QCPackageMaterialTable = () => {
@@ -426,29 +429,32 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Quantity</TableHead>
                     <TableHead className="text-center" >Unit</TableHead>
                     <TableHead className="text-center" >Vendor_Name(QC_Packaging_Material)</TableHead>
-                    <TableHead className="text-center" >Leakage Test</TableHead>
-                    <TableHead className="text-center" >Drop Test</TableHead>
-                    <TableHead className="text-center" >Seal Condition</TableHead>
-                    <TableHead className="text-center" >Labeling Condition</TableHead>
-                    <TableHead className="text-center" >COA</TableHead>
-                    <TableHead className="text-center" >Download</TableHead>
-                    <TableHead className="text-center" >FoodGrade Certificate</TableHead>
-                    <TableHead className="text-center" >Download</TableHead>
+                  
                  
 
                     <TableHead className="text-center" >Testing_Date</TableHead>
+                         <TableHead className="text-center" >Passed Leakage_Test</TableHead>
+                    <TableHead className="text-center" >Passed Drop_Test</TableHead>
+                    <TableHead className="text-center" >Seal_Condition</TableHead>
+                    <TableHead className="text-center" >Label_Condition</TableHead>
                     <TableHead className="text-center" >Length(mm)</TableHead>
                     <TableHead className="text-center" >Width(mm)</TableHead>
                     <TableHead className="text-center" >Height(mm)</TableHead>
-                    <TableHead className="text-center" >Gsm</TableHead>
+                    <TableHead className="text-center" >Gsm_Value</TableHead>
                     <TableHead className="text-center" >Avg_Weight(gm)</TableHead>
-                
-                    <TableHead className="text-center" >Remarks(Regarding_Quality_PM)</TableHead>
+                              <TableHead className="text-center" >Remarks(Regarding_Quality_PM)</TableHead>
                    
                     
-                    <TableHead className="text-center" >Damage Image</TableHead>
+                    <TableHead className="text-center" >Damage_Image</TableHead>
+             
+              
+                    {/* <TableHead className="text-center" >COA</TableHead> */}
+                    <TableHead className="text-center" >COA Certificate</TableHead>
+                    {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
+                    <TableHead className="text-center" >FoodGrade Certificate</TableHead>
+                
 
-                    <TableHead className="text-center" >Report By</TableHead>
+                    <TableHead className="text-center" >Reported_By</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
@@ -465,9 +471,13 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                         <TableCell className="text-center">
                                             {item.packagingMaterialreceving.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
+                                                 <p className="flex flex-row justify-center">
+                                                                        <SiTicktick color="green" size={18} />
+                                                                      </p>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                                <p className="flex flex-row justify-center">
+                                                                        <MdOutlinePendingActions color="red" size={23} />
+                                                                      </p>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
@@ -610,9 +620,13 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                         <TableCell className="text-center">
                                             {item.packagingMaterialreceving.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
+                                               <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                               <p className="flex flex-row justify-center">
+                                                                       <MdOutlinePendingActions  color="red" size={23} />
+                                                                     </p>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
@@ -628,81 +642,104 @@ const QCPackageMaterialTable = () => {
                                         
                           
                                        
-                                        <TableCell className="text-center   ">{
+                                     
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?'text-white bg-blue-500':'bg-blue-500 text-white '}`}>{item.testingDate ? handletimezone(item.testingDate):'NA'}</TableCell>
+                                                <TableCell className={`text-center font-semibold ${item.leakageTest ?' ':'text-red-500 font-semibold'}`}>{
                                             item.leakageTest === "Pass" ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                                <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
                                             ) : (
                                                 item.leakageTest === "Fail" ? (
-                                                    <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                                    <p className="flex flex-row justify-center">
+                                                                       <IoMdCloseCircle  color="red" size={23} />
+                                                                     </p>
                                                 ) : 'NA'
                                             )
                                         }</TableCell>
-                                        <TableCell className="text-center ">{item.dropTest === "Pass" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                        <TableCell className={`text-center font-semibold ${item.dropTest ?' ':'text-red-500 font-semibold'}`}>{item.dropTest === "Pass" ? (
+                                           <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
                                         ) : (
                                             item.dropTest === "Fail" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                                <p className="flex flex-row justify-center">
+                                                                       <IoMdCloseCircle  color="red" size={23} />
+                                                                     </p>
                                             ) : 'NA'
                                         )}</TableCell>
-                                        <TableCell className="text-center ">{item.sealCondition === "OK" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                        <TableCell className={`text-center font-semibold ${item.sealCondition ?' ':'text-red-500 font-semibold'}`}>{item.sealCondition === "OK" ? (
+                                            <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
                                         ) : (
                                             item.sealCondition === "Not OK" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                               <p className="flex flex-row justify-center">
+                                                                       <IoMdCloseCircle  color="red" size={23} />
+                                                                     </p>
                                             ) : 'NA'
                                         )}</TableCell>
-                                        <TableCell className="text-center">{item.labelingCondition === "OK" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                        <TableCell className={`text-center font-semibold ${item.labelingCondition ?' ':'text-red-500 font-semibold'}`}>{item.labelingCondition === "OK" ? (
+                                            <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
                                         ) : (
                                             item.labelingCondition === "Not OK" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                                <p className="flex flex-row justify-center">
+                                                                       <IoMdCloseCircle  color="red" size={23} />
+                                                                     </p>
                                             ) : 'NA'
                                         )}</TableCell>
-                                        <TableCell className="text-center ">
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.length ?item.length:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.width ?item.width:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.height?item.height:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.gsm ?item.gsm:'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.avgWeight ?item.avgWeight:'NA'}</TableCell>
+                                         <TableCell className={`text-center font-semibold ${item.testingDate ?' ':'text-red-500 '}`}>{item.remarks ? item.remarks :'NA'}</TableCell>
+                                        
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' ':'text-red-500 '}`}>
+                                            {
+                                               (item.damageFile && item.damageFile.length > 3) ? (
+                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
+                                                ) : (
+                                                   'NA'
+                                                )
+
+                                            }
+                                        </TableCell>
+
+                                   
+                                       
+                                        {/* <TableCell className="text-center ">
                                             { item.qualityStatus && (item.coa === "Yes" ? (
                                             <Input type="checkbox" className="h-4" checked/>
                                         ) : <Input type="checkbox" className="h-4" checked={false}/>)}
                                         
                                      
-                                        </TableCell>
-                                        <TableCell className="text-center ">
+                                        </TableCell> */}
+                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus==='Uploaded' ?' ':'text-orange-500 font-semibold'}`}>
                                         {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
-                                        style={{ background: 'orange', color: 'white' }} 
-                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={15} /></button> : 
-                                       null}
+                                        style={{ background: 'white', color: 'orange' }} 
+                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={20} /></button> : 
+                                       '--'}
                                         </TableCell>
 
 
-                                        <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
+                                        {/* <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
                                        <Input type="checkbox" className="h-4" checked/> ) : <Input type="checkbox" className="h-4" checked={false}/>)
                                         }
-                                        </TableCell>
+                                        </TableCell> */}
                                        
-                                        <TableCell className="text-center ">
+                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus ==='Uploaded'?' ':'text-orange-500 font-semibold'}`}>
                                         {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
-                                        style={{ background: 'orange', color: 'white' }} 
-                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={15} /></button>
-                                             : null}
+                                        style={{ background: 'white', color: 'orange' }} 
+                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={20} /></button>
+                                             : '--'}
                                         </TableCell>
-                                        <TableCell className="text-center font-semibold">{item.testingDate ? handletimezone(item.testingDate):''}</TableCell>
-                                        <TableCell className="text-center ">{item.length}</TableCell>
-                                        <TableCell className="text-center ">{item.width}</TableCell>
-                                        <TableCell className="text-center ">{item.height}</TableCell>
-                                        <TableCell className="text-center ">{item.gsm}</TableCell>
-                                        <TableCell className="text-center ">{item.avgWeight}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
                                         
-                                        <TableCell className="text-center">
-                                            {
-                                               (item.damageFile && item.damageFile.length > 3) ? (
-                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
-                                                ) : (
-                                                   ''
-                                                )
-
-                                            }
-                                        </TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy ?item.createdBy:<p className="flex flex-row justify-center">
+                                                                       <MdOutlinePendingActions  color="red" size={23} />
+                                                                     </p>}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>

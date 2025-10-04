@@ -17,7 +17,7 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import AgarbatiInitialForm from './AgarbatiInitial';
 import AgarbatiTable from './AgarbatiTable';
@@ -87,7 +87,7 @@ const Agarbati = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAgarbati) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.grade}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.grade}>
                                     {item.grade} <br /><p>{item.totalBags ? formatNumber(String(item.totalBags)):0} Kg</p>
                                 </div>
                             )
@@ -97,7 +97,7 @@ const Agarbati = () => {
 
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '>AGARBATI</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} AGARBATI TRANSACTION</p>
 
                 <div>
                 {checkreceiving('AgarbatiPrimaryEntry') && <Dialog>

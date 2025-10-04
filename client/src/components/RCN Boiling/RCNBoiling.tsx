@@ -16,7 +16,7 @@ import { useContext, useEffect } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole } from '../common/exportData';
 import {pendingCheckRoles} from  "@/type/type";
 
 const RCNBoiling = () => {
@@ -83,31 +83,31 @@ const RCNBoiling = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                     Issue Scooping  <br /><p>A <br />{data.data[0].totalA ? (parseFloat(data.data[0].totalA)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-slate-400 hover:bg-slate-500">
                     Issue Scooping <br /><p>B<br />{data.data[0].totalB ? (parseFloat(data.data[0].totalB)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                     Issue Scooping  <br /><p>C<br />{data.data[0].totalC ? (parseFloat(data.data[0].totalC)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                     Issue Scooping  <br /><p>D<br />{data.data[0].totalD ? (parseFloat(data.data[0].totalD)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-green-500 hover:bg-green-400">
                     Issue Scooping <br /><p>E<br />{data.data[0].totalE ? (parseFloat(data.data[0].totalE)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                     Issue Scooping  <br /><p>F<br />{data.data[0].totalF ? (parseFloat(data.data[0].totalF)/80).toFixed(2) : 0} Bag</p>
                     </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
                     Issue Scooping <br /><p>G<br />{data.data[0].totalG ? (parseFloat(data.data[0].totalG)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     
 
                 </div>
-                <p className='text-lg font-semibold text-center py-1 '>CURRENT F.Y. REPORT (BOILING)</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} REPORT (BOILING)</p>
                 
                 
                 <div>

@@ -62,12 +62,6 @@ const OnlineHandGrade = sequelize.define('OnlineHandGrade', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineHandGrade;

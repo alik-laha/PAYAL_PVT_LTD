@@ -51,12 +51,6 @@ const OnlineGrading = sequelize.define('onlineGrading', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineGrading;

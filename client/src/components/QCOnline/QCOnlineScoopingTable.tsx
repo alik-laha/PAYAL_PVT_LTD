@@ -39,6 +39,8 @@ import {
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
 import QCOnlineScoopingModify from "./QCOnlineScoopingModify";
+import { BiErrorCircle } from "react-icons/bi";
+import { SiTicktick } from "react-icons/si";
 
 const QCOnlineScoopingTable = () => {
 
@@ -123,13 +125,15 @@ const QCOnlineScoopingTable = () => {
       {/* Filters */}
       <div className="flex justify-center">
         <label className="font-semibold mt-1 ml-8 mr-5">From </label>
-        <Input className="w-1/6"
+        <Input
+          className="w-1/6"
           type="date"
           value={fromdate}
           onChange={(e) => setfromDate(e.target.value)}
         />
         <label className="font-semibold mt-1 ml-8 mr-5">To </label>
-        <Input className="w-1/6"
+        <Input
+          className="w-1/6"
           type="date"
           value={todate}
           onChange={(e) => settoDate(e.target.value)}
@@ -143,7 +147,9 @@ const QCOnlineScoopingTable = () => {
 
       {/* Download */}
       <span className="w-1/8 ">
-        <Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
+        <Button
+          className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4"
+          onClick={exportToExcel}>
           <LuDownload size={18} />
         </Button>
       </span>
@@ -154,10 +160,10 @@ const QCOnlineScoopingTable = () => {
           <TableHead className="text-center">Id</TableHead>
           <TableHead className="text-center">Date</TableHead>
           <TableHead className="text-center">Time</TableHead>
-             <TableHead className="text-center">Cashew % In Husk </TableHead>
+          <TableHead className="text-center">Cashew % In Husk </TableHead>
           <TableHead className="text-center">Oil Contain Status</TableHead>
           <TableHead className="text-center">Sieve Cleaning Status</TableHead>
-       
+
           <TableHead className="text-center">Cleaning Status</TableHead>
           <TableHead className="text-center">Maintainance Status</TableHead>
           <TableHead className="text-center">Cleaning Remarks</TableHead>
@@ -167,56 +173,112 @@ const QCOnlineScoopingTable = () => {
           <TableHead className="text-center">Action</TableHead>
         </TableHeader>
         <TableBody>
-          {
-            ItemWiseData.length > 0 ? (ItemWiseData.map((item: any, idx: number) => (
+          {ItemWiseData.length > 0 ? (
+            ItemWiseData.map((item: any, idx: number) => (
               <TableRow key={item.id}>
-                <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                <TableCell className="text-center font-semibold">{handleAMPM(item.time)}</TableCell>
-                    <TableCell className="text-center">{item.cashewHuskprcnt} %</TableCell>
                 <TableCell className="text-center">
-                  {item.oilcontainStatus === 'OK'
-                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
-                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.oilcontainStatus}</button>}
+                  {limit * (page - 1) + idx + 1}
+                </TableCell>
+                <TableCell className="text-center font-semibold">
+                  {handletimezone(item.date)}
+                </TableCell>
+                <TableCell className="text-center font-semibold">
+                  {handleAMPM(item.time)}
                 </TableCell>
                 <TableCell className="text-center">
-                  {item.chalnacontainStatus === 'OK'
-                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
-                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.chalnacontainStatus}</button>}
-                </TableCell>
-            
-                <TableCell className="text-center">
-                  {item.cleaningStatus === 'OK'
-                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
-                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.cleaningStatus}</button>}
+                  {item.cashewHuskprcnt} %
                 </TableCell>
                 <TableCell className="text-center">
-                  {item.maintainance === 'OK'
-                    ? <button className="p-2 text-white rounded bg-green-500 fix-button-width">OK</button>
-                    : <button className="bg-red-500 p-2 text-white rounded fix-button-width">{item.maintainance}</button>}
+               
+                  {item.oilcontainStatus === "OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <SiTicktick color="green" size={18} />
+                    </p>
+                  ) : item.oilcontainStatus === "NOT OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <BiErrorCircle color="red" size={23} />
+                    </p>
+                  ) : (
+                    item.oilcontainStatus
+                  )}
                 </TableCell>
-                <TableCell className="text-center">{item.cleanRemarks}</TableCell>
-                <TableCell className="text-center">{item.maintainanceRemarks}</TableCell>
+                <TableCell className="text-center">
+               
+                  {item.chalnacontainStatus === "OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <SiTicktick color="green" size={18} />
+                    </p>
+                  ) : item.chalnacontainStatus === "NOT OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <BiErrorCircle color="red" size={23} />
+                    </p>
+                  ) : (
+                    item.chalnacontainStatus
+                  )}
+                </TableCell>
+
+                <TableCell className="text-center">
+                 
+                  {item.cleaningStatus === "OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <SiTicktick color="green" size={18} />
+                    </p>
+                  ) : item.cleaningStatus === "NOT OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <BiErrorCircle color="red" size={23} />
+                    </p>
+                  ) : (
+                    item.cleaningStatus
+                  )}
+                </TableCell>
+                <TableCell className="text-center">
+               
+                  {item.maintainance === "OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <SiTicktick color="green" size={18} />
+                    </p>
+                  ) : item.maintainance === "NOT OK" ? (
+                    <p className="flex flex-row justify-center">
+                      <BiErrorCircle color="red" size={23} />
+                    </p>
+                  ) : (
+                    item.maintainance
+                  )}
+                </TableCell>
+                <TableCell className="text-center">{item.cleanRemarks ? item.cleanRemarks:'OK'}</TableCell>
+               
+                <TableCell className="text-center">{item.maintainanceRemarks ? item.maintainanceRemarks:'OK'}</TableCell>
                 <TableCell className="text-center">{item.createdBy}</TableCell>
-                <TableCell className="text-center">{item.modifiedBy ?? "-"}</TableCell>
+                <TableCell className="text-center">
+                  {item.modifiedBy ?? "-"}
+                </TableCell>
                 <TableCell className="text-center">
                   <Popover>
                     <PopoverTrigger>
                       <button
-                        className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`}
-                        disabled={item.editStatus === 'Pending'}>
+                        className={`p-2 text-white rounded ${
+                          item.editStatus === "Pending"
+                            ? "bg-cyan-200"
+                            : "bg-cyan-500"
+                        }`}
+                        disabled={item.editStatus === "Pending"}>
                         Action
                       </button>
                     </PopoverTrigger>
                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                       <Dialog>
-                        <DialogTrigger className="flex"><CiEdit size={20} />
-                          <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
+                        <DialogTrigger className="flex">
+                          <CiEdit size={20} />
+                          <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">
+                            Modify
+                          </button>
                         </DialogTrigger>
-                        <DialogContent className='max-w-3xl'>
+                        <DialogContent className="max-w-3xl">
                           <DialogHeader>
                             <DialogTitle>
-                              <p className='text-1xl pb-1 text-center mt-5'>QC Online Scooping Modify</p>
+                              <p className="text-1xl pb-1 text-center mt-5">
+                                QC Online Scooping Modify
+                              </p>
                             </DialogTitle>
                           </DialogHeader>
                           <QCOnlineScoopingModify data={item} />
@@ -226,14 +288,14 @@ const QCOnlineScoopingTable = () => {
                   </Popover>
                 </TableCell>
               </TableRow>
-            ))) : (
-              <TableRow>
-                <TableCell colSpan={13} className="text-center text-red-500 py-6">
-                  No Result
-                </TableCell>
-              </TableRow>
-            )
-          }
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={13} className="text-center text-red-500 py-6">
+                No Result
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
 
@@ -241,7 +303,9 @@ const QCOnlineScoopingTable = () => {
       <Pagination style={{ display: blockpagen }} className="pt-5 ">
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={() => setPage((prev) => prev > 1 ? prev - 1 : prev)} />
+            <PaginationPrevious
+              onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : prev))}
+            />
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#">{page}</PaginationLink>
@@ -255,7 +319,7 @@ const QCOnlineScoopingTable = () => {
         </PaginationContent>
       </Pagination>
     </div>
-  )
+  );
 }
 
 export default QCOnlineScoopingTable;

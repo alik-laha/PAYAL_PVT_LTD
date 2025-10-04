@@ -34,21 +34,21 @@ const Machine = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-green-500 hover:bg-green-600">
+                    <div className="flexbox-tile bg-red-400 hover:bg-red-300">
                         Active Asset<br /><p>{data.Data}</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                         Inactive Asset<br /><p>{data.inactive}</p>
                     </div>
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
+                    <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-300">
                         Discarded <br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
-                <p className='text-lg font-semibold text-center py-1 '>ASSET</p>
+               
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Asset</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Asset</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Machine Creation</p></DialogTitle>

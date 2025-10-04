@@ -50,6 +50,7 @@ import CashewOut from './components/Cashew Out/cashewOut'
 import DashboardPanel1 from './components/dashboard/dashboardpanel1'
 import FactoryManager from './components/dashboard/factoryManager'
 import QCOnline from './components/QCOnline/QCOnline'
+import CreditNote from './components/Credit Note/CreditNote'
 
 
 
@@ -147,6 +148,11 @@ function App() {
         {/* Receiving RCN Out*/}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'GatePassManager','DispatchManager']} />}>
           <Route path="/dashboard/rcnprimaryexit" element={<CashewOut />} />
+        </Route>
+
+         {/* Receiving Credit Note*/}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'GatePassManager','DispatchManager']} />}>
+          <Route path="/dashboard/creditNote" element={<CreditNote />} />
         </Route>
 
         {/* Receiving Store */}

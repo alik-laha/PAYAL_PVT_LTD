@@ -18,7 +18,9 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      RejectionData,
      VilageData,
      sumofRcvVillageInPrimary,
-     CashewOutEntryData} from '../../type/type';
+     CashewOutEntryData,
+     
+     creditNoteEntryData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -67,6 +69,8 @@ interface ContextType {
     setEditPendingCashewOutData: (data: CashewOutEntryData[]) => void;
     editPendingOilMillData: OilMillPrimaryEntryData[];
     setEditPendingOilMillData: (data: OilMillPrimaryEntryData[]) => void;
+    editPendingCreditNoteData: creditNoteEntryData[];
+    setEditPendingCreditNoteData: (data: creditNoteEntryData[]) => void;
     editScoopingLotWiseData: rcnScoopingData[];
     setEditScoopingLotWiseData: (data: rcnScoopingData[]) => void;
     searchType: string;
@@ -159,6 +163,8 @@ const Context = createContext<ContextType>({
     setEditPendingCashewOutData: () => {},
     editPendingOilMillData: [],
     setEditPendingOilMillData: () => {},
+    editPendingCreditNoteData: [],
+    setEditPendingCreditNoteData: () => {},
     editDPDSLotWiseData: [],
     setEditDPDSLotWiseData: () => {},
     editBigTaihoLotWiseData: [],

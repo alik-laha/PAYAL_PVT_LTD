@@ -142,112 +142,6 @@ if (errorcloseDialogButton) {
         }
     }
 
-// const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault()
-//     const vehicle = vehicleNoRef.current?.value
-//     const document = DocumentNoRef.current?.value
-//     const drivername = DriverNameRef.current?.value
-//     const drivercontact = DriverContactNoref.current?.value
-//     const grossWt = GrossWtRef.current?.value
-//     const grossWtSlip = GrossWtSlipRef.current?.value
-//     const name = NameRef.current?.value
-
-
-//     try {
-
-        
-
-//         const sections= rows.map((row)=>row.section)
-
-//         const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
-//         if(hasduplicate)
-//         {
-//             setErrortext('Duplicate Section Values Found !')
-//             if(errordialog!=null){
-//                 (errordialog as any).showModal();
-//             }
-//             return
-//         }
-//         const creategatepass = await axios.post('/api/gatepass/createGatePass', {})
-//         console.log(creategatepass)
-
-//         const formData = rows.map(row => ({
-//             gatePassNo: creategatepass.data.gatepassNo,
-//             Date: date,
-//             Time: time,
-//             vehicle: vehicle,
-//             document: document,
-//             drivername: drivername,
-//             driverContact: drivercontact,
-//             grossWt: grossWt,
-//             GrossWtSlip: grossWtSlip,
-//             SecName: name,
-//             type: type,
-//             ...row
-//         }))
-
-//         let gatecount = 0
-//         try {
-//             for (var data of formData) {
-
-//                 const gateRes = await axios.post('/api/gatepass/createGatePassMaster', { data })
-//                 const gateResSection = await axios.post('/api/gatepass/createGatePassMasterForSection', { data })
-//                 gatecount++;
-//                 if (formData.length === gatecount) {
-
-//                     setErrortext(gateRes.data.message)
-//                     if (gateResSection.status === 200) {
-//                         await axios.post('/api/gatepass/updateGatePass', { gatePassNo: data.gatePassNo, status: 'SentToReceiver' })
-//                         if (successdialog) {
-//                             (successdialog as any).showModal()
-//                         }
-
-
-//                     }
-
-//                 }
-
-//             }
-//         }
-//         catch (err) {
-
-//             console.log(err)
-//             if (axios.isAxiosError(err)) {
-//                 setErrortext(err.response?.data.message || 'An Unexpected Error Occured in Creating Gate Pass')
-//             }
-//             else {
-//                 setErrortext('An Unexpected Error Occured in Creating Gate Pass')
-//             }
-
-//             if (errordialog) {
-//                 (errordialog as any).showModal()
-//             }
-//             setTimeout(() => {
-//                 (errordialog as any).close()
-//             }, 2000)
-//                  axios.delete(`/api/gatepass/deletegatepass/${creategatepass.data.gatepassNo}`).then(async (res) => {
-
-//                 for (var data of formData){
-//                     await axios.delete(`/api/gatepass/deletegatepassSection/${data.gatePassNo}/${data.section}`)
-//                 }
-//                 console.log(res.data)
-//             })
-
-
-//         }
-
-//     }
-//     catch (err) {
-//         console.log(err)
-//         if (axios.isAxiosError(err)) {
-//             setErrortext(err.response?.data.message || 'An Unexpected Error Occured in Creating Gate Pass')
-//         }
-//         else {
-//             setErrortext('An Unexpected Error Occured in Creating Gate Pass')
-//         }
-//     }
-// }
-
 
 
 return(
@@ -269,15 +163,15 @@ return(
                 </div> 
                 <div className="flex mt-1">
                 <Label className="w-2/4 pt-1 ">Type (IN/OUT)</Label>
-                <select className="pt-1 w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
-                                            px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                <select className="font-cursive pt-1 w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
+                                            px-3 text-xs ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
                                             placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
                                             focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>setType(e.target.value)} 
                                             value={type} required>
                                                 
-                                                    <option value='IN' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                    <option value='IN' className="font-cursive relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-xs outline-none focus:bg-accent 
                                                 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">IN</option>
-                                                    <option value='OUT' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                    <option value='OUT' className="font-cursive relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-xs outline-none focus:bg-accent 
                                                 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">OUT</option>
                                                 
                                             </select>  

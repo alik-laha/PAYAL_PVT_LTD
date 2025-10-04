@@ -84,30 +84,30 @@ const QCOnline = () => {
 
         <div className="dashboard-main-container">
           <div className="flexbox-header">
-            <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
               Boiler <br />
               <p>{data.boilerdata} </p>
             </div>
-            <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
               Grading
               <br />
               <p>{data.gradingdata}</p>
             </div>
-            <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-green-500 hover:bg-green-400">
               Boiling
               <br />
               <p>{data.boilingdata}</p>
             </div>
-            <div className="flexbox-tile bg-lime-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-red-500 hover:bg-red-400">
               Scooping <br />
               <p>{data.scoopingdata} </p>
             </div>
-            <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
               Borma
               <br />
               <p>{data.bormadata} </p>
             </div>
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
               Humidifier
               <br />
               <p>{data.humiddata} </p>
@@ -118,51 +118,51 @@ const QCOnline = () => {
            <div className="flexbox-header">
             
 
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-rose-500 hover:bg-rose-400">
               Peeling
               <br />
               <p>{data.peelingData} </p>
             </div>
 
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-lime-500 hover:bg-lime-400">
               Hand Grading
               <br />
               <p>{data.handgradeData} </p>
             </div>
 
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
               Nanopix
               <br />
               <p>{data.nanopixData} </p>
             </div>
 
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
               Taiho
               <br />
               <p>{data.taihodata} </p>
             </div>
 
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
               Bucket
               <br />
               <p>{data.bucketData} </p>
             </div>
 
-            <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+            <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
               Pouch
               <br />
               <p>{data.pouchData} </p>
             </div>
           </div>
-          <p className="text-lg font-semibold text-center py-1 ">
-            QC Daily Online Test
+          <p className="text-lg font-cursive text-center py-1 ">
+            QC DAILY ONLINE TRANSACTION
           </p>
           <div className="flex">
             <Dialog>
               <DialogTrigger >
                 {" "}
                 <Button
-                  className="bg-red-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4"
+                  className="bg-cyan-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4"
                   >
                   + Add New Entry
                 </Button>

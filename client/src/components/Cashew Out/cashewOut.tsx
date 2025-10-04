@@ -17,7 +17,7 @@ import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
+import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import CashewOutInitialForm from './cashewOutInitial';
 import CashewOutTable from './cashewOutTable';
@@ -86,7 +86,7 @@ const CashewOut = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataCashewOut) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.origin}>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.origin}>
                                     {item.origin} <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
                                 </div>
                             )
@@ -96,7 +96,7 @@ const CashewOut = () => {
 
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '>Cashew Out</p>
+                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>

@@ -146,14 +146,14 @@ const MachineTable = () => {
                 <div className="flex ">
 
                     <Input className="w-1/3 mb-2" placeholder="Asset Id" value={assetidname} onChange={(e) => setassetidname(e.target.value)} />
-                    <select className=' flex h-8 w-1/3 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <select className=' flex h-8 w-1/3 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm font-cursive
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setSection(e.target.value)} value={section}>
                         <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled] :pointer-events-none data-[disabled]:opacity-50 font-cursive' value=''>Section (All)</option>
                         {Section.map((data, index) => (
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-cursive' value={data} key={index}>
                                 {data}
                             </option>
                         ))}

@@ -144,6 +144,11 @@ export interface vlotNoData {
     vlotNo: string;
 }
 
+export interface rlotNoData {
+    id: number;
+    rlotNo: string;
+}
+
 export interface orderNoData {
     id: number;
     orderNo: string;
@@ -321,6 +326,31 @@ export interface AlmondrcvData {
     vendorName: string;  
     totalWt:string; 
     totalBill:string; 
+
+}
+export interface creditNotercvData {
+   id: number;
+  gateType: string;
+  recevingDate: string; // ISO date string
+  truckNo: string;
+  creditNoteDate: string;
+  creditNoteNo: string;
+  gradeName: string;
+  origin: string;
+  vendorName: string;
+  quantity: string;
+  totalWt: string;
+  unitPrice: string;
+  editStatus: string;
+  type: string;
+  createdBy: string;
+  approvedBy: string;
+  status: number;
+  netWeight: string;
+  gatePassNo: string;
+  grossWt: string;
+  totalBill: string;
+  remarks: string;
 
 }
 export interface cashewOutRcvData {

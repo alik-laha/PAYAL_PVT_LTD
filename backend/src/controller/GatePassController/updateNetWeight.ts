@@ -12,6 +12,7 @@ import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
 import cashewOutModel from "../../model/cashewOutModel";
+import creditNoteModel from "../../model/creditNoteModel";
 
 
 
@@ -224,6 +225,27 @@ const updateNetWeight = async (req: Request, res: Response) => {
             if (section==='OilMill') {
 
                 const generalupdate = await oilMillModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(generalupdate){
+                    //const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"verify_gatepass_final",'OilMill Dispatch')
+            //console.log(data)
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
+                }
+                
+            }  
+            if (section==='CreditNote') {
+
+                const generalupdate = await creditNoteModel.update(
                     { 
                         netWeight:netWeight,
                      

@@ -47,12 +47,6 @@ const OnlineTaiho = sequelize.define('OnlineTaiho', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineTaiho;

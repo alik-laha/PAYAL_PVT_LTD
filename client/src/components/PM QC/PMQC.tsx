@@ -27,11 +27,11 @@ const PackagingMetirialQuality = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
             <div className="flexbox-header">
-                <div className="flexbox-tile bg-blue-500 hover:bg-blue-600">
+                <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                     Approved QC<br /><p>{data.approvedQC}</p>
                     </div>
                     
-                <div className="flexbox-tile bg-green-500 hover:bg-green-600">
+                <div className="flexbox-tile bg-purple-500 hover:bg-purple-600">
                         Pending QC<br/><p>{data.pendingQC}</p>
                     </div>
                     
@@ -41,7 +41,7 @@ const PackagingMetirialQuality = () => {
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
-                <p className='text-lg font-semibold text-center py-1 '>Packaging Material QC</p>
+                <p className='text-lg font-cursive text-center py-1 '>QC Packaging Material TRANSACTION</p>
 
                 <div>
 

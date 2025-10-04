@@ -33,7 +33,7 @@ const EditOilMIllEntry = async (req: Request, res: Response) => {
         // }
 
         const packageMaterialData: AlmondrcvData = await oilMillModel.findOne({ where: { id } }) as unknown as AlmondrcvData;
-        if (!packageMaterialData) return res.status(404).json({ message: "Almond Item not found" });
+        if (!packageMaterialData) return res.status(404).json({ message: "OilMill Item not found" });
         let netwt=req.body.netWeight
         if(netwt===''|| netwt===null)
         {

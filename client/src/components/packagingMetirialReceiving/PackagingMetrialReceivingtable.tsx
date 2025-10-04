@@ -58,6 +58,8 @@ import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { MdOutlinePendingActions } from "react-icons/md"
+import { SiTicktick } from "react-icons/si"
 
 const PackageMetrialRecivingTable = () => {
 
@@ -346,72 +348,152 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                             EditData.map((item: PackageMaterialReceivingData, idx: number) => {
 
                                 return (
-                                    <TableRow key={item.id}>
-                                        <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
-                                          <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                          <TableCell className="text-center ">{item.invoice}</TableCell>
-                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                          <TableCell className="text-center ">{item.type}</TableCell>
-                                          <TableCell className="text-center">{item.sku}</TableCell>
-                                          <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell>
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell>
-                                        <TableCell className="text-center ">
-                                            {item.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
-                                            ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
-                                    </TableRow>
+                                  <TableRow key={item.id}>
+                                    <TableCell className="text-center">
+                                      {idx + 1}
+                                    </TableCell>
+                                    <TableCell className="text-center font-semibold">
+                                      {item.gatePassNo}
+                                    </TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">
+                                      {handletimezone(item.recevingDate)}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {item.truckNo}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {formatNumber(item.grossWt)}{" "}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {item.netWeight}{" "}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {item.invoice}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {handletimezone(item.invoicedate)}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {item.type}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.sku}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.vendorName}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.invoicequantity}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {formatNumber(item.quantity)}
+                                    </TableCell>
+                                    <TableCell className="text-center font-semibold">
+                                      {item.unit}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.totalWt !== "0.00"
+                                        ? formatNumber(item.totalWt)
+                                        : 0}{" "}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.totalBill !== "0.00"
+                                        ? formatNumber(item.totalBill)
+                                        : 0}{" "}
+                                      &#8377;
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                      {item.qualityStatus ? (
+                                        <p className="flex flex-row justify-center">
+                                          <SiTicktick color="green" size={18} />
+                                        </p>
+                                      ) : (
+                                        <p className="flex flex-row justify-center">
+                                          <MdOutlinePendingActions
+                                            color="red"
+                                            size={23}
+                                          />
+                                        </p>
+                                      )}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.editStatus}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.remarks}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.createdBy}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      {item.approvedBy}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                      <Popover>
+                                        <PopoverTrigger>
+                                          <button className="bg-cyan-500 p-2 text-white rounded">
+                                            Action
+                                          </button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                          <AlertDialog>
+                                            <AlertDialogTrigger className="flex">
+                                              <FcApprove size={25} />{" "}
+                                              <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">
+                                                Approve
+                                              </button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                              <AlertDialogHeader>
+                                                <AlertDialogTitle>
+                                                  Do you want to Approve the
+                                                  Edit Request?
+                                                </AlertDialogTitle>
+                                              </AlertDialogHeader>
+                                              <AlertDialogFooter>
+                                                <AlertDialogCancel>
+                                                  Cancel
+                                                </AlertDialogCancel>
+                                                <AlertDialogAction
+                                                  onClick={() =>
+                                                    handleApprove(item.id)
+                                                  }>
+                                                  Continue
+                                                </AlertDialogAction>
+                                              </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                          </AlertDialog>
+                                          <AlertDialog>
+                                            <AlertDialogTrigger className="flex mt-2">
+                                              <FcDisapprove size={25} />{" "}
+                                              <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">
+                                                Revert
+                                              </button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                              <AlertDialogHeader>
+                                                <AlertDialogTitle>
+                                                  Do you want to Decline the
+                                                  Edit Request?
+                                                </AlertDialogTitle>
+                                              </AlertDialogHeader>
+                                              <AlertDialogFooter>
+                                                <AlertDialogCancel>
+                                                  Cancel
+                                                </AlertDialogCancel>
+                                                <AlertDialogAction
+                                                  onClick={() =>
+                                                    handleRejection(item.id)
+                                                  }>
+                                                  Continue
+                                                </AlertDialogAction>
+                                              </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                          </AlertDialog>
+                                        </PopoverContent>
+                                      </Popover>
+                                    </TableCell>
+                                  </TableRow>
                                 );
                             })
                         ) : (
@@ -436,13 +518,20 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell>
                                         <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell>
-                                        <TableCell className="text-center ">
-                                            {item.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
-                                            ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
-                                            )}
-                                        </TableCell>
+                                         <TableCell className="text-center ">
+                                      {item.qualityStatus ? (
+                                        <p className="flex flex-row justify-center">
+                                          <SiTicktick color="green" size={18} />
+                                        </p>
+                                      ) : (
+                                        <p className="flex flex-row justify-center">
+                                          <MdOutlinePendingActions
+                                            color="red"
+                                            size={23}
+                                          />
+                                        </p>
+                                      )}
+                                    </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>

@@ -51,12 +51,6 @@ const OnlineBoiler = sequelize.define('onlineBoiler', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineBoiler;

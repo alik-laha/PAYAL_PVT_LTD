@@ -56,12 +56,6 @@ const OnlineScooping = sequelize.define('onlineScooping', {
         allowNull: true
     }
 
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['date']
-        }
-    ]
+
 })
 export default OnlineScooping;

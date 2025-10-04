@@ -37,25 +37,25 @@ const VendorSKU = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-yellow-500 hover:bg-cyan-600">
+                <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                          Section <br /><p>{SKUSection.length}</p>
                     </div>
-                    <div className="flexbox-tile bg-green-500 hover:bg-green-600">
+                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                         Item/SKU<br /><p>{data.SKU}</p>
                     </div>
                   
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
                          Vendor/Party <br /><p>{data.Vendor}</p>
                     </div>
                    
                 </div>
               
 
-                <p className='text-lg font-semibold text-center py-1 '>SKU & VENDOR</p>
+                <p className='text-lg text-center py-1 font-cursive'>SKU & VENDOR</p>
          
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 w-28 mb-2 mt-5 ml-8 responsive-button-adjust no-margin-left">+ Add SKU</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-lime-500 w-28 mb-2 mt-5 ml-8 responsive-button-adjust no-margin-left">+ Add SKU</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New SKU Creation</p></DialogTitle>
@@ -68,7 +68,7 @@ const VendorSKU = () => {
                     </DialogContent>
                 </Dialog>
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-red-400 w-28 mb-2 mt-5 ml-8 r no-margin-left responsive-button-adjust">+ Add Vendor</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-slate-500 w-28 mb-2 mt-5 ml-8 r no-margin-left responsive-button-adjust">+ Add Vendor</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Vendor Creation</p></DialogTitle>
