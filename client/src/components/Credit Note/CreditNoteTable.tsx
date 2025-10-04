@@ -56,7 +56,6 @@ import {
   pendingCheckRoles,
   PermissionRole,
   findskutypeData,
-  rcvVillageInprimaryData,
   creditNoteEntryData,
 } from "@/type/type";
 import axios from "axios";
@@ -272,81 +271,54 @@ const CreditNoteTable = () => {
       if (EditData.length > 0) {
         transformed = EditData.map(
           (item: creditNoteEntryData, idx: number) => ({
-            id: idx + 1,
-            gatePassNo: item.gatePassNo,
-            gateType: item.gateType,
-            ReceivingDate: handletimezone(item.recevingDate),
-            Vehicle_No: item.truckNo,
-            vendorName: item.vendorName,
-            grossWt: formatNumber(item.grossWt),
-            netWeight: item.netWeight ? item.netWeight : 0,
-            type: item.type,
-            grade: item.sku,
-            invoice: item.invoice,
-            origin: item.origin,
-
-            totalWt: item.totalWt ? formatNumber(item.totalWt) : 0,
-            wholes: formatNumber(item.wholes_quantity),
-            wholes_prcntg: formatNumber(item.wholes_quantity),
-            lw: formatNumber(item.lw_quantity),
-            lw_prcntg: formatNumber(item.lw_prcntg),
-            jb: formatNumber(item.jb_quantity),
-            jb_prcntg: formatNumber(item.jb_prcntg),
-            husk: formatNumber(item.husk_quantity),
-            husk_prcntg: formatNumber(item.husk_prcntg),
-            jbp: formatNumber(item.jbp_quantity),
-            jbp_prcntg: formatNumber(item.jbp_prcntg),
-            sdp: formatNumber(item.sdp_quantity),
-            sdp_prcntg: formatNumber(item.sdp_prcntg),
-            pieces: formatNumber(item.pieces_quantity),
-            pieces_prcntg: formatNumber(item.pieces_prcntg),
-            Unpeel: formatNumber(item.e1_quantity),
-            Unpeel_prcntg: formatNumber(item.e1_prcntg),
-            Item_Or_Bag_Count: item.quantity,
-            editStatus: item.editStatus,
-            createdBy: item.createdBy,
-            ApprovedBy: item.approvedBy,
+    id: idx + 1,
+    GateType: item.gateType,
+    gatePassNo: item.gatePassNo,
+    grossWt: formatNumber(item.grossWt),
+    netWeight: formatNumber(item.netWeight),
+    ReceivingDate: handletimezone(item.recevingDate),
+    truckNo: item.truckNo,
+    //creditNoteDate: handletimezone(item.creditNoteDate),
+    creditNoteNo: item.creditNoteNo,
+    gradeName: item.gradeName , // fallback if old key
+    origin: item.origin,
+    vendorName: item.vendorName,
+    type: item.type,
+    quantity: formatNumber(item.quantity),
+    totalWt: formatNumber(item.totalWt),
+    unitPrice: formatNumber(item.unitPrice),
+    totalBill: formatNumber(item.totalBill),
+    editStatus: item.editStatus,
+    remarks: item.remarks || "",
+    createdBy: item.createdBy,
+    approvedBy: item.approvedBy,
           })
         );
         ws = XLSX.utils.json_to_sheet(transformed);
       } else {
         transformed = data1.map(
-          (item: rcvVillageInprimaryData, idx: number) => ({
-            id: idx + 1,
-            gatePassNo: item.gatePassNo,
-            gateType: item.gateType,
-            ReceivingDate: handletimezone(item.recevingDate),
-            Vehicle_No: item.truckNo,
-            vendorName: item.vendorName,
-            grossWt: formatNumber(item.grossWt),
-            netWeight: item.netWeight ? item.netWeight : 0,
-            type: item.type,
-            grade: item.sku,
-            invoice: item.invoice,
-            origin: item.origin,
-
-            totalWt: item.totalWt ? formatNumber(item.totalWt) : 0,
-            wholes: formatNumber(item.wholes_quantity),
-            wholes_prcntg: formatNumber(item.wholes_quantity),
-            lw: formatNumber(item.lw_quantity),
-            lw_prcntg: formatNumber(item.lw_prcntg),
-            jb: formatNumber(item.jb_quantity),
-            jb_prcntg: formatNumber(item.jb_prcntg),
-            husk: formatNumber(item.husk_quantity),
-            husk_prcntg: formatNumber(item.husk_prcntg),
-            jbp: formatNumber(item.jbp_quantity),
-            jbp_prcntg: formatNumber(item.jbp_prcntg),
-            sdp: formatNumber(item.sdp_quantity),
-            sdp_prcntg: formatNumber(item.sdp_prcntg),
-            pieces: formatNumber(item.pieces_quantity),
-            pieces_prcntg: formatNumber(item.pieces_prcntg),
-            Unpeel: formatNumber(item.e1_quantity),
-            Unpeel_prcntg: formatNumber(item.e1_prcntg),
-
-            Item_Or_Bag_Count: item.quantity,
-            editStatus: item.editStatus,
-            createdBy: item.createdBy,
-            ApprovedBy: item.approvedBy,
+          (item: creditNoteEntryData, idx: number) => ({
+              id: idx + 1,
+    GateType: item.gateType,
+    gatePassNo: item.gatePassNo,
+    grossWt: formatNumber(item.grossWt),
+    netWeight: formatNumber(item.netWeight),
+    ReceivingDate: handletimezone(item.recevingDate),
+    truckNo: item.truckNo,
+    //creditNoteDate: handletimezone(item.creditNoteDate),
+    creditNoteNo: item.creditNoteNo,
+    gradeName: item.gradeName , // fallback if old key
+    origin: item.origin,
+    vendorName: item.vendorName,
+    type: item.type,
+    quantity: formatNumber(item.quantity),
+    totalWt: formatNumber(item.totalWt),
+    unitPrice: formatNumber(item.unitPrice),
+    totalBill: formatNumber(item.totalBill),
+    editStatus: item.editStatus,
+    remarks: item.remarks || "",
+    createdBy: item.createdBy,
+    approvedBy: item.approvedBy,
           })
         );
         // setTransformedData(transformed);
@@ -358,7 +330,7 @@ const CreditNoteTable = () => {
       const blob = new Blob([wbout], { type: "application/octet-stream" });
       saveAs(blob, "Village_In_Primary_Material_" + currDate + ".xlsx");
     } else {
-      const response = await axios.post("/api/rcvVillageIn/getVLOTDetails", {
+      const response = await axios.post("/api/creditNote/getRLOTDetails", {
         searchitem: blConNo,
 
         fromDate: fromdate,
@@ -371,7 +343,7 @@ const CreditNoteTable = () => {
       let transformed: any[] = [];
       transformed = data1.map((item: any, idx: number) => ({
         id: idx + 1,
-        VlotNo: item.vlotNo,
+        RlotNo: item.rlotNo,
         Creation_Date: handletimezone(item.recevingDate),
         Origin: item.origin,
         Entry_Weight: formatNumber(item.qty),
@@ -385,7 +357,7 @@ const CreditNoteTable = () => {
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
       const blob = new Blob([wbout], { type: "application/octet-stream" });
-      saveAs(blob, "VLOT_Details_" + currDate + ".xlsx");
+      saveAs(blob, "RLOT_Details_" + currDate + ".xlsx");
     }
   };
   const Role = localStorage.getItem("role") as keyof PermissionRole;
