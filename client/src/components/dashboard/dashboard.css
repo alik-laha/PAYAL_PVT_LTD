@@ -76,7 +76,7 @@ label,select,option{
   display: block;
   font-size: 13px;
   font-weight: 500;
-  /* letter-spacing: 0.02vw; */
+  letter-spacing: 0.02vw;
 
 
 
@@ -123,7 +123,7 @@ label,select,option{
 /* //sidebar Starts*/
 .user-pvt {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   background-color: inherit;
   outline: none;
@@ -155,7 +155,7 @@ label,select,option{
   background: hsl(198, 37%, 93%);
   /* blue highlight */
   /* color: rgb(241, 247, 249)!important; */
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.1vw;
   padding-left: 5px;
   padding-right: 5px;
@@ -177,18 +177,12 @@ label,select,option{
   cursor: pointer;
   padding: 7px 6px 7px 33px;
   display: block;
-  /* font-size: 11px; */
   font-weight: 500;
-  /* color: #ecf0f1; */
-  /* letter-spacing: 0.03vw; */
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   font-family: cursive;
   color: #05101e;
   /* muted text */
   text-decoration: none;
   font-size: 0.95rem;
-  font-weight: 500;
-  /* border-radius: 8px; */
   transition: all 0.3s ease;
   border-left: solid 1px rgb(24, 1, 1);
   

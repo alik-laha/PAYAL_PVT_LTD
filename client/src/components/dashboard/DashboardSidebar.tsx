@@ -131,14 +131,14 @@ const toggleSection = (sectionKey: string) => {
 
                    <Collapsible open={openSection === 'dashboard'} onOpenChange={() => toggleSection('dashboard')}>
                         <CollapsibleTrigger  className={`user-pvt ${openSection === 'dashboard' ? 'trigger-open' : ''}`}><RxDashboard color="red" size={18} />
-                            <p className="ml-2 text-red-500 ">DASHBOARD</p>
+                            <p className="ml-2 text-red-500">DASHBOARD</p>
                               <span className="ml-auto">
                                 {openSection === 'dashboard' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
                              </CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/dashboard1" >
-                                <p className="flex"><MdOutlineSpaceDashboard size={22} /> <p className="pl-3">GENERAL</p></p>
+                                <p className="flex"><MdOutlineSpaceDashboard size={22} className="text-sky-500"/> <p className="pl-3">GENERAL</p></p>
                             </NavLink>
                             
                         </CollapsibleContent >
@@ -148,8 +148,8 @@ const toggleSection = (sectionKey: string) => {
                     {rendersection('HR & Admin') && 
                     
                  <Collapsible open={openSection === 'admin'} onOpenChange={() => toggleSection('admin')}>
-                        <CollapsibleTrigger  className={`user-pvt ${openSection === 'admin' ? 'trigger-open' : ''}`}><MdOutlineAdminPanelSettings size={22} color="purple"/>
-                            <p className="ml-2 text-yellow-500">ADMIN & HR</p>
+                        <CollapsibleTrigger  className={`user-pvt ${openSection === 'admin' ? 'trigger-open' : ''}`}><MdOutlineAdminPanelSettings size={22} className="text-blue-600"/>
+                            <p className="ml-2 text-blue-600">ADMIN & HR</p>
                             <span className="ml-auto">
                                    {openSection === 'admin' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -158,7 +158,7 @@ const toggleSection = (sectionKey: string) => {
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/user" className='flex' >
-                                    <p className="flex"><BiSolidUserPlus size={21} /> <p className="pl-3">USER</p></p>
+                                    <p className="flex"><BiSolidUserPlus size={21} className="text-red-500"/> <p className="pl-3">USER</p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -166,7 +166,7 @@ const toggleSection = (sectionKey: string) => {
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/employee" >
 
-                                    <p className="flex"><FaUserTie size={17} /> <p className="pl-3">EMPLOYEE</p></p>
+                                    <p className="flex"><FaUserTie size={17} className="text-green-500"/> <p className="pl-3">EMPLOYEE</p></p>
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -176,7 +176,7 @@ const toggleSection = (sectionKey: string) => {
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                    <p className="flex"><TbSitemap size={20} /> <p className="pl-3">ASSET</p></p>
+                                    <p className="flex"><TbSitemap size={20} className="text-yellow-600"/> <p className="pl-3">ASSET</p></p>
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -187,8 +187,8 @@ const toggleSection = (sectionKey: string) => {
                     </Collapsible>}
                     {rendersection('GatePass') && 
                  <Collapsible open={openSection === 'gatepass'} onOpenChange={() => toggleSection('gatepass')}>
-                        <CollapsibleTrigger className={`user-pvt ${openSection === 'gatepass' ? 'trigger-open' : ''}`}><GiGate size={18} color="blue"/>
-                            <p className="ml-2 text-cyan-500">GATEPASS</p>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'gatepass' ? 'trigger-open' : ''}`}><GiGate size={18} className="text-yellow-600"/>
+                            <p className="ml-2 text-yellow-600">GATEPASS</p>
                             <span className="ml-auto">
                                   {openSection === 'gatepass' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -197,7 +197,7 @@ const toggleSection = (sectionKey: string) => {
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/gatepassIn" >
-                                    <p className="flex"><IoIosNavigate size={22} /> <p className="pl-3">ENTRY</p></p>
+                                    <p className="flex"><IoIosNavigate size={22} className="text-gray-500"/> <p className="pl-3">ENTRY</p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -215,7 +215,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/vendorSKU" >
-                                        <p className="flex"><TbSitemap size={20} /> <p className="pl-3">ITEM</p></p>
+                                        <p className="flex"><TbSitemap size={20} className="text-orange-500"/> <p className="pl-3">ITEM</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -224,7 +224,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/storePrimary" >
 
-                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">STORE EXTERNAL </p></p>
+                                        <p className="flex"><MdOutlineStorefront size={20} className="text-green-500"/><p className="pl-3">STORE EXTERNAL </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -233,7 +233,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/StoreIssue" >
-                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">STORE INTERNAL</p></p>
+                                        <p className="flex"><IoArrowRedoOutline size={20} className="text-yellow-600"/> <p className="pl-3">STORE INTERNAL</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -241,7 +241,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/GeneralStore" >
 
-                                        <p className="flex"><PiPackageLight size={22} /><p className="pl-3"> GENERAL ITEM</p></p>
+                                        <p className="flex"><PiPackageLight size={22} className="text-blue-500"/><p className="pl-3"> GENERAL ITEM</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -249,7 +249,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/recevingpackagingMaterial" >
 
-                                        <p className="flex"><GoPackageDependents size={18} /><p className="pl-3">  PACKAGING MATERIAL </p></p>
+                                        <p className="flex"><GoPackageDependents size={18} className="text-purple-500"/><p className="pl-3">  PACKAGING MATERIAL </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -257,7 +257,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/rcnprimaryentry" >
 
-                                        <p className="flex"><LuDonut size={20} /> <p className="pl-3"> RAW CASHEW IN</p></p>
+                                        <p className="flex"><LuDonut size={20} className="text-sky-500"/> <p className="pl-3"> RAW CASHEW IN</p></p>
 
                                     </NavLink>
 
@@ -268,7 +268,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/rcnprimaryexit" >
 
-                                        <p className="flex"><GiOpenedFoodCan  size={20} /> <p className="pl-3">FINISHED CASHEW OUT</p></p>
+                                        <p className="flex"><GiOpenedFoodCan  size={20} className="text-rose-500"/> <p className="pl-3">FINISHED CASHEW OUT</p></p>
 
                                     </NavLink>
 
@@ -279,7 +279,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/creditNote" >
 
-                                        <p className="flex"><CiCreditCard1 size={22} /> <p className="pl-3">CREDIT NOTE </p></p>
+                                        <p className="flex"><CiCreditCard1 size={22} className="text-orange-500"/> <p className="pl-3">CREDIT NOTE </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -288,7 +288,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/AlmondPrimary" >
 
-                                        <p className="flex"><TbBrandPeanut size={20} /> <p className="pl-3"> ALMOND  </p></p>
+                                        <p className="flex"><TbBrandPeanut size={20} className="text-gray-500"/> <p className="pl-3"> ALMOND  </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -298,7 +298,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/AgarbatiPrimary" >
 
-                                        <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   AGARBATTI </p></p>
+                                        <p className="flex"><GiChopsticks size={20} className="text-green-500"/> <p className="pl-3">   AGARBATTI </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -307,7 +307,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/OilMill" >
 
-                                        <p className="flex"><MdOutlineOilBarrel size={22} /> <p className="pl-3">   OILMILL </p></p>
+                                        <p className="flex"><MdOutlineOilBarrel size={22} className="text-fuchsia-500"/> <p className="pl-3">   OILMILL </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -329,7 +329,7 @@ const toggleSection = (sectionKey: string) => {
                     {Role !== 'Security' && rendersection('Production') &&
                      <Collapsible open={openSection === 'production'} onOpenChange={() => toggleSection('production')}>
                             <CollapsibleTrigger className={`user-pvt ${openSection === 'production' ? 'trigger-open' : ''}`}><MdOutlineFactory color='green' size={19} />
-                                <p className="ml-2 text-green-500">PRODUCTION</p>
+                                <p className="ml-2 text-green-600">PRODUCTION</p>
                                  <span className="ml-auto">
                                  {openSection==='production'? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -338,42 +338,42 @@ const toggleSection = (sectionKey: string) => {
                             {renderlink('Grading')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcnGrading" >
-                                        <p className="flex"><MdGrading size={20} /><p className="pl-4">  RCN GRADING </p></p>
+                                        <p className="flex"><MdGrading size={20} className="text-yellow-600"/><p className="pl-4">  RCN GRADING </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Boiling')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcnBoiling" >
-                                        <p className="flex"> <GiBoilingBubbles size={20} /><p className="pl-4">  RCN BOILING </p></p>
+                                        <p className="flex"> <GiBoilingBubbles size={20} className="text-cyan-600"/><p className="pl-4 ">  RCN BOILING </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Scooping')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcnScooping" >
-                                        <p className="flex"> <GiIceCreamScoop size={20} /><p className="pl-4">  RCN SCOOPING </p></p>
+                                        <p className="flex"> <GiIceCreamScoop size={20} color='red'/><p className="pl-4">  RCN SCOOPING </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
                             
                             {renderlink('Borma')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcnBorma" >
-                                        <p className="flex"> <CgSmartHomeBoiler size={20} /><p className="pl-4">  DNW BORMA </p></p>
+                                        <p className="flex"> <CgSmartHomeBoiler size={20} className="text-lime-600"/><p className="pl-4">  DNW BORMA </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Humidifier')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Humidifier" >
-                                        <p className="flex"> <BsMoisture size={20} /><p className="pl-4"> HUMIDIFIER </p></p>
+                                        <p className="flex"> <BsMoisture size={20} color='blue'/><p className="pl-4"> HUMIDIFIER </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Peeling')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Peeling" >
-                                        <p className="flex"> < PiWashingMachineLight size={20} /><p className="pl-4"> PEELING </p></p>
+                                        <p className="flex"> < PiWashingMachineLight size={20} className="text-purple-600" /><p className="pl-4"> PEELING </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -382,28 +382,28 @@ const toggleSection = (sectionKey: string) => {
                             {(!isRestrictedRole || (Role === 'MayurSupervisor' && isVisible)) && renderlink('Mayur')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Mayur" >
-                                        <p className="flex"> <AiFillCodeSandboxSquare size={20} /><p className="pl-4"> MAYUR </p></p>
+                                        <p className="flex"> <AiFillCodeSandboxSquare size={20} className="text-green-600"/><p className="pl-4"> MAYUR </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                                 {(!isRestrictedRole || (Role === 'MayurSupervisor' && isVisible)) && renderlink('Hamsa')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Hamsa" >
-                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-4">  HAMSA </p></p>
+                                        <p className="flex"> <GiVendingMachine size={20} className="text-teal-500"/><p className="pl-4">  HAMSA </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {(!isRestrictedRole || (Role === 'SortingSupervisor' && isVisible)) && renderlink('DPDS')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/DPDS" >
-                                        <p className="flex"> <GiBoxingRing size={20} /><p className="pl-4">  DP & DS </p></p>
+                                        <p className="flex"> <GiBoxingRing size={20} className="text-pink-600"/><p className="pl-4">  DP & DS </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {(!isRestrictedRole || (Role === 'SortingSupervisor' && isVisible)) && renderlink('Sorting')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Sorting" >
-                                        <p className="flex"> <FaSortAmountDownAlt size={20} /><p className="pl-4">  SORTING </p></p>
+                                        <p className="flex"> <FaSortAmountDownAlt size={20} className="text-orange-500"/><p className="pl-4">  SORTING </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -412,7 +412,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/BigTaiho" >
 
-                                        <p className="flex"> <AiOutlineProduct size={20} /><p className="pl-4"> BIG TAIHO </p></p>
+                                        <p className="flex"> <AiOutlineProduct size={20} className="text-gray-500"/><p className="pl-4"> BIG TAIHO </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -420,14 +420,14 @@ const toggleSection = (sectionKey: string) => {
                                 {(!isRestrictedRole || (Role === 'WholesSupervisor' && isVisible)) && renderlink('Wholes')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Wholes" >
-                                        <p className="flex"> <CiPill size={20} /><p className="pl-4">  WHOLES GRADING</p></p>
+                                        <p className="flex"> <CiPill size={20} className="text-violet-500"/><p className="pl-4">  WHOLES GRADING</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                                 {(!isRestrictedRole || (Role === 'WholesSupervisor' && isVisible)) && renderlink('LW')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/LW" >
-                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-4">  LOWER GRADING</p></p>
+                                        <p className="flex"> <GiPillDrop  size={20} className="text-blue-500"/><p className="pl-4">  LOWER GRADING</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -438,7 +438,7 @@ const toggleSection = (sectionKey: string) => {
                                     
                                     <NavLink to="/dashboard/RcvVillage" >
 
-                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-4">  VILLAGE LOGISTICS (OUT)</p></p>
+                                        <p className="flex"> <MdHolidayVillage size={20} className="text-red-500"/><p className="pl-4 font-semibold">  VILLAGE </p> <FiChevronRight size={18} /><p></p>OUT</p>
 
                                     </NavLink>
 
@@ -448,7 +448,7 @@ const toggleSection = (sectionKey: string) => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcvVillageIn" >
 
-                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-4">  VILLAGE LOGISTICS (IN)</p></p>
+                                          <p className="flex"> <MdHolidayVillage size={20} className="text-green-500"/><p className="pl-4 font-semibold">  VILLAGE </p> <FiChevronRight size={18} /><p></p>IN</p>
 
                                     </NavLink>
 
@@ -457,7 +457,7 @@ const toggleSection = (sectionKey: string) => {
                                 {(!isRestrictedRole || (Role === 'VillageSupervisor' && isVisible)) && renderlink('Village')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/VIllage" >
-                                        <p className="flex"> <GiVillage size={20} /><p className="pl-4">VILLAGE PRODUCTION</p></p>
+                                         <p className="flex"> <GiVillage size={20} className="text-blue-500"/><p className="pl-4 font-semibold">  VILLAGE </p> <FiChevronRight size={18} /><p></p>PRODUCTION</p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -468,7 +468,7 @@ const toggleSection = (sectionKey: string) => {
                                 {(!isRestrictedRole || (Role === 'VillageSupervisor' && isVisible)) && renderlink('Rejection')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Rejection" >
-                                        <p className="flex"> <GrEject   size={20} /><p className="pl-4">  REJECTION</p></p>
+                                        <p className="flex"> <GrEject   size={20} className="text-purple-500"/><p className="pl-4">  REJECTION</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -478,7 +478,7 @@ const toggleSection = (sectionKey: string) => {
                                 {renderlink('Packing')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Packing" >
-                                        <p className="flex"> <GiBoxUnpacking size={20} /><p className="pl-4">ORDER & PACKING</p></p>
+                                        <p className="flex"> <GiBoxUnpacking size={20} className="text-yellow-600"/><p className="pl-4">ORDER & PACKING</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -490,8 +490,8 @@ const toggleSection = (sectionKey: string) => {
 
                     {rendersection('Quality') && 
                     <Collapsible open={openSection === 'quality'} onOpenChange={() => toggleSection('quality')}>
-                        <CollapsibleTrigger className={`user-pvt ${openSection === 'quality' ? 'trigger-open' : ''}`}><LuBadgeCheck size={20} color="indigo"/>
-                            <p className="ml-2 text-indigo-500">QUALITY</p>
+                        <CollapsibleTrigger className={`user-pvt ${openSection === 'quality' ? 'trigger-open' : ''}`}><LuBadgeCheck size={20} className="text-indigo-500"/>
+                            <p className="ml-2 ">QUALITY</p>
                               <span className="ml-auto">
                                  {openSection==='quality' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
                              </span>
@@ -499,21 +499,21 @@ const toggleSection = (sectionKey: string) => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                    <p className="flex"> <FaAcquisitionsIncorporated size={20} /><p className="pl-5">  RCN INCOMING QC </p></p>
+                                    <p className="flex"> <FaAcquisitionsIncorporated size={20} className="text-red-500"/><p className="pl-5">  RCN INCOMING QC </p></p>
 
                                 </NavLink>
                             </CollapsibleContent>}
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qc_packaging_metirial" >
-                                    <p className="flex"> <MdOutlineHighQuality size={20} /><p className="pl-5">  PACKAGING MATERIAL QC </p></p>
+                                    <p className="flex"> <MdOutlineHighQuality size={20} className="text-blue-500"/><p className="pl-5">  PACKAGING MATERIAL QC </p></p>
 
                                 </NavLink>
                             </CollapsibleContent>}
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qc_water" >
-                                    <p className="flex"> <FaWater size={20} /><p className="pl-5">  WATER QC </p></p>
+                                    <p className="flex"> <FaWater size={20} className="text-yellow-600"/><p className="pl-5">  WATER QC </p></p>
 
                                 </NavLink>
                             </CollapsibleContent>}
@@ -521,7 +521,7 @@ const toggleSection = (sectionKey: string) => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qc_online" >
-                                    <p className="flex"> <PiTestTubeDuotone  size={20} /><p className="pl-5">  ONLINE TEST QC </p></p>
+                                    <p className="flex"> <PiTestTubeDuotone  size={20} className="text-green-600"/><p className="pl-5">  ONLINE TEST QC </p></p>
 
                                 </NavLink>
                             </CollapsibleContent>}
@@ -548,9 +548,9 @@ const toggleSection = (sectionKey: string) => {
 
                      <Collapsible open={openSection === 'account'} onOpenChange={() => toggleSection('account')}>
                         <CollapsibleTrigger className={`user-pvt ${openSection === 'account' ? 'trigger-open' : ''}`}><IoMdSettings size={20} color="black"/>
-                            <p className="ml-4 text-stone-500">PROFILE</p>
+                            <p className="ml-4 text-stone-600">PROFILE</p>
                             <span className="ml-auto">
-                                 {openSection==='account' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />}
+                                 {/* {openSection==='account' ? <FiChevronDown size={18} /> : <FiChevronRight size={18} />} */}
                              </span>
                              </CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
