@@ -431,8 +431,11 @@ const toggleSection = (sectionKey: string) => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+                                
+
                                 {renderlink('Receiving Village Entry')
                                 && <CollapsibleContent className="Items-pvt">
+                                    
                                     <NavLink to="/dashboard/RcvVillage" >
 
                                         <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-4">  VILLAGE LOGISTICS (OUT)</p></p>
@@ -458,6 +461,8 @@ const toggleSection = (sectionKey: string) => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+  
+
                                 
 
                                 {(!isRestrictedRole || (Role === 'VillageSupervisor' && isVisible)) && renderlink('Rejection')
@@ -479,6 +484,9 @@ const toggleSection = (sectionKey: string) => {
 
                         
                         </Collapsible>}
+
+
+                        
 
                     {rendersection('Quality') && 
                     <Collapsible open={openSection === 'quality'} onOpenChange={() => toggleSection('quality')}>

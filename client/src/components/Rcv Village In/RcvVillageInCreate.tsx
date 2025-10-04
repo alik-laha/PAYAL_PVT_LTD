@@ -582,11 +582,11 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.vendorN} placeholder="Vendor Name" className="w-40"
                                                     onChange={(e) => handleVendorChange(index, e)} required />
-                                                {actvindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: vendorNameView }}>
+                                                {actvindex === index && <ScrollArea className="max-h-24 w-auto overflow-auto  dropdown-content" style={{ display: vendorNameView }}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+                                                            <div key={item.id} className=" gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
+                                                                <p className="font-medium text-xs text-blue-900 py-1 hover:font-semibld text-left ml-1 focus:text-base">{item.vendorName}</p>
 
                                                             </div>
                                                         ))

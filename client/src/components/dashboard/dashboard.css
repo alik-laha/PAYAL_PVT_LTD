@@ -56,7 +56,7 @@ label,select,option{
 
 /* Sidebar links */
 .sidebar a {
-  padding: 0px 8px 10px 10px;
+  padding: 0px 8px 10px 14px;
   text-decoration: none;
   font-size: 25px;
   /* color:white; */
@@ -98,7 +98,7 @@ label,select,option{
   width: 18%;
   /* padding-top: 4vw; */
   /* height: 190vh; */
-  min-height: 180vh;
+  min-height: 160vh;
   
 }
 
@@ -147,8 +147,8 @@ label,select,option{
 .user-pvt.trigger-open {
   /* border-right: 1px solid white; */
   padding-bottom: 5px;
-  border-bottom: 1px solid white;
-  border-top: 1px solid white;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   padding-top: 5px;
   /* background: #082c41; */
   /* background: #c4d2ef; */
@@ -188,8 +188,11 @@ label,select,option{
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   transition: all 0.3s ease;
+  border-left: solid 1px rgb(24, 1, 1);
+  
+ 
 }
 
 /* Smooth expand/collapse transition */
@@ -250,6 +253,10 @@ label,select,option{
   color: #100f0f;
   transform: translateX(8px);
   margin-right: 10px;
+  /* border-bottom:solid 1px rgb(14, 0, 0); */
+  border-left: none;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  font-size: 1.5rem;
 
 }
 
@@ -260,6 +267,9 @@ label,select,option{
   
 
 }
+
+
+
 
 
 /* Dashboard Header */
@@ -426,6 +436,8 @@ label,select,option{
 }
 
 
+
+
 /* //main-content */
 
 .dashboard-flex-head {
@@ -466,6 +478,9 @@ label,select,option{
   margin-top: -10px;
   width: 100%;
 
+}
+.custom-text-left{
+  text-align: left!important;
 }
 
 .flexbox-tile {
@@ -601,6 +616,7 @@ label,select,option{
   width: 35% !important;
 }
 
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -609,6 +625,7 @@ label,select,option{
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
+ 
 }
 
 .dropdown-content-rcv {

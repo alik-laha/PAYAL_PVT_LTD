@@ -286,13 +286,13 @@ const OrderCreateForm = () => {
                                                 <TableCell className="text-center" >
                                                     <Input value={row.grade} placeholder="Final Grade"
                                                         onChange={(e) => handleGradechange(index, e)} required />
-                                                    {actvgradeindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  
+                                                    {actvgradeindex === index && <ScrollArea className="max-h-24 w-auto overflow-auto  
                                                 dropdown-content" style={{ display: gradeview }}>
                                                         {
                                                             gradeData.map((item: any) => (
-                                                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
+                                                                <div key={item.id} className="gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
                                                                     onClick={() => handleGradeidClick(index, item)}>
-                                                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
+                                                                    <p className="font-medium text-xs text-blue-900 py-1 focus:text-base hover:font-semibold ml-2 text-left">{item.sku}</p>
 
                                                                 </div>
                                                             ))

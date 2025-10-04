@@ -327,12 +327,12 @@ const CashewOutEntryForm = (props: Props) => {
                                                 <TableCell className="text-center">
 
                                                     <Input placeholder="Batch No" value={row.batchNo} className="bg-purple-100" onChange={(e) => handleBatchNoChange(index, e)} />
-                                                    {actvbatchindex === index && <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: lotview }}>
+                                                    {actvbatchindex === index && <ScrollArea className="h-30 w-auto overflow-auto dropdown-content" style={{ display: lotview }}>
                                                         {
                                                             lotdata.map((item) => (
-                                                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
+                                                                <div key={item.id} className=" gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
                                                                     onClick={() => handleBatchIdClick(index, item)}>
-                                                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.BatchID}</p>
+                                                                    <p className="font-medium text-xs text-left hover:font-semibold text-blue-900 py-1 focus:text-base">{item.BatchID}</p>
                                                                 </div>
                                                             ))
                                                         }
