@@ -815,32 +815,32 @@ const QCRcnTable = () => {
 
                                             <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                         </TableCell> */}
-                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.sampling ? `${item.sampling} %` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.sampling ? 'bg-yellow-50':'text-red-500'}`}>
+                    {item.sampling ? `${item.sampling} %` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.moisture ? `${item.moisture} %` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.moisture ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.moisture ? `${item.moisture} %` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.nutCount ? `${item.nutCount} Pcs` : "NA"}
+                  <TableCell className={`text-center font-semibold  ${item.nutCount ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.nutCount ? `${item.nutCount}` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.fluteRate ? `${item.fluteRate} g/kg` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.fluteRate ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.fluteRate ? `${item.fluteRate} ` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.goodKernel ? `${item.goodKernel} g` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.goodKernel ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.goodKernel ? `${item.goodKernel} ` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.spIm ? `${item.spIm} g` : "NA"}
+                  <TableCell className={`text-center font-semibold  ${item.spIm ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.spIm ? `${item.spIm} ` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.reject ? `${item.reject} g` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.reject ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.reject ? `${item.reject} ` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.shell ? `${item.shell} g` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.shell ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.shell ? `${item.shell} ` : ""}
                   </TableCell>
-                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.outTurn ? `${item.outTurn} Lbs` : "NA"}
+                  <TableCell className={`text-center font-semibold ${item.outTurn ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.outTurn ? `${item.outTurn} ` : ""}
                   </TableCell>
                   <TableCell className="text-center">
                     {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">

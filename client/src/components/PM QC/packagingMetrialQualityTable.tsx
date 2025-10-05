@@ -654,7 +654,7 @@ const QCPackageMaterialTable = () => {
                                                     <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                                ) : 'NA'
+                                                ) : ''
                                             )
                                         }</TableCell>
                                         <TableCell className={`text-center font-semibold ${item.dropTest ?' ':'text-red-500 font-semibold'}`}>{item.dropTest === "Pass" ? (
@@ -666,7 +666,7 @@ const QCPackageMaterialTable = () => {
                                                 <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                            ) : 'NA'
+                                            ) : ''
                                         )}</TableCell>
                                         <TableCell className={`text-center font-semibold ${item.sealCondition ?' ':'text-red-500 font-semibold'}`}>{item.sealCondition === "OK" ? (
                                             <p className="flex flex-row justify-center">
@@ -677,7 +677,7 @@ const QCPackageMaterialTable = () => {
                                                <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                            ) : 'NA'
+                                            ) : ''
                                         )}</TableCell>
                                         <TableCell className={`text-center font-semibold ${item.labelingCondition ?' ':'text-red-500 font-semibold'}`}>{item.labelingCondition === "OK" ? (
                                             <p className="flex flex-row justify-center">
@@ -688,21 +688,21 @@ const QCPackageMaterialTable = () => {
                                                 <p className="flex flex-row justify-center">
                                                                        <IoMdCloseCircle  color="red" size={23} />
                                                                      </p>
-                                            ) : 'NA'
+                                            ) : ''
                                         )}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.length ?item.length:'NA'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.width ?item.width:'NA'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.height?item.height:'NA'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.gsm ?item.gsm:'NA'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.avgWeight ?item.avgWeight:'NA'}</TableCell>
-                                         <TableCell className={`text-center font-semibold ${item.testingDate ?' ':'text-red-500 '}`}>{item.remarks ? item.remarks :'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.length ?item.length:''}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.width ?item.width:''}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.height?item.height:''}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.gsm ?item.gsm:''}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.avgWeight ?item.avgWeight:''}</TableCell>
+                                         <TableCell className={`text-center ${item.testingDate ?' ':'text-red-500 '}`}>{item.remarks ? item.remarks :''}</TableCell>
                                         
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' ':'text-red-500 '}`}>
+                                        <TableCell className={`text-center ${item.testingDate ?' ':'text-red-500 '}`}>
                                             {
                                                (item.damageFile && item.damageFile.length > 3) ? (
                                                     <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
                                                 ) : (
-                                                   'NA'
+                                                   ''
                                                 )
 
                                             }
