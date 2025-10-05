@@ -248,7 +248,7 @@ const DashboardPanel1: React.FC = () => {
         className="dashboard-main-container"
         style={{ backgroundColor: "white" }}>
         <div className="dashboard-container">
-          <div className="panel-container mb-5 font-cursive ">
+          <div className="panel-container mb-5 ">
             <div className="panel1 bg-cyan-400 hover:bg-cyan-500">
               <p className=" mt-3">Factory Manager</p>
               <NavLink to="/dashboard/dashboard1/factoryManager">
@@ -261,13 +261,13 @@ const DashboardPanel1: React.FC = () => {
             </div>
           </div>
 
-          <div className="text-center py-5 font-cursive">
+          <div className="text-center py-5">
             <p className="text-xl">Current Lot & Section Backlog</p>
           </div>
 
           <div className="panel-container mt-5 justify-evenly">
             {data.map((item) => (
-              <div key={item.id} className="panel font-cursive bg-lime-100">
+              <div key={item.id} className="panel bg-lime-100">
                 <h2 className="text-rose-500">{item.title}</h2>
                 <p className="font-semibold pt-2 "> {item.value1}</p>
                 <p className="font-semibold pt-1"> {item.value2}</p>

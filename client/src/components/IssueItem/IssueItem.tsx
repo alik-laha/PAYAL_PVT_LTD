@@ -137,7 +137,7 @@ const IssueItem = () => {
                     }
 
                 </div>
-                <p className='text-lg font-cursive text-center py-1 '>SECTION WISE INSIDE STORE TRANSACTION</p>
+                <p className='text-lg text-center py-1 '>SECTION WISE INSIDE STORE TRANSACTION</p>
                 <div>
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>

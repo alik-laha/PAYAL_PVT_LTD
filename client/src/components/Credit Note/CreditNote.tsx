@@ -117,7 +117,7 @@ const CreditNote = () => {
               )}
           </div>
 
-          <p className="text-lg font-cursive text-center py-1 ">CURRENT FY {FY} CREDIT NOTE TRANSACTION</p>
+          <p className="text-lg text-center py-1 ">CURRENT FY {FY} CREDIT NOTE TRANSACTION</p>
           <div>
             {checkreceiving("RCNPrimaryEntry") && (
               <Dialog>

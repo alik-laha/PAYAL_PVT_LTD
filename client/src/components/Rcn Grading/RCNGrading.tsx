@@ -109,7 +109,7 @@ const RcnGrading = () => {
                 </div>
                 
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} REPORT (GRADING)</p>
+                <p className='text-lg text-center py-1 '>CURRENT F.Y. {FY} REPORT (GRADING)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>

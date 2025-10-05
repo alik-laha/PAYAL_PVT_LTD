@@ -107,7 +107,7 @@ const RCNBoiling = () => {
                     
 
                 </div>
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} REPORT (BOILING)</p>
+                <p className='text-lg text-center py-1 '>CURRENT F.Y. {FY} REPORT (BOILING)</p>
                 
                 
                 <div>

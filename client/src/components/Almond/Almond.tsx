@@ -92,7 +92,7 @@ const Almond = () => {
 
                 </div>
 
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} ALMOND TRANSACTION</p>
+                <p className='text-lg text-center py-1 '>CURRENT F.Y. {FY} ALMOND TRANSACTION</p>
 
                 <div>
                 {checkreceiving('AlmondPrimaryEntry') && <Dialog>

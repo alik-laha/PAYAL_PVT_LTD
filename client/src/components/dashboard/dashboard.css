@@ -9,20 +9,16 @@ input {
   font-size: 0.75rem !important;
 }
 dialog p{
-  font-family: cursive;
   font-size: 13px!important;
 }
 dialog img{
   height:3vh;
   width: 3vh;
 }
-label,select,option{
+/* label,select,option,p,table,button,div,input,textarea{
   font-family: cursive!important;
-}
+} */
 
-.font-cursive{
-  font-family: cursive;
-}
 
 /* The sidebar menu */
 .sidebar {
@@ -34,24 +30,17 @@ label,select,option{
   left: 0;
   overflow-x: hidden;
   transition: 0.4s;
-  padding-top: 60px;
-  height: 100vh;
-  /* background: #1e293b; */
-  /* Dark slate background */
+  /* padding-top: 60px; */
+  min-height: 100%;
   background: hsl(210, 40%, 98%);
   
-  /* background: hsl(199, 31%, 32%); */
-  /* Dark slate background */
-  /* color: #f8fafc; */
   color: rgb(4, 30, 21);
-  /* Light text */
   font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  /* padding: 20px 0; */
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
   vertical-align: middle;
-
 }
 
 /* Sidebar links */
@@ -63,7 +52,6 @@ label,select,option{
   display: block;
   transition: 0.4s;
   margin-bottom: 10px;
-  
 }
 
 .Items-pvt a {
@@ -71,15 +59,11 @@ label,select,option{
   margin-bottom: 0;
   align-items: center;
   cursor: pointer;
-  /* color: rgba(198, 220, 241, 0.796); */
   color: rgba(3, 13, 60, 0.797);
   display: block;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.02vw;
-
-
-
 }
 
 /* Sidebar close button */
@@ -98,7 +82,8 @@ label,select,option{
   width: 18%;
   /* padding-top: 4vw; */
   /* height: 190vh; */
-  min-height: 160vh;
+  /* min-height: 160vh; */
+  min-height: 150vh;
   
 }
 
@@ -140,7 +125,7 @@ label,select,option{
   position: relative;
   letter-spacing: 0.05vw;
   vertical-align: middle;
-  font-family: cursive;
+  
 }
 
 
@@ -178,7 +163,7 @@ label,select,option{
   padding: 7px 6px 7px 33px;
   display: block;
   font-weight: 500;
-  font-family: cursive;
+  /* font-family: cursive; */
   color: #05101e;
   /* muted text */
   text-decoration: none;
@@ -204,8 +189,9 @@ label,select,option{
     color: rgb(95, 101, 1);
     padding: 6px;
     width: 75%;
-    font-family:cursive;
-    font-weight: 800;
+    margin-left: 5px;
+    /* font-family:cursive; */
+    font-weight: 700;
     
 
   }
@@ -450,7 +436,7 @@ label,select,option{
   padding-left: 16px;
   padding-right: 16px;
   transition: margin-left 0.4s;
-  height: 100%;
+  max-height: 100vh;
   /* background-color: #e6f0f3; */
   background-color: ghostwhite;
   color: #1e1e2f;
@@ -495,7 +481,7 @@ label,select,option{
   /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-  font-family: cursive;
+  /* font-family: cursive; */
 }
 
 .flexbox-tile-clean-select {
@@ -752,13 +738,11 @@ p#modal-text {
 
   .flexbox-tile {
     flex: 1 1 25%;
-
     padding: 20px 15px 20px 15px;
     height: 12vw;
     font-size: 14px;
     max-width: 30% !important;
     border-radius: 8px;
-
   }
 
   .sidebar.open {
@@ -774,10 +758,13 @@ p#modal-text {
 }
 
 @media screen and (max-width: 768px) {
+
+  /* label,select,option,p,table,button,div,input,textarea{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif!important;
+  } */
+
   .dashboard-flex-head {
-
     font-size: 16px;
-
   }
 
   .responsive-no-margin {
@@ -788,17 +775,13 @@ p#modal-text {
     height: 5vh !important;
     font-size: 13px !important;
     padding: 5px 8px 5px 8px !important;
-
-
   }
 
   .sidebar a {
     font-size: 25px;
-
   }
 
   .responsive-80-width {
-
     width: 80% !important;
   }
 
@@ -806,13 +789,10 @@ p#modal-text {
     width: 65%;
     /* padding-top: 25vw; */
     /* padding-top: 15vw; */
-
-
   }
 
 
   .responsive-100-width {
-
     width: 100% !important;
   }
 

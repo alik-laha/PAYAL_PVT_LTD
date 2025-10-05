@@ -116,7 +116,7 @@ const Humidifier = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-cursive text-center '>CURRENT F.Y. {FY} REPORT (HUMIDIFIER)</p>
+                <p className='text-lg text-center '>CURRENT F.Y. {FY} REPORT (HUMIDIFIER)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

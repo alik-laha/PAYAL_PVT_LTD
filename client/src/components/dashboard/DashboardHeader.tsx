@@ -72,7 +72,7 @@ const DashboardHeader = () => {
 
   return (
     <>
-      <div className='dashoboard-main-header bg-cyan-800'>
+      <div className='dashoboard-main-header bg-cyan-800 '>
         <span className="logo-lg dashboard-text" ></span>
 
 
@@ -86,7 +86,7 @@ const DashboardHeader = () => {
 
         <div className='navbar-custom-menu'>
           <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white',position:'fixed',zIndex:'99999'}}>
-            <li className="user-header mx-1 my-1 font-cursive">
+            <li className="user-header mx-1 my-1 ">
 
            
               {/* <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span> */}

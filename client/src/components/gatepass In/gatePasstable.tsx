@@ -987,10 +987,10 @@ const GatePassTable = () => {
 
           <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" GatePass/Doc No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-          <select className='font-cursive flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+          <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
             onChange={(e) => setSection(e.target.value)} value={section}>
-            <option className=' font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
+            <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
         py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
             {type ? (
               sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
@@ -999,7 +999,7 @@ const GatePassTable = () => {
             ) : null}
           </select>
 
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left font-cursive">From </label>
+          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
           <Input className="w-1/7 flexbox-search-width-calender"
             type="date"
             value={fromdate}
@@ -1007,7 +1007,7 @@ const GatePassTable = () => {
             placeholder="From Date"
 
           />
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right font-cursive">To </label>
+          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
           <Input className="w-1/7 flexbox-search-width-calender"
             type="date"
             //value={hidetodate}
@@ -1017,22 +1017,22 @@ const GatePassTable = () => {
             placeholder="To Date"
 
           />
-          <select className='font-cursive flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+          <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
             onChange={(e) => settype(e.target.value)} value={type}>
-            <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
+            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
                         py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
             {SelectGatePassType.map((data, index) => (
-              <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
+              <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                 {data}
               </option>
             ))}
           </select>
-          <select className='font-cursive flexbox-search-width flex h-8 w-1/7  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+          <select className='flexbox-search-width flex h-8 w-1/7  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
             onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
-            <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
+            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
             </option>
             {

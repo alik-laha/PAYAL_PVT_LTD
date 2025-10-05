@@ -187,10 +187,10 @@ const VendorSKUTable = () => {
                     
                
 
-                <select className='font-cursive flexbox-search-width flex h-8 w-1/5 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className=' flexbox-search-width flex h-8 w-1/5 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setSection(e.target.value)} value={section}>
-                        <option className='font-cursive relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        <option className=' relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
                         {SKUSection.map((data, index) => (
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
@@ -199,12 +199,12 @@ const VendorSKUTable = () => {
                             </option>
                         ))}
                     </select>
-                    <select className='font-cursive flexbox-search-width flex h-8 w-1/5 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <select className=' flexbox-search-width flex h-8 w-1/5 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => {setselectType(e.target.value)}} value={selectType}>
                         
                     {SelectTypeSKUVendor.map((data, index) => (
-                        <option className='font-cursive relative flex w-full cursor-default select-none items-center rounded-sm 
+                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:
             pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}

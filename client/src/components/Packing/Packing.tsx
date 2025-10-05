@@ -118,7 +118,7 @@ const Packing = () => {
                    
                     
                 </div>
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} ORDER COUNT</p>
+                <p className='text-lg text-center py-1 '>CURRENT F.Y. {FY} ORDER COUNT</p>
                     <div className="flex flex-row-reverse">
                       
                     </div>
