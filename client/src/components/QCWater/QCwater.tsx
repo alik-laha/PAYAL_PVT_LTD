@@ -82,7 +82,7 @@ const QCWater = () => {
                     }
 
                 </div>
-                <p className='text-lg font-cursive text-center py-1 '>QC WATER READING TRANSACTION</p>
+                <p className='text-lg text-center py-1 '>QC WATER READING TRANSACTION</p>
                 <div>
                 <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>

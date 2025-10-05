@@ -66,7 +66,7 @@ const RcvVillageIn = () => {
                     </div>
                 </div>
 
-                <p className='text-lg font-cursive text-center py-1 '> VILLAGE IN TRANSACTION</p>
+                <p className='text-lg text-center py-1 '> VILLAGE IN TRANSACTION</p>
                 {checkreceiving('VillagePrimaryEntry') && <Dialog>
                 <DialogTrigger>   <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

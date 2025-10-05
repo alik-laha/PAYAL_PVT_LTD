@@ -86,7 +86,7 @@ const FactoryManager: React.FC = () => {
                 <div className="dashboard-container" style={{ backgroundColor: 'ghostwhite' }}>
 
 
-                    <div className='text-2xl text-white text-center bg-rose-200 py-5 shadow-md font-cursive'>Factory Manager Dashboard
+                    <div className='text-2xl text-white text-center bg-rose-200 py-5 shadow-md '>Factory Manager Dashboard
 
                         <NavLink to="/dashboard/dashboard1/" >
                             <Button className="mr-6  right bg-orange-500 float-right h-8">Back</Button>

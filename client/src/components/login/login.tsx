@@ -92,7 +92,7 @@ export const Login = () => {
         <div className="flex flex-col items-center justify-center login-container " style={{height:'125vh'}}>
             <div className="p-6 border-2 flex justify-center items-center flex-col rounded-xl login">
                 <img src={img} width={"80"} height={120}></img>
-                <h1 className="text-1xl font-cursive font-bold mb-3 pb-2 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
+                <h1 className="text-1xl font-bold mb-3 pb-2 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
 
                 {/* <Select>
                     <SelectTrigger>
@@ -106,14 +106,14 @@ export const Login = () => {
                         </SelectGroup>
                     </SelectContent>
                 </Select> */}
-                <h3 className="text-xs font-cursive mb-3 font-semibold pb-1 pt-2 text-cyan-700">Provide Username & Password</h3>
+                <h3 className="text-xs mb-3 font-semibold pb-1 pt-2 text-cyan-700">Provide Username & Password</h3>
                 <form className="flex flex-col gap-3 w-64" onSubmit={handleSubmit}>
 
                     <Input type="text" placeholder="Username" ref={usernameRef} className="bg-yellow-100"/>
                     <Input type="password" placeholder="Password" ref={passwordRef} className="bg-yellow-100"/>
                     <Label className="w-full flex justify-center font-semibold text-xs  text-cyan-700">Enter Captcha</Label>
                     <Captcha />
-                    <p><NavLink to="/forgotpass" className='text-xs mt-1 font-cursive font-semibold text-purple-700 float-right '>Forgot/Reset Password</NavLink></p>
+                    <p><NavLink to="/forgotpass" className='text-xs mt-1 font-semibold text-purple-700 float-right '>Forgot/Reset Password</NavLink></p>
                     <span style={{ display: errView }} className="text-red-600 text-xs font-sans font-semibold w-100 text-center">{errMsg}</span>
                     <Button className="bg-orange-500 text-sm h-8 mt-3 mb-7 mx-8 font-sans" type="submit">Login</Button>
 

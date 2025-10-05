@@ -121,17 +121,17 @@ const SKUCreateForm = () =>{
                     </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Type of SKU</Label>
-                    <select className="w-2/4 font-cursive text-center flex h-8 rounded-md border border-input bg-background 
+                    <select className="w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
                                             px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
                                             placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
                                             focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>setType(e.target.value)} 
                                             value={type} required>
-                                                <option value="" disabled className="font-cursive relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                                                <option value="" disabled className=" relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
                                                 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">type</option>
                                             
                                                  {section ? (
                                         TypeOnSection[section as keyof typeof TypeOnSection].map((item) => (
-                                            <option key={item} className='font-cursive' value={item}>{item}</option>
+                                            <option key={item} value={item}>{item}</option>
                                         ))
                                     ) : null}
                                             </select>

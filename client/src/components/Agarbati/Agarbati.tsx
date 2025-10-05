@@ -97,7 +97,7 @@ const Agarbati = () => {
 
                 </div>
 
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT F.Y. {FY} AGARBATI TRANSACTION</p>
+                <p className='text-lg text-center py-1 '>CURRENT F.Y. {FY} AGARBATI TRANSACTION</p>
 
                 <div>
                 {checkreceiving('AgarbatiPrimaryEntry') && <Dialog>

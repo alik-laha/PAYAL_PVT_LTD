@@ -154,7 +154,7 @@ const QCOnline = () => {
               <p>{data.pouchData} </p>
             </div>
           </div>
-          <p className="text-lg font-cursive text-center py-1 ">
+          <p className="text-lg text-center py-1 ">
             QC DAILY ONLINE TRANSACTION
           </p>
           <div className="flex">

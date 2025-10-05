@@ -296,7 +296,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                 <Input className=" w-1/3 flexbox-search-width pl-3 mr-5 " placeholder="GatePass No" value={gatepassSearch} onChange={(e) => setgatepassSearch(e.target.value)} />
                 <Input className=" w-1/3 flexbox-search-width mr-5 ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
-                    <label className="font-cursive font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
+                    <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
                     <Input className="w-1/6 flexbox-search-width-calender"
                         type="date"
                         value={fromdate}
@@ -304,7 +304,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                         placeholder="From Date"
 
                     />
-                    <label className="font-cursive font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                     <Input className="w-1/6 flexbox-search-width-calender"
                         type="date"
                         // value={hidetodate}
@@ -314,7 +314,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                         placeholder="To Date"
 
                     />
-                      <select className='font-cursive flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                      <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setselectType(e.target.value)} value={selectType}>
                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 

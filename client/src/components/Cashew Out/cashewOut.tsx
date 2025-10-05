@@ -96,7 +96,7 @@ const CashewOut = () => {
 
                 </div>
 
-                <p className='text-lg font-cursive text-center py-1 '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
+                <p className='text-lg text-center py-1 '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>
