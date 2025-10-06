@@ -51,6 +51,10 @@ interface ContextType {
     setpendingqcCount: (pendingqccount: number) => void;
     pendingreportcount: number;
     setpendingreportCount: (pendingreportcount: number) => void;
+    pendingqcOutcount: number;
+    setpendingqcOutCount: (pendingqcOutcount: number) => void;
+    pendingreportOutcount: number;
+    setpendingreportOutCount: (pendingreportOutcount: number) => void;
     recevingPackagematerialOverView: SumofpackageMetrialReceving | null;
     setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
     StorePrimaryOverView:sumofStorePrimary| null;
@@ -97,7 +101,6 @@ interface ContextType {
     setEditLWLotWiseData: (data: LWData[]) => void;
     editRejectionLotWiseData: RejectionData[];
     setEditRejectionLotWiseData: (data: RejectionData[]) => void;
-
     editVillageLotWiseData: VilageData[];
     setEditVillageLotWiseData: (data: VilageData[]) => void;
     
@@ -116,7 +119,10 @@ const Context = createContext<ContextType>({
     setpendingqcCount: () => { },
     pendingreportcount: 0,
     setpendingreportCount: () => { },
-  
+    pendingqcOutcount: 0,
+    setpendingqcOutCount: () => { },
+    pendingreportOutcount: 0,
+    setpendingreportOutCount: () => { },
     generateCaptcha: '',
     setGenerateCaptcha: () => { },
     typedCaptcha: '',

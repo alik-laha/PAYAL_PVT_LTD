@@ -38,6 +38,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingBoilingData, setEditPendingBoilingData] = useState<BoilingEntryData[]>([])
     const [pendingqccount, setpendingqcCount] = useState<number>(0)
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
+    const [pendingqcOutcount, setpendingqcOutCount] = useState<number>(0)
+    const [pendingreportOutcount, setpendingreportOutCount] = useState<number>(0)
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
     const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<BormaData[]>([])
@@ -72,7 +74,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             generateCaptcha, setGenerateCaptcha, typedCaptcha, setTypedCaptcha, role, setRole, dept, setDept, AllMachines, setAllMachines,
             AllNewMachines, setAllNewMachines, editPendiningGrinderData, setEditPendiningGrinderData,
             editPendingBoilingData, setEditPendingBoilingData, pendingqccount, setpendingqcCount, pendingreportcount,
-            setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,editPendiningIssueItemData,setEditPendiningIssueItemData,
+            setpendingreportCount, pendingqcOutcount, setpendingqcOutCount, pendingreportOutcount,
+            setpendingreportOutCount,recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,editPendiningIssueItemData,setEditPendiningIssueItemData,
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
             ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,RcvVillageInPrimaryOverView,setRcvVillageInPrimaryOverView,

@@ -44,6 +44,7 @@ import cashewOutRouter from "./router/cashewOutRouter";
 import dashboardRouter from "./router/dashboardRouter";
 import QCOnlineRouter from "./router/QCOnlineRouter";
 import creditNoteRouter from "./router/creditNoteRouter";
+import qcRcnOutRouter from "./router/qcRcnOutRouter";
 
 
 
@@ -62,6 +63,7 @@ app.use("/api/cashewOut", cashewOutRouter)
 app.use('/api/user', userRouter)
 app.use('/api/asset', assetRouter)
 app.use('/api/qcRcn', qcRcnRouter)
+app.use('/api/qcRcnOut', qcRcnOutRouter)
 app.use('/api/grading', GraddingRouter)
 app.use('/api/boiling', BoilingRouter)
 app.use('/api/scooping', scoopingRouter)

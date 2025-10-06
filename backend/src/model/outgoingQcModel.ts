@@ -64,6 +64,10 @@ const qcOutgoingModel = sequelize.define('qcOutgoing', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+     texture: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     
     digitalMoisture: {
         type: DataTypes.DECIMAL(10,2),
@@ -101,7 +105,59 @@ const qcOutgoingModel = sequelize.define('qcOutgoing', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
+    superficial: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    immature: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    spotted: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    testa: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    insect: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    foreign: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    extraneous: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    rodent: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    addedColor: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    mould: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     remarks: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    oilContent: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    noOfpackets: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    type: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -121,8 +177,26 @@ const qcOutgoingModel = sequelize.define('qcOutgoing', {
         allowNull: true,
 
     },
+    qcapprovedBy: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue:''
+    },
+      reportStatus:{
+        type:DataTypes.INTEGER,
+        defaultValue: 0
+    }
+}, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['batchNo']
+        }
+    ]
+}
+
   
     
     
-})
+)
 export default qcOutgoingModel;

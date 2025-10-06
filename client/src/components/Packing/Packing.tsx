@@ -136,7 +136,7 @@ const Packing = () => {
                         </Dialog>}
 
                         {checkpending('OrderMapping') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenMapping}>+ Order Mapping</Button></DialogTrigger>
+                            <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenMapping}>+ Map Order</Button></DialogTrigger>
                             <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                 <DialogHeader>
                                     <DialogTitle><p className='text-1xl pb-3 text-center mt-4'>Order Mapping Form</p></DialogTitle>
@@ -148,7 +148,7 @@ const Packing = () => {
                         </Dialog>}
 
                           {checkpending('StockUpdate') && <Button className="bg-lime-600 mb-2 ml-4 responsive-button-adjust no-margin-left"
-                            disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2" /></Button>}
+                            disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Stock Sync'} <RxUpdate size={20} className="ml-2" /></Button>}
 
                              {checkpending('StockUpdate') && <span className="text-center w-100">            
                             <Button className="bg-stone-600 hover:bg-stone-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Order History ' : ' Stock History >'}</Button>
