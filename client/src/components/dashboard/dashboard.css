@@ -443,11 +443,14 @@ dialog img{
 }
 
 .flexbox-header {
+
+
+  /* Simplified and modern spacing */
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
-  padding: 16px;
-  margin-top: -10px;
+  gap: 1rem; /* Increased gap for breathing room */
+  padding: 1.5rem;
+  margin-top: -10px; /* Align with general dashboard flow */
   width: 100%;
 
 }
@@ -456,7 +459,7 @@ dialog img{
 }
 
 .flexbox-tile {
-  flex: 1 1 10%;
+  /* flex: 1 1 10%;
   padding: 20px 20px 20px 20px;
   text-align: center;
   box-sizing: border-box;
@@ -469,7 +472,33 @@ dialog img{
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
   letter-spacing: 0.03vw;
-  text-shadow: #7ba5bc;
+  text-shadow: #7ba5bc; */
+
+
+
+  /* Flexible sizing with minimums */
+  flex: 1 1 10%; /* Allows flexibility but ensures a minimum width of 200px */
+  max-width: 23% !important; /* Adjusted max-width for 4 tiles per row */
+  
+  /* Modern aesthetics */
+  padding: 1.5rem;
+  box-sizing: border-box;
+  height: auto; /* Let content dictate height, or use a fixed aspect ratio if necessary */
+  min-height: 9rem; /* Set a fixed minimum height for consistency */
+  font-size: 1rem;
+  
+  /* Color and Shadow */
+  color: #f8f9fa; /* Lighter text for contrast */
+  /* Replaced old box-shadow with a modern, layered shadow */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.08); 
+  border-radius: 12px;
+  
+  /* Typography and Effects */
+  text-align: center;
+  letter-spacing: 0.05em; /* Clearer letter spacing */
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 1; /* Ensure tiles stay above the dashboard background */
 
 }
 
@@ -508,8 +537,12 @@ dialog img{
 }
 
 .flexbox-tile:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 12px 12px rgba(0, 0, 0, 0.15);
+  /* transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 12px 12px rgba(0, 0, 0, 0.15); */
+
+  transform: translateY(-8px); /* Slightly less dramatic jump */
+  /* Stronger but refined shadow on hover */
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .flexbox-tile::before {
@@ -538,7 +571,11 @@ dialog img{
 }
 
 .flexbox-tile p {
-  font-size: 20px;
+  /* font-size: 20px; */
+
+  font-size: 1.5rem; /* Clear and prominent metric */
+  font-weight: 700;
+  margin-top: 0.5rem;
 }
 
 
@@ -725,13 +762,24 @@ p#modal-text {
 
 @media screen and (max-width: 1024px) {
 
+  .flexbox-header {
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
   .flexbox-tile {
-    flex: 1 1 25%;
-    padding: 20px 15px 20px 15px;
-    height: 12vw;
-    font-size: 14px;
-    max-width: 30% !important;
-    border-radius: 8px;
+    flex: 1 1 45%; /* Now 2 tiles per row on tablets */
+    max-width: 48% !important;
+    min-height: 7rem;
+    padding: 1.25rem;
+  }
+
+  .flexbox-tile p {
+    font-size: 1.3rem;
+  }
+
+  .flexbox-search-width {
+    width: 45% !important; /* Search elements take more space on smaller screens */
   }
 
   .sidebar.open {
@@ -740,9 +788,7 @@ p#modal-text {
     /* padding-top: 6.5vw; */
   }
 
-  .flexbox-tile p {
-    font-size: 20px;
-  }
+
 
 }
 

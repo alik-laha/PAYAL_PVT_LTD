@@ -23,7 +23,7 @@ import {
 import { IoIosNavigate, IoMdSettings   } from "react-icons/io";
 import { LuDonut, LuBadgeCheck  } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
-import { TbBrandPeanut, TbLogout, TbSitemap } from "react-icons/tb";
+import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight,PiTestTubeDuotone  } from "react-icons/pi";
@@ -145,7 +145,7 @@ const toggleSection = (sectionKey: string) => {
         </div>
 
         <div className={`sidebar  ${sidebarOpen ? "open" : ""}`}>
-          <div className="min-h-[5vh] bg-[#94b0c9] pt-5 text-white">
+          <div className="min-h-[5vh] bg-cyan-900 pt-5 text-white">
             <a href="#" className="closebtn float-right" onClick={closeSidebar}>
               <img
                 src={img}
@@ -168,8 +168,8 @@ const toggleSection = (sectionKey: string) => {
                   className={`flex flex-row items-center justify-center mb-4 user-pvt ${
                     openSection === "dashboard" ? "trigger-open" : ""
                   }`}>
-                  <RxDashboard color="red" size={16} />
-                  <p className="ml-2 text-red-500 italic font-extrabold drop-shadow-lg ">DASHBOARD</p>
+                  <RxDashboard color="indigo" size={16} />
+                  <p className="ml-2 text-indigo-800 italic font-extrabold drop-shadow-sm ">DASHBOARD</p>
                   <span className="ml-auto">
                     {openSection === "dashboard" ? (
                       <FiChevronDown size={18} />
@@ -201,9 +201,9 @@ const toggleSection = (sectionKey: string) => {
                     }`}>
                     <MdOutlineAdminPanelSettings
                       size={20}
-                      className="text-blue-600"
+                      className="text-red-800"
                     />
-                    <p className="ml-2 text-blue-600 italic font-extrabold drop-shadow-lg">ADMIN & HR</p>
+                    <p className="ml-2 text-red-700 italic font-extrabold drop-shadow-sm">ADMIN & HR</p>
                     <span className="ml-auto">
                       {openSection === "admin" ? (
                         <FiChevronDown size={18} />
@@ -256,8 +256,8 @@ const toggleSection = (sectionKey: string) => {
                     className={`flex flex-row items-center justify-center mb-4 user-pvt ${
                       openSection === "gatepass" ? "trigger-open" : ""
                     }`}>
-                    <GiGate size={16} className="text-yellow-600" />
-                    <p className="ml-2 text-yellow-600 italic font-extrabold drop-shadow-lg">GATEPASS</p>
+                    <GiGate size={16} className="text-yellow-700" />
+                    <p className="ml-2 text-yellow-600 italic font-extrabold drop-shadow-sm">GATEPASS</p>
                     <span className="ml-auto">
                       {openSection === "gatepass" ? (
                         <FiChevronDown size={18} />
@@ -289,7 +289,7 @@ const toggleSection = (sectionKey: string) => {
                       openSection === "receiving" ? "trigger-open" : ""
                     }`}>
                     <MdCallReceived size={20} color="purple" />
-                    <p className="ml-2 text-purple-600 italic font-extrabold text-shadow-lg drop-shadow-lg">LOGISTICS</p>
+                    <p className="ml-2 text-purple-800 italic font-extrabold text-shadow-lg drop-shadow-md">LOGISTICS</p>
                     <span className="ml-auto">
                       {openSection === "receiving" ? (
                         <FiChevronDown size={18} />
@@ -457,7 +457,7 @@ const toggleSection = (sectionKey: string) => {
                       openSection === "production" ? "trigger-open" : ""
                     }`}>
                     <MdOutlineFactory color="green" size={18} />
-                    <p className="ml-2 text-green-600 italic font-extrabold text-shadow-lg drop-shadow-lg">PRODUCTION</p>
+                    <p className="ml-2 text-green-800 italic font-extrabold drop-shadow-sm">PRODUCTION</p>
                     <span className="ml-auto">
                       {openSection === "production" ? (
                         <FiChevronDown size={18} />
@@ -734,8 +734,8 @@ const toggleSection = (sectionKey: string) => {
                     className={`flex flex-row items-center justify-center user-pvt ${
                       openSection === "quality" ? "trigger-open" : ""
                     }`}>
-                    <LuBadgeCheck size={16} className="text-indigo-500 drop-shadow-md " />
-                    <p className="ml-2 text-indigo-400 italic font-extrabold drop-shadow-lg capitalize">QUALITY</p>
+                    <LuBadgeCheck size={16} className="text-indigo-800 drop-shadow-sm" />
+                    <p className="ml-2 text-blue-800 italic font-extrabold drop-shadow-sm capitalize">QUALITY</p>
                     <span className="ml-auto drop-shadow-lg">
                       {openSection === "quality" ? (
                         <FiChevronDown size={18} />
@@ -799,7 +799,7 @@ const toggleSection = (sectionKey: string) => {
                     </CollapsibleContent>
                   )}
 
-                  {renderlink("RCN Incoming QC") && (
+                  {/* {renderlink("RCN Incoming QC") && (
                     <CollapsibleContent className="Items-pvt">
                       <NavLink to="/dashboard/qc_out">
                         <p className="flex">
@@ -812,7 +812,7 @@ const toggleSection = (sectionKey: string) => {
                         </p>
                       </NavLink>
                     </CollapsibleContent>
-                  )}
+                  )} */}
                 </Collapsible>
               )}
 

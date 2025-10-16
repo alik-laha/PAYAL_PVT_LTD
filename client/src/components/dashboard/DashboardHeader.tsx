@@ -72,7 +72,7 @@ const DashboardHeader = () => {
 
   return (
     <>
-      <div className='dashoboard-main-header bg-cyan-800 '>
+      <div className='dashoboard-main-header bg-gray-700 '>
         <span className="logo-lg dashboard-text" ></span>
 
 

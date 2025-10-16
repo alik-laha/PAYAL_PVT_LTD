@@ -2,24 +2,29 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 // 🌈 TABLE CONTAINER
+// 🌈 TABLE CONTAINER - Luxurious Deep Glassmorphism Design
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto max-h-full rounded-2xl border border-gray-200 shadow-md bg-gradient-to-br from-white via-[#f8fafc] to-[#eef2ff] scrollbar-thin scrollbar-thumb-indigo-400 scrollbar-track-indigo-100 ">
-    <table
-      ref={ref}
-      className={cn(
-        "w-full border-collapse caption-bottom text-xs text-gray-800",
-        className
-      )}
-      {...props}
-    />
+  // Border is now a more subtle indigo/purple blend
+  <div className="relative w-full overflow-hidden rounded-md border border-indigo-300/30 shadow-xl backdrop-blur-3xl bg-white/70">
+    <div className="overflow-auto max-h-full scrollbar-thin scrollbar-thumb-purple-400/60 scrollbar-track-transparent hover:scrollbar-thumb-purple-500/80 transition-all ">
+      <table
+        ref={ref}
+        className={cn(
+          // Text color changed from gray-700 to a darker gray-800 for contrast
+          "w-full border-collapse text-sm text-gray-800",
+          className
+        )}
+        {...props}
+      />
+    </div>
   </div>
 ))
 Table.displayName = "Table"
 
-// 🧭 HEADER
+// 🧭 HEADER - Gradient with Subtle Shadow
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
@@ -27,7 +32,7 @@ const TableHeader = React.forwardRef<
   <thead
     ref={ref}
     className={cn(
-      "bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-[13px] font-semibold tracking-wide sticky top-0 z-10 ",
+      "bg-gradient-to-r from-gray-700 via-sky-800 to-gray-700 text-white sticky top-0 z-30 shadow-lg shadow-black/20",
       className
     )}
     {...props}
@@ -35,7 +40,7 @@ const TableHeader = React.forwardRef<
 ))
 TableHeader.displayName = "TableHeader"
 
-// 📋 BODY
+// 📋 BODY - Clean with Better Dividers
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
@@ -43,7 +48,8 @@ const TableBody = React.forwardRef<
   <tbody
     ref={ref}
     className={cn(
-      "divide-y divide-gray-200 bg-white/80 backdrop-blur-sm italic",
+      // Clearer divider lines
+      "divide-y divide-indigo-100/80 bg-white/50 backdrop-blur-sm ",
       className
     )}
     {...props}
@@ -67,7 +73,7 @@ const TableFooter = React.forwardRef<
 ))
 TableFooter.displayName = "TableFooter"
 
-// 🧱 ROW
+// 🧱 ROW - Smooth Hover, Focus, and Selection Transitions
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
@@ -75,7 +81,13 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      " rounded-xl transition-all hover:bg-indigo-50/70 even:bg-indigo-50/30 border-b border-gray-200 data-[state=selected]:bg-indigo-100/70",
+      " border-b border-gray-100/50",
+      // Enhanced Hover: Stronger bg, bigger scale, and slight shadow
+      "hover:bg-indigo-100/90 hover:shadow-lg hover:z-10",
+      "even:bg-gray-50/20",
+      // Accessibility Focus State: Ring on focus
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2",
+      "data-[state=selected]:bg-indigo-200/90 data-[state=selected]:shadow-xl",
       className
     )}
     {...props}
@@ -91,7 +103,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "h-12 py-2 px-4 text-left align-middle font-semibold uppercase text-[11px] tracking-widest text-white/90",
+      "py-3 px-4 text-left align-middle font-semibold uppercase text-[11px] tracking-widest text-white/90 ",
       className
     )}
     {...props}
@@ -99,7 +111,7 @@ const TableHead = React.forwardRef<
 ))
 TableHead.displayName = "TableHead"
 
-// 📄 CELL
+// 📄 CELL - High-Contrast Interactions
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
@@ -107,7 +119,9 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      "p-2 text-xs text-gray-700 border-b border-gray-200 align-middle group-hover:text-indigo-700 transition-colors",
+      "px-6 py-2 text-xs text-gray-700 align-middle transition-colors duration-200",
+      // Stronger hover effect
+      "group-hover:text-indigo-950 group-hover:font-semibold",
       className
     )}
     {...props}

@@ -1127,44 +1127,44 @@ const GatePassTable = () => {
                   <TableCell className="text-center ">
                     {item.receivingStatus === 0 ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {!item.netWeight ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.approvalStatus === 0 ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.status !== "Closed" ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>

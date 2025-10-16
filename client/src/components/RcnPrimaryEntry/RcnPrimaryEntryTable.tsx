@@ -350,8 +350,8 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >BL_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Physical Bag Count</TableHead>
-                    <TableHead className="text-center" >System Bag Count</TableHead>
+                    <TableHead className="text-center" >Physical Bag</TableHead>
+                    <TableHead className="text-center" >System Bag</TableHead>
                     <TableHead className="text-center" >QC Status</TableHead>
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Entried By </TableHead>

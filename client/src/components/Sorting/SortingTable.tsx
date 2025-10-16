@@ -73,8 +73,8 @@ const SortingTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editSortingLotWiseData } = useContext(Context);
     const [Data, setData] = useState<SortingData[]>([])
-        const dropdown = ['LOT', 'V-LOT','R-LOT']
-        const [searchType, setsearchType] = useState('LOT')
+    const dropdown = ['LOT', 'V-LOT','R-LOT']
+    const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -903,6 +903,27 @@ const SortingTable = () => {
             toDate: todate,
             origin: origin,
             type:'LOT'
+
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+    }
+        else if (searchType === 'R-LOT') {
+        const response = await axios.put('/api/sorting/sortingprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'RLOT'
 
         }, {
             params: {

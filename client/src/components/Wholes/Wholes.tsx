@@ -291,11 +291,11 @@ const Wholes = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg text-center capitalize'>CURRENT F.Y. {FY} REPORT (WHOLES GRADING)</p>
+                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>CURRENT F.Y. {FY} REPORT (WHOLES GRADING)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-2xl'>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Wholes Entry Form</p></DialogTitle>
 
@@ -306,8 +306,8 @@ const Wholes = () => {
                     </Dialog>
 
 
-                    {checkpending('Wholes') && <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>}
-                    <Button className="bg-slate-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
+                    {checkpending('Wholes') && <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0 ? true:false}> Pending Edit ({data.EditData})</Button>}
+                    <Button className="bg-slate-400 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
                     <WholesTable />

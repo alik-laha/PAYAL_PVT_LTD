@@ -93,7 +93,7 @@ const RCNScoopingCreateForm = (props: any) => {
                                             {item.LotNo}
                                         </TableCell>
 
-                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+                                        <TableCell className="text-center font-semibold text-orange-500">PENDING</TableCell>
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
