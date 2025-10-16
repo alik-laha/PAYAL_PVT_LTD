@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 
 import { Op } from "sequelize";
 import RcnBoiling from "../../model/RcnBoilingModel";
+import sequelize from "../../config/databaseConfig";
 
 const SearchBoiling = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
-        const { blConNo, fromDate, toDate, origin,SizeName } = req.body;
+        const { blConNo, fromDate, toDate, origin,SizeName,type } = req.body;
         const offset = (page - 1) * size;
         const limit = size;
         let whereClause = []
@@ -40,7 +41,8 @@ const SearchBoiling = async (req: Request, res: Response) => {
 
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let GradingEntries;
-        if (limit === 0 && offset === 0) {
+        if(type==='line'){
+             if (limit === 0 && offset === 0) {
             GradingEntries = await RcnBoiling.findAll({
                 where,
                 order: [['id','DESC']], // Order by date descending
@@ -55,6 +57,18 @@ const SearchBoiling = async (req: Request, res: Response) => {
                 offset
             });
         }
+        }
+        else{
+            GradingEntries = await RcnBoiling.findAll({
+            attributes: [
+                'LotNo','date','CreatedBy','noOfEmployees',
+                [sequelize.fn('sum', sequelize.col('Size')), 'quantity']
+            ],where, // Apply filters to the grouping
+            group: ['LotNo','date','CreatedBy','noOfEmployees'],
+            order: [['LotNo', 'DESC']], // Optional: Order the final grouped results
+        });
+        }
+       
         return res.status(200).json(GradingEntries);
 
     }

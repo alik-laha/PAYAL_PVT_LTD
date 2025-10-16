@@ -127,7 +127,7 @@ dialog img{
   transition: background-color 0.2s ease;
   z-index: 1;
   position: relative;
-  letter-spacing: 0.12vw;
+  letter-spacing: 0.08vw;
   vertical-align: middle;
   text-transform: capitalize!important;
   
@@ -140,7 +140,7 @@ dialog img{
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   padding-top: 5px;
-  background: hsl(198, 37%, 93%);
+  background: hsl(197, 23%, 88%);
   font-weight: 500;
   letter-spacing: 0.1vw;
   padding-left: 5px;

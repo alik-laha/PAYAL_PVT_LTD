@@ -112,7 +112,7 @@ const RCNBoiling = () => {
                 
                 <div>
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust drop-shadow-md">+ Add New Entry</Button></DialogTrigger>
                     <DialogContent style={{display:'block'}} className='max-w-screen'>
                         <DialogHeader>
                             <DialogTitle><p className='text-lg text-gray-600 text-center tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry Form</p></DialogTitle>
@@ -123,7 +123,7 @@ const RCNBoiling = () => {
                     </DialogContent>
                 </Dialog>
 
-                {checkpending('Boiling') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
+                {checkpending('Boiling') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
                
                   
                 </div>

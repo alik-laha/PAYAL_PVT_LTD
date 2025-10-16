@@ -145,7 +145,7 @@ const toggleSection = (sectionKey: string) => {
         </div>
 
         <div className={`sidebar  ${sidebarOpen ? "open" : ""}`}>
-          <div className="min-h-[5vh] bg-cyan-900 pt-5 text-white">
+          <div className="min-h-[5vh] bg-cyan-900 pt-5 text-white border-r-8 border-gray-300">
             <a href="#" className="closebtn float-right" onClick={closeSidebar}>
               <img
                 src={img}
@@ -159,7 +159,7 @@ const toggleSection = (sectionKey: string) => {
             </a>
           </div>
 
-          <div className="min-h-[135vh] pt-5">
+          <div className="min-h-[135vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
             <a>
               <Collapsible
                 open={openSection === "dashboard"}
@@ -829,7 +829,7 @@ const toggleSection = (sectionKey: string) => {
             </a>
           </div>
 
-          <div className="min-h-[5vh] bg-[#7c9cb8] pt-4 text-white">
+          <div className="min-h-[4vh] bg-cyan-900 pt-4 text-white border-r-8 border-gray-300">
             <a>
             
 
