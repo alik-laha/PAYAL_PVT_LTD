@@ -23,7 +23,7 @@ import {
 import { IoIosNavigate, IoMdSettings   } from "react-icons/io";
 import { LuDonut, LuBadgeCheck  } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
-import { TbBrandPeanut, TbLogout, TbSitemap } from "react-icons/tb";
+import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight,PiTestTubeDuotone  } from "react-icons/pi";
@@ -799,7 +799,7 @@ const toggleSection = (sectionKey: string) => {
                     </CollapsibleContent>
                   )}
 
-                  {renderlink("RCN Incoming QC") && (
+                  {/* {renderlink("RCN Incoming QC") && (
                     <CollapsibleContent className="Items-pvt">
                       <NavLink to="/dashboard/qc_out">
                         <p className="flex">
@@ -812,7 +812,7 @@ const toggleSection = (sectionKey: string) => {
                         </p>
                       </NavLink>
                     </CollapsibleContent>
-                  )}
+                  )} */}
                 </Collapsible>
               )}
 
