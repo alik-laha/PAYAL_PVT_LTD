@@ -74,10 +74,15 @@ const OnlineBucket = sequelize.define('OnlineBucket', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    Remarks: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     modifiedBy: {
         type: DataTypes.STRING,
         allowNull: true
-    }
+    },
+   
 
 
 })

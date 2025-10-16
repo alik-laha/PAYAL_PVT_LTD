@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { Size, pageNo, pendingCheckRole } from "../common/exportData"
+import { SelectType, Size, pageNo, pendingCheckRole } from "../common/exportData"
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
@@ -91,6 +91,9 @@ const RCNBoilingTable = () => {
     //const [transformedData, setTransformedData] = useState<BoilingExcelData[]>([]);
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
+
+    const [selecttype, setSelecttype] = React.useState<string>('LineWise');
+
     const Role = localStorage.getItem('role') as keyof PermissionRole
 
     if (rejectcloseDialogButton) {
@@ -127,7 +130,8 @@ const RCNBoilingTable = () => {
         setEditPendingBoilingData([])
         //setEditData([])
 
-        const response = await axios.post('/api/boiling/searchBoiling', {
+        if(selecttype==='LineWise'){
+            const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
@@ -146,6 +150,28 @@ const RCNBoilingTable = () => {
 
         }
         setData(data)
+        }
+        else{
+            const response = await axios.post('/api/boiling/searchBoiling', {
+            blConNo: blConNo,
+            origin: origin,
+            fromDate: fromdate,
+            toDate: todate,
+            SizeName: size,
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        //console.log(data)
+        if (data.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data)
+        }
 
     }
 
@@ -374,14 +400,25 @@ const RCNBoilingTable = () => {
                     placeholder="To Date"
 
                 />
-                <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setSize(e.target.value)} value={size}>
                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        text-xs py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
+                        text-xs py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
                     {Size.map((data, index) => (
                         <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            {data}
+                        </option>
+                    ))}
+                </select>
+                 <select className='bg-yellow-100 no-margin-left-absolute flex text-xs h-8 w-28 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setSelecttype(e.target.value)} value={selecttype}>
+             
+                    {SelectType.map((data, index) => (
+                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>
                     ))}

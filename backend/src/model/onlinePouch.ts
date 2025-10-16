@@ -69,6 +69,10 @@ const OnlinePouch = sequelize.define('OnlinePouch', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    Remarks: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 
     createdBy: {
         type: DataTypes.STRING,

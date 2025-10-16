@@ -1186,6 +1186,7 @@ export const CreatePouch = async (req: Request, res: Response) => {
       cleanRemarks,
       maintainance,
       maintainanceRemarks,
+      Remarks
     } = req.body;
 
     const createdBy = req.cookies.user;
@@ -1206,7 +1207,7 @@ export const CreatePouch = async (req: Request, res: Response) => {
       cleanRemarks,
       maintainance,
       maintainanceRemarks,
-      createdBy,
+      createdBy,Remarks
     });
 
     if (entry) {
@@ -1282,6 +1283,7 @@ export const editQCPouch = async (req: Request, res: Response) => {
       cleanRemarks,
       maintainance,
       maintainanceRemarks,
+      Remarks
     } = req.body;
 
     if (!id) {
@@ -1312,7 +1314,7 @@ export const editQCPouch = async (req: Request, res: Response) => {
         cleanRemarks,
         maintainance,
         maintainanceRemarks,
-        modifiedBy,
+        modifiedBy,Remarks
       },
       { where: { id } }
     );
@@ -1344,7 +1346,7 @@ export const CreateBucket = async (req: Request, res: Response) => {
       cleaningStatus,
       cleanRemarks,
       maintainance,
-      maintainanceRemarks,
+      maintainanceRemarks,Remarks
     } = req.body;
 
     const createdBy = req.cookies.user;
@@ -1366,6 +1368,7 @@ export const CreateBucket = async (req: Request, res: Response) => {
       maintainance,
       maintainanceRemarks,
       createdBy,
+      Remarks
     });
 
     if (entry) {
@@ -1440,7 +1443,7 @@ export const editQCBucket= async (req: Request, res: Response) => {
       cleaningStatus,
       cleanRemarks,
       maintainance,
-      maintainanceRemarks,
+      maintainanceRemarks,Remarks
     } = req.body;
 
     if (!id) {
@@ -1471,7 +1474,7 @@ export const editQCBucket= async (req: Request, res: Response) => {
         cleanRemarks,
         maintainance,
         maintainanceRemarks,
-        modifiedBy,
+        modifiedBy,Remarks
       },
       { where: { id } }
     );

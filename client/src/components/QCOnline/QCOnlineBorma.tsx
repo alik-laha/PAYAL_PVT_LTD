@@ -16,7 +16,9 @@ import {
 import { Origin, QC_Online_Status } from "../common/exportData" // ["OK","NOT OK","NA"]
 import { Textarea } from "../ui/textarea"
 
-const BormaNo_OPTIONS = ["Borma1", "Borma2", "Borma3", "Borma4", "Borma5"]
+const BormaNo_OPTIONS = ["Borma1", "Borma2", "Borma3", "Borma4", "Borma5","Borma6", "Borma7", "Borma8", "Borma9", "Borma10",
+  "Borma11", "Borma12", "Borma13", "Borma14", "Borma15"
+]
 
 const QCOnlineBorma = () => {
   const [errortext, setErrorText] = useState<string>("")

@@ -46,7 +46,7 @@ const QCRcn = () => {
 
                 </div>
 
-                <p className='text-lg text-center py-1 '>CURRENT FY {FY} QC RCN TRANSACTION </p>
+                <p className='text-lg text-center py-1 tracking-widest italic drop-shadow-xl'>CURRENT FY {FY} QC RCN TRANSACTION </p>
                 <QCRcnTable/>
                 </div>
             

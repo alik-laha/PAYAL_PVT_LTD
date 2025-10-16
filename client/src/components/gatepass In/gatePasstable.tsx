@@ -1059,7 +1059,7 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Sl No.</TableHead>
             <TableHead className="text-center" >GatePass_ID</TableHead>
 
-            <TableHead className="text-center" >Entry(In/Out)</TableHead>
+            <TableHead className="text-center" >Type</TableHead>
             <TableHead className="text-center" >Receiving/Dispatch Section</TableHead>
   
             <TableHead className="text-center" >Receiving /Dispatch</TableHead>

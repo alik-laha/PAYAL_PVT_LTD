@@ -60,12 +60,14 @@ dialog img{
   margin-bottom: 0;
   align-items: center;
   cursor: pointer;
-  color: rgba(3, 13, 60, 0.797);
+  /* color: rgba(3, 13, 60, 0.797); */
   display: block;
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.03vw;
-
+  font-weight:500;
+  letter-spacing: 0.05vw;
+  font-style: italic;
+  color: rgba(54, 48, 71, 0.92);
+  
 }
 
 /* Sidebar close button */
@@ -109,7 +111,7 @@ dialog img{
 
 /* //sidebar Starts*/
 .user-pvt {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   border: none;
   background-color: inherit;
@@ -125,8 +127,9 @@ dialog img{
   transition: background-color 0.2s ease;
   z-index: 1;
   position: relative;
-  letter-spacing: 0.10vw;
+  letter-spacing: 0.12vw;
   vertical-align: middle;
+  text-transform: capitalize!important;
   
 }
 
@@ -137,19 +140,13 @@ dialog img{
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   padding-top: 5px;
-  /* background: #082c41; */
-  /* background: #c4d2ef; */
   background: hsl(198, 37%, 93%);
-  /* blue highlight */
-  /* color: rgb(241, 247, 249)!important; */
   font-weight: 500;
   letter-spacing: 0.1vw;
   padding-left: 5px;
   padding-right: 5px;
   vertical-align: middle;
-  text-shadow: #180101;
-  
-
+  text-shadow: none;
 }
 
 .user-pvt p {
@@ -165,14 +162,13 @@ dialog img{
   padding: 7px 6px 7px 33px;
   display: block;
   font-weight: 500;
-  /* font-family: cursive; */
   color: #05101e;
-  /* muted text */
   text-decoration: none;
   font-size: 0.95rem;
   transition: all 0.3s ease;
   border-left: solid 1px rgb(24, 1, 1);
-  
+  text-transform: capitalize;
+
  
 }
 
@@ -223,13 +219,9 @@ dialog img{
 }
 
 .Items-pvt:hover {
-  /* background-color: #928dab; */
-  /* background-color: #1f57c9; */
+
   border-radius: 2px;
   font-weight: 600;
-  /* color: white; */
-  /* background: #334155;  */
-  /* slightly lighter */
   background: hsla(198, 54%, 83%, 0.494);
   /* Dark slate background */
   color: #100f0f;
@@ -246,8 +238,6 @@ dialog img{
   /* color: white; */
   font-weight: 700;
   font-size: 13px;
-  
-
 }
 
 
@@ -467,7 +457,7 @@ dialog img{
 
 .flexbox-tile {
   flex: 1 1 10%;
-  padding: 30px 20px 20px 20px;
+  padding: 20px 20px 20px 20px;
   text-align: center;
   box-sizing: border-box;
   height: 9vw;
@@ -475,15 +465,12 @@ dialog img{
   z-index: 10;
   max-width: 20% !important;
   color: white;
-  /* background: linear-gradient(145deg, #4a86d531, #060a50); */
-  /* background: linear-gradient(135deg, #3052e9, #1f013c); */
-  /* background: white; */
-  /* background-color: #ccf305; */
   border-radius: 12px;
-  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-  /* font-family: cursive; */
+  letter-spacing: 0.03vw;
+  text-shadow: #7ba5bc;
+
 }
 
 .flexbox-tile-clean-select {
@@ -799,8 +786,9 @@ p#modal-text {
   }
 
   .user-pvt p {
-    font-size: 14px;
+    font-size: 13px;
     padding-left: 2vw;
+    letter-spacing: 0.4vw;
   }
 
   .Items-pvt a {
@@ -808,8 +796,7 @@ p#modal-text {
     margin-bottom: 0;
     align-items: center;
     cursor: pointer;
-    /* color: #777; */
-    /* color: rgba(23, 24, 25, 0.549); */
+
     display: block;
     font-size: 13px;
     font-weight: 500;

@@ -72,10 +72,10 @@ const GatepassIn = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg  text-center py-1'>CURRENT F.Y. {FY} GATE PASS COUNT</p>
+                <p className='text-lg text-gray-600 text-center pt-3 tracking-wider italic drop-shadow-xl font-bold'>CURRENT F.Y. {FY} GATE PASS COUNT</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust drop-shadow-md">+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>GatePass Entry Form</p></DialogTitle>
