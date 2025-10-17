@@ -416,13 +416,13 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
            
   
-                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >SlNo</TableHead>
                         <TableHead className="text-center" >LotNo</TableHead>
                         <TableHead className="text-center" >ScoopingLine</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Size Name</TableHead>
-                        <TableHead className="text-center" >Opening Qty</TableHead>
-                        <TableHead className="text-center" >Receiving Qty</TableHead>
+                        <TableHead className="text-center" >Size</TableHead>
+                        <TableHead className="text-center" >Opening</TableHead>
+                        <TableHead className="text-center" >Receiving</TableHead>
                         <TableHead className="text-center" >UnCut</TableHead>
                         <TableHead className="text-center" >UnScoop</TableHead>
                         <TableHead className="text-center" >NonCut</TableHead>
@@ -432,20 +432,20 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Dust</TableHead>
                        
-                        <TableHead className="text-center" >Trolley Broken(%)</TableHead>
-                        <TableHead className="text-center" >Trolley SmallJB(%)</TableHead>
-                        <TableHead className="text-center" >No Of Ladies</TableHead>
-                        <TableHead className="text-center" >No Of Operator</TableHead>
-                        <TableHead className="text-center" >Scooping On</TableHead>
-                        <TableHead className="text-center" >Scooping Off</TableHead>
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Breakdown Reason</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
+                        <TableHead className="text-center" >Trolley_Broken(%)</TableHead>
+                        <TableHead className="text-center" >Trolley_SmallJB(%)</TableHead>
+                        <TableHead className="text-center" >Ladies</TableHead>
+                        <TableHead className="text-center" >Operator</TableHead>
+                        <TableHead className="text-center" >ScoopingOn</TableHead>
+                        <TableHead className="text-center" >ScoopingOff</TableHead>
+                        <TableHead className="text-center" >Breakdown_Duration</TableHead>
+                        <TableHead className="text-center" >Breakdown_Reason</TableHead>
+                        <TableHead className="text-center" >Other_Duration</TableHead>
                        
                 
-                        <TableHead className="text-center" >Transfer Qty</TableHead>
-                        <TableHead className="text-center" >Transfer To No</TableHead>
-                        <TableHead className="text-center" >Transfer LineName</TableHead>
+                        <TableHead className="text-center" >Transfer_Qty</TableHead>
+                        <TableHead className="text-center" >Transfer_To</TableHead>
+                        <TableHead className="text-center" >Transfer_LineName</TableHead>
             
 
                       

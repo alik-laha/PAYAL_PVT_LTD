@@ -1177,7 +1177,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
                                    
                                     
-                                    <TableCell className="text-center text-center font-semibold">
+                                    <TableCell className="text-center font-semibold">
                                     {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())} 
                                     </TableCell>
                                    
@@ -1186,7 +1186,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
-                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    <TableCell className=" text-center bg-yellow-100 font-semibold">
                                     {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)).toString())}
                                     </TableCell>
                                     
@@ -1333,7 +1333,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>DPDS Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <DPDSEditForm borma={[item]} />
@@ -1347,7 +1347,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Reissue</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>DPDS Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNDPDSReCreateForm borma={[item]} />
@@ -1362,7 +1362,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNDPDSReMix borma={item} />

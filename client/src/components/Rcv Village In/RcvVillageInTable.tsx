@@ -523,8 +523,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         <TableHead className="text-center">Net_DP(%)</TableHead>     
                         <TableHead className="text-center">Net_Unpeel(Kg)</TableHead>
                         <TableHead className="text-center">Net_Unpeel(%)</TableHead>       
-                        <TableHead className="text-center">Net_Backlog (kg)</TableHead>               
-                        <TableHead className="text-center" >Edit Status </TableHead>
+                        <TableHead className="text-center">Net_Backlog(kg)</TableHead>               
+                        <TableHead className="text-center" >Edit_Status </TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
                         <TableHead className="text-center" >Approved_By </TableHead>
@@ -700,13 +700,13 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Village Item Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Village Supervisor</p>
+                                                                    <p className='text-1xl text-center mb-2'>To Be Filled Up By Village Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
                                                             <RcvVillageInModify data={item} />

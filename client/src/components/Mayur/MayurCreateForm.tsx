@@ -362,9 +362,9 @@ const RCNMayurCreateForm = (props:Props) => {
                                                                 return (
                                                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                                                   
-                                                                     <TableCell className='bg-neutral-300'> <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/></TableCell>
+                                                                     <TableCell className='bg-sky-100'> <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/></TableCell>
                                                                       
-                                                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_off_133' handleRowChange={handleRowChange}/></TableCell>
+                                                                        <TableCell className='bg-sky-100'><FormRow idx={idx} row={row} column='Mc_off_133' handleRowChange={handleRowChange}/></TableCell>
                                         <TableCell className="text-center bg-neutral-300"><Input  value={row.Mc_breakdown_133} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_133',e.target.value)} type='time'  /></TableCell>
                                         <TableCell className="text-center bg-neutral-300"><Input  value={row.otherTime_133} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_133',e.target.value)} type='time'  /></TableCell>
                                      

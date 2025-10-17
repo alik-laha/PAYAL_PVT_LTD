@@ -334,7 +334,7 @@ const RcnGradingTable = () => {
     }
 
     return (
-        <div className="ml-5 mt-5">
+        <div className="ml-6 mt-5">
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/5 flexbox-search-width" placeholder="Lot No./ MC. Name" value={searchData} onChange={(e) => setSearchData(e.target.value)} />
@@ -395,13 +395,13 @@ const RcnGradingTable = () => {
 
                     <TableHead className="text-center" >MachineOn</TableHead>
                     <TableHead className="text-center" >MachineOff</TableHead>
-                    <TableHead className="text-center" >Breakdown Duration</TableHead>
-                    <TableHead className="text-center" >Other Duration</TableHead>
-                    <TableHead className="text-center" >Run Duration</TableHead>
-                    <TableHead className="text-center" >No. Of Labour</TableHead>
+                    <TableHead className="text-center" >Breakdown</TableHead>
+                    <TableHead className="text-center" >Other</TableHead>
+                    <TableHead className="text-center" >MC_Run</TableHead>
+                    <TableHead className="text-center" >Labour</TableHead>
                     {/* <TableHead className="text-center" >Lot No</TableHead> */}
-                    <TableHead className="text-center" >Edit Status</TableHead>
-                    <TableHead className="text-center" >Entried By</TableHead>
+                    <TableHead className="text-center" >Edit_Status</TableHead>
+                    <TableHead className="text-center" >Entried_By</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -444,9 +444,9 @@ const RcnGradingTable = () => {
 
                                             <Dialog>
                                                 <DialogTrigger className="flex">   <CiEdit size={20} /><button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button></DialogTrigger>
-                                                <DialogContent className='max-w-2xl'>
+                                                <DialogContent className='max-w-3xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-2'>Modify RCN Grading</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Modify RCN Grading</p></DialogTitle>
                                                     </DialogHeader>
                                                     <RcnGraddingModifyForm data={item} />
                                                 </DialogContent>

@@ -388,7 +388,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
                         <TableHead className="text-center" >Row_Weight(Kg)</TableHead>                     
-                        <TableHead className="text-center" >Edit Status </TableHead>
+                        <TableHead className="text-center" >Edit_Status </TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
                         <TableHead className="text-center" >Approved_By </TableHead>
@@ -495,10 +495,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Village Item Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
                                                                     <p className='text-1xl text-center'>To Be Filled Up By Village Supervisor</p>

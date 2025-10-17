@@ -3,17 +3,19 @@
 }
 
 select,
-select option,
+option,
 textarea,
 input {
   font-size: 0.75rem !important;
 }
+
+
 dialog p{
   font-size: 13px!important;
   text-transform: capitalize!important;
   font-weight: 600!important;
-  letter-spacing: 0.03vw;
-  color: #1e293b;
+  letter-spacing: 0.02vw;
+  color: #01681a;
 }
 dialog img{
   height:3vh;
@@ -115,7 +117,7 @@ dialog img{
 
 /* //sidebar Starts*/
 .user-pvt {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   border: none;
   background-color: inherit;

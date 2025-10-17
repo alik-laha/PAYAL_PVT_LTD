@@ -242,7 +242,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
 
     return (
         <>
-            <div className="pl-10 pr-10">
+            <div className="px-8">
               
                 
 
@@ -286,7 +286,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl. No.</TableHead>
+                            <TableHead className="text-center" >Sl_No.</TableHead>
                             <TableHead className="text-center" >Type</TableHead>
                             <TableHead className="text-center" >Grade</TableHead>                      
                             <TableHead className="text-center" >Invoice_No</TableHead>

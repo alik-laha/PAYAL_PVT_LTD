@@ -16,7 +16,7 @@ import Context from '../context/context';
 
 import axios from "axios"
 import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
-import { rcvCheckRole } from "../common/exportData"
+import { FY, rcvCheckRole } from "../common/exportData"
 import RcvVillageInInitial from "./RcvVillageInInitial";
 import RcvVillageInTable from "./RcvVillageInTable";
 import VLOTInitial from "./VlotInitial";
@@ -61,18 +61,18 @@ const RcvVillageIn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                    
-                    <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500">
-                        Financial Year Entry <br /><p>{RcvVillageInPrimaryOverView?.sumofRcvVillageInPrimary}</p>
+                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
+                        FY: {FY} <br /><p>{RcvVillageInPrimaryOverView?.sumofRcvVillageInPrimary}</p>
                     </div>
                 </div>
 
-                <p className='text-lg text-center py-1 '> VILLAGE IN TRANSACTION</p>
+                <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'> VILLAGE IN TRANSACTION</p>
                 {checkreceiving('VillagePrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                <DialogTrigger>   <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                <DialogContent className='max-w-2xl'>
+                <DialogContent className='max-w-3xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Village In Entry Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village In Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 
@@ -82,11 +82,11 @@ const RcvVillageIn = () => {
 
 
             {checkreceiving('VillagePrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
                 onClick={handleOpenVLotNo}>+ Create V-LOT</Button></DialogTrigger>
-                <DialogContent className='max-w-2xl'>
+                <DialogContent className='max-w-3xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Day-Wise Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Day-Wise Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 

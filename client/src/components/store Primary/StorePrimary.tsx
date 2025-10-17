@@ -49,7 +49,7 @@ const StorePrimary = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                    
-                    <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500">
+                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
                         FY : {FY} <br /><p>{StorePrimaryOverView?.sumofStorePrimary}</p>
                     </div>
                 </div>

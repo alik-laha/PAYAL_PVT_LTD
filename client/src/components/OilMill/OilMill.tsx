@@ -84,7 +84,7 @@ const OilMill = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAlmond) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.type}>
+                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400" key={item.type}>
                                     {item.type} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
@@ -95,13 +95,13 @@ const OilMill = () => {
                 </div>
 
 
-                <p className='text-lg text-center py-1 '>CURRENT FY : {FY} OILMILL TRANSACTION</p>
+                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold '>CURRENT FY : {FY} OILMILL TRANSACTION</p>
                 <div>
                 {checkreceiving('OilMillPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-2xl'>
+                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl text-center mt-5'>OilMill Dispatch Pending List</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>OilMill Dispatch Pending List</p></DialogTitle>
                                
                             </DialogHeader>
                           
@@ -109,7 +109,7 @@ const OilMill = () => {
                         </DialogContent>
                     </Dialog>}
 
-                    {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
+                    {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
                         Pending Edit ({data.CountPendingEdit})</Button>}
 
                 </div>

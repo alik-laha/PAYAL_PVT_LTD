@@ -368,7 +368,7 @@ const RCNBoilingTable = () => {
     }
 
     return (
-        <div className="ml-5 mt-5 ">
+        <div className="ml-6 mt-5 ">
 
             <div className="flex flexbox-search" >
 
@@ -447,7 +447,7 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center " >Boiling_Lot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
 
-                    <TableHead className="text-center" >ScoopingLineName</TableHead>
+                    <TableHead className="text-center" >Scooping_LineName</TableHead>
                     <TableHead className="text-center" >Boiling_Date </TableHead>
                     <TableHead className="text-center" >Machine_Name</TableHead>
                  
@@ -455,16 +455,16 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Qty_(Kg)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
-                    <TableHead className="text-center" >Cooking Time</TableHead>
+                    <TableHead className="text-center" >Cooking_Time</TableHead>
 
                     <TableHead className="text-center" >Machine_ON</TableHead>
                     <TableHead className="text-center" >Machine_OFF</TableHead>
-                    <TableHead className="text-center" >Breakdown Duration</TableHead>
-                    <TableHead className="text-center" >Other Duration </TableHead>
-                    <TableHead className="text-center" >Run Duration </TableHead>
-                    <TableHead className="text-center" >Labour </TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
+                    <TableHead className="text-center" >Breakdown</TableHead>
+                    <TableHead className="text-center" >Other</TableHead>
+                    <TableHead className="text-center" >MC_Run</TableHead>
+                    <TableHead className="text-center" >Labour</TableHead>
+                    <TableHead className="text-center" >Entried_By</TableHead>
+                    <TableHead className="text-center" >Edit_Status</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -582,10 +582,10 @@ const RCNBoilingTable = () => {
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-2xl">
+                                                    <DialogContent className="max-w-3xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>RCN Boiling Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNBoilingModify data={item} />
@@ -630,7 +630,7 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center " >Boiling_Lot_No</TableHead>
                     <TableHead className="text-center " >Boiling_Date</TableHead>
-                    <TableHead className="text-center" >Boiling_Quantity (Kg)</TableHead>
+                    <TableHead className="text-center" >Boiling_Quantity(Kg)</TableHead>
                     <TableHead className="text-center" >No_of_Labour</TableHead>
                     <TableHead className="text-center" >Created_By</TableHead>
                     <TableHead className="text-center" >Action</TableHead>

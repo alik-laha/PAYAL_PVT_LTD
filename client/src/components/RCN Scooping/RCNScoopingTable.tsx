@@ -444,20 +444,20 @@ const RCNScoopingTable = () => {
                         <TableHead className="text-center" >NonCut(Kg)</TableHead>
                         <TableHead className="text-center" >Wholes(kg)</TableHead>
                         <TableHead className="text-center" >Broken(Kg)</TableHead>
-                        <TableHead className="text-center" >Rejection (Kg)</TableHead>
-                        <TableHead className="text-center" >RCNDust (Kg) </TableHead>
+                        <TableHead className="text-center" >Rejection(Kg)</TableHead>
+                        <TableHead className="text-center" >Dust(Kg)</TableHead>
                         <TableHead className="text-center" >KOR</TableHead>
-                        <TableHead className="text-center" >Bag Cutting</TableHead>
+                        <TableHead className="text-center" >Bag_Cutting</TableHead>
                        
                         
                        
-                        <TableHead className="text-center" >Female (Common)</TableHead>
-                        <TableHead className="text-center" >Male (Common)</TableHead>
-                        <TableHead className="text-center" >SuperVisor (Common)</TableHead>
-                        <TableHead className="text-center" >Total Operator</TableHead>
-                        <TableHead className="text-center" >Total Female</TableHead>
-                        <TableHead className="text-center" >EditStatus</TableHead>
-                        <TableHead className="text-center" >Entried By </TableHead>
+                        <TableHead className="text-center" >Female(Common)</TableHead>
+                        <TableHead className="text-center" >Male(Common)</TableHead>
+                        <TableHead className="text-center" >SuperVisor(Common)</TableHead>
+                        <TableHead className="text-center" >Operator(total)</TableHead>
+                        <TableHead className="text-center" >Female(total)</TableHead>
+                        <TableHead className="text-center" >Edit_Status</TableHead>
+                        <TableHead className="text-center" >Entried_By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
                     </TableHeader>
                     <TableBody>
@@ -573,7 +573,7 @@ const RCNScoopingTable = () => {
                                                         <DialogContent className='max-w-screen'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Line Wise Scooping Modify</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNLineCreateEditForm scoop={scoopdata} />

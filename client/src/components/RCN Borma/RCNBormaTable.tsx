@@ -295,7 +295,7 @@ const BormaTable = () => {
     return (
         <>
 
-            <div className="ml-5 mt-5 ">
+            <div className="ml-6 mt-5 ">
                 <div className="flex flexbox-search">
 
                     <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -366,12 +366,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Borma_MC_ON</TableHead>
                         <TableHead className="text-center" >Borma_MC_OFF</TableHead>
                         
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
-                        <TableHead className="text-center" >Run Duration</TableHead>
+                        <TableHead className="text-center" >Breakdown</TableHead>
+                        <TableHead className="text-center" >Other</TableHead>
+                        <TableHead className="text-center" >MC_Run</TableHead>
                         <TableHead className="text-center" >No_Of_Operator</TableHead>
-                        <TableHead className="text-center" >Edit Status </TableHead>
-                        <TableHead className="text-center" >Created By </TableHead>
+                        <TableHead className="text-center" >Edit_Status </TableHead>
+                        <TableHead className="text-center" >Created_By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
                     </TableHeader>
                     <TableBody>
@@ -471,12 +471,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{formatNumber(item.OutputMoisture)} %</TableCell>
                                         <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalInput)} Kg</TableCell>
 
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputWholes)} Kg</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputPieces)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.InputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.InputPieces)} Kg</TableCell>
                                         
                                        
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.OutputWholes)} Kg</TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.OutputPieces)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputPieces)} Kg</TableCell>
                                         <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
 
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
@@ -501,10 +501,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-screen ">
+                                                        <DialogContent className="max-w-5xl ">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Borma Entry Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Borma Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <BormaModify data={item} />

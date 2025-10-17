@@ -118,10 +118,10 @@ const RCNScooping = () => {
                 <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>CURRENT FY : {FY} WHOLES AND BROKEN REPORT (SCOOPING)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-2xl'>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Scooping Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Scooping Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 

@@ -102,7 +102,7 @@ const CreditNote = () => {
                 (item: SumofAllTypeDataCreditNote) => {
                   return (
                     <div
-                      className="flexbox-tile bg-cyan-500 hover:bg-cyan-400"
+                      className="flexbox-tile bg-sky-500 hover:bg-sky-400"
                       key={item.origin}>
                       {item.origin} <br />
                       <p>
