@@ -377,17 +377,17 @@ const QCPackageMaterialTable = () => {
     return (
         // disabled={pendingqccount === 0 ? true : false}
         <div className="ml-5 mt-5 ">
-            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC} >Pending QC ({sumOfallelement ? sumOfallelement.QualityNotEntered : 0})</Button>
+            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust drop-shadow-md" onClick={handleSearchPendingQC} >Pending QC ({sumOfallelement ? sumOfallelement.QualityNotEntered : 0})</Button>
             {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust " onClick={handleSearchPendingEdit} disabled={counteditpending === 0 ? true : false}>
                 Pending Edit ({sumOfallelement ? sumOfallelement.editCount : 0})</Button>}
 
-            <div className="flex flexbox-search">
+            <div className="flex flexbox-search mt-5 mb-8">
 
 
 
                 
 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left text-start">From </label>
                 <Input className="w-1/6 flexbox-search-width-calender"
                     type="date"
                     value={fromdate}
@@ -419,7 +419,7 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >GatePass_No</TableHead>
                     <TableHead className="text-center" >Receiving_Date</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
+                    <TableHead className="text-center" >QC_Status</TableHead>
                     <TableHead className="text-center" >Invoice_No(Packaging_Material)</TableHead>
                     <TableHead className="text-center" >Invoice_Date </TableHead>
 
@@ -433,8 +433,8 @@ const QCPackageMaterialTable = () => {
                  
 
                     <TableHead className="text-center" >Testing_Date</TableHead>
-                         <TableHead className="text-center" >Passed Leakage_Test</TableHead>
-                    <TableHead className="text-center" >Passed Drop_Test</TableHead>
+                         <TableHead className="text-center" >Leakage_Test</TableHead>
+                    <TableHead className="text-center" >Drop_Test</TableHead>
                     <TableHead className="text-center" >Seal_Condition</TableHead>
                     <TableHead className="text-center" >Label_Condition</TableHead>
                     <TableHead className="text-center" >Length(mm)</TableHead>
@@ -449,13 +449,13 @@ const QCPackageMaterialTable = () => {
              
               
                     {/* <TableHead className="text-center" >COA</TableHead> */}
-                    <TableHead className="text-center" >COA Certificate</TableHead>
+                    <TableHead className="text-center" >COA_Certificate</TableHead>
                     {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
-                    <TableHead className="text-center" >FoodGrade Certificate</TableHead>
+                    <TableHead className="text-center" >FoodGrade_Certificate</TableHead>
                 
 
                     <TableHead className="text-center" >Reported_By</TableHead>
-                    <TableHead className="text-center" >Edit Status</TableHead>
+                    <TableHead className="text-center" >Edit_Status</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -770,10 +770,10 @@ const QCPackageMaterialTable = () => {
                                                             <DialogTrigger className="flex"><CiEdit size={20} />
                                                                 <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Entry</button>
                                                             </DialogTrigger>
-                                                            <DialogContent>
+                                                            <DialogContent className="max-w-3xl">
                                                                 <DialogHeader>
                                                                     <DialogTitle>
-                                                                        <p className='text-1xl pb-1 text-center mt-1'>Packaging Material Quality</p>
+                                                                        <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>Packaging Material Quality</p>
                                                                     </DialogTitle>
                                                                     <DialogDescription>
                                                                         <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>

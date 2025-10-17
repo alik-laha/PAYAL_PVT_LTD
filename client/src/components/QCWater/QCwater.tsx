@@ -73,7 +73,7 @@ const QCWater = () => {
 
                         data.data && data.data.map((item: any,idx:any) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={idx}>
+                                <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={idx}>
                                     {item.boilertype} <br /><p>{item.count} </p>
                                 </div>
                             )
@@ -82,13 +82,13 @@ const QCWater = () => {
                     }
 
                 </div>
-                <p className='text-lg text-center py-1 '>QC WATER READING TRANSACTION</p>
+                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>QC WATER READING TRANSACTION</p>
                 <div>
                 <Dialog>
-                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-3xl' style={{display:'block'}}>
+                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4 drop-shadow-md" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-7xl' style={{display:'block'}}>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>QC Water</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>QC Water Entry</p></DialogTitle>
 
                             </DialogHeader>
 
@@ -100,10 +100,10 @@ const QCWater = () => {
 
                     {checkpending('QCRCN') && <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
                     <Dialog>
-                        <DialogTrigger>   <Button className="bg-slate-500 mb-2 mt-2 ml-4 responsive-button-adjust no-margin-left" >Parameters</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="bg-slate-500 mb-2 mt-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" >Parameters</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl' style={{display:'block'}}>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Feed Water Parameters</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-2 tracking-wider drop-shadow-xl font-bold'>Feed Water Parameters</p></DialogTitle>
 
                             </DialogHeader>
                     <Table className="mt-4">
@@ -135,7 +135,7 @@ const QCWater = () => {
                         </Table>
 
                         <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-3'>Blown Down Water Parameters</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center pt-5 tracking-wider drop-shadow-xl font-bold'>Blown Down Water Parameters</p></DialogTitle>
 
                             </DialogHeader>
                             <Table className="mt-4">

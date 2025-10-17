@@ -118,16 +118,16 @@ const Packing = () => {
                    
                     
                 </div>
-                <p className='text-lg text-center py-1 '>CURRENT F.Y. {FY} ORDER COUNT</p>
+                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold '>CURRENT F.Y. {FY} ORDER COUNT</p>
                     <div className="flex flex-row-reverse">
                       
                     </div>
                     <div className="flex text-center">
                         {checkpending('OrderCreate') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-orange-500 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ Sales Order</Button></DialogTrigger>
+                            <DialogTrigger>   <Button className="bg-orange-500 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" >+ Sales Order</Button></DialogTrigger>
                             <DialogContent className='max-w-screen' style={{ display: 'block' }}>
                                 <DialogHeader>
-                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Sales Order Create Form</p></DialogTitle>
+                                    <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Sales Order Create Form</p></DialogTitle>
 
                                 </DialogHeader>
 
@@ -136,10 +136,10 @@ const Packing = () => {
                         </Dialog>}
 
                         {checkpending('OrderMapping') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenMapping}>+ Map Order</Button></DialogTrigger>
+                            <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenMapping}>+ Map Order</Button></DialogTrigger>
                             <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                 <DialogHeader>
-                                    <DialogTitle><p className='text-1xl pb-3 text-center mt-4'>Order Mapping Form</p></DialogTitle>
+                                    <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Order Mapping Form</p></DialogTitle>
 
                                 </DialogHeader>
 
@@ -147,11 +147,11 @@ const Packing = () => {
                             </DialogContent>
                         </Dialog>}
 
-                          {checkpending('StockUpdate') && <Button className="bg-lime-600 mb-2 ml-4 responsive-button-adjust no-margin-left"
+                          {checkpending('StockUpdate') && <Button className="bg-lime-600 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
                             disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Stock Sync'} <RxUpdate size={20} className="ml-2" /></Button>}
 
                              {checkpending('StockUpdate') && <span className="text-center w-100">            
-                            <Button className="bg-stone-600 hover:bg-stone-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Order History ' : ' Stock History >'}</Button>
+                            <Button className="bg-stone-600 hover:bg-stone-400 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Order History ' : ' Stock History >'}</Button>
                         </span>}
                     </div>
 

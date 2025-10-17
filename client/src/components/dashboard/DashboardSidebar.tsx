@@ -168,7 +168,7 @@ const toggleSection = (sectionKey: string) => {
                   className={`flex flex-row items-center justify-center mb-4 user-pvt ${
                     openSection === "dashboard" ? "trigger-open" : ""
                   }`}>
-                  <RxDashboard color="indigo" size={16} />
+                  <RxDashboard color="indigo" size={16} className="mb-1"/>
                   <p className="ml-2 text-indigo-800 italic font-extrabold drop-shadow-sm ">DASHBOARD</p>
                   <span className="ml-auto">
                     {openSection === "dashboard" ? (
@@ -200,10 +200,10 @@ const toggleSection = (sectionKey: string) => {
                       openSection === "admin" ? "trigger-open" : ""
                     }`}>
                     <MdOutlineAdminPanelSettings
-                      size={20}
-                      className="text-red-800"
+                      size={18}
+                      className="text-orange-800 mb-1"
                     />
-                    <p className="ml-2 text-red-700 italic font-extrabold drop-shadow-sm">ADMIN & HR</p>
+                    <p className="ml-2 text-orange-700 italic font-extrabold drop-shadow-sm">ADMIN & HR</p>
                     <span className="ml-auto">
                       {openSection === "admin" ? (
                         <FiChevronDown size={18} />
@@ -256,8 +256,8 @@ const toggleSection = (sectionKey: string) => {
                     className={`flex flex-row items-center justify-center mb-4 user-pvt ${
                       openSection === "gatepass" ? "trigger-open" : ""
                     }`}>
-                    <GiGate size={16} className="text-yellow-700" />
-                    <p className="ml-2 text-yellow-600 italic font-extrabold drop-shadow-sm">GATEPASS</p>
+                    <GiGate size={16} className="text-yellow-700 mb-1" />
+                    <p className="ml-2 text-yellow-700 italic font-extrabold drop-shadow-sm">GATEPASS</p>
                     <span className="ml-auto">
                       {openSection === "gatepass" ? (
                         <FiChevronDown size={18} />
@@ -456,7 +456,7 @@ const toggleSection = (sectionKey: string) => {
                     className={`flex flex-row items-center justify-center mb-4 user-pvt ${
                       openSection === "production" ? "trigger-open" : ""
                     }`}>
-                    <MdOutlineFactory color="green" size={18} />
+                    <MdOutlineFactory color="green" size={18} className="mb-1"/>
                     <p className="ml-2 text-green-800 italic font-extrabold drop-shadow-sm">PRODUCTION</p>
                     <span className="ml-auto">
                       {openSection === "production" ? (
@@ -734,7 +734,7 @@ const toggleSection = (sectionKey: string) => {
                     className={`flex flex-row items-center justify-center user-pvt ${
                       openSection === "quality" ? "trigger-open" : ""
                     }`}>
-                    <LuBadgeCheck size={16} className="text-indigo-800 drop-shadow-sm" />
+                    <LuBadgeCheck size={18} className="text-indigo-800 mb-1" />
                     <p className="ml-2 text-blue-800 italic font-extrabold drop-shadow-sm capitalize">QUALITY</p>
                     <span className="ml-auto drop-shadow-lg">
                       {openSection === "quality" ? (

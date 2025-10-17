@@ -142,7 +142,7 @@ const LWInitial = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Wholes</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending LW</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
