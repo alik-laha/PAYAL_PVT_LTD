@@ -628,7 +628,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                             <TableHead className="text-center">Generated_Sales_Order_ID</TableHead>
                             <TableHead className="text-center">Order_Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Approval</TableHead>
+                            <TableHead className="text-center">Approval_Status</TableHead>
                             <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
                             <TableHead className="text-center">Sales_Vendor_Name</TableHead>
@@ -654,16 +654,23 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
-                                        <TableCell className="text-center text-red-500  font-bold">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold text-blue-500">{item.gradeName}</TableCell>
+                                        <TableCell className="text-center text-cyan-500  font-bold">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold text-yellow-700">{item.gradeName}</TableCell>
                                         <TableCell className="text-center">
                                             {item.ordApproveStatus === 'Pending' ? (
-                                                <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                                <p className="flex flex-row justify-center">
+                                          <MdOutlinePendingActions
+                                            color="red"
+                                            size={20}
+                                          />
+                                        </p>
                                             ) : (
                                                 item.ordApproveStatus === 'Approved' ? (
-                                                    <button className="bg-yellow-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
+                                                    <p className="flex flex-row justify-center">
+                                          <SiTicktick color="green" size={18} />
+                                        </p>
                                                 ) : (
-                                                    item.ordApproveStatus!=='Closed'? <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{ item.ordApproveStatus}</button>
+                                                    item.ordApproveStatus!=='Closed'? <p className="text-red-500 font-bold drop-shadow-lg tracking-wide uppercase">{ item.ordApproveStatus}</p>
                                                     :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
                                                 )
                                             )}
@@ -673,8 +680,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.brokerName}</TableCell>
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}  
-                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ? `${formatNumber(item.mapquantity)} Kg`:''} </TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ? `${formatNumber(item.mapquantity)} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
                                         <div className="flex flex-row items-center justify-center w-100 ">
                                             <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
@@ -690,13 +697,13 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                             
                                             
                                             // <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
-                                        )):null}</TableCell>
+                                        )):'--'}</TableCell>
                                       
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?`${formatNumber(item.actualquantity)} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?`${formatNumber(item.actualquantity)} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
 
                                         <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?
-                                        `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString()))} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                        `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString()))} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
                                        <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
                                              <div className="flex flex-row items-center justify-center ">
                                             <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="red" className=" w-3/4" />
@@ -706,7 +713,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                             <div className="flex flex-row items-center justify-center ">
                                             <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
                                             <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
-                                        </div>                                        )):null}</TableCell> {/* Order completion Status */}
+                                        </div>                                        )):'--'}</TableCell> {/* Order completion Status */}
 
 
                                       <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
@@ -717,7 +724,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
                                         <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
                                         <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        <TableCell className="text-center">{item.remarks ? item.remarks:'--'}</TableCell>
                                         {checkpending('StockUpdate') && <TableCell className="text-center">
 
                                             {item.ordStatus !== 1 && (item.ordStatus === 1 ?

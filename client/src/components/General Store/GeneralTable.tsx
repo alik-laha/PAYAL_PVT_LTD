@@ -346,10 +346,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                         <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
                           <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
                            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Invoice_No</TableHead>
+                           <TableHead className="text-center" >General_Invoice_No</TableHead>
                            <TableHead className="text-center" >Invoice_Date</TableHead>
                            <TableHead className="text-center" >Item_Type</TableHead>
-                           <TableHead className="text-center" >Item_Code(SKU)</TableHead>
+                           <TableHead className="text-center" >General_Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Assigned_Vendor_Name</TableHead>
                         
                        
@@ -446,7 +446,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                         <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                        <TableCell className="text-center ">{item.invoice}</TableCell>
+                                        <TableCell className="text-left ">{item.invoice}</TableCell>
                                         <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
                                         <TableCell className="text-left ">{item.type}</TableCell>
                                         <TableCell className="text-left ">{item.sku}</TableCell>
