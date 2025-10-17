@@ -494,14 +494,14 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         <TableHead className="text-center" >GatePass_No</TableHead>
                         <TableHead className="text-center" >GatePass_Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                        <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
                         <TableHead className="text-center" >Initial_Weight</TableHead>
                         <TableHead className="text-center" >Receiving_Origin</TableHead>
                         <TableHead className="text-center" >Village_Item_Type</TableHead>
                         <TableHead className="text-center" >Village_Item_Name</TableHead> 
                         <TableHead className="text-center" >Doc_No.</TableHead>            
                         <TableHead className="text-center" >Net_Weight</TableHead>
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Receiving_Vendor_Name</TableHead>
                       
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
                         <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
@@ -525,7 +525,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         <TableHead className="text-center">Net_Unpeel(%)</TableHead>       
                         <TableHead className="text-center">Net_Backlog(kg)</TableHead>               
                         <TableHead className="text-center" >Edit_Status </TableHead>
-                        <TableHead className="text-center" >Remarks</TableHead>
+                        <TableHead className="text-center" >Receiving_Village_Remarks</TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
                         <TableHead className="text-center" >Approved_By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>

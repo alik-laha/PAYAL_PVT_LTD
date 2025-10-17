@@ -393,7 +393,7 @@ const CashewOutTable = () => {
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Invoice_No</TableHead>
+                        <TableHead className="text-center" >Final_Cashew_Invoice_No</TableHead>
                         <TableHead className="text-center" >Item_Batch_No</TableHead>
                         <TableHead className="text-center" >Sales_PartyName</TableHead>
                         <TableHead className="text-center" >Sale_Origin</TableHead>
@@ -495,10 +495,10 @@ const CashewOutTable = () => {
                                         <TableCell className="text-center">{item.origin}</TableCell>
                                         <TableCell className="text-center">{item.gradeName}</TableCell>
                                         <TableCell className="text-center" >{item.netWeight ? formatNumber(item.netWeight) : ''}</TableCell>
-                                        <TableCell className="text-center" >{formatNumber(item.noOfBags)}</TableCell>
-                                        <TableCell className="text-center" >{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center" >{formatNumber(item.noOfActualBags)}</TableCell>
-                                        <TableCell className="text-center" >{formatNumber(item.actualquantity)}</TableCell>
+                                        <TableCell className="text-center font-bold text-green-600"  >{formatNumber(item.noOfBags)}</TableCell>
+                                        <TableCell className="text-center font-bold text-green-500" >{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.noOfActualBags)}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.actualquantity)}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                          <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">

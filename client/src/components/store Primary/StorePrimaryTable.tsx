@@ -355,7 +355,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                      
 
                         <TableHead className="text-center" >Edit_Status</TableHead>
-                        <TableHead className="text-center" >Remarks</TableHead>
+                        <TableHead className="text-center" >Store_Item_Remarks(Any)</TableHead>
                         <TableHead className="text-center" >Entried_By</TableHead>
                         <TableHead className="text-center" >Actioned_By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -443,9 +443,9 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center ">{item.netWeight}  </TableCell>
                                         <TableCell className="text-center ">{item.invoice}</TableCell>
                                         <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center ">{item.type}</TableCell>
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-left ">{item.type}</TableCell>
+                                        <TableCell className="text-left">{item.sku}</TableCell>
+                                        <TableCell className="text-left">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>

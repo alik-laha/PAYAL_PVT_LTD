@@ -387,7 +387,7 @@ const AlmondTable = () => {
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Almond_Type</TableHead>
                      <TableHead className="text-center" >Almond_Grade</TableHead> 
-                        <TableHead className="text-center" >Invoice_No.</TableHead>
+                        <TableHead className="text-center" >Almond_Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
                         <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
@@ -485,7 +485,7 @@ const AlmondTable = () => {
                                         <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
                                         <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
 
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-left">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
                                         <TableCell className="text-center" >{item.totalWt}</TableCell> 
