@@ -281,7 +281,7 @@ const StorePrimaryTable = () => {
 <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" disabled={EditSumData?.storePrimary===0 ?true :false}
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
 
-            <div className="ml-5 mt-5 ">
+            <div className="ml-6 mt-5 ">
                 <div className="flex flexbox-search">
 
 
@@ -333,7 +333,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                        <TableHead className="text-center" >Sl No</TableHead>
+                        <TableHead className="text-center" >Sl_No</TableHead>
                         <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
@@ -354,10 +354,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" > Bill_Amount</TableHead>
                      
 
-                        <TableHead className="text-center" >Edit Status</TableHead>
+                        <TableHead className="text-center" >Edit_Status</TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
-                        <TableHead className="text-center" >Entried By</TableHead>
-                        <TableHead className="text-center" >Actioned By</TableHead>
+                        <TableHead className="text-center" >Entried_By</TableHead>
+                        <TableHead className="text-center" >Actioned_By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
                     </TableHeader>

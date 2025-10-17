@@ -378,7 +378,7 @@ const CreditNoteTable = () => {
 
   return (
     <>
-      <div className="ml-5 mt-5 ">
+      <div className="ml-6 mt-5 ">
         <div className="w-full ">
           <select
             className="mb-5 h-10 bg-purple-100 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -513,7 +513,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
               <TableHead className="text-center">Item_Unit_Price</TableHead>
               <TableHead className="text-center">Total_Bill_Amount</TableHead>
 
-              <TableHead className="text-center">Edit Status </TableHead>
+              <TableHead className="text-center">Edit_Status </TableHead>
               <TableHead className="text-center">Item_Remarks</TableHead>
               <TableHead className="text-center">Created_By </TableHead>
               <TableHead className="text-center">Approved_By </TableHead>
@@ -736,15 +736,15 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                   Modify
                                 </button>
                               </DialogTrigger>
-                              <DialogContent>
+                              <DialogContent className="max-w-3xl">
                                 <DialogHeader>
                                   <DialogTitle>
-                                    <p className="text-1xl pb-1 text-center mt-5">
+                                    <p className="text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold">
                                       Credit Note Item Modification
                                     </p>
                                   </DialogTitle>
                                   <DialogDescription>
-                                    <p className="text-1xl text-center">
+                                    <p className="text-1xl text-center mb-2">
                                       To Be Filled Up By Dispatch Supervisor
                                     </p>
                                   </DialogDescription>
@@ -786,7 +786,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
           <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
               <TableHead className="text-center">Id</TableHead>
-              <TableHead className="text-center">RLOT-NO</TableHead>
+              <TableHead className="text-center">RLOT_NO</TableHead>
               <TableHead className="text-center">Origin</TableHead>
               <TableHead className="text-center">Date Of Entry</TableHead>
               <TableHead className="text-center">Receive Qty(Kg)</TableHead>

@@ -76,9 +76,9 @@ const RCNInitialForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                              <DialogContent className='max-w-2xl'>
+                                              <DialogContent className='max-w-3xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>RCN Incoming Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Incoming Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <RcnPrimaryEntryForm rcn={rcnData}/>

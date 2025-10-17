@@ -32,7 +32,7 @@ const TableHeader = React.forwardRef<
   <thead
     ref={ref}
     className={cn(
-      "bg-gradient-to-r from-gray-700 via-sky-800 to-gray-700 text-white sticky top-0 z-30 shadow-lg shadow-black/20",
+      "bg-gradient-to-r from-gray-700 via-sky-800 to-gray-700 text-white sticky top-0  z-30 shadow-lg shadow-black/20",
       className
     )}
     {...props}
@@ -103,7 +103,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "py-3 px-4 text-left align-middle font-semibold uppercase text-[11px] tracking-widest text-white/90 ",
+      "py-[2vh] px-4 text-left align-middle font-semibold uppercase text-[11px] tracking-widest text-white/90 ",
       className
     )}
     {...props}

@@ -980,7 +980,7 @@ const GatePassTable = () => {
     <>
       {/* {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleSearchPendingApproval} disabled={props.count === 0 ? true : false}> Pending Approve(
             {props.count})</Button> } */}
-      <div className="ml-5 mt-5 ">
+      <div className="ml-6 mt-5 ">
 
 
         <div className="flex flexbox-search">

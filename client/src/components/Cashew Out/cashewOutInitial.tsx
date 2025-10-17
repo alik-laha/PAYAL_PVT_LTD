@@ -80,7 +80,7 @@ const CashewOutInitialForm = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)}>+ Add </Button></DialogTrigger>
                                            <DialogContent style={{display:'block'}} className='max-w-screen'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Cashew Dispatch</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-1 tracking-wider drop-shadow-xl font-bold'>Cashew Dispatch</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <CashewOutEntryForm rcn={rcnData}/>

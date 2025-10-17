@@ -102,7 +102,7 @@ const CreditNote = () => {
                 (item: SumofAllTypeDataCreditNote) => {
                   return (
                     <div
-                      className="flexbox-tile bg-cyan-400 hover:bg-cyan-600"
+                      className="flexbox-tile bg-cyan-500 hover:bg-cyan-400"
                       key={item.origin}>
                       {item.origin} <br />
                       <p>
@@ -117,14 +117,14 @@ const CreditNote = () => {
               )}
           </div>
 
-          <p className="text-lg text-center py-1 ">CURRENT FY {FY} CREDIT NOTE TRANSACTION</p>
+          <p className="text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold">CURRENT FY {FY} CREDIT NOTE TRANSACTION</p>
           <div>
             {checkreceiving("RCNPrimaryEntry") && (
               <Dialog>
                 <DialogTrigger>
                   {" "}
                   <Button
-                    className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                    className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md"
                     onClick={handleOpenLotNo}>
                     + Add New Entry
                   </Button>
@@ -132,7 +132,7 @@ const CreditNote = () => {
                 <DialogContent className="max-w-2xl">
                   <DialogHeader>
                     <DialogTitle>
-                      <p className="text-1xl text-center mt-5">
+                      <p className="text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold">
                         Credit Note Receiving Pending List
                       </p>
                     </DialogTitle>
@@ -144,11 +144,11 @@ const CreditNote = () => {
             )}
 
             {checkreceiving('RCNPrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                <DialogTrigger>   <Button className="bg-rose-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
                 onClick={handleOpenRLotNo}>+ Create R-LOT</Button></DialogTrigger>
-                <DialogContent className='max-w-2xl'>
+                <DialogContent className='max-w-3xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Day-Wise Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Day-Wise Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 
@@ -158,7 +158,7 @@ const CreditNote = () => {
 
             {checkpending("RCNPrimary") && (
               <Button
-                className="bg-orange-400 mb-2 ml-8 responsive-button-adjust"
+                className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md"
                 onClick={handleEditFetch}
                 disabled={data.CountPendingEdit === 0 ? true : false}>
                 Pending Edit ({data.CountPendingEdit})

@@ -292,7 +292,7 @@ const RcnPrimaryEntryTable = () => {
 
 
     return (
-        <div className="ml-5 mt-5 ">
+        <div className="ml-6 mt-5 ">
 
             <div className="flex flexbox-search">
 
@@ -350,11 +350,11 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >BL_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Physical Bag</TableHead>
-                    <TableHead className="text-center" >System Bag</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
+                    <TableHead className="text-center" >Physical_Bag</TableHead>
+                    <TableHead className="text-center" >System_Bag</TableHead>
+                    <TableHead className="text-center" >QC_Status</TableHead>
+                    <TableHead className="text-center" >Edit_Status </TableHead>
+                    <TableHead className="text-center" >Entried_By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -490,10 +490,10 @@ const RcnPrimaryEntryTable = () => {
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent>
+                                                    <DialogContent className="max-w-3xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Primary Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RcnPrimaryModify data={item} />

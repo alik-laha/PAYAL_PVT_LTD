@@ -80,7 +80,7 @@ const GeneralStoreInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
                                           <DialogContent style={{display:'block'}} className='max-w-screen'>
                                                     <DialogHeader >
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>General Receiving/Dispatch Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>General Receiving/Dispatch Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <GeneralPrimaryEntry rcn={rcnData}/>

@@ -324,7 +324,7 @@ const CashewOutTable = () => {
 
     return (
         <>
-            <div className="ml-5 mt-5 ">
+            <div className="ml-6 mt-5 ">
                 <div className="flex flexbox-search">
 
                     <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" GatePass No" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -514,7 +514,7 @@ const CashewOutTable = () => {
                                                         <DialogContent className="max-w-5xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Cashew Out Entry Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Cashew Out Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <CashewOutModify data={item} />

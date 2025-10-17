@@ -10,6 +10,10 @@ input {
 }
 dialog p{
   font-size: 13px!important;
+  text-transform: capitalize!important;
+  font-weight: 600!important;
+  letter-spacing: 0.03vw;
+  color: #1e293b;
 }
 dialog img{
   height:3vh;
@@ -167,7 +171,7 @@ dialog img{
   font-size: 0.95rem;
   transition: all 0.3s ease;
   border-left: solid 1px rgb(24, 1, 1);
-  text-transform: capitalize;
+  text-transform: uppercase;
 
  
 }

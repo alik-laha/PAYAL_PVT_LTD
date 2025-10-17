@@ -48,7 +48,7 @@ const Machine = () => {
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-gray-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-lg">+ Add New Asset</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-green-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-lg">+ Add New Asset</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl font-bold'>New Machine Creation</p></DialogTitle>
