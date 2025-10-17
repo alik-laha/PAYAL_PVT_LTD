@@ -472,11 +472,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                        
                                         <TableCell className="text-center ">{item.sectionunit}</TableCell>
-                                        <TableCell className="text-center ">{item.section}</TableCell>
-                                        <TableCell className="text-center ">{item.subsection}</TableCell>
+                                        <TableCell className="text-left ">{item.section}</TableCell>
+                                        <TableCell className="text-left ">{item.subsection}</TableCell>
                                         
-                                        <TableCell className="text-center font-semibold text-cyan-500">{item.category}</TableCell>
-                                        <TableCell className="text-center ">{item.materialName}</TableCell>
+                                        <TableCell className="text-left font-semibold text-cyan-500">{item.category}</TableCell>
+                                        <TableCell className="text-left ">{item.materialName}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
                                         <TableCell className="text-center ">{item.itemunit}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} &#8377;</TableCell>

@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { SelectType, Size, pageNo, pendingCheckRole } from "../common/exportData"
+import { SelectType, Size, pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
@@ -79,7 +79,7 @@ const RCNBoilingTable = () => {
     const [lotData, setLotData] = useState<any[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<BoilingEntryData[]>([])
-    const limit = 10
+    const limit = pagelimit
     const { editPendingBoilingData, setEditPendingBoilingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();

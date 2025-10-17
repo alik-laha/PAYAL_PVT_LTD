@@ -358,12 +358,12 @@ const OilMillTable = () => {
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >OilMill_Type</TableHead>
                      
-                        <TableHead className="text-center" >Invoice_No.</TableHead>
+                        <TableHead className="text-center" >Oilmill_Item_Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
                         <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
 
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Oilmill_Item_Vendor_Name</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
                         <TableHead className="text-center" >Row_Weight</TableHead> 
                         <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>

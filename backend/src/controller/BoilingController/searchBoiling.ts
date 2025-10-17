@@ -59,7 +59,8 @@ const SearchBoiling = async (req: Request, res: Response) => {
         }
         }
         else{
-            GradingEntries = await RcnBoiling.findAll({
+            if (limit === 0 && offset === 0) {
+                   GradingEntries = await RcnBoiling.findAll({
             attributes: [
                 'LotNo','date','CreatedBy','noOfEmployees',
                 [sequelize.fn('sum', sequelize.col('Size')), 'quantity']
@@ -67,6 +68,21 @@ const SearchBoiling = async (req: Request, res: Response) => {
             group: ['LotNo','date','CreatedBy','noOfEmployees'],
             order: [['LotNo', 'DESC']], // Optional: Order the final grouped results
         });
+            }
+            else{
+                   GradingEntries = await RcnBoiling.findAll({
+            attributes: [
+                'LotNo','date','CreatedBy','noOfEmployees',
+                [sequelize.fn('sum', sequelize.col('Size')), 'quantity']
+            ],where, // Apply filters to the grouping
+            group: ['LotNo','date','CreatedBy','noOfEmployees'],
+            order: [['LotNo', 'DESC']], // Optional: Order the final grouped results
+             limit,
+                offset
+        });
+                
+            }
+         
         }
        
         return res.status(200).json(GradingEntries);

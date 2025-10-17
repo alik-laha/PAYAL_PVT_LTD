@@ -222,8 +222,8 @@ const VendorSKUTable = () => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl No.</TableHead>
                       
-                        <TableHead className="text-center " >Item Name (SKU)</TableHead>
-                        <TableHead className="text-center " >SKUType</TableHead>
+                        <TableHead className="text-left " >Item Name (SKU)</TableHead>
+                        <TableHead className="text-center " >SKU_Type</TableHead>
                         <TableHead className="text-center" >Unit </TableHead>
                         <TableHead className="text-center" >Section </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -236,8 +236,8 @@ const VendorSKUTable = () => {
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                    
-                                    <TableCell className="text-center font-semibold ">{item.sku}</TableCell>
-                                    <TableCell className="text-center ">{item.type}</TableCell>
+                                    <TableCell className="text-left font-semibold ">{item.sku}</TableCell>
+                                    <TableCell className="text-left ">{item.type}</TableCell>
                                     <TableCell className="text-center  ">{item.unit}</TableCell>
                                     <TableCell className="text-center ">{item.section}</TableCell>
                                     <TableCell className="text-center">

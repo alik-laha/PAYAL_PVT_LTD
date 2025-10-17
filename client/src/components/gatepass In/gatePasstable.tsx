@@ -1070,11 +1070,11 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Gate_Entry_Date</TableHead>
             <TableHead className="text-center" >Entry_Time</TableHead>
             <TableHead className="text-center" >Gate_Exit_Date</TableHead>
-            <TableHead className="text-center" >Exit_Time</TableHead>
+            <TableHead className="text-center" >Gate_Exit_Time</TableHead>
             <TableHead className="text-center" >Doc_No.</TableHead>
             <TableHead className="text-center" >Gross/Tare_Wt</TableHead>
             <TableHead className="text-center" >Wt_Slip_No</TableHead>
-            <TableHead className="text-center" >Vehicle_No</TableHead>
+            <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
             <TableHead className="text-center" >Driver_Name</TableHead>
             <TableHead className="text-center" >Driver_Contact</TableHead>
             <TableHead className="text-center" >Entried_By_Seurity</TableHead>

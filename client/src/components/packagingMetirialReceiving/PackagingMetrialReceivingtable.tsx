@@ -376,10 +376,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                     <TableCell className="text-center ">
                                       {item.type}
                                     </TableCell>
-                                    <TableCell className="text-center">
+                                    <TableCell className="text-left">
                                       {item.sku}
                                     </TableCell>
-                                    <TableCell className="text-center">
+                                    <TableCell className="text-left">
                                       {item.vendorName}
                                     </TableCell>
                                     <TableCell className="text-center">
