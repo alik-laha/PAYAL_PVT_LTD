@@ -211,7 +211,7 @@ const EmployeeTable = () => {
 
                     <TableHead className="text-center " >Sl</TableHead>
                     <TableHead className="text-center " >Employee_ID </TableHead>
-                    <TableHead className="text-center" >Employee_Name</TableHead>
+                    <TableHead className="text-center" >Employee_Name_In_Full</TableHead>
                     
                     <TableHead className="text-center " >Designation</TableHead>
                     <TableHead className="text-center " >Status </TableHead>
@@ -257,9 +257,9 @@ const EmployeeTable = () => {
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
-                                    <TableCell className="text-center font-semibold text-left" >{item.employeeName}</TableCell>
+                                    <TableCell className="font-semibold text-left" >{item.employeeName}</TableCell>
                                    
-                                    <TableCell className="text-center text-left" >{item.designation}</TableCell>
+                                    <TableCell className="text-left" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >
                                         {item.status ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width">Active</button>
@@ -271,8 +271,8 @@ const EmployeeTable = () => {
 
                                     <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
-                                    <TableCell className="text-center text-left" >{item.email}</TableCell>
-                                    <TableCell className="text-center" >{item.heighstQualification}</TableCell>
+                                    <TableCell className=" text-left" >{item.email}</TableCell>
+                                    <TableCell className="text-left" >{item.heighstQualification}</TableCell>
                                     <TableCell className="text-center" >{item.bloodGroup}</TableCell>
                                     <TableCell className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableCell>
                                     <TableCell className="text-center" >{item.panNo}</TableCell>

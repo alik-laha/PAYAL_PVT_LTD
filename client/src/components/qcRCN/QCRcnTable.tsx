@@ -483,7 +483,7 @@ const QCRcnTable = () => {
           <TableHead className="text-center">GatePass_No</TableHead>
           <TableHead className="text-center">BL_No.</TableHead>
           <TableHead className="text-center">Con_No.</TableHead>
-          <TableHead className="text-center">Truck_No.</TableHead>
+          <TableHead className="text-center">Entry_Truck_No.</TableHead>
           <TableHead className="text-center">BL_Weight</TableHead>
           <TableHead className="text-center">Bag_Count</TableHead>
           <TableHead className="text-center">QC_Approval Status</TableHead>

@@ -350,7 +350,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                            <TableHead className="text-center" >Invoice_Date</TableHead>
                            <TableHead className="text-center" >Item_Type</TableHead>
                            <TableHead className="text-center" >Item_Code(SKU)</TableHead>
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Assigned_Vendor_Name</TableHead>
                         
                        
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
