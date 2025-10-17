@@ -210,12 +210,12 @@ return(
                 </div> 
                 
                 </div>
-                <div className="flex mt-1">
-                    <div className=" w-1/5 mt-3">
-                    <button className="ml-4 mt-1 bg-blue-400 font-bold w-2/3 text-grey-700  h-8 text-primary-foreground rounded-md text-center items-center justify-center"
-                    onClick={addRow2}>+ Add </button>
+                <div className="flex mt-1 flex-row items-baseline">
+                    <div className="w-1/5 mt-3">
+                    <button className="ml-4 bg-blue-400 font-bold w-1/3 text-grey-700 text-2xl h-8 text-primary-foreground rounded-sm text-center items-center justify-center"
+                    onClick={addRow2}>+ </button>
                     </div>
-                <div  className="mt-1 w-4/5 ml-4 max-h-28 overflow-y-scroll">
+                <div  className="mt-1 w-[100%] ml-1 max-h-28 overflow-y-scroll">
                 <Table >
                 <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center " >Sl. No.</TableHead>

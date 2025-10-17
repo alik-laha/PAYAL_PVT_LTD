@@ -1225,11 +1225,11 @@ const GatePassTable = () => {
                       : "--"}
                   </TableCell>}
                       {item.status !== "Cancelled" ? (
-                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600">
+                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600 text-xs">
                      
                    
 
-                      <button className="bg-purple-500 p-1 h-7 shadow-md text-white rounded w-40 drop-shadow-lg">{formatString2(item.status)}</button>
+                      <button className="bg-purple-500 p-1 h-7 text-white rounded w-40">{formatString2(item.status)}</button>
                      
                      
                     </TableCell>

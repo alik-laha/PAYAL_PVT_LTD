@@ -49,7 +49,7 @@ const TableBody = React.forwardRef<
     ref={ref}
     className={cn(
       // Clearer divider lines
-      "divide-y divide-indigo-100/80 bg-white/50 backdrop-blur-sm ",
+      "divide-y divide-indigo-100/80 bg-white/50 ",
       className
     )}
     {...props}

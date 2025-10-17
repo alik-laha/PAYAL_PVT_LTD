@@ -73,7 +73,7 @@ const CashewOutInitialForm = (props: any) => {
                                         </TableCell>
                                       
 
-                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+                                        <TableCell className="text-center text-orange-500 font-semibold">PENDING</TableCell>
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>

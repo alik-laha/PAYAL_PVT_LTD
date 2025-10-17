@@ -53,13 +53,13 @@ const StorePrimary = () => {
                         FY : {FY} <br /><p>{StorePrimaryOverView?.sumofStorePrimary}</p>
                     </div>
                 </div>
-                <p className='text-lg  text-center py-1 '>OUTSIDE STORE TRANSACTION </p>
+                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold '>OUTSIDE STORE TRANSACTION </p>
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
+                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Store Entry Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-lg text-gray-600 text-center pt-2 tracking-wider drop-shadow-xl font-bold'>Store Entry Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 
