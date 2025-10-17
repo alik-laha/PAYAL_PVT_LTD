@@ -197,8 +197,8 @@ const EmployeeTable = () => {
     }
 
     return (
-        <div className="mt-5">
-            <div className="flex ">
+        <div className="ml-6 mt-5">
+            <div className="flex">
 
                 <Input className="w-60 mb-2" placeholder="Search By Emp ID/ Name" onChange={handleSearch} />
 
@@ -209,22 +209,22 @@ const EmployeeTable = () => {
             <Table className="mt-1 ml-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center text-left" >Sl No.</TableHead>
-                    <TableHead className="text-center text-left" >Employee ID </TableHead>
-                    <TableHead className="text-center text-left" >FullNameOfEmployee</TableHead>
+                    <TableHead className="text-center " >Sl</TableHead>
+                    <TableHead className="text-center " >Employee_ID </TableHead>
+                    <TableHead className="text-center" >Employee_Name</TableHead>
                     
-                    <TableHead className="text-center text-left" >Designation</TableHead>
+                    <TableHead className="text-center " >Designation</TableHead>
                     <TableHead className="text-center " >Status </TableHead>
-                    <TableHead className="text-center" >JoiningDate</TableHead>
-                    <TableHead className="text-center " >Contact No.</TableHead>
+                    <TableHead className="text-center" >Joining_Date</TableHead>
+                    <TableHead className="text-center " >Contact_No.</TableHead>
                     <TableHead className="text-center " >Email</TableHead>
-                    <TableHead className="text-center text-left" >Qualification</TableHead>
-                    <TableHead className="text-center" >Blood Group</TableHead>
-                    <TableHead className="text-center" >Adhar No.</TableHead>
-                    <TableHead className="text-center" >Pan No.</TableHead>
+                    <TableHead className="text-center " >Qualification</TableHead>
+                    <TableHead className="text-center" >Blood_Group</TableHead>
+                    <TableHead className="text-center" >Aadhar No</TableHead>
+                    <TableHead className="text-center" >Pan No</TableHead>
                     <TableHead className="text-center" >Pincode</TableHead>
-                    <TableHead className="text-center text-left" >EmergencyContactName</TableHead>
-                    <TableHead className="text-center" >Emg. Contact No.</TableHead>
+                    <TableHead className="text-center " >Emg_Contact_Name</TableHead>
+                    <TableHead className="text-center" >Emg_Contact_No.</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>

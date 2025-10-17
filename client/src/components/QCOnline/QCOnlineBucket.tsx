@@ -43,7 +43,7 @@ const QCOnlineBucket = () => {
 
   const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
   const maintenanceRemarksRef = useRef<HTMLTextAreaElement>(null)
-
+  const RemarksRef = useRef<HTMLTextAreaElement>(null)
   const [date, setDate] = useState<string>("")
   const [time, setTime] = useState<string>("")
 
@@ -110,7 +110,7 @@ const QCOnlineBucket = () => {
       time,
       pktQuality,
       pktQualityRemarks: pktQuality === "NOT OK" ? pktQualityRemarksRef.current?.value : "",
-      cleaningStatus,
+      cleaningStatus,Remarks:RemarksRef.current?.value,
       cleanRemarks: cleaningStatus === "NOT OK" ? cleanRemarksRef.current?.value : "",
       maintainance: maintenanceStatus,
       maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarksRef.current?.value : "",
@@ -126,6 +126,7 @@ const QCOnlineBucket = () => {
         moistureRef.current!.value = ""
         nutcountRef.current!.value = ""
         avgWeightRef.current!.value = ""
+        RemarksRef.current!.value = ""
         setOrigin("")
         setGrade("")
         setPktQuality("")
@@ -369,6 +370,15 @@ const QCOnlineBucket = () => {
               />
             </div>
           )}
+
+           <div className="flex">
+              <Label className="w-2/4 pt-1">Remarks</Label>
+              <Textarea
+                className="w-2/4 text-center"
+                ref={RemarksRef}
+               
+              />
+            </div>
 
           <Button className="bg-blue-500 mt-4 mx-20" disabled={isdisable}>
             {isdisable ? "Submitting..." : "Submit"}

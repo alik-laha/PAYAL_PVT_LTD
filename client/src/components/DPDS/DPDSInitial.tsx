@@ -148,7 +148,7 @@ const DPDSInitial = (props: any) => {
                                                             <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                                   <DialogContent className='max-w-screen'>
                                                             <DialogHeader>
-                                                                <DialogTitle><p className='text-1xl text-center mt-2'>DPDS Line Entry</p></DialogTitle>
+                                                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>DPDS Line Entry</p></DialogTitle>
         
                                                             </DialogHeader>
                                                         
@@ -188,7 +188,7 @@ const DPDSInitial = (props: any) => {
                                                             <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                                   <DialogContent className='max-w-screen'>
                                                             <DialogHeader>
-                                                                <DialogTitle><p className='text-1xl text-center mt-2'>DPDS Line Entry</p></DialogTitle>
+                                                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>DPDS Line Entry</p></DialogTitle>
         
                                                             </DialogHeader>
                                                         

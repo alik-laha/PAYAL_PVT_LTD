@@ -351,7 +351,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl. No.</TableHead>
+                            <TableHead className="text-center" >Sl_No</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
                             <TableHead className="text-center" >Party_Name</TableHead>
                             <TableHead className="text-center" >Invoice No</TableHead>

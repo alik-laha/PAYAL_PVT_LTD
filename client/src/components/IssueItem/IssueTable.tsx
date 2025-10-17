@@ -344,7 +344,7 @@ const IssueTable = () => {
             })
     }
     return (
-        <div className="ml-5 mt-5 ">
+        <div className="ml-6 mt-5 ">
             <div className="flex flexbox-search" >
 
                 <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Issue No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -577,7 +577,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className='max-w-3xl'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Issue Item Modify</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-5 tracking-wider drop-shadow-xl font-bold'>Issue Item Modify</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}

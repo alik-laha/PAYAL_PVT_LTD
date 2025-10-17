@@ -86,7 +86,7 @@ const CashewOut = () => {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataCashewOut) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-500" key={item.origin}>
+                                <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={item.origin}>
                                     {item.origin} <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
                                 </div>
                             )
@@ -96,14 +96,14 @@ const CashewOut = () => {
 
                 </div>
 
-                <p className='text-lg text-center py-1 '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
+                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-2xl'>
+                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl text-center mt-5'>Cashew Out Pending List</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Cashew Out Pending List</p></DialogTitle>
                                
                             </DialogHeader>
                           
@@ -111,7 +111,7 @@ const CashewOut = () => {
                         </DialogContent>
                     </Dialog>}
 
-                    {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
+                    {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
                         Pending Edit ({data.CountPendingEdit})</Button>}
 
                 </div>

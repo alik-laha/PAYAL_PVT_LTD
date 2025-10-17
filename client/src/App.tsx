@@ -51,6 +51,7 @@ import DashboardPanel1 from './components/dashboard/dashboardpanel1'
 import FactoryManager from './components/dashboard/factoryManager'
 import QCOnline from './components/QCOnline/QCOnline'
 import CreditNote from './components/Credit Note/CreditNote'
+import QCOutgoing from './components/QCOutgoing/QCOutgoing'
 
 
 
@@ -214,6 +215,11 @@ function App() {
          {/* Quality Online */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qc_online" element={<QCOnline />} />
+        </Route>
+
+         {/* Quality Outgoing */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
+          <Route path="/dashboard/qc_out" element={<QCOutgoing />} />
         </Route>
 
         {/* Production Grading */}

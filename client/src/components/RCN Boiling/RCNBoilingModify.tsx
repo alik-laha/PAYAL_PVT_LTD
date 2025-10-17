@@ -211,7 +211,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
             </div>
             <div className="flex">
                     <Label className="w-2/4 pt-1">Date Of Boiling</Label>
-                    <Input className="w-2/4 justify-center" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} type='date' /> </div>
+                    <Input className="w-2/4 justify-center bg-yellow-100 items-center" placeholder="Date" value={date} readOnly type='date' /> </div>
                 <div className="flex"><Label className="w-2/4 ">Origin</Label>
                     <Select value={origin} onValueChange={(value) => setOrigin(value)}>
                         <SelectTrigger className="w-2/4 justify-center">
@@ -266,7 +266,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
             <div className="flex"><Label className="w-2/4 pt-1">Boiling Qty(Kg)</Label>
             <Input className="w-2/4 text-center" placeholder="Boiling Qty." value={size} onChange={(e) => setsize(e.target.value)} required/> </div>
              <div className="flex"><Label className="w-2/4 pt-1">No. Of Labour</Label>
-            <Input className="w-2/4 text-center" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} required/> </div>
+            <Input className="w-2/4 text-center bg-yellow-100" placeholder="No. Of Employees" value={noOfEmployees} readOnly required/> </div>
             
             <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>

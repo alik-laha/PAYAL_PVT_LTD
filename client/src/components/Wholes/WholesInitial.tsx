@@ -156,7 +156,7 @@ const WholesInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-screen'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Wholes Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Wholes Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 

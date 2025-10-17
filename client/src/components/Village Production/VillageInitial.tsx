@@ -167,7 +167,7 @@ const VillageInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-screen'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
@@ -185,7 +185,7 @@ const VillageInitial = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Wholes</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Village</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}

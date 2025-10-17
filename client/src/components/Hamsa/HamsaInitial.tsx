@@ -88,7 +88,7 @@ const HamsaInitial = (props: any) => {
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Current_Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Current_Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -121,7 +121,7 @@ const HamsaInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-screen'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Hamsa Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Hamsa Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 

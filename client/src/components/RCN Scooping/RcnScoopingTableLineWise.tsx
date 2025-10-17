@@ -51,7 +51,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                 <TableHead className="text-center" >ScoopingLineMC</TableHead>
                 <TableHead className="text-center" >DateofScooping </TableHead>
                 
-                <TableHead className="text-center" >Size Name</TableHead>
+                <TableHead className="text-center" >Size</TableHead>
                 <TableHead className="text-center" >Opening_Qty(Kg)</TableHead>
                 <TableHead className="text-center" >Receiving_Qty(Kg)</TableHead>
                 <TableHead className="text-center" >Scooping_MC_ON</TableHead>
@@ -61,8 +61,8 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
 
                 <TableHead className="text-center" >MC_RunTime</TableHead>
 
-                <TableHead className="text-center" >Trolley Broken</TableHead>
-                <TableHead className="text-center" >Trolley SmallJB</TableHead>
+                <TableHead className="text-center" >Trolley_Broken</TableHead>
+                <TableHead className="text-center" >Trolley_SmallJB</TableHead>
 
 
                 <TableHead className="text-center" >Wholes(kg)</TableHead>
@@ -71,19 +71,19 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                 <TableHead className="text-center" >Unscoop(Kg)</TableHead>
                 <TableHead className="text-center" >NonCut(Kg)</TableHead>
                 <TableHead className="text-center" >Rejection(Kg)</TableHead>
-                <TableHead className="text-center" >RCNDust (Kg) </TableHead>
+                <TableHead className="text-center" >RCNDust(Kg) </TableHead>
 
                 <TableHead className="text-center" >KOR</TableHead>
                 <TableHead className="text-center" >Transfered_Qty</TableHead>
                 <TableHead className="text-center" >Transfered_To_Line</TableHead>
-                <TableHead className="text-center" >Female (Common)</TableHead>
-                <TableHead className="text-center" >Male (Common)</TableHead>
-                <TableHead className="text-center" >SuperVisor (Common)</TableHead>
-                <TableHead className="text-center" >Total Operator</TableHead>
-                <TableHead className="text-center" >Total Female</TableHead>
-                <TableHead className="text-center" >EditStatus</TableHead>
-                <TableHead className="text-center" >BreakDown Reason</TableHead>
-                <TableHead className="text-center" >Entried By </TableHead>
+                <TableHead className="text-center" >Female(Common)</TableHead>
+                <TableHead className="text-center" >Male(Common)</TableHead>
+                <TableHead className="text-center" >SuperVisor(Common)</TableHead>
+                <TableHead className="text-center" >Operator(Total)</TableHead>
+                <TableHead className="text-center" >Female(Total) </TableHead>
+                <TableHead className="text-center" >Edit_Status</TableHead>
+                <TableHead className="text-center" >BreakDown_Reason</TableHead>
+                <TableHead className="text-center" >Entried_By </TableHead>
 
             </TableHeader>
             <TableBody>

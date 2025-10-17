@@ -74,7 +74,7 @@ const BigTaihoTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editBigTaihoLotWiseData } = useContext(Context);
     const [Data, setData] = useState<BigTaihoData[]>([])
-      const dropdown = ['LOT', 'V-LOT']
+      const dropdown = ['LOT', 'V-LOT','R-LOT']
             const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
@@ -117,6 +117,184 @@ const BigTaihoTable = () => {
                 toDate: todate,
                 origin: origin,
                 type: 'LOT'
+            })
+            const data1 = await response.data
+
+            let ws
+            let transformed: any[] = [];
+            if (EditData.length > 0) {
+                transformed = EditData.map((item: BigTaihoData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    BigTaiho_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Receive_Peeling: Number(item.rcv_peeling) ||0,
+                    Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
+                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Receive_Sorting: item.rcv_sorting ? Number(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? Number(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? Number(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? Number(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? Number(item.rcv_wholes) : 0,
+                    Receive_Total: Number(((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
+                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
+                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
+                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2))||0,
+                    Issue_ssp: Number(item.issue_ssp)||0,
+                    Issue_ssp_small: Number(item.issue_ssp_small)||0,
+                    Issue_swp_1: Number(item.issue_swp_1)||0,
+                    Issue_wsp: Number(item.issue_wsp)||0,
+                    Issue_bits: Number(item.issue_bits)||0,
+                    Issue_swp: Number(item.issue_swp)||0,
+                    Issue_bb: Number(item.issue_bb)||0,
+                    Issue_w_bb: Number(item.issue_w_bb)||0,
+                    Issue_bb_A: Number(item.issue_bb_A)||0,
+                    Issue_bb_1: Number(item.issue_bb1)||0,
+                    Issue_bb1_A: Number(item.issue_bb1_A)||0,
+                    Issue_bb_2: Number(item.issue_bb_2)||0,
+                    Issue_ssp1: Number(item.issue_ssp_1)||0,
+                    Issue_ssp1_small: Number(item.issue_ssp_1_small)||0,
+                    Issue_ssp2: Number(item.issue_ssp_2)||0,
+                    Issue_ssp2_small: Number(item.issue_ssp_2_small)||0,
+                    Issue_sdp: Number(item.issue_sdp)||0,
+                    Issue_Packing: Number(formatNumber((parseFloat(item.issue_ssp) +
+                        parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
+                        parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
+                        parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
+                        parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
+                        parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()))||0,
+                    Issue_Husk: Number(item.issue_husk)||0,
+                    Issue_Rejection: Number(item.issue_rejection)||0,
+                    Issue_Village: Number(item.issue_village)||0,
+                    Issue_Sorting: Number(item.issue_sorting)||0,
+                    Issue_DPDS: Number(item.issue_dpds)||0,
+                    Current_Backlog: Number(item.current_backlog) ||0,
+                    Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                    Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                    Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                    Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                    Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                    Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                    Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+                }));
+                //setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            else {
+                transformed = data1.rcnEntries.map((item: BigTaihoData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    BigTaiho_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+
+                  Receive_Peeling: Number(item.rcv_peeling) ||0,
+                    Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
+                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Receive_Sorting: item.rcv_sorting ? Number(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? Number(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? Number(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? Number(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? Number(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? Number(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? Number(item.rcv_wholes) : 0,
+                    Receive_Total: Number(((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
+                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
+                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
+                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2))||0,
+                    Issue_ssp: Number(item.issue_ssp)||0,
+                    Issue_ssp_small: Number(item.issue_ssp_small)||0,
+                    Issue_swp_1: Number(item.issue_swp_1)||0,
+                    Issue_wsp: Number(item.issue_wsp)||0,
+                    Issue_bits: Number(item.issue_bits)||0,
+                    Issue_swp: Number(item.issue_swp)||0,
+                    Issue_bb: Number(item.issue_bb)||0,
+                    Issue_w_bb: Number(item.issue_w_bb)||0,
+                    Issue_bb_A: Number(item.issue_bb_A)||0,
+                    Issue_bb_1: Number(item.issue_bb1)||0,
+                    Issue_bb1_A: Number(item.issue_bb1_A)||0,
+                    Issue_bb_2: Number(item.issue_bb_2)||0,
+                    Issue_ssp1: Number(item.issue_ssp_1)||0,
+                    Issue_ssp1_small: Number(item.issue_ssp_1_small)||0,
+                    Issue_ssp2: Number(item.issue_ssp_2)||0,
+                    Issue_ssp2_small: Number(item.issue_ssp_2_small)||0,
+                    Issue_sdp: Number(item.issue_sdp)||0,
+                    Issue_Packing: Number(formatNumber((parseFloat(item.issue_ssp) +
+                        parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
+                        parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
+                        parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
+                        parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
+                        parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()))||0,
+                    Issue_Husk: Number(item.issue_husk)||0,
+                    Issue_Rejection: Number(item.issue_rejection)||0,
+                    Issue_Village: Number(item.issue_village)||0,
+                    Issue_Sorting: Number(item.issue_sorting)||0,
+                    Issue_DPDS: Number(item.issue_dpds)||0,
+                    Current_Backlog: Number(item.current_backlog) ||0,
+                    Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                    Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                    Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                    Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                    Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                    Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                    Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Operator_Day: Number(item.noOfdayOperators)||0,
+                    Operator_Night: Number(item.noOfnightOperators)||0,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                // setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'BigTaiho_Entry_' + currDate + '.xlsx');
+        }
+        else if (searchType === 'R-LOT') {
+            const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'RLOT'
             })
             const data1 = await response.data
 
@@ -479,6 +657,28 @@ const BigTaihoTable = () => {
                 toDate: todate,
                 origin: origin,
                 type: 'LOT'
+
+
+            }, {
+                params: {
+                    page: page,
+                    limit: limit
+                }
+            })
+            const data = await response.data
+            if (data.rcnEntries.length === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+
+            }
+            setData(data.rcnEntries)
+        }
+        else  if (searchType === 'R-LOT') {
+            const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'RLOT'
 
 
             }, {
@@ -930,7 +1130,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>BigTaiho Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <BigTaihoEditForm borma={[item]} />
@@ -944,7 +1144,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>BigTaiho Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNBigTaihoReCreateForm borma={[item]} />
@@ -959,7 +1159,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNBigTaihoReMix borma={item} />

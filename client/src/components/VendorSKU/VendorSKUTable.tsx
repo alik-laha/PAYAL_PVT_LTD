@@ -180,10 +180,10 @@ const VendorSKUTable = () => {
 
     return (
         <>
-            <div className=" mt-5">
+            <div className="ml-6 mt-5">
                 <div className="flex flexbox-search">
 
-                <Input className="no-padding ml-5 w-1/5 flexbox-search-width" placeholder=" SKU Name/Vendor" value={itemname} onChange={(e) => setitemname(e.target.value)} />
+                <Input className="no-padding  w-1/5 flexbox-search-width" placeholder=" SKU Name/Vendor" value={itemname} onChange={(e) => setitemname(e.target.value)} />
                     
                
 

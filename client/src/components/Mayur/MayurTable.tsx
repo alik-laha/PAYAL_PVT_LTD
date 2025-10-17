@@ -758,16 +758,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                          <TableHead className="text-center" >Action</TableHead>
                         {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                        <TableHead className="text-center">Opening Wholes_Peel/ Wholes_&_JB</TableHead>
-                    <TableHead className="text-center">Opening Wholes_Unpeel/ LW</TableHead>
+                        <TableHead className="text-center">Wholes_Peel/ Wholes_&_JB</TableHead>
+                    <TableHead className="text-center">Wholes_Unpeel/ LW</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Mayur Total_Opening</TableHead>
-                    <TableHead className="text-center">Issue PW_W / V_PW_W</TableHead>
-                    <TableHead className="text-center">Issue W_Lot / V_W_Lot</TableHead>
-                    <TableHead className="text-center">Issue WW / V_WW</TableHead>
+                    <TableHead className="text-center">PW_W / V_PW_W</TableHead>
+                    <TableHead className="text-center">W_Lot / V_W_Lot</TableHead>
+                    <TableHead className="text-center">WW / V_WW</TableHead>
                     <TableHead className="text-center">Issue Hamsa</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
@@ -960,7 +960,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Mayur Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* {item.altid==1 ?  <RCNMayurEditForm borma={[item]} /> : <RCNMayurReCreateEditForm borma={[item]} />} */}
@@ -975,7 +975,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Mayur Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNMayurReCreateForm borma={[item]} />
@@ -990,7 +990,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                    <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Lot No : {item.LotNo} ({item.origin})</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNMayurReMix borma={item} />

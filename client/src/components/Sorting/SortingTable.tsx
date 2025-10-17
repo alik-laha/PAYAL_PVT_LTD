@@ -73,8 +73,8 @@ const SortingTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editSortingLotWiseData } = useContext(Context);
     const [Data, setData] = useState<SortingData[]>([])
-        const dropdown = ['LOT', 'V-LOT','R-LOT']
-        const [searchType, setsearchType] = useState('LOT')
+    const dropdown = ['LOT', 'V-LOT','R-LOT']
+    const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -917,6 +917,27 @@ const SortingTable = () => {
         }
         setData(data.rcnEntries)
     }
+        else if (searchType === 'R-LOT') {
+        const response = await axios.put('/api/sorting/sortingprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'RLOT'
+
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+    }
     else{
          const response = await axios.put('/api/sorting/sortingprimarysearch', {
             searchitem: blConNo,
@@ -1391,7 +1412,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Sorting Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <SortingEditForm borma={[item]} />
@@ -1405,7 +1426,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Re-issue</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Sorting Entry Re-issue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNSortingReCreateForm borma={[item]} />
@@ -1420,7 +1441,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                <p className='ttext-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNSortingReMix borma={item} />
@@ -1449,7 +1470,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_add_7)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_8)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_9)}</TableCell>
-                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    <TableCell className="text-center  bg-yellow-100 font-semibold">
                                     {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
                                 +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
                                     </TableCell>

@@ -39,10 +39,10 @@ const Employee = () => {
 
                
                 <Dialog >
-                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add Employee</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-orange-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md">+ Add Employee</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
-                            <DialogTitle><p className='text-1xl text-center mt-2'>Employee Details</p></DialogTitle>
+                            <DialogTitle><p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>Employee Details</p></DialogTitle>
                        
                         </DialogHeader>
 

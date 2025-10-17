@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { Size, pageNo, pendingCheckRole } from "../common/exportData"
+import { SelectType, Size, pageNo, pendingCheckRole } from "../common/exportData"
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
@@ -76,6 +76,7 @@ const RCNBoilingTable = () => {
     //const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<BoilingEntryData[]>([])
+    const [lotData, setLotData] = useState<any[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<BoilingEntryData[]>([])
     const limit = 10
@@ -91,6 +92,9 @@ const RCNBoilingTable = () => {
     //const [transformedData, setTransformedData] = useState<BoilingExcelData[]>([]);
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
+
+    const [selecttype, setSelecttype] = React.useState<string>('LotWise');
+    const [selecttabletype, setSelecttabletype] = React.useState<string>('LotWise');
     const Role = localStorage.getItem('role') as keyof PermissionRole
 
     if (rejectcloseDialogButton) {
@@ -127,12 +131,15 @@ const RCNBoilingTable = () => {
         setEditPendingBoilingData([])
         //setEditData([])
 
-        const response = await axios.post('/api/boiling/searchBoiling', {
+        if(selecttype==='LineWise'){
+            setSelecttabletype('LineWise')
+            const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
             toDate: todate,
             SizeName: size,
+            type:'line'
         }, {
             params: {
                 page: page,
@@ -146,6 +153,30 @@ const RCNBoilingTable = () => {
 
         }
         setData(data)
+        }
+        else{
+            setSelecttabletype('LotWise')
+            const response = await axios.post('/api/boiling/searchBoiling', {
+            blConNo: blConNo,
+            origin: origin,
+            fromDate: fromdate,
+            toDate: todate,
+            SizeName: size,
+            type:'lot'
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        //console.log(data)
+        if (data.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setLotData(data)
+        }
 
     }
 
@@ -337,24 +368,25 @@ const RCNBoilingTable = () => {
     }
 
     return (
-        <div className="ml-5 mt-5 ">
+        <div className="ml-6 mt-5 ">
 
             <div className="flex flexbox-search" >
 
-                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <Input className="no-padding w-44" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='bg-yellow-100 flex text-xs h-8 flexbox-search-width  ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                    onChange={(e) => setSelecttype(e.target.value)} value={selecttype}>
+             
+                    {SelectType.map((data, index) => (
+                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>
                     ))}
                 </select>
+
+             
 
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
                 <Input className="w-1/7 flexbox-search-width-calender"
@@ -374,18 +406,33 @@ const RCNBoilingTable = () => {
                     placeholder="To Date"
 
                 />
-                <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                {selecttype==='LineWise' && <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSize(e.target.value)} value={size}>
+                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        text-xs py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
-                    {Size.map((data, index) => (
-                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                    {Origin.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>
                     ))}
-                </select>
+                </select>}
+                   
+               {selecttype==='LineWise' && <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setSize(e.target.value)} value={size}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        text-xs py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
+                    {Size.map((data, index) => (
+                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            {data}
+                        </option>
+                    ))}
+                </select>} 
+                
+                 
 
 
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
@@ -393,16 +440,14 @@ const RCNBoilingTable = () => {
             </div>
             {checkpending('Boiling') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
-
-
-            <Table className="mt-4">
+                {selecttabletype==='LineWise' ? <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center " >BoilingLot_No</TableHead>
+                    <TableHead className="text-center " >Boiling_Lot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
 
-                    <TableHead className="text-center" >ScoopingLineName</TableHead>
+                    <TableHead className="text-center" >Scooping_LineName</TableHead>
                     <TableHead className="text-center" >Boiling_Date </TableHead>
                     <TableHead className="text-center" >Machine_Name</TableHead>
                  
@@ -410,16 +455,16 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Qty_(Kg)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
-                    <TableHead className="text-center" >Cooking Time</TableHead>
+                    <TableHead className="text-center" >Cooking_Time</TableHead>
 
                     <TableHead className="text-center" >Machine_ON</TableHead>
                     <TableHead className="text-center" >Machine_OFF</TableHead>
-                    <TableHead className="text-center" >Breakdown Duration</TableHead>
-                    <TableHead className="text-center" >Other Duration </TableHead>
-                    <TableHead className="text-center" >Run Duration </TableHead>
-                    <TableHead className="text-center" >Labour </TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
+                    <TableHead className="text-center" >Breakdown</TableHead>
+                    <TableHead className="text-center" >Other</TableHead>
+                    <TableHead className="text-center" >MC_Run</TableHead>
+                    <TableHead className="text-center" >Labour</TableHead>
+                    <TableHead className="text-center" >Entried_By</TableHead>
+                    <TableHead className="text-center" >Edit_Status</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -537,15 +582,79 @@ const RCNBoilingTable = () => {
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-2xl">
+                                                    <DialogContent className="max-w-3xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>RCN Boiling Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNBoilingModify data={item} />
                                                     </DialogContent>
                                                 </Dialog>
+                                              
+                                            </PopoverContent>
+                                            
+                                        </Popover>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })) : (<TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-medium text-center text-red-500  pt-3 pb-6">No Result </p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+
+
+
+                        </TableRow>)
+                    )}
+                </TableBody>
+            </Table>:<Table className="mt-4">
+                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                    <TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center " >Boiling_Lot_No</TableHead>
+                    <TableHead className="text-center " >Boiling_Date</TableHead>
+                    <TableHead className="text-center" >Boiling_Quantity(Kg)</TableHead>
+                    <TableHead className="text-center" >No_of_Labour</TableHead>
+                    <TableHead className="text-center" >Created_By</TableHead>
+                    <TableHead className="text-center" >Action</TableHead>
+
+                </TableHeader>
+                <TableBody>
+                     
+                        {lotData.length > 0 ? (lotData.map((item: any, idx) => {
+
+                            return (
+                                <TableRow key={item.id}>
+                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-bold ">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center ">{item.quantity} </TableCell>
+                                     <TableCell className="text-center ">{item.noOfEmployees} </TableCell>
+                                     <TableCell className="text-center ">{item.CreatedBy} </TableCell>
+                                    <TableCell className="text-center">
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 text-white rounded bg-cyan-500`} >Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                             
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex">
                                                     <MdDelete color='Red' size={20} /> <button className="bg-transparent pb-2 pl-2 text-left hover:text-red-500"> Delete</button>
@@ -590,10 +699,12 @@ const RCNBoilingTable = () => {
 
 
 
-                        </TableRow>)
-                    )}
+                        </TableRow>)}
+                    
                 </TableBody>
-            </Table>
+            </Table>}
+
+            
             <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>

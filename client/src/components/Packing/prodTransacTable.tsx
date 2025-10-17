@@ -62,6 +62,8 @@ import { saveAs } from 'file-saver';
 import { LuDownload } from "react-icons/lu";
 import { pendingCheckRoles, PermissionRole } from "@/type/type";
 import PackingCreateForm from "./orderPAckingForm";
+import { SiTicktick } from "react-icons/si";
+import { MdOutlinePendingActions } from "react-icons/md";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -622,7 +624,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                 {searchTableType === 'Order' ?
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl No.</TableHead>
+                            <TableHead className="text-center">Sl_No</TableHead>
                             <TableHead className="text-center">Generated_Sales_Order_ID</TableHead>
                             <TableHead className="text-center">Order_Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
@@ -779,9 +781,9 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                             <Dialog>
                                                                 <DialogTrigger>
                                                                 <div className="flex"><FcEditImage size={25} />  <button className="bg-transparent pl-1 pb-2 rounded-md hover:text-green-500"> Modify Order </button></div></DialogTrigger>
-                                                                <DialogContent className='max-w-3xl' style={{ display: 'block' }}>
+                                                                <DialogContent className='max-w-4xl' style={{ display: 'block' }}>
                                                                     <DialogHeader>
-                                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Modify</p></DialogTitle>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Order Modify</p></DialogTitle>
 
                                                                     </DialogHeader>
 
@@ -796,7 +798,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                                 <div className="flex"><FcApproval size={25} />  <button className="bg-transparent pl-1 rounded-md hover:text-green-500"> Re-Mapping </button></div></DialogTrigger>
                                                                 <DialogContent className='max-w-screen' style={{ display: 'block' }}>
                                                                     <DialogHeader>
-                                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Re-Mapping Entry</p></DialogTitle>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Order Re-Mapping Entry</p></DialogTitle>
 
                                                                     </DialogHeader>
 
@@ -883,13 +885,13 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                     </Table>) : (searchTableType === 'Mapping' ? ( searchMapTableType==='LineWise'?(
                         <Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl No.</TableHead>
+                            <TableHead className="text-center">Sl_No</TableHead>
                             <TableHead className="text-center">Mapping_Type</TableHead>
                             <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
                             
                             <TableHead className="text-center">Order_Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Issue_No (Mapping)</TableHead>
+                            <TableHead className="text-center">Mapping_Issue_No</TableHead>
                             {/* <TableHead className="text-center">Order_Quantity</TableHead> */}
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
                             <TableHead className="text-center">Order_Mapping_Date</TableHead>
@@ -900,7 +902,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                             <TableHead className="text-center">Lot_Origin</TableHead>
                             <TableHead className="text-center">Lot_Grade</TableHead>
                             <TableHead className="text-center">Available_Quantity</TableHead>
-                            <TableHead className="text-center">Actual Available_Quantity</TableHead>
+                            <TableHead className="text-center">Actual_Available</TableHead>
                             <TableHead className="text-center">Percentage_Mapping</TableHead>
                             <TableHead className="text-center">Mapped_Quantity</TableHead>
                            
@@ -968,13 +970,13 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                     </Table>
                     ):(<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl No.</TableHead>
+                            <TableHead className="text-center">Sl_No</TableHead>
                             <TableHead className="text-center">Mapping_Type</TableHead>
                             <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
                             
                             <TableHead className="text-center">Order_Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Issue_No (Mapping)</TableHead>
+                            <TableHead className="text-center">Mapping_Issue_No</TableHead>
                            
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
                             <TableHead className="text-center">Order_Mapping_Date</TableHead>
@@ -1024,8 +1026,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         <TableCell className="text-center bg-yellow-100 text-red-500 font-semibold ">{formatNumber(item.sectionQuantityActual)} Kg </TableCell> Demand Quantity */}
  
                                         {/* <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> Prepared Quantity */}
-                                        <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.demandQuantity)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-extrabold ">{formatNumber(item.demandQuantity)} Kg</TableCell>
+                                        <TableCell className="text-center font-extrabold ">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
                                    
                                         {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
                                         <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
@@ -1078,7 +1080,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                     </Table>)
                        ):( <Table className="mt-4">
                        <TableHeader className="bg-neutral-100 text-stone-950 ">
-                           <TableHead className="text-center">Sl No.</TableHead>
+                           <TableHead className="text-center">Sl_No</TableHead>
                           
                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
                            <TableHead className="text-center">Issue_No (Packing)</TableHead>
@@ -1116,26 +1118,38 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                        <TableCell className="text-center  font-semibold ">{item.altid}</TableCell>
                                        <TableCell className="text-center ">{item.origin}</TableCell>
 
-                                           <TableCell className="text-center ">
-                                                                               {item.qualityStatus === 'QC Approved' ? (
-                                                                                   <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
-                                                                               ) : item.qualityStatus === 'Pending' ? (
-                                                                                   <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
-                                                                               ) : (
-                                                                                   <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
-                                                                               )}
-                                                                           </TableCell>
+                                       <TableCell className="text-center ">
+                                           {item.qualityStatus === 'QC Approved' ? (
+                                               <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>
+                                           ) : item.qualityStatus === 'Pending' ? (
+                                              <p className="flex flex-row justify-center">
+                                                                      <MdOutlinePendingActions color="red" size={20} />
+                                                                    </p>
+                                           ) : (
+                                               <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
+                                           )}
+                                       </TableCell>
 
-                                                                           <TableCell className="text-center ">
-                                                                            {item.packingStatus===0 ?                           
-                                                                     <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>:
-                                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Packed</button>}
-                                                                            </TableCell>    
-                                                                            <TableCell className="text-center ">
-                                                                            {item.dispatchStatus===0 ?                           
-                                                                     <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>:
-                                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Dispatched</button>}
-                                                                            </TableCell>   
+                                       <TableCell className="text-center ">
+                                           {item.packingStatus === 0 ?
+                                               <p className="flex flex-row justify-center">
+                                                                       <MdOutlinePendingActions color="red" size={20} />
+                                                                     </p> :
+                                              <p className="flex flex-row justify-center">
+                                                                      <SiTicktick color="green" size={18} />
+                                                                    </p>}
+                                       </TableCell>
+                                       <TableCell className="text-center ">
+                                           {item.dispatchStatus === 0 ?
+                                               <p className="flex flex-row justify-center">
+                                                                       <MdOutlinePendingActions color="red" size={20} />
+                                                                     </p> :
+                                               <p className="flex flex-row justify-center">
+                                                                       <SiTicktick color="green" size={18} />
+                                                                     </p>}
+                                       </TableCell>   
                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
                                        <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
@@ -1149,12 +1163,12 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                        <TableCell className="text-center ">{item.vendorName}</TableCell>
                                        <TableCell className="text-center ">{item.fulfillquantity ?formatNumber(item.fulfillquantity):0} Kg</TableCell>
-                                       <TableCell className="text-center font-semibold">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                       <TableCell className="text-center font-extrabold">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
-                                       <TableCell className="text-center font-semibold">{item.BatchID}</TableCell>
-                                       <TableCell className="text-center font-semibold">{item.packingquantity}</TableCell>
-                                       <TableCell className="text-center font-semibold">{item.convpackingquantity}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.remarks}</TableCell>
+                                       <TableCell className="text-center font-extrabold">{item.BatchID}</TableCell>
+                                       <TableCell className="text-center font-extrabold">{item.packingquantity}</TableCell>
+                                       <TableCell className="text-center font-extrabold">{item.convpackingquantity}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.remarks}</TableCell>
                                       
                                       
                                  
@@ -1173,7 +1187,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                     <DialogContent className="max-w-3xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Packing</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Order Packing</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <PackingCreateForm data={item} />

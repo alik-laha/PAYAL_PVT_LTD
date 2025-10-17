@@ -278,10 +278,10 @@ const StorePrimaryTable = () => {
         <>
 
 {checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.storePrimary===0 ?true :false}
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" disabled={EditSumData?.storePrimary===0 ?true :false}
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
 
-            <div className="ml-5 mt-5 ">
+            <div className="ml-6 mt-5 ">
                 <div className="flex flexbox-search">
 
 
@@ -333,7 +333,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                        <TableHead className="text-center" >Sl No</TableHead>
+                        <TableHead className="text-center" >Sl_No</TableHead>
                         <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
@@ -354,10 +354,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" > Bill_Amount</TableHead>
                      
 
-                        <TableHead className="text-center" >Edit Status</TableHead>
+                        <TableHead className="text-center" >Edit_Status</TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
-                        <TableHead className="text-center" >Entried By</TableHead>
-                        <TableHead className="text-center" >Actioned By</TableHead>
+                        <TableHead className="text-center" >Entried_By</TableHead>
+                        <TableHead className="text-center" >Actioned_By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
                     </TableHeader>
@@ -465,10 +465,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Store Item Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl font-bold'>Store Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
                                                                     <p className='text-1xl text-center'>To Be Filled Up By Store Receving Supervisor</p>

@@ -43,6 +43,7 @@ const QCOnlinePouch = () => {
 
   const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
   const maintenanceRemarksRef = useRef<HTMLTextAreaElement>(null)
+  const RemarksRef = useRef<HTMLTextAreaElement>(null)
 
   const [date, setDate] = useState<string>("")
   const [time, setTime] = useState<string>("")
@@ -114,6 +115,7 @@ const QCOnlinePouch = () => {
       cleanRemarks: cleaningStatus === "NOT OK" ? cleanRemarksRef.current?.value : "",
       maintainance: maintenanceStatus,
       maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarksRef.current?.value : "",
+      Remarks: RemarksRef.current?.value ,
       createdBy: "admin", // TODO: replace with logged-in user
     }
 
@@ -134,6 +136,7 @@ const QCOnlinePouch = () => {
         if (pktQualityRemarksRef.current) pktQualityRemarksRef.current.value = ""
         if (cleanRemarksRef.current) cleanRemarksRef.current.value = ""
         if (maintenanceRemarksRef.current) maintenanceRemarksRef.current.value = ""
+        RemarksRef.current!.value=""
       })
       .catch((err) => {
         setErrorText(err.response?.data?.message || "Something went wrong")
@@ -369,6 +372,15 @@ const QCOnlinePouch = () => {
               />
             </div>
           )}
+
+          <div className="flex">
+            <Label className="w-2/4 pt-1">Remarks</Label>
+            <Textarea
+                className="w-2/4 text-center"
+                ref={RemarksRef}
+                
+              />
+          </div>
 
           <Button className="bg-blue-500 mt-4 mx-20" disabled={isdisable}>
             {isdisable ? "Submitting..." : "Submit"}

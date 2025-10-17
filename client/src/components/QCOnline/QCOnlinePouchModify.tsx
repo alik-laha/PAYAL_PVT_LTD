@@ -42,7 +42,7 @@ const ModifyPoch = ({ data }: Props) => {
 
   const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
   const [maintenanceRemarks, setMaintenanceRemarks] = useState<string>("")
-
+ const [Remarks, setRemarks] = useState<string>("")
   const [date, setDate] = useState<string>("")
   const [time, setTime] = useState<string>("")
 
@@ -70,6 +70,7 @@ const ModifyPoch = ({ data }: Props) => {
       setCleanRemarks(data.cleanRemarks || "")
       setMaintenanceStatus(data.maintainance || "")
       setMaintenanceRemarks(data.maintainanceRemarks || "")
+      setRemarks(data.Remarks || "")
       setDate(data.date?.slice(0, 10) || "")
       setTime(data.time || "")
     }
@@ -93,7 +94,7 @@ const ModifyPoch = ({ data }: Props) => {
       pktQualityRemarks: pktQuality === "NOT OK" ? pktQualityRemarks : "",
       cleaningStatus,
       cleanRemarks: cleaningStatus === "NOT OK" ? cleanRemarks : "",
-      maintainance: maintenanceStatus,
+      maintainance: maintenanceStatus,Remarks,
       maintainanceRemarks: maintenanceStatus === "NOT OK" ? maintenanceRemarks : "",
       modifiedBy: "admin", // TODO: replace with logged-in user
     }
@@ -369,6 +370,16 @@ const ModifyPoch = ({ data }: Props) => {
               />
             </div>
           )}
+
+          <div className="flex">
+              <Label className="w-2/4 pt-1">Remarks</Label>
+              <Textarea
+                className="w-2/4 text-center"
+                value={Remarks}
+                onChange={(e) => setRemarks(e.target.value)}
+           
+              />
+            </div>
 
           <Button className="bg-blue-500 mt-4 mx-20" disabled={isdisable}>
             {isdisable ? "Updating..." : "Update"}

@@ -41,7 +41,7 @@ const PackagingMetirialQuality = () => {
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
-                <p className='text-lg text-center py-1 '>QC Packaging Material TRANSACTION</p>
+                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold uppercase'>QC Packaging Material TRANSACTION</p>
 
                 <div>
 

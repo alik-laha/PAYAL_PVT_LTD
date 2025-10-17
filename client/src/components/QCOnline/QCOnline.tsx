@@ -154,7 +154,7 @@ const QCOnline = () => {
               <p>{data.pouchData} </p>
             </div>
           </div>
-          <p className="text-lg text-center py-1 ">
+          <p className="text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold">
             QC DAILY ONLINE TRANSACTION
           </p>
           <div className="flex">
@@ -162,15 +162,15 @@ const QCOnline = () => {
               <DialogTrigger >
                 {" "}
                 <Button
-                  className="bg-cyan-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4"
+                  className="bg-cyan-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4 drop-shadow-md h-11"
                   >
                   + Add New Entry
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-3xl" style={{ display: "block" }}>
+              <DialogContent className="max-w-4xl" style={{ display: "block" }}>
                 <DialogHeader>
                   <DialogTitle>
-                    <p className="text-1xl pb-1 text-center mt-5">
+                    <p className="text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold">
                       QC Online Test
                     </p>
                   </DialogTitle>
@@ -181,7 +181,7 @@ const QCOnline = () => {
                     value={section}
                     onValueChange={(value) => setSection(value)}
                     required={true}>
-                    <SelectTrigger className="w-2/4 justify-center bg-cyan-100">
+                    <SelectTrigger className="w-2/4 justify-center bg-cyan-100 ">
                       <SelectValue placeholder="Section Name" />
                     </SelectTrigger>
                     <SelectContent>
@@ -220,7 +220,7 @@ const QCOnline = () => {
               value={tablesection}
               onValueChange={(value) => setTablesection(value)}
               required={true}>
-              <SelectTrigger className="w-40 justify-center h-10">
+              <SelectTrigger className="w-40 justify-center h-10 drop-shadow-lg bg-yellow-100 font-bold border">
                 <SelectValue placeholder="Section Name" />
               </SelectTrigger>
               <SelectContent>

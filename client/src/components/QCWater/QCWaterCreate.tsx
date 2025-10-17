@@ -204,10 +204,10 @@ const QCWaterCreate = () => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl. No.</TableHead>
+                                <TableHead className="text-center" >Sl_No</TableHead>
                                 <TableHead className="text-center" >Boiler_Type</TableHead>
-                                <TableHead className="text-center" >PH</TableHead>
-                                <TableHead className="text-center" >TDS</TableHead>
+                                <TableHead className="text-center" >Water_PH</TableHead>
+                                <TableHead className="text-center" >Water_TDS</TableHead>
                                 <TableHead className="text-center" >BlownDown_Time_Day_Shift</TableHead>
                                 <TableHead className="text-center" >BlownDown_Time_Night_Shift</TableHead>
                                 <TableHead className="text-center" >Water_Reading</TableHead>

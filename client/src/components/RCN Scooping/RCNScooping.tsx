@@ -88,25 +88,25 @@ const RCNScooping = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-red-400">
-                        Issue DNW  <br /><p> A <br />{data.data[0].WholesA && data.data[0].BrokenA ? formatNumber(Number(data.data[0].WholesA) + Number(data.data[0].BrokenA)) : 0} Kg</p>
+                        A <br /><p> {data.data[0].WholesA && data.data[0].BrokenA ? formatNumber(Number(data.data[0].WholesA) + Number(data.data[0].BrokenA)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-slate-400 hover:bg-slate-500">
-                    Issue DNW  <br /><p>B<br /> {data.data[0].WholesB && data.data[0].BrokenB ? formatNumber(Number(data.data[0].WholesB) + Number(data.data[0].BrokenB)) : 0} Kg</p>
+                    B<p>{data.data[0].WholesB && data.data[0].BrokenB ? formatNumber(Number(data.data[0].WholesB) + Number(data.data[0].BrokenB)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
-                    Issue DNW <br /><p>C<br />{data.data[0].WholesC && data.data[0].BrokenC ? formatNumber(Number(data.data[0].WholesC) + Number(data.data[0].BrokenC)) : 0} Kg</p>
+                   C<p>{data.data[0].WholesC && data.data[0].BrokenC ? formatNumber(Number(data.data[0].WholesC) + Number(data.data[0].BrokenC)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
-                    Issue DNW  <br /><p>D<br />{data.data[0].WholesD && data.data[0].BrokenD ? formatNumber(Number(data.data[0].WholesD) + Number(data.data[0].BrokenD)) : 0} Kg</p>
+                    D<p>{data.data[0].WholesD && data.data[0].BrokenD ? formatNumber(Number(data.data[0].WholesD) + Number(data.data[0].BrokenD)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-green-400">
-                    Issue DNW  <br /><p>E<br />{data.data[0].WholesE && data.data[0].BrokenE ? formatNumber(Number(data.data[0].WholesE) + Number(data.data[0].BrokenE)) : 0} Kg</p>
+                    E<p>{data.data[0].WholesE && data.data[0].BrokenE ? formatNumber(Number(data.data[0].WholesE) + Number(data.data[0].BrokenE)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                    Issue DNW <br /><p>F<br />{data.data[0].WholesF && data.data[0].BrokenF ? formatNumber(Number(data.data[0].WholesF) + Number(data.data[0].BrokenF)) : 0} Kg</p>
+                   F<p>{data.data[0].WholesF && data.data[0].BrokenF ? formatNumber(Number(data.data[0].WholesF) + Number(data.data[0].BrokenF)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
-                    Issue DNW  <br /><p>G<br />{data.data[0].WholesG && data.data[0].BrokenG ? formatNumber(Number(data.data[0].WholesG) + Number(data.data[0].BrokenG)) : 0} Kg</p>
+                    G<p>{data.data[0].WholesG && data.data[0].BrokenG ? formatNumber(Number(data.data[0].WholesG) + Number(data.data[0].BrokenG)) : 0} Kg</p>
                     </div>
 
 
@@ -115,13 +115,13 @@ const RCNScooping = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg text-center py-1 '>CURRENT FY : {FY} REPORT (SCOOPING)</p>
+                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>CURRENT FY : {FY} WHOLES AND BROKEN REPORT (SCOOPING)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-2xl'>
+                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Scooping Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Scooping Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
@@ -130,7 +130,7 @@ const RCNScooping = () => {
                     </Dialog>
 
 
-                    {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData === 0 ? true : false}> Pending Edit ({data.EditData})</Button> : null)}
+                    {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.EditData === 0 ? true : false}> Pending Edit ({data.EditData})</Button> : null)}
 
                 </div>
                 <RCNScoopingTable />

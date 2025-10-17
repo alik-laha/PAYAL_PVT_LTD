@@ -73,7 +73,7 @@ const WholesTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editWholesLotWiseData } = useContext(Context);
     const [Data, setData] = useState<WholesData[]>([])
-      const dropdown = ['LOT', 'V-LOT']
+      const dropdown = ['LOT', 'V-LOT','R-LOT']
             const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
@@ -116,6 +116,554 @@ const WholesTable = () => {
             toDate: todate,
             origin: origin,
             type:'LOT'
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: any[] = [];
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: WholesData, idx: number) => ({
+                Sl_No: idx + 1,
+                Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                Wholes_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+                Receive_pw_210: item.rcv_pw_210,
+                Receive_w_210: item.rcv_w_210,
+                Receive_ww_210: item.rcv_ww_210,
+                Receive_pw_240: item.rcv_pw_240,
+                Receive_w_240: item.rcv_w_240,
+                Receive_ww_240: item.rcv_ww_240,
+                Receive_pw_280: item.rcv_pw_280,
+                Receive_w_280: item.rcv_w_280,
+                Receive_ww_280: item.rcv_ww_280,
+                Receive_pw_320: item.rcv_pw_320,
+                Receive_w_320: item.rcv_w_320,
+                Receive_ww_320: item.rcv_ww_320,
+                Receive_pw_360: item.rcv_pw_360,
+                Receive_w_360: item.rcv_w_360,
+                Receive_ww_360: item.rcv_ww_360,
+                Receive_pw_400: item.rcv_pw_400,
+                Receive_w_400: item.rcv_w_400,
+                Receive_ww_400: item.rcv_ww_400,
+                Receive_jb_mayur: item.rcv_jb_mayur,
+                Receive_jb_hamsa: item.rcv_jb_hamsa,
+                Receive_Total: formatNumber((parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                    + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                    + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                    + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                    + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                    + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                    + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa) + parseFloat((item.issue_add_2))).toString()),
+                Receive_Total_Borma: formatNumber((parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                    + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                    + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                    + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                    + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                    + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                    + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)).toString()),
+                Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Borma_Loss_Percentage: formatNumber((((Number(item.issue_add_2))/(parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)))*100).toString()),
+                Issue_pw_150: formatNumber(item.issue_pw_150),
+                Issue_w_150: formatNumber(item.issue_w_150),
+                Issue_ww_150: formatNumber(item.issue_ww_150),
+                Issue_s_150: formatNumber(item.issue_s_150),
+                Issue_aw_150: formatNumber(item.issue_aw_150),
+                Issue_lw_150: formatNumber(item.issue_lw_150),
+                Issue_pw_180: formatNumber(item.issue_pw_180),
+                Issue_w_180: formatNumber(item.issue_w_180),
+                Issue_ww_180: formatNumber(item.issue_ww_180),
+                Issue_s_180: formatNumber(item.issue_s_180),
+                Issue_aw_180: formatNumber(item.issue_aw_180),
+                Issue_lw_180: formatNumber(item.issue_lw_180),
+                Issue_pw_210: formatNumber(item.issue_pw_210),
+                Issue_w_210: formatNumber(item.issue_w_210),
+                Issue_ww_210: formatNumber(item.issue_ww_210),
+                Issue_s_210: formatNumber(item.issue_s_210),
+                Issue_aw_210: formatNumber(item.issue_aw_210),
+                Issue_lw_210: formatNumber(item.issue_lw_210),
+                Issue_pw_240: formatNumber(item.issue_pw_240),
+                Issue_w_240: formatNumber(item.issue_w_240),
+                Issue_ww_240: formatNumber(item.issue_ww_240),
+                Issue_ww_240_A: formatNumber(item.issue_ww_240_A),
+                Issue_aw_240: formatNumber(item.issue_aw_240),
+                Issue_lw_240: formatNumber(item.issue_lw_240),
+                Issue_pw_280: formatNumber(item.issue_pw_280),
+                Issue_w_280: formatNumber(item.issue_w_280),
+                Issue_ww_280: formatNumber(item.issue_ww_280),
+                Issue_ww_280_A: formatNumber(item.issue_ww_280_A),
+                Issue_aw_280: formatNumber(item.issue_aw_280),
+                Issue_lw_280: formatNumber(item.issue_lw_280),
+                Wholes_double: formatNumber(item.wholes_double),
+                Issue_pw_320: formatNumber(item.issue_pw_320),
+                Issue_w_320: formatNumber(item.issue_w_320),
+                Issue_ww_320: formatNumber(item.issue_ww_320),
+                Issue_ww_320_A: formatNumber(item.issue_ww_320_A),
+                Issue_aw_320: formatNumber(item.issue_aw_320),
+                Issue_lw_320: formatNumber(item.issue_lw_320),
+                Issue_pw_360: formatNumber(item.issue_pw_360),
+                Issue_w_360: formatNumber(item.issue_w_360),
+                Issue_ww_360: formatNumber(item.issue_ww_360),
+                Issue_ww_360_A: formatNumber(item.issue_ww_360_A),
+                Issue_aw_360: formatNumber(item.issue_aw_360),
+                Issue_lw_360: formatNumber(item.issue_lw_360),
+                Issue_pw_400: formatNumber(item.issue_pw_400),
+                Issue_w_400: formatNumber(item.issue_w_400),
+                Issue_ww_400: formatNumber(item.issue_ww_400),
+                Issue_ww_400_A: formatNumber(item.issue_ww_400_A),
+                Issue_aw_400: formatNumber(item.issue_aw_400),
+                Issue_lw_400: formatNumber(item.issue_lw_400),
+                Issue_jjb: formatNumber(item.issue_jjb),
+                Issue_jjb1: formatNumber(item.issue_jjb1),
+                Issue_payal_240: formatNumber(item.issue_payal_240),
+                Issue_payal_400: formatNumber(item.issue_payal_400),
+                Issue_e_320_lot: formatNumber(item.issue_e_320_lot),
+                Issue_e_400_lot: formatNumber(item.issue_e_400_lot),
+                Issue_in_w_240: formatNumber(item.issue_in_w_240),
+                Issue_in_w_320: formatNumber(item.issue_in_w_320),
+                Issue_in_w_400: formatNumber(item.issue_in_w_400),
+
+                Issue_a_150: formatNumber(item.issue_a_150),
+                Issue_c_150: formatNumber(item.issue_c_150),
+                Issue_e_150: formatNumber(item.issue_e_150),
+                Issue_sw_150: formatNumber(item.issue_sw_150),
+                Issue_ssw_150: formatNumber(item.issue_ssw_150),
+                Issue_k_150: formatNumber(item.issue_k_150),
+
+                Issue_a_180: formatNumber(item.issue_a_180),
+                Issue_c_180: formatNumber(item.issue_c_180),
+                Issue_e_180: formatNumber(item.issue_e_180),
+                Issue_sw_180: formatNumber(item.issue_sw_180),
+                Issue_ssw_180: formatNumber(item.issue_ssw_180),
+                Issue_k_180: formatNumber(item.issue_k_180),
+
+                Issue_a_210: formatNumber(item.issue_a_210),
+                Issue_c_210: formatNumber(item.issue_c_210),
+                Issue_e_210: formatNumber(item.issue_e_210),
+                Issue_sw_210: formatNumber(item.issue_sw_210),
+                Issue_ssw_210: formatNumber(item.issue_ssw_210),
+                Issue_k_210: formatNumber(item.issue_k_210),
+
+                Issue_a_240: formatNumber(item.issue_a_240),
+                Issue_c_240: formatNumber(item.issue_c_240),
+                Issue_e_240: formatNumber(item.issue_e_240),
+                Issue_sw_240: formatNumber(item.issue_sw_240),
+                Issue_ssw_240: formatNumber(item.issue_ssw_240),
+                Issue_k_240: formatNumber(item.issue_k_240),
+
+                Issue_a_280: formatNumber(item.issue_a_280),
+                Issue_c_280: formatNumber(item.issue_c_280),
+                Issue_e_280: formatNumber(item.issue_e_280),
+                Issue_sw_280: formatNumber(item.issue_sw_280),
+                Issue_ssw_280: formatNumber(item.issue_ssw_280),
+                Issue_k_280: formatNumber(item.issue_k_280),
+
+                Issue_a_320: formatNumber(item.issue_a_320),
+                Issue_c_320: formatNumber(item.issue_c_320),
+                Issue_e_320: formatNumber(item.issue_e_320),
+                Issue_sw_320: formatNumber(item.issue_sw_320),
+                Issue_ssw_320: formatNumber(item.issue_ssw_320),
+                Issue_k_320: formatNumber(item.issue_k_320),
+
+                Issue_a_360: formatNumber(item.issue_a_360),
+                Issue_c_360: formatNumber(item.issue_c_360),
+                Issue_e_360: formatNumber(item.issue_e_360),
+                Issue_sw_360: formatNumber(item.issue_sw_360),
+                Issue_ssw_360: formatNumber(item.issue_ssw_360),
+                Issue_k_360: formatNumber(item.issue_k_360),
+
+                Issue_a_400: formatNumber(item.issue_a_400),
+                Issue_c_400: formatNumber(item.issue_c_400),
+                Issue_e_400: formatNumber(item.issue_e_400),
+                Issue_sw_400: formatNumber(item.issue_sw_400),
+                Issue_ssw_400: formatNumber(item.issue_ssw_400),
+                Issue_k_400: formatNumber(item.issue_k_400),
+                Issue_rejection: formatNumber(item.issue_rejection),
+                Issue_village: formatNumber(item.issue_village),
+                Issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                Issue_lw: formatNumber(item.issue_lw),
+                Issue_Packing: formatNumber((parseFloat(item.issue_pw_150) + parseFloat(item.issue_w_150) + parseFloat(item.issue_ww_150)
+                    + parseFloat(item.issue_s_150) + parseFloat(item.issue_aw_150) + parseFloat(item.issue_lw_150)
+                    + parseFloat(item.issue_pw_180) + parseFloat(item.issue_w_180) + parseFloat(item.issue_ww_180)
+                    + parseFloat(item.issue_s_180) + parseFloat(item.issue_aw_180) + parseFloat(item.issue_lw_180)
+                    + parseFloat(item.issue_pw_210) + parseFloat(item.issue_w_210) + parseFloat(item.issue_ww_210)
+                    + parseFloat(item.issue_s_210) + parseFloat(item.issue_aw_210) + parseFloat(item.issue_lw_210)
+                    + parseFloat(item.issue_pw_240) + parseFloat(item.issue_w_240) + parseFloat(item.issue_ww_240)
+                    + parseFloat(item.issue_ww_240_A) + parseFloat(item.issue_aw_240) + parseFloat(item.issue_lw_240)
+                    + parseFloat(item.issue_pw_280) + parseFloat(item.issue_w_280) + parseFloat(item.issue_ww_280)
+                    + parseFloat(item.issue_ww_280_A) + parseFloat(item.issue_aw_280) + parseFloat(item.issue_lw_280)
+                    + parseFloat(item.wholes_double) + parseFloat(item.issue_pw_320) + parseFloat(item.issue_w_320)
+                    + parseFloat(item.issue_ww_320) + parseFloat(item.issue_ww_320_A) + parseFloat(item.issue_aw_320)
+                    + parseFloat(item.issue_lw_320) + parseFloat(item.issue_pw_360) + parseFloat(item.issue_w_360)
+                    + parseFloat(item.issue_ww_360) + parseFloat(item.issue_ww_360_A) + parseFloat(item.issue_aw_360)
+                    + parseFloat(item.issue_lw_360) + parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400)
+                    + parseFloat(item.issue_ww_400) + parseFloat(item.issue_ww_400_A) + parseFloat(item.issue_aw_400) + parseFloat(item.issue_lw_400)
+                    +parseFloat(item.issue_payal_240) +
+                    parseFloat(item.issue_payal_400) +
+                    parseFloat(item.issue_e_320_lot) +
+                    parseFloat(item.issue_e_400_lot) +
+                    parseFloat(item.issue_in_w_240) +
+                    parseFloat(item.issue_in_w_320) +
+                    parseFloat(item.issue_in_w_400) +
+                    
+                    parseFloat(item.issue_a_150) +
+                    parseFloat(item.issue_c_150) +
+                    parseFloat(item.issue_e_150) +
+                    parseFloat(item.issue_sw_150) +
+                    parseFloat(item.issue_ssw_150) +
+                    parseFloat(item.issue_k_150) +
+                    
+                    parseFloat(item.issue_a_180) +
+                    parseFloat(item.issue_c_180) +
+                    parseFloat(item.issue_e_180) +
+                    parseFloat(item.issue_sw_180) +
+                    parseFloat(item.issue_ssw_180) +
+                    parseFloat(item.issue_k_180) +
+                    
+                    parseFloat(item.issue_a_210) +
+                    parseFloat(item.issue_c_210) +
+                    parseFloat(item.issue_e_210) +
+                    parseFloat(item.issue_sw_210) +
+                    parseFloat(item.issue_ssw_210) +
+                    parseFloat(item.issue_k_210) +
+                    
+                    parseFloat(item.issue_a_240) +
+                    parseFloat(item.issue_c_240) +
+                    parseFloat(item.issue_e_240) +
+                    parseFloat(item.issue_sw_240) +
+                    parseFloat(item.issue_ssw_240) +
+                    parseFloat(item.issue_k_240) +
+                    
+                    parseFloat(item.issue_a_280) +
+                    parseFloat(item.issue_c_280) +
+                    parseFloat(item.issue_e_280) +
+                    parseFloat(item.issue_sw_280) +
+                    parseFloat(item.issue_ssw_280) +
+                    parseFloat(item.issue_k_280) +
+                    
+                    parseFloat(item.issue_a_320) +
+                    parseFloat(item.issue_c_320) +
+                    parseFloat(item.issue_e_320) +
+                    parseFloat(item.issue_sw_320) +
+                    parseFloat(item.issue_ssw_320) +
+                    parseFloat(item.issue_k_320) +
+                    
+                    parseFloat(item.issue_a_360) +
+                    parseFloat(item.issue_c_360) +
+                    parseFloat(item.issue_e_360) +
+                    parseFloat(item.issue_sw_360) +
+                    parseFloat(item.issue_ssw_360) +
+                    parseFloat(item.issue_k_360) +
+                    
+                    parseFloat(item.issue_a_400) +
+                    parseFloat(item.issue_c_400) +
+                    parseFloat(item.issue_e_400) +
+                    parseFloat(item.issue_sw_400) +
+                    parseFloat(item.issue_ssw_400) +
+                    parseFloat(item.issue_k_400)+ parseFloat(item.issue_jjb)+ parseFloat(item.issue_jjb1)).toString()),
+                Issue_Village: formatNumber(item.issue_village),
+                Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
+                Issue_LW: formatNumber(item.issue_lw),
+                Issue_Rejection: formatNumber(item.issue_rejection),
+
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+                Operator_Day: item.noOfdayOperators,
+                Operator_Night: item.noOfnightOperators,
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Modified_By: item.modifiedBy
+
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: WholesData, idx: number) => ({
+                Sl_No: idx + 1,
+                Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                Wholes_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+                Receive_pw_210: item.rcv_pw_210,
+                Receive_w_210: item.rcv_w_210,
+                Receive_ww_210: item.rcv_ww_210,
+                Receive_pw_240: item.rcv_pw_240,
+                Receive_w_240: item.rcv_w_240,
+                Receive_ww_240: item.rcv_ww_240,
+                Receive_pw_280: item.rcv_pw_280,
+                Receive_w_280: item.rcv_w_280,
+                Receive_ww_280: item.rcv_ww_280,
+                Receive_pw_320: item.rcv_pw_320,
+                Receive_w_320: item.rcv_w_320,
+                Receive_ww_320: item.rcv_ww_320,
+                Receive_pw_360: item.rcv_pw_360,
+                Receive_w_360: item.rcv_w_360,
+                Receive_ww_360: item.rcv_ww_360,
+                Receive_pw_400: item.rcv_pw_400,
+                Receive_w_400: item.rcv_w_400,
+                Receive_ww_400: item.rcv_ww_400,
+                Receive_jb_mayur: item.rcv_jb_mayur,
+                Receive_jb_hamsa: item.rcv_jb_hamsa,
+                Receive_Total: formatNumber((parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                    + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                    + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                    + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                    + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                    + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                    + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa) + parseFloat((item.issue_add_2))).toString()),
+                Receive_Total_Borma: formatNumber((parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                    + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                    + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                    + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                    + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                    + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                    + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)).toString()),
+                Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Borma_Loss_Percentage: formatNumber((((Number(item.issue_add_2))/(parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)))*100).toString()),
+                Issue_pw_150: formatNumber(item.issue_pw_150),
+                Issue_w_150: formatNumber(item.issue_w_150),
+                Issue_ww_150: formatNumber(item.issue_ww_150),
+                Issue_s_150: formatNumber(item.issue_s_150),
+                Issue_aw_150: formatNumber(item.issue_aw_150),
+                Issue_lw_150: formatNumber(item.issue_lw_150),
+                Issue_pw_180: formatNumber(item.issue_pw_180),
+                Issue_w_180: formatNumber(item.issue_w_180),
+                Issue_ww_180: formatNumber(item.issue_ww_180),
+                Issue_s_180: formatNumber(item.issue_s_180),
+                Issue_aw_180: formatNumber(item.issue_aw_180),
+                Issue_lw_180: formatNumber(item.issue_lw_180),
+                Issue_pw_210: formatNumber(item.issue_pw_210),
+                Issue_w_210: formatNumber(item.issue_w_210),
+                Issue_ww_210: formatNumber(item.issue_ww_210),
+                Issue_s_210: formatNumber(item.issue_s_210),
+                Issue_aw_210: formatNumber(item.issue_aw_210),
+                Issue_lw_210: formatNumber(item.issue_lw_210),
+                Issue_pw_240: formatNumber(item.issue_pw_240),
+                Issue_w_240: formatNumber(item.issue_w_240),
+                Issue_ww_240: formatNumber(item.issue_ww_240),
+                Issue_ww_240_A: formatNumber(item.issue_ww_240_A),
+                Issue_aw_240: formatNumber(item.issue_aw_240),
+                Issue_lw_240: formatNumber(item.issue_lw_240),
+                Issue_pw_280: formatNumber(item.issue_pw_280),
+                Issue_w_280: formatNumber(item.issue_w_280),
+                Issue_ww_280: formatNumber(item.issue_ww_280),
+                Issue_ww_280_A: formatNumber(item.issue_ww_280_A),
+                Issue_aw_280: formatNumber(item.issue_aw_280),
+                Issue_lw_280: formatNumber(item.issue_lw_280),
+                Wholes_double: formatNumber(item.wholes_double),
+                Issue_pw_320: formatNumber(item.issue_pw_320),
+                Issue_w_320: formatNumber(item.issue_w_320),
+                Issue_ww_320: formatNumber(item.issue_ww_320),
+                Issue_ww_320_A: formatNumber(item.issue_ww_320_A),
+                Issue_aw_320: formatNumber(item.issue_aw_320),
+                Issue_lw_320: formatNumber(item.issue_lw_320),
+                Issue_pw_360: formatNumber(item.issue_pw_360),
+                Issue_w_360: formatNumber(item.issue_w_360),
+                Issue_ww_360: formatNumber(item.issue_ww_360),
+                Issue_ww_360_A: formatNumber(item.issue_ww_360_A),
+                Issue_aw_360: formatNumber(item.issue_aw_360),
+                Issue_lw_360: formatNumber(item.issue_lw_360),
+                Issue_pw_400: formatNumber(item.issue_pw_400),
+                Issue_w_400: formatNumber(item.issue_w_400),
+                Issue_ww_400: formatNumber(item.issue_ww_400),
+                Issue_ww_400_A: formatNumber(item.issue_ww_400_A),
+                Issue_aw_400: formatNumber(item.issue_aw_400),
+                Issue_lw_400: formatNumber(item.issue_lw_400),
+                Issue_jjb: formatNumber(item.issue_jjb),
+                Issue_jjb1: formatNumber(item.issue_jjb1),
+                Issue_payal_240: formatNumber(item.issue_payal_240),
+                Issue_payal_400: formatNumber(item.issue_payal_400),
+                Issue_e_320_lot: formatNumber(item.issue_e_320_lot),
+                Issue_e_400_lot: formatNumber(item.issue_e_400_lot),
+                Issue_in_w_240: formatNumber(item.issue_in_w_240),
+                Issue_in_w_320: formatNumber(item.issue_in_w_320),
+                Issue_in_w_400: formatNumber(item.issue_in_w_400),
+
+                Issue_a_150: formatNumber(item.issue_a_150),
+                Issue_c_150: formatNumber(item.issue_c_150),
+                Issue_e_150: formatNumber(item.issue_e_150),
+                Issue_sw_150: formatNumber(item.issue_sw_150),
+                Issue_ssw_150: formatNumber(item.issue_ssw_150),
+                Issue_k_150: formatNumber(item.issue_k_150),
+
+                Issue_a_180: formatNumber(item.issue_a_180),
+                Issue_c_180: formatNumber(item.issue_c_180),
+                Issue_e_180: formatNumber(item.issue_e_180),
+                Issue_sw_180: formatNumber(item.issue_sw_180),
+                Issue_ssw_180: formatNumber(item.issue_ssw_180),
+                Issue_k_180: formatNumber(item.issue_k_180),
+
+                Issue_a_210: formatNumber(item.issue_a_210),
+                Issue_c_210: formatNumber(item.issue_c_210),
+                Issue_e_210: formatNumber(item.issue_e_210),
+                Issue_sw_210: formatNumber(item.issue_sw_210),
+                Issue_ssw_210: formatNumber(item.issue_ssw_210),
+                Issue_k_210: formatNumber(item.issue_k_210),
+
+                Issue_a_240: formatNumber(item.issue_a_240),
+                Issue_c_240: formatNumber(item.issue_c_240),
+                Issue_e_240: formatNumber(item.issue_e_240),
+                Issue_sw_240: formatNumber(item.issue_sw_240),
+                Issue_ssw_240: formatNumber(item.issue_ssw_240),
+                Issue_k_240: formatNumber(item.issue_k_240),
+
+                Issue_a_280: formatNumber(item.issue_a_280),
+                Issue_c_280: formatNumber(item.issue_c_280),
+                Issue_e_280: formatNumber(item.issue_e_280),
+                Issue_sw_280: formatNumber(item.issue_sw_280),
+                Issue_ssw_280: formatNumber(item.issue_ssw_280),
+                Issue_k_280: formatNumber(item.issue_k_280),
+
+                Issue_a_320: formatNumber(item.issue_a_320),
+                Issue_c_320: formatNumber(item.issue_c_320),
+                Issue_e_320: formatNumber(item.issue_e_320),
+                Issue_sw_320: formatNumber(item.issue_sw_320),
+                Issue_ssw_320: formatNumber(item.issue_ssw_320),
+                Issue_k_320: formatNumber(item.issue_k_320),
+
+                Issue_a_360: formatNumber(item.issue_a_360),
+                Issue_c_360: formatNumber(item.issue_c_360),
+                Issue_e_360: formatNumber(item.issue_e_360),
+                Issue_sw_360: formatNumber(item.issue_sw_360),
+                Issue_ssw_360: formatNumber(item.issue_ssw_360),
+                Issue_k_360: formatNumber(item.issue_k_360),
+
+                Issue_a_400: formatNumber(item.issue_a_400),
+                Issue_c_400: formatNumber(item.issue_c_400),
+                Issue_e_400: formatNumber(item.issue_e_400),
+                Issue_sw_400: formatNumber(item.issue_sw_400),
+                Issue_ssw_400: formatNumber(item.issue_ssw_400),
+                Issue_k_400: formatNumber(item.issue_k_400),
+                Issue_rejection: formatNumber(item.issue_rejection),
+                Issue_village: formatNumber(item.issue_village),
+                Issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                Issue_lw: formatNumber(item.issue_lw),
+                Issue_Packing: formatNumber((parseFloat(item.issue_pw_150) + parseFloat(item.issue_w_150) + parseFloat(item.issue_ww_150)
+                    + parseFloat(item.issue_s_150) + parseFloat(item.issue_aw_150) + parseFloat(item.issue_lw_150)
+                    + parseFloat(item.issue_pw_180) + parseFloat(item.issue_w_180) + parseFloat(item.issue_ww_180)
+                    + parseFloat(item.issue_s_180) + parseFloat(item.issue_aw_180) + parseFloat(item.issue_lw_180)
+                    + parseFloat(item.issue_pw_210) + parseFloat(item.issue_w_210) + parseFloat(item.issue_ww_210)
+                    + parseFloat(item.issue_s_210) + parseFloat(item.issue_aw_210) + parseFloat(item.issue_lw_210)
+                    + parseFloat(item.issue_pw_240) + parseFloat(item.issue_w_240) + parseFloat(item.issue_ww_240)
+                    + parseFloat(item.issue_ww_240_A) + parseFloat(item.issue_aw_240) + parseFloat(item.issue_lw_240)
+                    + parseFloat(item.issue_pw_280) + parseFloat(item.issue_w_280) + parseFloat(item.issue_ww_280)
+                    + parseFloat(item.issue_ww_280_A) + parseFloat(item.issue_aw_280) + parseFloat(item.issue_lw_280)
+                    + parseFloat(item.wholes_double) + parseFloat(item.issue_pw_320) + parseFloat(item.issue_w_320)
+                    + parseFloat(item.issue_ww_320) + parseFloat(item.issue_ww_320_A) + parseFloat(item.issue_aw_320)
+                    + parseFloat(item.issue_lw_320) + parseFloat(item.issue_pw_360) + parseFloat(item.issue_w_360)
+                    + parseFloat(item.issue_ww_360) + parseFloat(item.issue_ww_360_A) + parseFloat(item.issue_aw_360)
+                    + parseFloat(item.issue_lw_360) + parseFloat(item.issue_pw_400) + parseFloat(item.issue_w_400)
+                    + parseFloat(item.issue_ww_400) + parseFloat(item.issue_ww_400_A) + parseFloat(item.issue_aw_400) + parseFloat(item.issue_lw_400)
+                    +parseFloat(item.issue_payal_240) +
+                    parseFloat(item.issue_payal_400) +
+                    parseFloat(item.issue_e_320_lot) +
+                    parseFloat(item.issue_e_400_lot) +
+                    parseFloat(item.issue_in_w_240) +
+                    parseFloat(item.issue_in_w_320) +
+                    parseFloat(item.issue_in_w_400) +
+                    
+                    parseFloat(item.issue_a_150) +
+                    parseFloat(item.issue_c_150) +
+                    parseFloat(item.issue_e_150) +
+                    parseFloat(item.issue_sw_150) +
+                    parseFloat(item.issue_ssw_150) +
+                    parseFloat(item.issue_k_150) +
+                    
+                    parseFloat(item.issue_a_180) +
+                    parseFloat(item.issue_c_180) +
+                    parseFloat(item.issue_e_180) +
+                    parseFloat(item.issue_sw_180) +
+                    parseFloat(item.issue_ssw_180) +
+                    parseFloat(item.issue_k_180) +
+                    
+                    parseFloat(item.issue_a_210) +
+                    parseFloat(item.issue_c_210) +
+                    parseFloat(item.issue_e_210) +
+                    parseFloat(item.issue_sw_210) +
+                    parseFloat(item.issue_ssw_210) +
+                    parseFloat(item.issue_k_210) +
+                    
+                    parseFloat(item.issue_a_240) +
+                    parseFloat(item.issue_c_240) +
+                    parseFloat(item.issue_e_240) +
+                    parseFloat(item.issue_sw_240) +
+                    parseFloat(item.issue_ssw_240) +
+                    parseFloat(item.issue_k_240) +
+                    
+                    parseFloat(item.issue_a_280) +
+                    parseFloat(item.issue_c_280) +
+                    parseFloat(item.issue_e_280) +
+                    parseFloat(item.issue_sw_280) +
+                    parseFloat(item.issue_ssw_280) +
+                    parseFloat(item.issue_k_280) +
+                    
+                    parseFloat(item.issue_a_320) +
+                    parseFloat(item.issue_c_320) +
+                    parseFloat(item.issue_e_320) +
+                    parseFloat(item.issue_sw_320) +
+                    parseFloat(item.issue_ssw_320) +
+                    parseFloat(item.issue_k_320) +
+                    
+                    parseFloat(item.issue_a_360) +
+                    parseFloat(item.issue_c_360) +
+                    parseFloat(item.issue_e_360) +
+                    parseFloat(item.issue_sw_360) +
+                    parseFloat(item.issue_ssw_360) +
+                    parseFloat(item.issue_k_360) +
+                    
+                    parseFloat(item.issue_a_400) +
+                    parseFloat(item.issue_c_400) +
+                    parseFloat(item.issue_e_400) +
+                    parseFloat(item.issue_sw_400) +
+                    parseFloat(item.issue_ssw_400) +
+                    parseFloat(item.issue_k_400)+ parseFloat(item.issue_jjb)+ parseFloat(item.issue_jjb1)).toString()),
+                Issue_Village: formatNumber(item.issue_village),
+                Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
+                Issue_LW: formatNumber(item.issue_lw),
+                Issue_Rejection: formatNumber(item.issue_rejection),
+
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+                Operator_Day: item.noOfdayOperators,
+                Operator_Night: item.noOfnightOperators,
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Modified_By: item.modifiedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Wholes_Entry_' + currDate + '.xlsx');
+              }
+              else if (searchType === 'R-LOT') {
+                 const response = await axios.put('/api/wholes/wholesprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'RLOT'
         })
         const data1 = await response.data
 
@@ -1233,6 +1781,28 @@ const WholesTable = () => {
         }
         setData(data.rcnEntries)
               }
+              else if (searchType === 'R-LOT') {
+                 const response = await axios.put('/api/wholes/wholesprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'RLOT'
+
+
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+              }
               else{
                   const response = await axios.put('/api/wholes/wholesprimarysearch', {
             searchitem: blConNo,
@@ -2315,7 +2885,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Wholes Entry Modification</p>
+                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Wholes Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <WholesEditForm borma={[item]} />
@@ -2329,7 +2899,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Wholes Entry Reissue</p>
+                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Wholes Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNWholesReCreateForm borma={[item]} />
@@ -2344,7 +2914,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                    <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Lot No : {item.LotNo} ({item.origin})</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNWholesReMix borma={item} />

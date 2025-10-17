@@ -48,12 +48,12 @@ const Machine = () => {
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Asset</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-green-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-lg">+ Add New Asset</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Machine Creation</p></DialogTitle>
+                            <DialogTitle><p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl font-bold'>New Machine Creation</p></DialogTitle>
                             <DialogDescription>
-                                <p className='text-1xl text-center'>To Be Filled Up By Admin</p>
+                                <p className='text-1xl text-center pb-3'>To Be Filled Up By Admin</p>
                             </DialogDescription>
                         </DialogHeader>
 

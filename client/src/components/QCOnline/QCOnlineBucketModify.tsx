@@ -42,7 +42,7 @@ const ModifyBucket = ({ data }: Props) => {
 
   const [maintenanceStatus, setMaintenanceStatus] = useState<string>("")
   const [maintenanceRemarks, setMaintenanceRemarks] = useState<string>("")
-
+  const [Remarks, setRemarks] = useState<string>("")
   const [date, setDate] = useState<string>("")
   const [time, setTime] = useState<string>("")
 
@@ -68,6 +68,7 @@ const ModifyBucket = ({ data }: Props) => {
       setPktQualityRemarks(data.pktQualityRemarks || "")
       setCleaningStatus(data.cleaningStatus || "")
       setCleanRemarks(data.cleanRemarks || "")
+      setRemarks(data.Remarks || "")
       setMaintenanceStatus(data.maintainance || "")
       setMaintenanceRemarks(data.maintainanceRemarks || "")
       setDate(data.date?.slice(0, 10) || "")
@@ -89,7 +90,7 @@ const ModifyBucket = ({ data }: Props) => {
       avgWeight,
       date,
       time,
-      pktQuality,
+      pktQuality,Remarks,
       pktQualityRemarks: pktQuality === "NOT OK" ? pktQualityRemarks : "",
       cleaningStatus,
       cleanRemarks: cleaningStatus === "NOT OK" ? cleanRemarks : "",
@@ -369,6 +370,16 @@ const ModifyBucket = ({ data }: Props) => {
               />
             </div>
           )}
+
+           <div className="flex">
+              <Label className="w-2/4 pt-1">Remarks</Label>
+              <Textarea
+                className="w-2/4 text-center"
+                value={Remarks}
+                onChange={(e) => setRemarks(e.target.value)}
+                
+              />
+            </div>
 
           <Button className="bg-blue-500 mt-4 mx-20" disabled={isdisable}>
             {isdisable ? "Updating..." : "Update"}

@@ -119,16 +119,16 @@ const PackingCreateForm = (props: any) => {
                     <Input className="w-2/4  text-center font-semibold bg-yellow-100" placeholder="Origin" value={noOfSystemBags.toFixed(2)} readOnly />
                 </div>
                 <div className="flex"><Label className="w-2/4 mt-2" >Manufacturing Date</Label>
-                <Input className="w-2/4 text-center justify-center" placeholder="Mfg Date" value={mfgDate} onChange={(e) => setMfgDate(e.target.value)} type="date"/> </div>
+                <Input className="w-2/4 text-center justify-center" placeholder="Mfg Date" value={mfgDate} onChange={(e) => setMfgDate(e.target.value)} type="date" required/> </div>
              
 
  <div className="flex">
                     <Label className="w-2/4 mt-2">Physical Bucket/Bag Count</Label>
-                    <Input className="w-2/4 text-center " placeholder="Bucket / Bag" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
+                    <Input className="w-2/4 text-center " placeholder="Bucket / Bag" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} required/>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Unique Batch No. </Label>
-                    <Input className="w-2/4 text-center " placeholder="xxxx-yyyy-zzzz"  value={batchID} onChange={(e) => setBatchID(e.target.value)} />
+                    <Input className="w-2/4 text-center " placeholder="xxxx-yyyy-zzzz"  value={batchID} onChange={(e) => setBatchID(e.target.value)} required/>
                 </div>
 
                 <div className="flex">

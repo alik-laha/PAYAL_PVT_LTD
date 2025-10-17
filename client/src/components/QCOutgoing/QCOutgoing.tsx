@@ -9,9 +9,9 @@ import { FY } from "../common/exportData";
 
 
 
-const QCRcn = () => {
+const QCOutgoing = () => {
     const { data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'getTotalQcCount')
-    const { setpendingqcCount,setpendingreportCount } = useContext(Context);
+    const { setpendingqcOutCount,setpendingreportOutCount } = useContext(Context);
     if (isLoading) {
         return <Loader/>
     }
@@ -19,8 +19,8 @@ const QCRcn = () => {
         return <div>Error</div>
     }
     if(data){
-        setpendingqcCount(data.pendingQC)
-        setpendingreportCount(data.pendingReport)
+        setpendingqcOutCount(data.pendingQCOut)
+        setpendingreportOutCount(data.pendingReportOut)
     }
    
     return (
@@ -30,28 +30,28 @@ const QCRcn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
-                       Initial QC Approved<br /><p>{data.approvedQC}</p>
+                       Initial QC Approved<br /><p>{data.approvedQCOut}</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        QC Report Uploaded<br /><p>{data.completereport}</p>
+                        QC Report Uploaded<br /><p>{data.completereportOut}</p>
                     </div>
                 <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
-                        Pending Approval<br/><p>{data.pendingQC}</p>
+                        Pending Approval<br/><p>{data.pendingQCOut}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                        Pending QC Report<br /><p>{data.pendingReport}</p>
+                        Pending QC Report<br /><p>{data.pendingReportOut}</p>
                     </div>
                     
 
 
                 </div>
 
-                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>CURRENT FY {FY} QC RCN TRANSACTION </p>
-                <QCRcnTable/>
+                <p className='text-lg text-center py-1 '>CURRENT FY {FY} OUTGOING QC TRANSACTION </p>
+                {/* <QCRcnTable/> */}
                 </div>
             
             
         </div>
     )
 }
-export default QCRcn
+export default QCOutgoing

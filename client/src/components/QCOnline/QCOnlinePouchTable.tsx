@@ -121,6 +121,7 @@ const QCOnlinePouchTable = () => {
       Cleaning_Remarks: item.cleanRemarks,
       Maintainance_Status: item.maintainance,
       Maintainance_Remarks: item.maintainanceRemarks,
+      Remarks:item.Remarks,
       Created_By: item.createdBy,
       Modified_By: item.modifiedBy,
     }));
@@ -172,10 +173,10 @@ const QCOnlinePouchTable = () => {
       <Table className="mt-4">
         <TableHeader className="bg-neutral-100 text-stone-950 ">
           <TableHead className="text-center">Id</TableHead>
-          <TableHead className="text-center">Date</TableHead>
-          <TableHead className="text-center">Time</TableHead>
+          <TableHead className="text-center">Entry_Date</TableHead>
+          <TableHead className="text-center">Entry_Time</TableHead>
           <TableHead className="text-center">Lot No</TableHead>
-          <TableHead className="text-center">Batch No</TableHead>
+          <TableHead className="text-center">Batch_No</TableHead>
           <TableHead className="text-center">Origin</TableHead>
           <TableHead className="text-center">Grade Name</TableHead>
           <TableHead className="text-center">Moisture %</TableHead>
@@ -188,6 +189,7 @@ const QCOnlinePouchTable = () => {
            <TableHead className="text-center">Pkt Quality Remarks</TableHead>
           <TableHead className="text-center">Cleaning Remarks</TableHead>
           <TableHead className="text-center">Maintainance Remarks</TableHead>
+          <TableHead className="text-center">Remarks</TableHead>
           <TableHead className="text-center">Created By</TableHead>
           <TableHead className="text-center">Modified By</TableHead>
           <TableHead className="text-center">Action</TableHead>
@@ -258,10 +260,14 @@ const QCOnlinePouchTable = () => {
                                                                     item.maintainance
                                                                   )}
                                                                 </TableCell>
+                                                               
   <TableCell className="text-center">{item.pktQualityRemarks ? item.pktQualityRemarks:'NA'}</TableCell>
                <TableCell className="text-center">{item.cleanRemarks ? item.cleanRemarks:'OK'}</TableCell>
                
                 <TableCell className="text-center">{item.maintainanceRemarks ? item.maintainanceRemarks:'OK'}</TableCell>
+                 <TableCell className="items-center text-center justify-center">
+                                                                  {item.Remarks}
+                                                                </TableCell>
                 <TableCell className="text-center">{item.createdBy}</TableCell>
                 <TableCell className="text-center">{item.modifiedBy ?? "-"}</TableCell>
 

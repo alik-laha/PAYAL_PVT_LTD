@@ -934,31 +934,31 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Receive PW_W/ V_PW_W</TableHead>
-                    <TableHead className="text-center">Receive W_Lot/ V_W_Lot</TableHead>
-                    <TableHead className="text-center">Receive WW/ V_WW</TableHead>
+                    <TableHead className="text-center">PW_W/ V_PW_W</TableHead>
+                    <TableHead className="text-center">W_Lot/ V_W_Lot</TableHead>
+                    <TableHead className="text-center">WW/ V_WW</TableHead>
                     <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     <TableHead className="text-center">Hamsa Total_Opening</TableHead>
-                    <TableHead className="text-center">Issue PW_210/ V_PW_210</TableHead>
-                    <TableHead className="text-center">Issue W_210/ V_W_210</TableHead>
-                    <TableHead className="text-center">Issue WW_210/ V_WW_210</TableHead>
-                    <TableHead className="text-center">Issue PW_240/ V_PW_240</TableHead>
-                        <TableHead className="text-center">Issue W_240/ V_W_240</TableHead>
-                        <TableHead className="text-center">Issue WW_240/ V_WW_240</TableHead>
-                        <TableHead className="text-center">Issue PW_280/ V_PW_280</TableHead>
-                        <TableHead className="text-center">Issue W_280/ V_W_280</TableHead>
-                        <TableHead className="text-center">Issue WW_280/ V_WW_280</TableHead>
-                        <TableHead className="text-center">Issue PW_320/ V_PW_320</TableHead>
-                        <TableHead className="text-center">Issue W_320/ V_W_320</TableHead>
-                        <TableHead className="text-center">Issue WW_320/ V_WW_320</TableHead>
-                        <TableHead className="text-center">Issue PW_360/ V_PW_360</TableHead>
-                        <TableHead className="text-center">Issue W_360/ V_W_360</TableHead>
-                        <TableHead className="text-center">Issue WW_360/ V_WW_360</TableHead>
-                        <TableHead className="text-center">Issue PW_400/ V_PW_400</TableHead>
-                        <TableHead className="text-center">Issue W_400/ V_W_400</TableHead>
-                        <TableHead className="text-center">Issue WW_400/ V_WW_400</TableHead>
+                    <TableHead className="text-center">PW_210/ V_PW_210</TableHead>
+                    <TableHead className="text-center">W_210/ V_W_210</TableHead>
+                    <TableHead className="text-center">WW_210/ V_WW_210</TableHead>
+                    <TableHead className="text-center">PW_240/ V_PW_240</TableHead>
+                        <TableHead className="text-center">W_240/ V_W_240</TableHead>
+                        <TableHead className="text-center">WW_240/ V_WW_240</TableHead>
+                        <TableHead className="text-center">PW_280/ V_PW_280</TableHead>
+                        <TableHead className="text-center">W_280/ V_W_280</TableHead>
+                        <TableHead className="text-center">WW_280/ V_WW_280</TableHead>
+                        <TableHead className="text-center">PW_320/ V_PW_320</TableHead>
+                        <TableHead className="text-center">W_320/ V_W_320</TableHead>
+                        <TableHead className="text-center">WW_320/ V_WW_320</TableHead>
+                        <TableHead className="text-center">PW_360/ V_PW_360</TableHead>
+                        <TableHead className="text-center">W_360/ V_W_360</TableHead>
+                        <TableHead className="text-center">WW_360/ V_WW_360</TableHead>
+                        <TableHead className="text-center">PW_400/ V_PW_400</TableHead>
+                        <TableHead className="text-center">W_400/ V_W_400</TableHead>
+                        <TableHead className="text-center">WW_400/ V_WW_400</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
                     {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
@@ -1200,7 +1200,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Modification</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Hamsa Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <HamsaEditForm borma={[item]} />
@@ -1214,7 +1214,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Reissue</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Hamsa Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <HamsaReCreateForm borma={[item]} />
@@ -1229,7 +1229,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNHamsaReMix borma={item} />

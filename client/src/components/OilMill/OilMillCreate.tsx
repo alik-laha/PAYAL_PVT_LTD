@@ -230,7 +230,7 @@ const OilMillPrimaryEntryForm = (props:Props) => {
 
     return (
         <>
-            <div className="pl-10 pr-10">
+            <div className="px-8">
               
                 
 

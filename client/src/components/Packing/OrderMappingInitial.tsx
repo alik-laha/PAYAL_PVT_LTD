@@ -87,7 +87,7 @@ const OrderMappingInitial = (props: any) => {
                 <Table className="mt-5">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Puchase Order No</TableHead>
+                        <TableHead className="text-center" >Sales Order No</TableHead>
                         <TableHead className="text-center" >Order Entry Date</TableHead>
                         <TableHead className="text-center" >Vendor Name</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
@@ -131,7 +131,7 @@ const OrderMappingInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.orderID,item.origin,item.finalgradeName)}> Map </Button></DialogTrigger>
                                           <DialogContent className='max-w-screen' style={{display:'block'}}>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Mapping Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Order Mapping Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 

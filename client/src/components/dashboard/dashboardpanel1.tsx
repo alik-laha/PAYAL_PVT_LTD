@@ -262,7 +262,7 @@ const DashboardPanel1: React.FC = () => {
           </div>
 
           <div className="text-center py-5">
-            <p className="text-xl">Current Lot & Section Backlog</p>
+            <p className="text-xl tracking-widest italic drop-shadow-xl">Current Lot & Section Backlog</p>
           </div>
 
           <div className="panel-container mt-5 justify-evenly">

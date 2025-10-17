@@ -980,7 +980,7 @@ const GatePassTable = () => {
     <>
       {/* {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleSearchPendingApproval} disabled={props.count === 0 ? true : false}> Pending Approve(
             {props.count})</Button> } */}
-      <div className="ml-5 mt-5 ">
+      <div className="ml-6 mt-5 ">
 
 
         <div className="flex flexbox-search">
@@ -994,7 +994,7 @@ const GatePassTable = () => {
         py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
             {type ? (
               sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
-                <option key={item} value={item}>{item}</option>
+                <option key={item} value={item} className="text-xs">{item}</option>
               ))
             ) : null}
           </select>
@@ -1021,10 +1021,10 @@ const GatePassTable = () => {
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
             onChange={(e) => settype(e.target.value)} value={type}>
             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
+                        py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
             {SelectGatePassType.map((data, index) => (
               <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                 {data}
               </option>
             ))}
@@ -1033,7 +1033,7 @@ const GatePassTable = () => {
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
             onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
+        py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
             </option>
             {
               SectionStatusAll.map((item) => {
@@ -1059,7 +1059,7 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Sl No.</TableHead>
             <TableHead className="text-center" >GatePass_ID</TableHead>
 
-            <TableHead className="text-center" >Entry(In/Out)</TableHead>
+            <TableHead className="text-center" >Type</TableHead>
             <TableHead className="text-center" >Receiving/Dispatch Section</TableHead>
   
             <TableHead className="text-center" >Receiving /Dispatch</TableHead>
@@ -1127,44 +1127,44 @@ const GatePassTable = () => {
                   <TableCell className="text-center ">
                     {item.receivingStatus === 0 ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {!item.netWeight ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.approvalStatus === 0 ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
                   <TableCell className="text-center ">
                     {item.status !== "Closed" ? (
                       <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
+                        <MdOutlinePendingActions color="red" size={20} />
                       </p>
                     ) : (
                       <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={20} />
+                        <SiTicktick color="green" size={18} />
                       </p>
                     )}
                   </TableCell>
@@ -1225,11 +1225,11 @@ const GatePassTable = () => {
                       : "--"}
                   </TableCell>}
                       {item.status !== "Cancelled" ? (
-                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600">
+                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600 text-xs">
                      
                    
 
-                      <button className="bg-purple-500 p-1 h-7 shadow-md text-white rounded w-40 drop-shadow-lg">{formatString2(item.status)}</button>
+                      <button className="bg-purple-500 p-1 h-7 text-white rounded w-40">{formatString2(item.status)}</button>
                      
                      
                     </TableCell>

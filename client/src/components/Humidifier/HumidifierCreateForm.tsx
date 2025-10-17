@@ -96,7 +96,7 @@ const RCNHumidCreateForm = (props: any) => {
                                             {item.LotNo}
                                         </TableCell>
 
-                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+                                        <TableCell className="text-center font-semibold text-orange-500">PENDING</TableCell>
                                         <TableCell className="text-center">
                                             {/* <Dialog>
                                                 <DialogTrigger>
@@ -115,7 +115,7 @@ const RCNHumidCreateForm = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)}>+ Add </Button></DialogTrigger>
                                          <DialogContent className='max-w-screen'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Humidifier Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>Humidifier Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
