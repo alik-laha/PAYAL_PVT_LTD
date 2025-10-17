@@ -218,7 +218,7 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Joining_Date</TableHead>
                     <TableHead className="text-center " >Contact_No.</TableHead>
                     <TableHead className="text-center " >Email</TableHead>
-                    <TableHead className="text-center " >Qualification</TableHead>
+                    <TableHead className="text-center " >Highest_Qualification</TableHead>
                     <TableHead className="text-center" >Blood_Group</TableHead>
                     <TableHead className="text-center" >Aadhar No</TableHead>
                     <TableHead className="text-center" >Pan No</TableHead>
