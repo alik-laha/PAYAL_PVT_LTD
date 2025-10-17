@@ -351,7 +351,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                         <TableHead className="text-center" >Breakdown</TableHead>
                         <TableHead className="text-center" >Other</TableHead>
-                        <TableHead className="text-center" >MC_Run</TableHead>
+                        <TableHead className="text-center" >MC_Run_Duration</TableHead>
                         <TableHead className="text-center" >No_Of_Operator</TableHead>
                         <TableHead className="text-center" >Edit_Status</TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>

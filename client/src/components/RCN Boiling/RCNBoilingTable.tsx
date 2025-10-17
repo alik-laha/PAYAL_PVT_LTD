@@ -461,7 +461,7 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Machine_OFF</TableHead>
                     <TableHead className="text-center" >Breakdown</TableHead>
                     <TableHead className="text-center" >Other</TableHead>
-                    <TableHead className="text-center" >MC_Run</TableHead>
+                    <TableHead className="text-center" >MC_Run_Duration</TableHead>
                     <TableHead className="text-center" >Labour</TableHead>
                     <TableHead className="text-center" >Entried_By</TableHead>
                     <TableHead className="text-center" >Edit_Status</TableHead>

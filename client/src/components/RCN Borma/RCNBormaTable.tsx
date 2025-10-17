@@ -357,10 +357,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                       
                         <TableHead className="text-center" >Input_Wholes(Kg)</TableHead>
                         <TableHead className="text-center" >Input_Pieces(Kg)</TableHead>
-                       
+                       <TableHead className="text-center " >Total_Output(Kg)</TableHead>
                         <TableHead className="text-center" >Output_Wholes(Kg)</TableHead>
                         <TableHead className="text-center" >Output_Pieces(Kg)</TableHead>
-                        <TableHead className="text-center " >Total_Output(Kg)</TableHead>
+                        
                         <TableHead className="text-center" >Borma_Loss</TableHead>
                         <TableHead className="text-center" >No_Of_Trolley</TableHead>
                         <TableHead className="text-center" >Borma_MC_ON</TableHead>
@@ -368,7 +368,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                         <TableHead className="text-center" >Breakdown</TableHead>
                         <TableHead className="text-center" >Other</TableHead>
-                        <TableHead className="text-center" >MC_Run</TableHead>
+                        <TableHead className="text-center" >MC_Run_Duration</TableHead>
                         <TableHead className="text-center" >No_Of_Operator</TableHead>
                         <TableHead className="text-center" >Edit_Status </TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
@@ -396,11 +396,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputWholes)} Kg</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputPieces)} Kg</TableCell>
-                                        
+                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
                                        
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.OutputWholes)} Kg</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.OutputPieces)} Kg</TableCell>
-                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
+                                        
 
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
@@ -474,10 +474,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{formatNumber(item.InputWholes)} Kg</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.InputPieces)} Kg</TableCell>
                                         
-                                       
+                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.OutputWholes)} Kg</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.OutputPieces)} Kg</TableCell>
-                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
+                                       
 
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>

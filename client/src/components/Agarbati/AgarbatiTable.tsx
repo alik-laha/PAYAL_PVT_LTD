@@ -386,9 +386,9 @@ const AgarbatiTable = () => {
                         <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
 
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Agarbati_Type</TableHead>
+                        <TableHead className="text-center" >Name_Of_Agarbati_Type</TableHead>
                       <TableHead className="text-center" >Agarbati_Grade</TableHead> 
-                        <TableHead className="text-center" >Invoice_No.</TableHead>
+                        <TableHead className="text-center" >Agarbati_Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
                         <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
@@ -480,13 +480,13 @@ const AgarbatiTable = () => {
 
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
-                                        <TableCell className="text-center">{item.type}</TableCell>
-                                     <TableCell className="text-center" >{item.grade}</TableCell> 
-                                        <TableCell className="text-center">{item.invoice}</TableCell>
+                                        <TableCell className="text-left ">{item.type}</TableCell>
+                                     <TableCell className="text-left" >{item.grade}</TableCell> 
+                                        <TableCell className="text-left">{item.invoice}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
                                         <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
 
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-left">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
                                         <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
