@@ -2,7 +2,7 @@ import Loader from "../common/Loader"
 import DashboardHeader from "../dashboard/DashboardHeader"
 import DashboardSidebar from "../dashboard/DashboardSidebar"
 import UseQueryData from '../common/dataFetcher';
-import QCRcnTable from "./QCRcnTable"
+//import QCRcnTable from "./QCRcnTable"
 import { useContext } from "react";
 import Context from "../context/context";
 import { FY } from "../common/exportData";
