@@ -308,7 +308,7 @@ const GeneralStoreTable = () => {
                 </div>
             )}
 
-            <div className="mx-5 mt-5 ">
+            <div className="mx-2 mt-5 ">
                  <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                     {/* The grid is set to hold 1, 2, 3, or 4 columns, which is typically enough
         for 6-7 filter fields plus buttons, ensuring good flow on all screen sizes.

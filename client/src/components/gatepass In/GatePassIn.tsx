@@ -42,7 +42,7 @@ const GatepassIn = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-                <div className="flexbox-header w-['90%']">
+                <div className="flexbox-header mx-2">
                     <div className="flexbox-tile bg-purple-400 hover:bg-purple-300">
                         Total Issued <br /><p>{data.Issued} </p>
                     </div>
@@ -72,11 +72,11 @@ const GatepassIn = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider italic drop-shadow-xl font-bold text-md '>CURRENT F.Y. {FY} GATE PASS COUNT</p>
+                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md '>CURRENT F.Y. {FY} GATE PASS COUNT</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button
-                            className="flex w-40 items-center gap-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-5 py-2.5 text-sm mt-5 ml-6 mb-2 responsive-button-adjust"
+                            className="flex w-40 items-center gap-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-5 py-2.5 text-sm mt-5 ml-2 mb-2 responsive-button-adjust"
                         >
                             <span className="text-lg font-bold">+</span> Add New Entry
                         </Button></DialogTrigger>

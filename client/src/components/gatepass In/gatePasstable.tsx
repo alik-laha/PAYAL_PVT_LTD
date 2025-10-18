@@ -979,7 +979,7 @@ const GatePassTable = () => {
   return (
     <>
     
-      <div className="mx-5 ">
+      <div className="mx-2 ">
 
         <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
@@ -1075,9 +1075,9 @@ const GatePassTable = () => {
             </div>
 
             {/* Buttons: Right-aligned */}
-            <div className="flex col-span-full justify-start gap-3 mt-2 md:mt-0">
+            <div className="flex col-span-full justify-between gap-3 mt-2 md:mt-0 ">
               <Button
-                className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                 onClick={handleSearch}
               >
                 <FaSearch size={14} />
@@ -1090,7 +1090,7 @@ const GatePassTable = () => {
                   onClick={handleExcellExport}
                 >
                   <LuDownload size={18} />
-                  Export
+                  
                 </Button>
               )}
             </div>

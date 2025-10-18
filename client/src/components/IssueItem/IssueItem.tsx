@@ -124,8 +124,8 @@ const IssueItem = () => {
                 <DashboardSidebar />
                
                 <div className='dashboard-main-container '>
-                    <div className="px-5 md:px-0">
-                            <div className="flexbox-header">
+                    
+                <div className="flexbox-header mx-2">
                     {
 
                         data.data && data.data.map((item: any,idx:any) => {
@@ -139,10 +139,10 @@ const IssueItem = () => {
                     }
 
                 </div>
-                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider italic drop-shadow-xl font-bold text-md'>SECTION WISE INSIDE STORE TRANSACTION</p>
+                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md'>SECTION WISE ISSUE TRANSACTION</p>
 
 
-                <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 items-start">
+                <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 items-start -ml-1">
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="md:w-40 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-purple-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md" disabled= {data.EditData>0?true:false}>+ Add New</Button></DialogTrigger>
                         <DialogContent className='max-w-screen' style={{display:'block'}}>
@@ -192,7 +192,7 @@ const IssueItem = () => {
                    
                 
                 </div>
-                    </div>
+                    
             
              <IssueTable/>
                 </div>

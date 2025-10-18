@@ -457,9 +457,12 @@ dialog img{
   display: flex;
   flex-wrap: wrap;
   gap: 1rem; /* Increased gap for breathing room */
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   margin-top: -10px; /* Align with general dashboard flow */
   width: 100%;
+  padding-top:2rem ;
+  padding-bottom:1rem ;
+  
 
 }
 .custom-text-left{
@@ -772,7 +775,7 @@ p#modal-text {
 
   .flexbox-header {
     gap: 1rem;
-    padding: 1rem;
+    /* padding: 1rem; */
   }
   
   .flexbox-tile {
@@ -877,7 +880,7 @@ p#modal-text {
 
   .flexbox-header {
     gap: 15px;
-    padding: 12px 10px 5px 10px;
+    /* padding: 12px 10px 5px 10px; */
 
   }
 

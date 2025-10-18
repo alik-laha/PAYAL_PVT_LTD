@@ -292,49 +292,95 @@ const RcnPrimaryEntryTable = () => {
 
 
     return (
-        <div className="ml-6 mt-5 ">
-
-            <div className="flex flexbox-search">
-
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-
-                <select className=' flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
-
-                <label className=" font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
-
-                />
-                <label className=" font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                     value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
+        <div className="mx-2 mt-5 ">
 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+            <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
+                    {/* BL / Con No */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            BL No. / Con No.
+                        </label>
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="Search"
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Origin */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label>
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                            onChange={(e) => setOrigin(e.target.value)}
+                            value={origin}
+                        >
+                            <option value="">Origin (All)</option>
+                            {Origin.map((item) => (
+                                <option key={item} value={item}>{item}</option>
+                            ))}
+                        </select>
+
+
+
+                    </div>
+
+                    {/* From Date */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            From
+                        </label>
+                        <Input
+                            type="date"
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            value={fromdate}
+                            onChange={(e) => setfromDate(e.target.value)}
+                        />
+                    </div>
+
+                    {/* To Date */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            To
+                        </label>
+                        <Input
+                            type="date"
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            value={todate}
+                            onChange={(e) => settoDate(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0 col-span-2">
+                        <Button
+                            className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
+
+                        {checkpending('RCNPrimary') && (
+                            <Button
+                                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+                                Export
+                            </Button>
+                        )}
+                    </div>
+                </div>
             </div>
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+
+           
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
