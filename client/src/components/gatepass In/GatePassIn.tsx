@@ -27,44 +27,44 @@ import { FY } from '../common/exportData';
 
 
 const GatepassIn = () => {
-   
+
     const { data, error, isLoading } = UseQueryData('/api/gatepass/activegatepasscount', 'GET', 'getTtotalActvGatePass')
     if (isLoading) {
-        return <Loader/>
+        return <Loader />
     }
     if (error) {
         return <div>Error</div>
     }
 
- 
+
     return (
         <div>
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-                <div className="flexbox-header">
-                <div className="flexbox-tile bg-purple-400 hover:bg-purple-300">
+                <div className="flexbox-header w-['90%']">
+                    <div className="flexbox-tile bg-purple-400 hover:bg-purple-300">
                         Total Issued <br /><p>{data.Issued} </p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
                         Completed <br /><p>{data.completed} </p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-green-400">
-                       Pending Rcv/Dispatch<br /><p>{data.PendingRcv}</p>
+                        Pending Rcv/Dispatch<br /><p>{data.PendingRcv}</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-                       Pending NetWeight<br /><p>{data.PendingNtWt} </p>
+                        Pending NetWeight<br /><p>{data.PendingNtWt} </p>
                     </div>
                     <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                         Pending Approval<br /><p>{data.Pendingapprove} </p>
                     </div>
-                    
+
                     <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
-                       Pending Release<br /><p>{data.Pendingrelease} </p>
+                        Pending Release<br /><p>{data.Pendingrelease} </p>
                     </div>
-                   
-                    
-                   
+
+
+
 
 
 
@@ -72,21 +72,25 @@ const GatepassIn = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg text-gray-600 text-center pt-3 tracking-wider italic drop-shadow-xl font-bold'>CURRENT F.Y. {FY} GATE PASS COUNT</p>
+                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider italic drop-shadow-xl font-bold text-md '>CURRENT F.Y. {FY} GATE PASS COUNT</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust ">+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button
+                            className="flex w-40 items-center gap-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-5 py-2.5 text-sm mt-5 ml-6 mb-2 responsive-button-adjust"
+                        >
+                            <span className="text-lg font-bold">+</span> Add New Entry
+                        </Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center py-4 tracking-wider drop-shadow-xl font-bold'>GatePass Entry Form</p></DialogTitle>
 
                             </DialogHeader>
-                            <GatePassCreateForm/>
+                            <GatePassCreateForm />
                         </DialogContent>
                     </Dialog>
 
 
-                   
+
 
                 </div>
                 <GatePassTable />

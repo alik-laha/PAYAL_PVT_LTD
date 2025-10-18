@@ -978,81 +978,127 @@ const GatePassTable = () => {
 
   return (
     <>
-      {/* {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleSearchPendingApproval} disabled={props.count === 0 ? true : false}> Pending Approve(
-            {props.count})</Button> } */}
-      <div className="ml-6 mt-5 ">
+    
+      <div className="mx-5 ">
 
+        <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
-        <div className="flex flexbox-search">
+            {/* GatePass / Doc No */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                GatePass / Document No
+              </label>
+              <Input
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                placeholder="Search"
+                value={blConNo}
+                onChange={(e) => setBlConNo(e.target.value)}
+              />
+            </div>
 
-          <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" GatePass/Doc No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+            {/* From Date */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                From Date
+              </label>
+              <Input
+                type="date"
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={fromdate}
+                onChange={(e) => setfromDate(e.target.value)}
+              />
+            </div>
 
-          <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-            onChange={(e) => setSection(e.target.value)} value={section}>
-            <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-            {type ? (
-              sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
-                <option key={item} value={item} className="text-xs">{item}</option>
-              ))
-            ) : null}
-          </select>
+            {/* To Date */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                To Date
+              </label>
+              <Input
+                type="date"
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={todate}
+                onChange={(e) => settoDate(e.target.value)}
+              />
+            </div>
 
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-          <Input className="w-1/7 flexbox-search-width-calender"
-            type="date"
-            value={fromdate}
-            onChange={(e) => setfromDate(e.target.value)}
-            placeholder="From Date"
+            {/* Type Of Gatepass */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Type
+              </label>
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => settype(e.target.value)}
+                value={type}
+              >
+                <option value="">In/Out (All)</option>
+                {SelectGatePassType.map((data, index) => (
+                  <option key={index} value={data}>{data}</option>
+                ))}
+              </select>
+            </div>
 
-          />
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-          <Input className="w-1/7 flexbox-search-width-calender"
-            type="date"
-            //value={hidetodate}
-            // onChange={handleTodate}
-            value={todate}
-            onChange={(e) => settoDate(e.target.value)}
-            placeholder="To Date"
+            {/* Section */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Section
+              </label>
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => setSection(e.target.value)}
+                value={section}
+              >
+                <option value="">Section (All)</option>
+                {type && sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate]?.map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+            </div>
 
-          />
-          <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-            onChange={(e) => settype(e.target.value)} value={type}>
-            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
-            {SelectGatePassType.map((data, index) => (
-              <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                {data}
-              </option>
-            ))}
-          </select>
-          <select className='flexbox-search-width flex h-8 w-1/7  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-            onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
-            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
-            </option>
-            {
-              SectionStatusAll.map((item) => {
-                return (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                )
-              })
-            }
+            {/* Status */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Status
+              </label>
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => setSectionstatus(e.target.value)}
+                value={sectionstatus}
+              >
+                <option value="">Status (All)</option>
+                {SectionStatusAll.map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+            </div>
 
+            {/* Buttons: Right-aligned */}
+            <div className="flex col-span-full justify-start gap-3 mt-2 md:mt-0">
+              <Button
+                className="flex items-center gap-2 bg-gray-500 hover:bg-blue-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                onClick={handleSearch}
+              >
+                <FaSearch size={14} />
+                Search
+              </Button>
 
-          </select>
+              {checkpending('Gatepass') && (
+                <Button
+                  className="flex items-center gap-2 bg-orange-500 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={handleExcellExport}
+                >
+                  <LuDownload size={18} />
+                  Export
+                </Button>
+              )}
+            </div>
 
-
-          <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
+          </div>
         </div>
-        {checkpending('Gatepass') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button> </span>}
+
+
         <Table className="mt-4">
           <TableHeader className="bg-neutral-100 text-stone-950 ">
 
@@ -1580,10 +1626,10 @@ const GatePassTable = () => {
           </TableBody>
 
         </Table>
-        <Pagination style={{ display: blockpagen }} className="pt-5 ">
-          <PaginationContent>
+        <Pagination style={{ display: blockpagen }} className="pt-5">
+          <PaginationContent className="font-bold">
             <PaginationItem>
-              <PaginationPrevious onClick={() => setPage((prev) => {
+              <PaginationPrevious className="font-bold" onClick={() => setPage((prev) => {
                 if (prev === 1) {
                   return prev
                 }
@@ -1594,13 +1640,19 @@ const GatePassTable = () => {
               })} />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href="#">{page}</PaginationLink>
+              <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page+1}</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page+2}</PaginationLink>
             </PaginationItem>
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+              <PaginationNext className="font-bold" onClick={() => setPage((prev) => prev + 1)} />
             </PaginationItem>
           </PaginationContent>
         </Pagination>
