@@ -435,7 +435,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 {actvskuindex === index && <ScrollArea className="max-h-28 w-auto overflow-auto dropdown-content " style={{ display: skuview }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
-                                                            <div key={item.id} className="gap-y-10  hover:bg-gray-300 "  onClick={() => handleSkuidClick(index, item)}>
+                                                            <div key={item.id} className="gap-y-10 hover:bg-gray-300 "  onClick={() => handleSkuidClick(index, item)}>
                                                                 <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
 
                                                             </div>

@@ -130,7 +130,7 @@ const IssueItem = () => {
 
                         data.data && data.data.map((item: any,idx:any) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400 " key={idx}>
+                                <div className="flexbox-tile bg-blue-500 hover:bg-blue-400 " key={idx}>
                                     {item.sectionunit} <br /><p>{item.count} </p>
                                 </div>
                             )
@@ -186,7 +186,7 @@ const IssueItem = () => {
                   
                      <Button className="md:w-40 bg-gradient-to-r from-gray-500 to-red-500 hover:from-gray-400 hover:to-red-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4  drop-shadow-md" onClick={exportToExcel}> Stock <LuDownload size={14} className="ml-2" /> </Button>  
 
-                    <Button className="md:w-40 bg-gradient-to-r from-teal-500 to-yellow-500 hover:from-green-400 hover:to-yellow-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 drop-shadow-md" 
+                    <Button className="md:w-40 bg-gradient-to-r from-teal-500 to-gray-500 hover:from-teal-600 hover:to-gray-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 drop-shadow-md" 
                     disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2"/></Button>
 
                    

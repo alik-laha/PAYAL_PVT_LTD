@@ -58,7 +58,7 @@ import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { MdOutlinePendingActions } from "react-icons/md"
+import { MdOutlinePendingActions, MdPendingActions } from "react-icons/md"
 import { SiTicktick } from "react-icons/si"
 
 const PackageMetrialRecivingTable = () => {
@@ -276,41 +276,108 @@ const PackageMetrialRecivingTable = () => {
     return (
         <>
 
-{checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" disabled={EditSumData?.packagingMaterial===0 ?true :false}
-onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button>}
+  {checkpending('RCNPrimary') && (
+                <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                    <Button
+                        className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                        /* FIX 1: Use ?? 0 for the disabled prop */
+                        disabled={(EditSumData?.packagingMaterial ?? 0) === 0}
+                        onClick={GetPendingEdit}
+                    >
+                        <div className="flex items-center gap-2">
+                            <MdPendingActions size={18} />
+                            Pending Actions
+                        </div>
+                    </Button>
 
-            <div className="ml-6 mt-5 ">
-                <div className="flex flexbox-search">
-
-                <Input className=" w-1/3 flexbox-search-width pl-3 mr-5 " placeholder="GatePass No" value={gatepassSearch} onChange={(e) => setgatepassSearch(e.target.value)} />
-                <Input className=" w-1/3 flexbox-search-width mr-5 ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
-
-                    <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/6 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
-
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/6 flexbox-search-width-calender"
-                        type="date"
-                        // value={hidetodate}
-                        // onChange={handleTodate}
-                          value={todate}
-                        onChange={(e) => settoDate(e.target.value)}
-                        placeholder="To Date"
-
-                    />
-                   
-
-
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
+                    {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                    {(EditSumData?.packagingMaterial ?? 0) > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                            {EditSumData?.packagingMaterial ?? 0}
+                        </span>
+                    )}
                 </div>
-                {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            )}
+
+            <div className="mx-5 mt-5 ">
+          <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+
+              {/* GatePass No */}
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                  GatePass No
+                </label>
+                <Input
+                  className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                  placeholder="Search"
+                  value={gatepassSearch}
+                  onChange={(e) => setgatepassSearch(e.target.value)}
+                />
+              </div>
+
+              {/* SKU/Vendor */}
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                  SKU / Vendor
+                </label>
+                <Input
+                  className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                  placeholder="Search"
+                  value={searchdata}
+                  onChange={(e) => setSearchData(e.target.value)}
+                />
+              </div>
+
+              {/* From Date */}
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                  From
+                </label>
+                <Input
+                  type="date"
+                  className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                  value={fromdate}
+                  onChange={(e) => setfromDate(e.target.value)}
+                />
+              </div>
+
+              {/* To Date */}
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                  To
+                </label>
+                <Input
+                  type="date"
+                  className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                  value={todate}
+                  onChange={(e) => settoDate(e.target.value)}
+                />
+              </div>
+
+              {/* Search & Export Buttons */}
+              <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0 col-span-2">
+                <Button
+                  className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={handleSearch}
+                >
+                  <FaSearch size={14} />
+                  Search
+                </Button>
+
+                {checkpending('RCNPrimary') && (
+                  <Button
+                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                    onClick={exportToExcel}
+                  >
+                    <LuDownload size={16} />
+                    Export
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
 
 
 

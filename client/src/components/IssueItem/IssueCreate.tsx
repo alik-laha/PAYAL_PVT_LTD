@@ -316,8 +316,8 @@ const IssueCreateForm = () => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl. No.</TableHead>
-                                <TableHead className="text-center" >Section Unit</TableHead>
+                                <TableHead className="text-center" >Sl_No</TableHead>
+                                <TableHead className="text-center" >Section_Unit</TableHead>
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Sub_Section</TableHead>
                                 <TableHead className="text-center" >Category</TableHead>
@@ -331,7 +331,7 @@ const IssueCreateForm = () => {
                                 <TableHead className="text-center" >Total_Price(Rs)</TableHead>
                                
                                 
-                                <TableHead className="text-center" >Damage Return</TableHead>
+                                <TableHead className="text-center" >Damage_Return</TableHead>
                                 <TableHead className="text-center" >Damage_Qty</TableHead>
                                 <TableHead className="text-center" >Unit</TableHead>
                                 <TableHead className="text-center w-30" >Remarks</TableHead>
@@ -422,11 +422,11 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.material} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: skuview }}>
+                                                {actvskuindex === index && <ScrollArea className="max-h-28 w-auto overflow-auto dropdown-content" style={{ display: skuview }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
+                                                            <div key={item.id} className="gap-y-10 hover:bg-gray-300 " onClick={() => handleSkuidClick(index, item)}>
+                                                                <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
 
                                                             </div>
                                                         ))

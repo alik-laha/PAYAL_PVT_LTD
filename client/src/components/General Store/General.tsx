@@ -53,8 +53,13 @@ const GeneralStore = () => {
                         FY:{FY} <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
                     </div>
                 </div>
+               
+               
                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider italic drop-shadow-xl font-bold text-md '>GENERAL ITEM TRANSACTION </p>
-                {checkreceiving('StorePrimaryEntry') && <Dialog>
+
+
+
+                {checkreceiving('GeneralPrimaryEntry') && <Dialog>
                 <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md"
                 onClick={handleOpenLotNo}>+ Add Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
