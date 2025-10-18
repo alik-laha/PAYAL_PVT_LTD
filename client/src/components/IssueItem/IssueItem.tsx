@@ -123,13 +123,14 @@ const IssueItem = () => {
                 <DashboardHeader />
                 <DashboardSidebar />
                
-                <div className='dashboard-main-container'>
-                <div className="flexbox-header">
+                <div className='dashboard-main-container '>
+                    <div className="px-5 md:px-0">
+                            <div className="flexbox-header">
                     {
 
                         data.data && data.data.map((item: any,idx:any) => {
                             return (
-                                <div className="flexbox-tile bg-purple-500 hover:bg-purple-400" key={idx}>
+                                <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400 " key={idx}>
                                     {item.sectionunit} <br /><p>{item.count} </p>
                                 </div>
                             )
@@ -143,7 +144,7 @@ const IssueItem = () => {
 
                 <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 items-start">
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
-                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="md:w-40 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-400 hover:to-yellow-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md" disabled= {data.EditData>0?true:false}>+ Add New</Button></DialogTrigger>
+                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="md:w-40 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-purple-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md" disabled= {data.EditData>0?true:false}>+ Add New</Button></DialogTrigger>
                         <DialogContent className='max-w-screen' style={{display:'block'}}>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center py-5 tracking-wider drop-shadow-xl font-bold'>Item Issue Form</p></DialogTitle>
@@ -159,7 +160,7 @@ const IssueItem = () => {
 
                         <div className="relative inline-block md:ml-4 ml-1 top-5 ">
                     <Button
-                        className="md:w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-orange-400 hover:to-red-400 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                        className="md:w-40 bg-gradient-to-r from-orange-500 to-green-400 hover:from-orange-400 hover:to-green-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
                         /* FIX 1: Use ?? 0 for the disabled prop */
                         disabled={data.EditData  === 0}
                         onClick={handleEditFetch}
@@ -183,13 +184,16 @@ const IssueItem = () => {
                                             
                       
                   
-                    
-                    <Button className="md:w-40 bg-gradient-to-r from-blue-500 to-gray-600 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 drop-shadow-md" 
+                     <Button className="md:w-40 bg-gradient-to-r from-gray-500 to-red-500 hover:from-gray-400 hover:to-red-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4  drop-shadow-md" onClick={exportToExcel}> Stock <LuDownload size={14} className="ml-2" /> </Button>  
+
+                    <Button className="md:w-40 bg-gradient-to-r from-teal-500 to-yellow-500 hover:from-green-400 hover:to-yellow-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 drop-shadow-md" 
                     disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2"/></Button>
 
-                    <Button className="md:w-40 bg-gradient-to-r from-orange-500 to-orange-400 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4  drop-shadow-md" onClick={exportToExcel}> Stock <LuDownload size={14} className="ml-2" /> </Button>  
+                   
                 
                 </div>
+                    </div>
+            
              <IssueTable/>
                 </div>
             </div>

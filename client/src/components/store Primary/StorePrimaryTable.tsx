@@ -384,26 +384,23 @@ const StorePrimaryTable = () => {
 
                         {/* Buttons: Search + Export */}
                         {/* Occupy the remaining space, pushed to the right on larger screens */}
-                        <div className="col-span-full xl:col-span-1 flex flex-wrap lg:justify-end gap-3 pt-2">
-
-                            <Button
-                                className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg h-10 px-5 transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 w-full sm:w-auto"
-                                onClick={handleSearch}
-                            >
-                                <FaSearch size={14} />
-                                Search
-                            </Button>
-
-                            {checkpending('RCNPrimary') && (
-                                <Button
-                                    className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg h-10 px-5 transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 w-full sm:w-auto"
-                                    onClick={exportToExcel}
-                                >
-                                    <LuDownload size={18} />
-                                    Export
-                                </Button>
-                            )}
-                        </div>
+                        <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0">
+                                                <Button
+                                                    className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                                    onClick={handleSearch}
+                                                >
+                                                    <FaSearch size={14} />
+                                                    Search
+                                                </Button>
+                        
+                                                <Button
+                                                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                                    onClick={exportToExcel}
+                                                >
+                                                    <LuDownload size={16} />
+                                                    Export
+                                                </Button>
+                                            </div>
 
                     </div>
                 </div>
