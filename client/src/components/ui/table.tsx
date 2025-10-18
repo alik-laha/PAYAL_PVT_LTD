@@ -8,8 +8,8 @@ const Table = React.forwardRef<
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
   // Border is now a more subtle indigo/purple blend
-  <div className="relative w-full overflow-hidden rounded-md border border-indigo-300/30 shadow-xl backdrop-blur-3xl bg-white/70">
-    <div className="overflow-auto max-h-full scrollbar-thin scrollbar-thumb-purple-400/60 scrollbar-track-transparent hover:scrollbar-thumb-purple-500/80 transition-all ">
+  <div className="relative  w-full overflow-hidden rounded-md border border-indigo-300/30 shadow-xl backdrop-blur-3xl bg-white/70">
+    <div className="overflow-auto  max-h-full scrollbar-thin scrollbar-thumb-purple-400/60 scrollbar-track-transparent hover:scrollbar-thumb-purple-500/80 transition-all ">
       <table
         ref={ref}
         className={cn(
@@ -81,9 +81,9 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      " border-b border-gray-100/50",
+      " border-b border-gray-100/50 ",
       // Enhanced Hover: Stronger bg, bigger scale, and slight shadow
-      "hover:bg-indigo-100/90 hover:shadow-lg hover:z-10",
+      "hover:bg-indigo-100/90 hover:shadow-lg hover:z-10 ",
       "even:bg-gray-50/20",
       // Accessibility Focus State: Ring on focus
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2",

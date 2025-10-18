@@ -470,40 +470,21 @@ dialog img{
 }
 
 .flexbox-tile {
-  /* flex: 1 1 10%;
-  padding: 20px 20px 20px 20px;
-  text-align: center;
-  box-sizing: border-box;
-  height: 9vw;
-  font-size: 16px;
-  z-index: 10;
-  max-width: 20% !important;
-  color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-  letter-spacing: 0.03vw;
-  text-shadow: #7ba5bc; */
-
-
 
   /* Flexible sizing with minimums */
   flex: 1 1 10%; /* Allows flexibility but ensures a minimum width of 200px */
   max-width: 23% !important; /* Adjusted max-width for 4 tiles per row */
-  
   /* Modern aesthetics */
   padding: 1.5rem;
   box-sizing: border-box;
   height: auto; /* Let content dictate height, or use a fixed aspect ratio if necessary */
   min-height: 9rem; /* Set a fixed minimum height for consistency */
   font-size: 1rem;
-  
   /* Color and Shadow */
   color: #f8f9fa; /* Lighter text for contrast */
   /* Replaced old box-shadow with a modern, layered shadow */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.08); 
   border-radius: 12px;
-  
   /* Typography and Effects */
   text-align: center;
   letter-spacing: 0.05em; /* Clearer letter spacing */
@@ -541,18 +522,11 @@ dialog img{
   max-width: 10% !important;
   color: black;
   vertical-align: middle;
-  /* background: linear-gradient(145deg, #4a86d531, #20d608); */
-  /* border-radius: 8px; */
-  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
 .flexbox-tile:hover {
-  /* transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 12px 12px rgba(0, 0, 0, 0.15); */
-
   transform: translateY(-8px); /* Slightly less dramatic jump */
-  /* Stronger but refined shadow on hover */
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
@@ -560,9 +534,7 @@ dialog img{
   content: '';
   position: absolute;
   top: -10px;
-
   transform: translateX(-50%);
-
   height: 20px;
   background: rgba(0, 0, 0, 0.1);
   filter: blur(10px);
@@ -581,12 +553,11 @@ dialog img{
   width: 18% !important;
 }
 
-.flexbox-tile p {
+.flexbox-tile p:nth-of-type(2) {
   /* font-size: 20px; */
-
   font-size: 1.5rem; /* Clear and prominent metric */
   font-weight: 700;
-  margin-top: 0.5rem;
+  margin-top: -0.7rem;
 }
 
 
@@ -881,12 +852,19 @@ p#modal-text {
   .flexbox-header {
     gap: 15px;
     /* padding: 12px 10px 5px 10px; */
+    font-size: 14px!important;
 
   }
 
-  .flexbox-tile p {
-    font-size: 14px;
+  .flexbox-tile p:nth-of-type(2) {
+    font-size: 16px;
+    margin-top: -1rem;
   }
+
+  .flexbox-tile p:nth-of-type(1) {
+  font-size: 14px;
+  margin-top: 0;
+    }
 
   .flexbox-search-width {
 

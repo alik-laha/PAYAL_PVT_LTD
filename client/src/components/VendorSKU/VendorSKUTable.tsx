@@ -235,7 +235,7 @@ const VendorSKUTable = () => {
                         </div>
 
                         {/* Buttons: Search + Export */}
-                        <div className="flex flex-wrap justify-between sm:justify-start gap-3 mt-2 md:mt-0">
+                        <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0">
                             <Button
                                 className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                                 onClick={handleSearch}

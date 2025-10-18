@@ -51,7 +51,7 @@ const StorePrimary = () => {
                 <div className="flexbox-header mx-2">
                    
                     <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
-                        FY : {FY} <br /><p>{StorePrimaryOverView?.sumofStorePrimary}</p>
+                       <p>FY : {FY} </p> <br /><p>{StorePrimaryOverView?.sumofStorePrimary}</p>
                     </div>
                 </div>
                 <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md '>OUTSIDE STORE TRANSACTION </p>

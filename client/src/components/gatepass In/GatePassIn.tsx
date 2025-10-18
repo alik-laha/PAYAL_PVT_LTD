@@ -44,23 +44,23 @@ const GatepassIn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header mx-2">
                     <div className="flexbox-tile bg-purple-400 hover:bg-purple-300">
-                        Total Issued <br /><p>{data.Issued} </p>
+                        <p>Total Issued</p> <br /><p>{data.Issued} </p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                        Completed <br /><p>{data.completed} </p>
+                      <p>Completed</p>  <br /><p>{data.completed} </p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-green-400">
-                        Pending Rcv/Dispatch<br /><p>{data.PendingRcv}</p>
+                       <p>Pending Rcv/Dispatch</p> <br /><p>{data.PendingRcv}</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-                        Pending NetWeight<br /><p>{data.PendingNtWt} </p>
+                        <p>Pending NetWeight</p><br /><p>{data.PendingNtWt} </p>
                     </div>
                     <div className="flexbox-tile bg-red-500 hover:bg-red-400">
-                        Pending Approval<br /><p>{data.Pendingapprove} </p>
+                        <p>Pending Approval</p><br /><p>{data.Pendingapprove} </p>
                     </div>
 
                     <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
-                        Pending Release<br /><p>{data.Pendingrelease} </p>
+                        <p>Pending Release</p><br /><p>{data.Pendingrelease} </p>
                     </div>
 
 

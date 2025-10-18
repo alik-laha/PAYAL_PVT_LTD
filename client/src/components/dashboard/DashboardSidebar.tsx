@@ -139,9 +139,12 @@ const toggleSection = (sectionKey: string) => {
     return (
       <>
         <div className="main">
-          <span className="openbtn bg-slate-500" onClick={openSidebar}>
-            <RiMenuUnfoldLine size={24} />{" "}
-          </span>
+          <button className="group flex items-center gap-2  px-4 py-2 font-semibold shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 text-black" onClick={openSidebar}>
+            <RiMenuUnfoldLine size={24} className="transition-transform duration-300 group-hover:-translate-x-1"/>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+        Sidebar
+      </span>
+          </button>
         </div>
 
         <div className={`sidebar  ${sidebarOpen ? "open" : ""}`}>

@@ -82,13 +82,13 @@ const CashewOut = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 {/* <div className='dashboard-flex-head bg-gradient-to-r from-green-500 to-red-600 text-white'> Origin Wise RCN Received In Current Financial Year</div> */}
-                <div className="flexbox-header">
+                <div className="flexbox-header mx-2" >
                     {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataCashewOut) => {
                             return (
                                 <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={item.origin}>
-                                    {item.origin} <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
+                                   <p>{item.origin}</p>  <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
                                 </div>
                             )
                         })
@@ -101,7 +101,7 @@ const CashewOut = () => {
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Cashew Out Pending List</p></DialogTitle>

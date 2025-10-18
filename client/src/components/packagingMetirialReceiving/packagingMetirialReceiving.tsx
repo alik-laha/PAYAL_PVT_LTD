@@ -48,7 +48,7 @@ const PackagingMetirialReceiving = () => {
                 <div className="flexbox-header mx-2">
                    
                     <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
-                        FY : {FY} <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
+                        <p>FY : {FY}</p> <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
                     </div>
                 </div>
                

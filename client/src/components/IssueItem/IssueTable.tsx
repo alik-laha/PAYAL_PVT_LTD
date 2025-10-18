@@ -465,9 +465,9 @@ const IssueTable = () => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0">
+                    <div className="flex col-span-full justify-end gap-3 mt-2 md:mt-0">
                         <Button
-                            className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                             onClick={handleSearch}
                         >
                             <FaSearch size={14} />
@@ -479,7 +479,7 @@ const IssueTable = () => {
                             onClick={exportToExcel}
                         >
                             <LuDownload size={16} />
-                            Export
+                            
                         </Button>
                     </div>
                 </div>

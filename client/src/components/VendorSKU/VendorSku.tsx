@@ -38,14 +38,14 @@ const VendorSKU = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header mx-2">
                 <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                         Section <br /><p>{SKUSection.length}</p>
+                       <p>Section</p>  <br /><p>{SKUSection.length}</p>
                     </div>
                     <div className="flexbox-tile bg-red-500 hover:bg-red-400">
-                        Item/SKU<br /><p>{data.SKU}</p>
+                       <p>Item/SKU</p> <br /><p>{data.SKU}</p>
                     </div>
                   
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-                         Vendor/Party <br /><p>{data.Vendor}</p>
+                        <p>Vendor/Party</p>  <br /><p>{data.Vendor}</p>
                     </div>
                    
                 </div>

@@ -50,7 +50,7 @@ const GeneralStore = () => {
                 <div className="flexbox-header ">
                    
                     <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
-                        FY:{FY} <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
+                       <p>FY:{FY} </p> <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
                     </div>
                 </div>
                
