@@ -451,8 +451,6 @@ dialog img{
 }
 
 .flexbox-header {
-
-
   /* Simplified and modern spacing */
   display: flex;
   flex-wrap: wrap;
@@ -460,7 +458,7 @@ dialog img{
   /* padding: 1.5rem; */
   margin-top: -10px; /* Align with general dashboard flow */
   width: 100%;
-  padding-top:2rem ;
+  padding-top:1rem ;
   padding-bottom:1rem ;
   
 

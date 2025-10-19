@@ -342,24 +342,7 @@ const GeneralStoreTable = () => {
                             />
                         </div>
 
-                        {/* Type Of Gatepass (Select) */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                Type
-                            </label>
-                            <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
-                                onChange={(e) => setselectType(e.target.value)}
-                                value={selectType}
-                            >
-                                <option value="">In/Out (All)</option>
-                                {SelectGatePassType.map((data, index) => (
-                                    <option key={index} value={data}>
-                                        {data}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                       
 
                         {/* From Date */}
                         <div className="flex flex-col gap-1">
@@ -385,6 +368,25 @@ const GeneralStoreTable = () => {
                                 value={todate}
                                 onChange={(e) => settoDate(e.target.value)}
                             />
+                        </div>
+
+                         {/* Type Of Gatepass (Select) */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Type
+                            </label>
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setselectType(e.target.value)}
+                                value={selectType}
+                            >
+                                <option value="">In/Out (All)</option>
+                                {SelectGatePassType.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         {/* Buttons: Search + Export */}

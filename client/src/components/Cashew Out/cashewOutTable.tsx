@@ -342,52 +342,7 @@ const CashewOutTable = () => {
                             />
                         </div>
 
-                        {/* Type Dropdown */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                Type
-                            </label>
-                            <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
-                                onChange={(e) => setOrigin(e.target.value)}
-                                value={origin}
-                            >
-                                <option value="">Type (All)</option>
-                                {Origin.map((item, index) => (
-                                    <option key={index} value={item}>
-                                        {item}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* From Date */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                From
-                            </label>
-                            <Input
-                                type="date"
-                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                value={fromdate}
-                                onChange={(e) => setfromDate(e.target.value)}
-                            />
-                        </div>
-
-                        {/* To Date */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                To
-                            </label>
-                            <Input
-                                type="date"
-                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                value={todate}
-                                onChange={(e) => settoDate(e.target.value)}
-                            />
-                        </div>
-
-                        {/* Final Grade (with dropdown) */}
+                         {/* Final Grade (with dropdown) */}
                         <div className="flex flex-col gap-1 relative ">
                             <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Final Grade
@@ -416,8 +371,57 @@ const CashewOutTable = () => {
                             </ScrollArea>
                         </div>
 
+                        
+
+                        {/* From Date */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                From
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={fromdate}
+                                onChange={(e) => setfromDate(e.target.value)}
+                            />
+                        </div>
+
+                        {/* To Date */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                To
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={todate}
+                                onChange={(e) => settoDate(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Type Dropdown */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Type
+                            </label>
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setOrigin(e.target.value)}
+                                value={origin}
+                            >
+                                <option value="">Type (All)</option>
+                                {Origin.map((item, index) => (
+                                    <option key={index} value={item}>
+                                        {item}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                       
+
                         {/* Buttons */}
-                        <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0 col-span-2">
+                        <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0 ">
                             <Button
                                 className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                                 onClick={handleSearch}

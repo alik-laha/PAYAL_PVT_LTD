@@ -363,24 +363,7 @@ const IssueTable = () => {
                         />
                     </div>
 
-                    {/* Unit */}
-                    <div className="relative">
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                Unit
-                            </label>
-                            <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
-                                onChange={(e) => setUnit(e.target.value)}
-                                value={unit}
-                            >
-                                <option value="">Unit (All)</option>
-                                {sku.map((data, index) => (
-                                    <option key={index} value={data.sku}>{data.sku}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                
 
                     {/* From Date */}
                     <div className="flex flex-col gap-1">
@@ -406,6 +389,25 @@ const IssueTable = () => {
                             value={todate}
                             onChange={(e) => settoDate(e.target.value)}
                         />
+                    </div>
+
+                        {/* Unit */}
+                    <div className="relative">
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Unit
+                            </label>
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setUnit(e.target.value)}
+                                value={unit}
+                            >
+                                <option value="">Unit (All)</option>
+                                {sku.map((data, index) => (
+                                    <option key={index} value={data.sku}>{data.sku}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     {/* Section */}
@@ -609,7 +611,7 @@ const IssueTable = () => {
 
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} &#8377;</TableCell>
                                         
-                                        <TableCell className="text-center ">{item.issueUser}</TableCell>
+                                        <TableCell className=" text-left">{item.issueUser}</TableCell>
                                         <TableCell className="text-center ">{item.damagereturn}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.damagequantity))} </TableCell>
                                         <TableCell className="text-center ">{item.damageunit}</TableCell>

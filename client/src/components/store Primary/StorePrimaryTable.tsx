@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
+import { pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -153,10 +153,10 @@ const StorePrimaryTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch,selectType }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata, gatepassSearch, selectType }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
-            if (res.data.PackageMaterials.length === 0 && page>1) {
+            if (res.data.PackageMaterials.length === 0 && page > 1) {
                 setPage((prev) => prev - 1)
             }
         }).catch((err) => {
@@ -187,7 +187,7 @@ const StorePrimaryTable = () => {
     }, [])
     const exportToExcel = async () => {
         const response = await axios.post('/api/storePrimary/getStorePrimary', {
-            fromdate, todate, searchdata,gatepassSearch 
+            fromdate, todate, searchdata, gatepassSearch
         })
         const data1 = response.data.PackageMaterials
         console.log(data1)
@@ -196,25 +196,25 @@ const StorePrimaryTable = () => {
         let transformed: ExcelStorePrimaryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: storeprimaryData,idx:number) => ({
-                Sl_No: idx+1,
-                GatePass_No:item.gatePassNo,
-                Gate_Pass_Type:item.gateType,
+            transformed = EditData.map((item: storeprimaryData, idx: number) => ({
+                Sl_No: idx + 1,
+                GatePass_No: item.gatePassNo,
+                Gate_Pass_Type: item.gateType,
                 Entry_Date: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                Gross_Wt:item.grossWt,
-                Net_Wt:item.netWeight,
-                Invoice:item.invoice,
+                Vehicle_No: item.truckNo,
+                Gross_Wt: item.grossWt,
+                Net_Wt: item.netWeight,
+                Invoice: item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
-                Type_Of_Material:item.type,
+                Type_Of_Material: item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Physical_Quantity: formatNumber(item.quantity),
-                Invoice_Quantity:item.invoicequantity,
+                Invoice_Quantity: item.invoicequantity,
                 Unit: item.unit,
-                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
-                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
-                Remarks:item.remarks,
+                Line_Weight: item.totalWt !== '0.00' ? formatNumber(item.totalWt) : '',
+                Bill_Amount: item.totalBill !== '0.00' ? formatNumber(item.totalBill) : '',
+                Remarks: item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -223,25 +223,25 @@ const StorePrimaryTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: storeprimaryData,idx:number) => ({
-                Sl_No: idx+1,
-                GatePass_No:item.gatePassNo,
-                Gate_Pass_Type:item.gateType,
+            transformed = data1.map((item: storeprimaryData, idx: number) => ({
+                Sl_No: idx + 1,
+                GatePass_No: item.gatePassNo,
+                Gate_Pass_Type: item.gateType,
                 Entry_Date: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                Gross_Wt:item.grossWt,
-                Net_Wt:item.netWeight,
-                Invoice:item.invoice,
+                Vehicle_No: item.truckNo,
+                Gross_Wt: item.grossWt,
+                Net_Wt: item.netWeight,
+                Invoice: item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
-                Type_Of_Material:item.type,
+                Type_Of_Material: item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Physical_Quantity: formatNumber(item.quantity),
-                Invoice_Quantity:item.invoicequantity,
+                Invoice_Quantity: item.invoicequantity,
                 Unit: item.unit,
-                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
-                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
-                Remarks:item.remarks,
+                Line_Weight: item.totalWt !== '0.00' ? formatNumber(item.totalWt) : '',
+                Bill_Amount: item.totalBill !== '0.00' ? formatNumber(item.totalBill) : '',
+                Remarks: item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -277,9 +277,6 @@ const StorePrimaryTable = () => {
 
     return (
         <>
-
-
-
             {checkpending('RCNPrimary') && (
                 <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
                     <Button
@@ -337,24 +334,7 @@ const StorePrimaryTable = () => {
                             />
                         </div>
 
-                        {/* Type Of Gatepass (Select) */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                Type
-                            </label>
-                            <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
-                                onChange={(e) => setselectType(e.target.value)}
-                                value={selectType}
-                            >
-                                <option value="">In/Out (All)</option>
-                                {SelectGatePassType.map((data, index) => (
-                                    <option key={index} value={data}>
-                                        {data}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+
 
                         {/* From Date */}
                         <div className="flex flex-col gap-1">
@@ -382,32 +362,47 @@ const StorePrimaryTable = () => {
                             />
                         </div>
 
+                        {/* Type Of Gatepass (Select) */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Type
+                            </label>
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setselectType(e.target.value)}
+                                value={selectType}
+                            >
+                                <option value="">In/Out (All)</option>
+                                {SelectGatePassType.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
                         {/* Buttons: Search + Export */}
                         {/* Occupy the remaining space, pushed to the right on larger screens */}
                         <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
-                                                <Button
-                                                    className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
-                                                    onClick={handleSearch}
-                                                >
-                                                    <FaSearch size={14} />
-                                                    Search
-                                                </Button>
-                        
-                                                <Button
-                                                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
-                                                    onClick={exportToExcel}
-                                                >
-                                                    <LuDownload size={16} />
-                                                    
-                                                </Button>
-                                            </div>
+                            <Button
+                                className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
+                            </Button>
+
+                            <Button
+                                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button>
+                        </div>
 
                     </div>
                 </div>
-        
-
-
-
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
@@ -416,21 +411,21 @@ const StorePrimaryTable = () => {
                         <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-                          <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Item_Invoice_No</TableHead>
-                           <TableHead className="text-center" >Invoice_Date</TableHead>
-                           <TableHead className="text-center" >Type_Of_Material</TableHead>
-                           <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
+                        <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" >Item_Invoice_No</TableHead>
+                        <TableHead className="text-center" >Invoice_Date</TableHead>
+                        <TableHead className="text-center" >Type_Of_Material</TableHead>
+                        <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name(Store_Item)</TableHead>
-                        
-                       
+
+
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
                         <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" >Store_Item_Wt(Kg)</TableHead>
                         <TableHead className="text-center" > Bill_Amount</TableHead>
-                     
+
 
                         <TableHead className="text-center" >Edit_Status</TableHead>
                         <TableHead className="text-center" >Store_Item_Remarks(Any)</TableHead>
@@ -460,8 +455,8 @@ const StorePrimaryTable = () => {
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} Kg</TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill):0} &#8377;</TableCell> 
+                                        <TableCell className="text-center">{item.totalWt !== '0.00' ? formatNumber(item.totalWt) : 0} Kg</TableCell>
+                                        <TableCell className="text-center">{item.totalBill !== '0.00' ? formatNumber(item.totalBill) : 0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -527,8 +522,8 @@ const StorePrimaryTable = () => {
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} Kg</TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell>   
+                                        <TableCell className="text-center">{item.totalWt !== '0.00' ? formatNumber(item.totalWt) : 0} Kg</TableCell>
+                                        <TableCell className="text-center">{item.totalBill !== '0.00' ? formatNumber(item.totalBill) : 0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -553,7 +548,7 @@ const StorePrimaryTable = () => {
                                                                 </DialogDescription>
                                                             </DialogHeader>
                                                             <StorePrimaryModify data={item} />
-                                                            
+
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -570,13 +565,13 @@ const StorePrimaryTable = () => {
                                 <TableCell></TableCell>
                                 <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
                                 <TableCell></TableCell>
-                                
+
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
-                                
+
                             </TableRow>)
                         )}
                     </TableBody>

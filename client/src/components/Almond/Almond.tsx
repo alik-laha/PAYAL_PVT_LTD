@@ -21,6 +21,7 @@ import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import AlmondInitialForm from './AlmondInitial';
 import AlmondTable from './AlmondTable';
+import { MdPendingActions } from 'react-icons/md';
 
 
 const Almond = () => {
@@ -83,7 +84,7 @@ const Almond = () => {
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAlmond) => {
                             return (
                                 <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400" key={item.type}>
-                                    {item.type} <br /><p>{item.totalBags} Bag</p>
+                                  <p> {item.type}</p>  <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
                         })
@@ -92,11 +93,11 @@ const Almond = () => {
 
                 </div>
 
-                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>CURRENT F.Y. {FY} ALMOND TRANSACTION</p>
+                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md'>CURRENT F.Y. {FY} ALMOND TRANSACTION</p>
 
                 <div>
                 {checkreceiving('AlmondPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Almond Receiving/Dispatch Pending List</p></DialogTitle>
@@ -107,8 +108,32 @@ const Almond = () => {
                         </DialogContent>
                     </Dialog>}
 
-                    {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
-                        Pending Edit ({data.CountPendingEdit})</Button>}
+                    {/* {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
+                        Pending Edit ({data.CountPendingEdit})</Button>} */}
+
+
+                    {checkpending('RCNPrimary') && (
+                        <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                            <Button
+                                className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                /* FIX 1: Use ?? 0 for the disabled prop */
+                                disabled={(data?.CountPendingEdit ?? 0) === 0}
+                                onClick={handleEditFetch}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <MdPendingActions size={18} />
+                                    Pending Actions
+                                </div>
+                            </Button>
+
+                            {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                            {(data?.CountPendingEdit ?? 0) > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                    {data?.CountPendingEdit ?? 0}
+                                </span>
+                            )}
+                        </div>
+                    )}
 
                 </div>
                 <AlmondTable />
