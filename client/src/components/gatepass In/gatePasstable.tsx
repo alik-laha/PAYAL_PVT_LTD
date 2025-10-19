@@ -1656,18 +1656,18 @@ const GatePassTable = () => {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-        <dialog id="machinescs" className="dashboard-modal">
+        <dialog id="machinescs" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
           <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
           <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-            <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+            <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
           {/* <!-- Add more elements as needed --> */}
         </dialog>
 
-        <dialog id="machineerror" className="dashboard-modal">
+        <dialog id="machineerror" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
           <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
           <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-            <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+            <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
           {/* <!-- Add more elements as needed --> */}
         </dialog>

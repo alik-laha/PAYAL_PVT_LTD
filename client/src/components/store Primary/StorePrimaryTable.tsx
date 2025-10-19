@@ -597,18 +597,18 @@ const StorePrimaryTable = () => {
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
-                <dialog id="recevingeditapprove" className="dashboard-modal">
+                <dialog id="recevingeditapprove" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
 
-                <dialog id="recevingeditreject" className="dashboard-modal">
+                <dialog id="recevingeditreject" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="recevingeditrejectclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>

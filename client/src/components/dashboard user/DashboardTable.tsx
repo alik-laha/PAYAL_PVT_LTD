@@ -58,6 +58,7 @@ import * as XLSX from 'xlsx';
 
 
 
+
 const DashboardTable = () => {
     const [UserData, setUserData] = useState<User[]>([])
     const limit = pagelimit
@@ -161,13 +162,41 @@ const DashboardTable = () => {
 
     return (
 
-        <div className="ml-5 mt-5">
-            <div className="flex pb-2">
-
-                <Input className="w-80" placeholder="Search By Emp Id/ Name/ Dept/ Role" onChange={handleSearch} />
-                <Button className="bg-green-700 h-8  w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button> 
-            </div>
+        <div className="mx-2 mt-5">
+          
             
+
+            <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+
+                    {/* GatePass No */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Search By
+                        </label>
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="Emp ID / Name / Dept / Role"
+                            onChange={handleSearch}
+                        />
+                    </div>
+
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0 ">
+
+
+
+                        <Button
+                            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={exportToExcel}
+                        >
+                            <LuDownload size={16} />
+                        </Button>
+
+                    </div>
+                </div>
+            </div>
 
 
             <Table className="mt-1">

@@ -80,7 +80,7 @@ const GatepassIn = () => {
                         >
                             <span className="text-lg font-bold">+</span> Add New Entry
                         </Button></DialogTrigger>
-                        <DialogContent className='max-w-3xl'>
+                        <DialogContent className='max-w-3xl max-h-screen overflow-auto'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center py-4 tracking-wider drop-shadow-xl font-bold'>GatePass Entry Form</p></DialogTitle>
 

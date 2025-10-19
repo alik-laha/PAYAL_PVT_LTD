@@ -10,26 +10,27 @@ import cross from '../../assets/Static_Images/error_img.png'
 
 
 const Employeecreateform = () => {
-    const [date, setDate] = React.useState<Date | undefined>()
-    const [errortext, setErrorText] = useState<string>("")
-    const [file, setFile] = useState<any>()
+  const [date, setDate] = React.useState<Date | undefined>();
+  const [errortext, setErrorText] = useState<string>("");
+  const [file, setFile] = useState<any>();
+  const [isdisable, setisdisable] = useState<boolean>(false);
 
-    const nameref = useRef<HTMLInputElement>(null)
-    const emailref = useRef<HTMLInputElement>(null)
-    const desgref = useRef<HTMLInputElement>(null)
-    //const dobref = useRef<HTMLInputElement>(null)
-    const contactNoref = useRef<HTMLInputElement>(null)
-    const bloodgpref = useRef<HTMLInputElement>(null)
-    const studyref = useRef<HTMLInputElement>(null)
-    const altcontactref = useRef<HTMLInputElement>(null)
-    const adharref = useRef<HTMLInputElement>(null)
-    const panref = useRef<HTMLInputElement>(null)
-    const emgNameref = useRef<HTMLInputElement>(null)
-    const emgContactref = useRef<HTMLInputElement>(null)
-    const pfref = useRef<HTMLInputElement>(null)
-    const pincoderef = useRef<HTMLInputElement>(null)
-    const addressref = useRef<HTMLInputElement>(null)
-    const [isdisable,setisdisable]=useState<boolean>(false)
+  // Refs
+  const nameref = useRef<HTMLInputElement>(null);
+  const emailref = useRef<HTMLInputElement>(null);
+  const desgref = useRef<HTMLInputElement>(null);
+  const contactNoref = useRef<HTMLInputElement>(null);
+  const bloodgpref = useRef<HTMLInputElement>(null);
+  const studyref = useRef<HTMLInputElement>(null);
+  const altcontactref = useRef<HTMLInputElement>(null);
+  const adharref = useRef<HTMLInputElement>(null);
+  const panref = useRef<HTMLInputElement>(null);
+  const emgNameref = useRef<HTMLInputElement>(null);
+  const emgContactref = useRef<HTMLInputElement>(null);
+  const pfref = useRef<HTMLInputElement>(null);
+  const pincoderef = useRef<HTMLInputElement>(null);
+  const addressref = useRef<HTMLInputElement>(null);
+
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -182,110 +183,137 @@ const Employeecreateform = () => {
     }
 
     return (
-        <div className="pl-10 pr-10 max-h-80 overflow-y-scroll">
-            <form className='flex flex-col gap-0.5 text-xs mt-5' onSubmit={handleSubmit}>
+         <div className="px-6 py-3">
+      <div className="bg-white shadow-md rounded-2xl p-6 border border-gray-100 max-w-5xl mx-auto">
+       
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Name</Label>
-                    <Input className="w-2/4 " placeholder="Name" ref={nameref} /> </div>
+        <form
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"
+          onSubmit={handleSubmit}
+        >
+          <div>
+            <Label>Name</Label>
+            <Input className="mt-1" placeholder="Enter name" ref={nameref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4  pt-1">Email </Label>
-                    <Input className="w-2/4" placeholder="Email" ref={emailref} /> </div>
+          <div>
+            <Label>Email</Label>
+            <Input className="mt-1" placeholder="Enter email" ref={emailref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Desg.</Label>
-                    <Input className="w-2/4 " placeholder="Designation" ref={desgref} />
-                </div>
+          <div>
+            <Label>Designation</Label>
+            <Input className="mt-1" placeholder="Enter designation" ref={desgref} />
+          </div>
 
-                <div className='flex'>
-                    <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
-                    <span className=""><DatePicker buttonName="Date Of Joining." value={date} setValue={setDate} /></span>
-                </div>
+          <div>
+            <Label>Date Of Joining</Label>
+            <p className="mt-2"><DatePicker buttonName="Select date" value={date} setValue={setDate} /></p>
+            
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Contact No.</Label>
-                    <Input className="w-2/4 " placeholder="Contact No." ref={contactNoref} /></div>
+          <div>
+            <Label>Contact No.</Label>
+            <Input className="mt-1" placeholder="Enter contact number" ref={contactNoref} />
+          </div>
 
+          <div>
+            <Label>Blood Group</Label>
+            <Input className="mt-1" placeholder="Enter blood group" ref={bloodgpref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Blood Group</Label>
-                    <Input className="w-2/4" placeholder="Blood Group" ref={bloodgpref} /></div>
+          <div>
+            <Label>Highest Qualification</Label>
+            <Input className="mt-1" placeholder="Enter qualification" ref={studyref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Highest Study </Label>
-                    <Input className="w-2/4 " placeholder=" Quaification" ref={studyref} /></div>
+          <div>
+            <Label>Alternate Contact</Label>
+            <Input className="mt-1" placeholder="Enter alternate number" ref={altcontactref} />
+          </div>
 
+          <div>
+            <Label>Aadhar No.</Label>
+            <Input className="mt-1" placeholder="Enter Aadhar no." ref={adharref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-2 ">Contact No.(Alt)</Label>
-                    <Input className="w-2/4 " placeholder="Alt No." ref={altcontactref} />
+          <div>
+            <Label>PAN No.</Label>
+            <Input className="mt-1" placeholder="Enter PAN no." ref={panref} />
+          </div>
 
-                </div>
+          <div>
+            <Label>Emergency Contact Name</Label>
+            <Input className="mt-1" placeholder="Enter emergency contact name" ref={emgNameref} />
+          </div>
 
+          <div>
+            <Label>Emergency Contact No.</Label>
+            <Input className="mt-1" placeholder="Enter emergency contact no." ref={emgContactref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Aadhar No.</Label>
-                    <Input className="w-2/4 " placeholder=" Aadhar No." ref={adharref} /></div>
+          <div>
+            <Label>PF No. (Optional)</Label>
+            <Input className="mt-1" placeholder="Enter PF number" ref={pfref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Pan No.</Label>
-                    <Input className="w-2/4 " placeholder="Pan No." ref={panref} />
-                </div>
+          <div>
+            <Label>Pincode</Label>
+            <Input className="mt-1" placeholder="Enter pincode" ref={pincoderef} />
+          </div>
 
+          <div className="md:col-span-2">
+            <Label>Address</Label>
+            <Input className="mt-1" placeholder="Enter address" ref={addressref} />
+          </div>
 
-                <div className="flex">
-                    <Label className="w-2/4  pt-1 ">Emergency Contact Name </Label>
-                    <Input className="w-2/4 " placeholder=" Contact Name " ref={emgNameref} /></div>
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Emergency Contact No. </Label>
-                    <Input className="w-2/4" placeholder="Contact No. " ref={emgContactref} />
-                </div>
+          <div className="md:col-span-2">
+            <Label>Employee Image</Label>
+            <input
+              type="file"
+              className="mt-2 block w-full border border-gray-300 text-sm rounded-md p-2 cursor-pointer hover:border-blue-400 transition"
+              onChange={handleCleanFileChange}
+            />
+          </div>
 
+          <div className="md:col-span-2 flex justify-center mt-3">
+            <Button
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md shadow-sm transition"
+              disabled={isdisable}
+            >
+              {isdisable ? "Submitting..." : "Submit"}
+            </Button>
+          </div>
+        </form>
+      </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">PF No.(Optional) </Label>
-                    <Input className="w-2/4 " placeholder="PF No. " ref={pfref} /> </div>
+      {/* ✅ Success Dialog */}
+      <dialog
+        id="successemployeedialog"
+        className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center"
+      >
+   
 
-                <div className="flex"><Label className="w-2/4  pt-1 "> Pincode</Label>
-                    <Input className="w-2/4" placeholder=" Pincode " ref={pincoderef} /> </div>
+        <button id="empcloseDialog" className="dashboard-modal-close-btn">X</button>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Address </Label>
-                    <Input className="w-2/4 " placeholder="Address " ref={addressref} />
+        <span className="flex">
+                            <img src={tick} height={15} width={15} alt='tick_image' />
+                            <p id="modal-text" className="pl-3 mt-1 font-medium text-green-600">{errortext}</p>
+         </span>
+      </dialog>
 
-                </div>
-                <div className="flex">
-                    <Label className="w-2/4 pt-1 ">Employee Image </Label>
-                    <input type="file" multiple onChange={handleCleanFileChange} />
-                </div>
-
-
-
-
-
-                <Button className="bg-orange-500 mt-4 text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
-            </form>
-            <dialog id="successemployeedialog" className="dashboard-modal">
-                <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-
-            <dialog id="erroremployeedialog" className="dashboard-modal">
-                <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-
-
-
-
-        </div>
+      {/* ❌ Error Dialog */}
+      <dialog
+        id="erroremployeedialog"
+        className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center"
+      >
+        <button id="errorempcloseDialog" className="dashboard-modal-close-btn">X</button>
+          <span className="flex">
+                            <img src={cross} height={15} width={15} alt='cross_image' />
+                            <p id="modal-text" className="pl-3 mt-1 font-medium text-red-600">{errortext}</p>
+         </span>
+      </dialog>
+    </div>
     )
 
 
