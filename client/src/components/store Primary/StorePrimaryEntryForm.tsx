@@ -110,81 +110,7 @@ const StorePrimaryEntry = (props:Props) => {
 
         });
     }
-//     const handleSubmit = async (e: React.FormEvent) => {
-//         e.preventDefault()
-//         //const quantity = quantityRef.current?.value
-//         const invoicedate=invoicedateRef.current?.value
-//         const invoice=invoiceref.current?.value
-         
-//         const formData = rows.map(row => ({
-//                 GatePassNo: gatepass,
-//                 recevingDate: date,
-//                 TruckNo: truck,
-//                 gateType:gateType,
-//                 GrossWt: grossWt,
-//                 invoicedate:invoicedate,
-//                 invoice:invoice,
-//                 vendorName:VendorName,
-             
-//                 ...row
-//         }))
-//         try 
-//         { 
-//             if(formData.length===1){
-//             for (var data of formData) 
-//                 {
-//                     await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data })
-//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-//                         section:'Store' })
-//                         setErrortext('Store Item Received/Dispatched Successfully')
-//                     if(successdialog){
-//                         (successdialog as any).showModal();
-//                     }
-                    
-//                 }
-//             }  
-       
-//             else if(formData.length>1){
-//             const firstrow=formData[0]
-          
-//                 await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data:firstrow })
-           
-//                 let pmrescount=0
-//             for(let i=1;i<formData.length;i++){
-                
-//                 const data1=formData[i];
-//                 await axios.post('/api/storePrimary/createStorePrimary', {data:data1 })
-//                 pmrescount++
-//                 if(pmrescount==(formData.length-1))
-//                 {
-                    
-//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-//                         section:'Store' })
-//                         setErrortext('Store Item Received/Dispatched Successfully')
-//                     if(successdialog){
-//                         (successdialog as any).showModal();
-//                     }
-//                 }
-//             }
-           
-//         } 
-//     }
-//     catch (err){
-//         console.log(err)
-//         await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
-//         if(axios.isAxiosError(err)){
-//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-//         }
-//         if(errordialog){
-//             (errordialog as any).showModal()
-//         }
-        
-        
 
-//     }
-                    
-        
-// }
 const handleSubmit2 = async (e: React.FormEvent) => {
     e.preventDefault()
     setisdisable(true)
@@ -344,40 +270,107 @@ const handleSubmit2 = async (e: React.FormEvent) => {
 
     return (
         <>
-            <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
-                <div className="mx-8 flex flex-col gap-1"> 
-                <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div className="flex"><Label className="w-2/4  pt-2">GatePass Type</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Type" value={gateType} readOnly /> </div>
-                <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Date" value={date}  readOnly /> </div> 
-                
-                <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No" value={truck}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
-                <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
+            <div className="mt-4">
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit2}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div>
+                            <Label>GatePass No.</Label>
+                            <Input
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"
+                                value={gatepass}
+                                readOnly
+                            />
+                        </div>
+                        <div>
+                            <Label>GatePass Type</Label>
+                            <Input
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"
+                                value={gateType}
+                                readOnly
+                            />
+                        </div>
+                        <div>
+                            <Label>Date</Label>
+                            <Input
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"
+                                value={date}
+                                readOnly
+                            />
+                        </div>
 
-                <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
-                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
-                <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
-                <div className="w-2/4">
-                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
-                <ScrollArea className="max-h-24 w-1/3 overflow-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
-                                                    {
-                                                        vendorData.map((item: VendorData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick( item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </ScrollArea>
-                </div>
-                
-     
-                                                   
-                </div>  
+                        <div>
+                            <Label>Vehicle No.</Label>
+                            <Input
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300 "
+                                value={truck}
+                                readOnly
+                            />
+                        </div>
+ 
+                     <div>
+        <Label>Invoice No</Label>
+        <Input
+          className="mt-1 text-center"
+          placeholder="Invoice No"
+          required
+          ref={invoiceref}
+        />
+      </div>
+
+                   <div>
+        <Label>Invoice Date</Label>
+        <Input
+          className="mt-1 text-center"
+          placeholder="Invoice Date"
+          type="date"
+          required
+          ref={invoicedateRef}
+        />
+      </div>
+                        {/* <div className="flex "><Label className="w-2/4  pt-2">{gateType === 'IN' ? 'Vendor' : 'Party'} Name</Label>
+                            <div className="w-2/4">
+                                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e) => { handleVendorChange(e) }} />
+                                <ScrollArea className="max-h-24 w-1/3 overflow-scroll dropdown-content" style={{ display: vendorNameView, position: 'fixed' }}>
+                                    {
+                                        vendorData.map((item: VendorData) => (
+                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(item)}>
+                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+                                            </div>
+                                        ))
+                                    }
+                                </ScrollArea>
+                            </div>
+
+
+
+                        </div>   */}
+
+                 <div className="col-span-1">
+        <Label>{gateType === "IN" ? "Vendor" : "Party"} Name</Label>
+        <div className="relative">
+          <Input
+            className="mt-1 text-center"
+            placeholder="Name"
+            required
+            value={VendorName}
+            onChange={(e) => handleVendorChange(e)}
+          />
+          <ScrollArea
+            className="absolute bg-white border border-gray-200 rounded-md shadow-md w-full mt-1 max-h-28 overflow-auto z-10"
+            style={{ display: vendorNameView }}
+          >
+            {vendorData.map((item: VendorData) => (
+              <div
+                key={item.id}
+                className="px-3 py-1 hover:bg-gray-100 cursor-pointer text-sm"
+                onClick={() => handleVendoridClick(item)}
+              >
+                {item.vendorName}
+              </div>
+            ))}
+          </ScrollArea>
+        </div>
+      </div>
                        
 
                 </div>
@@ -386,7 +379,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl. No.</TableHead>
+                            <TableHead className="text-center" >Sl_No.</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
                             <TableHead className="text-center" >SKU/Item_Name</TableHead>
                        

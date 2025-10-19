@@ -297,17 +297,17 @@ const IssueCreateForm = () => {
      }
     return (
         <>
-            <div className="px-5 mt-4">
-                     <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
+            <div >
+                     <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
 
-                    <div className="mx-1 flex flex-col gap-1">
-                        <div className="flex mt-1">
-                            <Label className="w-1/4 pt-1">Issue Date(*)</Label>
-                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div>
+                            <Label>Issue Date(*)</Label>
+                            <Input type='date' className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
-                        <div className="flex mt-1">
-                            <Label className="w-1/4 pt-1">Issue to User(*)</Label>
-                            <Input className="w-1/4 text-center" placeholder="User Name" ref={usernameRef} required/>
+                        <div>
+                            <Label >Issue to User(*)</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="User Name" ref={usernameRef} required/>
                         </div>
                     </div>
 

@@ -163,8 +163,8 @@ return(
         value={type}
         required
       >
-        <option value="IN">IN</option>
-        <option value="OUT">OUT</option>
+        <option value="IN" className="w-auto">IN</option>
+        <option value="OUT" className="w-auto">OUT</option>
       </select>
     </div>
 

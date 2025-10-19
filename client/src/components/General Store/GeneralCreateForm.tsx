@@ -344,25 +344,25 @@ const GeneralPrimaryEntry = (props: Props) => {
 
     return (
         <>
-            <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
-                    <div className="mx-8 flex flex-col gap-1">
-                        <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                        <div className="flex"><Label className="w-2/4  pt-2">GatePass Type</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Type" value={gateType} readOnly /> </div>
-                        <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date} readOnly /> </div>
+            <div >
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div ><Label>GatePass No.</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                        <div ><Label >GatePass Type</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Type" value={gateType} readOnly /> </div>
+                        <div ><Label >Date</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={date} readOnly /> </div>
 
-                        <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck} readOnly /> </div>
-                        <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
-                            <Input className="w-2/4 text-center" placeholder="Invoice No" required ref={invoiceref} /> </div>
+                        <div><Label >Vehicle No.</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={truck} readOnly /> </div>
+                        <div ><Label >Invoice No</Label>
+                            <Input className="mt-1 font-semibold text-center border-gray-300" placeholder="Invoice No" required ref={invoiceref} /> </div>
 
-                        <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
-                            <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
-                        <div className="flex "><Label className="w-2/4  pt-2">{gateType === 'IN' ? 'Vendor' : 'Party'} Name</Label>
-                            <div className="w-2/4">
+                        <div ><Label >Invoice Date</Label>
+                            <Input className="mt-1 text-center border-gray-300" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
+                        <div><Label>{gateType === 'IN' ? 'Vendor' : 'Party'} Name</Label>
+                            <div className="mt-1 text-center border-gray-300">
                                 <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e) => { handleVendorChange(e) }} />
                                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView, position: 'fixed' }}>
                                     {
