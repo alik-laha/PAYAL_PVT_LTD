@@ -386,7 +386,7 @@ const GeneralPrimaryEntry = (props: Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl. No.</TableHead>
+                                <TableHead className="text-center" >Sl</TableHead>
                                 <TableHead className="text-center" >Item_Type</TableHead>
                                 <TableHead className="text-center" >SKU/Item_Name</TableHead>
 
@@ -410,7 +410,7 @@ const GeneralPrimaryEntry = (props: Props) => {
 
 
 
-                                                    <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                                    <select className="w-full text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleTypeChange(index, e)}
@@ -481,9 +481,9 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                         }} />
                                                 </TableCell>
 
-                                                <TableCell className="text-center w-30" >
+                                                <TableCell className="text-center" >
 
-                                                    <Input value={row.remarks} placeholder="remarks" className='w-90' onChange={(e) => {
+                                                    <Input value={row.remarks} placeholder="remarks"  onChange={(e) => {
                                                         handleRowChange(index, 'remarks', e.target.value)
                                                     }} />
                                                 </TableCell>
@@ -508,18 +508,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
                     <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
-                <dialog id="packageMetrialReceve" className="dashboard-modal">
+                <dialog id="packageMetrialReceve" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
 
-                <dialog id="packagingMetirialReciveError" className="dashboard-modal">
+                <dialog id="packagingMetirialReciveError" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>

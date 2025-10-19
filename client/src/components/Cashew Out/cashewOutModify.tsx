@@ -271,18 +271,18 @@ const CashewOutModify = (props: CashewOutModifyProps) => {
                 <Button className="bg-orange-500 mb-1 mt-1 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable ? 'Submitting' : 'Submit'}</Button>
             </form>
 
-            <dialog id="rcneditscsDialog" className="dashboard-modal">
+            <dialog id="rcneditscsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Cashew Out Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification of Cashew Out Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcnediterrDialog" className="dashboard-modal">
+            <dialog id="rcnediterrDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcnerrorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

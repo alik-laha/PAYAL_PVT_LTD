@@ -183,7 +183,7 @@ const Employeecreateform = () => {
     }
 
     return (
-         <div className="px-6 py-3">
+         <div className="px-6">
       <div className="bg-white shadow-md rounded-2xl p-6 border border-gray-100 max-w-5xl mx-auto">
        
 

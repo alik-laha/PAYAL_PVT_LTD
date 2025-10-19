@@ -49,9 +49,9 @@ const Machine = () => {
 
                 <Dialog>
                     <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md">+ Add New Asset</Button></DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className='max-w-4xl'>
                         <DialogHeader>
-                            <DialogTitle><p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl font-bold'>New Machine Creation</p></DialogTitle>
+                            <DialogTitle><p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl uppercase font-bold'>New Asset Creation</p></DialogTitle>
                             <DialogDescription>
                                 <p className='text-1xl text-center pb-3'>To Be Filled Up By Admin</p>
                             </DialogDescription>

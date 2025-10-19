@@ -174,99 +174,151 @@ const StorePrimaryModify = ({ data }: Props) => {
 
     return (
         <>
-             <div className="pl-10 pr-10 mt-3 max-h-80 overflow-y-scroll">
-                <form className='flex flex-col gap-2 ' onSubmit={handleSubmit}>
-                <div className="flex"><Label className="w-2/4  pt-1">GatePass No.</Label>
-                <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={gatepassno} readOnly required /> </div>
-                
-                <div className="flex"><Label className="w-2/4  pt-1">GatePass Type</Label>
-                <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassType" value={gateType} readOnly required /> </div>
-                
-                <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={truck} readOnly required /> </div>  
-                    <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 justify-center bg-yellow-100" placeholder="Receiving Date" value={date} required type="date" /> </div>
-                        
-                        <div className="flex"><Label className="w-2/4  pt-1">{gateType==='IN'?'Gross':'Tare'} Wt.(Kg)</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross/Tare Wt." value={grossswt} readOnly required /> </div>        
-                        
-                        <div className="flex"><Label className="w-2/4  pt-1">Net Wt.(Kg)</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Nt Wt." value={netwt} readOnly required /> </div>  
+            <div className="px-2  max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+  <form className="flex flex-col gap-3 bg-white p-6 rounded-2xl shadow-lg" onSubmit={handleSubmit}>
+    {/* --- Basic Details Section --- */}
+    <h2 className="text-md font-semibold text-blue-900 border-b pb-1 mb-2">GatePass Details</h2>
+    <div className="grid grid-cols-2 gap-3">
+      <div>
+        <Label>GatePass No.</Label>
+        <Input className="text-center bg-yellow-100" value={gatepassno} readOnly required />
+      </div>
+      <div>
+        <Label>GatePass Type</Label>
+        <Input className="text-center bg-yellow-100" value={gateType} readOnly required />
+      </div>
+      <div>
+        <Label>Vehicle No.</Label>
+        <Input className="text-center bg-yellow-100" value={truck} readOnly required />
+      </div>
+      <div>
+        <Label>Receiving Date</Label>
+        <Input className="bg-yellow-100" type="date" value={date} required />
+      </div>
+      <div>
+        <Label>{gateType === "IN" ? "Gross" : "Tare"} Wt. (Kg)</Label>
+        <Input className="text-center bg-yellow-100" value={grossswt} readOnly required />
+      </div>
+      <div>
+        <Label>Net Wt. (Kg)</Label>
+        <Input className="text-center bg-yellow-100" value={netwt} readOnly required />
+      </div>
+    </div>
 
-                        <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
-                        <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceRef} /> </div>
-                        <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Invoice Date" value={invoicedate} onChange={(e)=>setinvoicedate(e.target.value)}required type="date" /> </div>
-                        
-                        <div className="flex"><Label className="w-2/4  pt-1">Material Type</Label>
-                        <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
-px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
-placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  settype(e.target.value)}
-                                                    value={type} required>
-                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Type</option>
-                                                    {/* {GatePassSection.map((item: any,idx:number) => (
-        <option key={idx} value={item}>{item}</option>
-    ))} */}
-                                                    {typesection ? (
-                                                        TypeOnSection[typesection as keyof typeof TypeOnSection].map((item) => (
-                                                            <option key={item} value={item}>{item}</option>
-                                                        ))
-                                                    ) : null}
-                                                </select> </div>
-                     
-                    <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
-                        <Input className="w-2/4 text-center" placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
-                        {
-                            skudata.map((item: SkuData) => (
-                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
-                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
-                                    <p className="text-sm py-1 focus:text-base">{item.unit}</p>
-                                </div>
-                            ))
-                        }
-                    </ScrollArea>
+    {/* --- Invoice Section --- */}
+    <h2 className="text-md font-semibold text-blue-900 border-b pb-1 mt-4 mb-2">Invoice Details</h2>
+    <div className="grid grid-cols-2 gap-3">
+      <div>
+        <Label>Invoice No</Label>
+        <Input className="text-center" placeholder="Invoice No" ref={invoiceRef} required />
+      </div>
+      <div>
+        <Label>Invoice Date</Label>
+        <Input className="text-center" type="date" value={invoicedate} onChange={(e) => setinvoicedate(e.target.value)} required />
+      </div>
+     
+    </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
-                        <Input className="w-2/4 text-center" placeholder="Name" required value={vendorName} onChange={handleVendorChange} /> </div>
-
-                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
-                        {
-                            vendorData.map((item: VendorData) => (
-                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(item)}>
-                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
-                                </div>
-                            ))
-                        }
-                    </ScrollArea>
-                    <div className="flex"><Label className="w-2/4  pt-1">Invoice Qty</Label>
-                    <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={invoicequantityRef} step='0.01'/> </div>
-
-                    <div className="flex"><Label className="w-2/4  pt-1">Physical Qty</Label>
-                        <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01'/> </div>
-                        <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" onChange={(e)=> setUnit(e.target.value)} placeholder="Qty" required value={unit} /> </div>
-                        <div className="flex"><Label className="w-2/4  pt-1">Row Item Wt</Label>
-                        <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowWt} step='0.01' onChange={(e)=> setrowwt(e.target.value)}/> </div>
-                        <div className="flex"><Label className="w-2/4  pt-1">Bill Amount</Label>
-                        <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowBill} step='0.01' onChange={(e)=> setrowBill(e.target.value)}/> </div>
-                        
-                        <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
-                        <Input className="w-2/4 text-center" placeholder="remarks"   value={remarks} onChange={(e)=> setremarks(e.target.value)}/> </div>
-                   
-
-
-
-
-
-
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
-                </form>
-
-
+    {/* --- SKU Section --- */}
+    <h2 className="text-md font-semibold text-blue-900 border-b pb-1 mt-4 mb-2">Material Details</h2>
+    <div className="grid grid-cols-2 gap-3">
+         <div>
+        <Label>Material Type</Label>
+        <select
+          className="w-full text-center h-9 rounded-md border border-input bg-background px-3 text-sm 
+          focus-visible:ring-1 focus-visible:ring-ring focus:outline-none"
+          onChange={(e) => settype(e.target.value)}
+          value={type}
+          required
+        >
+          <option value="" disabled>Type</option>
+          {typesection &&
+            TypeOnSection[typesection as keyof typeof TypeOnSection].map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
+        </select>
+      </div>
+      <div className="relative">
+        <Label>SKU</Label>
+        <Input className="text-center" placeholder="SKU" required value={sku} onChange={handleSkuchange} />
+        <ScrollArea
+          className="absolute bg-white border rounded-md shadow-md max-h-28 w-full overflow-auto z-10"
+          style={{ display: skuview }}
+        >
+          {skudata.map((item: SkuData) => (
+            <div
+              key={item.id}
+              className="flex justify-between px-3 py-1 hover:bg-blue-100 cursor-pointer"
+              onClick={() => handleSkuidClick(item)}
+            >
+              <p className="font-medium text-blue-900 text-sm">{item.sku}</p>
+              <p className="text-sm">{item.unit}</p>
             </div>
+          ))}
+        </ScrollArea>
+      </div>
+
+      <div className="relative">
+        <Label>{gateType === "IN" ? "Vendor" : "Party"} Name</Label>
+        <Input className="text-center" placeholder="Name" required value={vendorName} onChange={handleVendorChange} />
+        <ScrollArea
+          className="absolute bg-white border rounded-md shadow-md max-h-28 w-full overflow-auto z-10"
+          style={{ display: vendorNameView }}
+        >
+          {vendorData.map((item: VendorData) => (
+            <div
+              key={item.id}
+              className="px-3 py-1 hover:bg-blue-100 cursor-pointer"
+              onClick={() => handleVendoridClick(item)}
+            >
+              <p className="font-medium text-blue-900 text-sm">{item.vendorName}</p>
+            </div>
+          ))}
+        </ScrollArea>
+      </div>
+    </div>
+
+    {/* --- Quantity & Other Details --- */}
+    <h2 className="text-md font-semibold text-blue-900 border-b pb-1 mt-4 mb-2">Quantity & Misc</h2>
+    <div className="grid grid-cols-2 gap-3">
+      <div>
+        <Label>Invoice Qty</Label>
+        <Input className="text-center" type="number" ref={invoicequantityRef} placeholder="Qty" step="0.01" required />
+      </div>
+      <div>
+        <Label>Physical Qty</Label>
+        <Input className="text-center" type="number" ref={quantityRef} placeholder="Qty" step="0.01" required />
+      </div>
+      <div>
+        <Label>Unit</Label>
+        <Input className="text-center bg-yellow-100" value={unit} onChange={(e) => setUnit(e.target.value)} required />
+      </div>
+      <div>
+        <Label>Row Item Wt</Label>
+        <Input className="text-center" type="number" value={rowWt} onChange={(e) => setrowwt(e.target.value)} step="0.01" />
+      </div>
+      <div>
+        <Label>Bill Amount</Label>
+        <Input className="text-center" type="number" value={rowBill} onChange={(e) => setrowBill(e.target.value)} step="0.01" />
+      </div>
+      <div>
+        <Label>Remarks</Label>
+        <Input className="text-center" placeholder="Remarks" value={remarks} onChange={(e) => setremarks(e.target.value)} />
+      </div>
+    </div>
+
+    {/* --- Submit Button --- */}
+    <div className="flex justify-center mt-6">
+      <Button
+        className="w-1/3 bg-orange-500 hover:bg-orange-600 transition-all duration-200 text-white font-semibold"
+        disabled={isdisable}
+      >
+        {isdisable ? "Submitting..." : "Submit"}
+      </Button>
+    </div>
+  </form>
+</div>
+
             
             <dialog id="packageMetrialReceveUpdate" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="packageMetrialRecivecrossUpdate" className="dashboard-modal-close-btn ">X </button>

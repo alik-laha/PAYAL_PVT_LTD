@@ -47,7 +47,7 @@ const CashewOutInitialForm = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="px-5 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">

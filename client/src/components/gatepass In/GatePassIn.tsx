@@ -82,7 +82,7 @@ const GatepassIn = () => {
                         </Button></DialogTrigger>
                         <DialogContent className='max-w-3xl max-h-screen overflow-auto'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-lg text-gray-600 text-center py-4 tracking-wider drop-shadow-xl font-bold'>GatePass Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-md text-gray-600 text-center py-4 tracking-wider drop-shadow-xl uppercase font-bold'>GatePass Entry Form</p></DialogTitle>
 
                             </DialogHeader>
                             <GatePassCreateForm />

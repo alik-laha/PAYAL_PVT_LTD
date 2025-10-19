@@ -269,23 +269,22 @@ const CashewOutEntryForm = (props: Props) => {
 
     return (
         <>
-            <div className="px-5 mt-4">
+            <div className="mt-4">
 
 
 
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit3}>
-                    <div className="mx-1 flex flex-col gap-1">
-                        <div className="flex mt-4"><Label className="w-1/4  pt-1">GatePass No.</Label>
-                            <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                        
-                        <div className="flex"><Label className="w-1/4  pt-1">Date of Receiving</Label>
-                            <Input className="w-1/4 font-semibold text-center" placeholder="Date" value={date} readOnly /> </div>
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200  ' onSubmit={handleSubmit3}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div><Label>GatePass No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                <div ><Label >Date</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={date}  readOnly /> </div> 
 
-                        <div className="flex"><Label className="w-1/4  pt-1">Gross Wt (Kg)</Label>
-                            <Input className="w-1/4  font-semibold text-center" placeholder="Gross Wt." value={grossWt} readOnly /> </div>
+                        <div><Label>Gross Wt (Kg)</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Gross Wt." value={grossWt} readOnly /> </div>
 
-                        <div className="flex"><Label className="w-1/4  pt-1">Vehicle No.</Label>
-                            <Input className="w-1/4  font-semibold text-center" placeholder="Vehicle No." value={truck} readOnly /> </div>
+                        <div><Label>Vehicle No.</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck} readOnly /> </div>
                      
 
                        
@@ -295,7 +294,7 @@ const CashewOutEntryForm = (props: Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl. No.</TableHead>
+                                <TableHead className="text-center" >Sl_No.</TableHead>
                                 <TableHead className="text-center" >Invoice_No</TableHead>
                                 <TableHead className="text-center" >Item_Batch_No</TableHead>
                                 <TableHead className="text-center" >Sales_PartyName</TableHead>
@@ -399,18 +398,18 @@ const CashewOutEntryForm = (props: Props) => {
 
 
             </div>
-            <dialog id="myDialog" className="dashboard-modal">
+            <dialog id="myDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="errorDialog" className="dashboard-modal">
+            <dialog id="errorDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
