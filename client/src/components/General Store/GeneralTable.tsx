@@ -420,7 +420,7 @@ const GeneralStoreTable = () => {
                                                     </AlertDialog>
 
 
-                                                </TableCell>
+                                        </TableCell>
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
