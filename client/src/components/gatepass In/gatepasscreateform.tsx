@@ -154,7 +154,7 @@ return(
   >
      {/* --- TYPE --- */}
     <div className="flex flex-col sm:flex-row gap-4 items-center">
-      <Label className="sm:w-1/2 font-medium text-gray-600 dark:text-gray-300 text-left" >
+      <Label className="sm:w-1/2 font-bold text-gray-600 dark:text-gray-300 text-left" >
         Select Gatepass Type (IN / OUT)
       </Label>
       <select

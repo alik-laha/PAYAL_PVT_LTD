@@ -1467,7 +1467,7 @@ const GatePassTable = () => {
                                 <AlertDialogContent>
                                   <AlertDialogHeader>
                                     <AlertDialogTitle>
-                                      {" "}
+                                  
                                       Enter Cancel Reason
                                     </AlertDialogTitle>
                                     <AlertDialogDescription>
@@ -1476,7 +1476,7 @@ const GatePassTable = () => {
                                       <Textarea
                                         style={{ color: "black" }}
                                         placeholder="Cancel Remark"
-                                        className="mt-3 w-100 text-center justify-center items-center"
+                                        className="mt-3 w-full text-left justify-center items-center border-gray-500"
                                         value={cancelremark}
                                         onChange={(e) =>
                                           setCancelremark(e.target.value)

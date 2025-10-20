@@ -33,6 +33,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "../ui/drawer"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useEffect, useState } from "react"
@@ -285,8 +286,13 @@ const GeneralStoreTable = () => {
         <>
 
 
-            {checkpending('RCNPrimary') && (
-                <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+            {checkpending('RCNPrimary') &&
+            
+            (
+
+                <Drawer>
+                    <DrawerTrigger asChild >
+                        <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
                     <Button
                         className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
                         /* FIX 1: Use ?? 0 for the disabled prop */
@@ -306,7 +312,164 @@ const GeneralStoreTable = () => {
                         </span>
                     )}
                 </div>
-            )}
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <DrawerHeader>
+                            <DrawerTitle>Pending Actions</DrawerTitle>
+                            <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+                        </DrawerHeader>
+                        <div className='mx-5 flex flex-col'>
+                            <div className="flex flex-row w-full  justify-end"><Button
+                                className="w-12 mb-2 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button></div>
+                            <Table>
+                                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                    <TableHead className="text-center" >Sl_No</TableHead>
+                                    <TableHead className="text-center" >Action</TableHead>
+
+                                    <TableHead className="text-center" >GatePass_No.</TableHead>
+                                    <TableHead className="text-center" >Type</TableHead>
+                                    <TableHead className="text-center" >Receiving_Date</TableHead>
+                                    <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
+                                    <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center" >Item_Invoice_No</TableHead>
+                                    <TableHead className="text-center" >Invoice_Date</TableHead>
+                                    <TableHead className="text-center" >Type_Of_Material</TableHead>
+                                    <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
+                                    <TableHead className="text-center" >Vendor_Name(Store_Item)</TableHead>
+
+
+                                    <TableHead className="text-center" >Invoice_Qty</TableHead>
+                                    <TableHead className="text-center" >Physical_Qty</TableHead>
+                                    <TableHead className="text-center" >Unit</TableHead>
+                                    <TableHead className="text-center" >Store_Item_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center" > Bill_Amount</TableHead>
+
+
+                                    <TableHead className="text-center" >Edit_Status</TableHead>
+                                    <TableHead className="text-center" >Store_Item_Remarks(Any)</TableHead>
+                                    <TableHead className="text-center" >Entried_By</TableHead>
+
+
+
+                                </TableHeader>
+                                <TableBody>
+                                    {
+                            EditData.map((item: generalprimaryData, idx: number) => {
+
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell className="text-center">{idx + 1}</TableCell>
+                                         <TableCell className="text-center flex flex-row gap-3">
+
+
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger >
+                                                            <div className="flex flex-row gap-1"> <FcApprove size={20} />
+                                                                <button className="text-green-500">
+                                                                    Approve
+                                                                </button>
+
+                                                            </div>
+
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent  >
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>
+                                                                    Do you want to Approve the Edit Request?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => handleApprove(item.id)}>
+                                                                    Continue
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger>
+                                                            <div className="flex flex-row gap-1">
+                                                                <FcDisapprove size={20} />
+                                                                <button className=" text-red-500">
+                                                                    Revert
+                                                                </button>
+                                                            </div>
+
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>
+                                                                    Do you want to Decline the Edit Request?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => handleRejection(item.id)}>
+                                                                    Continue
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+
+
+                                                </TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
+                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                        <TableCell className="text-center ">{item.invoice}</TableCell>
+                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center ">{item.type}</TableCell>
+                                        <TableCell className="text-center">{item.sku}</TableCell>
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                          
+                                       
+                                    </TableRow>
+                                );
+                            })}
+                       
+                                </TableBody>
+                            </Table>
+
+
+
+
+
+                        </div>
+                        <DrawerFooter>
+
+                            <DrawerClose asChild>
+                                <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                                >Close</Button>
+                            </DrawerClose>
+                        </DrawerFooter>
+
+                    </DrawerContent>
+                </Drawer>
+
+            )
+            
+            
+            
+          }
 
             <div className="mx-2 mt-5 ">
                  <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
@@ -445,73 +608,7 @@ const GeneralStoreTable = () => {
 
                     </TableHeader>
                     <TableBody>
-                        {EditData.length > 0 ? (
-                            EditData.map((item: generalprimaryData, idx: number) => {
-
-                                return (
-                                    <TableRow key={item.id}>
-                                        <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
-                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
-                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                        <TableCell className="text-center ">{item.invoice}</TableCell>
-                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center ">{item.type}</TableCell>
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })
-                        ) : (
+                        {
                             Data.length > 0 ? (Data.map((item: generalprimaryData, idx: number) => {
 
 
@@ -583,7 +680,7 @@ const GeneralStoreTable = () => {
                                 <TableCell></TableCell>
                                 
                             </TableRow>)
-                        )}
+                        }
                     </TableBody>
                 </Table>
                 <Pagination className="pt-5 ">
