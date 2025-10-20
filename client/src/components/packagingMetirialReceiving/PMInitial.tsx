@@ -50,7 +50,7 @@ const PMInitial = (props: any) => {
         <>
             <div className="px-5 max-h-64 overflow-scroll">
          
-                <Table className="mt-3">
+                <Table>
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >GatePass No</TableHead>

@@ -306,15 +306,15 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 <div ><Label>Vehicle No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={truck}  readOnly /> </div> 
                 <div ><Label>Invoice No.</Label>
-                        <Input className="mt-1 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div>
+                        <Input className="mt-1 text-center border-gray-300" placeholder="Invoice No." ref={blNoRef}  required/> </div>
                 <div><Label>Invoice Date</Label>
-                <Input className="mt-1 justify-center text-center" type='date' placeholder="date" ref={conNoRef} required /> </div>
+                <Input className="mt-1 justify-center text-center border-gray-300" type='date' placeholder="date" ref={conNoRef} required /> </div>
                         
                         
                         
                 <div><Label>{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div>
-                <Input className="mt-1 justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -333,7 +333,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 <div>
                         <Label>Type</Label>
                         <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
-                            <SelectTrigger className="mt-1 justify-center w-full">
+                            <SelectTrigger className="mt-1 justify-center w-full border-gray-300 h-8">
                                 <SelectValue placeholder="Type" />
                             </SelectTrigger>
                             <SelectContent>
@@ -353,15 +353,15 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 </div>
                 <div>
                         <Label>Physical Bag Count</Label>
-                        <Input className="mt-1 text-center" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
+                        <Input className="mt-1 text-center border-gray-300" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
                 </div>
                 <div>
                         <Label>Weight</Label>
-                        <Input className="mt-1 text-center" placeholder="Weight" ref={totalWtRef} type="number" required step="0.01"/>
+                        <Input className="mt-1 text-center border-gray-300" placeholder="Weight" ref={totalWtRef} type="number" required step="0.01"/>
                 </div>
                 <div>
                         <Label>Bill Amount</Label>
-                        <Input className="mt-1 text-center" placeholder="Bill Amount" ref={billAmtRef} type="number" required step="0.01"/>
+                        <Input className="mt-1 text-center border-gray-300" placeholder="Bill Amount" ref={billAmtRef} type="number" required step="0.01"/>
                 </div>
 
 
@@ -400,14 +400,14 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 <div><Label >Vehicle No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
                 <div ><Label >Invoice No.</Label>
-                <Input className="mt-1 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div>
+                <Input className="mt-1 text-center border-gray-300" placeholder="Invoice No." ref={blNoRef}  required/> </div>
                 
                 <div ><Label className="w-2/4 pt-2">Invoice Date</Label>
-                <Input className="mt-1 justify-center text-center" type='date' placeholder="date" ref={conNoRef} required /> </div>
+                <Input className="mt-1 justify-center text-center border-gray-300" type='date' placeholder="date" ref={conNoRef} required /> </div>
                 
                 <div ><Label >{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div>
-                <Input className="mt-1 justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -426,8 +426,8 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl_No.</TableHead>
-                            <TableHead className="text-center" >Type</TableHead>
-                            <TableHead className="text-center" >Grade</TableHead>                      
+                            <TableHead className="text-center" >Almond_Type</TableHead>
+                            <TableHead className="text-center" >Almond_Grade</TableHead>                      
                            
                            
                             <TableHead className="text-center" >Qty(Pc)</TableHead>                  

@@ -268,7 +268,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                 
                 <div><Label>{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div >
-                <Input className="mt-1 justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Vendor / Party" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (

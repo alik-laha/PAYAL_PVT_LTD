@@ -80,9 +80,9 @@ const AlmondInitialForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                              <DialogContent style={{display:'block'}} className='max-w-7xl max-h-screen overflow-auto'>
+                                              <DialogContent style={{display:'block'}} className='max-w-6xl max-h-screen overflow-auto'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Almond Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Almond Entry Form</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <AlmondPrimaryEntryForm rcn={rcnData}/>

@@ -62,7 +62,7 @@ const StorePrimary = () => {
                 onClick={handleOpenLotNo}>+ Add Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-lg text-gray-600 text-center pt-2 tracking-wider drop-shadow-xl font-bold'>Store Entry Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-lg text-gray-600 text-center pt-2 tracking-wider drop-shadow-xl font-bold'>Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 

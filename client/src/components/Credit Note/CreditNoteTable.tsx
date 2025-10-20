@@ -67,7 +67,7 @@ import Context from "../context/context";
 import CreditNoteModify from "./CreditNoteModify";
 
 
-const CreditNoteTable = () => {
+const CreditNoteTable = (props:any) => {
   const [Data, setData] = useState([]);
   const [fromdate, setfromDate] = useState("");
   // const [hidetodate, sethidetoDate] = useState('')
@@ -328,7 +328,7 @@ const CreditNoteTable = () => {
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
       const blob = new Blob([wbout], { type: "application/octet-stream" });
-      saveAs(blob, "Village_In_Primary_Material_" + currDate + ".xlsx");
+      saveAs(blob, "CreditNote_Primary_Material_" + currDate + ".xlsx");
     } else {
       const response = await axios.post("/api/creditNote/getRLOTDetails", {
         searchitem: blConNo,
@@ -378,122 +378,148 @@ const CreditNoteTable = () => {
 
   return (
     <>
-      <div className="ml-6 mt-5 ">
-        <div className="w-full ">
-          <select
-            className="mb-5 h-10 bg-purple-100 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
-            onChange={(e) => setsearchType(e.target.value)}
-            value={searchType}>
-            {dropdown.map((data, index) => (
-              <option
-                className="relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                value={data}
-                key={index}>
-                {data}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flexbox-search">
-          <Input
-            className="no-padding w-1/7 "
-            placeholder={
-              searchType === "Credit Details" ? " GatePass No" : "R-Lot No"
-            }
-            value={blConNo}
-            onChange={(e) => setBlConNo(e.target.value)}
-          />
-          {searchType === "Credit Details" && (
-            <select
-              className="flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
-              onChange={(e) => setOrigin(e.target.value)}
-              value={origin}>
-              <option
-                className="relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                value="">
-                Type (All)
-              </option>
-              {sku.map((data, index) => (
-                <option
-                  className="relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                  value={data.sku}
-                  key={index}>
-                  {data.sku}
-                </option>
-              ))}
-            </select>
-          )}
+      <div className="mx-2">
+      
 
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">
-            From
-          </label>
-          <Input
-            className="w-1/7 flexbox-search-width-calender"
-            type="date"
-            value={fromdate}
-            onChange={(e) => setfromDate(e.target.value)}
-            placeholder="From Date"
-          />
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">
-            To
-          </label>
-          <Input
-            className="w-1/7 flexbox-search-width-calender"
-            type="date"
-            // value={hidetodate}
-            // onChange={handleTodate}
-            value={todate}
-            onChange={(e) => settoDate(e.target.value)}
-            placeholder="To Date"
-          />
+      {props.props==='edit' ?'':<div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+          {/* Main dropdown selector */}
 
-          <select
-            className="flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
-            onChange={(e) => setOriginp(e.target.value)}
-            value={originp}>
-            <option
-              className="relative flex w-full cursor-default select-none items-center rounded-sm 
-                                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-              value="">
-              Origin (All)
-            </option>
-            {Origin.map((data, index) => (
-              <option
-                className="relative flex w-full cursor-default select-none items-center rounded-sm 
-                                                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                value={data}
-                key={index}>
-                {data}
-              </option>
-            ))}
-          </select>
 
-          <span className="w-1/8 ml-6 no-margin">
-            <Button className="bg-slate-500 h-8" onClick={handleSearch}>
-              <FaSearch size={15} /> Search
-            </Button>
-          </span>
-        </div>
-        {checkpending("RCNPrimary") && (
-          <span className="w-1/8 ">
-            <Button
-              className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4"
-              onClick={exportToExcel}>
-              <LuDownload size={18} />
-            </Button>{" "}
-          </span>
-        )}
+          {/* Grid filter section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-end">
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400 block mb-1">
+                Search Type
+              </label>
+              <select
+                className="select-with-icon bg-yellow-100 w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 dark:text-gray-200 appearance-none font-bold"
+                onChange={(e) => setsearchType(e.target.value)}
+                value={searchType}
+              >
+                {dropdown.map((data, index) => (
+                  <option key={index} value={data}>
+                    {data}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* GatePass or R-Lot No */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                {searchType === "Credit Details" ? "GatePass No." : "R-Lot No."}
+              </label>
+              <Input
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                placeholder={
+                  searchType === "Credit Details" ? "Enter GatePass No." : "Enter R-Lot No."
+                }
+                value={blConNo}
+                onChange={(e) => setBlConNo(e.target.value)}
+              />
+            </div>
 
+            {/* SKU Type (conditional) */}
+            {searchType === "Credit Details" && (
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                  Type
+                </label>
+                <select
+                  className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                  onChange={(e) => setOrigin(e.target.value)}
+                  value={origin}
+                >
+                  <option value="">Type (All)</option>
+                  {sku.map((data, index) => (
+                    <option key={index} value={data.sku}>
+                      {data.sku}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* From Date */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                From Date
+              </label>
+              <Input
+                type="date"
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={fromdate}
+                onChange={(e) => setfromDate(e.target.value)}
+              />
+            </div>
+
+            {/* To Date */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                To Date
+              </label>
+              <Input
+                type="date"
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={todate}
+                onChange={(e) => settoDate(e.target.value)}
+              />
+            </div>
+
+            {/* Origin Select */}
+            <div className="flex flex-col gap-1">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Origin
+              </label>
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => setOriginp(e.target.value)}
+                value={originp}
+              >
+                <option value="">Origin (All)</option>
+                {Origin.map((data, index) => (
+                  <option key={index} value={data}>
+                    {data}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Buttons Section */}
+            <div className="flex flex-wrap justify-end md:justify-end gap-3 mt-2 md:mt-0 col-span-full">
+              <Button
+                className="flex w-36 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                onClick={handleSearch}
+              >
+                <FaSearch size={14} />
+                Search
+              </Button>
+
+              {checkpending("RCNPrimary") && (
+                <Button
+                  className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={exportToExcel}
+                >
+                  <LuDownload size={16} />
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>}  
+
+         {checkpending("RCNPrimary") && props.props==='edit' &&(
+                <Button
+                  className="flex justify-end items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={exportToExcel}
+                >
+                  <LuDownload size={16} />
+                </Button>
+              )}
+             
         {searchTableType === "Credit Details" ? (
           <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
               <TableHead className="text-center">Id</TableHead>
+              {props.props==='edit' && <TableHead className="text-center">Action</TableHead>}
               <TableHead className="text-center">GatePass_No</TableHead>
               <TableHead className="text-center">GatePass_Type</TableHead>
               <TableHead className="text-center">Receiving_Date</TableHead>
@@ -517,17 +543,80 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
               <TableHead className="text-center">Item_Remarks</TableHead>
               <TableHead className="text-center">Created_By </TableHead>
               <TableHead className="text-center">Approved_By </TableHead>
-              <TableHead className="text-center">Action</TableHead>
+               {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
             </TableHeader>
             <TableBody>
-              {EditData.length > 0 ? (
+              {(EditData.length > 0 && props.props==='edit') ? (
                 EditData.map((item: creditNoteEntryData, idx: number) => {
                   return (
+                    
                     <TableRow key={item.id}>
                       <TableCell className="text-center font-bold">
                         {idx + 1}
                       </TableCell>
+                     <TableCell className="text-center flex flex-row gap-3">
+                        {/* <Popover>
+                          <PopoverTrigger>
+                            <button className="bg-cyan-500 p-2 text-white rounded">
+                              Action
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium ">
+                           
+                          </PopoverContent>
+                        </Popover> */}
 
+                         <AlertDialog>
+                              <AlertDialogTrigger >
+                                <div className="flex flex-row gap-1"> <FcApprove size={20} />
+                                <button className="text-green-500">
+                                  Approve
+                                </button>
+                                
+                                 </div>
+                               
+                              </AlertDialogTrigger>
+                              <AlertDialogContent  >
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Do you want to Approve the Edit Request?
+                                  </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleApprove(item.id)}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                            <AlertDialog>
+                              <AlertDialogTrigger>
+                                <div className="flex flex-row gap-1">
+                                   <FcDisapprove size={20} />
+                                <button className=" text-red-500">
+                                  Revert
+                                </button>
+                                </div>
+                               
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Do you want to Decline the Edit Request?
+                                  </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleRejection(item.id)}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                      </TableCell>
                      <TableCell className="text-center font-bold">
                         {item.gatePassNo}
                       </TableCell>
@@ -588,65 +677,11 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                       <TableCell className="text-center">
                         {item.approvedBy}
                       </TableCell>
-                      <TableCell className="text-center">
-                        <Popover>
-                          <PopoverTrigger>
-                            <button className="bg-cyan-500 p-2 text-white rounded">
-                              Action
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                            <AlertDialog>
-                              <AlertDialogTrigger className="flex">
-                                <FcApprove size={25} />
-                                <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">
-                                  Approve
-                                </button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>
-                                    Do you want to Approve the Edit Request?
-                                  </AlertDialogTitle>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleApprove(item.id)}>
-                                    Continue
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
-                            <AlertDialog>
-                              <AlertDialogTrigger className="flex mt-2">
-                                <FcDisapprove size={25} />{" "}
-                                <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">
-                                  Revert
-                                </button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>
-                                    Do you want to Decline the Edit Request?
-                                  </AlertDialogTitle>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleRejection(item.id)}>
-                                    Continue
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
-                          </PopoverContent>
-                        </Popover>
-                      </TableCell>
+                     
                     </TableRow>
                   );
                 })
-              ) : Data.length > 0 ? (
+              ) :( Data.length  > 0 && props.props==='non-edit')? (
                 Data.map((item: creditNoteEntryData, idx: number) => {
                   return (
                     <TableRow key={item.id}>
@@ -851,7 +886,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
             </TableBody>
           </Table>
         )}
-        <Pagination className="pt-5 " style={{ display: blockpagen }}>
+        {props.props==='non-edit' && <Pagination className="pt-5 " style={{ display: blockpagen }}>
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
@@ -875,7 +910,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
               <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
             </PaginationItem>
           </PaginationContent>
-        </Pagination>
+        </Pagination>}
         <dialog id="recevingeditapprove" className="dashboard-modal">
           <button
             id="recevingeditapproveclose"
