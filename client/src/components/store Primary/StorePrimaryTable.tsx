@@ -303,7 +303,7 @@ const StorePrimaryTable = () => {
                     )}
                 </div>
             </DrawerTrigger>
-             <DrawerContent className='overflow-auto transition-all duration-300 ease-in-out'>
+             <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle>Pending Actions</DrawerTitle>
                 <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>

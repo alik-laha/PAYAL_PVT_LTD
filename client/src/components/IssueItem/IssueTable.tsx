@@ -63,7 +63,7 @@ import {
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
-const IssueTable = () => {
+const IssueTable = (props:any) => {
     const [unit, setUnit] = useState<string>("")
     const [section, setSection] = useState<string>("")
     const [subsection, setSubSection] = useState<string>("")
@@ -347,7 +347,7 @@ const IssueTable = () => {
         <div className="mx-2 mt-5 ">
            
 
-            <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+             {props.props==='edit' ?'':<div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 items-end">
 
                     {/* Issue No */}
@@ -485,14 +485,22 @@ const IssueTable = () => {
                         </Button>
                     </div>
                 </div>
-            </div>
+            </div>}
 
-            {/* {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+           {props.props==='edit' &&(
+                <Button
+                  className="flex justify-end items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={exportToExcel}
+                >
+                  <LuDownload size={16} />
+                </Button>
+              )}
             
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Id</TableHead>
+                          {props.props==='edit' && <TableHead className="text-center">Action</TableHead>}
                         <TableHead className="text-center" >IssueID</TableHead>
                         
                         <TableHead className="text-center" >Date_Of_Issue</TableHead>
@@ -517,15 +525,71 @@ const IssueTable = () => {
                         <TableHead className="text-center" >Created_By</TableHead>
                         <TableHead className="text-center" >Actioned_By</TableHead>
                       
-                        <TableHead className="text-center" >Action</TableHead>
+                         {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
                     </TableHeader>
                     <TableBody>
-                        {EditData.length > 0 ? (
+                        {(EditData.length > 0 && props.props==='edit')? (
                             EditData.map((item: IssueItemData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
+                                          <TableCell className="text-center flex flex-row gap-3">
+
+
+                                            <AlertDialog>
+                                                <AlertDialogTrigger >
+                                                    <div className="flex flex-row gap-1"> <FcApprove size={20} />
+                                                        <button className="text-green-500">
+                                                            Approve
+                                                        </button>
+
+                                                    </div>
+
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent  >
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>
+                                                            Do you want to Approve the Edit Request?
+                                                        </AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction
+                                                            onClick={() => handleApprove(item.id)}>
+                                                            Continue
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger>
+                                                    <div className="flex flex-row gap-1">
+                                                        <FcDisapprove size={20} />
+                                                        <button className=" text-red-500">
+                                                            Revert
+                                                        </button>
+                                                    </div>
+
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>
+                                                            Do you want to Decline the Edit Request?
+                                                        </AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction
+                                                            onClick={() => handleRejection(item.id)}>
+                                                            Continue
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+
+
+                                        </TableCell>
                                         <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                        
@@ -550,43 +614,7 @@ const IssueTable = () => {
                                         <TableCell className="text-center ">{item.editStatus}</TableCell>
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                         <TableCell className="text-center ">{item.modifiedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                                       
                                     </TableRow>
                                 );
                             })
