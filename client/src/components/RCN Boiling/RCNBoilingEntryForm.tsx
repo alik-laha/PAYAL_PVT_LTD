@@ -212,124 +212,6 @@ const RCNBoilingEntryForm = () =>
 
     }
 
-//     const handleSubmit = async (e: React.FormEvent) => {
-//         e.preventDefault()
-//         const date = DateRef.current?.value  
-//         const noOfEmployees = noofEmployeeRef.current?.value
-//         const Mc_name = mc_name
-        
-// try
-// {
-//     const createLot=await axios.post('/api/boiling/createLotNo', {})            
-//     console.log(createLot)
-//     //setLotNO(createLot.data.newSequence) 
-//     //console.log(lotNO) 
-//     try 
-//     {   
-//         const formData = rows.map(row => ({
-//             columnLotNo: createLot.data.newSequence,
-//             columnDate: date,
-//             columnEmployee: noOfEmployees,
-//             columnMC: Mc_name,
-//             ...row
-//         }))
-//         let boilingcount = 0
-//         let scoopingcount=0
-//         for (var data of formData) 
-//         {
-//             const boilres=await axios.post('/api/boiling/createBoiling', { data })
-           
-//             boilingcount++;
-//             if (formData.length === boilingcount) 
-//             {
-                
-//                 if (boilres.status === 200) 
-//                 {
-//                     await axios.post('/api/scooping/updateLotNo', 
-//                     { lotNo:data.columnLotNo,desc:'Boiling'}) 
-//                 }
-//             }     
-//         }
-//         const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:formData[0].columnLotNo})
-//         console.log(resStatus)
-//         if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Boiling')
-//         {
-//             const updatedFormDataArray = await updateFormData(formData,createLot.data.newSequence);
-//             const processedFormDataArray = processFormData(updatedFormDataArray);
-//             const formData2 = processedFormDataArray.map(row => ({
-//                 columnLotNo: createLot.data.newSequence,
-//                 rcvQuantity: (parseFloat(row.size) * 80),
-//                  ...row
-//             }))
-//             for (var data2 of formData2) 
-//             {
-//                 const initialscoop=await axios.post('/api/scooping/createInitialScooping', { data2 })
-//                 console.log(initialscoop)
-//                 scoopingcount++;
-//                       if (formData.length === scoopingcount) 
-//                         {
-//                           setErrortext(initialscoop.data.message)
-//                           if (initialscoop.status === 200) 
-//                             {
-//                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-//                             dialog2.showModal()
-//                              setTimeout(() => {
-//                                  dialog2.close()
-//                                  window.location.reload()
-//                              }, 3000)
-//                             }
-                          
-//                         }   
-//             }
-//         }       
-//     }
-
-//     catch(err)  
-//     {
-//         console.log(err)
-//         if(axios.isAxiosError(err)){
-//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-//         }
-//         else{
-//             setErrortext('An Unexpected Error Occured')
-//         }
-//         const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-//         dialog.showModal()
-//         setTimeout(() => {
-//             dialog.close()
-//         }, 2000)
-//         axios.delete(`/api/boiling/deleteLotNo/${createLot.data.newSequence}`).then((res) => {
-//             console.log(res.data)
-//         })
-//         axios.delete(`/api/boiling/deleteBoilingByLotNo/${createLot.data.newSequence}`).then((res) => {
-//             console.log(res.data)
-//         })
-//         axios.delete(`/api/scooping/deleteScoopingByLotNo/${createLot.data.newSequence}`).then((res) => {
-//             console.log(res.data)
-//         })
-        
-        
-//     }  
-
-// }
-// catch(err){
-//     console.log(err)
-//     console.log(err)
-//         if(axios.isAxiosError(err)){
-//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-//         }
-//         else{
-//             setErrortext('An Unexpected Error Occured')
-//         }
-//     const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-//     dialog.showModal()
-//     setTimeout(() => {
-//         dialog.close()
-//     }, 2000)
-// }
-        
-            
-// }        
                     
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
@@ -362,18 +244,17 @@ const RCNBoilingEntryForm = () =>
    
     return (
         <>
-            <div className="px-5">
-                <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit2}>
-                   <div className="mx-1 flex flex-col gap-1"> 
-                    <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                    <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+            <div className="mt-4">
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3"> 
+                    <div><Label>Date of Entry</Label>
+                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
                    
-                    <div className="flex"><Label className="w-1/4 pt-1">Labours</Label>
-                    <Input className="w-1/4 text-center" placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
-                    <div className="flex">
-                    <Label className="w-1/4 pt-1">Machine Name</Label>
-                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
-                        <SelectTrigger className="w-1/4 justify-center">
+                   <div><Label>Labours</Label>
+                    <Input className="mt-1 bg-yellow-50 font-semibold  border-gray-300" type='number' placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
+                    <div><Label>Machine Name</Label>
+                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true} >
+                        <SelectTrigger className="w-full mt-1 h-8 bg-yellow-50 font-semibold text-center border-gray-300">
                             <SelectValue placeholder="Machine Name" />
                         </SelectTrigger>
                         <SelectContent>
@@ -484,7 +365,7 @@ const RCNBoilingEntryForm = () =>
                                     
                                         
                                         <TableCell className="text-center ">
-                                        <Input  value={row.size} className='bg-yellow-100' placeholder="Kg" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        <Input  value={row.size} className='bg-yellow-100' placeholder="Kg" onChange={(e) => handleRowChange(index,'size',e.target.value)} required type='number'/>
                                         </TableCell>
                         
                                      
@@ -544,19 +425,19 @@ const RCNBoilingEntryForm = () =>
                   
                    
                 </form>
-                <dialog id="successemployeedialog" className="dashboard-modal">
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                 </span>
 
 
             </dialog>
 
-            <dialog id="erroremployeedialog" className="dashboard-modal">
+            <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                 </span>
 
 

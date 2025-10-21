@@ -381,7 +381,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl_No.</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
-                            <TableHead className="text-center" >SKU/Item_Name</TableHead>
+                            <TableHead className="text-center" >Item_SKU/Item_Name</TableHead>
                        
                             <TableHead className="text-center" >Invoice_Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
@@ -422,10 +422,12 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
 
 
-                                            <TableCell className="text-center" >
+                                            {/* <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className=" max-h-28 w-auto overflow-auto dropdown-content " style={{ display: skuview }}>
+                                                {actvskuindex === index && 
+                                                
+                                                <ScrollArea className=" max-h-28 w-auto overflow-auto dropdown-content " style={{ display: skuview }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
                                                             <div key={item.id} className="gap-y-10 hover:bg-gray-300 "  onClick={() => handleSkuidClick(index, item)}>
@@ -435,7 +437,28 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                         ))
                                                     }
                                                 </ScrollArea>}
-                                            </TableCell>
+                                            </TableCell> */}
+
+                                              <TableCell className="relative text-center">
+        
+        <Input className="text-center" placeholder="SKU" required value={row.sku}  onChange={(e) => handleSkuchange(index, e)} />
+        <ScrollArea
+          className="absolute bg-white border rounded-md shadow-md max-h-28 w-full overflow-auto z-10"
+          style={{ display: skuview }}
+        >
+          {skudata.map((item: SkuData) => (
+            <div
+              key={item.id}
+              className="flex justify-between px-3 py-1 hover:bg-blue-100 cursor-pointer"
+              onClick={() => handleSkuidClick(index,item)}
+            >
+              <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
+              
+            </div>
+          ))}
+        </ScrollArea>
+      </TableCell>
+                                           
                                            
 
 

@@ -61,7 +61,7 @@ import OilMillModify from "./OilMillModify";
 // import AgarbatiModify from "./AgarbatiModify";
 
 
-const OilMillTable = () => {
+const OilMillTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
    
@@ -146,9 +146,9 @@ const OilMillTable = () => {
         if (editPendingOilMillData.length > 0) {
             //console.log(editPendingData)
             setEditData(editPendingOilMillData)
-            setblockpagen('none')
+            if(props.props==='edit'){setblockpagen('none')}
         }
-    }, [editPendingOilMillData])
+    }, [editPendingOilMillData, props.props])
 
     useEffect(() => {
         axios.put('/api/vendorSKU/getItembySection/Item Type', { section: 'OilMill' })
@@ -302,8 +302,8 @@ const OilMillTable = () => {
             <div className="mx-2 mt-5 ">
               
                 
-                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-end">
+              {props.props==='non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-4 items-end">
 
                         {/* GatePass No */}
                         <div className="flex flex-col gap-1">
@@ -363,7 +363,7 @@ const OilMillTable = () => {
                             />
                         </div>
                          {/* Search & Export Buttons */}
-            <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0">
+            <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
               <Button
                 className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                 onClick={handleSearch}
@@ -384,45 +384,119 @@ const OilMillTable = () => {
             </div>
 
                     </div>
-                </div>
+                </div>}  
+
+                {props.props==='edit' &&   <Button
+                  className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={exportToExcel}
+                >
+                  <LuDownload size={16} />
+
+                </Button>}
 
                 
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >GatePass_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Id</TableHead>
+                         {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_No</TableHead>
 
-                        <TableHead className="text-center" >GatePass_Type</TableHead>
-                        <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_Type</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entry_Vehicle_No</TableHead>
 
-                        <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >OilMill_Type</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >OilMill_Type</TableHead>
                      
-                        <TableHead className="text-center" >Oilmill_Item_Invoice_No.</TableHead>
-                        <TableHead className="text-center" >Invoice_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Oilmill_Item_Invoice_No.</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Invoice_Date</TableHead>
 
-                        <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Net_Weight(Kg)</TableHead>
 
-                        <TableHead className="text-center" >Oilmill_Item_Vendor_Name</TableHead>
-                        <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        <TableHead className="text-center" >Row_Weight</TableHead> 
-                        <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
-                        <TableHead className="text-center" >Edit_Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Oilmill_Item_Vendor_Name</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bag/Item_Count</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Row_Weight</TableHead> 
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bill_Amount(Rs)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit_Status </TableHead>
+                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created_By </TableHead>
+                         {props.props==='non-edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actioned_By</TableHead>} 
 
-                        <TableHead className="text-center" >Action</TableHead>
+                        {props.props==='non-edit' && <TableHead className="text-center" >Action</TableHead>}
                     </TableHeader>
 
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: OilMillPrimaryEntryData, idx) => {
+                        {EditData.length > 0 && props.props==='edit' ? (EditData.map((item: OilMillPrimaryEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
+                                 <TableCell className="text-center flex flex-row gap-3">
+                        {/* <Popover>
+                          <PopoverTrigger>
+                            <button className="bg-cyan-500 p-2 text-white rounded">
+                              Action
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium ">
+                           
+                          </PopoverContent>
+                        </Popover> */}
+
+                         <AlertDialog>
+                              <AlertDialogTrigger >
+                                <div className="flex flex-row gap-1"> <FcApprove size={20} />
+                                <button className="text-green-500">
+                                  Approve
+                                </button>
+                                
+                                 </div>
+                               
+                              </AlertDialogTrigger>
+                              <AlertDialogContent  >
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Do you want to Approve the Edit Request?
+                                  </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleApprove(item)}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                            <AlertDialog>
+                              <AlertDialogTrigger>
+                                <div className="flex flex-row gap-1">
+                                   <FcDisapprove size={20} />
+                                <button className=" text-red-500">
+                                  Revert
+                                </button>
+                                </div>
+                               
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Do you want to Decline the Edit Request?
+                                  </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleRejection(item)}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                      </TableCell>
                                 <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
@@ -441,43 +515,8 @@ const OilMillTable = () => {
                                 <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
-                                <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                                <TableCell className="text-center">{item.createdBy}</TableCell>
+                               
                                 </TableRow>
                             ) })): (
 
@@ -505,7 +544,8 @@ const OilMillTable = () => {
                                       <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
-
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>

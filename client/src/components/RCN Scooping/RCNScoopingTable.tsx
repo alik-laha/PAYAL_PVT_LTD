@@ -55,8 +55,9 @@ import { CiEdit } from "react-icons/ci";
 import RCNLineCreateEditForm from "./RCNLineCreateEditForm";
 import RcnTableLineWise from "./RcnScoopingTableLineWise";
 import RCNLineCreateApproveForm from "./RCNLineCreateApproveForm";
+import { FcApprove } from "react-icons/fc";
 
-const RCNScoopingTable = () => {
+const RCNScoopingTable = (props:any) => {
 
 
     const [origin, setOrigin] = useState<string>("")
@@ -107,9 +108,12 @@ const RCNScoopingTable = () => {
         if (editScoopingLotWiseData) {
             //console.log(editPendingData)
             setEditData(editScoopingLotWiseData)
-            setblockpagen('none')
+            if(props.props==='edit'){
+                setblockpagen('none')
+            }
+            
         }
-    }, [editScoopingLotWiseData])
+    }, [editScoopingLotWiseData, props.props])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -370,103 +374,171 @@ const RCNScoopingTable = () => {
 
 
     return (
-        <div className="ml-5 mt-5 ">
+        <div className="mx-2 mt-4 ">
 
-            <div className="flex flexbox-search" >
+            {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
 
-                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                    {/* Type */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Type
+                        </label>
+                        <select
+                            className="select-with-icon font-semibold w-full text-sm  border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                            onChange={(e) => setselectType(e.target.value)}
+                            value={selectType}
+                        >
+                            {SelectType.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
+                    {/* Lot No. / Line Name */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No. / Line Name
+                        </label>
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            placeholder="Enter Lot No. / Line Name"
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Origin */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label>
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                            onChange={(e) => setOrigin(e.target.value)}
+                            value={origin}
+                        >
+                            <option value="">Origin (All)</option>
+                            {Origin.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* From Date */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            From
+                        </label>
+                        <Input
+                            type="date"
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            value={fromdate}
+                            onChange={(e) => setfromDate(e.target.value)}
+                        />
+                    </div>
+
+                    {/* To Date */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            To
+                        </label>
+                        <Input
+                            type="date"
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            value={todate}
+                            onChange={(e) => settoDate(e.target.value)}
+                        />
+                    </div>
 
 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
 
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                    value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
+                    {/* Search & Export Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                        <Button
+                            className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
 
-                />
+                        {checkpending('Scooping') && (
+                            <Button
+                                className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
 
-                <select className='flexbox-search-width no-margin-left-absolute font-semibold flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => {
-                        setselectType(e.target.value)
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            </div>}
 
-                    }} value={selectType}>
+            {props.props === 'edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
-                    {SelectType.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
-            </div>
-            {checkpending('Scooping') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             {tablesearch === "LotWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >RCNLotNo</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                         {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Action</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >RCNLotNo</TableHead>
                         
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Scooping_Date</TableHead>
-                        <TableHead className="text-center" >Opening_Qty(Kg)</TableHead>
-                        <TableHead className="text-center" >Receiving_Qty(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Opening_Qty(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Receiving_Qty(Kg)</TableHead>
                      
-                        <TableHead className="text-center" >Uncut(Kg)</TableHead>
-                        <TableHead className="text-center" >Unscoop(Kg)</TableHead>
-                        <TableHead className="text-center" >NonCut(Kg)</TableHead>
-                        <TableHead className="text-center" >Wholes(kg)</TableHead>
-                        <TableHead className="text-center" >Broken(Kg)</TableHead>
-                        <TableHead className="text-center" >Rejection(Kg)</TableHead>
-                        <TableHead className="text-center" >Dust(Kg)</TableHead>
-                        <TableHead className="text-center" >KOR</TableHead>
-                        <TableHead className="text-center" >Bag_Cutting</TableHead>
-                       
-                        
-                       
-                        <TableHead className="text-center" >Female(Common)</TableHead>
-                        <TableHead className="text-center" >Male(Common)</TableHead>
-                        <TableHead className="text-center" >SuperVisor(Common)</TableHead>
-                        <TableHead className="text-center" >Operator(total)</TableHead>
-                        <TableHead className="text-center" >Female(total)</TableHead>
-                        <TableHead className="text-center" >Edit_Status</TableHead>
-                        <TableHead className="text-center" >Entried_By </TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Uncut(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Unscoop(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >NonCut(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Wholes(kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Broken(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Rejection(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Dust(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >KOR</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Bag_Cutting</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female(Common)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Male(Common)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >SuperVisor(Common)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Operator(total)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female(total)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit_Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried_By </TableHead>
+                        {props.props==='non-edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Action</TableHead>}
                     </TableHeader>
                     <TableBody>
-                        {EditData.length > 0 ? (
+                        {EditData.length > 0 && props.props==='edit'? (
                             EditData.map((item: rcnScoopingData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
+                                        <TableCell className="text-center">
+                                            
+                                             <Dialog>
+                                                        <DialogTrigger className="flex">
+                                                            <button className="p-2 text-white rounded bg-green-500 flex flex-row gap-2 hover:text-green-400 items-center" onClick={() => handleEditLineEntry(item.LotNo)}><FcApprove size={20} />Approve</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className='max-w-screen'>
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-1xl pb-1 text-center '>Scooping Approve/Revert</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <RCNLineCreateApproveForm scoop={scoopeditdata} />
+                                                            {/* <RcnPrimaryModify data={item} /> */}
+                                                        </DialogContent>
+                                                    </Dialog></TableCell>
+
+                                        
                                         <TableCell className="text-center font-semibold text-orange-600">{item.LotNo}</TableCell>
                                        
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
@@ -497,29 +569,7 @@ const RCNScoopingTable = () => {
                                         <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
                                         <TableCell className="text-center ">{item.editStatus}</TableCell>
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className='p-2 text-white rounded bg-cyan-500' >Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleEditLineEntry(item.LotNo)}>Approve/Revert</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className='max-w-screen'>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center '>Scooping Approve/Revert</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            <RCNLineCreateApproveForm scoop={scoopeditdata} />
-                                                            {/* <RcnPrimaryModify data={item} /> */}
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                                      
                                     </TableRow>
                                 );
                             })

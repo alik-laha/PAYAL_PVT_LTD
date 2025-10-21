@@ -518,31 +518,31 @@ const CreditNoteTable = (props:any) => {
         {searchTableType === "Credit Details" ? (
           <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
-              <TableHead className="text-center">Id</TableHead>
-              {props.props==='edit' && <TableHead className="text-center">Action</TableHead>}
-              <TableHead className="text-center">GatePass_No</TableHead>
-              <TableHead className="text-center">GatePass_Type</TableHead>
-              <TableHead className="text-center">Receiving_Date</TableHead>
-              <TableHead className="text-center">Vehicle_No</TableHead>
-              <TableHead className="text-center">Initial_Weight</TableHead>
-              <TableHead className="text-center">Credit_Note_No</TableHead>
-              <TableHead className="text-center">Receiving_Origin</TableHead>
-              <TableHead className="text-center">Item_Type</TableHead>
-              <TableHead className="text-center">Grade_Name</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Id</TableHead>
+              {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>GatePass_No</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>GatePass_Type</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receiving_Date</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Vehicle_No</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Initial_Weight</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Credit_Note_No</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receiving_Origin</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Item_Type</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Grade_Name</TableHead>
 
-              <TableHead className="text-center">Net_Weight</TableHead>
-              <TableHead className="text-center">Vendor_Name</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Net_Weight</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Vendor_Name</TableHead>
 
-              <TableHead className="text-center">Qty/Bag_Count</TableHead>
-              <TableHead className="text-center">Total_Weight(Kg)</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Qty/Bag_Count</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total_Weight(Kg)</TableHead>
 
-              <TableHead className="text-center">Item_Unit_Price</TableHead>
-              <TableHead className="text-center">Total_Bill_Amount</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Item_Unit_Price</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total_Bill_Amount</TableHead>
 
-              <TableHead className="text-center">Edit_Status </TableHead>
-              <TableHead className="text-center">Item_Remarks</TableHead>
-              <TableHead className="text-center">Created_By </TableHead>
-              <TableHead className="text-center">Approved_By </TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Edit_Status </TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Item_Remarks</TableHead>
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Created_By </TableHead>
+              {props.props==='non-edit' && <TableHead className="text-center">Approved_By </TableHead>}
                {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
             </TableHeader>
             <TableBody>
@@ -674,9 +674,9 @@ const CreditNoteTable = (props:any) => {
                       <TableCell className="text-center">
                         {item.createdBy}
                       </TableCell>
-                      <TableCell className="text-center">
+                     {props.props==='non-edit' && <TableCell className="text-center">
                         {item.approvedBy}
-                      </TableCell>
+                      </TableCell>}
                      
                     </TableRow>
                   );

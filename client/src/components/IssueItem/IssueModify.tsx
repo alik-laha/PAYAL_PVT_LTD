@@ -348,9 +348,9 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     
                                                 </select>
                 </div>
-                <div className="flex"><Label className="w-2/4  mt-2">Material Name</Label>
+                <div className="flex flex-row"><Label className="w-2/4  mt-2">Material Name</Label>
                         <Input className="w-2/4 text-center" placeholder="SKU" required value={material} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
+                    <ScrollArea className="max-h-24 overflow-scroll dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
@@ -360,6 +360,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                             ))
                         }
                     </ScrollArea>
+                    
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Unit</Label>
                     <Input className="w-2/4 text-center  justify-center" placeholder="Unit"  value={itemunit } onChange={(e)=> setitemunit(e.target.value)}/>
