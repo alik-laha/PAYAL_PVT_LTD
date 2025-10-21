@@ -158,7 +158,7 @@ const CreditNote = () => {
             </DialogContent>
           </Dialog>}
 
-          {checkpending('RCNPrimary') && <Drawer>
+          {checkpending('RCNPrimary') && (data?.CountPendingEdit ?? 0) > 0 &&<Drawer>
             <DrawerTrigger asChild >
               <div className="relative inline-block ml-2 top-1 responsive-button-adjust">
                 <Button

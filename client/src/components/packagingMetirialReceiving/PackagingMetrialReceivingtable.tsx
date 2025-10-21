@@ -524,7 +524,7 @@ const PackageMetrialRecivingTable = () => {
 
       <div className="mx-2 mt-5 ">
         <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-end">
 
             
 
@@ -587,7 +587,7 @@ const PackageMetrialRecivingTable = () => {
             </div>
 
             {/* Search & Export Buttons */}
-            <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0">
+            <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
               <Button
                 className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                 onClick={handleSearch}

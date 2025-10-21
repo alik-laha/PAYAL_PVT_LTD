@@ -62,7 +62,7 @@ import CashewOutModify from "./cashewOutModify";
 // import AgarbatiModify from "./AgarbatiModify";
 
 
-const CashewOutTable = () => {
+const CashewOutTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -143,9 +143,9 @@ const CashewOutTable = () => {
         if (editPendingCashewOutData.length > 0) {
             //console.log(editPendingData)
             setEditData(editPendingCashewOutData)
-            setblockpagen('none')
+                 if(props.props==='edit'){ setblockpagen('none')}
         }
-    }, [editPendingCashewOutData])
+    }, [editPendingCashewOutData, props.props])
 
     const [gradeN, setGradeN] = useState<string>()
     const [grade, setGrade] = useState<findskutypeData[]>([])
@@ -326,7 +326,7 @@ const CashewOutTable = () => {
         <>
             <div className="mx-2 mt-5 ">
                 
-                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+               {props.props==='non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
                         {/* GatePass No */}
@@ -421,7 +421,7 @@ const CashewOutTable = () => {
                        
 
                         {/* Buttons */}
-                        <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0 ">
+                        <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0 ">
                             <Button
                                 className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                                 onClick={handleSearch}
@@ -442,41 +442,96 @@ const CashewOutTable = () => {
                         </div>
 
                     </div>
-                </div>
+                </div>} 
 
-                {/* {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+                { props.props==='edit' && checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-orange-500 h-8 mt-4 w-30 text-sm  mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >GatePass_No</TableHead>
-                        <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
-                        <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Final_Cashew_Invoice_No</TableHead>
-                        <TableHead className="text-center" >Item_Batch_No</TableHead>
-                        <TableHead className="text-center" >Sales_PartyName</TableHead>
-                        <TableHead className="text-center" >Sale_Origin</TableHead>
-                        <TableHead className="text-center" >Final_Grade_Name</TableHead>
-                        <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Count (Pouch/Bucket) </TableHead>
-                        <TableHead className="text-center" >Mapping Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Actual Count (Pouch/Bucket)</TableHead>
-                        <TableHead className="text-center" >Actual_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Edit Status </TableHead>
-                        <TableHead className="text-center" >Created By </TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}  >Id</TableHead>
+                           {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Enrty_Vehicle_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Final_Cashew_Invoice_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item_Batch_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Sales_PartyName</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Sale_Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Final_Grade_Name</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Net_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Count (Pouch/Bucket) </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Mapping Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actual Count (Pouch/Bucket)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actual_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created By </TableHead>
+                        {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
                     </TableHeader>
 
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: CashewOutEntryData, idx) => {
+                        {EditData.length > 0 && props.props==='edit'? (EditData.map((item: CashewOutEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
+                                                  <TableCell className="text-center flex flex-row gap-3">
+                                             
+                                    
+                                                             <AlertDialog>
+                                                                  <AlertDialogTrigger >
+                                                                    <div className="flex flex-row gap-1"> <FcApprove size={20} />
+                                                                    <button className="text-green-500">
+                                                                      Approve
+                                                                    </button>
+                                                                    
+                                                                     </div>
+                                                                   
+                                                                  </AlertDialogTrigger>
+                                                                  <AlertDialogContent  >
+                                                                    <AlertDialogHeader>
+                                                                      <AlertDialogTitle>
+                                                                        Do you want to Approve the Edit Request?
+                                                                      </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                      <AlertDialogAction
+                                                                        onClick={() => handleApprove(item)}>
+                                                                        Continue
+                                                                      </AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                  </AlertDialogContent>
+                                                                </AlertDialog>
+                                                                <AlertDialog>
+                                                                  <AlertDialogTrigger>
+                                                                    <div className="flex flex-row gap-1">
+                                                                       <FcDisapprove size={20} />
+                                                                    <button className=" text-red-500">
+                                                                      Revert
+                                                                    </button>
+                                                                    </div>
+                                                                   
+                                                                  </AlertDialogTrigger>
+                                                                  <AlertDialogContent>
+                                                                    <AlertDialogHeader>
+                                                                      <AlertDialogTitle>
+                                                                        Do you want to Decline the Edit Request?
+                                                                      </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                      <AlertDialogAction
+                                                                        onClick={() => handleRejection(item)}>
+                                                                        Continue
+                                                                      </AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                  </AlertDialogContent>
+                                                                </AlertDialog>
+                                                          </TableCell>
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
 
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
@@ -498,47 +553,11 @@ const CashewOutTable = () => {
                                
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                   <TableCell className="text-center">{item.createdBy}</TableCell>
-                                <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                           
                                 </TableRow>
                             ) })): (
 
-                            Data.length > 0 ? (Data.map((item: CashewOutEntryData, idx) => {
+                            Data.length > 0 && props.props==='non-edit'? (Data.map((item: CashewOutEntryData, idx) => {
 
 
                                 return (

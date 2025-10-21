@@ -554,7 +554,7 @@ const GeneralStoreTable = () => {
 
                         {/* Buttons: Search + Export */}
                         {/* Occupy the remaining space, pushed to the right on larger screens */}
-                        <div className="flex flex-wrap justify-end sm:justify-start gap-3 mt-2 md:mt-0">
+                        <div className="flex flex-wrap justify-end sm:justify-between gap-3 mt-2 md:mt-0">
                                                 <Button
                                                     className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                                                     onClick={handleSearch}
@@ -568,7 +568,7 @@ const GeneralStoreTable = () => {
                                                     onClick={exportToExcel}
                                                 >
                                                     <LuDownload size={16} />
-                                                    Export
+                                                    
                                                 </Button>
                                             </div>
 

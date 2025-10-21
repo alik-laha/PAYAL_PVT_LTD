@@ -11,6 +11,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
 import UseQueryData from "../common/dataFetcher";
 import { PermissionRole, rcnpendingLotData, rcvCheckRoles, SumofAllCuntryData } from "@/type/type";
 
@@ -122,7 +123,11 @@ const RcnPrimaryEntry = () => {
 
 
 
-                     {checkpending('RCNPrimary') && ((data?.CountPendingEdit ?? 0) !== 0) && (
+                     {checkpending('RCNPrimary') && ((data?.CountPendingEdit ?? 0) !== 0)
+                        &&(<Drawer>
+            <DrawerTrigger asChild >
+
+            
                                     <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
                                         <Button
                                             className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
@@ -143,10 +148,28 @@ const RcnPrimaryEntry = () => {
                                             </span>
                                         )}
                                     </div>
+                                     </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Pending Actions</DrawerTitle>
+                <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+              </DrawerHeader>
+              <div className='mx-5'>   <RcnPrimaryEntryTable props='edit' /></div>
+              <DrawerFooter>
+
+                <DrawerClose asChild>
+                  <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                   >Close</Button>
+                </DrawerClose>
+              </DrawerFooter>
+
+            </DrawerContent>
+
+          </Drawer>
                                 )}
 
                 </div>
-                <RcnPrimaryEntryTable />
+                <RcnPrimaryEntryTable props='non-edit'/>
 
             </div>
         </div>

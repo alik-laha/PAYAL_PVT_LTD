@@ -172,9 +172,9 @@ const IssueTable = (props:any) => {
         if (editPendiningIssueItemData.length>0) {
             //console.log(editPendingData)
             setEditData(editPendiningIssueItemData)
-            setblockpagen('none')
+            if(props.props==='edit'){ setblockpagen('none')}  
         }
-    }, [editPendiningIssueItemData])
+    }, [editPendiningIssueItemData, props.props])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -467,7 +467,7 @@ const IssueTable = (props:any) => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex col-span-full justify-end gap-3 mt-2 md:mt-0">
+                <div className="flex col-span-full justify-end gap-3 mt-2 md:mt-0">
                         <Button
                             className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
                             onClick={handleSearch}
@@ -484,6 +484,7 @@ const IssueTable = (props:any) => {
                             
                         </Button>
                     </div>
+                    
                 </div>
             </div>}
 
@@ -701,7 +702,7 @@ const IssueTable = (props:any) => {
                 </Table>) : (<IssueDayWiseTable DayWise={DayWiseData} page={page} />)
             }
 
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
+            {props.props==='non-edit' && <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
@@ -724,7 +725,7 @@ const IssueTable = (props:any) => {
                         <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
                     </PaginationItem>
                 </PaginationContent>
-            </Pagination>
+            </Pagination>}   
             <dialog id="recevingeditapprove" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

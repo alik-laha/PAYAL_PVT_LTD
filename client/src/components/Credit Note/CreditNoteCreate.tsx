@@ -458,18 +458,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
             </div>
-            <dialog id="myDialog" className="dashboard-modal">
+            <dialog id="myDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="errorDialog" className="dashboard-modal">
+            <dialog id="errorDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
