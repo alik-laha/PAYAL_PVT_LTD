@@ -122,7 +122,7 @@ const RcnPrimaryEntry = () => {
 
 
 
-                     {checkpending('RCNPrimary') && (
+                     {checkpending('RCNPrimary') && ((data?.CountPendingEdit ?? 0) !== 0) && (
                                     <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
                                         <Button
                                             className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "

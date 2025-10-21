@@ -158,7 +158,7 @@ const IssueItem = () => {
 
 
 
-                            {checkpending('RCNPrimary') && (
+                            {checkpending('RCNPrimary') && data.EditData > 0 && (
 
                                 <Drawer>
                                     <DrawerTrigger asChild >

@@ -286,7 +286,7 @@ const GeneralStoreTable = () => {
         <>
 
 
-            {checkpending('RCNPrimary') &&
+            {checkpending('RCNPrimary') &&  ((EditSumData?.GeneralPrimary ?? 0) !== 0)  &&
             
             (
 
@@ -328,32 +328,32 @@ const GeneralStoreTable = () => {
                             </Button></div>
                             <Table>
                                 <TableHeader className="bg-neutral-100 text-stone-950 ">
-                                    <TableHead className="text-center" >Sl_No</TableHead>
-                                    <TableHead className="text-center" >Action</TableHead>
+                                    <TableHead className="text-center bg-gray-200 text-gray-700" >Sl_No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Action</TableHead>
 
-                                    <TableHead className="text-center" >GatePass_No.</TableHead>
-                                    <TableHead className="text-center" >Type</TableHead>
-                                    <TableHead className="text-center" >Receiving_Date</TableHead>
-                                    <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-                                    <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
-                                    <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                                    <TableHead className="text-center" >Item_Invoice_No</TableHead>
-                                    <TableHead className="text-center" >Invoice_Date</TableHead>
-                                    <TableHead className="text-center" >Type_Of_Material</TableHead>
-                                    <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
-                                    <TableHead className="text-center" >Vendor_Name(Store_Item)</TableHead>
-
-
-                                    <TableHead className="text-center" >Invoice_Qty</TableHead>
-                                    <TableHead className="text-center" >Physical_Qty</TableHead>
-                                    <TableHead className="text-center" >Unit</TableHead>
-                                    <TableHead className="text-center" >Store_Item_Wt(Kg)</TableHead>
-                                    <TableHead className="text-center" > Bill_Amount</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass_No.</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Type</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving_Date</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Entry_Vehicle_No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Initial_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Net_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Item_Invoice_No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Date</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Type_Of_Material</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Material_Item_Code(SKU)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor_Name(Store_Item)</TableHead>
 
 
-                                    <TableHead className="text-center" >Edit_Status</TableHead>
-                                    <TableHead className="text-center" >Store_Item_Remarks(Any)</TableHead>
-                                    <TableHead className="text-center" >Entried_By</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Qty</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Physical_Qty</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Unit</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Item_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" > Bill_Amount</TableHead>
+
+
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Edit_Status</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Item_Remarks(Any)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Forwarded_By</TableHead>
 
 
 

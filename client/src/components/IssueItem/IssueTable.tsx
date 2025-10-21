@@ -499,36 +499,37 @@ const IssueTable = (props:any) => {
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Id</TableHead>
-                          {props.props==='edit' && <TableHead className="text-center">Action</TableHead>}
-                        <TableHead className="text-center" >IssueID</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                          {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Action</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >IssueID</TableHead>
                         
-                        <TableHead className="text-center" >Date_Of_Issue</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Date_Of_Issue</TableHead>
                     
-                        <TableHead className="text-center" >Issue_Unit</TableHead>
-                        <TableHead className="text-center" >Issue_Section</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Section</TableHead>
                         
-                        <TableHead className="text-center" >Issue_Subsection</TableHead>
-                        <TableHead className="text-center" >Category</TableHead>
-                        <TableHead className="text-center" >Issue_Material_Name</TableHead>
-                        <TableHead className="text-center" >Issue_Quantity</TableHead>
-                        <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" >Unit_Price</TableHead>
-                        <TableHead className="text-center" >Total_Price</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Subsection</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Category</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Material_Name</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue_Quantity</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit_Price</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total_Price</TableHead>
                         
-                        <TableHead className="text-center" >Issued_To_User</TableHead>
-                        <TableHead className="text-center" >Damage_Return </TableHead>
-                        <TableHead className="text-center" >Damage_Quantity</TableHead>
-                        <TableHead className="text-center" >Damage_Unit</TableHead>
-                        <TableHead className="text-center" >Issue_Item_Remarks</TableHead>
-                        <TableHead className="text-center" >Edit_Status</TableHead>
-                        <TableHead className="text-center" >Created_By</TableHead>
-                        <TableHead className="text-center" >Actioned_By</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issued_To_User</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Return </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Quantity</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Item_Remarks</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit_Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created_By</TableHead>
+                       {props.props==='non-edit' && <TableHead className="text-center" >Actioned_By</TableHead>}
                       
                          {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
                     </TableHeader>
                     <TableBody>
                         {(EditData.length > 0 && props.props==='edit')? (
+                            
                             EditData.map((item: IssueItemData, idx) => {
 
                                 return (
@@ -613,14 +614,14 @@ const IssueTable = (props:any) => {
                                         
                                         <TableCell className="text-center ">{item.editStatus}</TableCell>
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center ">{item.modifiedBy}</TableCell>
+                                       
                                        
                                     </TableRow>
                                 );
                             })
                         ) : (
                            
-                            ItemWiseData.length > 0 ? (ItemWiseData.map((item: IssueItemData, idx) => {
+                            (ItemWiseData.length > 0 && props.props==='non-edit')? (ItemWiseData.map((item: IssueItemData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
@@ -647,7 +648,7 @@ const IssueTable = (props:any) => {
                                         
                                         <TableCell className="text-center ">{item.editStatus}</TableCell>
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center ">{item.modifiedBy}</TableCell>
+                                      {props.props==='non-edit' &&  <TableCell className="text-center ">{item.modifiedBy}</TableCell>}
 
 
                                         <TableCell className="text-center">

@@ -277,7 +277,7 @@ const PackageMetrialRecivingTable = () => {
   return (
     <>
 
-      {checkpending('RCNPrimary') && (
+      {checkpending('RCNPrimary') &&  ((EditSumData?.packagingMaterial ?? 0) !== 0) && (
        
 
           (
@@ -321,29 +321,29 @@ const PackageMetrialRecivingTable = () => {
                             <Table>
                            <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-            <TableHead className="text-center" >Sl_No</TableHead>
-            <TableHead className="text-center" >Action</TableHead>
-            <TableHead className="text-center" >GatePass_No.</TableHead>
-            <TableHead className="text-center" >Receiving_Date</TableHead>
-            <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-            <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
-            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-            <TableHead className="text-center" >Invoice_No(Packaging_Material)</TableHead>
-            <TableHead className="text-center" >Invoice_Date</TableHead>
-            <TableHead className="text-center" >PM_Item_Type</TableHead>
-            <TableHead className="text-center" >Item_Code(Packaging_Material_SKU)</TableHead>
-            <TableHead className="text-center" >Vendor_Name(Packaging_Material)</TableHead>
+            <TableHead className="text-center bg-gray-200 text-gray-700" >Sl_No</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Action</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass_No.</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving_Date</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Entry_Vehicle_No</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Gross_Wt(Kg)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Net_Wt(Kg)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_No(Packaging_Material)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Date</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >PM_Item_Type</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Item_Code(Packaging_Material_SKU)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor_Name(Packaging_Material)</TableHead>
 
 
-            <TableHead className="text-center" >Invoice_Qty</TableHead>
-            <TableHead className="text-center" >Physical_Qty</TableHead>
-            <TableHead className="text-center" >Unit</TableHead>
-            <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
-            <TableHead className="text-center" > Bill_Amount</TableHead>
-            <TableHead className="text-center" >Quality_Status</TableHead>
-            <TableHead className="text-center" >Edit_Status</TableHead>
-            <TableHead className="text-center" > Package_Material_Remarks</TableHead>
-            <TableHead className="text-center" >Entried_By</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Qty</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Physical_Qty</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Unit</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Row_Item_Wt(Kg)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Bill_Amount</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Quality_Status</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Edit_Status</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" > Package_Material_Remarks</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Forwaded_By</TableHead>
           
             
 
