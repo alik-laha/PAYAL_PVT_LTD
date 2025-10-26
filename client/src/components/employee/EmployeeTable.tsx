@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import icon from '../../assets/Static_Images/OIP.jpeg'
 import { format, toZonedTime } from 'date-fns-tz'
 import {
     Pagination,
@@ -32,7 +33,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import EmployeeModifyForm from './EmployeeModifyForm'
-
+import { SiTicktick } from "react-icons/si";
 
 import {
     AlertDialog,
@@ -237,9 +238,11 @@ const EmployeeTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center " >Sl</TableHead>
-                    <TableHead className="text-center " >Employee_ID </TableHead>
-                    <TableHead className="text-center" >Employee_Name_In_Full</TableHead>
                     
+                    <TableHead className="text-center " >Employee_ID </TableHead>
+                   
+                    <TableHead className="text-center" >Employee_FullName</TableHead>
+                    <TableHead className="text-center " >EmP_Image </TableHead>
                     <TableHead className="text-center " >Designation</TableHead>
                     <TableHead className="text-center " >Status </TableHead>
                     <TableHead className="text-center" >Joining_Date</TableHead>
@@ -283,13 +286,20 @@ const EmployeeTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
+                                   
+                                
                                     <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
                                     <TableCell className="font-semibold text-left" >{item.employeeName}</TableCell>
+                                     <TableCell>   {item.employeeImage  ? (<img height={60} width={60}
+          src={`/api/cleaning/view?filename=${item.employeeImage}` }  className="rounded-lg  border border-gray-200"
+        /> ): (<img src={icon} height={60} width={60} className="rounded-lg  border border-gray-200"/>)}</TableCell>
                                    
                                     <TableCell className="text-left" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >
                                         {item.status ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width">Active</button>
+                                             <p className="flex flex-row justify-center">
+                                                                      <SiTicktick color="green" size={18} />
+                                                                    </p>
                                         ) : (
                                             <button className="bg-red-500 p-1 text-white rounded fix-button-width" >Resigned</button>
                                         )}
@@ -318,9 +328,11 @@ const EmployeeTable = () => {
                                                 <Dialog>
                                                     <DialogTrigger className="flex">    <CiEdit size={20} /> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">
                                                         {item.releseDate === null ? 'Modify' : 'View'}</button></DialogTrigger>
-                                                    <DialogContent className='max-w-2xl'>
+                                                    <DialogContent className='max-w-5xl'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View Employee</p></DialogTitle>
+                                                            <DialogTitle> <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-100 mb-4">
+        ✏️ Modify Employee Entry
+      </h2></DialogTitle>
                                                         </DialogHeader>
                                                         <EmployeeModifyForm
                                                             data={item}

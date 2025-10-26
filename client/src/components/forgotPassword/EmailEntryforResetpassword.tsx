@@ -29,48 +29,47 @@ const EmailEntryforResetpassword = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const email = emailRef.current?.value;
-        if(!btnDisable){
+        if (!btnDisable) {
             setBtnDisable(true)
         }
-        
+
         axios.post('/api/resetPassword/forgotPassword', { email }).then(res => {
             console.log(res.data);
             (successdialog as any).showModal();
-            // if (successdialog != null) {
-            //     const dialog = document.getElementById("userscs") as HTMLDialogElement
-            //     dialog.showModal();
-            //     (successdialog as any).showModal();
-            // }
-            // navigate('/changePassword')
-            // localStorage.setItem('autherized', 'true')
+
         }).catch(err => {
             console.log(err)
             setBtnDisable(false)
             setErrView('block');
             setErrMsg(err.response.data.error)
-            // if (err.response.data.error === 'No User Found with Email ID') {
-            //     setErrView('block');
-            //     setErrMsg(err.response.data.error)
-            //     return
-            // }
-            // if (err.response.data.error === 'Employee is Not Registered as a User') {
-            //     setErrView('block');
-            //     setErrMsg(err.response.data.error)
-            // }
+
         })
     }
     return (
         <>
-            <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
-                <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
-                    <img src={img} width={"60"} height={100}></img>
-                    <h1 className="text-2xl font-bold mb-3 pb-2 mt-5 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
+            <div className="login-container bg-fixed bg-center bg-cover flex items-center justify-center md:justify-start pl-4 md:pl-[12vw] min-h-[125vh]  to-orange-100 p-4">
+                <div className="relative w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-gray-200 transition-all hover:shadow-gray-100/40">
+                    <div className="flex flex-col items-center mb-6">
+                        <img
+                            src={img}
+                            alt="Logo"
+                            className="w-16 h-16 rounded-full border border-gray-300 shadow-md mb-3"
+                        />
+                        <h1 className="text-xl font-bold text-gray-800 tracking-wide">
+                            PAYAL DEALERS PVT. LTD
+                        </h1>
+                        <p className="text-sm text-orange-600 font-semibold mt-2">KOLKATA UNIT</p>
+                    </div>
 
                     <h3 className="text-sm font-sans mb-8 font-semibold pb-1 pt-2 text-cyan-700">Enter Email ID to Reset your Password</h3>
-                    <form className="flex flex-col gap-4 w-64" onSubmit={handleSubmit}>
-                        <Input type="email" placeholder="Email" ref={emailRef} />
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+
+
+         
+
+                        <Input type="email" placeholder="Enter your Email" ref={emailRef} className="mt-1 bg-white border-gray-300 focus:border-orange-400 focus:ring-orange-300"/>
                         <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                        <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit" disabled={btnDisable}>Submit</Button>
+                        <Button className="bg-orange-500  mt-7 mb-4" type="submit" disabled={btnDisable}>Submit</Button>
 
                     </form>
                 </div>

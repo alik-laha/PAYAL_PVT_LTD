@@ -1497,6 +1497,7 @@ export interface EmployeeData {
     pincode: string;
     createdBy: string;
     modifyedBy: string;
+    employeeImage:string;
 }
 
 export interface User {

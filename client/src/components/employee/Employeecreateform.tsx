@@ -7,6 +7,7 @@ import React from "react"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { Qualification } from "../common/exportData";
 
 
 const Employeecreateform = () => {
@@ -21,7 +22,7 @@ const Employeecreateform = () => {
   const desgref = useRef<HTMLInputElement>(null);
   const contactNoref = useRef<HTMLInputElement>(null);
   const bloodgpref = useRef<HTMLInputElement>(null);
-  const studyref = useRef<HTMLInputElement>(null);
+  const studyref = useRef<HTMLSelectElement>(null);
   const altcontactref = useRef<HTMLInputElement>(null);
   const adharref = useRef<HTMLInputElement>(null);
   const panref = useRef<HTMLInputElement>(null);
@@ -222,10 +223,25 @@ const Employeecreateform = () => {
             <Input className="mt-1" placeholder="Enter blood group" ref={bloodgpref} />
           </div>
 
-          <div>
-            <Label>Highest Qualification</Label>
-            <Input className="mt-1" placeholder="Enter qualification" ref={studyref} />
-          </div>
+            <div>
+              <Label>Highest Qualification</Label>
+              <select
+                ref={studyref}
+                className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm 
+               ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select qualification
+                </option>
+                {Qualification.map((q) => (
+                  <option key={q} value={q}>
+                    {q}
+                  </option>
+                ))}
+              </select>
+
+            </div>
 
           <div>
             <Label>Alternate Contact</Label>
