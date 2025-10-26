@@ -48,7 +48,7 @@ const GeneralStore = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-                <div className="flexbox-header ">
+                <div className="flexbox-header mx-2">
                    
                     <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
                        <p>FY:{FY} </p> <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>

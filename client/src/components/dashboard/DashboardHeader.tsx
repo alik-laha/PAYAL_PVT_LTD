@@ -69,7 +69,7 @@ const DashboardHeader: React.FC = () => {
 
   return (
     <header className="top-0 left-0 w-full bg-gray-800 shadow-md z-50 text-white">
-      <div className="flex justify-between items-center px-2 md:pr-6 md:pl-2 py-2 ">
+      <div className="flex justify-between md:justify-end items-center px-2 md:pr-6 md:pl-2 py-2 ">
 
         {/* Left: Clock + Logo */}
         <div className="flex items-center gap-4">
