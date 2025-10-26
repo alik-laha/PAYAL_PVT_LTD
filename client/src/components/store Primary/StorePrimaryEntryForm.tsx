@@ -276,7 +276,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                         <div>
                             <Label>GatePass No.</Label>
                             <Input
-                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"
+                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400"
                                 value={gatepass}
                                 readOnly
                             />
@@ -284,7 +284,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                         <div>
                             <Label>GatePass Type</Label>
                             <Input
-                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"
+                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400"
                                 value={gateType}
                                 readOnly
                             />
@@ -292,7 +292,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                         <div>
                             <Label>Date</Label>
                             <Input
-                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"
+                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400"
                                 value={date}
                                 readOnly
                             />
@@ -301,7 +301,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                         <div>
                             <Label>Vehicle No.</Label>
                             <Input
-                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300 "
+                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400 "
                                 value={truck}
                                 readOnly
                             />
@@ -439,25 +439,25 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </ScrollArea>}
                                             </TableCell> */}
 
-                                              <TableCell className="relative text-center">
-        
-        <Input className="text-center" placeholder="SKU" required value={row.sku}  onChange={(e) => handleSkuchange(index, e)} />
-        <ScrollArea
-          className="absolute bg-white border rounded-md shadow-md max-h-28 w-full overflow-auto z-10"
-          style={{ display: skuview }}
-        >
-          {skudata.map((item: SkuData) => (
-            <div
-              key={item.id}
-              className="flex justify-between px-3 py-1 hover:bg-blue-100 cursor-pointer"
-              onClick={() => handleSkuidClick(index,item)}
-            >
-              <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
-              
-            </div>
-          ))}
-        </ScrollArea>
-      </TableCell>
+                                            <TableCell className="relative text-center">
+
+                                                <Input className="text-center" placeholder="SKU" required value={row.sku} onChange={(e) => handleSkuchange(index, e)} />
+                                               {actvskuindex === index &&  <ScrollArea
+                                                    className="absolute bg-white border rounded-md shadow-md max-h-28 w-full overflow-auto z-10"
+                                                    style={{ display: skuview }}
+                                                >
+                                                    {skudata.map((item: SkuData) => (
+                                                        <div
+                                                            key={item.id}
+                                                            className="flex justify-between px-3 py-1 hover:bg-blue-100 cursor-pointer"
+                                                            onClick={() => handleSkuidClick(index, item)}
+                                                        >
+                                                            <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
+
+                                                        </div>
+                                                    ))}
+                                                </ScrollArea>}
+                                            </TableCell>
                                            
                                            
 

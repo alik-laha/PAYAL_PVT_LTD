@@ -26,6 +26,7 @@ import RCNBormaCreateForm from './RCNBormaCreateForm';
 import BormaTable from './RCNBormaTable';
 import { FY, pendingCheckRole } from '../common/exportData';
 import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 const RCNBorma = () => {
@@ -175,6 +176,7 @@ const RCNBorma = () => {
                 <BormaTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

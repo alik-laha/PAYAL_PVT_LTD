@@ -212,10 +212,12 @@ const BormaTable = (props:any) => {
         if (editBormaLotWiseData.length > 0) {
             //console.log(editPendingData)
             setEditData(editBormaLotWiseData)
-            setblockpagen('none')
+              if(props.props==='edit'){
+                setblockpagen('none')
+            }
         }
 
-    },[editBormaLotWiseData])
+    },[editBormaLotWiseData, props.props])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -295,56 +297,103 @@ const BormaTable = (props:any) => {
     return (
         <>
 
-            <div className="ml-6 mt-5 ">
-                <div className="flex flexbox-search">
+            <div className="mt-5 ">
+                 {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-5 gap-4 items-end">
 
-                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                    {/* Lot No. / Line Name */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No
+                        </label>
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            placeholder="Enter Lot No."
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
 
-                    <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setOrigin(e.target.value)} value={origin}>
-  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                        {Origin.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
+                    {/* Origin */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label>
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                            onChange={(e) => setOrigin(e.target.value)}
+                            value={origin}
+                        >
+                            <option value="">Origin (All)</option>
+                            {Origin.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
 
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
+                    {/* From Date */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            From
+                        </label>
+                        <Input
+                            type="date"
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            value={fromdate}
+                            onChange={(e) => setfromDate(e.target.value)}
+                        />
+                    </div>
 
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        // value={hidetodate}
-                        // onChange={handleTodate}
-                         value={todate}
-                        onChange={(e) => settoDate(e.target.value)}
-                        placeholder="To Date"
-
-                    />
+                    {/* To Date */}
+                    <div className="flex flex-col gap-1">
+                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            To
+                        </label>
+                        <Input
+                            type="date"
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            value={todate}
+                            onChange={(e) => settoDate(e.target.value)}
+                        />
+                    </div>
 
                    
 
 
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                    {/* Search & Export Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                        <Button
+                            className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
 
-                </div>
-                {checkpending('Borma') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                        {checkpending('Borma') && (
+                            <Button
+                                className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button>
+                        )}
+                    </div>
+
+                    </div>
+
+                </div>}
+                {props.props==='edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
                         <TableHead className="text-center" >Id</TableHead>
+                        {props.props==='edit' && <TableHead className="text-center" >Action</TableHead>}
                         <TableHead className="text-center" >Item_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Borma_Date</TableHead>
@@ -372,23 +421,76 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >No_Of_Operator</TableHead>
                         <TableHead className="text-center" >Edit_Status </TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+                        {props.props==='non-edit' && <TableHead className="text-center" >Action</TableHead>}
                     </TableHeader>
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: BormaData, idx) => {
+                        {EditData.length > 0 && props.props==='edit' ? (EditData.map((item: BormaData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
+                                 <TableCell className="text-center flex flex-row gap-3">
+
+
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger >
+                                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent  >
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>
+                                                                    Do you want to Approve the Edit Request?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => handleApprove(item)}>
+                                                                    Continue
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger>
+                                                              <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                                                                              <FcDisapprove size={18} />
+                                                                                                              <button className=" text-red-600">
+                                                                                                                  Revert
+                                                                                                              </button>
+                                                                                                          </div>
+
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>
+                                                                    Do you want to Decline the Edit Request?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => handleRejection(item)}>
+                                                                    Continue
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+
+
+                                        </TableCell>
                                 <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
 
-                                        
-                                   
-                                        
                                         <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.OutputMoisture)} %</TableCell>
@@ -413,43 +515,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
-                                <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                             
                                 </TableRow>
                             ) })): (
 
@@ -561,18 +627,18 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
-                <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
+                <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+            <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

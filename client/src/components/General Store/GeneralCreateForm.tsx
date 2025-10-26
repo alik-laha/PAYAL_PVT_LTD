@@ -110,81 +110,7 @@ const GeneralPrimaryEntry = (props: Props) => {
 
         });
     }
-    //     const handleSubmit = async (e: React.FormEvent) => {
-    //         e.preventDefault()
-    //         //const quantity = quantityRef.current?.value
-    //         const invoicedate=invoicedateRef.current?.value
-    //         const invoice=invoiceref.current?.value
-
-    //         const formData = rows.map(row => ({
-    //                 GatePassNo: gatepass,
-    //                 recevingDate: date,
-    //                 TruckNo: truck,
-    //                 gateType:gateType,
-    //                 GrossWt: grossWt,
-    //                 invoicedate:invoicedate,
-    //                 invoice:invoice,
-    //                 vendorName:VendorName,
-
-    //                 ...row
-    //         }))
-    //         try 
-    //         { 
-    //             if(formData.length===1){
-    //             for (var data of formData) 
-    //                 {
-    //                     await axios.put(`/api/generalPrimary/updateRcvGeneral/${id}`, {data })
-    //                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-    //                         section:'General' })
-    //                         setErrortext('Genaral Items Received/Dispatched Successfully')
-    //                     if(successdialog){
-    //                         (successdialog as any).showModal();
-    //                     }
-
-    //                 }
-    //             }  
-
-    //             else if(formData.length>1){
-    //             const firstrow=formData[0]
-
-    //                 await axios.put(`/api/generalPrimary/updateRcvGeneral/${id}`, {data:firstrow })
-
-    //                 let pmrescount=0
-    //             for(let i=1;i<formData.length;i++){
-
-    //                 const data1=formData[i];
-    //                 await axios.post('/api/generalPrimary/createGeneralPrimary', {data:data1 })
-    //                 pmrescount++
-    //                 if(pmrescount==(formData.length-1))
-    //                 {
-
-    //                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-    //                         section:'General' })
-    //                         setErrortext('General Items Received/Dispatched Successfully')
-    //                     if(successdialog){
-    //                         (successdialog as any).showModal();
-    //                     }
-    //                 }
-    //             }
-
-    //         } 
-    //     }
-    //     catch (err){
-    //         console.log(err)
-    //         await axios.post('/api/generalPrimary/deleteGeneralPrimaryByID',{ id:id,gatepass:gatepass})
-    //         if(axios.isAxiosError(err)){
-    //             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-    //         }
-    //         if(errordialog){
-    //             (errordialog as any).showModal()
-    //         }
-
-
-
-    //     }
-
-
-    // }
+   
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
         //const quantity = quantityRef.current?.value
@@ -348,14 +274,14 @@ const GeneralPrimaryEntry = (props: Props) => {
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div ><Label>GatePass No.</Label>
-                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-400" placeholder="GatePass No" value={gatepass} readOnly /> </div>
                         <div ><Label >GatePass Type</Label>
-                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Type" value={gateType} readOnly /> </div>
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-400" placeholder="Type" value={gateType} readOnly /> </div>
                         <div ><Label >Date</Label>
-                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={date} readOnly /> </div>
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-400" placeholder="BL No." value={date} readOnly /> </div>
 
                         <div><Label >Vehicle No.</Label>
-                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={truck} readOnly /> </div>
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-400" placeholder="BL No." value={truck} readOnly /> </div>
                         <div ><Label >Invoice No</Label>
                             <Input className="mt-1 font-semibold text-center border-gray-300" placeholder="Invoice No" required ref={invoiceref} /> </div>
 
@@ -363,7 +289,7 @@ const GeneralPrimaryEntry = (props: Props) => {
                             <Input className="mt-1 text-center border-gray-300" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
                         <div><Label>{gateType === 'IN' ? 'Vendor' : 'Party'} Name</Label>
                             <div className="mt-1 text-center border-gray-300">
-                                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e) => { handleVendorChange(e) }} />
+                                <Input className="justify-center text-center border-gray-300" placeholder="Name" required value={VendorName} onChange={(e) => { handleVendorChange(e) }} />
                                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView, position: 'fixed' }}>
                                     {
                                         vendorData.map((item: VendorData) => (
