@@ -374,7 +374,7 @@ const RCNScoopingTable = (props:any) => {
 
 
     return (
-        <div className="mx-2 mt-4 ">
+        <div className=" mt-4 ">
 
             {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
@@ -525,12 +525,19 @@ const RCNScoopingTable = (props:any) => {
                                             
                                              <Dialog>
                                                         <DialogTrigger className="flex">
-                                                            <button className="p-2 text-white rounded bg-green-500 flex flex-row gap-2 hover:text-green-400 items-center" onClick={() => handleEditLineEntry(item.LotNo)}><FcApprove size={20} />Approve</button>
+
+                                                              <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                                                          <button className="text-green-600" onClick={() => handleEditLineEntry(item.LotNo)}>
+                                                                                            Approve
+                                                                                          </button>
+                                                            
+                                                                                        </div>
+                                                            {/* <button className="p-2 text-white rounded bg-green-500 flex flex-row gap-2 hover:text-green-400 items-center" onClick={() => handleEditLineEntry(item.LotNo)}><FcApprove size={20} />Approve</button> */}
                                                         </DialogTrigger>
                                                         <DialogContent className='max-w-screen'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center '>Scooping Approve/Revert</p>
+                                                                    <p className="text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold">Scooping Approve</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNLineCreateApproveForm scoop={scoopeditdata} />

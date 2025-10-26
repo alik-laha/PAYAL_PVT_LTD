@@ -25,6 +25,7 @@ import Loader from '../common/Loader';
 import { pendingCheckRoles, PermissionRole, scoopingpendingLotData } from '@/type/type';
 import { FY, pendingCheckRole } from '../common/exportData';
 import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 const RCNScooping = () => {
@@ -131,7 +132,7 @@ const RCNScooping = () => {
                     </Dialog>
 
 
-                    {/* {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.EditData === 0 ? true : false}> Pending Edit ({data.EditData})</Button> : null)} */}
+                    
 
 
                      {checkpending('Scooping') && (data?.EditData ?? 0) > 0 && searchType === "LotWise" &&<Drawer>
@@ -178,6 +179,7 @@ const RCNScooping = () => {
                 <RCNScoopingTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

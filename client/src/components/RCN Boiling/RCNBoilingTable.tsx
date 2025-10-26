@@ -373,7 +373,7 @@ const RCNBoilingTable = (props:any) => {
     }
 
     return (
-        <div className="mx-2 mt-5 ">
+        <div className="mt-5 ">
 
           
    

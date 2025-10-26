@@ -57,7 +57,7 @@ import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 
-const BormaTable = () => {
+const BormaTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');

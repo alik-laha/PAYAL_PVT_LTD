@@ -613,25 +613,25 @@ const RCNLineCreateApproveForm = (props: Props) => {
                             ) : null}
                         </TableBody>
                     </Table>
-                    <Button className="bg-green-500 ml-48 mt-3 text-center items-center justify-center h-8 w-20"disabled={isdisable}>{isdisable? 'Submitting':'Approve'}</Button>
+                    <Button className="bg-white text-green-600 rounded border border-green-300 mt-3 text-center items-center justify-center font-bold w-40 hover:bg-green-200 hover:text-green-800"disabled={isdisable}>{isdisable? 'Submitting...':'Confirm'}</Button>
 
 
                 </form>
-                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" style={{ marginTop: '-32px' }}>Revert</Button>
+                {/* <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" style={{ marginTop: '-32px' }}>Revert</Button> */}
 
-                <dialog id="successemployeedialog" className="dashboard-modal">
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                     </span>
 
 
                 </dialog>
 
-                <dialog id="erroremployeedialog" className="dashboard-modal">
+                <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                     </span>
 
 
