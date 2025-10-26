@@ -435,16 +435,7 @@ const OilMillTable = (props:any) => {
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
                                  <TableCell className="text-center flex flex-row gap-3">
-                        {/* <Popover>
-                          <PopoverTrigger>
-                            <button className="bg-cyan-500 p-2 text-white rounded">
-                              Action
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="flex flex-col w-30 text-sm font-medium ">
-                           
-                          </PopoverContent>
-                        </Popover> */}
+                      
 
                          <AlertDialog>
                               <AlertDialogTrigger >

@@ -428,12 +428,12 @@ const RcnPrimaryEntryTable = (props:any) => {
 
                          <AlertDialog>
                               <AlertDialogTrigger >
-                                <div className="flex flex-row gap-1"> <FcApprove size={20} />
-                                <button className="text-green-500">
-                                  Approve
-                                </button>
-                                
-                                 </div>
+                                                 <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
                                
                               </AlertDialogTrigger>
                               <AlertDialogContent  >
@@ -453,12 +453,12 @@ const RcnPrimaryEntryTable = (props:any) => {
                             </AlertDialog>
                             <AlertDialog>
                               <AlertDialogTrigger>
-                                <div className="flex flex-row gap-1">
-                                   <FcDisapprove size={20} />
-                                <button className=" text-red-500">
-                                  Revert
-                                </button>
-                                </div>
+                                   <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                                                   <FcDisapprove size={18} />
+                                                                                   <button className=" text-red-600">
+                                                                                       Revert
+                                                                                   </button>
+                                                                               </div>
                                
                               </AlertDialogTrigger>
                               <AlertDialogContent>

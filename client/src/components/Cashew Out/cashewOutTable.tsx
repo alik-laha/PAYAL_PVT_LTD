@@ -2,7 +2,7 @@ import axios from "axios";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import { useContext, useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import {  CashewOutEntryData, findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { CashewOutEntryData, findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { format, toZonedTime } from 'date-fns-tz'
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
@@ -62,7 +62,7 @@ import CashewOutModify from "./cashewOutModify";
 // import AgarbatiModify from "./AgarbatiModify";
 
 
-const CashewOutTable = (props:any) => {
+const CashewOutTable = (props: any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -74,7 +74,7 @@ const CashewOutTable = (props:any) => {
 
     const [Data, setData] = useState<any[]>([])
 
-    
+
     const [EditData, setEditData] = useState<CashewOutEntryData[]>([])
     const { editPendingCashewOutData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
@@ -114,7 +114,7 @@ const CashewOutTable = (props:any) => {
     }, [page])
 
     const handleSearch = async () => {
-        
+
         setEditData([])
         setblockpagen('flex')
         const response = await axios.put('/api/cashewOut/CashewOutprimarysearch', {
@@ -143,7 +143,7 @@ const CashewOutTable = (props:any) => {
         if (editPendingCashewOutData.length > 0) {
             //console.log(editPendingData)
             setEditData(editPendingCashewOutData)
-                 if(props.props==='edit'){ setblockpagen('none')}
+            if (props.props === 'edit') { setblockpagen('none') }
         }
     }, [editPendingCashewOutData, props.props])
 
@@ -226,39 +226,39 @@ const CashewOutTable = (props:any) => {
                 Vehicle_No: item.truckNo,
                 Gross_Wt: formatNumber(item.grossWt),
                 Invoice_No: item.invoice,
-                BatchID:item.batchNo,
-                PartyName:item.partyName,
-                Origin:item.origin,
-                Grade:item.gradeName,
-                NetWeight:item.netWeight ? formatNumber(item.netWeight) : '',
-                Pouch_Packet:formatNumber(item.noOfBags),
-                Map_Wt:formatNumber(item.quantity),
-                Actual_Pouch_Packet:formatNumber(item.noOfActualBags),
-                Actual_Map_Wt:formatNumber(item.actualquantity),
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
-    
+                BatchID: item.batchNo,
+                PartyName: item.partyName,
+                Origin: item.origin,
+                Grade: item.gradeName,
+                NetWeight: item.netWeight ? formatNumber(item.netWeight) : '',
+                Pouch_Packet: formatNumber(item.noOfBags),
+                Map_Wt: formatNumber(item.quantity),
+                Actual_Pouch_Packet: formatNumber(item.noOfActualBags),
+                Actual_Map_Wt: formatNumber(item.actualquantity),
+                editStatus: item.editStatus, createdBy: item.createdBy, ApprovedBy: item.approvedBy
+
             }));
             //setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = data1.rcnEntries.map((item: any, idx: number) => ({
-                  id: idx + 1,
+                id: idx + 1,
                 GatePassNo: item.gatePassNo,
                 Receiving_date: handletimezone(item.date),
                 Vehicle_No: item.truckNo,
                 Gross_Wt: formatNumber(item.grossWt),
                 Invoice_No: item.invoice,
-                BatchID:item.batchNo,
-                PartyName:item.partyName,
-                Origin:item.origin,
-                Grade:item.gradeName,
-                NetWeight:item.netWeight ? formatNumber(item.netWeight) : '',
-                Pouch_Packet:formatNumber(item.noOfBags),
-                Map_Wt:formatNumber(item.quantity),
-                Actual_Pouch_Packet:formatNumber(item.noOfActualBags),
-                Actual_Map_Wt:formatNumber(item.actualquantity),
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+                BatchID: item.batchNo,
+                PartyName: item.partyName,
+                Origin: item.origin,
+                Grade: item.gradeName,
+                NetWeight: item.netWeight ? formatNumber(item.netWeight) : '',
+                Pouch_Packet: formatNumber(item.noOfBags),
+                Map_Wt: formatNumber(item.quantity),
+                Actual_Pouch_Packet: formatNumber(item.noOfActualBags),
+                Actual_Map_Wt: formatNumber(item.actualquantity),
+                editStatus: item.editStatus, createdBy: item.createdBy, ApprovedBy: item.approvedBy
             }));
             // setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
@@ -301,7 +301,7 @@ const CashewOutTable = (props:any) => {
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
-    
+
 
     // const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -320,13 +320,13 @@ const CashewOutTable = (props:any) => {
     //     sethidetoDate(selected)
     //     settoDate(nextday)
     // }
-    
+
 
     return (
         <>
             <div className="mx-2 mt-5 ">
-                
-               {props.props==='non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+
+                {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
                         {/* GatePass No */}
@@ -342,10 +342,12 @@ const CashewOutTable = (props:any) => {
                             />
                         </div>
 
-                         {/* Final Grade (with dropdown) */}
-                        <div className="flex flex-col gap-1 relative ">
+                        {/* Final Grade (with dropdown) */}
+
+
+                        <div className="flex flex-col gap-1 relative overflow-visible">
                             <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                Final Grade
+                                Grade Name
                             </label>
                             <Input
                                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
@@ -354,24 +356,31 @@ const CashewOutTable = (props:any) => {
                                 onChange={(e) => handleGradechange(e)}
                                 required
                             />
-                            <ScrollArea
-                                className="absolute z-20 w-full max-h-24 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900 bg-white shadow-lg transition-all duration-200 overflow-scroll  
-                                                dropdown-content"
-                                style={{ display: gradeview }}
+
+                            {/* Dropdown should not push other content down */}
+                            <div
+                                className={`absolute top-full left-0 w-full mt-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900 bg-white shadow-lg z-50 transition-all duration-200 ${gradeview === "block" ? "opacity-100 visible" : "opacity-0 invisible"
+                                    }`}
                             >
-                                {gradeData.map((item: any) => (
-                                    <div
-                                        key={item.id}
-                                        className="gap-y-10 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
-                                        onClick={() => handleGradeidClick(item)}
-                                    >
-                                        <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
-                                    </div>
-                                ))}
-                            </ScrollArea>
+                                <ScrollArea className="max-h-40 overflow-y-auto">
+                                    {gradeData.length > 0 ? (
+                                        gradeData.map((item: any) => (
+                                            <div
+                                                key={item.id}
+                                                className="px-3 py-2 text-xs text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer font-semibold"
+                                                onClick={() => handleGradeidClick(item)}
+                                            >
+                                                {item.sku}
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-xs text-gray-500 px-2 py-1">No results found</p>
+                                    )}
+                                </ScrollArea>
+                            </div>
                         </div>
 
-                        
+
 
                         {/* From Date */}
                         <div className="flex flex-col gap-1">
@@ -418,7 +427,7 @@ const CashewOutTable = (props:any) => {
                             </select>
                         </div>
 
-                       
+
 
                         {/* Buttons */}
                         <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0 ">
@@ -436,102 +445,102 @@ const CashewOutTable = (props:any) => {
                                     onClick={exportToExcel}
                                 >
                                     <LuDownload size={16} />
-                                    
+
                                 </Button>
                             )}
                         </div>
 
                     </div>
-                </div>} 
+                </div>}
 
-                { props.props==='edit' && checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-orange-500 h-8 mt-4 w-30 text-sm  mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {props.props === 'edit' && checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-orange-500 h-8 mt-4 w-30 text-sm  mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}  >Id</TableHead>
-                           {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_No</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving_Date</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Enrty_Vehicle_No</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial_Weight(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Final_Cashew_Invoice_No</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item_Batch_No</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Sales_PartyName</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Sale_Origin</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Final_Grade_Name</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Net_Weight(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Count (Pouch/Bucket) </TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Mapping Weight(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actual Count (Pouch/Bucket)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actual_Weight(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit Status </TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created By </TableHead>
-                        {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-200 text-gray-700' : ''}`}  >Id</TableHead>
+                        {props.props === 'edit' && <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Action</TableHead>}
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >GatePass_No</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Receiving_Date</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Enrty_Vehicle_No</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Initial_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Final_Cashew_Invoice_No</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Item_Batch_No</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Sales_PartyName</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Sale_Origin</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Final_Grade_Name</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Net_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Count (Pouch/Bucket) </TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Mapping Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Actual Count (Pouch/Bucket)</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Actual_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Edit Status </TableHead>
+                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Created By </TableHead>
+                        {props.props === 'non-edit' && <TableHead className="text-center">Action</TableHead>}
                     </TableHeader>
 
                     <TableBody>
 
 
-                        {EditData.length > 0 && props.props==='edit'? (EditData.map((item: CashewOutEntryData, idx) => {
+                        {EditData.length > 0 && props.props === 'edit' ? (EditData.map((item: CashewOutEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
-                                                  <TableCell className="text-center flex flex-row gap-3">
-                                             
-                                    
-                                                             <AlertDialog>
-                                                                  <AlertDialogTrigger >
-                                                                    <div className="flex flex-row gap-1"> <FcApprove size={20} />
-                                                                    <button className="text-green-500">
-                                                                      Approve
-                                                                    </button>
-                                                                    
-                                                                     </div>
-                                                                   
-                                                                  </AlertDialogTrigger>
-                                                                  <AlertDialogContent  >
-                                                                    <AlertDialogHeader>
-                                                                      <AlertDialogTitle>
-                                                                        Do you want to Approve the Edit Request?
-                                                                      </AlertDialogTitle>
-                                                                    </AlertDialogHeader>
-                                                                    <AlertDialogFooter>
-                                                                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                      <AlertDialogAction
-                                                                        onClick={() => handleApprove(item)}>
-                                                                        Continue
-                                                                      </AlertDialogAction>
-                                                                    </AlertDialogFooter>
-                                                                  </AlertDialogContent>
-                                                                </AlertDialog>
-                                                                <AlertDialog>
-                                                                  <AlertDialogTrigger>
-                                                                    <div className="flex flex-row gap-1">
-                                                                       <FcDisapprove size={20} />
-                                                                    <button className=" text-red-500">
-                                                                      Revert
-                                                                    </button>
-                                                                    </div>
-                                                                   
-                                                                  </AlertDialogTrigger>
-                                                                  <AlertDialogContent>
-                                                                    <AlertDialogHeader>
-                                                                      <AlertDialogTitle>
-                                                                        Do you want to Decline the Edit Request?
-                                                                      </AlertDialogTitle>
-                                                                    </AlertDialogHeader>
-                                                                    <AlertDialogFooter>
-                                                                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                      <AlertDialogAction
-                                                                        onClick={() => handleRejection(item)}>
-                                                                        Continue
-                                                                      </AlertDialogAction>
-                                                                    </AlertDialogFooter>
-                                                                  </AlertDialogContent>
-                                                                </AlertDialog>
-                                                          </TableCell>
+                                    <TableCell className="text-center flex flex-row gap-3">
+
+
+                                        <AlertDialog>
+                                            <AlertDialogTrigger >
+                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent  >
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Approve the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleApprove(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Decline the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleRejection(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </TableCell>
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
 
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
@@ -543,21 +552,22 @@ const CashewOutTable = (props:any) => {
                                     <TableCell className="text-center">{item.partyName}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
                                     <TableCell className="text-center">{item.gradeName}</TableCell>
-                                    <TableCell className="text-center" >{item.netWeight ?formatNumber(item.netWeight):''}</TableCell>
+                                    <TableCell className="text-center" >{item.netWeight ? formatNumber(item.netWeight) : ''}</TableCell>
                                     <TableCell className="text-center" >{formatNumber(item.noOfBags)}</TableCell>
                                     <TableCell className="text-center" >{formatNumber(item.quantity)}</TableCell>
                                     <TableCell className="text-center" >{formatNumber(item.noOfActualBags)}</TableCell>
                                     <TableCell className="text-center" >{formatNumber(item.actualquantity)}</TableCell>
 
-                          
-                               
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
-                                  <TableCell className="text-center">{item.createdBy}</TableCell>
-                           
-                                </TableRow>
-                            ) })): (
 
-                            Data.length > 0 && props.props==='non-edit'? (Data.map((item: CashewOutEntryData, idx) => {
+
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.createdBy}</TableCell>
+
+                                </TableRow>
+                            )
+                        })) : (
+
+                            Data.length > 0 && props.props === 'non-edit' ? (Data.map((item: CashewOutEntryData, idx) => {
 
 
                                 return (
@@ -580,7 +590,7 @@ const CashewOutTable = (props:any) => {
                                         <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.noOfActualBags)}</TableCell>
                                         <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.actualquantity)}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
-                                         <TableCell className="text-center">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
@@ -652,20 +662,20 @@ const CashewOutTable = (props:any) => {
                     </PaginationContent>
                 </Pagination>
                 <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
-                <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
+                    <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+                    <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
 
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+                    {/* <!-- Add more elements as needed --> */}
+                </dialog>
 
-            <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
-                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
+                <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
+                    <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                    <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
 
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+                    {/* <!-- Add more elements as needed --> */}
+                </dialog>
 
 
 

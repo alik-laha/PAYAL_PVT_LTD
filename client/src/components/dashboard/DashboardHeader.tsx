@@ -8,6 +8,7 @@ import { timerLogout } from "../common/exportData";
 import { MdOutlineTimer } from "react-icons/md";
 import icon from "../../assets/Static_Images/OIP.jpeg";
 import icon2 from "../../assets/Static_Images/OIP-2.webp";
+import DashboardClock from "../common/DashboardClock";
 
 const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
@@ -68,7 +69,13 @@ const DashboardHeader: React.FC = () => {
 
   return (
     <header className="top-0 left-0 w-full bg-gray-800 shadow-md z-50 text-white">
-      <div className="flex justify-end items-center px-4 md:px-8 py-2 ">
+      <div className="flex justify-between items-center px-4 md:px-8 py-2 ">
+
+        {/* Left: Clock + Logo */}
+        <div className="flex items-center gap-4">
+          <DashboardClock />
+          
+        </div>
 
         {/* Right: Profile */}
         <div className="relative">

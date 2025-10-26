@@ -60,7 +60,7 @@ import * as XLSX from 'xlsx';
 import AgarbatiModify from "./AgarbatiModify";
 
 
-const AgarbatiTable = () => {
+const AgarbatiTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [selectType, setselectType] = useState<string>("")
@@ -145,9 +145,9 @@ const AgarbatiTable = () => {
         if (editPendingAgarbatiData.length > 0) {
             //console.log(editPendingData)
             setEditData(editPendingAgarbatiData)
-            setblockpagen('none')
+            if(props.props==='edit'){setblockpagen('none')}
         }
-    }, [editPendingAgarbatiData])
+    }, [editPendingAgarbatiData, props.props])
 
     useEffect(() => {
         axios.put('/api/vendorSKU/getItembySection/Agarbati Type', { section: 'Agarbati' })
@@ -310,7 +310,7 @@ const AgarbatiTable = () => {
             <div className="mx-2 mt-5 ">
                 
 
-                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300">
+                {props.props==='non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
                         {/* GatePass No */}
@@ -423,43 +423,108 @@ const AgarbatiTable = () => {
                             )}
                         </div>
                     </div>
-                </div>
+                </div>}
+
+
+                 {props.props==='edit' && (
+                                <Button
+                                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                    onClick={exportToExcel}
+                                >
+                                    <LuDownload size={16} />
+                                </Button>
+                            )}
+
+
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >GatePass_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Id</TableHead>
+                            {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_No</TableHead>
 
-                        <TableHead className="text-center" >GatePass_Type</TableHead>
-                        <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_Type</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Enrty_Vehicle_No</TableHead>
 
-                        <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Name_Of_Agarbati_Type</TableHead>
-                      <TableHead className="text-center" >Agarbati_Grade</TableHead> 
-                        <TableHead className="text-center" >Agarbati_Invoice_No.</TableHead>
-                        <TableHead className="text-center" >Invoice_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Name_Of_Agarbati_Type</TableHead>
+                      <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Agarbati_Grade</TableHead> 
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Agarbati_Invoice_No.</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Invoice_Date</TableHead>
 
-                        <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Net_Weight(Kg)</TableHead>
 
-                        <TableHead className="text-center" >Vendor_Name(Agarbati)</TableHead>
-                        <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        <TableHead className="text-center" >Row_Weight(Kg)</TableHead> 
-                        <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
-                        <TableHead className="text-center" >Edit_Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Vendor_Name(Agarbati)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bag/Item_Count</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Row_Weight(Kg)</TableHead> 
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bill_Amount(Rs)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit_Status </TableHead>
 
-                        <TableHead className="text-center" >Action</TableHead>
+                        {props.props==='non-edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
                     </TableHeader>
 
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: AgarbatiPrimaryEntryData, idx) => {
+                        {EditData.length > 0 && props.props==='edit'? (EditData.map((item: AgarbatiPrimaryEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
+                                              <TableCell className="text-center flex flex-row gap-3">
+                                        <AlertDialog>
+                                            <AlertDialogTrigger >
+                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent  >
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Approve the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleApprove(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Decline the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleRejection(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </TableCell>
                                 <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
@@ -478,43 +543,7 @@ const AgarbatiTable = () => {
                                 <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
-                                <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                              
                                 </TableRow>
                             ) })): (
 

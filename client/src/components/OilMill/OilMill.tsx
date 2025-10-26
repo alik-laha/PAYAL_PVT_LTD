@@ -111,45 +111,45 @@ const OilMill = () => {
                         </DialogContent>
                     </Dialog>}
 
-                    {checkpending('RCNPrimary') && (data?.CountPendingEdit ?? 0) > 0 &&<Drawer>
-            <DrawerTrigger asChild >
-                        <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
-                            <Button
-                                className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
-                                /* FIX 1: Use ?? 0 for the disabled prop */
-                                disabled={(data?.CountPendingEdit ?? 0) === 0}
-                                onClick={handleEditFetch}
-                            >
-                                <div className="flex items-center gap-2">
-                                    <MdPendingActions size={18} />
-                                    Pending Actions
-                                </div>
-                            </Button>
+                    {checkpending('RCNPrimary') && (data?.CountPendingEdit ?? 0) > 0 && <Drawer>
+                        <DrawerTrigger asChild >
+                            <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                                <Button
+                                    className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                    /* FIX 1: Use ?? 0 for the disabled prop */
+                                    disabled={(data?.CountPendingEdit ?? 0) === 0}
+                                    onClick={handleEditFetch}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <MdPendingActions size={18} />
+                                        Pending Actions
+                                    </div>
+                                </Button>
 
-                            {/* FIX 2: Use ?? 0 for the badge display condition and value */}
-                            {(data?.CountPendingEdit ?? 0) > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
-                                    {data?.CountPendingEdit ?? 0}
-                                </span>
-                            )}
-                        </div>
+                                {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                                {(data?.CountPendingEdit ?? 0) > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                        {data?.CountPendingEdit ?? 0}
+                                    </span>
+                                )}
+                            </div>
                         </DrawerTrigger>
-                          <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Pending Actions</DrawerTitle>
-                <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
-              </DrawerHeader>
-              <div className='mx-5'>   <OilMillTable props='edit' /></div>
-              <DrawerFooter>
+                        <DrawerContent>
+                            <DrawerHeader>
+                                <DrawerTitle>Pending Actions</DrawerTitle>
+                                <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+                            </DrawerHeader>
+                            <div className='mx-5'>   <OilMillTable props='edit' /></div>
+                            <DrawerFooter>
 
-                <DrawerClose asChild>
-                  <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
-                   >Close</Button>
-                </DrawerClose>
-              </DrawerFooter>
+                                <DrawerClose asChild>
+                                    <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                                    >Close</Button>
+                                </DrawerClose>
+                            </DrawerFooter>
 
-            </DrawerContent>
-             </Drawer>}
+                        </DrawerContent>
+                    </Drawer>}
 
                 </div>
                 <OilMillTable props='non-edit'/>

@@ -148,18 +148,27 @@ const toggleSection = (sectionKey: string) => {
         </div>
 
         <div className={`sidebar  ${sidebarOpen ? "open" : ""}`}>
-          <div className="min-h-[5vh] bg-cyan-900 pt-5 text-white border-r-8 border-gray-300">
-            <a href="#" className="closebtn float-right" onClick={closeSidebar}>
+          <div className="flex items-center justify-between bg-cyan-900 px-4 py-5 shadow-md text-white">
+            {/* <a href="#" className="closebtn float-right" onClick={closeSidebar}> */}
+
+                <div className="flex items-center gap-2">
               <img
                 src={img}
-                width={30}
-                height={10}
-                className="shadow-md "></img>
-              <p className="pdpl-heading text-white text-shadow-md drop-shadow-md italic">
-                Payal Dealers Pvt. Ltd.
+
+                className="w-8 h-8 rounded-full border border-gray-300 shadow-md "></img>
+              <p className="font-semibold italic text-sm md:text-base ml-2">
+               Payal Dealers Pvt. Ltd.
               </p>
-              <RiMenuFoldLine className="mt-1" />
-            </a>
+            </div>
+
+           
+              <button
+              onClick={closeSidebar}
+              className="p-2 hover:bg-cyan-800 rounded-full transition"
+            >
+              <RiMenuFoldLine size={22} />
+            </button>
+            {/* </a> */}
           </div>
 
           <div className="min-h-[135vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
