@@ -51,70 +51,7 @@ import FormRow from "../common/FormRowTime"
 const RCNBoilingEntryForm = () => 
     {
     
-    // function processFormData(formDataArray: RowData[]): RowData[] {
-    //     const ScoopingLineCount: { [key: string]: number } = {};
-      
-    //     // First pass: Count occurrences of each elementA
-    //     formDataArray.forEach(formData => {
-    //         ScoopingLineCount[formData.ScoopingLine] = (ScoopingLineCount[formData.ScoopingLine] || 0) + 1;
-    //     });
-      
-    //     // Second pass: Modify elementB based on the count
-    //     const seen: { [key: string]: number } = {};
-      
-    //     return formDataArray.map(formData => 
-    //     {
-    //       const count = ScoopingLineCount[formData.ScoopingLine];
-    //       if (count > 1) {
-    //         seen[formData.ScoopingLine] = (seen[formData.ScoopingLine] || 0) + 1;
-    //         if (seen[formData.ScoopingLine] > 1) {
-    //           formData.openQuantity = 0;
-    //         }
-    //       }
-    //       return formData;
-    //     });
-    //   }
-    //   async function updateFormData(formDataArray: RowData[],lotNO:string): Promise<RowData[]> 
-    //   {
-    //     for (let formData of formDataArray) {
-    //       formData.openQuantity = await fetchOpenQty(formData.ScoopingLine,lotNO);
-    //       console.log(formData.openQuantity)
-    //       //formData.openQuantity =  axios.post('/api/scooping/getPrevScoop', {formData.ScoopingLine,lotNO})
-    //     }
-    //     return formDataArray;
-    //   }
-
-    //   async function fetchOpenQty(ScoopingLine: string,lotNO:string): Promise<number> {
-    //     try{
-    //         const response= await axios.post('/api/scooping/getPrevScoop', { ScoopingLine,lotNO})
-    //         console.log(response)
-
-    //         if(response.data.message==='Previous Cutting Not Found'){
-    //             return 0
-    //         }
-    //         if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut!== null
-    //             && response.data.finalSum[0].totalUnscoop!== null
-    //         )
-    //         {
-    //             const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
-    //             +parseFloat(response.data.finalSum[0].totalNonCut)+
-    //             parseFloat(response.data.finalSum[0].totalUnscoop)
-    //             return prevSum
-    //         }
-    //         else{
-    //             return 0
-    //         }
-          
-            
-    //     }
-    //     catch(err){
-    //         console.log(err);
-    //         throw err
-    //     }
-
-        
-        
-    //   }
+ 
 
 
     const DateRef = useRef<HTMLInputElement>(null)
@@ -246,15 +183,15 @@ const RCNBoilingEntryForm = () =>
         <>
             <div className="mt-4">
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
-                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3"> 
+                   <div className="grid grid-cols-2 md:grid-cols-5 gap-3"> 
                     <div><Label>Date of Entry</Label>
-                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
                    
                    <div><Label>Labours</Label>
-                    <Input className="mt-1 bg-yellow-50 font-semibold  border-gray-300" type='number' placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
+                    <Input className="mt-1 bg-gray-50 font-semibold  border-gray-300" type='number' placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
                     <div><Label>Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true} >
-                        <SelectTrigger className="w-full mt-1 h-8 bg-yellow-50 font-semibold text-center border-gray-300">
+                        <SelectTrigger className="w-full mt-1 h-8 bg-gray-50 font-semibold text-center border-gray-300">
                             <SelectValue placeholder="Machine Name" />
                         </SelectTrigger>
                         <SelectContent>

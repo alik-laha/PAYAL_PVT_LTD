@@ -16,6 +16,7 @@ import {
 import MachineTable from './MachineTable';
 import MachineCreateForm from './MachineCreateForm'
 import UseQueryData from '../common/dataFetcher';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -65,6 +66,7 @@ const Machine = () => {
                <MachineTable/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

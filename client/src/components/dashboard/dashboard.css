@@ -37,7 +37,7 @@ dialog img{
   overflow-x: hidden;
   transition: 0.4s;
   /* padding-top: 60px; */
-  min-height: 100%;
+  min-height: 135vh;
   background: hsl(210, 40%, 98%);
   letter-spacing: 0.03vw;
   color: rgb(4, 30, 21);
@@ -436,7 +436,8 @@ dialog img{
   padding-left: 16px;
   padding-right: 16px;
   transition: margin-left 0.4s;
-  max-height: 100vh;
+  min-height: 104vh;
+  /* max-height: 170vh; */
   /* background-color: #e6f0f3; */
   background-color: ghostwhite;
   color: #1e1e2f;
@@ -447,6 +448,8 @@ dialog img{
   float: right;
   width: 82%;
   margin-left: 23%;
+  min-height: 110vh;
+  max-height: 170vh;
 
 }
 
@@ -770,6 +773,8 @@ p#modal-text {
 
 
 
+
+
 }
 
 @media screen and (max-width: 768px) {
@@ -834,6 +839,10 @@ p#modal-text {
     float: right;
     width: 35%;
     display: none;
+  }
+    .sidebar.open+.dashboard-main-container+.dashboard-footer{
+
+    display: none!important;
   }
 
 

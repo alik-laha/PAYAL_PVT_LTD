@@ -20,6 +20,7 @@ import Loader from '../common/Loader';
 import { FY, pendingCheckRole } from '../common/exportData';
 import {pendingCheckRoles} from  "@/type/type";
 import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 const RCNBoiling = () => {
     const { setEditPendingBoilingData } = useContext(Context);
@@ -173,6 +174,7 @@ const RCNBoiling = () => {
                 <RCNBoilingTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

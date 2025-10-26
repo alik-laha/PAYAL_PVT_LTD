@@ -23,6 +23,7 @@ import AlmondInitialForm from './AlmondInitial';
 import AlmondTable from './AlmondTable';
 import { MdPendingActions } from 'react-icons/md';
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 const Almond = () => {
@@ -157,6 +158,7 @@ const Almond = () => {
                 <AlmondTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

@@ -290,9 +290,9 @@ const EmployeeTable = () => {
                                 
                                     <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
                                     <TableCell className="font-semibold text-left" >{item.employeeName}</TableCell>
-                                     <TableCell>   {item.employeeImage  ? (<img height={60} width={60}
-          src={`/api/cleaning/view?filename=${item.employeeImage}` }  className="rounded-lg  border border-gray-200"
-        /> ): (<img src={icon} height={60} width={60} className="rounded-lg  border border-gray-200"/>)}</TableCell>
+                                     <TableCell>   {item.employeeImage  ? (<img 
+          src={`/api/cleaning/view?filename=${item.employeeImage}` }  className="rounded-lg h-10 w-10 border border-gray-200"
+        /> ): (<img src={icon} height={60} width={60} className="rounded-lg h-10 w-10 border border-gray-200"/>)}</TableCell>
                                    
                                     <TableCell className="text-left" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >

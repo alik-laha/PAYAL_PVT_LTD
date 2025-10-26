@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog"
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 const Employee = () => {
     const { data, error, isLoading } = UseQueryData('/api/employee/activeEmployeeCount', 'GET', 'EmployeeCount')
@@ -59,6 +60,7 @@ const Employee = () => {
                 <EmployeeTable />
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

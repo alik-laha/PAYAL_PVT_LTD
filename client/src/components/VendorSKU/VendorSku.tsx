@@ -19,6 +19,7 @@ import VendorCreateForm from './VendorCreateForm';
 import SKUCreateForm from './SKUCreateForm';
 import VendorSKUTable from './VendorSKUTable';
 import { SKUSection } from '../common/exportData';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -93,6 +94,7 @@ const VendorSKU = () => {
                
                 <VendorSKUTable/>
             </div>
+            <DashboardFooter/>
         </div>
 
 

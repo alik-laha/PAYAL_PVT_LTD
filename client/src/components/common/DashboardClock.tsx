@@ -21,14 +21,14 @@ const DashboardClock: React.FC = () => {
     
 
       <div className="flex flex-col gap-5 justify-end md:flex-row items-end md:items-baseline md:gap-4">
-        <div className="text-sm md:text-sm text-gray-300 flex flex-row gap-2 lg:gap-4 items-center">
-            <img src={img} height={25} width={25}/>
-            <p className="text-sm md:text-lg font-mono font-semibold">KOLKATA</p> 
-             <p className="text-sm md:text-md font-mono font-semibold ">{date}</p>
-             <p className="text-sm md:text-md font-mono font-semibold text-green-400">
-          {time}
-        </p>
-             </div>
+              <div className="text-sm md:text-sm text-gray-300 flex flex-row gap-2 lg:gap-4 items-center">
+                  <img src={img} height={25} width={25} />
+                  <p className="text-sm md:text-lg font-mono font-semibold">KOLKATA</p>
+                  <p className="text-sm md:text-md font-mono font-semibold ">{date}</p>
+                  <p className="text-sm md:text-md font-mono font-semibold text-green-400">
+                      {time}
+                  </p>
+              </div>
         
       </div>
     </div>

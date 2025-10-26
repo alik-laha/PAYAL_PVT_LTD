@@ -20,6 +20,7 @@ import GatePassTable from './gatePasstable';
 import Loader from '../common/Loader';
 import UseQueryData from '../common/dataFetcher';
 import { FY } from '../common/exportData';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -96,6 +97,7 @@ const GatepassIn = () => {
                 <GatePassTable />
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

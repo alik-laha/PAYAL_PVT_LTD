@@ -22,6 +22,7 @@ import { pendingCheckRoles } from "@/type/type";
 import CashewOutInitialForm from './cashewOutInitial';
 import CashewOutTable from './cashewOutTable';
 import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -164,6 +165,7 @@ const CashewOut = () => {
                 <CashewOutTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

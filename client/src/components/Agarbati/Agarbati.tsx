@@ -22,6 +22,7 @@ import { pendingCheckRoles } from "@/type/type";
 import AgarbatiInitialForm from './AgarbatiInitial';
 import AgarbatiTable from './AgarbatiTable';
 import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 //import AlmondTable from './AlmondTable';
 
@@ -160,6 +161,7 @@ const Agarbati = () => {
                 <AgarbatiTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

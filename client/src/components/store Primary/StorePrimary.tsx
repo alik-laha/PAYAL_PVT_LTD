@@ -19,6 +19,7 @@ import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
 import { FY, rcvCheckRole } from "../common/exportData"
 import StorePrimaryTable from "./StorePrimaryTable"
 import StoreInitial from "./StorePrimaryInitial";
+import DashboardFooter from "../dashboard/DashboardFooter";
 
 const StorePrimary = () => {
     const { StorePrimaryOverView } = useContext(Context);
@@ -71,6 +72,7 @@ const StorePrimary = () => {
             </Dialog>}
           <StorePrimaryTable/>
             </div>
+            <DashboardFooter/>
             
         </div>
     )

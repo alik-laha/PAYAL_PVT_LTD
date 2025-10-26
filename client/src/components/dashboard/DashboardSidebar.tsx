@@ -15,7 +15,7 @@ import { RxDashboard } from "react-icons/rx";
 import { RiMenuUnfoldLine ,RiMenuFoldLine   } from "react-icons/ri";
 
 import {
-    MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
+    MdOutlineAdminPanelSettings, MdOutlineStorefront,
     MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality,
     MdOutlineSpaceDashboard,
     
@@ -171,7 +171,7 @@ const toggleSection = (sectionKey: string) => {
             {/* </a> */}
           </div>
 
-          <div className="min-h-[135vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
+          <div className="min-h-[152vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
             <a>
               <Collapsible
                 open={openSection === "dashboard"}
@@ -479,7 +479,7 @@ const toggleSection = (sectionKey: string) => {
                     </span>
                   </CollapsibleTrigger>
 
-                  {renderlink("Grading") && (
+                  {/* {renderlink("Grading") && (
                     <CollapsibleContent className="Items-pvt">
                       <NavLink to="/dashboard/RcnGrading">
                         <p className="flex">
@@ -488,7 +488,7 @@ const toggleSection = (sectionKey: string) => {
                         </p>
                       </NavLink>
                     </CollapsibleContent>
-                  )}
+                  )} */}
 
                   {renderlink("Boiling") && (
                     <CollapsibleContent className="Items-pvt">

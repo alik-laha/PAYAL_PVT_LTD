@@ -23,6 +23,7 @@ import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import RCNInitialForm from './RcnInitialForm';
 import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 const RcnPrimaryEntry = () => {
     const { setEditPendingData } = useContext(Context);
@@ -172,6 +173,7 @@ const RcnPrimaryEntry = () => {
                 <RcnPrimaryEntryTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

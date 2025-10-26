@@ -17,6 +17,7 @@ import {
 import UseQueryData from '../common/dataFetcher';
 
 import Loader from '../common/Loader';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 const DashboardUser = () => {
@@ -84,6 +85,7 @@ const DashboardUser = () => {
                 <DashboardTable />
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

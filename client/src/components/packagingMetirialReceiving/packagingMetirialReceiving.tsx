@@ -17,6 +17,7 @@ import PMInitial from "./PMInitial"
 import axios from "axios"
 import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
 import { FY, rcvCheckRole } from "../common/exportData"
+import DashboardFooter from "../dashboard/DashboardFooter"
 
 const PackagingMetirialReceiving = () => {
     const { recevingPackagematerialOverView } = useContext(Context);
@@ -71,6 +72,7 @@ const PackagingMetirialReceiving = () => {
             </Dialog>}
             <PackageMetrialRecivingTable />
             </div>
+            <DashboardFooter/>
             
         </div>
     )

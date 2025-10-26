@@ -280,7 +280,7 @@ const RCNBoilingTable = (props:any) => {
         const data = await response.data
         console.log(data)
         if (data.message === "RCN Boiling Modify Request is Approved") {
-            console.log('hi')
+          
              setSuccessText('RCN Boiling Modify Request is Approved')
              console.log(successtext)
             if (approvesuccessdialog != null) {
@@ -375,75 +375,8 @@ const RCNBoilingTable = (props:any) => {
     return (
         <div className="mx-2 mt-5 ">
 
-            {/* <div className="flex flexbox-search" >
-
-                <Input className="no-padding w-44" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-
-                <select className='bg-yellow-100 flex text-xs h-8 flexbox-search-width  ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSelecttype(e.target.value)} value={selecttype}>
-             
-                    {SelectType.map((data, index) => (
-                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
-
-             
-
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
-
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                      value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
-                {selecttype==='LineWise' && <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>}
-                   
-               {selecttype==='LineWise' && <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSize(e.target.value)} value={size}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        text-xs py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
-                    {Size.map((data, index) => (
-                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>} 
-                
-                 
-
-
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
-            </div>
-            {checkpending('Boiling') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+          
+   
 
           {props.props==='non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
@@ -615,12 +548,12 @@ const RCNBoilingTable = (props:any) => {
 
                                         <AlertDialog>
                                             <AlertDialogTrigger >
-                                                <div className="flex flex-row gap-1"> <FcApprove size={20} />
-                                                    <button className="text-green-500">
-                                                        Approve
-                                                    </button>
+                                                 <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                              <button className="text-green-600">
+                                Approve
+                              </button>
 
-                                                </div>
+                            </div>
 
                                             </AlertDialogTrigger>
                                             <AlertDialogContent  >
@@ -640,12 +573,12 @@ const RCNBoilingTable = (props:any) => {
                                         </AlertDialog>
                                         <AlertDialog>
                                             <AlertDialogTrigger>
-                                                <div className="flex flex-row gap-1">
-                                                    <FcDisapprove size={20} />
-                                                    <button className=" text-red-500">
-                                                        Revert
-                                                    </button>
-                                                </div>
+                                                    <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                              <FcDisapprove size={18} />
+                              <button className=" text-red-600">
+                                Revert
+                              </button>
+                            </div>
 
                                             </AlertDialogTrigger>
                                             <AlertDialogContent>
@@ -885,7 +818,7 @@ const RCNBoilingTable = (props:any) => {
             <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{props.props==='non-edit' ?successtext:'Modification Request Approved Successfully'} </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{successtext? successtext:'Modification Request is Approved Successfully'} </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -893,7 +826,7 @@ const RCNBoilingTable = (props:any) => {
             <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{props.props==='non-edit' ?errortext:'Modification Request Reverted Successfully'}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext ? errortext:'Modification request Reverted Successfully'}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

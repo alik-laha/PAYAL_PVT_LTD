@@ -23,6 +23,7 @@ import { LuDownload } from "react-icons/lu";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { MdPendingActions } from "react-icons/md";
+import DashboardFooter from "../dashboard/DashboardFooter";
 
 const IssueItem = () => {
 
@@ -225,6 +226,7 @@ const IssueItem = () => {
 
                     <IssueTable props='non-edit'/>
                 </div>
+                <DashboardFooter/>
             </div>
 
         </>

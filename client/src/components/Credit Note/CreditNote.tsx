@@ -24,6 +24,7 @@ import CreditNoteTable from './CreditNoteTable';
 import RLOTInitial from './RlotInitial';
 import { MdPendingActions } from 'react-icons/md';
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -202,6 +203,7 @@ const CreditNote = () => {
         </div>
         <CreditNoteTable props='non-edit'/>
       </div>
+      <DashboardFooter/>
     </div>
   );
 }
