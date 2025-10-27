@@ -103,7 +103,7 @@ const ViewLotDetailsMapping = (props: any) => {
                                             {item.LotNo}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold "> {item.origin} </TableCell> <TableCell className="text-center font-semibold text-blue-500"> {item.stock} Kg </TableCell>
-                                        <TableCell className="text-center font-semibold text-blue-500 rounded border border-blue-300"> <button onClick={()=>{SelectValue(item)}}>Use
+                                        <TableCell className="text-center "> <button className='font-semibold text-green-600 rounded border-2 border-green-300 py-1 px-2 w-20 hover:bg-green-200' onClick={()=>{SelectValue(item)}}>Use
                                             </button> </TableCell>
                                         
 
