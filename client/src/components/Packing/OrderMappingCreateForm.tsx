@@ -36,6 +36,7 @@ import { MdDelete } from "react-icons/md";
 import { ScrollArea } from "../ui/scroll-area";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ViewLotDetailsMapping from "./ViewLotDetailsMapping";
 
 interface Props {
     mapping: any[]       
@@ -372,14 +373,14 @@ const OrderMappingCreateForm = (props:Props) => {
         }
 
     const handleOpenLotNo =  (index: any,e:React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
+        // e.preventDefault()
         axios.post('/api/packing/viewprodStockQtyFind',{
             origin:rows[index].porigin,
             section:rows[index].section,grade:rows[index].grade}
 
         ).then(res => {
             console.log(res)
-            setViewlotData(res.data.scoopingLot)
+            setViewlotData(res.data)
             console.log(viewlotdata)
         })
     }
@@ -422,8 +423,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Sl. No.</TableHead>             
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
+                                    <TableHead className="text-center" >View</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                                <TableHead className="text-center" >View</TableHead>
+                            
                                 <TableHead className="text-center" >Production_Lot_No</TableHead>
                                 <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center" >Actual_Stock (Kg)</TableHead>
@@ -474,6 +476,32 @@ const OrderMappingCreateForm = (props:Props) => {
                                                               ) : <option key={index} value=''>Grade</option>}
                                                             </select>
                                                 </TableCell>
+                                                 <TableCell className="text-center">
+                                                    {
+                                                        (row.grade && row.section && !row.porigin) ? (
+                                                            <Dialog>
+                                                                <DialogTrigger > 
+                                                                    <button className="flex flex-row justify-center w-full text-center" onClick={(e) => handleOpenLotNo(index,e)}>
+                                                                        
+                                                                        
+                                                                        <FaEye size={20} className="text-center px-auto flex flex-row w-full justify-center"/></button>
+                                                                    
+                                                                    </DialogTrigger>
+                                                                <DialogContent className='max-w-3xl'>
+                                                                    <DialogHeader>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Stock Details</p></DialogTitle>
+
+                                                                    </DialogHeader>
+
+                                                                    <ViewLotDetailsMapping props={viewlotdata} grade={row.grade}/>
+                                                                </DialogContent>
+                                                            </Dialog>
+                                                        ) : (<p className="w-full text-center flex"><FaEyeSlash size={20} className="text-red-500 px-auto"/></p>
+                                                            
+                                                        )
+
+                                                    }
+                                                </TableCell>
 
                                                 <TableCell className="text-center">
                                                     <Select value={row.porigin} onValueChange={(val) => handleRowChange(index, 'porigin', val)} required={true}>
@@ -495,26 +523,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                                         </SelectContent>
                                                     </Select>
                                                 </TableCell>
-                                                <TableCell className="text-center">
-                                                    {
-                                                        (row.grade && row.section && !row.porigin) ? (
-                                                            <Dialog>
-                                                                <DialogTrigger > <button className="flex flex-row justify-center w-full text-center" onClick={(e) => handleOpenLotNo(index,e)}><FaEye size={20} className="text-center flex flex-row w-full justify-center"/></button></DialogTrigger>
-                                                                <DialogContent className='max-w-3xl'>
-                                                                    <DialogHeader>
-                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>LOT Details</p></DialogTitle>
-
-                                                                    </DialogHeader>
-
-                                                                    {/* <PeelingInitial props={lotdata} /> */}
-                                                                </DialogContent>
-                                                            </Dialog>
-                                                        ) : (
-                                                            <FaEyeSlash size={20} className="text-red-500"/>
-                                                        )
-
-                                                    }
-                                                </TableCell>
+                                               
                                                
                                                 
 
