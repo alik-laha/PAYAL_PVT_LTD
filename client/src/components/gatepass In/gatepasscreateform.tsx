@@ -147,150 +147,209 @@ if (errorcloseDialogButton) {
 return(
 <>
 
-<div className="pl-5 pr-5 ">
-            <form className='flex flex-col gap-1 text-xs responsive-80-width' onSubmit={handleSubmit2}>          
-            <div className="mx-8 flex flex-col gap-0.5">  
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Date</Label>
-                    <Input className="w-2/4 text-center justify-center" placeholder="Date" value={date} type="date" readOnly required/>
-                
-                </div>
-                  
-                      <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1 ">Time</Label>
-                    <Input className="w-2/4 justify-center" placeholder="Time" value={time} type='time' required readOnly/>
-                
-                </div> 
-                <div className="flex mt-1">
-                <Label className="w-2/4 pt-1 ">Type (IN/OUT)</Label>
-                <select className="pt-1 w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
-                                            px-3 text-xs ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
-                                            placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-                                            focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>setType(e.target.value)} 
-                                            value={type} required>
-                                                
-                                                    <option value='IN' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-xs outline-none focus:bg-accent 
-                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">IN</option>
-                                                    <option value='OUT' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-xs outline-none focus:bg-accent 
-                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">OUT</option>
-                                                
-                                            </select>  
-                </div>
-                                                  
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Vehicle No (*)</Label>
-                    <Input className="w-2/4 text-center" placeholder="Vehicle No" ref={vehicleNoRef} required/>
-                </div>
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Driver Name</Label>
-                    <Input className="w-2/4 text-center" placeholder="Driver Name" ref={DriverNameRef} />
-                </div>
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Driver Contact</Label>
-                    <Input className="w-2/4 text-center" placeholder="Contact No" ref={DriverContactNoref} />
-                </div>
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Chalan/Invoice No(*)</Label>
-                    <Input className="w-2/4 text-center" placeholder="Doc No." ref={DocumentNoRef} required/>
-                </div>
-                
-                
-                
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">{type==='IN' ?'Gross':'Tare'} Wt (Kg) (*)</Label>
-                    <Input className="w-2/4 text-center" type='number' step='0.01' placeholder="Gross Wt." ref={GrossWtRef} required/>
-                </div>
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Wt. Slip (*) </Label>
-                    <Input className="w-2/4 text-center" placeholder="Slip No." ref={GrossWtSlipRef} required/>
-                </div>
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Name Of Security (*)</Label>
-                    <Input className="w-2/4 text-center" placeholder="Security Name" ref={NameRef} required/>
-                </div> 
-                
-                </div>
-                <div className="flex mt-1 flex-row items-baseline">
-                    <div className="w-1/5 mt-3">
-                    <button className="ml-4 bg-blue-400 font-bold w-1/3 text-grey-700 text-2xl h-8 text-primary-foreground rounded-sm text-center items-center justify-center"
-                    onClick={addRow2}>+ </button>
-                    </div>
-                <div  className="mt-1 w-[100%] ml-1 max-h-28 overflow-y-scroll">
-                <Table >
-                <TableHeader className="bg-neutral-100 text-stone-950" >
-                             <TableHead className="text-center " >Sl. No.</TableHead>
-                             <TableHead className="text-center " > Section</TableHead>
+<div className="w-full px-5 pt-3 bg-gray-50 dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ">
+              <form
+    className="flex flex-col gap-6 text-sm md:text-[13px] max-w-4xl mx-auto"
+    onSubmit={handleSubmit2}
+  >
+     {/* --- TYPE --- */}
+    <div className="flex flex-col sm:flex-row gap-4 items-center">
+      <Label className="sm:w-1/2 font-bold text-gray-600 dark:text-gray-300 text-left" >
+        Select Gatepass Type (IN / OUT)
+      </Label>
+      <select
+        className="select-with-icon w-full sm:w-1/2 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 px-3 py-2 focus:ring-2 focus:ring-blue-500 text-center"
+        onChange={(e) => setType(e.target.value)}
+        value={type}
+        required
+      >
+        <option value="IN" className="w-auto">IN</option>
+        <option value="OUT" className="w-auto">OUT</option>
+      </select>
+    </div>
 
-                             <TableHead className="text-center" >Action</TableHead>
-                             </TableHeader>
-                             {rows.map((row,index)=> {
-                        return(
-                            <>
-                             <TableBody>
-                             <TableRow key={index} className="boiling-row-height">
+    {/* --- DATE & TIME SECTION --- */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="flex flex-col">
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Date</Label>
+        <Input
+          className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 text-center focus:ring-2 focus:ring-blue-500"
+          type="date"
+          value={date}
+          readOnly
+          required
+        />
+      </div>
+      <div className="flex flex-col">
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Time</Label>
+        <Input
+          className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 text-center focus:ring-2 focus:ring-blue-500"
+          type="time"
+          value={time}
+          readOnly
+          required
+        />
+      </div>
+    </div>
 
-                             <TableCell className="text-center " >{index+1}</TableCell>
-                            
-                             <TableCell className="text-center " >
+  
 
+    {/* --- VEHICLE INFO --- */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Vehicle No *</Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          placeholder="Vehicle No"
+          ref={vehicleNoRef}
+          required
+        />
+      </div>
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Driver Name</Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          placeholder="Driver Name"
+          ref={DriverNameRef}
+        />
+      </div>
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Driver Contact</Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          placeholder="Contact No"
+          ref={DriverContactNoref}
+        />
+      </div>
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Challan / Invoice No *</Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          placeholder="Document No."
+          ref={DocumentNoRef}
+          required
+        />
+      </div>
+    </div>
 
+    {/* --- WEIGHT SECTION --- */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">
+          {type === "IN" ? "Gross" : "Tare"} Weight (Kg) *
+        </Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          type="number"
+          step="0.01"
+          placeholder="Weight"
+          ref={GrossWtRef}
+          required
+        />
+      </div>
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Weight Slip *</Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          placeholder="Slip No."
+          ref={GrossWtSlipRef}
+          required
+        />
+      </div>
+      <div>
+        <Label className="font-medium text-gray-600 dark:text-gray-300">Security Name *</Label>
+        <Input
+          className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
+          placeholder="Security Name"
+          ref={NameRef}
+          required
+        />
+      </div>
+    </div>
 
-                                            <select className="ml-5  w-38 text-center flex h-8 rounded-md border border-input bg-background 
-                                            px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
-                                            placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-                                            focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>handleRowChange(index, 'section', e.target.value)} 
-                                            value={row.section} required>
-                                                <option value="" disabled className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
-                                                {/* {GatePassSection.map((item: any,idx:number) => (
-                                                    <option key={idx} value={item}>{item}</option>
-                                                ))} */}
-                                                 {type ? (
-                                        sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
-                                            <option key={item} value={item}>{item}</option>
-                                        ))
-                                    ) : null}
-                                            </select>
-                                </TableCell>
+    {/* --- SECTION TABLE --- */}
+    <div className="mt-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="font-semibold text-gray-700 dark:text-gray-200">Section Details</h3>
+        <button
+          type="button"
+          onClick={addRow2}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-8 h-8 rounded-md flex items-center justify-center transition-all"
+        >
+          +
+        </button>
+      </div>
 
-                                <TableCell className="text-center">
-                                          <Button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
-                    onClick={()=>deleteRow(index)}><MdDelete size={20}/></Button>
-                                          </TableCell>
+      <div className="overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-lg max-h-48 overflow-y-scroll">
+        <Table className="min-w-full text-center text-sm">
+          <TableHeader className="bg-gray-100 dark:bg-gray-800 sticky top-0">
+            <TableHead className="text-center">Sl. No.</TableHead>
+            <TableHead className="text-center">Section</TableHead>
+            <TableHead className="text-center">Action</TableHead>
+          </TableHeader>
 
-                                </TableRow>
-                             </TableBody>
-                             </>
+          {rows.map((row, index) => (
+            <TableBody key={index}>
+              <TableRow>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>
+                  <select
+                    className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 px-2 py-1 focus:ring-2 focus:ring-blue-500 text-sm"
+                    onChange={(e) =>
+                      handleRowChange(index, "section", e.target.value)
+                    }
+                    value={row.section}
+                    required
+                  >
+                    <option value="">Select Section</option>
+                    {type &&
+                      sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map(
+                        (item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
                         )
-                   
-                    })}
+                      )}
+                  </select>
+                </TableCell>
+                <TableCell className="text-center"> <Button className="bg-red-400  w-12 h-7 text-primary-foreground rounded-md text-center items-center justify-center" onClick={()=>deleteRow(index)}><MdDelete size={12} color="white"/></Button> </TableCell>
+              </TableRow>
+            </TableBody>
+          ))}
+        </Table>
+      </div>
+    </div>
+
+    {/* --- SUBMIT BUTTON --- */}
+    <div className="flex justify-center">
+      <Button
+        className={`${
+          isdisable
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-orange-500 hover:bg-orange-600"
+        } text-white font-semibold rounded-md h-9 w-28 transition-all`}
+        disabled={isdisable}
+      >
+        {isdisable ? "Submitting..." : "Submit"}
+      </Button>
+    </div>
+  </form>
 
 
-                </Table>
-                </div>
-               
-                </div>
-                
-                
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
-               
-            </form>
 
-
-
-                <dialog id="successemployeedialog" className="dashboard-modal">
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                 </span>
 
 
             </dialog>
 
-            <dialog id="erroremployeedialog" className="dashboard-modal">
+            <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                 </span>
 
 

@@ -68,7 +68,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 
 
-const RCNBoilingTable = () => {
+const RCNBoilingTable = (props:any) => {
     const [origin, setOrigin] = useState<string>("")
     const [size, setSize] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<string>('');
@@ -122,9 +122,10 @@ const RCNBoilingTable = () => {
             // console.log(editPendingBoilingData)
             setEditData(editPendingBoilingData)
             // console.log(EditData)
-            setblockpagen('none')
+            if(props.props==='edit'){setblockpagen('none')}
+            
         }
-    }, [editPendingBoilingData])
+    }, [editPendingBoilingData, props.props])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -277,11 +278,15 @@ const RCNBoilingTable = () => {
     const handleApprove = async (item: BoilingEntryData) => {
         const response = await axios.post(`/api/boiling/approveEditrcnBoiling/${item.id}`)
         const data = await response.data
+        console.log(data)
         if (data.message === "RCN Boiling Modify Request is Approved") {
-            setSuccessText(data.message)
+          
+             setSuccessText('RCN Boiling Modify Request is Approved')
+             console.log(successtext)
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
+            
         }
         if (data.message === "Can't Be approved/Scooping Done") {
             seterrorText(data.message)
@@ -368,113 +373,231 @@ const RCNBoilingTable = () => {
     }
 
     return (
-        <div className="ml-6 mt-5 ">
+        <div className="mt-5 mx-2">
 
-            <div className="flex flexbox-search" >
+          
+   
 
-                <Input className="no-padding w-44" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+          {props.props==='non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
+                     {/* Type */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Search Type
+                        </label> */}
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 font-bold dark:bg-gray-900 rounded-lg px-3 bg-yellow-100 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                            onChange={(e) => setSelecttype(e.target.value)}
+                            value={selecttype}
+                        >
+                            {SelectType.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-                <select className='bg-yellow-100 flex text-xs h-8 flexbox-search-width  ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSelecttype(e.target.value)} value={selecttype}>
-             
-                    {SelectType.map((data, index) => (
-                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
+                    {/* Lot No. / Line Name */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No. / Line Name
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            placeholder="Lot No./Line Name"
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
 
-             
-
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
-
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                      value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
-                {selecttype==='LineWise' && <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>}
                    
-               {selecttype==='LineWise' && <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSize(e.target.value)} value={size}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        text-xs py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
-                    {Size.map((data, index) => (
-                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>} 
-                
-                 
+
+                      
+
+                    {/* Origin (conditional) */}
+                    {selecttype === "LineWise" && (
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Origin
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setOrigin(e.target.value)}
+                                value={origin}
+                            >
+                                <option value="">Origin (All)</option>
+                                {Origin.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
+                    {/* Size (conditional) */}
+                    {selecttype === "LineWise" && (
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Size
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setSize(e.target.value)}
+                                value={size}
+                            >
+                                <option value="">Size (All)</option>
+                                {Size.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+                      {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-end gap-3 mt-2 md:mt-0 col-span-full">
+                        <Button
+                            className="flex w-40 items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
+
+                        {checkpending("Boiling") && (
+                            <Button
+                                className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-green-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            </div>}  
+
+            {props.props==='edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
-            </div>
-            {checkpending('Boiling') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-
-                {selecttabletype==='LineWise' ? <Table className="mt-4">
+                {selecttabletype==='LineWise' || props.props==='edit' ? <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center " >Boiling_Lot_No</TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Id</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Action</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling_Lot_No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Origin</TableHead>
 
-                    <TableHead className="text-center" >Scooping_LineName</TableHead>
-                    <TableHead className="text-center" >Boiling_Date </TableHead>
-                    <TableHead className="text-center" >Machine_Name</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping_LineName</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling_Date </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine_Name</TableHead>
                  
-                    <TableHead className="text-center" >Size</TableHead>
-                    <TableHead className="text-center" >Qty_(Kg)</TableHead>
-                    <TableHead className="text-center" >Pressure</TableHead>
-                    <TableHead className="text-center" >Moisture</TableHead>
-                    <TableHead className="text-center" >Cooking_Time</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Size</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Qty_(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Pressure</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Moisture</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Cooking_Time</TableHead>
 
-                    <TableHead className="text-center" >Machine_ON</TableHead>
-                    <TableHead className="text-center" >Machine_OFF</TableHead>
-                    <TableHead className="text-center" >Breakdown</TableHead>
-                    <TableHead className="text-center" >Other</TableHead>
-                    <TableHead className="text-center" >MC_Run_Duration</TableHead>
-                    <TableHead className="text-center" >Labour</TableHead>
-                    <TableHead className="text-center" >Entried_By</TableHead>
-                    <TableHead className="text-center" >Edit_Status</TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine_ON</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine_OFF</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Breakdown</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Other</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >MC_Run_Duration</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Labour</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried_By</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit_Status</TableHead>
+                   
 
                 </TableHeader>
                 <TableBody>
-                    {editPendingBoilingData.length > 0 ? (
+                    {editPendingBoilingData.length > 0 && props.props==='edit'? (
                         editPendingBoilingData.map((item: BoilingEntryData, idx) => {
                             console.log(item)
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
+                                    <TableCell className="text-center flex flex-row gap-3">
+                      
+
+                                        <AlertDialog>
+                                            <AlertDialogTrigger >
+                                                 <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                              <button className="text-green-600">
+                                Approve
+                              </button>
+
+                            </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent  >
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Approve the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleApprove(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                    <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                              <FcDisapprove size={18} />
+                              <button className=" text-red-600">
+                                Revert
+                              </button>
+                            </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Decline the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleRejection(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </TableCell>
                                     <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.Scooping_Line_Mc}</TableCell>
@@ -498,56 +621,44 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
 
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                                  
                                 </TableRow>
                             );
                         })
                     ) : (
-                        Data.length > 0 ? (Data.map((item: BoilingEntryData, idx) => {
+                        Data.length > 0 && props.props==='non-edit'? (Data.map((item: BoilingEntryData, idx) => {
 
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.Scooping_Line_Mc}</TableCell>
+                                      <TableCell className="text-center">
+                                        <Popover>
+                                           <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-3xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RCNBoilingModify data={item} />
+                                                    </DialogContent>
+                                                </Dialog>
+                                              
+                                            </PopoverContent>
+                                            
+                                        </Popover>
+                                    </TableCell>
+                                    <TableCell className="text-center font-bold text-red-600">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-semibold text-blue-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold text-green-600">{item.Scooping_Line_Mc}</TableCell>
 
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
@@ -572,30 +683,7 @@ const RCNBoilingTable = () => {
 
 
 
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-3xl">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry Modification</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RCNBoilingModify data={item} />
-                                                    </DialogContent>
-                                                </Dialog>
-                                              
-                                            </PopoverContent>
-                                            
-                                        </Popover>
-                                    </TableCell>
+                                  
                                 </TableRow>
                             );
                         })) : (<TableRow>
@@ -625,7 +713,7 @@ const RCNBoilingTable = () => {
                         </TableRow>)
                     )}
                 </TableBody>
-            </Table>:<Table className="mt-4">
+            </Table>:(<Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center " >Boiling_Lot_No</TableHead>
@@ -702,7 +790,7 @@ const RCNBoilingTable = () => {
                         </TableRow>)}
                     
                 </TableBody>
-            </Table>}
+            </Table>)}
 
             
             <Pagination style={{ display: blockpagen }} className="pt-5 ">
@@ -729,18 +817,18 @@ const RCNBoilingTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
+            <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{successtext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{successtext? successtext:'Modification Request is Approved Successfully'} </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+            <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext ? errortext:'Modification request Reverted Successfully'}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

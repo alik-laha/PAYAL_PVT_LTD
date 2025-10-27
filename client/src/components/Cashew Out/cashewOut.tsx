@@ -1,6 +1,6 @@
 import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
-
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -21,6 +21,8 @@ import { FY, pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import CashewOutInitialForm from './cashewOutInitial';
 import CashewOutTable from './cashewOutTable';
+import { MdPendingActions } from 'react-icons/md';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -81,13 +83,13 @@ const CashewOut = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 {/* <div className='dashboard-flex-head bg-gradient-to-r from-green-500 to-red-600 text-white'> Origin Wise RCN Received In Current Financial Year</div> */}
-                <div className="flexbox-header">
+                <div className="flexbox-header mx-2" >
                     {
 
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataCashewOut) => {
                             return (
                                 <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={item.origin}>
-                                    {item.origin} <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
+                                   <p>{item.origin}</p>  <br /><p>{item.quantity ? formatNumber(String(item.quantity)):0} Kg</p>
                                 </div>
                             )
                         })
@@ -96,14 +98,14 @@ const CashewOut = () => {
 
                 </div>
 
-                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold '>CURRENT FY {FY} FINISHED CASHEW OUT TRANSACTION</p>
+                <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md  '>CURRENT FY {FY} FINISHED CASHEW TRANSACTION</p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Cashew Out Pending List</p></DialogTitle>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Pending List</p></DialogTitle>
                                
                             </DialogHeader>
                           
@@ -111,13 +113,59 @@ const CashewOut = () => {
                         </DialogContent>
                     </Dialog>}
 
-                    {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
-                        Pending Edit ({data.CountPendingEdit})</Button>}
+                
+
+
+                      {checkpending('RCNPrimary') &&  ((data?.CountPendingEdit ?? 0) !== 0) &&(
+                        <Drawer>
+                                    <DrawerTrigger asChild >
+                        
+                        <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                            <Button
+                                className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                /* FIX 1: Use ?? 0 for the disabled prop */
+                                disabled={(data?.CountPendingEdit ?? 0) === 0}
+                                onClick={handleEditFetch}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <MdPendingActions size={18} />
+                                    Pending Actions
+                                </div>
+                            </Button>
+
+                            {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                            {(data?.CountPendingEdit ?? 0) > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                    {data?.CountPendingEdit ?? 0}
+                                </span>
+                            )}
+                        </div>
+
+                            </DrawerTrigger>
+                            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Pending Actions</DrawerTitle>
+                <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+              </DrawerHeader>
+              <div className='mx-5'>   <CashewOutTable props='edit' /></div>
+              <DrawerFooter>
+
+                <DrawerClose asChild>
+                  <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                   >Close</Button>
+                </DrawerClose>
+              </DrawerFooter>
+
+            </DrawerContent>
+
+          </Drawer>
+                                                    )}
 
                 </div>
-                <CashewOutTable />
+                <CashewOutTable props='non-edit'/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

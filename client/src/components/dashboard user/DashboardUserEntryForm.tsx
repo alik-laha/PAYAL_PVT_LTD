@@ -219,18 +219,18 @@ const DashboardUserEntryForm = () => {
                     <Button className="bg-orange-500 mb-2 ml-20 mr-20 text-center items-center justify-center mt-8" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
             </div>
-            <dialog id="userscs" className="dashboard-modal">
+            <dialog id="userscs" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="userscsbtn" className="dashboard-modal-close-btn">X</button>
                 <span className="flex">
                     <img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium">New User has Created Successfully</p>
                 </span>
             </dialog>
-            <dialog id="usererror" className="dashboard-modal">
+            <dialog id="usererror" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="usererrorbtn" className="dashboard-modal-close-btn">X</button>
                 <span className="flex">
                     <img src={cross} height={25} width={25} alt='cross_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-red-500">{errortext}</p>
                 </span>
             </dialog>
         </>

@@ -15,7 +15,7 @@ import { RxDashboard } from "react-icons/rx";
 import { RiMenuUnfoldLine ,RiMenuFoldLine   } from "react-icons/ri";
 
 import {
-    MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
+    MdOutlineAdminPanelSettings, MdOutlineStorefront,
     MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality,
     MdOutlineSpaceDashboard,
     
@@ -139,27 +139,39 @@ const toggleSection = (sectionKey: string) => {
     return (
       <>
         <div className="main">
-          <span className="openbtn bg-slate-500" onClick={openSidebar}>
-            <RiMenuUnfoldLine size={24} />{" "}
-          </span>
+          <button className="group flex items-center gap-2  px-4 py-2 font-semibold shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 text-black" onClick={openSidebar}>
+            <RiMenuUnfoldLine size={24} className="transition-transform duration-300 group-hover:-translate-x-1"/>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+        Sidebar
+      </span>
+          </button>
         </div>
 
         <div className={`sidebar  ${sidebarOpen ? "open" : ""}`}>
-          <div className="min-h-[5vh] bg-cyan-900 pt-5 text-white border-r-8 border-gray-300">
-            <a href="#" className="closebtn float-right" onClick={closeSidebar}>
+          <div className="flex items-center justify-between bg-cyan-900 px-4 py-5 shadow-md text-white">
+            {/* <a href="#" className="closebtn float-right" onClick={closeSidebar}> */}
+
+                <div className="flex items-center gap-2">
               <img
                 src={img}
-                width={30}
-                height={10}
-                className="shadow-md "></img>
-              <p className="pdpl-heading text-white text-shadow-md drop-shadow-md italic">
-                Payal Dealers Pvt. Ltd.
+
+                className="w-8 h-8 rounded-full border border-gray-300 shadow-md "></img>
+              <p className="font-semibold italic text-sm md:text-base ml-2">
+               Payal Dealers Pvt. Ltd.
               </p>
-              <RiMenuFoldLine className="mt-1" />
-            </a>
+            </div>
+
+           
+              <button
+              onClick={closeSidebar}
+              className="p-2 hover:bg-cyan-800 rounded-full transition"
+            >
+              <RiMenuFoldLine size={22} />
+            </button>
+            {/* </a> */}
           </div>
 
-          <div className="min-h-[135vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
+          <div className="min-h-[152vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
             <a>
               <Collapsible
                 open={openSection === "dashboard"}
@@ -467,7 +479,7 @@ const toggleSection = (sectionKey: string) => {
                     </span>
                   </CollapsibleTrigger>
 
-                  {renderlink("Grading") && (
+                  {/* {renderlink("Grading") && (
                     <CollapsibleContent className="Items-pvt">
                       <NavLink to="/dashboard/RcnGrading">
                         <p className="flex">
@@ -476,7 +488,7 @@ const toggleSection = (sectionKey: string) => {
                         </p>
                       </NavLink>
                     </CollapsibleContent>
-                  )}
+                  )} */}
 
                   {renderlink("Boiling") && (
                     <CollapsibleContent className="Items-pvt">

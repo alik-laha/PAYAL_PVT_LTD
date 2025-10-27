@@ -348,9 +348,9 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     
                                                 </select>
                 </div>
-                <div className="flex"><Label className="w-2/4  mt-2">Material Name</Label>
+                <div className="flex flex-row"><Label className="w-2/4  mt-2">Material Name</Label>
                         <Input className="w-2/4 text-center" placeholder="SKU" required value={material} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
+                    <ScrollArea className="max-h-24 overflow-scroll dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
@@ -360,6 +360,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                             ))
                         }
                     </ScrollArea>
+                    
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Unit</Label>
                     <Input className="w-2/4 text-center  justify-center" placeholder="Unit"  value={itemunit } onChange={(e)=> setitemunit(e.target.value)}/>
@@ -420,18 +421,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 <Button className="bg-orange-500  mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
 
-            <dialog id="rcneditscsDialog" className="dashboard-modal">
+            <dialog id="rcneditscsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Issue Item Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification of Issue Item Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcnediterrDialog" className="dashboard-modal">
+            <dialog id="rcnediterrDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcnerrorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

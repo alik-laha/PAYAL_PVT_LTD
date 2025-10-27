@@ -19,6 +19,7 @@ import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
 import { FY, rcvCheckRole } from "../common/exportData"
 import GeneralStoreInitial from "./CreateGeneralInitial";
 import GeneralStoreTable from "./GeneralTable";
+import DashboardFooter from "../dashboard/DashboardFooter";
 
 const GeneralStore = () => {
     const { GeneralPrimaryOverView } = useContext(Context);
@@ -47,27 +48,34 @@ const GeneralStore = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-                <div className="flexbox-header">
+                <div className="flexbox-header mx-2">
                    
                     <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
-                        FY:{FY} <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
+                       <p>FY:{FY} </p> <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
                     </div>
                 </div>
-                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>GENERAL ITEM TRANSACTION </p>
+               
+               
+               <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md '>GENERAL ITEM TRANSACTION </p>
+
+
+
                 {checkreceiving('GeneralPrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-md"
-                onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                onClick={handleOpenLotNo}>+ Add Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>General Items Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-lg text-gray-600 text-center pt-2 tracking-wider drop-shadow-xl font-bold'>Pending List</p></DialogTitle>
                        
                     </DialogHeader>
+
 
                     <GeneralStoreInitial props={lotdata}/>
                 </DialogContent>
             </Dialog>}
           <GeneralStoreTable/>
             </div>
+            <DashboardFooter/>
             
         </div>
     )

@@ -15,7 +15,7 @@ dialog p{
   text-transform: capitalize!important;
   font-weight: 600!important;
   letter-spacing: 0.02vw;
-  color: #01681a;
+
 }
 dialog img{
   height:3vh;
@@ -37,7 +37,7 @@ dialog img{
   overflow-x: hidden;
   transition: 0.4s;
   /* padding-top: 60px; */
-  min-height: 100%;
+  min-height: 135vh;
   background: hsl(210, 40%, 98%);
   letter-spacing: 0.03vw;
   color: rgb(4, 30, 21);
@@ -436,7 +436,8 @@ dialog img{
   padding-left: 16px;
   padding-right: 16px;
   transition: margin-left 0.4s;
-  max-height: 100vh;
+  min-height: 104vh;
+  /* max-height: 170vh; */
   /* background-color: #e6f0f3; */
   background-color: ghostwhite;
   color: #1e1e2f;
@@ -447,19 +448,22 @@ dialog img{
   float: right;
   width: 82%;
   margin-left: 23%;
+  min-height: 110vh;
+  max-height: 170vh;
 
 }
 
 .flexbox-header {
-
-
   /* Simplified and modern spacing */
   display: flex;
   flex-wrap: wrap;
   gap: 1rem; /* Increased gap for breathing room */
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   margin-top: -10px; /* Align with general dashboard flow */
   width: 100%;
+  padding-top:1rem ;
+  padding-bottom:1rem ;
+  
 
 }
 .custom-text-left{
@@ -467,40 +471,21 @@ dialog img{
 }
 
 .flexbox-tile {
-  /* flex: 1 1 10%;
-  padding: 20px 20px 20px 20px;
-  text-align: center;
-  box-sizing: border-box;
-  height: 9vw;
-  font-size: 16px;
-  z-index: 10;
-  max-width: 20% !important;
-  color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-  letter-spacing: 0.03vw;
-  text-shadow: #7ba5bc; */
-
-
 
   /* Flexible sizing with minimums */
   flex: 1 1 10%; /* Allows flexibility but ensures a minimum width of 200px */
   max-width: 23% !important; /* Adjusted max-width for 4 tiles per row */
-  
   /* Modern aesthetics */
   padding: 1.5rem;
   box-sizing: border-box;
   height: auto; /* Let content dictate height, or use a fixed aspect ratio if necessary */
   min-height: 9rem; /* Set a fixed minimum height for consistency */
   font-size: 1rem;
-  
   /* Color and Shadow */
   color: #f8f9fa; /* Lighter text for contrast */
   /* Replaced old box-shadow with a modern, layered shadow */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.08); 
   border-radius: 12px;
-  
   /* Typography and Effects */
   text-align: center;
   letter-spacing: 0.05em; /* Clearer letter spacing */
@@ -538,18 +523,11 @@ dialog img{
   max-width: 10% !important;
   color: black;
   vertical-align: middle;
-  /* background: linear-gradient(145deg, #4a86d531, #20d608); */
-  /* border-radius: 8px; */
-  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
 .flexbox-tile:hover {
-  /* transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 12px 12px rgba(0, 0, 0, 0.15); */
-
   transform: translateY(-8px); /* Slightly less dramatic jump */
-  /* Stronger but refined shadow on hover */
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
@@ -557,9 +535,7 @@ dialog img{
   content: '';
   position: absolute;
   top: -10px;
-
   transform: translateX(-50%);
-
   height: 20px;
   background: rgba(0, 0, 0, 0.1);
   filter: blur(10px);
@@ -578,12 +554,11 @@ dialog img{
   width: 18% !important;
 }
 
-.flexbox-tile p {
+.flexbox-tile p:nth-of-type(2) {
   /* font-size: 20px; */
-
   font-size: 1.5rem; /* Clear and prominent metric */
   font-weight: 700;
-  margin-top: 0.5rem;
+  margin-top: -0.7rem;
 }
 
 
@@ -598,17 +573,18 @@ dialog img{
 }
 
 .dashboard-modal-close-btn {
-  font-size: .90em;
+  font-size: .75em;
   position: absolute;
   top: 0.85em;
   right: 0.85em;
   float: right;
   font-weight: 700;
   line-height: 1;
-  color: #d81738;
+  color: gray;
   text-shadow: 0 1px 0 #fff;
   filter: alpha(opacity=20);
   opacity: 0.8;
+  
 }
 
 .dashboard-modal::backdrop {
@@ -772,7 +748,7 @@ p#modal-text {
 
   .flexbox-header {
     gap: 1rem;
-    padding: 1rem;
+    /* padding: 1rem; */
   }
   
   .flexbox-tile {
@@ -795,6 +771,8 @@ p#modal-text {
     /* padding-top: 8.5vw; */
     /* padding-top: 6.5vw; */
   }
+
+
 
 
 
@@ -863,6 +841,10 @@ p#modal-text {
     width: 35%;
     display: none;
   }
+    .sidebar.open+.dashboard-main-container+.dashboard-footer{
+
+    display: none!important;
+  }
 
 
   .flexbox-tile {
@@ -877,13 +859,20 @@ p#modal-text {
 
   .flexbox-header {
     gap: 15px;
-    padding: 12px 10px 5px 10px;
+    /* padding: 12px 10px 5px 10px; */
+    font-size: 14px!important;
 
   }
 
-  .flexbox-tile p {
-    font-size: 14px;
+  .flexbox-tile p:nth-of-type(2) {
+    font-size: 16px;
+    margin-top: -1rem;
   }
+
+  .flexbox-tile p:nth-of-type(1) {
+  font-size: 14px;
+  margin-top: 0;
+    }
 
   .flexbox-search-width {
 

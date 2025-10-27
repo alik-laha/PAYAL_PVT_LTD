@@ -16,6 +16,7 @@ import {
 import MachineTable from './MachineTable';
 import MachineCreateForm from './MachineCreateForm'
 import UseQueryData from '../common/dataFetcher';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 
@@ -33,25 +34,25 @@ const Machine = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-                <div className="flexbox-header">
+                <div className="flexbox-header mx-2">
                     <div className="flexbox-tile bg-red-400 hover:bg-red-300">
-                        Active Asset<br /><p>{data.Data}</p>
+                        <p>Active</p><br /><p>{data.Data}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                        Inactive Asset<br /><p>{data.inactive}</p>
+                      <p>Inactive</p>  <br /><p>{data.inactive}</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-300">
-                        Discarded <br /><p>{data.Dicarded}</p>
+                        <p>Discarded</p> <br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
                
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-green-500 mb-2 mt-5 ml-6 responsive-button-adjust no-margin-left drop-shadow-lg">+ Add New Asset</Button></DialogTrigger>
-                    <DialogContent>
+                    <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md">+ Add New Asset</Button></DialogTrigger>
+                    <DialogContent className='max-w-4xl'>
                         <DialogHeader>
-                            <DialogTitle><p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl font-bold'>New Machine Creation</p></DialogTitle>
+                            <DialogTitle><p className='text-lg text-gray-600 text-center pt-4 tracking-wider drop-shadow-xl uppercase font-bold'>New Asset Creation</p></DialogTitle>
                             <DialogDescription>
                                 <p className='text-1xl text-center pb-3'>To Be Filled Up By Admin</p>
                             </DialogDescription>
@@ -65,6 +66,7 @@ const Machine = () => {
                <MachineTable/>
 
             </div>
+            <DashboardFooter/>
         </div>
 
 

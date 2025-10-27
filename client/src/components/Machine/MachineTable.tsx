@@ -58,6 +58,7 @@ import { CiEdit } from "react-icons/ci"
 import { MdDelete } from "react-icons/md"
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import { SiTicktick } from "react-icons/si"
 
 const MachineTable = () => {
     //const currDate = new Date().toLocaleDateString();
@@ -142,34 +143,72 @@ const MachineTable = () => {
 
     return (
         <>
-            <div className="ml-6 mt-5">
-                <div className="flex ">
+            <div className="mx-2 mt-5">
+          
 
-                    <Input className="w-1/3 mb-2" placeholder="Asset Id" value={assetidname} onChange={(e) => setassetidname(e.target.value)} />
-                    <select className=' flex h-8 w-1/3 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setSection(e.target.value)} value={section}>
-                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled] :pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-                        {Section.map((data, index) => (
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
-                    <span className="w-1/3 pl-5 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+
+                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                    {/* Responsive grid layout just like GatePass filter */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+
+                        {/* Asset ID */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Asset ID
+                            </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                placeholder="Search Asset ID"
+                                value={assetidname}
+                                onChange={(e) => setassetidname(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Section Dropdown */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Section
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setSection(e.target.value)}
+                                value={section}
+                            >
+                                <option value="">Section (All)</option>
+                                {Section.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Search Button */}
+                        <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex items-center gap-2 w-40 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} /> Search
+                            </Button>
+
+                            <Button
+                                className="flex items-center gap-2 bg-orange-700 hover:bg-orange-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+                            </Button>
+                        </div>
+                    </div>
                 </div>
 
-                <span className="w-1/8 pb-2"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
-                    <LuDownload size={18} /></Button>  </span>
 
                 <Table className="mt-1">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl No.</TableHead>
                         <TableHead className="text-center " >Asset ID</TableHead>
 
-                        <TableHead className="text-center" >Status </TableHead>
+                        <TableHead className="text-center" >Active_Status </TableHead>
                         <TableHead className="text-center" >Asset Name </TableHead>
                         <TableHead className="text-center" >Production </TableHead>
                         <TableHead className="text-center" >Section </TableHead>
@@ -192,7 +231,9 @@ const MachineTable = () => {
 
 
                                     <TableCell className="text-center">{item.status == 'Active' ? (
-                                        <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                          <p className="flex flex-row justify-center">
+                                                                                                              <SiTicktick color="green" size={18} />
+                                                                                                            </p>
                                     ) : (
                                         <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                     )}</TableCell>
@@ -205,7 +246,7 @@ const MachineTable = () => {
 
                                     <TableCell className="text-center">
                                         <Popover>
-                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger>  <button className="text-blue-500 h-8 bg-blue-50 w-20 border border-blue-300 font-bold rounded-lg hover:bg-blue-200">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 

@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
+import { pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -59,6 +59,8 @@ import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import StorePrimaryModify from "./StorePrimaryModify"
+import { MdPendingActions } from "react-icons/md"
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "../ui/drawer"
 
 const StorePrimaryTable = () => {
 
@@ -152,10 +154,10 @@ const StorePrimaryTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch,selectType }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata, gatepassSearch, selectType }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
-            if (res.data.PackageMaterials.length === 0 && page>1) {
+            if (res.data.PackageMaterials.length === 0 && page > 1) {
                 setPage((prev) => prev - 1)
             }
         }).catch((err) => {
@@ -186,7 +188,7 @@ const StorePrimaryTable = () => {
     }, [])
     const exportToExcel = async () => {
         const response = await axios.post('/api/storePrimary/getStorePrimary', {
-            fromdate, todate, searchdata,gatepassSearch 
+            fromdate, todate, searchdata, gatepassSearch
         })
         const data1 = response.data.PackageMaterials
         console.log(data1)
@@ -195,25 +197,25 @@ const StorePrimaryTable = () => {
         let transformed: ExcelStorePrimaryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: storeprimaryData,idx:number) => ({
-                Sl_No: idx+1,
-                GatePass_No:item.gatePassNo,
-                Gate_Pass_Type:item.gateType,
+            transformed = EditData.map((item: storeprimaryData, idx: number) => ({
+                Sl_No: idx + 1,
+                GatePass_No: item.gatePassNo,
+                Gate_Pass_Type: item.gateType,
                 Entry_Date: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                Gross_Wt:item.grossWt,
-                Net_Wt:item.netWeight,
-                Invoice:item.invoice,
+                Vehicle_No: item.truckNo,
+                Gross_Wt: item.grossWt,
+                Net_Wt: item.netWeight,
+                Invoice: item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
-                Type_Of_Material:item.type,
+                Type_Of_Material: item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Physical_Quantity: formatNumber(item.quantity),
-                Invoice_Quantity:item.invoicequantity,
+                Invoice_Quantity: item.invoicequantity,
                 Unit: item.unit,
-                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
-                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
-                Remarks:item.remarks,
+                Line_Weight: item.totalWt !== '0.00' ? formatNumber(item.totalWt) : '',
+                Bill_Amount: item.totalBill !== '0.00' ? formatNumber(item.totalBill) : '',
+                Remarks: item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -222,25 +224,25 @@ const StorePrimaryTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: storeprimaryData,idx:number) => ({
-                Sl_No: idx+1,
-                GatePass_No:item.gatePassNo,
-                Gate_Pass_Type:item.gateType,
+            transformed = data1.map((item: storeprimaryData, idx: number) => ({
+                Sl_No: idx + 1,
+                GatePass_No: item.gatePassNo,
+                Gate_Pass_Type: item.gateType,
                 Entry_Date: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                Gross_Wt:item.grossWt,
-                Net_Wt:item.netWeight,
-                Invoice:item.invoice,
+                Vehicle_No: item.truckNo,
+                Gross_Wt: item.grossWt,
+                Net_Wt: item.netWeight,
+                Invoice: item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
-                Type_Of_Material:item.type,
+                Type_Of_Material: item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Physical_Quantity: formatNumber(item.quantity),
-                Invoice_Quantity:item.invoicequantity,
+                Invoice_Quantity: item.invoicequantity,
                 Unit: item.unit,
-                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
-                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
-                Remarks:item.remarks,
+                Line_Weight: item.totalWt !== '0.00' ? formatNumber(item.totalWt) : '',
+                Bill_Amount: item.totalBill !== '0.00' ? formatNumber(item.totalBill) : '',
+                Remarks: item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -276,189 +278,336 @@ const StorePrimaryTable = () => {
 
     return (
         <>
+            {checkpending('RCNPrimary') && ((EditSumData?.storePrimary ?? 0) !== 0) && (
 
-{checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" disabled={EditSumData?.storePrimary===0 ?true :false}
-onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
+                <Drawer>
+                    <DrawerTrigger asChild >
+                        <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                            <Button
+                                className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                /* FIX 1: Use ?? 0 for the disabled prop */
+                                disabled={(EditSumData?.storePrimary ?? 0) === 0}
+                                onClick={GetPendingEdit}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <MdPendingActions size={18} />
+                                    Pending Actions
+                                </div>
+                            </Button>
 
-            <div className="ml-6 mt-5 ">
-                <div className="flex flexbox-search">
+                            {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                            {(EditSumData?.storePrimary ?? 0) > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                    {EditSumData?.storePrimary ?? 0}
+                                </span>
+                            )}
+                        </div>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <DrawerHeader>
+                            <DrawerTitle>Pending Actions</DrawerTitle>
+                            <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+                        </DrawerHeader>
+                        <div className='mx-5 flex flex-col'>
+                            <div className="flex flex-row w-full  justify-end"><Button
+                                className="w-12 mb-2 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button></div>
+                            <Table>
+                                <TableHeader className=" text-stone-950 bg-gray-300 font-bold">
+                                    <TableHead className="text-center  bg-gray-200 text-gray-700 border-none  " >Sl_No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700 border-none" >Action</TableHead>
+                                    
+                                    
+
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass_No.</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Type</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving_Date</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Entry_Vehicle_No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Initial_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Net_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Item_Invoice_No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Date</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Type_Of_Material</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Material_Item_Code(SKU)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor_Name(Store_Item)</TableHead>
+
+
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Qty</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Physical_Qty</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Unit</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Item_Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" > Bill_Amount</TableHead>
+
+
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Edit_Status</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Item_Remarks(Any)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Forwarded_By</TableHead>
+
+
+
+                                </TableHeader>
+                                <TableBody>
+                                    {EditData.map((item: storeprimaryData, idx: number) => {
+
+                                        return (
+                                            <TableRow key={item.id}>
+                                                <TableCell className="text-center">{idx + 1}</TableCell>
+                                                <TableCell className="text-center flex flex-row gap-3">
+
+
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger >
+                                                            <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent  >
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>
+                                                                    Do you want to Approve the Edit Request?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => handleApprove(item.id)}>
+                                                                    Continue
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger>
+                                                            <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>
+                                                                    Do you want to Decline the Edit Request?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => handleRejection(item.id)}>
+                                                                    Continue
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+
+
+                                                </TableCell>
+                                                
+                                                <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                                <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
+                                                <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                                <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                                <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
+                                                <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                                <TableCell className="text-center ">{item.invoice}</TableCell>
+                                                <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                                <TableCell className="text-center ">{item.type}</TableCell>
+                                                <TableCell className="text-center">{item.sku}</TableCell>
+                                                <TableCell className="text-center">{item.vendorName}</TableCell>
+                                                <TableCell className="text-center">{item.invoicequantity}</TableCell>
+                                                <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                                <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                                <TableCell className="text-center">{item.totalWt !== '0.00' ? formatNumber(item.totalWt) : 0} Kg</TableCell>
+                                                <TableCell className="text-center">{item.totalBill !== '0.00' ? formatNumber(item.totalBill) : 0} &#8377;</TableCell>
+                                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                                                <TableCell className="text-center">{item.remarks}</TableCell>
+                                                <TableCell className="text-center">{item.createdBy}</TableCell>
+                                                {/* <TableCell className="text-center">{item.approvedBy}</TableCell> */}
+
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            </Table>
 
 
 
 
-                <Input className=" w-1/3 flexbox-search-width pl-3 mr-5 " placeholder="GatePass No" value={gatepassSearch} onChange={(e) => setgatepassSearch(e.target.value)} />
-                <Input className=" w-1/3 flexbox-search-width mr-5 ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
-                    <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/6 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
+                        </div>
+                        <DrawerFooter>
 
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/6 flexbox-search-width-calender"
-                        type="date"
-                       // value={hidetodate}
-                       // onChange={handleTodate}
-                        value={todate}
-                        onChange={(e) => settoDate(e.target.value)}
-                        placeholder="To Date"
+                            <DrawerClose asChild>
+                                <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                                >Close</Button>
+                            </DrawerClose>
+                        </DrawerFooter>
 
-                    />
-                      <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setselectType(e.target.value)} value={selectType}>
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
-                        {SelectGatePassType.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
-                   
+                    </DrawerContent>
+                </Drawer>
+
+            )}
+
+            <div className="mx-2 mt-5 ">
 
 
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                    {/* The grid is set to hold 1, 2, 3, or 4 columns, which is typically enough
+        for 6-7 filter fields plus buttons, ensuring good flow on all screen sizes.
+        xl:grid-cols-6 can be used if you have a wide monitor and want everything on one line.
+      */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
+                        {/* GatePass / Document No */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                GatePass No.
+                            </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                                placeholder="GatePass No."
+                                value={gatepassSearch}
+                                onChange={(e) => setgatepassSearch(e.target.value)}
+                            />
+                        </div>
+
+                        {/* SKU / Vendor */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                SKU / Vendor
+                            </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                                placeholder="SKU/Vendor"
+                                value={searchdata}
+                                onChange={(e) => setSearchData(e.target.value)}
+                            />
+                        </div>
+                        {/* Type Of Gatepass (Select) */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Type
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setselectType(e.target.value)}
+                                value={selectType}
+                            >
+                                <option value="">In/Out (All)</option>
+                                {SelectGatePassType.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+
+
+                        {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
+
+                        
+
+                        {/* Buttons: Search + Export */}
+                        {/* Occupy the remaining space, pushed to the right on larger screens */}
+                        <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
+                            </Button>
+
+                            <Button
+                                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button>
+                        </div>
+
+                    </div>
                 </div>
-                {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-
-
-
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                         <TableHead className="text-center" >Sl_No</TableHead>
+                             <TableHead className="text-center" >Action</TableHead>
                         <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-                          <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Item_Invoice_No</TableHead>
-                           <TableHead className="text-center" >Invoice_Date</TableHead>
-                           <TableHead className="text-center" >Type_Of_Material</TableHead>
-                           <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
+                        <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" >Item_Invoice_No</TableHead>
+                        <TableHead className="text-center" >Invoice_Date</TableHead>
+                        <TableHead className="text-center" >Type_Of_Material</TableHead>
+                        <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name(Store_Item)</TableHead>
-                        
-                       
+
+
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
                         <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" >Store_Item_Wt(Kg)</TableHead>
                         <TableHead className="text-center" > Bill_Amount</TableHead>
-                     
+
 
                         <TableHead className="text-center" >Edit_Status</TableHead>
                         <TableHead className="text-center" >Store_Item_Remarks(Any)</TableHead>
                         <TableHead className="text-center" >Entried_By</TableHead>
                         <TableHead className="text-center" >Actioned_By</TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+                   
 
                     </TableHeader>
                     <TableBody>
-                        {EditData.length > 0 ? (
-                            EditData.map((item: storeprimaryData, idx: number) => {
-
-                                return (
-                                    <TableRow key={item.id}>
-                                        <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
-                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
-                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                        <TableCell className="text-center ">{item.invoice}</TableCell>
-                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center ">{item.type}</TableCell>
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} Kg</TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill):0} &#8377;</TableCell> 
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })
-                        ) : (
+                        {
                             Data.length > 0 ? (Data.map((item: storeprimaryData, idx: number) => {
 
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
-                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
-                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                        <TableCell className="text-center ">{item.invoice}</TableCell>
-                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-left ">{item.type}</TableCell>
-                                        <TableCell className="text-left">{item.sku}</TableCell>
-                                        <TableCell className="text-left">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} Kg</TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell>   
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
@@ -475,12 +624,33 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                                                 </DialogDescription>
                                                             </DialogHeader>
                                                             <StorePrimaryModify data={item} />
-                                                            
+
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
+                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                        <TableCell className="text-center ">{item.invoice}</TableCell>
+                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-left ">{item.type}</TableCell>
+                                        <TableCell className="text-left">{item.sku}</TableCell>
+                                        <TableCell className="text-left">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt !== '0.00' ? formatNumber(item.totalWt) : 0} Kg</TableCell>
+                                        <TableCell className="text-center">{item.totalBill !== '0.00' ? formatNumber(item.totalBill) : 0} &#8377;</TableCell>
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
+                                        
                                     </TableRow>
                                 );
                             })) : (<TableRow>
@@ -492,15 +662,15 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                 <TableCell></TableCell>
                                 <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
                                 <TableCell></TableCell>
-                                
+
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
-                                
+
                             </TableRow>)
-                        )}
+                        }
                     </TableBody>
                 </Table>
                 <Pagination className="pt-5 ">
@@ -524,18 +694,18 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
-                <dialog id="recevingeditapprove" className="dashboard-modal">
+                <dialog id="recevingeditapprove" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
 
-                <dialog id="recevingeditreject" className="dashboard-modal">
+                <dialog id="recevingeditreject" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="recevingeditrejectclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>

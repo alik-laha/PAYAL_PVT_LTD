@@ -7,9 +7,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
 import { Button } from "../ui/button";
 import { pendingCheckRoles, PermissionRole, rcvCheckRoles } from "@/type/type";
-import { pendingCheckRole, rcvCheckRole } from "../common/exportData";
+import { FY, pendingCheckRole, rcvCheckRole } from "../common/exportData";
 import axios from "axios";
 import { useContext, useState } from "react";
 import Context from "../context/context";
@@ -21,6 +22,8 @@ import { RxUpdate } from "react-icons/rx";
 import { LuDownload } from "react-icons/lu";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import { MdPendingActions } from "react-icons/md";
+import DashboardFooter from "../dashboard/DashboardFooter";
 
 const IssueItem = () => {
 
@@ -29,7 +32,7 @@ const IssueItem = () => {
     const currDate = new Date().toLocaleDateString();
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
-        
+
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
             return true
@@ -71,15 +74,15 @@ const IssueItem = () => {
 
         transformed = data1.data.map((item: any, idx: number) => ({
             Sl_No: idx + 1,
-           
+
             Item_Name: item.sku,
             //Receive_GatePass_Qty: formatNumber(item.quantity),
             //Receive_Backlog_Qty: formatNumber(item.thresoldquantity),
             //Total_Receive_Qty: Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)),
-            Total_Receive_Qty:formatNumber(item.quantity),
+            Total_Receive_Qty: formatNumber(item.quantity),
             Issue_Qty: item.consumedquantity,
             //Backlog_Qty:(Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)))-item.consumedquantity,
-            Backlog_Qty:Number(formatNumber(item.quantity))-item.consumedquantity,
+            Backlog_Qty: Number(formatNumber(item.quantity)) - item.consumedquantity,
         }));
         // setTransformedData(transformed);
         ws = XLSX.utils.json_to_sheet(transformed);
@@ -93,7 +96,7 @@ const IssueItem = () => {
 
     const handleStockUpdateFetch = async () => {
 
-       setLoading(true);
+        setLoading(true);
         try {
             const response = await fetch('/api/issue/update-stock', {
                 method: 'POST',
@@ -121,47 +124,109 @@ const IssueItem = () => {
             <div>
                 <DashboardHeader />
                 <DashboardSidebar />
-               
-                <div className='dashboard-main-container'>
-                <div className="flexbox-header">
-                    {
 
-                        data.data && data.data.map((item: any,idx:any) => {
-                            return (
-                                <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={idx}>
-                                    {item.sectionunit} <br /><p>{item.count} </p>
-                                </div>
-                            )
-                        })
+                <div className='dashboard-main-container '>
 
-                    }
+                    <div className="flexbox-header mx-2">
+                        {
 
+                            data.data && data.data.map((item: any, idx: any) => {
+                                return (
+                                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400 " key={idx}>
+                                        <p>{item.sectionunit}</p> <br /><p>{item.count} </p>
+                                    </div>
+                                )
+                            })
+
+                        }
+
+                    </div>
+                    <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md'>CURRENT FY : {FY} SECTION WISE ISSUE COUNT</p>
+                    <div className="w-['90%'] mx-2">
+                        <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-10 md:-ml-5">
+
+                            {checkreceiving('StorePrimaryEntry') && <Dialog>
+                                <DialogTrigger disabled={data.EditData > 0 ? true : false}>   <Button className="md:w-40 bg-gradient-to-r from-yellow-500 to-red-500 hover:from-yellow-400 hover:to-red-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md" disabled={data.EditData > 0 ? true : false}>+ Add New</Button></DialogTrigger>
+                                <DialogContent className='max-w-screen' style={{ display: 'block' }}>
+                                    <DialogHeader>
+                                        <DialogTitle><p className='text-lg text-gray-600 text-center py-5 tracking-wider drop-shadow-xl font-bold'>Item Issue Form</p></DialogTitle>
+
+                                    </DialogHeader>
+
+                                    <IssueCreateForm />
+                                </DialogContent>
+                            </Dialog>}
+
+
+
+                            {checkpending('RCNPrimary') && data.EditData > 0 && (
+
+                                <Drawer>
+                                    <DrawerTrigger asChild >
+                                        <div className="relative inline-block  ml-1.5 top-5 ">
+                                            <Button
+                                                className="md:w-40 bg-gradient-to-r from-blue-500 to-green-400 hover:from-blue-400 hover:to-green-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                                /* FIX 1: Use ?? 0 for the disabled prop */
+                                                disabled={data.EditData === 0}
+                                                onClick={handleEditFetch}
+                                            >
+                                                <div className="flex items-center gap-1">
+                                                    <MdPendingActions size={16} />
+                                                    Pending
+                                                </div>
+                                            </Button>
+
+                                            {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                                            {data.EditData > 0 && (
+                                                <span className="absolute -top-3 -right-2 md:right-1 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                                    {data?.EditData}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </DrawerTrigger>
+                                    <DrawerContent>
+                                        <DrawerHeader>
+                                            <DrawerTitle>Pending Actions</DrawerTitle>
+                                            <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+                                        </DrawerHeader>
+                                        <div className='mx-5'>   <IssueTable props='edit' /></div>
+                                        <DrawerFooter>
+
+                                            <DrawerClose asChild>
+                                                <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                                                >Close</Button>
+                                            </DrawerClose>
+                                        </DrawerFooter>
+
+                                    </DrawerContent>
+
+                                </Drawer>
+
+
+                            )}
+
+
+
+
+                            <Button className="md:w-40 bg-white text-red-500 hover:bg-gray-400 hover:text-white font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 md:ml-1.5 drop-shadow-lg" onClick={exportToExcel}> Stock <LuDownload size={20} className="ml-2" /> </Button>
+
+                            <Button className="md:w-40  bg-white text-green-600 hover:bg-orange-400 hover:text-white font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 md:ml-1.5 drop-shadow-md"
+                                disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2" /></Button>
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <IssueTable props='non-edit'/>
                 </div>
-                <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>SECTION WISE INSIDE STORE TRANSACTION</p>
-                <div>
-                {checkreceiving('StorePrimaryEntry') && <Dialog>
-                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-lime-500 mb-2 mt-5 ml-6 responsive-button-adjust drop-shadow-md" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-screen' style={{display:'block'}}>
-                            <DialogHeader>
-                                <DialogTitle><p className='text-lg text-gray-600 text-center py-5 tracking-wider drop-shadow-xl font-bold'>Item Issue Form</p></DialogTitle>
-
-                            </DialogHeader>
-
-                            <IssueCreateForm />
-                        </DialogContent>
-                    </Dialog>}
-
-
-                    {checkpending('RCNPrimary') && <Button className="bg-orange-500 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
-                    
-                    <Button className="bg-red-500 mb-2 ml-8 responsive-button-adjust drop-shadow-md" 
-                    disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Item Sync'} <RxUpdate size={20} className="ml-2"/></Button>
-
-                    <Button className="bg-gray-500 mb-2 ml-8 responsive-button-adjust drop-shadow-md" onClick={exportToExcel}> Stock <LuDownload size={14} className="ml-2" /> </Button>  
-                
-                </div>
-             <IssueTable/>
-                </div>
+                <DashboardFooter/>
             </div>
 
         </>

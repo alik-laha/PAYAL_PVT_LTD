@@ -213,54 +213,104 @@ console.log(vilLot)
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-1 flex flex-col gap-0.5"> 
-               {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
-               <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required />
-                <Label className="w-1/4  text-end font-semibold ">Total Receiving : </Label>
-                                {props.borma[0] ? <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{props.borma[0].TotalInput} Kg</Label> :
-                                 <Label className="w-1/4 text-center font-semibold text-red-500">0</Label> }
-                 </div>
-                        <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
-
-                            {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                            <Input className="w-1/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
-
-                            <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
-                            <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
-                            {rows[0] ? (Number(rows[0].UnpeelPiece) + Number(rows[0].WholesPeel) +
-                                Number(rows[0].WholesUnpeel) + Number(rows[0].DP) + 
-                                Number(rows[0].DP1) + Number(rows[0].DS) + 
-                                Number(rows[0].Big_Taiho) + Number(rows[0].Rejection)
-                                + Number(rows[0].Husk) + Number(rows[0].SJH) 
-                                + Number(rows[0].SJH1) +Number(rows[0].JJH) +
-                                 Number(rows[0].JH1) + Number(rows[0].JK_K)+
-                                  Number(rows[0].SP1) ).toFixed(2) : 0} Kg</Label>
+            <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+               <div className="grid grid-cols-1 md:grid-cols-5 gap-3"> 
+             
+                        <div ><Label>Date of Entry</Label>
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required />
                         </div>
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                        <div ><Label>No. of Operator</Label>
+                            <Input className="mt-1 bg-yellow-100 font-semibold text-center border-gray-300" placeholder="No. of Operator" value={operator} readOnly />
 
-                    <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
-                                     <Label className="w-1/4 text-left font-semibold ml-2 text-red-500 " >{props.borma[0] && rows[0] ?(Number(props.borma[0].TotalInput)-(Number(rows[0].UnpeelPiece) + Number(rows[0].WholesPeel) +
-                                Number(rows[0].WholesUnpeel) + Number(rows[0].DP) + 
-                                Number(rows[0].DP1) + Number(rows[0].DS) + 
-                                Number(rows[0].Big_Taiho) + Number(rows[0].Rejection)
-                                + Number(rows[0].Husk) + Number(rows[0].SJH) 
-                                + Number(rows[0].SJH1) +Number(rows[0].JJH) +
-                                 Number(rows[0].JH1) + Number(rows[0].JK_K)+
-                                  Number(rows[0].SP1))).toFixed(2):0} Kg</Label>
-                     </div>
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
+                        </div>
+               
+                  <div><Label>No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={dayOpRef}  />
+                        
+
+                         
                      </div>
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Husk)</Label>
+                     <div ><Label>No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={huskOpRef}  />
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
+                     <div ><Label >No. of Operator(Husk)</Label>
+                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={huskOpRef}  />
+                     </div>
+                     
+
+
+                     
+                        {props.borma.map((bormaItem, index) => {
+                            const totalInput = Number(bormaItem.TotalInput) || 0;
+
+                            const totalIssue =
+                                rows[index]
+                                    ? (
+                                        Number(rows[index].UnpeelPiece) +
+                                        Number(rows[index].WholesPeel) +
+                                        Number(rows[index].WholesUnpeel) +
+                                        Number(rows[index].DP) +
+                                        Number(rows[index].DP1) +
+                                        Number(rows[index].DS) +
+                                        Number(rows[index].Big_Taiho) +
+                                        Number(rows[index].Rejection) +
+                                        Number(rows[index].Husk) +
+                                        Number(rows[index].SJH) +
+                                        Number(rows[index].SJH1) +
+                                        Number(rows[index].JJH) +
+                                        Number(rows[index].JH1) +
+                                        Number(rows[index].JK_K) +
+                                        Number(rows[index].SP1)
+                                    ).toFixed(2)
+                                    : "0";
+
+                            const backlog = (totalInput - Number(totalIssue)).toFixed(2);
+
+                            return (
+                                <div key={index} className="border-b border-gray-300 pb-2 mb-2">
+                                    {/* Total Receiving */}
+                                    <div>
+                                        <Label className="w-1/4 text-end font-semibold">Origin :  </Label>
+                                        <Label className="w-1/4 text-left ml-2 font-semibold text-gray-500">{bormaItem.origin}</Label>
+                                    </div>
+                                    <div>
+                                        
+                                        <Label className="w-1/4 text-end font-semibold">Total Receiving :</Label>
+                                        <Label className="w-1/4 text-left ml-2 font-semibold text-green-500">
+                                            {totalInput} Kg
+                                        </Label>
+                                    </div>
+
+                                    {/* Total Issue */}
+                                    <div>
+                                        <Label className="w-1/4 text-end font-semibold">Total Issue :</Label>
+                                        <Label className="w-1/4 text-left ml-2 font-semibold text-blue-500">
+                                            {totalIssue} Kg
+                                        </Label>
+                                    </div>
+
+                                    {/* Backlog */}
+                                    <div>
+                                        <Label className="w-1/4 text-end font-semibold">Backlog :</Label>
+                                        <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">
+                                            {backlog} Kg
+                                        </Label>
+                                    </div>
+                                </div>
+                            );
+                        })}
+
+
+
+                  
+                      
+               
+                   
+
+                 
                      
                    
                 </div>
@@ -346,19 +396,19 @@ console.log(vilLot)
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+                  <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                      <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                   </span>
   
   
               </dialog>
   
-              <dialog id="erroremployeedialog" className="dashboard-modal">
+              <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                   <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                   </span>
   
   

@@ -68,7 +68,7 @@ import { CiEdit } from "react-icons/ci";
 import { SiTicktick } from "react-icons/si";
 import { MdOutlinePendingActions } from "react-icons/md";
 
-const RcnPrimaryEntryTable = () => {
+const RcnPrimaryEntryTable = (props:any) => {
     const [origin, setOrigin] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
@@ -121,9 +121,9 @@ const RcnPrimaryEntryTable = () => {
         if (editPendingData) {
             //console.log(editPendingData)
             setEditData(editPendingData)
-            setblockpagen('none')
+                if(props.props==='edit'){ setblockpagen('none')}
         }
-    }, [editPendingData])
+    }, [editPendingData, props.props])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -292,79 +292,192 @@ const RcnPrimaryEntryTable = () => {
 
 
     return (
-        <div className="ml-6 mt-5 ">
-
-            <div className="flex flexbox-search">
-
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-
-                <select className=' flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
-
-                <label className=" font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
-
-                />
-                <label className=" font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                     value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
+        <div className="mx-2 mt-5 ">
 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+            {props.props==='edit' ?'':<div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-end">
 
-            </div>
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                    {/* BL / Con No */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            BL No. / Con No.
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="BL / Con No."
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
+
+               
+
+                
+
+                         {/* Origin */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                            onChange={(e) => setOrigin(e.target.value)}
+                            value={origin}
+                        >
+                            <option value="">Origin (All)</option>
+                            {Origin.map((item) => (
+                                <option key={item} value={item}>{item}</option>
+                            ))}
+                        </select>
+
+
+
+                    </div>
+                         {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                        <Button
+                            className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
+
+                        {checkpending('RCNPrimary') && (
+                            <Button
+                                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+                                
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            </div>}
+
+              {checkpending("RCNPrimary") && props.props==='edit' &&(
+                <Button
+                  className="flex justify-end items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm "
+                  onClick={exportToExcel}
+                >
+                  <LuDownload size={16} />
+                </Button>
+              )}
+
+           
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >GatePass_No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Id</TableHead>
+                  <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >GatePass_No</TableHead>
                  
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date_of_Receiving </TableHead>
-                    <TableHead className="text-center" >BL_No.</TableHead>
-                    <TableHead className="text-center" >Con_No.</TableHead>
-                    <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
-                    <TableHead className="text-center" >Gross_Weight(Kg)</TableHead>
-                    <TableHead className="text-center" >BL_Weight(Kg)</TableHead>
-                    <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-                    <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Physical_Bag</TableHead>
-                    <TableHead className="text-center" >System_Bag</TableHead>
-                    <TableHead className="text-center" >QC_Status</TableHead>
-                    <TableHead className="text-center" >Edit_Status </TableHead>
-                    <TableHead className="text-center" >Entried_By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Date_of_Receiving </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL_No.</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Con_No.</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Enrty_Vehicle_No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Gross_Weight(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL_Weight(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Net_Weight(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Difference</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Physical_Bag</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >System_Bag</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >QC_Status</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Edit_Status </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entried_By </TableHead>
+                 
 
                 </TableHeader>
                 <TableBody>
-                    {EditData.length > 0 ? (
+                    {(EditData.length > 0 && props.props==='edit')? (
                         EditData.map((item: EditPendingData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center ">{idx + 1}</TableCell>
+                                    <TableCell className="text-center flex flex-row gap-3">
+         
+
+                         <AlertDialog>
+                              <AlertDialogTrigger >
+                                                 <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+                               
+                              </AlertDialogTrigger>
+                              <AlertDialogContent  >
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Do you want to Approve the Edit Request?
+                                  </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleApprove(item)}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                            <AlertDialog>
+                              <AlertDialogTrigger>
+                                   <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                                                   <FcDisapprove size={18} />
+                                                                                   <button className=" text-red-600">
+                                                                                       Revert
+                                                                                   </button>
+                                                                               </div>
+                               
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Do you want to Decline the Edit Request?
+                                  </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleRejection(item)}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                      </TableCell>
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
@@ -394,59 +507,45 @@ const RcnPrimaryEntryTable = () => {
                                                                                   />
                                                                                 </p>
                                                                               ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            <button className="bg-white p-2 text-red-500 rounded w-28 border font-semibold border-red-300">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
                                         'NA' : item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.editedBy}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                                    
                                 </TableRow>
                             );
                         })
                     ) : (
-                        Data.length > 0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
+                        (Data.length > 0 && props.props==='non-edit')? (Data.map((item: RcnPrimaryEntryData, idx) => {
 
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                     <TableCell className="text-center">
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                           <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-3xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Primary Entry Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RcnPrimaryModify data={item} />
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </PopoverContent>
+                                        </Popover>
+                                    </TableCell>
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
@@ -474,34 +573,13 @@ const RcnPrimaryEntryTable = () => {
                                                                                   />
                                                                                 </p>
                                                                               ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            <button className="bg-white p-2 text-red-500 rounded w-28 border font-semibold border-red-300">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
                                         'NA' : item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.receivedBy}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                           <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-3xl">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Primary Entry Modification</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RcnPrimaryModify data={item} />
-                                                    </DialogContent>
-                                                </Dialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                                   
                                 </TableRow>
                             );
                         })) : (<TableRow>
@@ -525,7 +603,7 @@ const RcnPrimaryEntryTable = () => {
                     )}
                 </TableBody>
             </Table>
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
+            {props.props==='non-edit' &&<Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
@@ -548,19 +626,19 @@ const RcnPrimaryEntryTable = () => {
                         <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
                     </PaginationItem>
                 </PaginationContent>
-            </Pagination>
-            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
+            </Pagination>}
+            <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+            <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

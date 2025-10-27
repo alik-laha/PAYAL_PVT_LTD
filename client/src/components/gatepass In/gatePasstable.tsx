@@ -978,89 +978,141 @@ const GatePassTable = () => {
 
   return (
     <>
-      {/* {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleSearchPendingApproval} disabled={props.count === 0 ? true : false}> Pending Approve(
-            {props.count})</Button> } */}
-      <div className="ml-6 mt-5 ">
+    
+      <div className="mx-2 ">
 
+        <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
 
-        <div className="flex flexbox-search">
+            {/* GatePass / Doc No */}
+            <div className="flex flex-col gap-1">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                GatePass / Document No
+              </label> */}
+              <Input
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                placeholder="GatePass / Doc No"
+                value={blConNo}
+                onChange={(e) => setBlConNo(e.target.value)}
+              />
+            </div>
 
-          <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" GatePass/Doc No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+           
 
-          <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-            onChange={(e) => setSection(e.target.value)} value={section}>
-            <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-xs outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-            {type ? (
-              sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
-                <option key={item} value={item} className="text-xs">{item}</option>
-              ))
-            ) : null}
-          </select>
+            {/* Type Of Gatepass */}
+            <div className="flex flex-col gap-1">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Type
+              </label> */}
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => settype(e.target.value)}
+                value={type}
+              >
+                <option value="">In/Out (All)</option>
+                {SelectGatePassType.map((data, index) => (
+                  <option key={index} value={data}>{data}</option>
+                ))}
+              </select>
+            </div>
 
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-          <Input className="w-1/7 flexbox-search-width-calender"
-            type="date"
-            value={fromdate}
-            onChange={(e) => setfromDate(e.target.value)}
-            placeholder="From Date"
+            {/* Section */}
+            <div className="flex flex-col gap-1">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Section
+              </label> */}
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => setSection(e.target.value)}
+                value={section}
+              >
+                <option value="">Section (All)</option>
+                {type && sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate]?.map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+            </div>
 
-          />
-          <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-          <Input className="w-1/7 flexbox-search-width-calender"
-            type="date"
-            //value={hidetodate}
-            // onChange={handleTodate}
-            value={todate}
-            onChange={(e) => settoDate(e.target.value)}
-            placeholder="To Date"
+            {/* Status */}
+            <div className="flex flex-col gap-1">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                Status
+              </label> */}
+              <select
+                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                onChange={(e) => setSectionstatus(e.target.value)}
+                value={sectionstatus}
+              >
+                <option value="">Status (All)</option>
+                {SectionStatusAll.map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+            </div>
 
-          />
-          <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-            onChange={(e) => settype(e.target.value)} value={type}>
-            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
-            {SelectGatePassType.map((data, index) => (
-              <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                {data}
-              </option>
-            ))}
-          </select>
-          <select className='flexbox-search-width flex h-8 w-1/7  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-            onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
-            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2  outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
-            </option>
-            {
-              SectionStatusAll.map((item) => {
-                return (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                )
-              })
-            }
+             {/* From Date */}
+            <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                From
+              </label>
+              <Input
+                type="date"
+                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={fromdate}
+                onChange={(e) => setfromDate(e.target.value)}
+              />
+            </div>
 
+            {/* To Date */}
+            <div className="flex flex-col md:flex-row gap-1 md:items-center">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                To
+              </label>
+              <Input
+                type="date"
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={todate}
+                onChange={(e) => settoDate(e.target.value)}
+              />
+            </div>
 
-          </select>
+            {/* Buttons: Right-aligned */}
+            <div className="flex col-span-full justify-end gap-3 mt-2 md:mt-0 ">
+              <Button
+                className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                onClick={handleSearch}
+              >
+                <FaSearch size={14} />
+                Search
+              </Button>
 
+              {checkpending('Gatepass') && (
+                <Button
+                  className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={handleExcellExport}
+                >
+                  <LuDownload size={18} />
+                  
+                </Button>
+              )}
+            </div>
 
-          <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
+          </div>
         </div>
-        {checkpending('Gatepass') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button> </span>}
+
+
         <Table className="mt-4">
           <TableHeader className="bg-neutral-100 text-stone-950 ">
 
             <TableHead className="text-center" >Sl No.</TableHead>
-            <TableHead className="text-center" >GatePass_ID</TableHead>
+             <TableHead className="text-center" >GatePass_ID</TableHead>
+                 <TableHead className="text-center" >Type</TableHead>
+            <TableHead className="text-center" >Normal Action</TableHead>
+            {Role !== 'Security' && <TableHead className="text-center" >Special Action</TableHead>}
+           
 
-            <TableHead className="text-center" >Type</TableHead>
-            <TableHead className="text-center" >Receiving/Dispatch Section</TableHead>
+        
+            <TableHead className="text-center" >Receiving/Dispatch Section</TableHead><TableHead className="text-center" >Current_GatePass_Status</TableHead>
   
             <TableHead className="text-center" >Receiving /Dispatch</TableHead>
             <TableHead className="text-center" >NetWeight Entry</TableHead>
@@ -1083,12 +1135,11 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
                {Role !== 'Security' &&  <TableHead className="text-center" >Receiving_Wt(Kg)</TableHead>}
                 {Role !== 'Security' && <TableHead className="text-center" >Mismatch_Wt(Kg)</TableHead>}
-          <TableHead className="text-center" >Current_GatePass_Status</TableHead>
+          
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
             <TableHead className="text-center" >Gatepass_Remarks(Any)</TableHead>
 
-            <TableHead className="text-center" >Normal Action</TableHead>
-            {Role !== 'Security' && <TableHead className="text-center" >Special Action</TableHead>}
+            
             <TableHead className="text-center" >Slip</TableHead>
           </TableHeader>
           <TableBody>
@@ -1103,25 +1154,282 @@ const GatePassTable = () => {
                   <TableCell className="text-center">
                     {limit * (page - 1) + idx + 1}
                   </TableCell>
-                  <TableCell className="text-center font-bold">
+                  <TableCell className="text-center font-bold text-gray-600">
                     {item.gatePassNo}
                   </TableCell>
-
-                  <TableCell className="text-center">
+                    <TableCell className="text-center">
                     {" "}
                     {item.type === "IN" ? (
-                      <p className="flex flex-row font-bold text-green-600 justify-center">
+                      <p className="flex flex-row font-bold  justify-center text-orange-500">
                         {item.type}
                       </p>
                     ) : (
-                      <p className="flex flex-row justify-center font-bold text-red-600">
+                      <p className="flex flex-row justify-center font-bold text-purple-600">
                         {item.type}
                       </p>
                     )}{" "}
                   </TableCell>
-                  <TableCell className="text-center font-semibold shadow-md text-cyan-600">
+                    <TableCell className="text-center">
+                    {item.status !== "Cancelled" &&
+                      (item.status === "Closed" ? (
+                        <button
+                          className="bg-red-100 border  border-red-300 font-bold p-2 w-20 text-red-500 rounded"
+                          disabled={true}>
+                          Closed
+                        </button>
+                      ) : (
+                        <Popover>
+                          <PopoverTrigger>
+                            <button
+                              className={`p-2  ${
+                                item.receivingStatus === 0
+                                  ? "text-red-500 h-8 bg-red-50 w-20 border border-red-400 font-bold rounded-lg hover:bg-red-200 opacity-50"
+                                  : "text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200"
+                              }`}
+                              disabled={
+                                item.receivingStatus === 0 ? true : false
+                              }>
+                              Action
+                            </button>
+                          </PopoverTrigger>
+
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                            {/* Net Weight  Gatepass */}
+                            {!item.netWeight &&
+                              item.receivingStatus === 1 &&
+                              item.approvalStatus === 0 && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger className="flex">
+                                    <FcApprove size={25} />
+                                    <button className="bg-transparent  pl-1 text-left hover:text-green-500">
+                                      Net Weight Entry
+                                    </button>
+                                  </AlertDialogTrigger>
+
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>
+                                       
+                                        Enter Net Weight (Gross Initial Wt. -
+                                        Final Wt.)
+                                      </AlertDialogTitle>
+                                      <AlertDialogDescription className="text-sm">
+                                        This will Link Net Weight to Corresponding Receiving
+                                        Section
+                                        <Input
+                                          type="number"
+                                          
+                                          placeholder="Net Weight"
+                                          className="mt-3 w-100 text-center justify-center items-center text-black border border-gray-500"
+                                          value={netWeight}
+                                          onChange={(e) =>
+                                            setNetWeight(Number(e.target.value))
+                                          }
+                                          required
+                                        />
+                                        <span
+                                          id="nameError"
+                                          className={`text-red-500 pt-2 font-bold ${errview}`}>
+                                          Net Weight is Required
+                                        </span>
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => handleNetWeight(item)}>
+                                        Continue
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              )}
+
+                            {/* Verify Gatepass   */}
+
+                            {checkpending("Gatepass") &&
+                              item.netWeight &&
+                              item.receivingStatus === 1 &&
+                              item.approvalStatus === 0 && (
+                                <Dialog>
+                                  <DialogTrigger className="flex py-1">
+                                    <MdOutlineDriveFolderUpload
+                                      size={20}
+                                      color="green"
+                                    />{" "}
+                                    <button className="bg-transparent pl-2 text-left hover:text-green-500">
+                                      Verify GatePass
+                                    </button>
+                                  </DialogTrigger>
+                                  <DialogContent className="max-w-3xl">
+                                    <DialogHeader>
+                                      <DialogTitle>
+                                        <p className="text-1xl pb-1 text-center mt-5">
+                                          Gate Pass Verification{" "}
+                                        </p>
+                                      </DialogTitle>
+                                    </DialogHeader>
+                               
+                                    <GatepassApprove data={item} />
+                                  </DialogContent>
+                                </Dialog>
+                              )}
+
+                            {/* Close Gatepass   */}
+                            {item.receivingStatus === 1 &&
+                              item.approvalStatus === 1 && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger className="flex">
+                                    <FcApprove size={25} />
+                                    <button className="bg-transparent  pl-1 text-left hover:text-green-500">
+                                      Release
+                                    </button>
+                                  </AlertDialogTrigger>
+
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>
+                                  
+                                        Do You want to Release Incoming Vehicle
+                                        at Exit Point?
+                                      </AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        This will close the GatePass
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => handleRelease(item.id)}>
+                                        Continue
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              )}
+                          </PopoverContent>
+                        </Popover>
+                      ))}
+                  </TableCell>
+
+                  {Role !== "Security" && (
+                    <TableCell className="text-center">
+                      {item.status !== "Cancelled" && (
+                        <Popover>
+                          <PopoverTrigger>
+                            <button className="p-2 text-green-600 h-8 bg-white w-20 border border-green-400 font-bold rounded-lg hover:bg-green-100">
+                              Action
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                            {/* Gatepass Cancel */}
+                            {item.receivingStatus === 0 && (
+                              <AlertDialog>
+                                <AlertDialogTrigger className="flex">
+                                  <FcCancel size={25} />{" "}
+                                  <button className="bg-transparent  pl-1 text-left hover:text-red-500">
+                                    Gate Pass Cancel
+                                  </button>
+                                </AlertDialogTrigger>
+
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                  
+                                      Enter Cancel Reason
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      This will Delete Corresponding Receiving
+                                      Section
+                                      <Textarea
+                                        style={{ color: "black" }}
+                                        placeholder="Cancel Remark"
+                                        className="mt-3 w-full text-left justify-center items-center border-gray-500"
+                                        value={cancelremark}
+                                        onChange={(e) =>
+                                          setCancelremark(e.target.value)
+                                        }
+                                        required
+                                      />
+                                      <span
+                                        id="nameError"
+                                        className={`text-red-500 pt-2 font-bold ${errview}`}>
+                                        Cancel Reason is Required
+                                      </span>
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() => handleGateCanel(item)}>
+                                      Continue
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            )}
+
+                            {/* Gatepass Cancel */}
+                            {item.status === "Closed" && (
+                              <Dialog>
+                                <DialogTrigger className="flex py-1">
+                                  <MdOutlineDriveFolderUpload
+                                    size={20}
+                                    color="green"
+                                  />{" "}
+                                  <button className="bg-transparent pl-2 text-left hover:text-green-500">
+                                    Modify GatePass
+                                  </button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>
+                                      <p className="text-1xl pb-1 text-center mt-5">
+                                        Gate Pass Modify{" "}
+                                      </p>
+                                    </DialogTitle>
+                                  </DialogHeader>
+                                  {/* <QCreportForm data={item} /> */}
+                                  <GatepassApproveFinal data={item} />
+                                </DialogContent>
+                              </Dialog>
+                            )}
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    </TableCell>
+                  )}
+                  
+
+                
+                  <TableCell className="text-center font-semibold shadow-md ">
                     {handlesection(item.section)}
                   </TableCell>
+                          {item.status !== "Cancelled" ? (
+                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600 text-xs">
+                     
+                   
+
+                      <button className="bg-white p-2 text-purple-500 border border-purple-500 font-bold rounded w-40">{formatString2(item.status)}</button>
+                     
+                     
+                    </TableCell>
+                  ) : (
+                    <TableCell className="text-center ">
+                      <button className="bg-white p-2 text-red-500 border border-red-500 font-bold rounded w-40 ">
+                        Cancelled
+                      </button>
+                    </TableCell>
+                  )}
                    
 
                   <TableCell className="text-center ">
@@ -1224,22 +1532,7 @@ const GatePassTable = () => {
                         }${formatNumber( (Number(item.netWeight) - Number(item.sumTotalWt)).toString() )} kg`
                       : "--"}
                   </TableCell>}
-                      {item.status !== "Cancelled" ? (
-                    <TableCell className="text-center font-semibold tracking-wide text-cyan-600 text-xs">
-                     
-                   
-
-                      <button className="bg-purple-500 p-1 h-7 text-white rounded w-40">{formatString2(item.status)}</button>
-                     
-                     
-                    </TableCell>
-                  ) : (
-                    <TableCell className="text-center ">
-                      <button className="bg-red-500 h-7 rounded shadow-md w-40 drop-shadow-lg p-1 text-white ">
-                        Cancelled
-                      </button>
-                    </TableCell>
-                  )}
+              
              
 
                   <TableCell className="text-center">
@@ -1249,245 +1542,7 @@ const GatePassTable = () => {
                     {item.Remarks ? item.Remarks:'--'}
                   </TableCell>
 
-                  <TableCell className="text-center">
-                    {item.status !== "Cancelled" &&
-                      (item.status === "Closed" ? (
-                        <button
-                          className="bg-red-500  p-2 text-white rounded opacity-40 "
-                          disabled={true}>
-                          Closed
-                        </button>
-                      ) : (
-                        <Popover>
-                          <PopoverTrigger>
-                            <button
-                              className={`p-2 text-white rounded ${
-                                item.receivingStatus === 0
-                                  ? "bg-cyan-200"
-                                  : "bg-cyan-500"
-                              }`}
-                              disabled={
-                                item.receivingStatus === 0 ? true : false
-                              }>
-                              Action
-                            </button>
-                          </PopoverTrigger>
-
-                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                            {/* Net Weight  Gatepass */}
-                            {!item.netWeight &&
-                              item.receivingStatus === 1 &&
-                              item.approvalStatus === 0 && (
-                                <AlertDialog>
-                                  <AlertDialogTrigger className="flex">
-                                    <FcApprove size={25} />
-                                    <button className="bg-transparent  pl-1 text-left hover:text-green-500">
-                                      Net Weight Entry
-                                    </button>
-                                  </AlertDialogTrigger>
-
-                                  <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                      <AlertDialogTitle>
-                                       
-                                        Enter Net Weight (Gross Initial Wt. -
-                                        Final Wt.)
-                                      </AlertDialogTitle>
-                                      <AlertDialogDescription>
-                                        This will Link Corresponding Receiving
-                                        Section
-                                        <Input
-                                          type="number"
-                                          style={{ color: "black" }}
-                                          placeholder="Net Weight"
-                                          className="mt-3 w-100 text-center justify-center items-center"
-                                          value={netWeight}
-                                          onChange={(e) =>
-                                            setNetWeight(Number(e.target.value))
-                                          }
-                                          required
-                                        />
-                                        <span
-                                          id="nameError"
-                                          className={`text-red-500 pt-2 font-bold ${errview}`}>
-                                          Net Weight is Required
-                                        </span>
-                                      </AlertDialogDescription>
-                                    </AlertDialogHeader>
-
-                                    <AlertDialogFooter>
-                                      <AlertDialogCancel>
-                                        Cancel
-                                      </AlertDialogCancel>
-                                      <AlertDialogAction
-                                        onClick={() => handleNetWeight(item)}>
-                                        Continue
-                                      </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                  </AlertDialogContent>
-                                </AlertDialog>
-                              )}
-
-                            {/* Verify Gatepass   */}
-
-                            {checkpending("Gatepass") &&
-                              item.netWeight &&
-                              item.receivingStatus === 1 &&
-                              item.approvalStatus === 0 && (
-                                <Dialog>
-                                  <DialogTrigger className="flex py-1">
-                                    <MdOutlineDriveFolderUpload
-                                      size={20}
-                                      color="green"
-                                    />{" "}
-                                    <button className="bg-transparent pl-2 text-left hover:text-green-500">
-                                      Verify GatePass
-                                    </button>
-                                  </DialogTrigger>
-                                  <DialogContent>
-                                    <DialogHeader>
-                                      <DialogTitle>
-                                        <p className="text-1xl pb-1 text-center mt-5">
-                                          Gate Pass Verification{" "}
-                                        </p>
-                                      </DialogTitle>
-                                    </DialogHeader>
-                               
-                                    <GatepassApprove data={item} />
-                                  </DialogContent>
-                                </Dialog>
-                              )}
-
-                            {/* Close Gatepass   */}
-                            {item.receivingStatus === 1 &&
-                              item.approvalStatus === 1 && (
-                                <AlertDialog>
-                                  <AlertDialogTrigger className="flex">
-                                    <FcApprove size={25} />
-                                    <button className="bg-transparent  pl-1 text-left hover:text-green-500">
-                                      Release
-                                    </button>
-                                  </AlertDialogTrigger>
-
-                                  <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                      <AlertDialogTitle>
-                                  
-                                        Do You want to Release Incoming Vehicle
-                                        at Exit Point?
-                                      </AlertDialogTitle>
-                                      <AlertDialogDescription>
-                                        This will close the GatePass
-                                      </AlertDialogDescription>
-                                    </AlertDialogHeader>
-
-                                    <AlertDialogFooter>
-                                      <AlertDialogCancel>
-                                        Cancel
-                                      </AlertDialogCancel>
-                                      <AlertDialogAction
-                                        onClick={() => handleRelease(item.id)}>
-                                        Continue
-                                      </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                  </AlertDialogContent>
-                                </AlertDialog>
-                              )}
-                          </PopoverContent>
-                        </Popover>
-                      ))}
-                  </TableCell>
-
-                  {Role !== "Security" && (
-                    <TableCell className="text-center">
-                      {item.status !== "Cancelled" && (
-                        <Popover>
-                          <PopoverTrigger>
-                            <button className="p-2 text-white rounded bg-red-500">
-                              Action
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                            {/* Gatepass Cancel */}
-                            {item.receivingStatus === 0 && (
-                              <AlertDialog>
-                                <AlertDialogTrigger className="flex">
-                                  <FcCancel size={25} />{" "}
-                                  <button className="bg-transparent  pl-1 text-left hover:text-green-500">
-                                    Gate Pass Cancel
-                                  </button>
-                                </AlertDialogTrigger>
-
-                                <AlertDialogContent>
-                                  <AlertDialogHeader>
-                                    <AlertDialogTitle>
-                                      {" "}
-                                      Enter Cancel Reason
-                                    </AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                      This will Delete Corresponding Receiving
-                                      Section
-                                      <Textarea
-                                        style={{ color: "black" }}
-                                        placeholder="Cancel Remark"
-                                        className="mt-3 w-100 text-center justify-center items-center"
-                                        value={cancelremark}
-                                        onChange={(e) =>
-                                          setCancelremark(e.target.value)
-                                        }
-                                        required
-                                      />
-                                      <span
-                                        id="nameError"
-                                        className={`text-red-500 pt-2 font-bold ${errview}`}>
-                                        Cancel Reason is Required
-                                      </span>
-                                    </AlertDialogDescription>
-                                  </AlertDialogHeader>
-
-                                  <AlertDialogFooter>
-                                    <AlertDialogCancel>
-                                      Cancel
-                                    </AlertDialogCancel>
-                                    <AlertDialogAction
-                                      onClick={() => handleGateCanel(item)}>
-                                      Continue
-                                    </AlertDialogAction>
-                                  </AlertDialogFooter>
-                                </AlertDialogContent>
-                              </AlertDialog>
-                            )}
-
-                            {/* Gatepass Cancel */}
-                            {item.status === "Closed" && (
-                              <Dialog>
-                                <DialogTrigger className="flex py-1">
-                                  <MdOutlineDriveFolderUpload
-                                    size={20}
-                                    color="green"
-                                  />{" "}
-                                  <button className="bg-transparent pl-2 text-left hover:text-green-500">
-                                    Modify GatePass
-                                  </button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle>
-                                      <p className="text-1xl pb-1 text-center mt-5">
-                                        Gate Pass Modify{" "}
-                                      </p>
-                                    </DialogTitle>
-                                  </DialogHeader>
-                                  {/* <QCreportForm data={item} /> */}
-                                  <GatepassApproveFinal data={item} />
-                                </DialogContent>
-                              </Dialog>
-                            )}
-                          </PopoverContent>
-                        </Popover>
-                      )}
-                    </TableCell>
-                  )}
+                
 
                   <TableCell>
                     {item.status !== "Cancelled" &&
@@ -1580,10 +1635,10 @@ const GatePassTable = () => {
           </TableBody>
 
         </Table>
-        <Pagination style={{ display: blockpagen }} className="pt-5 ">
-          <PaginationContent>
+        <Pagination style={{ display: blockpagen }} className="pt-5">
+          <PaginationContent className="font-bold">
             <PaginationItem>
-              <PaginationPrevious onClick={() => setPage((prev) => {
+              <PaginationPrevious className="font-bold" onClick={() => setPage((prev) => {
                 if (prev === 1) {
                   return prev
                 }
@@ -1594,28 +1649,34 @@ const GatePassTable = () => {
               })} />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href="#">{page}</PaginationLink>
+              <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page+1}</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page+2}</PaginationLink>
             </PaginationItem>
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+              <PaginationNext className="font-bold" onClick={() => setPage((prev) => prev + 1)} />
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-        <dialog id="machinescs" className="dashboard-modal">
+        <dialog id="machinescs" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
           <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
           <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-            <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+            <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
           {/* <!-- Add more elements as needed --> */}
         </dialog>
 
-        <dialog id="machineerror" className="dashboard-modal">
+        <dialog id="machineerror" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
           <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
           <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-            <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+            <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
           {/* <!-- Add more elements as needed --> */}
         </dialog>

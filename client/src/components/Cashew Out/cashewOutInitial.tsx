@@ -47,9 +47,9 @@ const CashewOutInitialForm = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="px-5 max-h-64 overflow-scroll">
          
-                <Table className="mt-3">
+                <Table>
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >GatePass No</TableHead>
@@ -78,7 +78,7 @@ const CashewOutInitialForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)}>+ Add </Button></DialogTrigger>
-                                           <DialogContent style={{display:'block'}} className='max-w-screen'>
+                                           <DialogContent style={{display:'block'}} className='max-w-8xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-lg text-gray-600 text-center my-1 tracking-wider drop-shadow-xl font-bold'>Cashew Dispatch</p></DialogTitle>
 

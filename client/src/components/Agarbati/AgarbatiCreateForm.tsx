@@ -242,33 +242,33 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
 
     return (
         <>
-            <div className="px-8">
+            <div>
               
                 
 
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit3}>
-                <div className="mx-8 flex flex-col gap-1"> 
-                <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div className="flex"><Label className="w-2/4  pt-1">GatePass Type</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass Type" value={gateType} readOnly /> </div>
-                <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                <Input className="w-2/4  bg-yellow-100 font-semibold text-center" placeholder="Date" value={date}  readOnly /> </div> 
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit3}>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3"> 
+                <div><Label>GatePass No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                <div><Label>GatePass Type</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass Type" value={gateType} readOnly /> </div>
+                <div><Label>Date of Receving</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Date" value={date}  readOnly /> </div> 
                 
-                <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Gross Wt." value={grossWt}  readOnly /> </div>   
+                <div ><Label>Gross Wt (Kg)</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Gross Wt." value={grossWt}  readOnly /> </div>   
                 
-                <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
+                <div><Label>Vehicle No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
                 {/* <div className="flex"><Label className="w-2/4  pt-2">Invoice No.</Label>
                 <Input className="w-2/4 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div> */}
                 
                 {/* <div className="flex"><Label className="w-2/4 pt-2">Invoice Date</Label>
                 <Input className="w-2/4 justify-center text-center" type='date' placeholder="date" ref={conNoRef} required /> </div> */}
                 
-                <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
-                <div className="w-2/4">
-                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <div><Label>{gateType==='IN'? 'Vendor':'Party'} Name</Label>
+                <div >
+                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Vendor / Party" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -286,9 +286,9 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl_No.</TableHead>
-                            <TableHead className="text-center" >Type</TableHead>
-                            <TableHead className="text-center" >Grade</TableHead>                      
+                            <TableHead className="text-center" >Sl</TableHead>
+                            <TableHead className="text-center" >Agarbati_Type</TableHead>
+                            <TableHead className="text-center" >Agarbati_Grade</TableHead>                      
                             <TableHead className="text-center" >Invoice_No</TableHead>
                             <TableHead className="text-center" >Invoice_Date</TableHead>
                             <TableHead className="text-center" >Bag/Piece</TableHead>                  
@@ -303,7 +303,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                                         <TableRow key={index} className="boiling-row-height">
                                             <TableCell>{index + 1}</TableCell>
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="w-full text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'type', e.target.value)}
@@ -322,7 +322,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
 
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="w-full text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sku', e.target.value)}
@@ -404,18 +404,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
             </div>
-            <dialog id="myDialog" className="dashboard-modal">
+            <dialog id="myDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="errorDialog" className="dashboard-modal">
+            <dialog id="errorDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

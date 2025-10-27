@@ -58,6 +58,7 @@ import * as XLSX from 'xlsx';
 
 
 
+
 const DashboardTable = () => {
     const [UserData, setUserData] = useState<User[]>([])
     const limit = pagelimit
@@ -161,28 +162,58 @@ const DashboardTable = () => {
 
     return (
 
-        <div className="ml-5 mt-5">
-            <div className="flex pb-2">
-
-                <Input className="w-80" placeholder="Search By Emp Id/ Name/ Dept/ Role" onChange={handleSearch} />
-                <Button className="bg-green-700 h-8  w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button> 
-            </div>
+        <div className="mx-2 mt-5">
+          
             
+
+            <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+
+                    {/* GatePass No */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Search By
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="Emp ID / Name / Dept / Role"
+                            onChange={handleSearch}
+                        />
+                    </div>
+
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0 ">
+
+
+
+                        <Button
+                            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={exportToExcel}
+                        >
+                            <LuDownload size={16} />
+                        </Button>
+
+                    </div>
+                </div>
+            </div>
 
 
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className=" text-left" >Id</TableHead>
-                    <TableHead className=" text-left" >Emp ID </TableHead>
-                    <TableHead className="text-left" >Full Name Of Employee</TableHead>
+                    <TableHead className=" text-center" >SL_No</TableHead>
+                   
+                    <TableHead className=" text-center" >Emp ID </TableHead>
+                    <TableHead className="text-center uppercase" >Employee_FullName</TableHead>
                     
-                    <TableHead className=" text-left" >User Name </TableHead>
-                    <TableHead className="text-left" >Department </TableHead>
-                    <TableHead className=" text-left" >Role </TableHead>
+                    <TableHead className=" text-center" >UserName </TableHead>
+                    <TableHead className="text-center" >Department </TableHead>
+                    <TableHead className=" text-center" >Role </TableHead>
 
-                    <TableHead className="text-left" >Created By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                    <TableHead className="text-center" >Created_By </TableHead>
+                      <TableHead className="text-center" >Action</TableHead>
+                   
 
                 </TableHeader>
                 <TableBody>
@@ -208,19 +239,19 @@ const DashboardTable = () => {
                             return (
                                 <TableRow key={idx}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className=" text-left font-semibold text-cyan-600" >{item.employeeId}</TableCell>
-                                    <TableCell className=" font-semibold text-left" >{item.employeeName}</TableCell>
+                                     
+                                    <TableCell className=" text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
+                                    <TableCell className=" font-semibold text-center" >{item.employeeName}</TableCell>
                                 
-                                    <TableCell className=" font-semibold text-red-500 text-left" >{item.userName}</TableCell>
-                                    <TableCell className=" text-left " >{item.dept}</TableCell>
+                                    <TableCell className=" font-semibold text-red-500 text-center" >{item.userName}</TableCell>
+                                    <TableCell className=" text-center " >{item.dept}</TableCell>
                                     
-                                    <TableCell className=" text-left " >{item.role}</TableCell>
-                                    <TableCell className="text-left" >{item.createdBy}</TableCell>
-
-                                    <TableCell className="text-center" >
+                                    <TableCell className=" text-center " >{item.role}</TableCell>
+                                    <TableCell className="text-center" >{item.createdBy}</TableCell>
+                                     <TableCell className="text-center" >
 
                                         <Popover>
-                                            <PopoverTrigger><button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
+                                            <PopoverTrigger><button className="text-blue-500 h-8 bg-blue-50 w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
@@ -257,6 +288,8 @@ const DashboardTable = () => {
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
+
+                                  
                                 </TableRow>
                             )
                         }

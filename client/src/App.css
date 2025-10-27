@@ -9,3 +9,11 @@ html {
   width: 100%;
   height: 100%;
 }
+
+.select-with-icon {
+  @apply w-full text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 pr-8 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 appearance-none bg-white dark:text-gray-200 relative;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='14' viewBox='0 0 20 20' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.955 4.484-4.955L16 8.516l-6 6.666-6-6.666z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 14px;
+}

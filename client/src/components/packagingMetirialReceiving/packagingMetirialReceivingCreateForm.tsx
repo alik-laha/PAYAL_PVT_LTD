@@ -339,24 +339,24 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
     return (
         <>
-            <div className="px-5 mt-4">
-                <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit2}>
-                <div className="mx-8 flex flex-col gap-1"> 
-                <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
+            <div className="mt-4">
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit2}>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3"> 
+                <div><Label>GatePass No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                <div ><Label >Date</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={date}  readOnly /> </div> 
            
-                <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
-                <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
+                <div ><Label >Vehicle No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={truck}  readOnly /> </div> 
+                <div><Label>Invoice No</Label>
+                <Input className="mt-1 text-center border-gray-300" placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
-                <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
-                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
-                <div className="flex "><Label className="w-2/4  pt-2">Vendor Name</Label>
-                <div className="w-2/4">
-                <Input className="justify-center text-center" placeholder="Vendor" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <div><Label>Invoice Date</Label>
+                <Input className="mt-1 text-center border-gray-300" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
+                <div><Label>Vendor Name</Label>
+                <div >
+                <Input className="mt-1  text-center border-gray-300" placeholder="Vendor" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -379,9 +379,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl. No.</TableHead>
+                            <TableHead className="text-center" >Sl</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
-                            <TableHead className="text-center" >SKU/Item_Name</TableHead>
+                            <TableHead className="text-center" >SKU_Name/Item_Name</TableHead>
                        
                             <TableHead className="text-center" >Invoice_Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
@@ -403,7 +403,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
 
 
-                                                <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                                <select className="w-full text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleTypeChange(index, e)}
@@ -425,11 +425,11 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll dropdown-content-rcv" style={{ display: skuview }}>
+                                                {actvskuindex === index && <ScrollArea className="max-h-28 w-auto overflow-auto dropdown-content" style={{ display: skuview }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
+                                                            <div key={item.id} className=" gap-y-10  hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
+                                                                <p className="ml-2 font-medium text-left text-xs text-blue-900 py-1 hover:font-semibold">{item.sku}</p>
 
                                                             </div>
                                                         ))
@@ -473,9 +473,9 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     }} />
                                             </TableCell>
                                            
-                                            <TableCell className="text-center w-30" >
+                                            <TableCell className="text-center" >
                                           
-                                                <Input value={row.remarks} placeholder="remarks" className='w-90' onChange={(e) => {
+                                                <Input value={row.remarks} placeholder="remarks"  onChange={(e) => {
                                                         handleRowChange(index, 'remarks', e.target.value)
                                                     }} /> 
                                             </TableCell>
@@ -500,18 +500,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     
                     <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
-                <dialog id="packageMetrialReceve" className="dashboard-modal">
+                <dialog id="packageMetrialReceve" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialReciveError" className="dashboard-modal">
+            <dialog id="packagingMetirialReciveError" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500" >{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

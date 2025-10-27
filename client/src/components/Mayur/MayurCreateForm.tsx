@@ -229,37 +229,48 @@ const RCNMayurCreateForm = (props:Props) => {
  
     return (
         <>
-        <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
-               <div className="mx-1 flex flex-col gap-1"> 
-               {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
-               <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> 
-                <Label className="w-1/4  text-end font-semibold ">Total Receiving : </Label>
-                {props.borma[0] ? <Label className="w-1/4 text-left ml-2 font-semibold text-red-500">{props.borma[0].current_backlog} Kg</Label>  : <Label className="w-1/4 text-center font-semibold text-red-500">0</Label> }
-                
-                
-                </div>
+        <div className="py-2 overflow-auto">
+            <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+               <div className="grid grid-cols-1 md:grid-cols-4 gap-3"> 
+         
+                        <div ><Label>Date of Entry</Label>
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required />
+                        </div>
+
+                        <div ><Label>No. of Operator(Day)</Label>
+                            {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={dayOpRef} />
+                        </div>
+                        <div ><Label>No. of Operator(Night)</Label>
+                            {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
+                            <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={nightOpRef} />
+                        </div>
+
+                        <div className="flex flex-col justify-end">
+                            <div className="w-full ">
+                                 <Label className="font-semibold ">Total Receiving : </Label>
+                        {props.borma[0] ? <Label className=" font-semibold text-green-500">{props.borma[0].current_backlog} Kg</Label> : <Label className=" text-center font-semibold text-green-500">0</Label>}
+                                
+                            </div>
+                            <div>
+                                <Label className=" font-semibold ">Total Issue : </Label>
+                        <Label className=" font-semibold ml-2 text-blue-500">{rows[0] ? (Number(rows[0].issue_w_lot) + Number(rows[0].issue_village) +
+                            Number(rows[0].issue_ww) + Number(rows[0].issue_pw_w) + Number(rows[0].issue_JB) + Number(rows[0].issue_LW) + Number(rows[0].issue_bigTaiho) + Number(rows[0].issue_rejection)).toFixed(2) : 0} Kg</Label>
+                            </div>
+                            <div>
+                                  <Label className="font-semibold  ">Backlog : </Label>
+                        <Label className="w-1/4 text-left font-semibold ml-2 text-red-500 " >{props.borma[0] && rows[0] ? (Number(props.borma[0].current_backlog) - (Number(rows[0].issue_w_lot) + Number(rows[0].issue_village) +
+                            Number(rows[0].issue_ww) + Number(rows[0].issue_pw_w) + Number(rows[0].issue_JB) + Number(rows[0].issue_LW) + Number(rows[0].issue_bigTaiho) + Number(rows[0].issue_rejection))).toFixed(2) : 0} Kg</Label>
+
+                            </div>
+                           
+                        
+                      
+
+                        </div>
+
+                        
                
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
-
-                    <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
-                 <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">{rows[0] ?(Number(rows[0].issue_w_lot)+Number(rows[0].issue_village)+
-                    Number(rows[0].issue_ww)+Number(rows[0].issue_pw_w)+Number(rows[0].issue_JB)+Number(rows[0].issue_LW)+Number(rows[0].issue_bigTaiho)+Number(rows[0].issue_rejection)).toFixed(2):0} Kg</Label> 
-                  
-                     </div>
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
-
-                     <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
-                 <Label className="w-1/4 text-left font-semibold ml-2 text-red-500 " >{props.borma[0] && rows[0] ?(Number(props.borma[0].current_backlog)-(Number(rows[0].issue_w_lot)+Number(rows[0].issue_village)+
-                    Number(rows[0].issue_ww)+Number(rows[0].issue_pw_w)+Number(rows[0].issue_JB)+Number(rows[0].issue_LW)+Number(rows[0].issue_bigTaiho)+Number(rows[0].issue_rejection))).toFixed(2):0} Kg</Label>
-                  
-                     </div>
                    
                      
                    
@@ -392,19 +403,19 @@ const RCNMayurCreateForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+                  <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                      <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                   </span>
   
   
               </dialog>
   
-              <dialog id="erroremployeedialog" className="dashboard-modal">
+              <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                   <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                   </span>
   
   

@@ -202,17 +202,17 @@ const CashewOutModify = (props: CashewOutModifyProps) => {
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
                 <div className="flex mt-2"><Label className="w-2/4 mt-2">Gate Pass No.</Label>
-                    <Input className="w-2/4 bg-yellow-200 text-center" placeholder="Gate Pass No." value={gatePassNo} readOnly /> </div>
+                    <Input className="w-2/4 bg-cyan-200 text-center font-semibold" placeholder="Gate Pass No." value={gatePassNo} readOnly /> </div>
 
                 <div className="flex"><Label className="w-2/4 mt-2" > Truck No.</Label>
-                    <Input className="w-2/4 bg-yellow-200 text-center" placeholder="Truck No." value={truckNo} readOnly />
+                    <Input className="w-2/4 bg-cyan-200 text-center font-semibold" placeholder="Truck No." value={truckNo} readOnly />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Date of Receiving</Label>
-                    <Input className="w-2/4 text-center bg-yellow-200 justify-center" placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : ''} readOnly />
+                    <Input className="w-2/4 text-center bg-cyan-200 justify-center font-semibold" placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : ''} readOnly />
                 </div>
                 <div className="flex"><Label className="w-2/4 mt-2"> Gross Weight (Kg)</Label>
-                    <Input className="w-2/4 text-center bg-yellow-200" placeholder="Gross Weight" type="number" value={grossWt} readOnly />
+                    <Input className="w-2/4 text-center bg-cyan-200 font-semibold" placeholder="Gross Weight" type="number" value={grossWt} readOnly />
                 </div>
                 {/*<div className="flex"><Label className="w-2/4 mt-2"> Net Weight (Kg)</Label>
                     <Input className="w-2/4 text-center bg-yellow-100" placeholder="Net Weight" type="number" value={netWeight} readOnly />
@@ -222,7 +222,7 @@ const CashewOutModify = (props: CashewOutModifyProps) => {
                     
 
                    <div className="flex"><Label className="w-2/4  pt-2">Batch No</Label>
-                    <Input className="w-2/4 text-center bg-cyan-100 font-semibold" placeholder="Batch No" required value={batchno} onChange={(e) => { handleBatchNoChange(e) }} />
+                    <Input className="w-2/4 text-center  font-semibold" placeholder="Batch No" required value={batchno} onChange={(e) => { handleBatchNoChange(e) }} />
                     
                         </div>
                 <ScrollArea className="max-h-28 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: lotview }}>
@@ -236,26 +236,28 @@ const CashewOutModify = (props: CashewOutModifyProps) => {
                 </ScrollArea>
                 
                     
-                     <div className="flex"><Label className="w-2/4 mt-2">Invoice No.</Label>
-                        <Input className="w-2/4 text-center" placeholder="Invoice No" value={invoice} onChange={(e) => setinvoice(e.target.value)} />
-                      </div>  
+                    
                 <div className="flex"><Label className="w-2/4 mt-2" >Party Name</Label>
-                    <Input className="w-2/4 text-center justify-center bg-yellow-100" placeholder="Party Name" value={partyName} readOnly required /> </div>
+                    <Input className="w-2/4 text-center justify-center bg-yellow-50" placeholder="Party Name" value={partyName} readOnly required /> </div>
 
                 <div className="flex"><Label className="w-2/4 mt-2" >Grade Name</Label>
-                    <Input className="w-2/4 text-center justify-center bg-yellow-100" placeholder="Grade Name" value={gradeName} readOnly required /> </div> 
+                    <Input className="w-2/4 text-center justify-center bg-yellow-50" placeholder="Grade Name" value={gradeName} readOnly required /> </div> 
 
                 <div className="flex"><Label className="w-2/4 mt-2">Origin</Label>
-                                      <Input className="w-2/4 text-center justify-center bg-yellow-100" placeholder="Origin" value={origin} readOnly required /> </div> 
+                                      <Input className="w-2/4 text-center justify-center bg-yellow-50" placeholder="Origin" value={origin} readOnly required /> </div> 
 
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Pouch/Bucket Count</Label>
-                    <Input className="w-2/4 text-center bg-yellow-100" placeholder="Pouch/Bucket" type="number" value={noOfBags} required readOnly />
+                    <Input className="w-2/4 text-center bg-yellow-50" placeholder="Pouch/Bucket" type="number" value={noOfBags} required readOnly />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Map Weight</Label>
-                    <Input className="w-2/4 text-center bg-yellow-100" placeholder="Kg" type="number" value={quantity} required readOnly />
+                    <Input className="w-2/4 text-center bg-yellow-50" placeholder="Kg" type="number" value={quantity} required readOnly />
                 </div>
+
+                 <div className="flex"><Label className="w-2/4 mt-2">Invoice No.</Label>
+                        <Input className="w-2/4 text-center" placeholder="Invoice No" value={invoice} onChange={(e) => setinvoice(e.target.value)} />
+                      </div>  
 
                 <div className="flex">
                                     <Label className="w-2/4 mt-2">Actual Pouch/Bucket Count</Label>
@@ -271,18 +273,18 @@ const CashewOutModify = (props: CashewOutModifyProps) => {
                 <Button className="bg-orange-500 mb-1 mt-1 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable ? 'Submitting' : 'Submit'}</Button>
             </form>
 
-            <dialog id="rcneditscsDialog" className="dashboard-modal">
+            <dialog id="rcneditscsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Cashew Out Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification of Cashew Out Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcnediterrDialog" className="dashboard-modal">
+            <dialog id="rcnediterrDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcnerrorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

@@ -399,18 +399,18 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     return (
         <>
         <div className="px-5 py-2 overflow-auto max-h-screen">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-1 flex flex-col gap-0.5"> 
+            <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+               <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-1/4 pt-1">No. of Male</Label>
-                    <Input className="w-1/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
-                    <div className="flex"><Label className="w-1/4 pt-1">No. of Female</Label>
-                    <Input className="w-1/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
-                    <div className="flex"><Label className="w-1/4 pt-1">No. Of Supervisors</Label>
-                    <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
+                <div><Label>Date of Entry</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                  <div><Label>No Of Male</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Male" ref={maleRef} required /> </div>
+                      <div><Label>No Of Female</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Female" ref={femaleRef} required /> </div>
+                      <div><Label>No Of Supervisors</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
                 </div>
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -464,7 +464,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         
-                                        <TableCell className="text-center font-semibold"><Input value={row.Scooping_Line_Mc} placeholder="Line" onChange={(e) => handleRowChange(idx,'Scooping_Line_Mc',e.target.value)} readOnly required /></TableCell>
+                                        <TableCell className="text-center font-semibold">{row.Scooping_Line_Mc} </TableCell>
                                         {/* <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell> */}
                                         <TableCell className="text-center font-semibold">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{row.SizeName}</TableCell>
@@ -525,19 +525,19 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+                  <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                      <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                   </span>
   
   
               </dialog>
   
-              <dialog id="erroremployeedialog" className="dashboard-modal">
+              <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                   <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                   </span>
   
   

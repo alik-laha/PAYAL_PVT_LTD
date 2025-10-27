@@ -982,7 +982,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                   where: {
                     LotNo:LotNo,origin:origin,Status: {[Op.notLike]:0},editStatus: {[Op.notLike]:'Pending'},
                   },
-                  group: [grade],
+                  group: ['LotNo'],
                   // raw: true,
                 });
         }
@@ -996,7 +996,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                   where: {
                     LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
-                  group: [grade],
+                  group: ['LotNo'],
                   // raw: true,
                 });
         }
@@ -1010,7 +1010,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                   where: {
                     LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
-                  group: [grade],
+                  group: ['LotNo'],
                   // raw: true,
                 });
         }
@@ -1024,7 +1024,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                   where: {
                     LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
                   },
-                  group: [grade],
+                  group: ['LotNo'],
                   // raw: true,
                 });
         }
@@ -1038,7 +1038,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                   where: {
                     LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
-                  group: [grade],
+                  group: ['LotNo'],
                   // raw: true,
                 });
         }
@@ -1052,7 +1052,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                   where: {
                     LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
                   },
-                  group: [grade],
+                  group: ['LotNo'],
                   // raw: true,
                 });
         }
@@ -1099,6 +1099,216 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "internal error while finding issue Sum" });
     }
 }
+
+
+export const lotQtydataFindAll = async (req: Request, res: Response) => {
+  try {
+    const { section, grade, origin } = req.body;
+
+    // pick the correct model dynamically
+    let model: any;
+    if (section === "Wholes") model = WholesModel;
+    else if (section === "LW") model = LWModel;
+    else if (section === "Sorting") model = SortingModel;
+    else if (section === "BigTaiho") model = bigTaihoModel;
+    else if (section === "DPDS") model = DPDS;
+    else if (section === "Rejection") model = rejectionModel;
+    else
+      return res
+        .status(400)
+        .json({ message: "Invalid section provided", section });
+
+    // 1️⃣ Get all lot numbers for that section & origin
+    const lots = await model.findAll({
+      attributes: ["LotNo"],
+      where: { origin },
+      group: ["LotNo"],
+      raw: true,
+    });
+
+    if (!lots || lots.length === 0)
+      return res.status(404).json({ message: "No lots found" });
+
+    const stockResults: { LotNo: string; stock: number }[] = [];
+
+    // 2️⃣ Loop each lot and calculate stock
+    for (const lot of lots) {
+      const { LotNo } = lot;
+      let stockSum = 0;
+      let consumedSum = 0;
+
+      // fetch total stock for this lot
+      const stock = await model.findAll({
+        attributes: [[sequelize.fn("SUM", sequelize.col(grade)), "quantity"]],
+        where: {
+          LotNo,
+          origin,
+          Status: { [Op.notLike]: 0 },
+          editStatus: { [Op.notLike]: "Pending" },
+        },
+        group: [grade],
+        raw: true,
+      });
+
+      if (stock && stock.length > 0 && stock[0].quantity)
+        stockSum = parseFloat(stock[0].quantity).toFixed(2) as any;
+
+      // fetch total consumed (mapped) quantity
+      const consumed = await orderMappingModel.findAll({
+        attributes: [
+          [sequelize.fn("SUM", sequelize.col("mappedQuantity")), "mapquantity"],
+        ],
+        where: {
+          LotNo,
+          productionOrigin: origin,
+          productionSection: section,
+          productionGrade: grade,
+          mappingStatus: 1,
+          editStatus: { [Op.notLike]: "Pending" },
+        },
+        group: ["productionGrade"],
+        raw: true,
+      });
+
+      if (consumed && consumed.length > 0 && consumed[0].dataValues.mapquantity)
+        consumedSum = parseFloat(consumed[0].dataValues.mapquantity);
+
+      const finalStock = formatNumber(stockSum - consumedSum);
+
+      stockResults.push({
+        LotNo,
+        stock: finalStock,
+      });
+    }
+
+    // 3️⃣ Send response
+    return res.status(200).json(stockResults);
+  } catch (error) {
+    console.error("Error in lotQtydataFindAll:", error);
+    return res
+      .status(500)
+      .json({ message: "Internal error while finding lot-wise stock" });
+  }
+};
+
+interface LotOriginPair {
+  LotNo: string;
+  origin: string;
+}
+
+export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) => {
+  try {
+    const { section, grade } = req.body;
+
+    if (!section || !grade)
+      return res.status(400).json({ message: "Both 'section' and 'grade' are required" });
+
+    // 🧩 pick model dynamically
+    let model: any;
+    switch (section) {
+      case "Wholes":
+        model = WholesModel;
+        break;
+      case "LW":
+        model = LWModel;
+        break;
+      case "Sorting":
+        model = SortingModel;
+        break;
+      case "BigTaiho":
+        model = bigTaihoModel;
+        break;
+      case "DPDS":
+        model = DPDS;
+        break;
+      case "Rejection":
+        model = rejectionModel;
+        break;
+      default:
+        return res.status(400).json({ message: "Invalid section provided", section });
+    }
+
+    // 1️⃣ Get all unique (LotNo, origin) pairs
+    const lotOriginPairs: LotOriginPair[] = await model.findAll({
+      attributes: ["LotNo", "origin"],
+      group: ["origin", "LotNo"],
+      where: {
+            Status: { [Op.notLike]: 0 },
+          },
+      raw: true,
+    });
+
+    if (!lotOriginPairs.length)
+      return res.status(404).json({ message: "No lots found for this section" });
+
+    // 2️⃣ Compute all stocks in parallel
+    const stockResults = await Promise.all(
+      lotOriginPairs.map(async (pair) => {
+        const LotNo = pair.LotNo;
+        const origin = pair.origin;
+
+        let stockSum = 0;
+        let consumedSum = 0;
+
+        // 🔹 Total Stock
+        const stock = await model.findAll({
+          attributes: [[sequelize.fn("SUM", sequelize.col(grade)), "quantity"]],
+          where: {
+            LotNo,
+            origin,
+            Status: { [Op.notLike]: 0 },
+            editStatus: { [Op.notLike]: "Pending" },
+          },
+          group: ['LotNo'],
+          raw: true,
+        });
+
+        if (stock && stock.length > 0 && stock[0].quantity)
+          stockSum = parseFloat(stock[0].quantity);
+
+        // 🔹 Total Consumed
+        const consumed = await orderMappingModel.findAll({
+          attributes: [
+            [sequelize.fn("SUM", sequelize.col("mappedQuantity")), "mapquantity"],
+          ],
+          where: {
+            LotNo,
+            productionOrigin: origin,
+            productionSection: section,
+            productionGrade: grade,
+            mappingStatus: 1,
+            editStatus: { [Op.notLike]: "Pending" },
+          },
+          group: ["productionGrade"],
+          //raw: true,
+        });
+
+        if (consumed && consumed.length > 0 && consumed[0].dataValues.mapquantity)
+          consumedSum = parseFloat(consumed[0].dataValues.mapquantity);
+
+        // 🔹 Final Stock
+        const finalStock = formatNumber(stockSum - consumedSum);
+
+        // ✅ return fully typed object
+        return {
+          LotNo,
+          origin,
+          stock: finalStock,
+        };
+      })
+    );
+
+    // 3️⃣ Respond
+    return res.status(200).json(stockResults);
+  } catch (error) {
+    console.error("Error in lotQtydataFindAllOriginWise:", error);
+    return res.status(500).json({
+      message: "Internal error while finding lot-wise origin stock",
+      error: (error as Error).message,
+    });
+  }
+};
+
 export const updateMappingOrder = async (req: Request, res: Response) => {
     try {
         const {   LotNo,packingpk,

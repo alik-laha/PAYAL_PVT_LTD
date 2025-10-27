@@ -59,11 +59,11 @@ const RLOTInitial = (props: any) => {
         }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="px-5 max-h-64 overflow-scroll">
          
-                <Table className="mt-3">
+                <Table>
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >Sl_No.</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Status</TableHead>
                         <TableHead className="text-center" >Receiving_Qty</TableHead>
@@ -94,7 +94,7 @@ if(!(handletimezone(item.recevingDate)===comparecurrentdate)){
                 <Dialog>
                     <DialogTrigger>
                         <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={(idx!=0 || !item.totalWeight)?true:false}>+ RLOT </Button></DialogTrigger>
-                        { idx==0 && <DialogContent style={{display:'block'}} className='max-w-screen'>
+                        { idx==0 && <DialogContent style={{display:'block'}} className='max-w-7xl'>
                      
                         <DialogHeader >
                             <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'> RLOT Entry</p></DialogTitle>

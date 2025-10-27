@@ -131,6 +131,7 @@ export const Session_LogoutTime_Hr = 12
 export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
 export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo", "Guinea-Bissau", "Senegal","Guinea-Conkary","Burkina-Faso"]
 export const SelectType = ["LineWise","LotWise"]
+export const Qualification: string[] = ['8th+','10th+', '12th+', 'Diploma', 'Graduate','Masters']
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
 export const FY=['2025-26']

@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import icon from '../../assets/Static_Images/OIP.jpeg'
 import { format, toZonedTime } from 'date-fns-tz'
 import {
     Pagination,
@@ -32,7 +33,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import EmployeeModifyForm from './EmployeeModifyForm'
-
+import { SiTicktick } from "react-icons/si";
 
 import {
     AlertDialog,
@@ -197,22 +198,51 @@ const EmployeeTable = () => {
     }
 
     return (
-        <div className="ml-6 mt-5">
-            <div className="flex">
+        <div className="mx-2 mt-5">
+         
 
-                <Input className="w-60 mb-2" placeholder="Search By Emp ID/ Name" onChange={handleSearch} />
 
+             <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+
+                    {/* GatePass No */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Search By
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="Emp ID / Emp Name "
+                            onChange={handleSearch}
+                        />
+                    </div>
+
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-start gap-3 mt-2 md:mt-0 ">
+
+
+
+                        <Button
+                            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={exportToExcel}
+                        >
+                            <LuDownload size={16} />
+                        </Button>
+
+                    </div>
+                </div>
             </div>
-
-            <span className="w-1/8"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-1 ml-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center " >Sl</TableHead>
+                       <TableHead className="text-center" >Action</TableHead>
                     <TableHead className="text-center " >Employee_ID </TableHead>
-                    <TableHead className="text-center" >Employee_Name_In_Full</TableHead>
-                    
+                   
+                    <TableHead className="text-center" >Employee_FullName</TableHead>
+                    <TableHead className="text-center " >EmP_Image </TableHead>
                     <TableHead className="text-center " >Designation</TableHead>
                     <TableHead className="text-center " >Status </TableHead>
                     <TableHead className="text-center" >Joining_Date</TableHead>
@@ -225,7 +255,7 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Pincode</TableHead>
                     <TableHead className="text-center " >Emg_Contact_Name</TableHead>
                     <TableHead className="text-center" >Emg_Contact_No.</TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                 
 
                 </TableHeader>
                 <TableBody>
@@ -256,44 +286,20 @@ const EmployeeTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
-                                    <TableCell className="font-semibold text-left" >{item.employeeName}</TableCell>
-                                   
-                                    <TableCell className="text-left" >{item.designation}</TableCell>
-                                    <TableCell className="text-center" >
-                                        {item.status ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width">Active</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width" >Resigned</button>
-                                        )}
-
-                                    </TableCell>
-
-                                    <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
-                                    <TableCell className="text-center" >{item.mobNo}</TableCell>
-                                    <TableCell className=" text-left" >{item.email}</TableCell>
-                                    <TableCell className="text-left" >{item.heighstQualification}</TableCell>
-                                    <TableCell className="text-center" >{item.bloodGroup}</TableCell>
-                                    <TableCell className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableCell>
-                                    <TableCell className="text-center" >{item.panNo}</TableCell>
-
-                                    <TableCell className="text-center" >{item.pincode}</TableCell>
-                                    <TableCell className="text-center text-left" >{item.emergencyContact}</TableCell>
-                                    <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
-
-
-                                    <TableCell className="text-center" >
+                                       <TableCell className="text-center" >
                                         <Popover>
-                                            <PopoverTrigger >  <button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
+                                            <PopoverTrigger >  <button className="text-blue-500 h-8 bg-blue-50 w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
                                                     <DialogTrigger className="flex">    <CiEdit size={20} /> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">
                                                         {item.releseDate === null ? 'Modify' : 'View'}</button></DialogTrigger>
-                                                    <DialogContent className='max-w-2xl'>
+                                                    <DialogContent className='max-w-5xl'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View Employee</p></DialogTitle>
+                                                            <DialogTitle> <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-100 mb-4">
+        ✏️ Modify Employee Entry
+      </h2></DialogTitle>
                                                         </DialogHeader>
                                                         <EmployeeModifyForm
                                                             data={item}
@@ -342,6 +348,39 @@ const EmployeeTable = () => {
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
+                                
+                                    <TableCell className="text-center font-semibold text-red-500" >{item.employeeId}</TableCell>
+                                    <TableCell className="font-semibold text-left" >{item.employeeName}</TableCell>
+                                     <TableCell>   {item.employeeImage  ? (<img 
+          src={`/api/cleaning/view?filename=${item.employeeImage}` }  className="rounded-lg h-10 w-10 border border-gray-200"
+        /> ): (<img src={icon} height={60} width={60} className="rounded-lg h-10 w-10 border border-gray-200"/>)}</TableCell>
+                                   
+                                    <TableCell className="text-left" >{item.designation}</TableCell>
+                                    <TableCell className="text-center" >
+                                        {item.status ? (
+                                             <p className="flex flex-row justify-center">
+                                                                      <SiTicktick color="green" size={18} />
+                                                                    </p>
+                                        ) : (
+                                            <button className="text-red-500 h-8 bg-red-50 w-20 border border-red-300 font-bold rounded-lg hover:bg-red-200" >Resigned</button>
+                                        )}
+
+                                    </TableCell>
+
+                                    <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
+                                    <TableCell className="text-center" >{item.mobNo}</TableCell>
+                                    <TableCell className=" text-left" >{item.email}</TableCell>
+                                    <TableCell className="text-left" >{item.heighstQualification}</TableCell>
+                                    <TableCell className="text-center" >{item.bloodGroup}</TableCell>
+                                    <TableCell className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableCell>
+                                    <TableCell className="text-center" >{item.panNo}</TableCell>
+
+                                    <TableCell className="text-center" >{item.pincode}</TableCell>
+                                    <TableCell className="text-center text-left" >{item.emergencyContact}</TableCell>
+                                    <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
+
+
+                                
                                 </TableRow>
                             )
                         })}

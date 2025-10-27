@@ -49,7 +49,7 @@ const GeneralStoreInitial = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="px-5 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -78,7 +78,7 @@ const GeneralStoreInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                          <DialogContent style={{display:'block'}} className='max-w-screen'>
+                                          <DialogContent style={{display:'block'}} className='max-w-7xl'>
                                                     <DialogHeader >
                                                         <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>General Receiving/Dispatch Entry</p></DialogTitle>
 

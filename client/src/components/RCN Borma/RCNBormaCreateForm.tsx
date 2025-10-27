@@ -71,7 +71,7 @@ const RCNBormaCreateForm = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="px-2 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -138,10 +138,10 @@ const RCNBormaCreateForm = (props: any) => {
 
 
             </div>
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+            <dialog id="rcneditapproveRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

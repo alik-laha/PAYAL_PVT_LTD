@@ -63,7 +63,7 @@ import {
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
-const IssueTable = () => {
+const IssueTable = (props:any) => {
     const [unit, setUnit] = useState<string>("")
     const [section, setSection] = useState<string>("")
     const [subsection, setSubSection] = useState<string>("")
@@ -172,9 +172,9 @@ const IssueTable = () => {
         if (editPendiningIssueItemData.length>0) {
             //console.log(editPendingData)
             setEditData(editPendiningIssueItemData)
-            setblockpagen('none')
+            if(props.props==='edit'){ setblockpagen('none')}  
         }
-    }, [editPendiningIssueItemData])
+    }, [editPendiningIssueItemData, props.props])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -344,131 +344,256 @@ const IssueTable = () => {
             })
     }
     return (
-        <div className="ml-6 mt-5 ">
-            <div className="flex flexbox-search" >
+        <div className="mx-2 mt-5 ">
+           
 
-                <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Issue No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setUnit(e.target.value)} value={unit}>
-                    <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Unit (All)</option>
-                    {sku.map((data, index) => (
-                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                            {data.sku}
-                        </option>
-                    ))}
-                </select>
-                
-                <label className=" font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
+             {props.props==='edit' ?'':<div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 items-end">
 
-                />
-                <label className=" font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    //value={hidetodate}
-                    //onChange={handleTodate}
-                    value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
-                
-                <select className=' flexbox-search-width flex h-8 w-1/7 ml-10 qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSection(e.target.value)} value={section}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-                    {grade.map((data, index) => (
-                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                            {data.sku}
-                        </option>
-                    ))}
-                </select>
-                <select className=' flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSubSection(e.target.value)} value={subsection}>
-                    <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Sub Section (All)</option>
-                    {subgrade.map((data, index) => (
-                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                            {data.sku}
-                        </option>
-                    ))}
-                </select>
-                
-                <select className=' flexbox-search-width flex h-8 w-1/7 ml-10 font-semibold qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => {
-                        setselectType(e.target.value)
-
-                    }} value={selectType}>
-
-                    {SelectTypeIssue.map((data, index) => (
-                        <option className=' relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
-             
-
+                    {/* Issue No */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                           
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="Issue No."
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
 
                 
 
-               
+                 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                        {/* Unit */}
+                    <div className="relative">
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Unit
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setUnit(e.target.value)}
+                                value={unit}
+                            >
+                                <option value="">Unit (All)</option>
+                                {sku.map((data, index) => (
+                                    <option key={index} value={data.sku}>{data.sku}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-            </div>
-            {/* {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+                    {/* Section */}
+                    <div className="relative">
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Section
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setSection(e.target.value)}
+                                value={section}
+                            >
+                                <option value="">Section (All)</option>
+                                {grade.map((data, index) => (
+                                    <option key={index} value={data.sku}>{data.sku}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Sub Section */}
+                    <div className="relative">
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Sub Section
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setSubSection(e.target.value)}
+                                value={subsection}
+                            >
+                                <option value="">Sub Section (All)</option>
+                                {subgrade.map((data, index) => (
+                                    <option key={index} value={data.sku}>{data.sku}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Type */}
+                    <div className="relative">
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Type
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                onChange={(e) => setselectType(e.target.value)}
+                                value={selectType}
+                            >
+                                {SelectTypeIssue.map((data, index) => (
+                                    <option key={index} value={data}>{data}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                         {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
+
+                    {/* Buttons */}
+                <div className="flex col-span-full justify-end gap-3 mt-2 md:mt-0">
+                        <Button
+                            className="flex w-40 items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
+
+                        <Button
+                            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={exportToExcel}
+                        >
+                            <LuDownload size={16} />
+                            
+                        </Button>
+                    </div>
+                    
+                </div>
+            </div>}
+
+           {props.props==='edit' &&(
+                <Button
+                  className="flex justify-end items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                  onClick={exportToExcel}
+                >
+                  <LuDownload size={16} />
+                </Button>
+              )}
+            
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >IssueID</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >IssueID</TableHead>
                         
-                        <TableHead className="text-center" >Date_Of_Issue</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Date_Of_Issue</TableHead>
                     
-                        <TableHead className="text-center" >Issue_Unit</TableHead>
-                        <TableHead className="text-center" >Issue_Section</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Section</TableHead>
                         
-                        <TableHead className="text-center" >Issue_Subsection</TableHead>
-                        <TableHead className="text-center" >Category</TableHead>
-                        <TableHead className="text-center" >Issue_Material_Name</TableHead>
-                        <TableHead className="text-center" >Issue_Quantity</TableHead>
-                        <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" >Unit_Price</TableHead>
-                        <TableHead className="text-center" >Total_Price</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Subsection</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Category</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Material_Name</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue_Quantity</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit_Price</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total_Price</TableHead>
                         
-                        <TableHead className="text-center" >Issued_To_User</TableHead>
-                        <TableHead className="text-center" >Damage_Return </TableHead>
-                        <TableHead className="text-center" >Damage_Quantity</TableHead>
-                        <TableHead className="text-center" >Damage_Unit</TableHead>
-                        <TableHead className="text-center" >Issue_Item_Remarks</TableHead>
-                        <TableHead className="text-center" >Edit_Status</TableHead>
-                        <TableHead className="text-center" >Created_By</TableHead>
-                        <TableHead className="text-center" >Actioned_By</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issued_To_User</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Return </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Quantity</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Item_Remarks</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit_Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created_By</TableHead>
+                       {props.props==='non-edit' && <TableHead className="text-center" >Actioned_By</TableHead>}
                       
-                        <TableHead className="text-center" >Action</TableHead>
+                       
                     </TableHeader>
                     <TableBody>
-                        {EditData.length > 0 ? (
+                        {(EditData.length > 0 && props.props==='edit')? (
+                            
                             EditData.map((item: IssueItemData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
+                                          <TableCell className="text-center flex flex-row gap-3">
+
+
+                                            <AlertDialog>
+                                                <AlertDialogTrigger >
+                                                    <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                        <button className="text-green-600">
+                                                            Approve
+                                                        </button>
+
+                                                    </div>
+
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent  >
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>
+                                                            Do you want to Approve the Edit Request?
+                                                        </AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction
+                                                            onClick={() => handleApprove(item.id)}>
+                                                            Continue
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger>
+                                                    <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>
+                                                            Do you want to Decline the Edit Request?
+                                                        </AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction
+                                                            onClick={() => handleRejection(item.id)}>
+                                                            Continue
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+
+
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                        
                                         <TableCell className="text-center ">{item.sectionunit}</TableCell>
@@ -491,83 +616,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         
                                         <TableCell className="text-center ">{item.editStatus}</TableCell>
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center ">{item.modifiedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                                       
+                                       
                                     </TableRow>
                                 );
                             })
                         ) : (
                            
-                            ItemWiseData.length > 0 ? (ItemWiseData.map((item: IssueItemData, idx) => {
+                            (ItemWiseData.length > 0 && props.props==='non-edit')? (ItemWiseData.map((item: IssueItemData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
-                                        <TableCell className="text-left ">{item.sectionunit}</TableCell>
-                                        <TableCell className="text-left ">{item.section}</TableCell>
-                                        <TableCell className="text-left ">{item.subsection}</TableCell>
-                                        <TableCell className="text-left font-semibold text-cyan-500">{item.category}</TableCell>
-                                        <TableCell className="text-left ">{item.materialName}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
-                                        <TableCell className="text-center ">{item.itemunit}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} &#8377;</TableCell>
-
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} &#8377;</TableCell>
-                                        
-                                        <TableCell className="text-center ">{item.issueUser}</TableCell>
-                                        <TableCell className="text-center ">{item.damagereturn}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.damagequantity))} </TableCell>
-                                        <TableCell className="text-center ">{item.damageunit}</TableCell>
-                                        <TableCell className="text-center ">{item.remarks}</TableCell>
-                                        
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center ">{item.modifiedBy}</TableCell>
-
-
-                                        <TableCell className="text-center">
+                                            <TableCell className="text-center">
                                             <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                 <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
@@ -587,6 +651,32 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{item.issueID}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                      
+                                        <TableCell className="text-left ">{item.sectionunit}</TableCell>
+                                        <TableCell className="text-left ">{item.section}</TableCell>
+                                        <TableCell className="text-left ">{item.subsection}</TableCell>
+                                        <TableCell className="text-left font-semibold text-cyan-500">{item.category}</TableCell>
+                                        <TableCell className="text-left ">{item.materialName}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
+                                        <TableCell className="text-center ">{item.itemunit}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} &#8377;</TableCell>
+
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} &#8377;</TableCell>
+                                        
+                                        <TableCell className=" text-left">{item.issueUser}</TableCell>
+                                        <TableCell className="text-center ">{item.damagereturn}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.damagequantity))} </TableCell>
+                                        <TableCell className="text-center ">{item.damageunit}</TableCell>
+                                        <TableCell className="text-center ">{item.remarks}</TableCell>
+                                        
+                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center ">{item.CreatedBy}</TableCell>
+                                      {props.props==='non-edit' &&  <TableCell className="text-center ">{item.modifiedBy}</TableCell>}
+
+
+                                    
                                     </TableRow>
                                 );
                             })) : (<TableRow>
@@ -614,7 +704,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </Table>) : (<IssueDayWiseTable DayWise={DayWiseData} page={page} />)
             }
 
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
+            {props.props==='non-edit' && <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
@@ -637,19 +727,19 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
                     </PaginationItem>
                 </PaginationContent>
-            </Pagination>
-            <dialog id="recevingeditapprove" className="dashboard-modal">
+            </Pagination>}   
+            <dialog id="recevingeditapprove" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
 
-                <dialog id="recevingeditreject" className="dashboard-modal">
+                <dialog id="recevingeditreject" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="recevingeditrejectclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modification Request has Been Reverted</p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
