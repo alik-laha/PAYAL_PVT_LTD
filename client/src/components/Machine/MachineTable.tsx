@@ -153,9 +153,9 @@ const MachineTable = () => {
 
                         {/* Asset ID */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Asset ID
-                            </label>
+                            </label> */}
                             <Input
                                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
                                 placeholder="Search Asset ID"
@@ -166,9 +166,9 @@ const MachineTable = () => {
 
                         {/* Section Dropdown */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Section
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setSection(e.target.value)}

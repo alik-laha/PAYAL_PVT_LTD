@@ -371,7 +371,8 @@ const OrderMappingCreateForm = (props:Props) => {
          }
         }
 
-    const handleOpenLotNo =  (index: any) => {
+    const handleOpenLotNo =  (index: any,e:React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
         axios.post('/api/packing/viewprodStockQtyFind',{
             origin:rows[index].porigin,
             section:rows[index].section,grade:rows[index].grade}
@@ -496,12 +497,12 @@ const OrderMappingCreateForm = (props:Props) => {
                                                 </TableCell>
                                                 <TableCell className="text-center">
                                                     {
-                                                        (row.grade && row.porigin && row.section) ? (
+                                                        (row.grade && row.section && !row.porigin) ? (
                                                             <Dialog>
-                                                                <DialogTrigger> <button onClick={() => handleOpenLotNo(index)}><FaEye size={20} /></button></DialogTrigger>
+                                                                <DialogTrigger > <button className="flex flex-row justify-center w-full text-center" onClick={(e) => handleOpenLotNo(index,e)}><FaEye size={20} className="text-center flex flex-row w-full justify-center"/></button></DialogTrigger>
                                                                 <DialogContent className='max-w-3xl'>
                                                                     <DialogHeader>
-                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Peeling Entry Form</p></DialogTitle>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>LOT Details</p></DialogTitle>
 
                                                                     </DialogHeader>
 
@@ -509,7 +510,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                                                 </DialogContent>
                                                             </Dialog>
                                                         ) : (
-                                                            <FaEyeSlash size={20}/>
+                                                            <FaEyeSlash size={20} className="text-red-500"/>
                                                         )
 
                                                     }

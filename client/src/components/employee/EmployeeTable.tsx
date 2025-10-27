@@ -207,9 +207,9 @@ const EmployeeTable = () => {
 
                     {/* GatePass No */}
                     <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Search By
-                        </label>
+                        </label> */}
                         <Input
                             className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
                             placeholder="Emp ID / Emp Name "
