@@ -530,12 +530,12 @@ const PackageMetrialRecivingTable = () => {
 
             {/* GatePass No */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
                 GatePass No
-              </label>
+              </label> */}
               <Input
                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
-                placeholder="Search Gatepass No"
+                placeholder="Gatepass No"
                 value={gatepassSearch}
                 onChange={(e) => setgatepassSearch(e.target.value)}
               />
@@ -545,39 +545,15 @@ const PackageMetrialRecivingTable = () => {
 
            
 
-            {/* From Date */}
-            <div className="flex flex-col gap-1">
-              <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
-                From
-              </label>
-              <Input
-                type="date"
-                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                value={fromdate}
-                onChange={(e) => setfromDate(e.target.value)}
-              />
-            </div>
-
-            {/* To Date */}
-            <div className="flex flex-col gap-1">
-              <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
-                To
-              </label>
-              <Input
-                type="date"
-                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                value={todate}
-                onChange={(e) => settoDate(e.target.value)}
-              />
-            </div>
+           
 
             
 
              {/* SKU/Vendor */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
                 SKU / Vendor
-              </label>
+              </label> */}
               <Input
                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
                 placeholder="Search SKU/Vendor"
@@ -585,6 +561,32 @@ const PackageMetrialRecivingTable = () => {
                 onChange={(e) => setSearchData(e.target.value)}
               />
             </div>
+
+                 {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
 
             {/* Search & Export Buttons */}
             <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">

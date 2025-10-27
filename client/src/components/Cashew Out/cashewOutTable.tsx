@@ -331,12 +331,12 @@ const CashewOutTable = (props: any) => {
 
                         {/* GatePass No */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 GatePass No.
-                            </label>
+                            </label> */}
                             <Input
                                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
-                                placeholder="Enter GatePass No."
+                                placeholder="GatePass No."
                                 value={blConNo}
                                 onChange={(e) => setBlConNo(e.target.value)}
                             />
@@ -346,13 +346,13 @@ const CashewOutTable = (props: any) => {
 
 
                         <div className="flex flex-col gap-1 relative overflow-visible">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Grade Name
-                            </label>
+                            </label> */}
                             <Input
                                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
                                 value={gradeN}
-                                placeholder="Search..."
+                                placeholder="Garde Name"
                                 onChange={(e) => handleGradechange(e)}
                                 required
                             />
@@ -382,37 +382,13 @@ const CashewOutTable = (props: any) => {
 
 
 
-                        {/* From Date */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                From
-                            </label>
-                            <Input
-                                type="date"
-                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                value={fromdate}
-                                onChange={(e) => setfromDate(e.target.value)}
-                            />
-                        </div>
-
-                        {/* To Date */}
-                        <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                To
-                            </label>
-                            <Input
-                                type="date"
-                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                value={todate}
-                                onChange={(e) => settoDate(e.target.value)}
-                            />
-                        </div>
+                      
 
                         {/* Type Dropdown */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Type
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setOrigin(e.target.value)}
@@ -426,6 +402,32 @@ const CashewOutTable = (props: any) => {
                                 ))}
                             </select>
                         </div>
+
+                             {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
 
 
 

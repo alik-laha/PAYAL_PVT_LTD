@@ -300,12 +300,12 @@ const RcnPrimaryEntryTable = (props:any) => {
 
                     {/* BL / Con No */}
                     <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             BL No. / Con No.
-                        </label>
+                        </label> */}
                         <Input
                             className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
-                            placeholder="Search"
+                            placeholder="BL / Con No."
                             value={blConNo}
                             onChange={(e) => setBlConNo(e.target.value)}
                         />
@@ -313,37 +313,13 @@ const RcnPrimaryEntryTable = (props:any) => {
 
                
 
-                    {/* From Date */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            From
-                        </label>
-                        <Input
-                            type="date"
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            value={fromdate}
-                            onChange={(e) => setfromDate(e.target.value)}
-                        />
-                    </div>
-
-                    {/* To Date */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            To
-                        </label>
-                        <Input
-                            type="date"
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            value={todate}
-                            onChange={(e) => settoDate(e.target.value)}
-                        />
-                    </div>
+                
 
                          {/* Origin */}
                     <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Origin
-                        </label>
+                        </label> */}
                         <select
                             className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                             onChange={(e) => setOrigin(e.target.value)}
@@ -358,6 +334,31 @@ const RcnPrimaryEntryTable = (props:any) => {
 
 
                     </div>
+                         {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
 
                     {/* Buttons */}
                     <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">

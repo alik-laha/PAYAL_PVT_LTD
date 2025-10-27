@@ -186,12 +186,12 @@ const VendorSKUTable = () => {
 
                         {/* SKU / Vendor Name */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
                                 SKU / Vendor Name
-                            </label>
+                            </label> */}
                             <Input
                                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                placeholder="Search"
+                                placeholder="SKU / Vendor Name"
                                 value={itemname}
                                 onChange={(e) => setitemname(e.target.value)}
                             />
@@ -199,9 +199,9 @@ const VendorSKUTable = () => {
 
                         {/* Section */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
                                 Section
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setSection(e.target.value)}
@@ -218,9 +218,9 @@ const VendorSKUTable = () => {
 
                         {/* Type */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-xs text-gray-600 dark:text-gray-400">
                                 Type
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setselectType(e.target.value)}

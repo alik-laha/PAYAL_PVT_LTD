@@ -382,11 +382,11 @@ const RCNBoilingTable = (props:any) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
                      {/* Type */}
                     <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Search Type
-                        </label>
+                        </label> */}
                         <select
-                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 font-bold dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 font-bold dark:bg-gray-900 rounded-lg px-3 bg-yellow-100 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
                             onChange={(e) => setSelecttype(e.target.value)}
                             value={selecttype}
                         >
@@ -400,12 +400,12 @@ const RCNBoilingTable = (props:any) => {
 
                     {/* Lot No. / Line Name */}
                     <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Lot No. / Line Name
-                        </label>
+                        </label> */}
                         <Input
                             className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            placeholder="Enter Lot No. / Line Name"
+                            placeholder="Lot No./Line Name"
                             value={blConNo}
                             onChange={(e) => setBlConNo(e.target.value)}
                         />
@@ -413,38 +413,14 @@ const RCNBoilingTable = (props:any) => {
 
                    
 
-                    {/* From Date */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            From
-                        </label>
-                        <Input
-                            type="date"
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            value={fromdate}
-                            onChange={(e) => setfromDate(e.target.value)}
-                        />
-                    </div>
-
-                    {/* To Date */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            To
-                        </label>
-                        <Input
-                            type="date"
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            value={todate}
-                            onChange={(e) => settoDate(e.target.value)}
-                        />
-                    </div>
+                      
 
                     {/* Origin (conditional) */}
                     {selecttype === "LineWise" && (
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Origin
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
                                 onChange={(e) => setOrigin(e.target.value)}
@@ -463,9 +439,9 @@ const RCNBoilingTable = (props:any) => {
                     {/* Size (conditional) */}
                     {selecttype === "LineWise" && (
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Size
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
                                 onChange={(e) => setSize(e.target.value)}
@@ -480,6 +456,31 @@ const RCNBoilingTable = (props:any) => {
                             </select>
                         </div>
                     )}
+                      {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
 
                     {/* Buttons */}
                     <div className="flex flex-wrap justify-end md:justify-end gap-3 mt-2 md:mt-0 col-span-full">

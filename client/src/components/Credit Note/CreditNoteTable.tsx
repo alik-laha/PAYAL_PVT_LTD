@@ -388,9 +388,9 @@ const CreditNoteTable = (props:any) => {
           {/* Grid filter section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-end">
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400 block mb-1">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400 block mb-1">
                 Search Type
-              </label>
+              </label> */}
               <select
                 className="select-with-icon bg-yellow-100 w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 dark:text-gray-200 appearance-none font-bold"
                 onChange={(e) => setsearchType(e.target.value)}
@@ -405,9 +405,9 @@ const CreditNoteTable = (props:any) => {
             </div>
             {/* GatePass or R-Lot No */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                 {searchType === "Credit Details" ? "GatePass No." : "R-Lot No."}
-              </label>
+              </label> */}
               <Input
                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
                 placeholder={
@@ -421,9 +421,9 @@ const CreditNoteTable = (props:any) => {
             {/* SKU Type (conditional) */}
             {searchType === "Credit Details" && (
               <div className="flex flex-col gap-1">
-                <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                   Type
-                </label>
+                </label> */}
                 <select
                   className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                   onChange={(e) => setOrigin(e.target.value)}
@@ -439,37 +439,13 @@ const CreditNoteTable = (props:any) => {
               </div>
             )}
 
-            {/* From Date */}
-            <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                From Date
-              </label>
-              <Input
-                type="date"
-                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                value={fromdate}
-                onChange={(e) => setfromDate(e.target.value)}
-              />
-            </div>
-
-            {/* To Date */}
-            <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                To Date
-              </label>
-              <Input
-                type="date"
-                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                value={todate}
-                onChange={(e) => settoDate(e.target.value)}
-              />
-            </div>
+          
 
             {/* Origin Select */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                 Origin
-              </label>
+              </label> */}
               <select
                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                 onChange={(e) => setOriginp(e.target.value)}
@@ -483,6 +459,32 @@ const CreditNoteTable = (props:any) => {
                 ))}
               </select>
             </div>
+
+                 {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
 
             {/* Buttons Section */}
             <div className="flex flex-wrap justify-end md:justify-end gap-3 mt-2 md:mt-0 col-span-full">

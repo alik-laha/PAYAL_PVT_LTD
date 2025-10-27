@@ -352,12 +352,12 @@ const IssueTable = (props:any) => {
 
                     {/* Issue No */}
                     <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            Issue No.
-                        </label>
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                           
+                        </label> */}
                         <Input
                             className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
-                            placeholder="Search"
+                            placeholder="Issue No."
                             value={blConNo}
                             onChange={(e) => setBlConNo(e.target.value)}
                         />
@@ -365,38 +365,14 @@ const IssueTable = (props:any) => {
 
                 
 
-                    {/* From Date */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            From Date
-                        </label>
-                        <Input
-                            type="date"
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            value={fromdate}
-                            onChange={(e) => setfromDate(e.target.value)}
-                        />
-                    </div>
-
-                    {/* To Date */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                            To Date
-                        </label>
-                        <Input
-                            type="date"
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            value={todate}
-                            onChange={(e) => settoDate(e.target.value)}
-                        />
-                    </div>
+                 
 
                         {/* Unit */}
                     <div className="relative">
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Unit
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setUnit(e.target.value)}
@@ -413,9 +389,9 @@ const IssueTable = (props:any) => {
                     {/* Section */}
                     <div className="relative">
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Section
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setSection(e.target.value)}
@@ -432,9 +408,9 @@ const IssueTable = (props:any) => {
                     {/* Sub Section */}
                     <div className="relative">
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Sub Section
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setSubSection(e.target.value)}
@@ -451,9 +427,9 @@ const IssueTable = (props:any) => {
                     {/* Type */}
                     <div className="relative">
                         <div className="flex flex-col gap-1">
-                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                                 Type
-                            </label>
+                            </label> */}
                             <select
                                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setselectType(e.target.value)}
@@ -465,6 +441,31 @@ const IssueTable = (props:any) => {
                             </select>
                         </div>
                     </div>
+                         {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
 
                     {/* Buttons */}
                 <div className="flex col-span-full justify-end gap-3 mt-2 md:mt-0">

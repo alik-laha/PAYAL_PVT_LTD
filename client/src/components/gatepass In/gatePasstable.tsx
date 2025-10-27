@@ -986,48 +986,24 @@ const GatePassTable = () => {
 
             {/* GatePass / Doc No */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                 GatePass / Document No
-              </label>
+              </label> */}
               <Input
                 className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
-                placeholder="Search"
+                placeholder="GatePass / Doc No"
                 value={blConNo}
                 onChange={(e) => setBlConNo(e.target.value)}
               />
             </div>
 
-            {/* From Date */}
-            <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                From Date
-              </label>
-              <Input
-                type="date"
-                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                value={fromdate}
-                onChange={(e) => setfromDate(e.target.value)}
-              />
-            </div>
-
-            {/* To Date */}
-            <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                To Date
-              </label>
-              <Input
-                type="date"
-                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                value={todate}
-                onChange={(e) => settoDate(e.target.value)}
-              />
-            </div>
+           
 
             {/* Type Of Gatepass */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                 Type
-              </label>
+              </label> */}
               <select
                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                 onChange={(e) => settype(e.target.value)}
@@ -1042,9 +1018,9 @@ const GatePassTable = () => {
 
             {/* Section */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                 Section
-              </label>
+              </label> */}
               <select
                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                 onChange={(e) => setSection(e.target.value)}
@@ -1059,9 +1035,9 @@ const GatePassTable = () => {
 
             {/* Status */}
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+              {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                 Status
-              </label>
+              </label> */}
               <select
                 className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                 onChange={(e) => setSectionstatus(e.target.value)}
@@ -1072,6 +1048,32 @@ const GatePassTable = () => {
                   <option key={item} value={item}>{item}</option>
                 ))}
               </select>
+            </div>
+
+             {/* From Date */}
+            <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                From
+              </label>
+              <Input
+                type="date"
+                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={fromdate}
+                onChange={(e) => setfromDate(e.target.value)}
+              />
+            </div>
+
+            {/* To Date */}
+            <div className="flex flex-col md:flex-row gap-1 md:items-center">
+              <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                To
+              </label>
+              <Input
+                type="date"
+                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                value={todate}
+                onChange={(e) => settoDate(e.target.value)}
+              />
             </div>
 
             {/* Buttons: Right-aligned */}
