@@ -158,33 +158,32 @@ const RCNHumidLineCreateForm = (props:Props) => {
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
-               {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
-               <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> </div>
+            <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+               <div className="grid grid-cols-2 md:grid-cols-5 gap-3"> 
+              
+                <div><Label>Date of Entry</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div><Label>No. of Operator</Label>
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={operatorRef} required /> </div>
                    
                 </div>
             
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >Sl_No</TableHead>
                         <TableHead className="text-center" >LotNo</TableHead>
                        
                        
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Total_Input(Kg)</TableHead>
-                        <TableHead className="text-center" >Input Moisture</TableHead>
-                        <TableHead className="text-center" >Output Moisture</TableHead>
+                        <TableHead className="text-center" >Input_Moisture</TableHead>
+                        <TableHead className="text-center" >Output_Moisture</TableHead>
                         <TableHead className="text-center" >Total_Output(Kg)</TableHead>
-                        <TableHead className="text-center" >No Of Trolley</TableHead>
+                        <TableHead className="text-center" >No_Of_Trolley</TableHead>
                         <TableHead className="text-center" >Humidifier_On</TableHead>
                         <TableHead className="text-center" >Humidifier_Off</TableHead>
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
+                        <TableHead className="text-center" >Breakdown</TableHead>
+                        <TableHead className="text-center" >Other_Duration</TableHead>
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
@@ -219,19 +218,19 @@ const RCNHumidLineCreateForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+                  <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                      <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                   </span>
   
   
               </dialog>
   
-              <dialog id="erroremployeedialog" className="dashboard-modal">
+              <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                   <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                   </span>
   
   

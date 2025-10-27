@@ -374,7 +374,7 @@ const RCNScoopingTable = (props:any) => {
 
 
     return (
-        <div className=" mt-4 ">
+        <div className="mx-2 mt-4 ">
 
             {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">

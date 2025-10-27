@@ -121,14 +121,14 @@ const MayurInitial = (props: any) => {
   
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="mx-2 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >Sl</TableHead>
                         <TableHead className="text-center" >Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Current_Backlog</TableHead>
+                        <TableHead className="text-center" >Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
 
@@ -152,7 +152,7 @@ const MayurInitial = (props: any) => {
                                                 {formatNumber(item.current_backlog)} kg
                                             </TableCell>
                                             
-                                            <TableCell className="text-center flex">
+                                            <TableCell className="text-center flex justify-center">
                                                 <Dialog>
                                                     <DialogTrigger>
                                                         <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button>
@@ -190,10 +190,10 @@ const MayurInitial = (props: any) => {
 
 
             </div>
-            <dialog id="rcneditapproveRejectDialogPeel" className="dashboard-modal">
+            <dialog id="rcneditapproveRejectDialogPeel" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialogPeel" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
