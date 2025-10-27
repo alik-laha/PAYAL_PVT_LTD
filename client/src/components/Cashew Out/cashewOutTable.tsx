@@ -459,7 +459,7 @@ const CashewOutTable = (props: any) => {
 
 
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-200 text-gray-700' : ''}`}  >Id</TableHead>
-                        {props.props === 'edit' && <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Action</TableHead>}
+                  <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Action</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >GatePass_No</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Receiving_Date</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Enrty_Vehicle_No</TableHead>
@@ -476,7 +476,7 @@ const CashewOutTable = (props: any) => {
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Actual_Weight(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Edit Status </TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Created By </TableHead>
-                        {props.props === 'non-edit' && <TableHead className="text-center">Action</TableHead>}
+                      
                     </TableHeader>
 
                     <TableBody>
@@ -573,28 +573,10 @@ const CashewOutTable = (props: any) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{item.gatePassNo}</TableCell>
-
-                                        <TableCell className="text-center font-semibold text-cyan-500">{handletimezone(item.date)}</TableCell>
-
-                                        <TableCell className="text-center">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
-                                        <TableCell className="text-center">{item.invoice}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500" >{item.batchNo}</TableCell>
-                                        <TableCell className="text-center">{item.partyName}</TableCell>
-                                        <TableCell className="text-center">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{item.gradeName}</TableCell>
-                                        <TableCell className="text-center" >{item.netWeight ? formatNumber(item.netWeight) : ''}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600"  >{formatNumber(item.noOfBags)}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-500" >{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.noOfActualBags)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.actualquantity)}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">
+                                             <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
@@ -613,6 +595,25 @@ const CashewOutTable = (props: any) => {
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
+                                        <TableCell className="text-center font-bold text-red-500">{item.gatePassNo}</TableCell>
+
+                                        <TableCell className="text-center font-semibold text-cyan-500">{handletimezone(item.date)}</TableCell>
+
+                                        <TableCell className="text-center">{item.truckNo}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                        <TableCell className="text-center">{item.invoice}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500" >{item.batchNo}</TableCell>
+                                        <TableCell className="text-center">{item.partyName}</TableCell>
+                                        <TableCell className="text-center">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{item.gradeName}</TableCell>
+                                        <TableCell className="text-center" >{item.netWeight ? formatNumber(item.netWeight) : ''}</TableCell>
+                                        <TableCell className="text-center font-bold text-green-600"  >{formatNumber(item.noOfBags)}</TableCell>
+                                        <TableCell className="text-center font-bold text-green-500" >{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.noOfActualBags)}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.actualquantity)}</TableCell>
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                                   
                                     </TableRow>
                                 );
                             })) : (<TableRow>

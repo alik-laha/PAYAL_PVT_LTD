@@ -202,16 +202,18 @@ const DashboardTable = () => {
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className=" text-left" >SL_No</TableHead>
-                    <TableHead className=" text-left" >Emp ID </TableHead>
-                    <TableHead className="text-left uppercase" >Employee_FullName</TableHead>
+                    <TableHead className=" text-center" >SL_No</TableHead>
+                   
+                    <TableHead className=" text-center" >Emp ID </TableHead>
+                    <TableHead className="text-center uppercase" >Employee_FullName</TableHead>
                     
-                    <TableHead className=" text-left" >UserName </TableHead>
-                    <TableHead className="text-left" >Department </TableHead>
-                    <TableHead className=" text-left" >Role </TableHead>
+                    <TableHead className=" text-center" >UserName </TableHead>
+                    <TableHead className="text-center" >Department </TableHead>
+                    <TableHead className=" text-center" >Role </TableHead>
 
-                    <TableHead className="text-left" >Created_By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                    <TableHead className="text-center" >Created_By </TableHead>
+                      <TableHead className="text-center" >Action</TableHead>
+                   
 
                 </TableHeader>
                 <TableBody>
@@ -236,20 +238,20 @@ const DashboardTable = () => {
                         UserData.map((item, idx) => {
                             return (
                                 <TableRow key={idx}>
-                                    <TableCell className="text-left" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className=" text-left font-semibold text-cyan-600" >{item.employeeId}</TableCell>
-                                    <TableCell className=" font-semibold text-left" >{item.employeeName}</TableCell>
+                                    <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
+                                     
+                                    <TableCell className=" text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
+                                    <TableCell className=" font-semibold text-center" >{item.employeeName}</TableCell>
                                 
-                                    <TableCell className=" font-semibold text-red-500 text-left" >{item.userName}</TableCell>
-                                    <TableCell className=" text-left " >{item.dept}</TableCell>
+                                    <TableCell className=" font-semibold text-red-500 text-center" >{item.userName}</TableCell>
+                                    <TableCell className=" text-center " >{item.dept}</TableCell>
                                     
-                                    <TableCell className=" text-left " >{item.role}</TableCell>
-                                    <TableCell className="text-left" >{item.createdBy}</TableCell>
-
-                                    <TableCell className="text-center" >
+                                    <TableCell className=" text-center " >{item.role}</TableCell>
+                                    <TableCell className="text-center" >{item.createdBy}</TableCell>
+                                     <TableCell className="text-center" >
 
                                         <Popover>
-                                            <PopoverTrigger><button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
+                                            <PopoverTrigger><button className="text-blue-500 h-8 bg-blue-50 w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
@@ -286,6 +288,8 @@ const DashboardTable = () => {
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
+
+                                  
                                 </TableRow>
                             )
                         }

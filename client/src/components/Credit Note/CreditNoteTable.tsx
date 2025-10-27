@@ -519,7 +519,7 @@ const CreditNoteTable = (props:any) => {
           <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
               <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Id</TableHead>
-              {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+              <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
               <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>GatePass_No</TableHead>
               <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>GatePass_Type</TableHead>
               <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receiving_Date</TableHead>
@@ -543,7 +543,7 @@ const CreditNoteTable = (props:any) => {
               <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Item_Remarks</TableHead>
               <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Created_By </TableHead>
               {props.props==='non-edit' && <TableHead className="text-center">Approved_By </TableHead>}
-               {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
+             
             </TableHeader>
             <TableBody>
               {(EditData.length > 0 && props.props==='edit') ? (
@@ -632,8 +632,11 @@ const CreditNoteTable = (props:any) => {
                       <TableCell className="text-center">
                         {formatNumber(item.grossWt)}
                       </TableCell>
-                      <TableCell className="text-center font-bold bg-purple-500 text-white">
-                        {item.creditNoteNo}
+                      <TableCell className="text-cente">
+                        <button className="text-purple-500 bg-white border boreder-purple-400 w-40 font-bold rounded">
+                           {item.creditNoteNo}
+                        </button>
+                       
                       </TableCell>
                       <TableCell className="text-center font-semibold text-cyan-600">
                         {item.origin}
@@ -688,6 +691,38 @@ const CreditNoteTable = (props:any) => {
                       <TableCell className="text-center">
                         {limit * (page - 1) + idx + 1}
                       </TableCell>
+                       <TableCell className="text-center">
+                        <Popover>
+                           <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                            <Dialog>
+                              <DialogTrigger className="flex">
+                                <CiEdit size={20} />
+                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">
+                                  Modify
+                                </button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-3xl">
+                                <DialogHeader>
+                                  <DialogTitle>
+                                    <p className="text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold">
+                                      Credit Note Item Modification
+                                    </p>
+                                  </DialogTitle>
+                                  <DialogDescription>
+                                    <p className="text-1xl text-center mb-2">
+                                      To Be Filled Up By Dispatch Supervisor
+                                    </p>
+                                  </DialogDescription>
+                                </DialogHeader>
+                                <CreditNoteModify data={item} />
+                              </DialogContent>
+                            </Dialog>
+                          </PopoverContent>
+                        </Popover>
+                      </TableCell>
                       <TableCell className="text-center font-bold">
                         {item.gatePassNo}
                       </TableCell>
@@ -703,10 +738,10 @@ const CreditNoteTable = (props:any) => {
                       <TableCell className="text-center">
                         {formatNumber(item.grossWt)}
                       </TableCell>
-                      <TableCell className="text-center font-bold bg-purple-500 text-white">
+                      <TableCell className="text-center font-bold  ">
                         {item.creditNoteNo}
                       </TableCell>
-                      <TableCell className="text-center font-semibold text-cyan-600">
+                      <TableCell className="text-center font-bold ">
                         {item.origin}
                       </TableCell>
                       <TableCell className="text-center">{item.type}</TableCell>
@@ -748,48 +783,7 @@ const CreditNoteTable = (props:any) => {
                       <TableCell className="text-center">
                         {item.approvedBy}
                       </TableCell>
-                      <TableCell className="text-center">
-                        <Popover>
-                          <PopoverTrigger>
-                            <button
-                              className={`p-2 text-white rounded ${
-                                item.editStatus === "Pending"
-                                  ? "bg-cyan-200"
-                                  : "bg-cyan-500"
-                              }`}
-                              disabled={
-                                item.editStatus === "Pending" ? true : false
-                              }>
-                              Action
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                            <Dialog>
-                              <DialogTrigger className="flex">
-                                <CiEdit size={20} />
-                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">
-                                  Modify
-                                </button>
-                              </DialogTrigger>
-                              <DialogContent className="max-w-3xl">
-                                <DialogHeader>
-                                  <DialogTitle>
-                                    <p className="text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold">
-                                      Credit Note Item Modification
-                                    </p>
-                                  </DialogTitle>
-                                  <DialogDescription>
-                                    <p className="text-1xl text-center mb-2">
-                                      To Be Filled Up By Dispatch Supervisor
-                                    </p>
-                                  </DialogDescription>
-                                </DialogHeader>
-                                <CreditNoteModify data={item} />
-                              </DialogContent>
-                            </Dialog>
-                          </PopoverContent>
-                        </Popover>
-                      </TableCell>
+                     
                     </TableRow>
                   );
                 })

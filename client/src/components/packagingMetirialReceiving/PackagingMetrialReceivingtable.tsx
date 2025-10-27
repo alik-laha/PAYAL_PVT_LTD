@@ -614,6 +614,7 @@ const PackageMetrialRecivingTable = () => {
           <TableHeader className="bg-neutral-100 text-stone-950 ">
 
             <TableHead className="text-center" >Sl_No</TableHead>
+             <TableHead className="text-center" >Action</TableHead>
             <TableHead className="text-center" >GatePass_No.</TableHead>
             <TableHead className="text-center" >Receiving_Date</TableHead>
             <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
@@ -636,7 +637,7 @@ const PackageMetrialRecivingTable = () => {
             <TableHead className="text-center" > Package_Material_Remarks</TableHead>
             <TableHead className="text-center" >Entried_By</TableHead>
             <TableHead className="text-center" >Actioned_By</TableHead>
-            <TableHead className="text-center" >Action</TableHead>
+           
 
           </TableHeader>
           <TableBody>
@@ -647,6 +648,31 @@ const PackageMetrialRecivingTable = () => {
                 return (
                   <TableRow key={item.id}>
                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                     <TableCell className="text-center">
+                      <Popover>
+                        <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                          <Dialog>
+                            <DialogTrigger className="flex"><CiEdit size={20} />
+                              <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-3xl">
+                              <DialogHeader>
+                                <DialogTitle>
+                                  <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Packaging Receiving Modification</p>
+                                </DialogTitle>
+                                <DialogDescription>
+                                  <p className='text-1xl text-center'>To Be Filled Up By PM Receving Supervisor</p>
+                                </DialogDescription>
+                              </DialogHeader>
+                              <PackageMaterialReceivingModify data={item} />
+                            </DialogContent>
+                          </Dialog>
+                        </PopoverContent>
+                      </Popover>
+                    </TableCell>
                     <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                     <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                     <TableCell className="text-center ">{item.truckNo}</TableCell>
@@ -681,31 +707,7 @@ const PackageMetrialRecivingTable = () => {
                     <TableCell className="text-center">{item.createdBy}</TableCell>
                     <TableCell className="text-center">{item.approvedBy}</TableCell>
 
-                    <TableCell className="text-center">
-                      <Popover>
-                        <PopoverTrigger>
-                          <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                        </PopoverTrigger>
-                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                          <Dialog>
-                            <DialogTrigger className="flex"><CiEdit size={20} />
-                              <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-3xl">
-                              <DialogHeader>
-                                <DialogTitle>
-                                  <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Packaging Receiving Modification</p>
-                                </DialogTitle>
-                                <DialogDescription>
-                                  <p className='text-1xl text-center'>To Be Filled Up By PM Receving Supervisor</p>
-                                </DialogDescription>
-                              </DialogHeader>
-                              <PackageMaterialReceivingModify data={item} />
-                            </DialogContent>
-                          </Dialog>
-                        </PopoverContent>
-                      </Popover>
-                    </TableCell>
+                   
                   </TableRow>
                 );
               })) : (<TableRow>

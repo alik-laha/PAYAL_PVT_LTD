@@ -58,6 +58,7 @@ import { CiEdit } from "react-icons/ci"
 import { MdDelete } from "react-icons/md"
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import { SiTicktick } from "react-icons/si"
 
 const MachineTable = () => {
     //const currDate = new Date().toLocaleDateString();
@@ -207,7 +208,7 @@ const MachineTable = () => {
                         <TableHead className="text-center" >Sl No.</TableHead>
                         <TableHead className="text-center " >Asset ID</TableHead>
 
-                        <TableHead className="text-center" >Status </TableHead>
+                        <TableHead className="text-center" >Active_Status </TableHead>
                         <TableHead className="text-center" >Asset Name </TableHead>
                         <TableHead className="text-center" >Production </TableHead>
                         <TableHead className="text-center" >Section </TableHead>
@@ -230,7 +231,9 @@ const MachineTable = () => {
 
 
                                     <TableCell className="text-center">{item.status == 'Active' ? (
-                                        <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                          <p className="flex flex-row justify-center">
+                                                                                                              <SiTicktick color="green" size={18} />
+                                                                                                            </p>
                                     ) : (
                                         <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                     )}</TableCell>
@@ -243,7 +246,7 @@ const MachineTable = () => {
 
                                     <TableCell className="text-center">
                                         <Popover>
-                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger>  <button className="text-blue-500 h-8 bg-blue-50 w-20 border border-blue-300 font-bold rounded-lg hover:bg-blue-200">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 

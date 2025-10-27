@@ -396,7 +396,7 @@ const RcnPrimaryEntryTable = (props:any) => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Id</TableHead>
-                     {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+                  <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >GatePass_No</TableHead>
                  
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
@@ -413,7 +413,7 @@ const RcnPrimaryEntryTable = (props:any) => {
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >QC_Status</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Edit_Status </TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entried_By </TableHead>
-                    {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
+                 
 
                 </TableHeader>
                 <TableBody>
@@ -506,7 +506,7 @@ const RcnPrimaryEntryTable = (props:any) => {
                                                                                   />
                                                                                 </p>
                                                                               ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            <button className="bg-white p-2 text-red-500 rounded w-28 border font-semibold border-red-300">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
@@ -523,6 +523,28 @@ const RcnPrimaryEntryTable = (props:any) => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                     <TableCell className="text-center">
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                           <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-3xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Primary Entry Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RcnPrimaryModify data={item} />
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </PopoverContent>
+                                        </Popover>
+                                    </TableCell>
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
@@ -550,34 +572,13 @@ const RcnPrimaryEntryTable = (props:any) => {
                                                                                   />
                                                                                 </p>
                                                                               ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            <button className="bg-white p-2 text-red-500 rounded w-28 border font-semibold border-red-300">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
                                         'NA' : item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.receivedBy}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                           <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-3xl">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Primary Entry Modification</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RcnPrimaryModify data={item} />
-                                                    </DialogContent>
-                                                </Dialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                                   
                                 </TableRow>
                             );
                         })) : (<TableRow>

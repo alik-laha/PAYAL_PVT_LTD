@@ -393,7 +393,7 @@ const BormaTable = (props:any) => {
 
 
                         <TableHead className="text-center" >Id</TableHead>
-                        {props.props==='edit' && <TableHead className="text-center" >Action</TableHead>}
+                       <TableHead className="text-center" >Action</TableHead>
                         <TableHead className="text-center" >Item_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Borma_Date</TableHead>
@@ -421,7 +421,7 @@ const BormaTable = (props:any) => {
                         <TableHead className="text-center" >No_Of_Operator</TableHead>
                         <TableHead className="text-center" >Edit_Status </TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
-                        {props.props==='non-edit' && <TableHead className="text-center" >Action</TableHead>}
+                   
                     </TableHeader>
                     <TableBody>
 
@@ -525,42 +525,11 @@ const BormaTable = (props:any) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-
                                         
-                                       
-                                        
-                                        <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalInput)} Kg</TableCell>
-
-                                        <TableCell className="text-center ">{formatNumber(item.InputWholes)} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.InputPieces)} Kg</TableCell>
-                                        
-                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.OutputWholes)} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.OutputPieces)} Kg</TableCell>
-                                       
-
-                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
-
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
-
                                         <TableCell className="text-center">
                                             <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                 <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
@@ -579,6 +548,38 @@ const BormaTable = (props:any) => {
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
+                                        <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+
+                                        
+                                       
+                                        
+                                        <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputMoisture)} %</TableCell>
+                                        <TableCell className="text-center text-green-600 font-semibold">{formatNumber(item.TotalInput)} Kg</TableCell>
+
+                                        <TableCell className="text-center ">{formatNumber(item.InputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.InputPieces)} Kg</TableCell>
+                                        
+                                        <TableCell className="text-center text-red-600 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputPieces)} Kg</TableCell>
+                                       
+
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
+                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
+
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
+
                                     </TableRow>
                                 );
                             })) : (<TableRow>

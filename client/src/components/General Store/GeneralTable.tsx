@@ -581,6 +581,7 @@ const GeneralStoreTable = () => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                         <TableHead className="text-center" >Sl_No</TableHead>
+                          <TableHead className="text-center" >Action</TableHead>
                         <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
@@ -604,7 +605,7 @@ const GeneralStoreTable = () => {
                         <TableHead className="text-center" >General_Item_Remarks</TableHead>
                         <TableHead className="text-center" >Entried_By</TableHead>
                         <TableHead className="text-center" >Actioned_By</TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+                      
 
                     </TableHeader>
                     <TableBody>
@@ -615,30 +616,10 @@ const GeneralStoreTable = () => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
-                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
-                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                        <TableCell className="text-left ">{item.invoice}</TableCell>
-                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-left ">{item.type}</TableCell>
-                                        <TableCell className="text-left ">{item.sku}</TableCell>
-                                        <TableCell className="text-left">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        <TableCell className="text-center">
+                                          <TableCell className="text-center">
                                             <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                 <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
@@ -661,6 +642,27 @@ const GeneralStoreTable = () => {
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
+                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                        <TableCell className="text-left ">{item.invoice}</TableCell>
+                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-left ">{item.type}</TableCell>
+                                        <TableCell className="text-left ">{item.sku}</TableCell>
+                                        <TableCell className="text-left">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{item.approvedBy}</TableCell>
+                                      
                                     </TableRow>
                                 );
                             })) : (<TableRow>

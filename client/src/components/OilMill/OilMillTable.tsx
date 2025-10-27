@@ -400,7 +400,7 @@ const OilMillTable = (props:any) => {
 
 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Id</TableHead>
-                         {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>}
+                       <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_No</TableHead>
 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_Type</TableHead>
@@ -423,7 +423,6 @@ const OilMillTable = (props:any) => {
                          <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created_By </TableHead>
                          {props.props==='non-edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actioned_By</TableHead>} 
 
-                        {props.props==='non-edit' && <TableHead className="text-center" >Action</TableHead>}
                     </TableHeader>
 
                     <TableBody>
@@ -434,60 +433,58 @@ const OilMillTable = (props:any) => {
                             return (
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
-                                 <TableCell className="text-center flex flex-row gap-3">
-                      
+                                      <TableCell className="text-center flex flex-row gap-3">
+                                        <AlertDialog>
+                                            <AlertDialogTrigger >
+                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
 
-                         <AlertDialog>
-                              <AlertDialogTrigger >
-                                <div className="flex flex-row gap-1"> <FcApprove size={20} />
-                                <button className="text-green-500">
-                                  Approve
-                                </button>
-                                
-                                 </div>
-                               
-                              </AlertDialogTrigger>
-                              <AlertDialogContent  >
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>
-                                    Do you want to Approve the Edit Request?
-                                  </AlertDialogTitle>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleApprove(item)}>
-                                    Continue
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
-                            <AlertDialog>
-                              <AlertDialogTrigger>
-                                <div className="flex flex-row gap-1">
-                                   <FcDisapprove size={20} />
-                                <button className=" text-red-500">
-                                  Revert
-                                </button>
-                                </div>
-                               
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>
-                                    Do you want to Decline the Edit Request?
-                                  </AlertDialogTitle>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleRejection(item)}>
-                                    Continue
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
-                      </TableCell>
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent  >
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Approve the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleApprove(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Decline the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleRejection(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </TableCell>
                                 <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
@@ -517,6 +514,28 @@ const OilMillTable = (props:any) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                         <TableCell className="text-center">
+                                            <Popover>
+                                                 <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className="max-w-3xl">
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>OilMill Entry Modification</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <OilMillModify data={item} />
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>
                                         <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
@@ -537,28 +556,7 @@ const OilMillTable = (props:any) => {
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className="max-w-3xl">
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>OilMill Entry Modification</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            <OilMillModify data={item} />
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                                       
                                     </TableRow>
                                 );
                             })) : (<TableRow>

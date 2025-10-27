@@ -805,7 +805,7 @@ const MayurTable = (props:any) => {
 
                         <TableHead className="text-center" >Id</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Issue_Type</TableHead>
+                        <TableHead className="text-center" >Mayur_Issue_Type</TableHead>
                         
                         <TableHead className="text-center" >Item_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>

@@ -455,7 +455,7 @@ const IssueTable = (props:any) => {
                                 Type
                             </label>
                             <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
                                 onChange={(e) => setselectType(e.target.value)}
                                 value={selectType}
                             >
@@ -501,7 +501,7 @@ const IssueTable = (props:any) => {
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
-                          {props.props==='edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Action</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Action</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >IssueID</TableHead>
                         
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Date_Of_Issue</TableHead>
@@ -526,7 +526,7 @@ const IssueTable = (props:any) => {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created_By</TableHead>
                        {props.props==='non-edit' && <TableHead className="text-center" >Actioned_By</TableHead>}
                       
-                         {props.props==='non-edit' && <TableHead className="text-center">Action</TableHead>}
+                       
                     </TableHeader>
                     <TableBody>
                         {(EditData.length > 0 && props.props==='edit')? (
@@ -592,7 +592,7 @@ const IssueTable = (props:any) => {
 
 
                                         </TableCell>
-                                        <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                        
                                         <TableCell className="text-center ">{item.sectionunit}</TableCell>
@@ -627,7 +627,30 @@ const IssueTable = (props:any) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
+                                            <TableCell className="text-center">
+                                            <Popover>
+                                                 <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className='max-w-3xl'>
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-lg text-gray-600 text-center my-5 tracking-wider drop-shadow-xl font-bold'>Issue Item Modify</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}
+                                                            <IssueModify data={item} />
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
                                         <TableCell className="text-left ">{item.sectionunit}</TableCell>
@@ -652,29 +675,7 @@ const IssueTable = (props:any) => {
                                       {props.props==='non-edit' &&  <TableCell className="text-center ">{item.modifiedBy}</TableCell>}
 
 
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className='max-w-3xl'>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-lg text-gray-600 text-center my-5 tracking-wider drop-shadow-xl font-bold'>Issue Item Modify</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}
-                                                            <IssueModify data={item} />
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                                    
                                     </TableRow>
                                 );
                             })) : (<TableRow>
