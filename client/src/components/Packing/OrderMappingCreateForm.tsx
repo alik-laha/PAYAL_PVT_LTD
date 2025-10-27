@@ -372,7 +372,7 @@ const OrderMappingCreateForm = (props:Props) => {
          }
         }
 
-    const handleOpenLotNo =  (index: any,e:React.MouseEvent<HTMLButtonElement>) => {
+    const handleOpenLotNo =  (index: any) => {
         // e.preventDefault()
         axios.post('/api/packing/viewprodStockQtyFind',{
             origin:rows[index].porigin,
@@ -479,9 +479,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                                  <TableCell className="text-center">
                                                     {
                                                         (row.grade && row.section && !row.porigin) ? (
-                                                            <Dialog>
-                                                                <DialogTrigger > 
-                                                                    <button className="flex flex-row justify-center w-full text-center" onClick={(e) => handleOpenLotNo(index,e)}>
+                                                            <Dialog >
+                                                                <DialogTrigger> 
+                                                                    <button className="flex flex-row justify-center w-full text-center" onClick={() => handleOpenLotNo(index)}>
                                                                         
                                                                         
                                                                         <FaEye size={20} className="text-center px-auto flex flex-row w-full justify-center"/></button>
@@ -493,7 +493,7 @@ const OrderMappingCreateForm = (props:Props) => {
 
                                                                     </DialogHeader>
 
-                                                                    <ViewLotDetailsMapping props={viewlotdata} grade={row.grade}/>
+                                                                    <ViewLotDetailsMapping props={viewlotdata} grade={row.grade} index={index} rows={rows} handleRowChange={handleRowChange}/>
                                                                 </DialogContent>
                                                             </Dialog>
                                                         ) : (<p className="w-full text-center flex"><FaEyeSlash size={20} className="text-red-500 px-auto"/></p>

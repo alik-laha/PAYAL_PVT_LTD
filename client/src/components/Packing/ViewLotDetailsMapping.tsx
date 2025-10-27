@@ -21,7 +21,7 @@ interface lotPropsdata{
     stock:number;
 }
 
-const ViewLotDetailsMapping = (props: any,grade:any) => {
+const ViewLotDetailsMapping = (props: any) => {
     
     //let scoopdata:ScoopData[]=[]
     console.log(props)
@@ -52,6 +52,19 @@ const ViewLotDetailsMapping = (props: any,grade:any) => {
 
 
     }
+
+    const SelectValue = async (item:lotPropsdata) => {
+        props.rows[props.index].stockquantity=item.stock
+        props.handleRowChange(props.index,'stockquantity',item.stock)
+        props.rows[props.index].actual_stockquantity=item.stock
+        props.handleRowChange(props.index,'actual_stockquantity',item.stock)
+        props.rows[props.index].LotNo=item.LotNo
+        props.handleRowChange(props.index,'LotNo',item.LotNo)
+        props.rows[props.index].porigin=item.origin
+        props.handleRowChange(props.index,'porigin',item.origin)
+        props.rows[props.index].mixquantity=item.stock
+        props.handleRowChange(props.index,'mixquantity',item.stock)
+    }
   
     return (
         <>
@@ -70,6 +83,7 @@ const ViewLotDetailsMapping = (props: any,grade:any) => {
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >StoCK(Kg)</TableHead>
+                        <TableHead className="text-center" >Use</TableHead>
 
 
                     </TableHeader>
@@ -89,6 +103,8 @@ const ViewLotDetailsMapping = (props: any,grade:any) => {
                                             {item.LotNo}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold "> {item.origin} </TableCell> <TableCell className="text-center font-semibold text-blue-500"> {item.stock} Kg </TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500 rounded border border-blue-300"> <button onClick={()=>{SelectValue(item)}}>Use
+                                            </button> </TableCell>
                                         
 
                                         
