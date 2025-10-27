@@ -13,7 +13,14 @@ import {
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { Button } from "../ui/button";
+import {
+    Dialog,
+    DialogContent,
 
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { Origin, ProdGradeOnSection, prodStockSection } from "../common/exportData";
 
 import {
@@ -28,6 +35,7 @@ import {
 import { MdDelete } from "react-icons/md";
 import { ScrollArea } from "../ui/scroll-area";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface Props {
     mapping: any[]       
@@ -62,6 +70,10 @@ const OrderMappingCreateForm = (props:Props) => {
     const [lotview, setLotView] = useState("none")
     const [errortext, setErrortext] = useState('')
     const [isdisable, setisdisable] = useState<boolean>(false)
+    const [lotdata, setLotData] = useState<any[]>([])
+    const [viewlotdata, setViewlotData] = useState<any[]>([])
+
+    
   
 
 
@@ -77,7 +89,7 @@ const OrderMappingCreateForm = (props:Props) => {
   };
  
 
- const [lotdata, setLotData] = useState<any[]>([])
+ 
     useEffect(() => {  
         if(props.mapping[0]){
             console.log(props.mapping[0])
@@ -359,6 +371,21 @@ const OrderMappingCreateForm = (props:Props) => {
          }
         }
 
+    const handleOpenLotNo =  (index: any) => {
+        axios.post('/api/packing/viewprodStockQtyFind',{
+            origin:rows[index].porigin,
+            section:rows[index].section,grade:rows[index].grade}
+
+        ).then(res => {
+            console.log(res)
+            setViewlotData(res.data.scoopingLot)
+            console.log(viewlotdata)
+        })
+    }
+ 
+
+
+
 
     return (
         <>
@@ -377,9 +404,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                     <div className="flex"><Label className="w-1/4  pt-2">Final Grade</Label>
                                     <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
                                     <div className="flex"><Label className="w-1/4  pt-2">Demand Quantity</Label>
-                                    <Input className="w-1/4 bg-yellow-100 text-center bg-yellow-100 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
+                                    <Input className="w-1/4   bg-yellow-100 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
                                     <div className="flex"><Label className="w-1/4  pt-2">total Mix Quantity</Label>
-                                    <Input className="w-1/4 text-center bg-red-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
+                                    <Input className="w-1/4  bg-red-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
                                     <div className="flex mt-1">
                             <Label className="w-1/4 pt-1">Order Mapping Date (*)</Label>
                             <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
@@ -395,7 +422,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                       
+                                <TableHead className="text-center" >View</TableHead>
                                 <TableHead className="text-center" >Production_Lot_No</TableHead>
                                 <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center" >Actual_Stock (Kg)</TableHead>
@@ -466,6 +493,26 @@ const OrderMappingCreateForm = (props:Props) => {
                                                             </SelectGroup>
                                                         </SelectContent>
                                                     </Select>
+                                                </TableCell>
+                                                <TableCell className="text-center">
+                                                    {
+                                                        (row.grade && row.porigin && row.section) ? (
+                                                            <Dialog>
+                                                                <DialogTrigger> <button onClick={() => handleOpenLotNo(index)}><FaEye size={20} /></button></DialogTrigger>
+                                                                <DialogContent className='max-w-3xl'>
+                                                                    <DialogHeader>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>RCN Peeling Entry Form</p></DialogTitle>
+
+                                                                    </DialogHeader>
+
+                                                                    {/* <PeelingInitial props={lotdata} /> */}
+                                                                </DialogContent>
+                                                            </Dialog>
+                                                        ) : (
+                                                            <FaEyeSlash size={20}/>
+                                                        )
+
+                                                    }
                                                 </TableCell>
                                                
                                                 
@@ -555,6 +602,7 @@ const OrderMappingCreateForm = (props:Props) => {
 
 
                 </dialog>
+                
             </div>
         </>
 
