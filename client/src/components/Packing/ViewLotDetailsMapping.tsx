@@ -37,7 +37,7 @@ const ViewLotDetailsMapping = (props: any,grade:any) => {
             Grade: props.grade,
             LotNo: item.LotNo,
             Origin: item.origin,
-            Stock: item.stock|| 0 ,
+            Stock: item.stock ?Number(item.stock): 0 ,
             
 
         }));
