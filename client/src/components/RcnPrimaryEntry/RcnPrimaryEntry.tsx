@@ -96,11 +96,6 @@ const RcnPrimaryEntry = () => {
 
                 </div>
 
-
-
-
-            
-
                   <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md '>CURRENT FY : {FY} RCN INCOMING TRANSACTION</p>
 
                 <div>
