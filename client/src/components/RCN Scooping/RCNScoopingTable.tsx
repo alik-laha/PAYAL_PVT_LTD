@@ -487,31 +487,31 @@ const RCNScoopingTable = (props:any) => {
             {tablesearch === "LotWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Sl⠀No</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Action</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >RCNLotNo</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling⠀Lot⠀No</TableHead>
                         
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Origin</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping_Date</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Opening_Qty(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Receiving_Qty(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping⠀Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Opening⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Receiving⠀(Kg)</TableHead>
                      
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Uncut(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Unscoop(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >NonCut(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Wholes(kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Broken(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Rejection(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Dust(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Uncut⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Unscoop⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >NonCut⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Wholes⠀(kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Broken⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Rejection⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Dust⠀(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >KOR</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Bag_Cutting</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female(Common)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Male(Common)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >SuperVisor(Common)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Operator(total)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female(total)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit_Status</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried_By </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Bag⠀Cutting</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female⠀(Common)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Male⠀(Common)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >SuperVisor⠀(Common)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Operator⠀(total)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female⠀(total)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried⠀By </TableHead>
                        
                     </TableHeader>
                     <TableBody>
@@ -663,30 +663,44 @@ const RCNScoopingTable = (props:any) => {
                     </TableBody>
                 </Table>) : (<RcnTableLineWise LineWise={LineWiseData} page={page} />)
             }
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 1) {
-                                return prev
-                            }
-                            if (prev <= 0) {
-                                return prev + 1
-                            }
-                            return prev - 1
-                        })} />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+          <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                  <PaginationContent className="">
+                                      {page > 1 && <PaginationItem>
+                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                              if (prev === 1) {
+                                                  return prev
+                                              }
+                                              if (prev <= 0) {
+                                                  return prev + 1
+                                              }
+                                              return prev - 1
+                                          })} />
+                                      </PaginationItem>}
+                                      {page > 2 && <PaginationItem>
+                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                      </PaginationItem>}
+                                      {page > 1 && <PaginationItem>
+                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                      </PaginationItem>}
+                  
+                  
+                                      <PaginationItem>
+                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                      </PaginationItem>
+                                      <PaginationItem>
+                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                      </PaginationItem>
+                                      <PaginationItem>
+                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                      </PaginationItem>
+                                      <PaginationItem>
+                                          <PaginationEllipsis />
+                                      </PaginationItem>
+                                      <PaginationItem>
+                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                      </PaginationItem>
+                                  </PaginationContent>
+                              </Pagination>
 
 
 

@@ -274,43 +274,43 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit2}>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div>
-                            <Label>GatePass No.</Label>
+                            <Label className="font-bold text-gray-500 text-xs">GatePass No.</Label>
                             <Input
-                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400"
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400"
                                 value={gatepass}
                                 readOnly
                             />
                         </div>
                         <div>
-                            <Label>GatePass Type</Label>
+                            <Label className="font-bold text-gray-500 text-xs">GatePass Type</Label>
                             <Input
-                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400"
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400"
                                 value={gateType}
                                 readOnly
                             />
                         </div>
                         <div>
-                            <Label>Date</Label>
+                            <Label className="font-bold text-gray-500 text-xs">Date</Label>
                             <Input
-                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400"
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400"
                                 value={date}
                                 readOnly
                             />
                         </div>
 
                         <div>
-                            <Label>Vehicle No.</Label>
+                            <Label className="font-bold text-gray-500 text-xs">Vehicle No.</Label>
                             <Input
-                                className="mt-1 bg-gray-50 font-semibold text-center border-gray-400 "
+                                className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400 "
                                 value={truck}
                                 readOnly
                             />
                         </div>
  
                      <div>
-        <Label>Invoice No</Label>
+        <Label className="font-bold text-gray-500 text-xs">Invoice No</Label>
         <Input
-          className="mt-1 text-center"
+          className="mt-1 text-center border-gray-400"
           placeholder="Invoice No"
           required
           ref={invoiceref}
@@ -318,9 +318,9 @@ const handleSubmit2 = async (e: React.FormEvent) => {
       </div>
 
                    <div>
-        <Label>Invoice Date</Label>
+        <Label className="font-bold text-gray-500 text-xs">Invoice Date</Label>
         <Input
-          className="mt-1 text-center"
+          className="mt-1 text-center border-gray-400"
           placeholder="Invoice Date"
           type="date"
           required
@@ -346,10 +346,10 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                         </div>   */}
 
                  <div className="col-span-1">
-        <Label>{gateType === "IN" ? "Vendor" : "Party"} Name</Label>
+        <Label className="font-bold text-gray-500 text-xs">{gateType === "IN" ? "Vendor" : "Party"} Name</Label>
         <div className="relative">
           <Input
-            className="mt-1 text-center"
+            className="mt-1 text-center border-gray-400"
             placeholder="Name"
             required
             value={VendorName}
@@ -379,17 +379,17 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl_No.</TableHead>
-                            <TableHead className="text-center" >Item_Type</TableHead>
-                            <TableHead className="text-center" >Item_SKU/Item_Name</TableHead>
+                            <TableHead className="text-center" >Sl⠀No</TableHead>
+                            <TableHead className="text-center" >Item⠀Type</TableHead>
+                            <TableHead className="text-center" >Item⠀SKU⠀Or⠀Item⠀Name</TableHead>
                        
-                            <TableHead className="text-center" >Invoice_Qty</TableHead>
+                            <TableHead className="text-center" >Invoice⠀Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
-                            <TableHead className="text-center" >Physical_Qty</TableHead>
+                            <TableHead className="text-center" >Physical⠀Qty</TableHead>
                             
                            
-                            <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
-                            <TableHead className="text-center" >Total_Amount(Rs)</TableHead>
+                            <TableHead className="text-center" >Total⠀Weight⠀(Kg)</TableHead>
+                            <TableHead className="text-center" >Total⠀Amount⠀(Rs)</TableHead>
                             <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>

@@ -55,7 +55,7 @@ const createscoopingEditDelete = async (req: Request, res: Response) => {
 
         }
         else{
-             kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.453)).toFixed(2)
+             kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.454)).toFixed(2)
         }
         console.log('Reached Here1')
         const latestEditEntry = await RcnScoopingEdit.findOne({

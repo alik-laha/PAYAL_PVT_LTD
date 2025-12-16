@@ -65,7 +65,7 @@ const CreateEntireScoopingEdit = async (req: Request, res: Response) => {
                 kor = 0
             }
             else {
-                kor = ((parseFloat(data.Wholes) + parseFloat(data.Broken)) / (total_bag * 0.453)).toFixed(2)
+                kor = ((parseFloat(data.Wholes) + parseFloat(data.Broken)) / (total_bag * 0.454)).toFixed(2)
             }
             await RcnScoopingEdit.create(
                 {
@@ -117,7 +117,7 @@ const CreateEntireScoopingEdit = async (req: Request, res: Response) => {
                 kor2 = 0
             }
             else {
-                kor2 = ((parseFloat(data.Wholes) + parseFloat(data.Broken)) / (total_bag2 * 0.453)).toFixed(2)
+                kor2 = ((parseFloat(data.Wholes) + parseFloat(data.Broken)) / (total_bag2 * 0.454)).toFixed(2)
             }
             await RcnAllEditScooping.create(
                 {

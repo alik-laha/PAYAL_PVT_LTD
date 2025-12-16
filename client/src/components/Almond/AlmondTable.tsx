@@ -440,27 +440,29 @@ const AlmondTable = (props:any) => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Sl⠀No</TableHead>
                          <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass⠀No</TableHead>
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass_Type</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving_Date</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Enrty_Vehicle_No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass⠀Type</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving⠀Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Enrty⠀Vehicle⠀No</TableHead>
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial_Weight(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Almond_Type</TableHead>
-                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Almond_Grade</TableHead> 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Almond_Invoice_No.</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Invoice_Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial⠀Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Almond⠀Type</TableHead>
+                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Almond⠀Grade</TableHead> 
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Almond⠀Invoice⠀No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Invoice⠀Date</TableHead>
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Net_Weight(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Net⠀Weight⠀(Kg)</TableHead>
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Vendor_Name(Almond)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bag/Item_Count</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Row_Weight(Kg)</TableHead> 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bill_Amount(Rs)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit_Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Vendor⠀Name(Almond)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bag/Item⠀Count</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Row⠀Weight(Kg)</TableHead> 
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bill⠀Amount(Rs)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
+                        
 
                      
                     </TableHeader>
@@ -543,6 +545,7 @@ const AlmondTable = (props:any) => {
                                 <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
+                                <TableCell className="text-center">{item.createdBy}</TableCell>
                                
                                 </TableRow>
                             ) })): (
@@ -593,6 +596,7 @@ const AlmondTable = (props:any) => {
                                         <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
 
                                        
                                     </TableRow>
@@ -619,30 +623,44 @@ const AlmondTable = (props:any) => {
                     </TableBody>
 
                 </Table>
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+                <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                <PaginationContent className="">
+                                                    {page > 1 && <PaginationItem>
+                                                        <PaginationPrevious onClick={() => setPage((prev) => {
+                                                            if (prev === 1) {
+                                                                return prev
+                                                            }
+                                                            if (prev <= 0) {
+                                                                return prev + 1
+                                                            }
+                                                            return prev - 1
+                                                        })} />
+                                                    </PaginationItem>}
+                                                    {page > 2 && <PaginationItem>
+                                                        <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                    </PaginationItem>}
+                                                    {page > 1 && <PaginationItem>
+                                                        <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                    </PaginationItem>}
+                                
+                                
+                                                    <PaginationItem>
+                                                        <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                    </PaginationItem>
+                                                    <PaginationItem>
+                                                        <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                    </PaginationItem>
+                                                    <PaginationItem>
+                                                        <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                    </PaginationItem>
+                                                    <PaginationItem>
+                                                        <PaginationEllipsis />
+                                                    </PaginationItem>
+                                                    <PaginationItem>
+                                                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                    </PaginationItem>
+                                                </PaginationContent>
+                                            </Pagination>
                 <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

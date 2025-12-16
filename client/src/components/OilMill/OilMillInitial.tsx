@@ -54,7 +54,7 @@ const OilMillInitialForm = (props: any) => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >GatePass No</TableHead>
-                 
+                        <TableHead className="text-center" >GatePass Type</TableHead>
                         <TableHead className="text-center" >Status</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
@@ -69,8 +69,11 @@ const OilMillInitialForm = (props: any) => {
                                         <TableCell className="text-center">
                                             {idx + 1}
                                         </TableCell>
-                                        <TableCell className="text-center font-semibold">
+                                        <TableCell className="text-center font-semibold text-blue-500">
                                             {item.gatePassNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold">
+                                            OUT
                                         </TableCell>
                                       
 
@@ -81,7 +84,7 @@ const OilMillInitialForm = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
                                               <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>OilMill Entry/Exit Form</p></DialogTitle>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>OilMill Dispatch Form</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <OilMillPrimaryEntryForm rcn={rcnData}/>

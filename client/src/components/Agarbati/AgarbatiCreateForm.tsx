@@ -248,17 +248,17 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
 
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit3}>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3"> 
-                <div><Label>GatePass No.</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">GatePass No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div><Label>GatePass Type</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">GatePass Type</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass Type" value={gateType} readOnly /> </div>
-                <div><Label>Date of Receving</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">Date of Receving</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Date" value={date}  readOnly /> </div> 
                 
-                <div ><Label>Gross Wt (Kg)</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">Gross Wt (Kg)</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Gross Wt." value={grossWt}  readOnly /> </div>   
                 
-                <div><Label>Vehicle No.</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">Vehicle No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
                 {/* <div className="flex"><Label className="w-2/4  pt-2">Invoice No.</Label>
                 <Input className="w-2/4 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div> */}
@@ -266,9 +266,9 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                 {/* <div className="flex"><Label className="w-2/4 pt-2">Invoice Date</Label>
                 <Input className="w-2/4 justify-center text-center" type='date' placeholder="date" ref={conNoRef} required /> </div> */}
                 
-                <div><Label>{gateType==='IN'? 'Vendor':'Party'} Name</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div >
-                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Vendor / Party" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="mt-1 justify-center text-center border-gray-400" placeholder="Vendor / Party" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -287,13 +287,13 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl</TableHead>
-                            <TableHead className="text-center" >Agarbati_Type</TableHead>
-                            <TableHead className="text-center" >Agarbati_Grade</TableHead>                      
-                            <TableHead className="text-center" >Invoice_No</TableHead>
-                            <TableHead className="text-center" >Invoice_Date</TableHead>
+                            <TableHead className="text-center" >Agarbati⠀Type</TableHead>
+                            <TableHead className="text-center" >Agarbati⠀Grade</TableHead>                      
+                            <TableHead className="text-center" >Invoice⠀No</TableHead>
+                            <TableHead className="text-center" >Invoice⠀Date</TableHead>
                             <TableHead className="text-center" >Bag/Piece</TableHead>                  
-                            <TableHead className="text-center" >Line_Weight(Kg)</TableHead> 
-                            <TableHead className="text-center" >Bill_Amount</TableHead>           
+                            <TableHead className="text-center" >Line⠀Weight(Kg)</TableHead> 
+                            <TableHead className="text-center" >Bill⠀Amount</TableHead>           
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {
