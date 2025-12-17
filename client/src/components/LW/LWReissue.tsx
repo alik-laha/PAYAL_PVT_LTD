@@ -577,7 +577,7 @@ const LWReCreateForm = (props: Props) => {
                                           <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
                                           <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
-                                          <TableCell className="text-center">r
+                                          <TableCell className="text-center">
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required />
                                           </TableCell>
 

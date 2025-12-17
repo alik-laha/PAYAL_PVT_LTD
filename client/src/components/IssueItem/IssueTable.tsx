@@ -72,6 +72,7 @@ const IssueTable = (props:any) => {
     const [todate, settoDate] = React.useState<string>('');
     //const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
+    const [skuName, setSkuName] = useState<string>("")
     const [sku,setsku]=useState<findskutypeData[]>([])
     const [grade,setGrade]=useState<findskutypeData[]>([])
     const [subgrade,setsubGrade]=useState<findskutypeData[]>([])
@@ -188,7 +189,7 @@ const IssueTable = (props:any) => {
             section: section,
             fromDate: fromdate,
             toDate: todate,
-            type: selectType
+            type: selectType,sku:skuName
 
         }, {
             params: {
@@ -228,7 +229,7 @@ const IssueTable = (props:any) => {
             section: section,
             fromDate: fromdate,
             toDate: todate,
-            type: selectType
+            type: selectType,sku:skuName
 
         })
         const data = await response.data
@@ -348,7 +349,25 @@ const IssueTable = (props:any) => {
            
 
              {props.props==='edit' ?'':<div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 items-end">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-4 items-end">
+
+                    {/* Type */}
+                    <div className="relative">
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                Type
+                            </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 pr-8 appearance-none font-bold"
+                                onChange={(e) => setselectType(e.target.value)}
+                                value={selectType}
+                            >
+                                {SelectTypeIssue.map((data, index) => (
+                                    <option key={index} value={data} >{data}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
                     {/* Issue No */}
                     <div className="flex flex-col gap-1">
@@ -360,6 +379,19 @@ const IssueTable = (props:any) => {
                             placeholder="Issue No."
                             value={blConNo}
                             onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
+
+                    {/* SKU */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                           
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                            placeholder="SKU Name"
+                            value={skuName}
+                            onChange={(e) => setSkuName(e.target.value)}
                         />
                     </div>
 
@@ -424,23 +456,7 @@ const IssueTable = (props:any) => {
                         </div>
                     </div>
 
-                    {/* Type */}
-                    <div className="relative">
-                        <div className="flex flex-col gap-1">
-                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                Type
-                            </label> */}
-                            <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 bg-yellow-100 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
-                                onChange={(e) => setselectType(e.target.value)}
-                                value={selectType}
-                            >
-                                {SelectTypeIssue.map((data, index) => (
-                                    <option key={index} value={data}>{data}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                    
                          {/* From Date */}
                                    <div className="flex flex-col md:flex-row gap-1 md:items-center ">
                                      <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
@@ -501,31 +517,31 @@ const IssueTable = (props:any) => {
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Sl⠀No</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Action</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >IssueID</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀ID</TableHead>
                         
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Date_Of_Issue</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Date⠀Of⠀Issue</TableHead>
                     
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Unit</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Section</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Section</TableHead>
                         
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Subsection</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Subsection</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Category</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Material_Name</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue_Quantity</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Material⠀Name</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue⠀Quantity</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit_Price</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total_Price</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Unit⠀Price</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Price</TableHead>
                         
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issued_To_User</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Return </TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Quantity</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage_Unit</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue_Item_Remarks</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit_Status</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created_By</TableHead>
-                       {props.props==='non-edit' && <TableHead className="text-center" >Actioned_By</TableHead>}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issued⠀To⠀User</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage⠀Return </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage⠀Quantity</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage⠀Unit</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Item⠀Remarks</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By</TableHead>
+                       {props.props==='non-edit' && <TableHead className="text-center" >Actioned⠀By</TableHead>}
                       
                        
                     </TableHeader>

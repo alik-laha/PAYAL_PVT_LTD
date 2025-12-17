@@ -325,8 +325,8 @@ console.log(vilLot)
                          { !LotNo.includes('V')? <TableHead className="text-center" >Moisture (Min%_Max%)</TableHead>:''}
                          { !LotNo.includes('V')? <TableHead className="text-center" >Peeling Time (Min(s)_Max(s))</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >No Of Trolley</TableHead>:''}
-                         { !LotNo.includes('V')? <TableHead className="text-center" >Peeling_On</TableHead>:''}
-                        { !LotNo.includes('V')?  <TableHead className="text-center" >Peeling_Off</TableHead>:''}
+                         { !LotNo.includes('V')? <TableHead className="text-center" >Peeling⠀On</TableHead>:''}
+                        { !LotNo.includes('V')?  <TableHead className="text-center" >Peeling⠀Off</TableHead>:''}
                          { !LotNo.includes('V')? <TableHead className="text-center" >Breakdown Duration</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >Other Duration</TableHead>:''}
                         <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>

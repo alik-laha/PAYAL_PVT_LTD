@@ -380,7 +380,13 @@ const SortingModel = sequelize.define('sorting', {
     modifiedBy: {
         type: DataTypes.STRING,
         allowNull: true
-    }
+    }},{
+     indexes: [
+        {
+            unique: true,
+            fields: ['LotNo','origin','altid']
+        }
+    ]
 
 
 });
