@@ -398,7 +398,7 @@ const RcnPrimaryEntryTable = (props:any) => {
 
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Id</TableHead>
                   <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >GatePass_No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >GatePass⠀No</TableHead>
                  
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Date⠀of⠀Receiving </TableHead>

@@ -147,7 +147,7 @@ const IssueItem = () => {
 
                             {checkreceiving('StorePrimaryEntry') && <Dialog>
                                 <DialogTrigger disabled={data.EditData > 0 ? true : false}>   <Button className="md:w-40 bg-gradient-to-r from-yellow-500 to-red-500 hover:from-yellow-400 hover:to-red-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md" disabled={data.EditData > 0 ? true : false}>+ Add New</Button></DialogTrigger>
-                                <DialogContent className='max-w-screen' style={{ display: 'block' }}>
+                                <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                     <DialogHeader>
                                         <DialogTitle><p className='text-lg text-gray-600 text-center py-5 tracking-wider drop-shadow-xl font-bold'>Item Issue Form</p></DialogTitle>
 

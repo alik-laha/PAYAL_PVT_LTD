@@ -84,7 +84,7 @@ const CreditNoteInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                              <DialogContent style={{display:'block'}} className='max-w-screen'>
+                                              <DialogContent style={{display:'block'}} className='max-w-7xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Credit Note Receiving</p></DialogTitle>
 

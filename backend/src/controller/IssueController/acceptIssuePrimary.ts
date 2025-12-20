@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import {  StoreIssueData } from "../../type/type";
 import ItemIssueEdit from "../../model/itemIssueEdit";
 import ItemIssue from "../../model/itemissueModel";
+import StoreStockNew from "../../model/storeStockModelNew";
+import sequelize from "../../config/databaseConfig";
 
 
 
@@ -10,6 +12,7 @@ const acceptIssueEditPrimary = async (req: Request, res: Response) => {
         const id = req.params.id;
         const approvedBy= req.cookies.user
         const editPackageMaterial: StoreIssueData = await ItemIssueEdit.findOne({ where: { id } }) as unknown as StoreIssueData;
+        const originalPackageMaterial: StoreIssueData = await ItemIssue.findOne({ where: { id } }) as unknown as StoreIssueData;
         if (!editPackageMaterial) return res.status(404).json({ message: "edit Issue material not found" });
         
         // const vendor = await VendorName.findOne({ where: { vendorName:editPackageMaterial.vendorName } });
@@ -44,6 +47,21 @@ const acceptIssueEditPrimary = async (req: Request, res: Response) => {
             modifiedBy:approvedBy
 
         }, { where: { id } });
+
+        const stockUpdate = await StoreStockNew.update(
+            {
+              issueStock: sequelize.literal(`issueStock + ${Number(editPackageMaterial.quantity)-Number(originalPackageMaterial.quantity)}`),
+            },
+            {
+              where: {
+                sku:editPackageMaterial.materialName,
+              }
+            }
+          );
+
+           if (!stockUpdate) {
+            throw new Error("Failed to Dispatch Entry.");
+          }
         if (!updatePackageMaterial) return res.status(500).json({ message: "internal error while accepting Item Issue Edit" });
         const deleteEditPackageMaterial = await ItemIssueEdit.destroy({ where: { id } });
         if (!deleteEditPackageMaterial) return res.status(500).json({ message: "internal error while deleting Modified Item Issue" });

@@ -238,7 +238,7 @@ const IssueCreateForm = () => {
     }
     const handleSkuidClick = (index:any,item: SkuData) => {
         // setSku(item.sku)
-        axios.post("/api/vendorSKU/skudataCountfind", { sku: item.sku })
+        axios.post("/api/vendorSKU/skudataCountfindNew", { sku: item.sku })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

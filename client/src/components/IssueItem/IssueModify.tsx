@@ -94,7 +94,7 @@ const IssueModify = (props: IssueModifyProps) => {
             })            
     }, [])
     useEffect(() => {
-        axios.post("/api/vendorSKU/skudataCountfind", { sku: props.data.materialName })
+        axios.post("/api/vendorSKU/skudataCountfindNew", { sku: props.data.materialName })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -188,7 +188,7 @@ const IssueModify = (props: IssueModifyProps) => {
      const type='Store'
      const handleSkuidClick = (item: SkuData) => {
 
-        axios.post("/api/vendorSKU/skudataCountfind", { sku: item.sku })
+        axios.post("/api/vendorSKU/skudataCountfindNew", { sku: item.sku })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

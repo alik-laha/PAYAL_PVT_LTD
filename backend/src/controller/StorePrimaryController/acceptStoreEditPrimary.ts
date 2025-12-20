@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import {  storeRcvData } from "../../type/type";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import storePrimaryEditModel from "../../model/storePrimaryEditModel";
+import StoreStockNew from "../../model/storeStockModelNew";
+import sequelize from "../../config/databaseConfig";
 
 
 
@@ -10,6 +12,7 @@ const acceptStoreEditPrimary = async (req: Request, res: Response) => {
         const id = req.params.id;
 
         const editPackageMaterial: storeRcvData = await storePrimaryEditModel.findOne({ where: { id } }) as unknown as storeRcvData;
+        const originalPackageMaterial: storeRcvData = await storePrimaryModel.findOne({ where: { id } }) as unknown as storeRcvData;
         if (!editPackageMaterial) return res.status(404).json({ message: "edit store material not found" });
         
         // const vendor = await VendorName.findOne({ where: { vendorName:editPackageMaterial.vendorName } });
@@ -39,6 +42,35 @@ const acceptStoreEditPrimary = async (req: Request, res: Response) => {
             approvedBy: req.cookies.user,
             createdBy:editPackageMaterial.createdBy
         }, { where: { id } });
+
+        
+          let stockUpdate
+          if(editPackageMaterial.gateType==='IN'){
+            stockUpdate = await StoreStockNew.update(
+            {
+              inputStock: sequelize.literal(`inputStock + ${Number(editPackageMaterial.quantity)-Number(originalPackageMaterial.quantity)}`),
+            },
+            {
+              where: {
+                sku:editPackageMaterial.sku,
+              }
+            }
+          );
+          }else{
+            stockUpdate = await StoreStockNew.update(
+            {
+              outputStock: sequelize.literal(`outputStock + ${Number(editPackageMaterial.quantity)-Number(originalPackageMaterial.quantity)}`),
+            },
+            {
+              where: {
+                 sku:editPackageMaterial.sku,
+              }
+            }
+          );
+          }
+          if (!stockUpdate) {
+            throw new Error("Failed to Dispatch Entry.");
+          }
         if (!updatePackageMaterial) return res.status(500).json({ message: "internal error while accepting package material" });
         const deleteEditPackageMaterial = await storePrimaryEditModel.destroy({ where: { id } });
         if (!deleteEditPackageMaterial) return res.status(500).json({ message: "internal error while deleting edit package material" });
