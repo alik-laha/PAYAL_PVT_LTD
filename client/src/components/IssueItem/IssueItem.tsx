@@ -12,13 +12,13 @@ import { Button } from "../ui/button";
 import { pendingCheckRoles, PermissionRole, rcvCheckRoles } from "@/type/type";
 import { FY, pendingCheckRole, rcvCheckRole } from "../common/exportData";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
 import IssueCreateForm from "./IssueCreate";
 import IssueTable from "./IssueTable";
-import { RxUpdate } from "react-icons/rx";
+//import { RxUpdate } from "react-icons/rx";
 import { LuDownload } from "react-icons/lu";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -27,7 +27,7 @@ import DashboardFooter from "../dashboard/DashboardFooter";
 
 const IssueItem = () => {
 
-    const [loading, setLoading] = useState(false);
+    //const [loading, setLoading] = useState(false);
     const { setEditPendiningIssueItemData } = useContext(Context)
     const currDate = new Date().toLocaleDateString();
     const Role = localStorage.getItem('role') as keyof PermissionRole
@@ -66,23 +66,47 @@ const IssueItem = () => {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
 
-    const exportToExcel = async () => {
-        const response = await axios.get('/api/vendorSKU/skuexceldata')
+    // const exportToExcel = async () => {
+    //     const response = await axios.get('/api/vendorSKU/skuexceldata')
+    //     const data1 = await response.data
+    //     let ws
+    //     let transformed: any[] = [];
+
+    //     transformed = data1.data.map((item: any, idx: number) => ({
+    //         Sl_No: idx + 1,
+
+    //         Item_Name: item.sku,
+    //         //Receive_GatePass_Qty: formatNumber(item.quantity),
+    //         //Receive_Backlog_Qty: formatNumber(item.thresoldquantity),
+    //         //Total_Receive_Qty: Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)),
+    //         Total_Receive_Qty: formatNumber(item.quantity),
+    //         Issue_Qty: item.consumedquantity,
+    //         //Backlog_Qty:(Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)))-item.consumedquantity,
+    //         Backlog_Qty: Number(formatNumber(item.quantity)) - item.consumedquantity,
+    //     }));
+    //     // setTransformedData(transformed);
+    //     ws = XLSX.utils.json_to_sheet(transformed);
+
+    //     const wb = XLSX.utils.book_new();
+    //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //     const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //     saveAs(blob, 'Stock_Backlog_' + currDate + '.xlsx');
+    // }
+     const exportToExcelNew = async () => {
+        const response = await axios.get('/api/vendorSKU/skuexceldataNew')
         const data1 = await response.data
         let ws
         let transformed: any[] = [];
 
         transformed = data1.data.map((item: any, idx: number) => ({
             Sl_No: idx + 1,
-
             Item_Name: item.sku,
-            //Receive_GatePass_Qty: formatNumber(item.quantity),
-            //Receive_Backlog_Qty: formatNumber(item.thresoldquantity),
-            //Total_Receive_Qty: Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)),
-            Total_Receive_Qty: formatNumber(item.quantity),
-            Issue_Qty: item.consumedquantity,
-            //Backlog_Qty:(Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)))-item.consumedquantity,
-            Backlog_Qty: Number(formatNumber(item.quantity)) - item.consumedquantity,
+            Threshold_Qty: formatNumber(item.threshold),
+            Gatepass_In_Qty: formatNumber(item.inputStock),
+            Gatepass_Out_Qty: formatNumber(item.outputStock),
+            Issue_Qty: formatNumber(item.issueStock),
+            Backlog_Qty: formatNumber(item.currentStock),
         }));
         // setTransformedData(transformed);
         ws = XLSX.utils.json_to_sheet(transformed);
@@ -94,21 +118,21 @@ const IssueItem = () => {
         saveAs(blob, 'Stock_Backlog_' + currDate + '.xlsx');
     }
 
-    const handleStockUpdateFetch = async () => {
+    // const handleStockUpdateFetch = async () => {
 
-        setLoading(true);
-        try {
-            const response = await fetch('/api/issue/update-stock', {
-                method: 'POST',
-            });
-            const data = await response.json();
-            alert(data.message);
-        } catch (error) {
-            alert('Failed to update stock.');
-        } finally {
-            setLoading(false);
-        }
-    }
+    //     setLoading(true);
+    //     try {
+    //         const response = await fetch('/api/issue/update-stock', {
+    //             method: 'POST',
+    //         });
+    //         const data = await response.json();
+    //         alert(data.message);
+    //     } catch (error) {
+    //         alert('Failed to update stock.');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }
 
 
     const { data, isLoading, error } = UseQueryData('/api/issue/sumofallIssueUnit', 'GET', 'AllSectionIssueSum');
@@ -208,10 +232,10 @@ const IssueItem = () => {
 
 
 
-                            <Button className="md:w-40 bg-white text-red-500 hover:bg-gray-400 hover:text-white font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 md:ml-1.5 drop-shadow-lg" onClick={exportToExcel}> Stock <LuDownload size={20} className="ml-2" /> </Button>
+                            <Button className="md:w-40 bg-white text-red-500 hover:bg-gray-400 hover:text-white font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 md:ml-1.5 drop-shadow-lg" onClick={exportToExcelNew}> Stock <LuDownload size={20} className="ml-2" /> </Button>
 
-                            <Button className="md:w-40  bg-white text-green-600 hover:bg-orange-400 hover:text-white font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 md:ml-1.5 drop-shadow-md"
-                                disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2" /></Button>
+                            {/* <Button className="md:w-40  bg-white text-green-600 hover:bg-orange-400 hover:text-white font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 md:ml-1.5 drop-shadow-md"
+                                disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Sync'} <RxUpdate size={20} className="ml-2" /></Button> */}
 
 
 

@@ -61,7 +61,7 @@ import HamsaEditForm from "./HamsaEditForm";
 
 
 
-const HamsaTable = () => {
+const HamsaTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -775,10 +775,10 @@ const HamsaTable = () => {
         if (editHamsaLotWiseData.length > 0) {
             //console.log(editPendingData)
             setEditData(editHamsaLotWiseData)
-            setblockpagen('none')
+            if(props.props==='edit'){setblockpagen('none')}
         }
 
-    },[editHamsaLotWiseData])
+    },[editHamsaLotWiseData, props.props])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);

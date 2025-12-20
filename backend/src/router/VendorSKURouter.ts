@@ -13,6 +13,7 @@ import { getItemByBytype, getItemByBytypeGrade } from '../controller/VendorSKUCo
 import SkudataCountFind from '../controller/RecevingPackageingMetrial/skudataCountfind';
 import skuDataExcelDownload from "../controller/RecevingPackageingMetrial/skuDataExcelDownload"
 import SkudataCountFindNew from '../controller/RecevingPackageingMetrial/skuDataCountFindNew';
+import skuDataExcelDownloadNew from '../controller/RecevingPackageingMetrial/StockExcelNew';
 
 
 const router = express.Router();
@@ -30,4 +31,5 @@ router.put('/getItembySectionGrade/:type', jwtVerify, getItemByBytypeGrade)
 router.post("/skudataCountfind", jwtVerify,SkudataCountFind)
 router.post("/skudataCountfindNew", jwtVerify,SkudataCountFindNew)
 router.get("/skuexceldata",jwtVerify,skuDataExcelDownload);
+router.get("/skuexceldataNew",jwtVerify,skuDataExcelDownloadNew);
 export default router;
