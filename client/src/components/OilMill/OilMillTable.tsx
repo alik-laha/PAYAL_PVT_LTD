@@ -620,7 +620,8 @@ const OilMillTable = (props:any) => {
                                                      </PaginationItem>
                                                  </PaginationContent>
                                              </Pagination>
-                <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
+                <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border
+                 border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>

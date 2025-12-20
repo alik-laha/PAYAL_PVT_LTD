@@ -805,59 +805,59 @@ const MayurTable = (props:any) => {
 
                         <TableHead className="text-center" >Id</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Mayur_Issue_Type</TableHead>
+                        <TableHead className="text-center" >Mayur⠀Issue⠀Type</TableHead>
                         
-                        <TableHead className="text-center" >Item_Lot_No</TableHead>
+                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Issue_No</TableHead>
-                        <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
- <TableHead className="text-center font-bold">Current_Backlog</TableHead>
-                        <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
+                        <TableHead className="text-center" >Issue⠀No</TableHead>
+                        <TableHead className="text-center" >Mayur⠀Entry⠀Date</TableHead>
+ <TableHead className="text-center font-bold">Current⠀Backlog</TableHead>
+                        <TableHead className="text-center" >Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
                          
                         {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                        <TableHead className="text-center">Wholes_Peel/ Wholes_&_JB</TableHead>
-                    <TableHead className="text-center">Wholes_Unpeel/ LW</TableHead>
+                        <TableHead className="text-center">Wholes⠀Peel/ Wholes⠀&⠀JB</TableHead>
+                    <TableHead className="text-center">Wholes⠀Unpeel/ LW</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
-                    <TableHead className="text-center">Mayur Total_Opening</TableHead>
-                    <TableHead className="text-center">PW_W / V_PW_W</TableHead>
-                    <TableHead className="text-center">W_Lot / V_W_Lot</TableHead>
-                    <TableHead className="text-center">WW / V_WW</TableHead>
+                    <TableHead className="text-center">Mayur⠀Total⠀Opening</TableHead>
+                    <TableHead className="text-center">PW⠀W / V⠀PW⠀W</TableHead>
+                    <TableHead className="text-center">W⠀Lot / V⠀W⠀Lot</TableHead>
+                    <TableHead className="text-center">WW / V⠀WW</TableHead>
                     <TableHead className="text-center">Issue Hamsa</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
                     
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
-                    <TableHead className="text-center">Issue Big_Taiho</TableHead>
-                    <TableHead className="text-center font-bold">Mayur Total_Issue(Kg)</TableHead>
+                    <TableHead className="text-center">Issue Big⠀Taiho</TableHead>
+                    <TableHead className="text-center font-bold">Mayur Total⠀Issue⠀(Kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                    
-                    <TableHead className="text-center">Mc_On_133</TableHead>
-                    <TableHead className="text-center">Mc_Off_133</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
-                    <TableHead className="text-center">Other_Time 133</TableHead>
-                    <TableHead className="text-center">Mc_On_331</TableHead>
-                    <TableHead className="text-center">Mc_Off_331</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 331</TableHead>
-                    <TableHead className="text-center">Other_Time 331</TableHead>
-                    <TableHead className="text-center">Mc_On_292</TableHead>
-                    <TableHead className="text-center">Mc_Off_292</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 292</TableHead>
-                    <TableHead className="text-center">Other_Time 292</TableHead>
-                    <TableHead className="text-center">Mc_On_293</TableHead>
-                    <TableHead className="text-center">Mc_Off_293</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
-                    <TableHead className="text-center">Other_Time 293</TableHead>
-                    <TableHead className="text-center">Runtime_133</TableHead>
-                    <TableHead className="text-center">Runtime_331</TableHead>
-                    <TableHead className="text-center">Runtime_292</TableHead>
-                    <TableHead className="text-center">Runtime_293</TableHead>
+                    <TableHead className="text-center">Mc⠀On⠀133</TableHead>
+                    <TableHead className="text-center">Mc⠀Off⠀133</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown 133</TableHead>
+                    <TableHead className="text-center">Other⠀Time 133</TableHead>
+                    <TableHead className="text-center">Mc⠀On⠀331</TableHead>
+                    <TableHead className="text-center">Mc⠀Off⠀331</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown 331</TableHead>
+                    <TableHead className="text-center">Other⠀Time 331</TableHead>
+                    <TableHead className="text-center">Mc⠀On⠀292</TableHead>
+                    <TableHead className="text-center">Mc⠀Off⠀292</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown 292</TableHead>
+                    <TableHead className="text-center">Other⠀Time 292</TableHead>
+                    <TableHead className="text-center">Mc⠀On⠀293</TableHead>
+                    <TableHead className="text-center">Mc⠀Off⠀293</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown 293</TableHead>
+                    <TableHead className="text-center">Other⠀Time 293</TableHead>
+                    <TableHead className="text-center">Runtime⠀133</TableHead>
+                    <TableHead className="text-center">Runtime⠀331</TableHead>
+                    <TableHead className="text-center">Runtime⠀292</TableHead>
+                    <TableHead className="text-center">Runtime⠀293</TableHead>
                
-                    <TableHead className="text-center">Operator_Day</TableHead>
-                    <TableHead className="text-center">Operator_Night</TableHead>
+                    <TableHead className="text-center">Operator⠀Day</TableHead>
+                    <TableHead className="text-center">Operator⠀Night</TableHead>
                    
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Created By </TableHead>
@@ -1168,30 +1168,44 @@ const MayurTable = (props:any) => {
                     </TableBody>
 
                 </Table>
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+              <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
                 <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

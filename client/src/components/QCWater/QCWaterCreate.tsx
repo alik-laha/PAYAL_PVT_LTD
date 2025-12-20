@@ -175,28 +175,29 @@ const QCWaterCreate = () => {
     return (
         <>
             <div className="px-5 mt-4">
-                     <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
+                     <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit2}>
 
-                    <div className="mx-8 flex flex-col gap-1">
-                        <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Testing Date(*)</Label>
-                            <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div>
+                            <Label className="text-xs text-gray-500 font-bold">Testing Date(*)</Label>
+                            <Input type='date' className="mt-1 text-center border-gray-400" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
-                        <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Testing Time</Label>
-                            <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={mc_on}/> </div>                        </div>
-                        <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Feed-Water PH</Label>
-                            <Input className="w-2/4 justify-center  text-center" placeholder="PH" ref={phRef} type='number' step="0.01" required />
+                       
+                          <div>
+                            <Label className="text-xs text-gray-500 font-bold">Feed-Water PH</Label>
+                            <Input className="mt-1 text-center border-gray-400" placeholder="PH" ref={phRef} type='number' step="0.01" required />
                         </div>
-                        <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Feed-Water TDS</Label>
-                            <Input className="w-2/4 justify-center  text-center" placeholder="TDS" ref={tdsRef} type='number' step="0.01" required />
+                       <div>
+                            <Label className="text-xs text-gray-500 font-bold">Feed-Water TDS</Label>
+                            <Input className="mt-1 text-center border-gray-400" placeholder="TDS" ref={tdsRef} type='number' step="0.01" required />
                         </div>
-                        <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Feed-Water Hardness</Label>
-                            <Input className="w-2/4 justify-center text-center" placeholder="Hardness" ref={hardnessRef} type='number' step="0.01" required />
+                        <div>
+                            <Label className="text-xs text-gray-500 font-bold">Feed-Water Hardness</Label>
+                            <Input className="mt-1 text-center border-gray-400" placeholder="Hardness" ref={hardnessRef} type='number' step="0.01" required />
                         </div>
+                         <div>
+                            <Label className="text-xs text-gray-500 font-bold">Testing Time</Label>
+                            <div className="mt-2 text-center border-gray-400" ><TimePicker onChange={handleonchangeon} value={mc_on}/> </div>                        </div>
                     </div>
 
                     <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
@@ -204,14 +205,14 @@ const QCWaterCreate = () => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl_No</TableHead>
-                                <TableHead className="text-center" >Boiler_Type</TableHead>
-                                <TableHead className="text-center" >Water_PH</TableHead>
-                                <TableHead className="text-center" >Water_TDS</TableHead>
-                                <TableHead className="text-center" >BlownDown_Time_Day_Shift</TableHead>
-                                <TableHead className="text-center" >BlownDown_Time_Night_Shift</TableHead>
-                                <TableHead className="text-center" >Water_Reading</TableHead>
-                                <TableHead className="text-center" >Water_Used</TableHead>
+                                <TableHead className="text-center" >Sl⠀No</TableHead>
+                                <TableHead className="text-center" >Boiler⠀Type</TableHead>
+                                <TableHead className="text-center" >Water⠀PH</TableHead>
+                                <TableHead className="text-center" >Water⠀TDS</TableHead>
+                                <TableHead className="text-center" >BlownDown⠀Time⠀Day⠀Shift</TableHead>
+                                <TableHead className="text-center" >BlownDown⠀Time⠀Night⠀Shift</TableHead>
+                                <TableHead className="text-center" >Water⠀Reading</TableHead>
+                                <TableHead className="text-center" >Water⠀Used</TableHead>
                                 <TableHead className="text-center" >Remarks</TableHead>
                                
                                 <TableHead className="text-center" >Action</TableHead>
@@ -322,19 +323,21 @@ const QCWaterCreate = () => {
 
                 </form>
 
-                <dialog id="successemployeedialog" className="dashboard-modal">
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border
+                 border-green-300 text-center">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                     </span>
 
 
                 </dialog>
 
-                <dialog id="erroremployeedialog" className="dashboard-modal">
+                <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border
+                 border-red-300 text-center">
                     <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                     </span>
 
 
