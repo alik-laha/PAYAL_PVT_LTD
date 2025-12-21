@@ -395,6 +395,7 @@ const QCWaterTable = (props: any) => {
                      <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Action</TableHead>
                
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Date⠀Of⠀Testing</TableHead>
+                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
 
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`}>Testing⠀Time</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Feed⠀Water⠀PH</TableHead>
@@ -411,7 +412,7 @@ const QCWaterTable = (props: any) => {
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Water⠀Reading </TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Remarks(QC⠀Water⠀Entry)</TableHead>
 
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                   
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Created⠀By</TableHead>
                    {props.props==='non-edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Actioned⠀By</TableHead>}
                 </TableHeader>
@@ -476,7 +477,17 @@ const QCWaterTable = (props: any) => {
                                         </AlertDialog>
                                     </TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-
+<TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                     <TableCell className="text-center ">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(parseFloat(item.feedph))}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))} ppm</TableCell>
@@ -492,7 +503,7 @@ const QCWaterTable = (props: any) => {
                                     <TableCell className="text-center ">{formatNumber(parseFloat(item.reading))}</TableCell>
                                     <TableCell className="text-center">{item.remarks} </TableCell>
 
-                                    <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                 
                                     <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                     {/* <TableCell className="text-center ">{item.modifiedBy}</TableCell> */}
                                    
@@ -531,7 +542,17 @@ const QCWaterTable = (props: any) => {
                                         </Popover>
                                     </TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-
+<TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                     <TableCell className="text-center ">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(parseFloat(item.feedph))}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))} ppm</TableCell>
@@ -547,7 +568,7 @@ const QCWaterTable = (props: any) => {
                                     <TableCell className="text-center ">{formatNumber(parseFloat(item.reading))}</TableCell>
                                     <TableCell className="text-center">{item.remarks} </TableCell>
 
-                                    <TableCell className="text-center ">{item.editStatus}</TableCell>
+                               
                                     <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                     <TableCell className="text-center ">{item.modifiedBy}</TableCell>
 
