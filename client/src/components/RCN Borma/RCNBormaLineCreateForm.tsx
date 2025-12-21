@@ -170,37 +170,37 @@ const RCNBormaLineCreateForm = (props:Props) => {
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-1 flex flex-col gap-0.5"> 
+            <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+               <div className="grid grid-cols-2 md:grid-cols-5 gap-3"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
-                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> </div>
+                <div ><Label className="text-gray-500 font-bold text-xs">Date of Entry</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div ><Label className="text-gray-500 font-bold text-xs">No. of Operator</Label>
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Operator" ref={operatorRef} required /> </div>
                    
                 </div>
             
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >LotNo</TableHead>
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                        <TableHead className="text-center" >Lot⠀No</TableHead>
                        
                        
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Input_Wholes (Kg)</TableHead>
-                        <TableHead className="text-center" >Input_Pieces (Kg)</TableHead>
-                        <TableHead className="text-center" >Total_Input</TableHead>
-                        <TableHead className="text-center" >Input Moisture</TableHead>
-                        <TableHead className="text-center" >Output Moisture</TableHead>
-                        <TableHead className="text-center" >Output_Wholes (Kg)</TableHead>
-                        <TableHead className="text-center" >Output_Pieces (Kg)</TableHead>
-                        <TableHead className="text-center" >No Of Trolley</TableHead>
+                        <TableHead className="text-center" >Input⠀Wholes⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >Input⠀Pieces⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >Total⠀Input</TableHead>
+                        <TableHead className="text-center" >Input⠀Moisture</TableHead>
+                        <TableHead className="text-center" >Output⠀Moisture</TableHead>
+                        <TableHead className="text-center" >Output⠀Wholes⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >Output⠀Pieces⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
                         <TableHead className="text-center" >Temp</TableHead>
-                        <TableHead className="text-center" >Borma On</TableHead>
-                        <TableHead className="text-center" >Borma Off</TableHead>
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
+                        <TableHead className="text-center" >Borma⠀On</TableHead>
+                        <TableHead className="text-center" >Borma⠀Off</TableHead>
+                        <TableHead className="text-center" >Breakdown⠀Duration</TableHead>
+                        <TableHead className="text-center" >Other⠀Duration</TableHead>
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (

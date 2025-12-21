@@ -30,16 +30,16 @@ const QCRcn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
-                       Initial QC Approved<br /><p>{data.approvedQC}</p>
+                       <p>Initial QC Approved</p><br /><p>{data.approvedQC}</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        QC Report Uploaded<br /><p>{data.completereport}</p>
+                        <p>QC Report Uploaded</p><br /><p>{data.completereport}</p>
                     </div>
                 <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
-                        Pending Approval<br/><p>{data.pendingQC}</p>
+                        <p>Pending Approval</p><br/><p>{data.pendingQC}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                        Pending QC Report<br /><p>{data.pendingReport}</p>
+                        <p>Pending QC Report</p><br /><p>{data.pendingReport}</p>
                     </div>
                     
 

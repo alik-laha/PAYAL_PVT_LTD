@@ -234,7 +234,13 @@ const villageProduction = sequelize.define('villageProduction', {
     modifiedBy: {
         type: DataTypes.STRING,
         allowNull: true
-    }
+    }},{
+     indexes: [
+        {
+            unique: true,
+            fields: ['LotNo','origin','altid']
+        }
+    ]
 
 
 });

@@ -403,22 +403,22 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div><Label>Date of Entry</Label>
+                <div><Label className="text-gray-500 font-bold text-xs">Date of Entry</Label>
                 <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                  <div><Label>No Of Male</Label>
-                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Male" ref={maleRef} required /> </div>
-                      <div><Label>No Of Female</Label>
-                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Female" ref={femaleRef} required /> </div>
-                      <div><Label>No Of Supervisors</Label>
-                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
+                  <div><Label className="text-gray-500 font-bold text-xs">No Of Male</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Male" ref={maleRef} required /> </div>
+                      <div><Label className="text-gray-500 font-bold text-xs">No Of Female</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Female" ref={femaleRef} required /> </div>
+                      <div><Label className="text-gray-500 font-bold text-xs">No Of Supervisors</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Supervisor" ref={supervisorRef} required /> </div>
                 </div>
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
            
   
-                        <TableHead className="text-center" >SlNo</TableHead>
-                        <TableHead className="text-center" >LotNo</TableHead>
-                        <TableHead className="text-center" >ScoopingLine</TableHead>
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                        <TableHead className="text-center" >Lot⠀No</TableHead>
+                        <TableHead className="text-center" >Scooping⠀Line</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Size</TableHead>
                         <TableHead className="text-center" >Opening</TableHead>
@@ -432,20 +432,20 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Dust</TableHead>
                        
-                        <TableHead className="text-center" >Trolley_Broken(%)</TableHead>
-                        <TableHead className="text-center" >Trolley_SmallJB(%)</TableHead>
+                        <TableHead className="text-center" >Trolley⠀Broken⠀(%)</TableHead>
+                        <TableHead className="text-center" >Trolley⠀SmallJB⠀(%)</TableHead>
                         <TableHead className="text-center" >Ladies</TableHead>
                         <TableHead className="text-center" >Operator</TableHead>
-                        <TableHead className="text-center" >ScoopingOn</TableHead>
-                        <TableHead className="text-center" >ScoopingOff</TableHead>
-                        <TableHead className="text-center" >Breakdown_Duration</TableHead>
-                        <TableHead className="text-center" >Breakdown_Reason</TableHead>
-                        <TableHead className="text-center" >Other_Duration</TableHead>
+                        <TableHead className="text-center" >Scooping⠀On</TableHead>
+                        <TableHead className="text-center" >Scooping⠀Off</TableHead>
+                        <TableHead className="text-center" >Breakdown⠀Duration</TableHead>
+                        <TableHead className="text-center" >Breakdown⠀Reason</TableHead>
+                        <TableHead className="text-center" >Other⠀Duration</TableHead>
                        
                 
-                        <TableHead className="text-center" >Transfer_Qty</TableHead>
-                        <TableHead className="text-center" >Transfer_To</TableHead>
-                        <TableHead className="text-center" >Transfer_LineName</TableHead>
+                        <TableHead className="text-center" >Transfer⠀Qty</TableHead>
+                        <TableHead className="text-center" >Transfer⠀To</TableHead>
+                        <TableHead className="text-center" >Transfer⠀LineName</TableHead>
             
 
                       

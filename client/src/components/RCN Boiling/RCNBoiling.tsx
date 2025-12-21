@@ -118,7 +118,7 @@ const RCNBoiling = () => {
                     <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md">+ Add New Entry</Button></DialogTrigger>
                     <DialogContent style={{display:'block'}} className='max-w-screen'>
                         <DialogHeader>
-                            <DialogTitle><p className='text-lg text-gray-600 text-center tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry Form</p></DialogTitle>
+                            <DialogTitle><p className='text-lg text-orange-600 py-2 text-center tracking-wider drop-shadow-xl font-bold'>RCN Boiling Entry</p></DialogTitle>
                             
                         </DialogHeader>
 

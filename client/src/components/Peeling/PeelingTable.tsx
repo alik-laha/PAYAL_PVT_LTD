@@ -705,19 +705,19 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
 
                         <TableHead className="text-center" >Id</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Item_Lot_No</TableHead>
+                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Peeling_Date</TableHead>
+                        <TableHead className="text-center" >Peeling⠀Date</TableHead>
                        
                        
                         <TableHead className="text-center" >Pressure</TableHead>
-                        <TableHead className="text-center " >Moisture(Min-Max)</TableHead>
-                        <TableHead className="text-center" >Peeling_Time</TableHead>
-                        <TableHead className="text-center" >No_Of_Trolley</TableHead>
-                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
-                        <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>
-                        <TableHead className="text-center" >Wholes_Peel/ Wholes+JB(Mayur)</TableHead>
-                        <TableHead className="text-center" >Wholes_UnPeel/ LW (Mayur)</TableHead>
+                        <TableHead className="text-center " >Moisture⠀(Min-Max)</TableHead>
+                        <TableHead className="text-center" >Peeling⠀Time</TableHead>
+                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className="text-center ">Total⠀Input⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >Pieces⠀Unpeel (Village)</TableHead>
+                        <TableHead className="text-center" >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
+                        <TableHead className="text-center" >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
                        
                         <TableHead className="text-center" >DP (DP&DS)</TableHead>
                         <TableHead className="text-center" >DS (DP&DS)</TableHead>
@@ -731,10 +731,10 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className="text-center" >Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big_Taiho</TableHead>
-                        <TableHead className="text-center font-bold" >Total_Issue(Kg)</TableHead>
-                        <TableHead className="text-center font-bold" >Total_Backlog</TableHead>
-                        <TableHead className="text-center" >Peeling_ON</TableHead>
-                        <TableHead className="text-center" >Peeling_OFF</TableHead>
+                        <TableHead className="text-center font-bold" >Total⠀Issue(Kg)</TableHead>
+                        <TableHead className="text-center font-bold" >Total⠀Backlog</TableHead>
+                        <TableHead className="text-center" >Peeling⠀ON</TableHead>
+                        <TableHead className="text-center" >Peeling⠀OFF</TableHead>
                         
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
@@ -743,8 +743,8 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className="text-center" >Operator (Day)</TableHead>
                         <TableHead className="text-center" >Operator (Night)</TableHead>
                         <TableHead className="text-center" >Operator (Husk)</TableHead>
-                        <TableHead className="text-center" >Edit Status </TableHead>
-                        <TableHead className="text-center" >Created By </TableHead>
+                        <TableHead className="text-center" >Edit⠀Status </TableHead>
+                        <TableHead className="text-center" >Created⠀By </TableHead>
                    
                     </TableHeader>
                     <TableBody>

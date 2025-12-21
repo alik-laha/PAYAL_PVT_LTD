@@ -386,7 +386,13 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     otherTime_2: {
         type: DataTypes.TIME,
         allowNull: true
-    }
+    }},{
+     indexes: [
+        {
+            unique: true,
+            fields: ['LotNo','origin','altid']
+        }
+    ]
 
 
 });

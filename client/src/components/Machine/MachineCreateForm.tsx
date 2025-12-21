@@ -119,11 +119,11 @@ const MachineCreateForm = () =>{
                     <Input className="w-2/4 " placeholder="Machine Id" ref={machineIdref} required/> </div>
                 <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
                     <Input className="w-2/4 " placeholder="Machine Name" ref={machinenameref} required/> </div>
-                    <div className="flex"><Label className="w-2/4 pt-1">Primary</Label>
+                    <div className="flex"><Label className="w-1/3 pt-1">Is Production ?</Label>
                     <Input 
                         type="checkbox"
                         placeholder="Primary "
-                        className="h-5 mt-2"
+                        className="h-5 mt-2 w-2/4 "
                         onChange={handleprimary}
                         
                         checked={primary === 1 ? true : false}/> </div>

@@ -292,29 +292,29 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                {gateType==='IN'? 
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit}>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3"> 
-                <div><Label>GatePass No.</Label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3"> 
+                <div><Label className="text-xs text-gray-500 font-bold">GatePass No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
 
-                <div><Label>GatePass Type</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">GatePass Type</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass Type" value={gateType} readOnly /> </div>
                 
-                <div ><Label >Date of Receving</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">Date of Receving</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={date}  readOnly /> </div> 
-                <div ><Label>Gross Wt (Kg)</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">Gross Wt (Kg)</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={grossWt}  readOnly /> </div>   
-                <div ><Label>Vehicle No.</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">Vehicle No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={truck}  readOnly /> </div> 
-                <div ><Label>Invoice No.</Label>
-                        <Input className="mt-1 text-center border-gray-300" placeholder="Invoice No." ref={blNoRef}  required/> </div>
-                <div><Label>Invoice Date</Label>
-                <Input className="mt-1 justify-center text-center border-gray-300" type='date' placeholder="date" ref={conNoRef} required /> </div>
+                <div ><Label className="text-xs text-gray-500 font-bold">Invoice No.</Label>
+                        <Input className="mt-1 text-center border-gray-400" placeholder="Invoice No." ref={blNoRef}  required/> </div>
+                <div><Label className="text-xs text-gray-500 font-bold">Invoice Date</Label>
+                <Input className="mt-1 justify-center text-center border-gray-400" type='date' placeholder="date" ref={conNoRef} required /> </div>
                         
                         
                         
-                <div><Label>{gateType==='IN'? 'Vendor':'Party'} Name</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div>
-                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="mt-1 justify-center text-center border-gray-400" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -331,9 +331,9 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 </div>  
 
                 <div>
-                        <Label>Type</Label>
+                        <Label className="text-xs text-gray-500 font-bold">Type</Label>
                         <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
-                            <SelectTrigger className="mt-1 justify-center w-full border-gray-300 h-8">
+                            <SelectTrigger className="mt-1 justify-center w-full border-gray-400 h-8">
                                 <SelectValue placeholder="Type" />
                             </SelectTrigger>
                             <SelectContent>
@@ -352,16 +352,16 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                         </Select>
                 </div>
                 <div>
-                        <Label>Physical Bag Count</Label>
-                        <Input className="mt-1 text-center border-gray-300" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
+                        <Label className="text-xs text-gray-500 font-bold">Physical Bag Count</Label>
+                        <Input className="mt-1 text-center border-gray-400" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
                 </div>
                 <div>
-                        <Label>Weight</Label>
-                        <Input className="mt-1 text-center border-gray-300" placeholder="Weight" ref={totalWtRef} type="number" required step="0.01"/>
+                        <Label className="text-xs text-gray-500 font-bold">Weight</Label>
+                        <Input className="mt-1 text-center border-gray-400" placeholder="Weight" ref={totalWtRef} type="number" required step="0.01"/>
                 </div>
                 <div>
-                        <Label>Bill Amount</Label>
-                        <Input className="mt-1 text-center border-gray-300" placeholder="Bill Amount" ref={billAmtRef} type="number" required step="0.01"/>
+                        <Label className="text-xs text-gray-500 font-bold">Bill Amount</Label>
+                        <Input className="mt-1 text-center border-gray-400" placeholder="Bill Amount" ref={billAmtRef} type="number" required step="0.01"/>
                 </div>
 
 
@@ -387,27 +387,27 @@ const AlmondPrimaryEntryForm = (props:Props) => {
 
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit3}>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3"> 
-                <div ><Label >GatePass No.</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">GatePass No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div ><Label >GatePass Type</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">GatePass Type</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass Type" value={gateType} readOnly /> </div>
-                <div><Label >Date of Receving</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">Date of Receving</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Date" value={date}  readOnly /> </div> 
                 
-                <div><Label >Gross Wt (Kg)</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">Gross Wt (Kg)</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Gross Wt." value={grossWt}  readOnly /> </div>   
                 
-                <div><Label >Vehicle No.</Label>
+                <div><Label className="text-xs text-gray-500 font-bold">Vehicle No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
-                <div ><Label >Invoice No.</Label>
-                <Input className="mt-1 text-center border-gray-300" placeholder="Invoice No." ref={blNoRef}  required/> </div>
+                <div ><Label className="text-xs text-gray-500 font-bold">Invoice No.</Label>
+                <Input className="mt-1 text-center border-gray-400" placeholder="Invoice No." ref={blNoRef}  required/> </div>
                 
-                <div ><Label className="w-2/4 pt-2">Invoice Date</Label>
-                <Input className="mt-1 justify-center text-center border-gray-300" type='date' placeholder="date" ref={conNoRef} required /> </div>
+                <div ><Label className="text-xs text-gray-500 font-bold">Invoice Date</Label>
+                <Input className="mt-1 justify-center text-center border-gray-400" type='date' placeholder="date" ref={conNoRef} required /> </div>
                 
-                <div ><Label >{gateType==='IN'? 'Vendor':'Party'} Name</Label>
+                <div ><Label className="text-xs text-gray-500 font-bold">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div>
-                <Input className="mt-1 justify-center text-center border-gray-300" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="mt-1 justify-center text-center border-gray-400" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -426,13 +426,13 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl_No.</TableHead>
-                            <TableHead className="text-center" >Almond_Type</TableHead>
-                            <TableHead className="text-center" >Almond_Grade</TableHead>                      
+                            <TableHead className="text-center" >Almond⠀Type</TableHead>
+                            <TableHead className="text-center" >Almond⠀Grade</TableHead>                      
                            
                            
-                            <TableHead className="text-center" >Qty(Pc)</TableHead>                  
-                            <TableHead className="text-center" >Weight(Kg)</TableHead> 
-                            <TableHead className="text-center" >Bill Amount</TableHead>           
+                            <TableHead className="text-center" >Item/Bag⠀Qty</TableHead>                  
+                            <TableHead className="text-center" >Weight⠀(Kg)</TableHead> 
+                            <TableHead className="text-center" >Bill⠀Amount</TableHead>           
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {

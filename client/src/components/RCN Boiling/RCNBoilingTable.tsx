@@ -511,29 +511,29 @@ const RCNBoilingTable = (props:any) => {
                 {selecttabletype==='LineWise' || props.props==='edit' ? <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Id</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Sl⠀No</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Action</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling_Lot_No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling⠀Lot⠀No</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Origin</TableHead>
 
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping_LineName</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling_Date </TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine_Name</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping⠀Line⠀Name</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling⠀Date </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine⠀Name</TableHead>
                  
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Size</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Qty_(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Qty⠀(Kg)</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Pressure</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Moisture</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Cooking_Time</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Cooking⠀Time</TableHead>
 
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine_ON</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine_OFF</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine⠀ON</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine⠀OFF</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Breakdown</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Other</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >MC_Run_Duration</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >MC⠀Run⠀Duration</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Labour</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried_By</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit_Status</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried⠀By</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
                    
 
                 </TableHeader>
@@ -715,13 +715,14 @@ const RCNBoilingTable = (props:any) => {
                 </TableBody>
             </Table>:(<Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center " >Boiling_Lot_No</TableHead>
-                    <TableHead className="text-center " >Boiling_Date</TableHead>
-                    <TableHead className="text-center" >Boiling_Quantity(Kg)</TableHead>
-                    <TableHead className="text-center" >No_of_Labour</TableHead>
-                    <TableHead className="text-center" >Created_By</TableHead>
+                    <TableHead className="text-center" >Sl⠀No</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
+                    <TableHead className="text-center " >Boiling⠀Lot⠀No</TableHead>
+                    <TableHead className="text-center " >Boiling⠀Date</TableHead>
+                    <TableHead className="text-center" >Boiling⠀Quantity⠀(Kg)</TableHead>
+                    <TableHead className="text-center" >No⠀of⠀Labour</TableHead>
+                    <TableHead className="text-center" >Created⠀By</TableHead>
+                    
 
                 </TableHeader>
                 <TableBody>
@@ -731,15 +732,10 @@ const RCNBoilingTable = (props:any) => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center font-bold ">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center ">{item.quantity} </TableCell>
-                                     <TableCell className="text-center ">{item.noOfEmployees} </TableCell>
-                                     <TableCell className="text-center ">{item.CreatedBy} </TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded bg-cyan-500`} >Action</button>
+                                                <button className={`p-2 bg-white rounded text-red-500 h-8  w-20 border border-red-400 font-bold  hover:bg-red-200 `} >Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                              
@@ -761,6 +757,12 @@ const RCNBoilingTable = (props:any) => {
                                             
                                         </Popover>
                                     </TableCell>
+                                    <TableCell className="text-center font-bold text-cyan-600">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-bold ">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center ">{item.quantity} Kg</TableCell>
+                                     <TableCell className="text-center ">{item.noOfEmployees} </TableCell>
+                                     <TableCell className="text-center ">{item.CreatedBy} </TableCell>
+                                    
                                 </TableRow>
                             );
                         })) : (<TableRow>
@@ -793,30 +795,44 @@ const RCNBoilingTable = (props:any) => {
             </Table>)}
 
             
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 1) {
-                                return prev
-                            }
-                            if (prev <= 0) {
-                                return prev + 1
-                            }
-                            return prev - 1
-                        })} />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+           <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                   <PaginationContent className="">
+                                       {page > 1 && <PaginationItem>
+                                           <PaginationPrevious onClick={() => setPage((prev) => {
+                                               if (prev === 1) {
+                                                   return prev
+                                               }
+                                               if (prev <= 0) {
+                                                   return prev + 1
+                                               }
+                                               return prev - 1
+                                           })} />
+                                       </PaginationItem>}
+                                       {page > 2 && <PaginationItem>
+                                           <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                       </PaginationItem>}
+                                       {page > 1 && <PaginationItem>
+                                           <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                       </PaginationItem>}
+                   
+                   
+                                       <PaginationItem>
+                                           <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                       </PaginationItem>
+                                       <PaginationItem>
+                                           <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                       </PaginationItem>
+                                       <PaginationItem>
+                                           <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                       </PaginationItem>
+                                       <PaginationItem>
+                                           <PaginationEllipsis />
+                                       </PaginationItem>
+                                       <PaginationItem>
+                                           <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                       </PaginationItem>
+                                   </PaginationContent>
+                               </Pagination>
             <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

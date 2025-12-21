@@ -237,24 +237,24 @@ const EmployeeTable = () => {
             <Table className="mt-1 ml-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center " >Sl</TableHead>
+                    <TableHead className="text-center " >Sl⠀No</TableHead>
                        <TableHead className="text-center" >Action</TableHead>
-                    <TableHead className="text-center " >Employee_ID </TableHead>
+                    <TableHead className="text-center " >Employee⠀ID </TableHead>
                    
-                    <TableHead className="text-center" >Employee_FullName</TableHead>
-                    <TableHead className="text-center " >EmP_Image </TableHead>
+                    <TableHead className="text-center" >Employee⠀FullName</TableHead>
+                    <TableHead className="text-center " >Emp⠀Image </TableHead>
                     <TableHead className="text-center " >Designation</TableHead>
                     <TableHead className="text-center " >Status </TableHead>
-                    <TableHead className="text-center" >Joining_Date</TableHead>
-                    <TableHead className="text-center " >Contact_No.</TableHead>
+                    <TableHead className="text-center" >Joining⠀Date</TableHead>
+                    <TableHead className="text-center " >Contact⠀No.</TableHead>
                     <TableHead className="text-center " >Email</TableHead>
-                    <TableHead className="text-center " >Highest_Qualification</TableHead>
-                    <TableHead className="text-center" >Blood_Group</TableHead>
-                    <TableHead className="text-center" >Aadhar No</TableHead>
-                    <TableHead className="text-center" >Pan No</TableHead>
+                    <TableHead className="text-center " >Highest⠀Qualification</TableHead>
+                    <TableHead className="text-center" >Blood⠀Group</TableHead>
+                    <TableHead className="text-center" >Aadhar⠀No</TableHead>
+                    <TableHead className="text-center" >Pan⠀No</TableHead>
                     <TableHead className="text-center" >Pincode</TableHead>
-                    <TableHead className="text-center " >Emg_Contact_Name</TableHead>
-                    <TableHead className="text-center" >Emg_Contact_No.</TableHead>
+                    <TableHead className="text-center " >Emg⠀Contact⠀Name</TableHead>
+                    <TableHead className="text-center" >Emg⠀Contact⠀No.</TableHead>
                  
 
                 </TableHeader>
@@ -389,9 +389,9 @@ const EmployeeTable = () => {
             </Table>
 
 
-            <Pagination className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
+           <Pagination  className="pt-5 flex flex-row justify-end ">
+                <PaginationContent className="">
+                    {page > 1 && <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
@@ -401,9 +401,23 @@ const EmployeeTable = () => {
                             }
                             return prev - 1
                         })} />
+                    </PaginationItem>}
+                    {page > 2 && <PaginationItem>
+                        <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                    </PaginationItem>}
+                    {page > 1 && <PaginationItem>
+                        <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                    </PaginationItem>}
+
+
+                    <PaginationItem>
+                        <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
+                        <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationEllipsis />

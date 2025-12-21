@@ -37,6 +37,7 @@ interface SectionRowData {
 const CashewOutEntryForm = (props: Props) => {
 
     const [errortext, setErrorText] = useState<string>("")
+     const [gateType, setGateType] = useState<string>("OUT")
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [gatepass, setGatePass] = useState<string>('')
@@ -52,6 +53,7 @@ const CashewOutEntryForm = (props: Props) => {
             setGrossWt(props.rcn[0].grossWt)
             setGatePass(props.rcn[0].gatePassNo)
             settruck(props.rcn[0].truckNo)
+            setGateType('OUT')
 
         }
 
@@ -274,16 +276,18 @@ const CashewOutEntryForm = (props: Props) => {
 
 
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200  ' onSubmit={handleSubmit3}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div><Label>GatePass No.</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                        <div><Label className="font-bold text-xs text-gray-500">GatePass No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div ><Label >Date</Label>
+                <div><Label className="text-xs font-bold text-gray-500">GatePass Type</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass Type" value={gateType} readOnly /> </div>
+                <div ><Label className="font-bold text-xs text-gray-500">Dispatch Date</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="BL No." value={date}  readOnly /> </div> 
 
-                        <div><Label>Gross Wt (Kg)</Label>
+                        <div><Label className="font-bold text-xs text-gray-500">Gross Wt (Kg)</Label>
                             <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Gross Wt." value={grossWt} readOnly /> </div>
 
-                        <div><Label>Vehicle No.</Label>
+                        <div><Label className="font-bold text-xs text-gray-500">Vehicle No.</Label>
                             <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck} readOnly /> </div>
                      
 
@@ -294,17 +298,17 @@ const CashewOutEntryForm = (props: Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl_No.</TableHead>
-                                <TableHead className="text-center" >Invoice_No</TableHead>
-                                <TableHead className="text-center" >Item_Batch_No</TableHead>
-                                <TableHead className="text-center" >Sales_PartyName</TableHead>
-                                <TableHead className="text-center" >Sale_Origin</TableHead>
-                                <TableHead className="text-center" >Final_Grade_Name</TableHead>
-                                <TableHead className="text-center" >Count (Pouch/Bucket) </TableHead>
-                                 <TableHead className="text-center" >Mapping Weight(Kg)</TableHead>
-                                <TableHead className="text-center" >Actual Count (Pouch/Bucket)</TableHead>
+                                <TableHead className="text-center" >Sl⠀No</TableHead>
+                                <TableHead className="text-center" >Invoice⠀No</TableHead>
+                                <TableHead className="text-center" >Item⠀Batch⠀No</TableHead>
+                                <TableHead className="text-center" >Sales⠀PartyName</TableHead>
+                                <TableHead className="text-center" >Sale⠀Origin</TableHead>
+                                <TableHead className="text-center" >Final⠀Grade⠀Name</TableHead>
+                                <TableHead className="text-center" >Count⠀(Pouch/Bucket) </TableHead>
+                                 <TableHead className="text-center" >Mapping⠀Weight(Kg)</TableHead>
+                                <TableHead className="text-center" >Actual⠀Count⠀(Pouch/Bucket)</TableHead>
                                
-                                 <TableHead className="text-center" >Actual_Weight(Kg)</TableHead>
+                                 <TableHead className="text-center" >Actual⠀Weight(Kg)</TableHead>
                               
                                 <TableHead className="text-center" >Action</TableHead>
                             </TableHeader>

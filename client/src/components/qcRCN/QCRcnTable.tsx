@@ -384,22 +384,23 @@ const QCRcnTable = () => {
   //     settoDate(nextday)
   // }
   return (
-    <div className="ml-5 mt-5 ">
+    <div className="mx-2 ">
       <Button
-        className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust drop-shadow-md "
+        className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust  bg-gradient-to-r from-slate-500 to-yellow-500 hover:from-slate-600 hover:to-yellow-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-5 py-2.5 text-sm w-40"
+        
         onClick={handleSearchPendingQC}
         disabled={pendingqccount === 0 ? true : false}>
         Pending QC ({pendingqccount})
       </Button>
       <Button
-        className="bg-slate-500 mb-5 ml-4 max-w-52 responsive-button-adjust qc-responsive-right drop-shadow-md"
+        className="bg-slate-500 mb-5 ml-4 max-w-52 responsive-button-adjust qc-responsive-right  bg-gradient-to-r from-purple-500 to-red-500 hover:from-purple-600 hover:to-red-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-5 py-2.5 text-sm w-40"
         onClick={handleSearchPendingReport}
         disabled={pendingreportcount === 0 ? true : false}>
         Pending Report ({pendingreportcount})
       </Button>
       {checkpending("QCRCN") && (
         <Button
-          className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin drop-shadow-md"
+          className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin  bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-5 py-2.5 text-sm w-40"
           onClick={handleSearchPendingEdit}
           disabled={counteditpending === 0 ? true : false}>
           Pending Edit ({counteditpending})

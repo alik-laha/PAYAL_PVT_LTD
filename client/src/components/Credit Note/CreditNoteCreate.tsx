@@ -285,18 +285,18 @@ const CreditNoteCreate = (props:Props) => {
                 
 
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit3}>
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
-                <div><Label>GatePass No.</Label>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3"> 
+                <div><Label className="text-xs font-bold text-gray-500">GatePass No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div><Label>GatePass Type</Label>
+                <div><Label className="text-xs font-bold text-gray-500">GatePass Type</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="GatePass Type" value={gateType} readOnly /> </div>
-              <div><Label>Date of Receving</Label>
+              <div><Label className="text-xs font-bold text-gray-500">Date of Receving</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Date" value={date}  readOnly /> </div> 
                 
-               <div><Label>Gross Wt (Kg)</Label>
+               <div><Label className="text-xs font-bold text-gray-500">Gross Wt (Kg)</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Gross Wt." value={grossWt}  readOnly /> </div>   
                 
-               <div><Label>Vehicle No.</Label>
+               <div><Label className="text-xs font-bold text-gray-500">Vehicle No.</Label>
                 <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
                
                 
@@ -307,16 +307,16 @@ const CreditNoteCreate = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl_No</TableHead>
-                            <TableHead className="text-center" >Credit_Note_No</TableHead>
-                            <TableHead className="text-center" >Vendor_Name</TableHead>
+                            <TableHead className="text-center" >Sl⠀No</TableHead>
+                            <TableHead className="text-center" >Credit⠀Note⠀No</TableHead>
+                            <TableHead className="text-center" >Vendor⠀Name</TableHead>
                              <TableHead className="text-center" >Origin</TableHead>
-                            <TableHead className="text-center" >Item Type</TableHead>                   
-                           <TableHead className="text-center" >GradeName</TableHead>
+                            <TableHead className="text-center" >Item⠀Type</TableHead>                   
+                           <TableHead className="text-center" >Grade⠀Name</TableHead>
                             <TableHead className="text-center" >Bag/Quantity</TableHead>
-                            <TableHead className="text-center" >TotalWt</TableHead>                  
-                            <TableHead className="text-center" >Unit_Price</TableHead> 
-                            <TableHead className="text-center" >Total_Bill_Amount</TableHead>    
+                            <TableHead className="text-center" >Total⠀Wt</TableHead>                  
+                            <TableHead className="text-center" >Unit⠀Price</TableHead> 
+                            <TableHead className="text-center" >Total⠀Bill⠀Amount</TableHead>    
                               <TableHead className="text-center" >Remarks</TableHead>        
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>

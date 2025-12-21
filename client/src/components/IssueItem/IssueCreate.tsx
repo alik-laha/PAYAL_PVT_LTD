@@ -302,11 +302,11 @@ const IssueCreateForm = () => {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div>
-                            <Label>Issue Date(*)</Label>
+                            <Label className="font-bold text-xs text-gray-500">Issue Date(*)</Label>
                             <Input type='date' className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div>
-                            <Label >Issue to User(*)</Label>
+                            <Label className="font-bold text-xs text-gray-500">Issue to User(*)</Label>
                             <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="User Name" ref={usernameRef} required/>
                         </div>
                     </div>
@@ -316,23 +316,23 @@ const IssueCreateForm = () => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl_No</TableHead>
-                                <TableHead className="text-center" >Section_Unit</TableHead>
+                                <TableHead className="text-center" >Sl⠀No</TableHead>
+                                <TableHead className="text-center" >Section⠀Unit</TableHead>
                                 <TableHead className="text-center" >Section</TableHead>
-                                <TableHead className="text-center" >Sub_Section</TableHead>
+                                <TableHead className="text-center" >Sub⠀Section</TableHead>
                                 <TableHead className="text-center" >Category</TableHead>
-                                <TableHead className="text-center" >Issue_SKU_/_Issue_Item_Code_/_Issue_Item_Name</TableHead>
+                                <TableHead className="text-center" >Issue⠀SKU⠀Or⠀Item⠀Code⠀Or⠀Item⠀Name</TableHead>
                                 <TableHead className="text-center" >Unit</TableHead>
-                                <TableHead className="text-center" >Quantity_Left</TableHead>
-                                <TableHead className="text-center" >Unit_Price(Rs)</TableHead>
-                                <TableHead className="text-center" >Quantity_Issued</TableHead>
+                                <TableHead className="text-center" >Quantity⠀Left</TableHead>
+                                <TableHead className="text-center" >Unit⠀Price(Rs)</TableHead>
+                                <TableHead className="text-center" >Quantity⠀Issued</TableHead>
                                 
                               
-                                <TableHead className="text-center" >Total_Price(Rs)</TableHead>
+                                <TableHead className="text-center" >Total⠀Price(Rs)</TableHead>
                                
                                 
-                                <TableHead className="text-center" >Damage_Return</TableHead>
-                                <TableHead className="text-center" >Damage_Qty</TableHead>
+                                <TableHead className="text-center" >Damage⠀Return</TableHead>
+                                <TableHead className="text-center" >Damage⠀Qty</TableHead>
                                 <TableHead className="text-center" >Unit</TableHead>
                                 <TableHead className="text-center w-30" >Remarks</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
@@ -345,7 +345,7 @@ const IssueCreateForm = () => {
                                             <TableRow key={index} className="boiling-row-height">
                                                 <TableCell>{index + 1}</TableCell>
                                                 <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="text-center w-40 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sectionunit', e.target.value)}
@@ -363,7 +363,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </select>
                                             </TableCell>
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="text-center w-40 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'section', e.target.value)}
@@ -381,7 +381,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </select>
                                             </TableCell>
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="text-center w-40 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'subsection', e.target.value)}
@@ -460,7 +460,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                           
                                             
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="text-center w-40 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowdamageChange(index, e)}

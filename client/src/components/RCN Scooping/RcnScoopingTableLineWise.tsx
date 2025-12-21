@@ -45,52 +45,52 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
         <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                <TableHead className="text-center" >Id</TableHead>
-                <TableHead className="text-center" >RCNLotNo.</TableHead>
+                <TableHead className="text-center" >Sl⠀No</TableHead>
+                <TableHead className="text-center" >Boiling⠀Lot⠀No</TableHead>
                 <TableHead className="text-center" >Origin</TableHead>
-                <TableHead className="text-center" >ScoopingLineMC</TableHead>
-                <TableHead className="text-center" >DateofScooping </TableHead>
+                <TableHead className="text-center" >Scooping⠀Line</TableHead>
+                <TableHead className="text-center" >Date⠀of⠀Scooping </TableHead>
                 
                 <TableHead className="text-center" >Size</TableHead>
-                <TableHead className="text-center" >Opening_Qty(Kg)</TableHead>
-                <TableHead className="text-center" >Receiving_Qty(Kg)</TableHead>
-                <TableHead className="text-center" >Scooping_MC_ON</TableHead>
-                <TableHead className="text-center" >Scooping_MC_OFF</TableHead>
+                <TableHead className="text-center" >Opening⠀(Kg)</TableHead>
+                <TableHead className="text-center" >Receiving⠀(Kg)</TableHead>
+                <TableHead className="text-center" >Scooping⠀MC⠀ON</TableHead>
+                <TableHead className="text-center" >Scooping⠀MC⠀OFF</TableHead>
                 <TableHead className="text-center" >BreakDown</TableHead>
                 <TableHead className="text-center" >OtherTime</TableHead>
 
-                <TableHead className="text-center" >MC_RunTime</TableHead>
+                <TableHead className="text-center" >MC⠀RunTime</TableHead>
 
-                <TableHead className="text-center" >Trolley_Broken</TableHead>
-                <TableHead className="text-center" >Trolley_SmallJB</TableHead>
+                <TableHead className="text-center" >Trolley⠀Broken</TableHead>
+                <TableHead className="text-center" >Trolley⠀SmallJB</TableHead>
 
 
-                <TableHead className="text-center" >Wholes(kg)</TableHead>
-                <TableHead className="text-center" >Broken(Kg)</TableHead>
-                <TableHead className="text-center" >Uncut(Kg)</TableHead>
-                <TableHead className="text-center" >Unscoop(Kg)</TableHead>
-                <TableHead className="text-center" >NonCut(Kg)</TableHead>
-                <TableHead className="text-center" >Rejection(Kg)</TableHead>
-                <TableHead className="text-center" >RCNDust(Kg) </TableHead>
+                <TableHead className="text-center" >Wholes⠀(kg)</TableHead>
+                <TableHead className="text-center" >Broken⠀(Kg)</TableHead>
+                <TableHead className="text-center" >Uncut⠀(Kg)</TableHead>
+                <TableHead className="text-center" >Unscoop⠀(Kg)</TableHead>
+                <TableHead className="text-center" >NonCut⠀(Kg)</TableHead>
+                <TableHead className="text-center" >Rejection⠀(Kg)</TableHead>
+                <TableHead className="text-center" >RCN⠀Dust⠀(Kg) </TableHead>
 
                 <TableHead className="text-center" >KOR</TableHead>
-                <TableHead className="text-center" >Transfered_Qty</TableHead>
-                <TableHead className="text-center" >Transfered_To_Line</TableHead>
-                <TableHead className="text-center" >Female(Common)</TableHead>
-                <TableHead className="text-center" >Male(Common)</TableHead>
-                <TableHead className="text-center" >SuperVisor(Common)</TableHead>
-                <TableHead className="text-center" >Operator(Total)</TableHead>
-                <TableHead className="text-center" >Female(Total) </TableHead>
-                <TableHead className="text-center" >Edit_Status</TableHead>
-                <TableHead className="text-center" >BreakDown_Reason</TableHead>
-                <TableHead className="text-center" >Entried_By </TableHead>
+                <TableHead className="text-center" >Transfered⠀Qty</TableHead>
+                <TableHead className="text-center" >Transfered⠀To⠀Line</TableHead>
+                <TableHead className="text-center" >Female⠀(Common)</TableHead>
+                <TableHead className="text-center" >Male⠀(Common)</TableHead>
+                <TableHead className="text-center" >SuperVisor⠀(Common)</TableHead>
+                <TableHead className="text-center" >Operator⠀(Total)</TableHead>
+                <TableHead className="text-center" >Female⠀(Total) </TableHead>
+                <TableHead className="text-center" >Edit⠀Status</TableHead>
+                <TableHead className="text-center" >BreakDown⠀Reason</TableHead>
+                <TableHead className="text-center" >Entried⠀By</TableHead>
 
             </TableHeader>
             <TableBody>
                 {LineWise.length > 0 ? (LineWise.map((item: rcnScoopingData, idx: number) => {
 
                     return (
-                        <TableRow key={item.id}>
+                        <TableRow key={item.id} >
                             <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                             <TableCell className="text-center font-semibold text-orange-600">{item.LotNo}</TableCell>
                             <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>

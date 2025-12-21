@@ -401,19 +401,19 @@ const RcnPrimaryEntryTable = (props:any) => {
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >GatePass_No</TableHead>
                  
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Date_of_Receiving </TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL_No.</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Con_No.</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Enrty_Vehicle_No</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Gross_Weight(Kg)</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL_Weight(Kg)</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Net_Weight(Kg)</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Difference</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Physical_Bag</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >System_Bag</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >QC_Status</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Edit_Status </TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entried_By </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Date⠀of⠀Receiving </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL⠀No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Container⠀No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Enrty⠀Vehicle⠀No</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Gross⠀Weight⠀(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL⠀Weight⠀(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Net⠀Weight⠀(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Difference⠀(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Physical⠀Bag</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >System⠀Bag</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >QC⠀Status</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Edit⠀Status </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entried⠀By </TableHead>
                  
 
                 </TableHeader>
@@ -603,30 +603,44 @@ const RcnPrimaryEntryTable = (props:any) => {
                     )}
                 </TableBody>
             </Table>
-            {props.props==='non-edit' &&<Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 1) {
-                                return prev
-                            }
-                            if (prev <= 0) {
-                                return prev + 1
-                            }
-                            return prev - 1
-                        })} />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>}
+            {props.props==='non-edit' &&   <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                               <PaginationContent className="">
+                                                   {page > 1 && <PaginationItem>
+                                                       <PaginationPrevious onClick={() => setPage((prev) => {
+                                                           if (prev === 1) {
+                                                               return prev
+                                                           }
+                                                           if (prev <= 0) {
+                                                               return prev + 1
+                                                           }
+                                                           return prev - 1
+                                                       })} />
+                                                   </PaginationItem>}
+                                                   {page > 2 && <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                   </PaginationItem>}
+                                                   {page > 1 && <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                   </PaginationItem>}
+                               
+                               
+                                                   <PaginationItem>
+                                                       <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationEllipsis />
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                   </PaginationItem>
+                                               </PaginationContent>
+                                           </Pagination>}
             <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

@@ -67,6 +67,7 @@ interface pdfprops {
   data: GatePassData;
 }
 import { SiTicktick } from "react-icons/si";
+import { CiLogin, CiLogout } from "react-icons/ci";
 
 const GatePassTable = () => {
 
@@ -1104,40 +1105,40 @@ const GatePassTable = () => {
         <Table className="mt-4">
           <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-            <TableHead className="text-center" >Sl No.</TableHead>
-             <TableHead className="text-center" >GatePass_ID</TableHead>
+            <TableHead className="text-center" >Sl⠀No</TableHead>
+             <TableHead className="text-center" >GatePass⠀ID</TableHead>
                  <TableHead className="text-center" >Type</TableHead>
-            <TableHead className="text-center" >Normal Action</TableHead>
-            {Role !== 'Security' && <TableHead className="text-center" >Special Action</TableHead>}
+            <TableHead className="text-center" >Normal⠀Action</TableHead>
+            {Role !== 'Security' && <TableHead className="text-center" >Special⠀Action</TableHead>}
            
 
         
-            <TableHead className="text-center" >Receiving/Dispatch Section</TableHead><TableHead className="text-center" >Current_GatePass_Status</TableHead>
+            <TableHead className="text-center" >Destination⠀Section</TableHead><TableHead className="text-center" >Current⠀GatePass⠀Status</TableHead>
   
-            <TableHead className="text-center" >Receiving /Dispatch</TableHead>
-            <TableHead className="text-center" >NetWeight Entry</TableHead>
-            <TableHead className="text-center" >Verification /Approval</TableHead>
-            <TableHead className="text-center" >Item Closure</TableHead>
+            <TableHead className="text-center" >Section⠀Work</TableHead>
+            <TableHead className="text-center" >NetWeight</TableHead>
+            <TableHead className="text-center" >Verification</TableHead>
+            <TableHead className="text-center" >Closure</TableHead>
 
-            <TableHead className="text-center" >Gate_Entry_Date</TableHead>
-            <TableHead className="text-center" >Entry_Time</TableHead>
-            <TableHead className="text-center" >Gate_Exit_Date</TableHead>
-            <TableHead className="text-center" >Gate_Exit_Time</TableHead>
-            <TableHead className="text-center" >Doc_No.</TableHead>
+            <TableHead className="text-center" >Gate⠀Entry⠀Date</TableHead>
+            <TableHead className="text-center" >Entry⠀Time</TableHead>
+            <TableHead className="text-center" >Gate⠀Exit⠀Date</TableHead>
+            <TableHead className="text-center" >Gate⠀Exit⠀Time</TableHead>
+            <TableHead className="text-center" >Doc⠀No</TableHead>
             <TableHead className="text-center" >Gross/Tare_Wt</TableHead>
-            <TableHead className="text-center" >Wt_Slip_No</TableHead>
-            <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-            <TableHead className="text-center" >Driver_Name</TableHead>
-            <TableHead className="text-center" >Driver_Contact</TableHead>
-            <TableHead className="text-center" >Entried_By_Seurity</TableHead>
-            <TableHead className="text-center" >Created_By_User</TableHead>
+            <TableHead className="text-center" >Wt⠀Slip⠀No</TableHead>
+            <TableHead className="text-center" >Entry⠀Vehicle⠀No</TableHead>
+            <TableHead className="text-center" >Driver⠀Name</TableHead>
+            <TableHead className="text-center" >Driver⠀Contact</TableHead>
+            <TableHead className="text-center" >Entried⠀By⠀Seurity</TableHead>
+            <TableHead className="text-center" >Created⠀By⠀User</TableHead>
             
-            <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-               {Role !== 'Security' &&  <TableHead className="text-center" >Receiving_Wt(Kg)</TableHead>}
-                {Role !== 'Security' && <TableHead className="text-center" >Mismatch_Wt(Kg)</TableHead>}
+            <TableHead className="text-center" >Net⠀Weight(Kg)</TableHead>
+               {Role !== 'Security' &&  <TableHead className="text-center" >Receiving⠀Wt(Kg)</TableHead>}
+                {Role !== 'Security' && <TableHead className="text-center" >Mismatch⠀Wt(Kg)</TableHead>}
           
-            <TableHead className="text-center" >Verified/Approved_By</TableHead>
-            <TableHead className="text-center" >Gatepass_Remarks(Any)</TableHead>
+            <TableHead className="text-center" >Verified/Approved⠀By</TableHead>
+            <TableHead className="text-center" >Gatepass⠀Remarks(Any)</TableHead>
 
             
             <TableHead className="text-center" >Slip</TableHead>
@@ -1160,12 +1161,12 @@ const GatePassTable = () => {
                     <TableCell className="text-center">
                     {" "}
                     {item.type === "IN" ? (
-                      <p className="flex flex-row font-bold  justify-center text-orange-500">
-                        {item.type}
+                      <p className="flex flex-row gap-1 font-bold items-center justify-center text-blue-600">
+                        {item.type}<CiLogin size={20}/>
                       </p>
                     ) : (
-                      <p className="flex flex-row justify-center font-bold text-purple-600">
-                        {item.type}
+                      <p className="flex flex-row gap-1 justify-center items-center font-bold text-purple-600">
+                        <CiLogout size={20}/>{item.type}
                       </p>
                     )}{" "}
                   </TableCell>
@@ -1635,7 +1636,7 @@ const GatePassTable = () => {
           </TableBody>
 
         </Table>
-        <Pagination style={{ display: blockpagen }} className="pt-5">
+        {/* <Pagination style={{ display: blockpagen }} className="pt-5">
           <PaginationContent className="font-bold">
             <PaginationItem>
               <PaginationPrevious className="font-bold" onClick={() => setPage((prev) => {
@@ -1655,7 +1656,7 @@ const GatePassTable = () => {
               <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page+1}</PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page+2}</PaginationLink>
+              <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page+2}</PaginationLink>
             </PaginationItem>
             <PaginationItem>
               <PaginationEllipsis />
@@ -1664,7 +1665,46 @@ const GatePassTable = () => {
               <PaginationNext className="font-bold" onClick={() => setPage((prev) => prev + 1)} />
             </PaginationItem>
           </PaginationContent>
-        </Pagination>
+        </Pagination> */}
+
+        <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                        <PaginationContent className="">
+                            {page > 1 && <PaginationItem>
+                                <PaginationPrevious onClick={() => setPage((prev) => {
+                                    if (prev === 1) {
+                                        return prev
+                                    }
+                                    if (prev <= 0) {
+                                        return prev + 1
+                                    }
+                                    return prev - 1
+                                })} />
+                            </PaginationItem>}
+                            {page > 2 && <PaginationItem>
+                                <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                            </PaginationItem>}
+                            {page > 1 && <PaginationItem>
+                                <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                            </PaginationItem>}
+        
+        
+                            <PaginationItem>
+                                <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationEllipsis />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
         <dialog id="machinescs" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
           <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
           <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

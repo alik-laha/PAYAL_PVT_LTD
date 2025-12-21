@@ -686,7 +686,44 @@ const GeneralStoreTable = () => {
                         }
                     </TableBody>
                 </Table>
-                <Pagination className="pt-5 ">
+                   <Pagination  className="pt-5 flex flex-row justify-end ">
+                                                   <PaginationContent className="">
+                                                       {page > 1 && <PaginationItem>
+                                                           <PaginationPrevious onClick={() => setPage((prev) => {
+                                                               if (prev === 1) {
+                                                                   return prev
+                                                               }
+                                                               if (prev <= 0) {
+                                                                   return prev + 1
+                                                               }
+                                                               return prev - 1
+                                                           })} />
+                                                       </PaginationItem>}
+                                                       {page > 2 && <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                       </PaginationItem>}
+                                                       {page > 1 && <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                       </PaginationItem>}
+                                   
+                                   
+                                                       <PaginationItem>
+                                                           <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationEllipsis />
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                       </PaginationItem>
+                                                   </PaginationContent>
+                                               </Pagination><Pagination className="pt-5 ">
                     <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious onClick={() => setPage((prev) => {

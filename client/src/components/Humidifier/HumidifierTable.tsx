@@ -385,25 +385,25 @@ const HumidTable = (props:any) => {
 
                         <TableHead className="text-center" >Id</TableHead>
                       <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Item_Lot_No</TableHead>
+                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Humidify_Date</TableHead>
-                        <TableHead className="text-center" >Moisture(Input)</TableHead>
-                        <TableHead className="text-center" >Moisture(Output)</TableHead>
-                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
+                        <TableHead className="text-center" >Humidify⠀Date</TableHead>
+                        <TableHead className="text-center" >Input⠀Moisture</TableHead>
+                        <TableHead className="text-center" >Output⠀Moisture</TableHead>
+                        <TableHead className="text-center ">Total⠀Input⠀(Kg)</TableHead>
                         
-                        <TableHead className="text-center " >Total_Output(Kg)</TableHead>
-                        <TableHead className="text-center" >Moisture_Gain</TableHead>
-                        <TableHead className="text-center" >No_Of_Trolley</TableHead>
-                        <TableHead className="text-center" >Humidifier_ON</TableHead>
-                        <TableHead className="text-center" >Humidifier_OFF</TableHead>
+                        <TableHead className="text-center " >Total⠀Output⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >Moisture⠀Gain</TableHead>
+                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className="text-center" >Humidifier⠀ON</TableHead>
+                        <TableHead className="text-center" >Humidifier⠀OFF</TableHead>
                         
                         <TableHead className="text-center" >Breakdown</TableHead>
                         <TableHead className="text-center" >Other</TableHead>
-                        <TableHead className="text-center" >MC_Run_Duration</TableHead>
-                        <TableHead className="text-center" >No_Of_Operator</TableHead>
-                        <TableHead className="text-center" >Edit_Status</TableHead>
-                        <TableHead className="text-center" >Created_By </TableHead>
+                        <TableHead className="text-center" >MC⠀Run⠀Duration</TableHead>
+                        <TableHead className="text-center" >No⠀Of⠀Operator</TableHead>
+                        <TableHead className="text-center" >Edit⠀Status</TableHead>
+                        <TableHead className="text-center" >Created⠀By </TableHead>
                       
                     </TableHeader> 
                     <TableBody>
@@ -525,9 +525,9 @@ const HumidTable = (props:any) => {
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.TotalInput)}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.TotalInput)} Kg</TableCell>
                                         
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.TotalOutput)}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.TotalOutput)} Kg</TableCell>
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.MoistGain)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
@@ -564,30 +564,44 @@ const HumidTable = (props:any) => {
                     </TableBody>
 
                 </Table>
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+                  <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
                 <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

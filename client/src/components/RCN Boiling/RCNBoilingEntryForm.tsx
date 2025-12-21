@@ -184,12 +184,12 @@ const RCNBoilingEntryForm = () =>
             <div className="mt-4">
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3"> 
-                    <div><Label>Date of Entry</Label>
+                    <div><Label className="text-gray-500 font-bold text-xs">Date of Entry</Label>
                     <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
                    
-                   <div><Label>Labours</Label>
-                    <Input className="mt-1 bg-gray-50 font-semibold  border-gray-300" type='number' placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
-                    <div><Label>Machine Name</Label>
+                   <div><Label className="text-gray-500 font-bold text-xs">No of Labours</Label>
+                    <Input className="mt-1 bg-gray-50 font-semibold  border-gray-300" type='number' placeholder="Labours" ref={noofEmployeeRef} required /> </div>
+                    <div><Label className="text-gray-500 font-bold text-xs">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true} >
                         <SelectTrigger className="w-full mt-1 h-8 bg-gray-50 font-semibold text-center border-gray-300">
                             <SelectValue placeholder="Machine Name" />
@@ -215,19 +215,19 @@ const RCNBoilingEntryForm = () =>
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                              <TableHeader className="bg-neutral-100 text-stone-950" >
-                             <TableHead className="text-center" >Sl. No.</TableHead>
-                             <TableHead className="text-center" >ScoopingLine</TableHead>
+                             <TableHead className="text-center" >Sl⠀No</TableHead>
+                             <TableHead className="text-center" >Scooping⠀Line</TableHead>
                              <TableHead className="text-center" >Origin</TableHead>
                              <TableHead className="text-center" >Size</TableHead>
-                             <TableHead className="text-center" >Boiling Quantity</TableHead>
+                             <TableHead className="text-center" >Boiling⠀Quantity</TableHead>
                             
                              <TableHead className="text-center" >Pressure</TableHead>
                              <TableHead className="text-center" >Moisture</TableHead>
-                             <TableHead className="text-center" >Cooking On</TableHead>
-                             <TableHead className="text-center" >Cooking Off</TableHead>
-                             <TableHead className="text-center" >Cooking Time</TableHead>
-                             <TableHead className="text-center" >Breakdown Duration</TableHead>
-                             <TableHead className="text-center" >Other Duration</TableHead>
+                             <TableHead className="text-center" >Cooking⠀On</TableHead>
+                             <TableHead className="text-center" >Cooking⠀Off</TableHead>
+                             <TableHead className="text-center" >Cooking⠀Time</TableHead>
+                             <TableHead className="text-center" >Breakdown⠀Duration</TableHead>
+                             <TableHead className="text-center" >Other⠀Duration</TableHead>
                              <TableHead className="text-center" >Action</TableHead>
                              </TableHeader>
                     {rows.map((row,index)=> {

@@ -132,7 +132,7 @@ const CreditNote = () => {
                   + New Entry
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-3xl">
                 <DialogHeader>
                   <DialogTitle>
                     <p className="text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold">

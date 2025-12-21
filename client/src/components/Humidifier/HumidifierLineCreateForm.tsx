@@ -161,10 +161,10 @@ const RCNHumidLineCreateForm = (props:Props) => {
             <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
                <div className="grid grid-cols-2 md:grid-cols-5 gap-3"> 
               
-                <div><Label>Date of Entry</Label>
+                <div><Label className="text-gray-500 font-bold text-xs">Date of Entry</Label>
                 <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div><Label>No. of Operator</Label>
-                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={operatorRef} required /> </div>
+                <div><Label className="text-gray-500 font-bold text-xs">No. of Operator</Label>
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Operator" ref={operatorRef} required /> </div>
                    
                 </div>
             
@@ -175,15 +175,15 @@ const RCNHumidLineCreateForm = (props:Props) => {
                        
                        
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Total_Input(Kg)</TableHead>
-                        <TableHead className="text-center" >Input_Moisture</TableHead>
-                        <TableHead className="text-center" >Output_Moisture</TableHead>
-                        <TableHead className="text-center" >Total_Output(Kg)</TableHead>
-                        <TableHead className="text-center" >No_Of_Trolley</TableHead>
-                        <TableHead className="text-center" >Humidifier_On</TableHead>
-                        <TableHead className="text-center" >Humidifier_Off</TableHead>
+                        <TableHead className="text-center" >Total⠀Input⠀(Kg)</TableHead>
+                        <TableHead className="text-center" >Input⠀Moisture</TableHead>
+                        <TableHead className="text-center" >Output⠀Moisture</TableHead>
+                        <TableHead className="text-center" >Total⠀Output</TableHead>
+                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className="text-center" >Humidifier⠀On</TableHead>
+                        <TableHead className="text-center" >Humidifier⠀Off</TableHead>
                         <TableHead className="text-center" >Breakdown</TableHead>
-                        <TableHead className="text-center" >Other_Duration</TableHead>
+                        <TableHead className="text-center" >Other⠀Duration</TableHead>
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (

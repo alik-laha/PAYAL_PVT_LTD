@@ -825,7 +825,13 @@ const WholesModel = sequelize.define('wholesGrade', {
     modifiedBy: {
         type: DataTypes.STRING,
         allowNull: true
-    }
+    }},{
+     indexes: [
+        {
+            unique: true,
+            fields: ['LotNo','origin','altid']
+        }
+    ]
 
 
 });

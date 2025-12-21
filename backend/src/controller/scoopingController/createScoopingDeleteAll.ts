@@ -28,7 +28,7 @@ const createScoopingDeleteAll = async (req: Request, res: Response) => {
                             -(parseFloat(Uncut)+parseFloat(Unscoop)+parseFloat(NonCut)+parseFloat(Dust)))/80)
             console.log(total_bag) 
                 
-            const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.453)).toFixed(2)
+            const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.454)).toFixed(2)
 
             const latestEditEntry = await RcnAllEditScooping.findOne({
                 attributes: ['CreatedBy'],

@@ -155,7 +155,7 @@ return(
      {/* --- TYPE --- */}
     <div className="flex flex-col sm:flex-row gap-4 items-center">
       <Label className="sm:w-1/2 font-bold text-gray-600 dark:text-gray-300 text-left" >
-        Select Gatepass Type (IN / OUT)
+        Select Gatepass Type ( IN / OUT )
       </Label>
       <select
         className="select-with-icon w-full sm:w-1/2 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 px-3 py-2 focus:ring-2 focus:ring-blue-500 text-center"
@@ -171,9 +171,9 @@ return(
     {/* --- DATE & TIME SECTION --- */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div className="flex flex-col">
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Date</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Date</Label>
         <Input
-          className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 text-center focus:ring-2 focus:ring-blue-500"
+          className="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 text-center focus:ring-2 focus:ring-blue-500"
           type="date"
           value={date}
           readOnly
@@ -181,9 +181,9 @@ return(
         />
       </div>
       <div className="flex flex-col">
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Time</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Time</Label>
         <Input
-          className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 text-center focus:ring-2 focus:ring-blue-500"
+          className="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 text-center focus:ring-2 focus:ring-blue-500"
           type="time"
           value={time}
           readOnly
@@ -197,7 +197,7 @@ return(
     {/* --- VEHICLE INFO --- */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Vehicle No *</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Vehicle No *</Label>
         <Input
           className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
           placeholder="Vehicle No"
@@ -206,7 +206,7 @@ return(
         />
       </div>
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Driver Name</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Driver Name</Label>
         <Input
           className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
           placeholder="Driver Name"
@@ -214,7 +214,7 @@ return(
         />
       </div>
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Driver Contact</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Driver Contact</Label>
         <Input
           className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
           placeholder="Contact No"
@@ -222,7 +222,7 @@ return(
         />
       </div>
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Challan / Invoice No *</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Challan / Invoice No *</Label>
         <Input
           className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
           placeholder="Document No."
@@ -235,7 +235,7 @@ return(
     {/* --- WEIGHT SECTION --- */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">
           {type === "IN" ? "Gross" : "Tare"} Weight (Kg) *
         </Label>
         <Input
@@ -248,7 +248,7 @@ return(
         />
       </div>
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Weight Slip *</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Weight Slip *</Label>
         <Input
           className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
           placeholder="Slip No."
@@ -257,7 +257,7 @@ return(
         />
       </div>
       <div>
-        <Label className="font-medium text-gray-600 dark:text-gray-300">Security Name *</Label>
+        <Label className="text-xs font-bold text-gray-600 dark:text-gray-300">Security Name *</Label>
         <Input
           className="text-center rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500"
           placeholder="Security Name"

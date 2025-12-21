@@ -385,7 +385,13 @@ const hamsaModel = sequelize.define('hamsa', {
     otherTime_7: {
         type: DataTypes.TIME,
         allowNull: true
-    }
+    }},{
+     indexes: [
+        {
+            unique: true,
+            fields: ['LotNo','origin','altid']
+        }
+    ]
 
 
 });
