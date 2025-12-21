@@ -153,7 +153,7 @@ export const getSortingLot = async (req: Request, res: Response) => {
         const status = req.params.status;
         const scoopingLot = await SortingModel.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog','rcv_jjh','rcv_sjh','rcv_sjh1','rcv_jh1','rcv_jk_k','rcv_sp1'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_jjh','rcv_sjh','rcv_sjh1','rcv_jh1','rcv_jk_k','rcv_sp1','rcv_bigTaiho'],
             where: {
                 Status:status
             }

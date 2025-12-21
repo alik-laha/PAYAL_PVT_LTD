@@ -36,7 +36,7 @@ interface lotPropsdata{
     rcv_sorting:string;
     rcv_dpds:string;
     rcv_hamsa:string;
-
+    
 }
 
 const BigTaihoInitial = (props: any) => {
@@ -149,8 +149,7 @@ const BigTaihoInitial = (props: any) => {
                                         </TableRow>
                                     );
                                 }else{
-                                    if(item.rcv_mayur && item.rcv_hamsa && item.rcv_dpds && item.rcv_sorting 
-                                        && item.rcv_wholes  && item.rcv_lw  && (parseFloat(item.current_backlog)>0 )){
+                                    if(item.rcv_peeling && (parseFloat(item.current_backlog)>0 )){
                                         return (
                                             <TableRow key={idx}>
                                                 <TableCell className="text-center">
