@@ -728,7 +728,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className="text-center" >JK/K (Sorting)</TableHead>
                         <TableHead className="text-center" >SP1 (Sorting)</TableHead>
                         <TableHead className="text-center" >JH1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >Husk</TableHead>
+                        <TableHead className="text-center" >RCN⠀Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big⠀Taiho</TableHead>
                         <TableHead className="text-center font-bold" >Total⠀Issue(Kg)</TableHead>
@@ -885,7 +885,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent  className="max-w-5xl">
+                                                        <DialogContent  className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Peeling Entry Modification</p>
@@ -932,7 +932,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
+                                        <TableCell className="text-center bg-blue-200">{formatNumber(item.Rejection)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
                                         <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.TotalInput)-parseFloat(item.difference)).toString())} </TableCell>
 

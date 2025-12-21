@@ -161,7 +161,7 @@ export const getDPDSLot = async (req: Request, res: Response) => {
         const status = req.params.status;
         const scoopingLot = await DPDS.findAll({
 
-            attributes: ['LotNo', 'origin', 'current_backlog', 'rcv_dp', 'rcv_ds', 'rcv_dp1','rcv_Sorting'],
+            attributes: ['LotNo', 'origin', 'current_backlog', 'rcv_dp', 'rcv_ds', 'rcv_dp1','rcv_Sorting','rcv_transfer'],
             where: {
                 Status: status
             }

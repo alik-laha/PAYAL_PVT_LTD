@@ -862,7 +862,7 @@ const HamsaTable = (props:any) => {
         <>
 
         <div className="ml-5 mt-5 ">
-            <div className="w-full">
+          {props.props === 'non-edit' &&  <div className="w-full">
                     <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setsearchType(e.target.value)} value={searchType}>
@@ -874,8 +874,8 @@ const HamsaTable = (props:any) => {
                             </option>
                         ))}
                     </select>
-                </div>
-            <div className="flex flexbox-search">
+                </div>}
+            {props.props === 'non-edit' && <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
@@ -917,7 +917,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
-            </div>
+            </div>}
             {checkpending('Hamsa') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
@@ -1019,7 +1019,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableBody>
 
 
-                    {EditData.length > 0 ? (EditData.map((item: HamsaData, idx) => {
+                    {EditData.length > 0 && props.props==='edit'? (EditData.map((item: HamsaData, idx) => {
 
                         return (
                             <TableRow key={item.id}>
