@@ -493,8 +493,10 @@ const RCNScoopingTable = (props:any) => {
                         
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Origin</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping⠀Date</TableHead>
+                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Opening⠀(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Receiving⠀(Kg)</TableHead>
+                        
                      
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Uncut⠀(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Unscoop⠀(Kg)</TableHead>
@@ -510,7 +512,7 @@ const RCNScoopingTable = (props:any) => {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >SuperVisor⠀(Common)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Operator⠀(total)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Female⠀(total)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                       
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried⠀By </TableHead>
                        
                     </TableHeader>
@@ -550,6 +552,17 @@ const RCNScoopingTable = (props:any) => {
                                        
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                                                                                                          ${item.editStatus === "Approved"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "NA"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Opening_Qty))} </TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Receiving_Qty))} </TableCell>
 
@@ -574,7 +587,7 @@ const RCNScoopingTable = (props:any) => {
                                         <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
                                         <TableCell className="text-center ">{item.noOfOperators}</TableCell>
                                         <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                      
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                       
                                     </TableRow>
@@ -613,7 +626,17 @@ const RCNScoopingTable = (props:any) => {
                                         <TableCell className="text-center font-semibold text-orange-600">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                       
+                                       <TableCell className="text-center" > <button
+                                                                               className={`p-2 rounded w-20 border 
+                                                                                                                         ${item.editStatus === "Approved"
+                                                                                       ? "text-green-600 border-green-600 bg-green-50"
+                                                                                       : item.editStatus === "NA"
+                                                                                           ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                           : "text-red-600 border-red-600 bg-red-50"
+                                                                                   }`}
+                                                                           >
+                                                                               {item.editStatus}
+                                                                           </button></TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Opening_Qty))} </TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Receiving_Qty))} </TableCell>
 
@@ -635,7 +658,7 @@ const RCNScoopingTable = (props:any) => {
                                         <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
                                         <TableCell className="text-center ">{item.noOfOperators}</TableCell>
                                         <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                  
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
 
 

@@ -518,6 +518,7 @@ const RCNBoilingTable = (props:any) => {
 
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Scooping⠀Line⠀Name</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Boiling⠀Date </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Machine⠀Name</TableHead>
                  
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Size</TableHead>
@@ -533,7 +534,7 @@ const RCNBoilingTable = (props:any) => {
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >MC⠀Run⠀Duration</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Labour</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Entried⠀By</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-200 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                
                    
 
                 </TableHeader>
@@ -604,6 +605,17 @@ const RCNBoilingTable = (props:any) => {
 
 
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+                                                                                  ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "NA"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
                                   
                                     <TableCell className="text-center font-bold">{item.SizeName}</TableCell>
@@ -619,7 +631,7 @@ const RCNBoilingTable = (props:any) => {
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                            
 
                                   
                                 </TableRow>
@@ -661,6 +673,17 @@ const RCNBoilingTable = (props:any) => {
                                     <TableCell className="text-center font-semibold text-green-600">{item.Scooping_Line_Mc}</TableCell>
 
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center" > <button
+                                                                            className={`p-2 rounded w-20 border 
+                                                                                                                      ${item.editStatus === "Approved"
+                                                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                                                    : item.editStatus === "NA"
+                                                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                                                }`}
+                                                                        >
+                                                                            {item.editStatus}
+                                                                        </button></TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
                            
 
@@ -677,7 +700,7 @@ const RCNBoilingTable = (props:any) => {
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                              
 
 
 

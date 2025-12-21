@@ -708,7 +708,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Peeling⠀Date</TableHead>
-                       
+                          <TableHead className="text-center" >Edit⠀Status </TableHead>
                        
                         <TableHead className="text-center" >Pressure</TableHead>
                         <TableHead className="text-center " >Moisture⠀(Min-Max)</TableHead>
@@ -743,7 +743,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className="text-center" >Operator (Day)</TableHead>
                         <TableHead className="text-center" >Operator (Night)</TableHead>
                         <TableHead className="text-center" >Operator (Husk)</TableHead>
-                        <TableHead className="text-center" >Edit⠀Status </TableHead>
+                     
                         <TableHead className="text-center" >Created⠀By </TableHead>
                    
                     </TableHeader>
@@ -814,7 +814,17 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                 <TableCell className="text-center font-bold text-red-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                        <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                        
                                         <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
                                         <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
@@ -851,7 +861,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
                             
                                 </TableRow>
@@ -890,7 +900,17 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center font-bold text-red-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-blue-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                      <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                        
                                            <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>
                                            <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
@@ -927,7 +947,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                       
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                                         

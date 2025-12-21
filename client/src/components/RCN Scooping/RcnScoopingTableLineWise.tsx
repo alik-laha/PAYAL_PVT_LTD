@@ -50,6 +50,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                 <TableHead className="text-center" >Origin</TableHead>
                 <TableHead className="text-center" >Scooping⠀Line</TableHead>
                 <TableHead className="text-center" >Date⠀of⠀Scooping </TableHead>
+                  <TableHead className="text-center" >Edit⠀Status</TableHead>
                 
                 <TableHead className="text-center" >Size</TableHead>
                 <TableHead className="text-center" >Opening⠀(Kg)</TableHead>
@@ -81,7 +82,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                 <TableHead className="text-center" >SuperVisor⠀(Common)</TableHead>
                 <TableHead className="text-center" >Operator⠀(Total)</TableHead>
                 <TableHead className="text-center" >Female⠀(Total) </TableHead>
-                <TableHead className="text-center" >Edit⠀Status</TableHead>
+              
                 <TableHead className="text-center" >BreakDown⠀Reason</TableHead>
                 <TableHead className="text-center" >Entried⠀By</TableHead>
 
@@ -96,7 +97,17 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                             <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                             <TableCell className="text-center  font-semibold text-cyan-600 ">{item.Scooping_Line_Mc}</TableCell>
                             <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                           
+                           <TableCell className="text-center" > <button
+                                                                   className={`p-2 rounded w-20 border 
+                                                                                                             ${item.editStatus === "Approved"
+                                                                           ? "text-green-600 border-green-600 bg-green-50"
+                                                                           : item.editStatus === "NA"
+                                                                               ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                               : "text-red-600 border-red-600 bg-red-50"
+                                                                       }`}
+                                                               >
+                                                                   {item.editStatus}
+                                                               </button></TableCell>
                            
                             <TableCell className="text-center ">{item.SizeName}</TableCell>
                             <TableCell className="text-center ">{formatNumber(parseFloat(item.Opening_Qty))} </TableCell>
@@ -133,7 +144,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                             <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
                             <TableCell className="text-center ">{item.noOfOperators}</TableCell>
                             <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
-                            <TableCell className="text-center ">{item.editStatus}</TableCell>
+                           
                             <TableCell className="text-center">{item.Brkdwn_reason}</TableCell>
                             <TableCell className="text-center ">{item.CreatedBy}</TableCell>
 

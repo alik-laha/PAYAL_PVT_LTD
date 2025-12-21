@@ -402,6 +402,8 @@ const RcnPrimaryEntryTable = (props:any) => {
                  
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Date⠀of⠀Receiving </TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Edit⠀Status </TableHead>
+                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >QC⠀Status</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >BL⠀No</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Container⠀No</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Enrty⠀Vehicle⠀No</TableHead>
@@ -411,8 +413,8 @@ const RcnPrimaryEntryTable = (props:any) => {
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Difference⠀(Kg)</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Physical⠀Bag</TableHead>
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >System⠀Bag</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >QC⠀Status</TableHead>
-                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}  >Edit⠀Status </TableHead>
+                   
+                    
                     <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entried⠀By </TableHead>
                  
 
@@ -481,19 +483,18 @@ const RcnPrimaryEntryTable = (props:any) => {
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
-                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
-                                    <TableCell className="text-center">{item.blWeight} </TableCell>
-                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
-
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
-
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
-                                    <TableCell className="text-center ">
+                                   <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Approved"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "NA"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
+                                                                             <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
                                                                                 <p className="flex flex-row justify-center">
                                                                                   <SiTicktick color="green" size={18} />
@@ -510,8 +511,20 @@ const RcnPrimaryEntryTable = (props:any) => {
                                             <button className="bg-white p-2 text-red-500 rounded w-28 border font-semibold border-red-300">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                        'NA' : item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.blNo}</TableCell>
+                                    <TableCell className="text-center">{item.conNo}</TableCell>
+                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                    <TableCell className="text-center">{item.blWeight} </TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
+
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
+
+                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
+                                   
+                                    
                                     <TableCell className="text-center">{item.editedBy}</TableCell>
                                     
                                 </TableRow>
@@ -549,17 +562,18 @@ const RcnPrimaryEntryTable = (props:any) => {
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
-                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
-                                    <TableCell className="text-center">{item.blWeight} </TableCell>
-                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
-                                    <TableCell className="text-center">
+                                     <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Approved"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "NA"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
+                                                                            <TableCell className="text-center">
                                          {item.rcnStatus === 'QC Approved' ? (
                                                                                 <p className="flex flex-row justify-center">
                                                                                   <SiTicktick color="green" size={18} />
@@ -576,8 +590,18 @@ const RcnPrimaryEntryTable = (props:any) => {
                                             <button className="bg-white p-2 text-red-500 rounded w-28 border font-semibold border-red-300">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                        'NA' : item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.blNo}</TableCell>
+                                    <TableCell className="text-center">{item.conNo}</TableCell>
+                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                    <TableCell className="text-center">{item.blWeight} </TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
+                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
+                                    
+                                    
                                     <TableCell className="text-center">{item.receivedBy}</TableCell>
                                    
                                 </TableRow>

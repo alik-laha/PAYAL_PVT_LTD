@@ -522,6 +522,7 @@ const IssueTable = (props:any) => {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀ID</TableHead>
                         
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Date⠀Of⠀Issue</TableHead>
+                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status</TableHead>
                     
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Unit</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Section</TableHead>
@@ -539,7 +540,7 @@ const IssueTable = (props:any) => {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage⠀Quantity</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Damage⠀Unit</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀Item⠀Remarks</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                       
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By</TableHead>
                        {props.props==='non-edit' && <TableHead className="text-center" >Actioned⠀By</TableHead>}
                       
@@ -611,6 +612,17 @@ const IssueTable = (props:any) => {
                                         </TableCell>
                                         <TableCell className="text-center font-semibold text-red-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                            <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+      ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "NA"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                        
                                         <TableCell className="text-center ">{item.sectionunit}</TableCell>
                                         <TableCell className="text-left ">{item.section}</TableCell>
@@ -630,7 +642,7 @@ const IssueTable = (props:any) => {
                                         <TableCell className="text-center ">{item.damageunit}</TableCell>
                                         <TableCell className="text-center ">{item.remarks}</TableCell>
                                         
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                       
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                        
                                        
@@ -669,7 +681,17 @@ const IssueTable = (props:any) => {
                                         </TableCell>
                                         <TableCell className="text-center font-semibold text-red-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                        <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+      ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "NA"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                         <TableCell className="text-left ">{item.sectionunit}</TableCell>
                                         <TableCell className="text-left ">{item.section}</TableCell>
                                         <TableCell className="text-left ">{item.subsection}</TableCell>
@@ -687,7 +709,7 @@ const IssueTable = (props:any) => {
                                         <TableCell className="text-center ">{item.damageunit}</TableCell>
                                         <TableCell className="text-center ">{item.remarks}</TableCell>
                                         
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                   
                                         <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                       {props.props==='non-edit' &&  <TableCell className="text-center ">{item.modifiedBy}</TableCell>}
 
