@@ -383,28 +383,28 @@ const HumidTable = (props:any) => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                      <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Humidify⠀Date</TableHead>
-                            <TableHead className="text-center" >Edit⠀Status</TableHead>
-                        <TableHead className="text-center" >Input⠀Moisture</TableHead>
-                        <TableHead className="text-center" >Output⠀Moisture</TableHead>
-                        <TableHead className="text-center ">Total⠀Input⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                      <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item⠀Lot⠀No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Humidify⠀Date</TableHead>
+                            <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Input⠀Moisture</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Output⠀Moisture</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
                         
-                        <TableHead className="text-center " >Total⠀Output⠀(Kg)</TableHead>
-                        <TableHead className="text-center" >Moisture⠀Gain</TableHead>
-                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
-                        <TableHead className="text-center" >Humidifier⠀ON</TableHead>
-                        <TableHead className="text-center" >Humidifier⠀OFF</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Output⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Moisture⠀Gain</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Humidifier⠀ON</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Humidifier⠀OFF</TableHead>
                         
-                        <TableHead className="text-center" >Breakdown</TableHead>
-                        <TableHead className="text-center" >Other</TableHead>
-                        <TableHead className="text-center" >MC⠀Run⠀Duration</TableHead>
-                        <TableHead className="text-center" >No⠀Of⠀Operator</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Breakdown</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Other</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >MC⠀Run⠀Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Operator</TableHead>
                     
-                        <TableHead className="text-center" >Created⠀By </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
                       
                     </TableHeader> 
                     <TableBody>
@@ -520,7 +520,7 @@ const HumidTable = (props:any) => {
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-5xl">
+                                                        <DialogContent className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Humidifier Entry Modification</p>

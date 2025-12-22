@@ -861,104 +861,159 @@ const HamsaTable = (props:any) => {
     return (
         <>
 
-        <div className="ml-5 mt-5 ">
-          {props.props === 'non-edit' &&  <div className="w-full">
-                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+        <div className="mx-2 mt-5 ">
+           {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
 
-                        {dropdown.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
+                     {/* Type */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot Type
+                        </label> */}
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
+                            onChange={(e) => setsearchType(e.target.value)}
+                            value={searchType}
+                        >
+                           
+                            {dropdown.map((data, index) => (
+                                <option key={index} value={data} className="bg-white">
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Lot No. / Line Name */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No
+                        </label> */}
+                        <Input
+                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                            placeholder="Lot No."
+                            value={blConNo}
+                            onChange={(e) => setBlConNo(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Origin */}
+                    <div className="flex flex-col gap-1">
+                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                        <select
+                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                            onChange={(e) => setOrigin(e.target.value)}
+                            value={origin}
+                        >
+                            <option value="">Origin (All)</option>
+                            {Origin.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+
+                      {/* From Date */}
+                                                       <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                                         <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                                           From
+                                                         </label>
+                                                         <Input
+                                                           type="date"
+                                                           className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                                           value={fromdate}
+                                                           onChange={(e) => setfromDate(e.target.value)}
+                                                         />
+                                                       </div>
+                                           
+                                                       {/* To Date */}
+                                                       <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                                         <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                                           To
+                                                         </label>
+                                                         <Input
+                                                           type="date"
+                                                           className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                                           value={todate}
+                                                           onChange={(e) => settoDate(e.target.value)}
+                                                         />
+                                                       </div>
+
+                   
+
+
+                    {/* Search & Export Buttons */}
+                    <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                        <Button
+                            className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            onClick={handleSearch}
+                        >
+                            <FaSearch size={14} />
+                            Search
+                        </Button>
+
+                        {checkpending('Hamsa') && (
+                            <Button
+                                className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button>
+                        )}
+                    </div>
+
+                    </div>
+
                 </div>}
-            {props.props === 'non-edit' && <div className="flex flexbox-search">
-
-                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-<option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
-
-
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
-
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                     value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
-
-               
-
-
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
-            </div>}
-            {checkpending('Hamsa') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+         
+            {props.props==='edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
 
                     <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Issue_Type</TableHead>
-                    
-                    <TableHead className="text-center" >Item_Lot_No</TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >Hamsa_Entry_Date</TableHead>
-<TableHead className="text-center font-bold">Current_Backlog</TableHead>
-                    <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
+                    <TableHead className="text-center" >Issue⠀Type</TableHead>
+                    
+                    <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
+                    <TableHead className="text-center" >Origin</TableHead>
+                    <TableHead className="text-center" >Issue⠀No</TableHead>
+                     <TableHead className="text-center" >Edit⠀Status </TableHead>
+                    <TableHead className="text-center" >Hamsa⠀Entry⠀Date</TableHead>
+<TableHead className="text-center font-bold">Current⠀Backlog</TableHead>
+                    <TableHead className="text-center" >Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
+                    
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">PW_W/ V_PW_W</TableHead>
-                    <TableHead className="text-center">W_Lot/ V_W_Lot</TableHead>
-                    <TableHead className="text-center">WW/ V_WW</TableHead>
+                    <TableHead className="text-center">PW⠀W/ V⠀PW⠀W</TableHead>
+                    <TableHead className="text-center">W⠀Lot/ V⠀W⠀Lot</TableHead>
+                    <TableHead className="text-center">WW/ V⠀WW</TableHead>
                     <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
-                    <TableHead className="text-center">Hamsa Total_Opening</TableHead>
-                    <TableHead className="text-center">PW_210/ V_PW_210</TableHead>
-                    <TableHead className="text-center">W_210/ V_W_210</TableHead>
-                    <TableHead className="text-center">WW_210/ V_WW_210</TableHead>
-                    <TableHead className="text-center">PW_240/ V_PW_240</TableHead>
-                        <TableHead className="text-center">W_240/ V_W_240</TableHead>
-                        <TableHead className="text-center">WW_240/ V_WW_240</TableHead>
-                        <TableHead className="text-center">PW_280/ V_PW_280</TableHead>
-                        <TableHead className="text-center">W_280/ V_W_280</TableHead>
-                        <TableHead className="text-center">WW_280/ V_WW_280</TableHead>
-                        <TableHead className="text-center">PW_320/ V_PW_320</TableHead>
-                        <TableHead className="text-center">W_320/ V_W_320</TableHead>
-                        <TableHead className="text-center">WW_320/ V_WW_320</TableHead>
-                        <TableHead className="text-center">PW_360/ V_PW_360</TableHead>
-                        <TableHead className="text-center">W_360/ V_W_360</TableHead>
-                        <TableHead className="text-center">WW_360/ V_WW_360</TableHead>
-                        <TableHead className="text-center">PW_400/ V_PW_400</TableHead>
-                        <TableHead className="text-center">W_400/ V_W_400</TableHead>
-                        <TableHead className="text-center">WW_400/ V_WW_400</TableHead>
+                    <TableHead className="text-center">Hamsa Total⠀Opening</TableHead>
+                    <TableHead className="text-center">PW⠀210/ V⠀PW⠀210</TableHead>
+                    <TableHead className="text-center">W⠀210/ V⠀W⠀210</TableHead>
+                    <TableHead className="text-center">WW⠀210/ V⠀WW⠀210</TableHead>
+                    <TableHead className="text-center">PW⠀240/ V⠀PW⠀240</TableHead>
+                        <TableHead className="text-center">W⠀240/ V⠀W⠀240</TableHead>
+                        <TableHead className="text-center">WW⠀240/ V⠀WW⠀240</TableHead>
+                        <TableHead className="text-center">PW⠀280/ V⠀PW⠀280</TableHead>
+                        <TableHead className="text-center">W⠀280/ V⠀W⠀280</TableHead>
+                        <TableHead className="text-center">WW⠀280/ V⠀WW⠀280</TableHead>
+                        <TableHead className="text-center">PW⠀320/ V⠀PW⠀320</TableHead>
+                        <TableHead className="text-center">W⠀320/ V⠀W⠀320</TableHead>
+                        <TableHead className="text-center">WW⠀320/ V⠀WW⠀320</TableHead>
+                        <TableHead className="text-center">PW⠀360/ V⠀PW⠀360</TableHead>
+                        <TableHead className="text-center">W⠀360/ V⠀W⠀360</TableHead>
+                        <TableHead className="text-center">WW⠀360/ V⠀WW⠀360</TableHead>
+                        <TableHead className="text-center">PW⠀400/ V⠀PW⠀400</TableHead>
+                        <TableHead className="text-center">W⠀400/ V⠀W⠀400</TableHead>
+                        <TableHead className="text-center">WW⠀400/ V⠀WW⠀400</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
                     {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
@@ -971,49 +1026,49 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
-                    <TableHead className="text-center font-bold">Hamsa Total_Issue(Kg)</TableHead>
+                    <TableHead className="text-center font-bold">Hamsa Total⠀Issue(Kg)</TableHead>
                     
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     
                     <TableHead className="text-center">Mc On (Hamsa_1)</TableHead>
                     <TableHead className="text-center">Mc Off (Hamsa_1)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-1)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-1)</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown (Hamsa-1)</TableHead>
+                    <TableHead className="text-center">Other⠀Time (Hamsa-1)</TableHead>
                     <TableHead className="text-center">Mc On (Hamsa_2)</TableHead>
                     <TableHead className="text-center">Mc Off (Hamsa_2)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-2)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-2)</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown (Hamsa-2)</TableHead>
+                    <TableHead className="text-center">Other⠀Time (Hamsa-2)</TableHead>
                     <TableHead className="text-center">Mc On (Hamsa_3)</TableHead>
                     <TableHead className="text-center">Mc Off (Hamsa_3)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-3)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-3)</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown (Hamsa-3)</TableHead>
+                    <TableHead className="text-center">Other⠀Time (Hamsa-3)</TableHead>
                     <TableHead className="text-center">Mc On (Hamsa_4)</TableHead>
                     <TableHead className="text-center">Mc Off (Hamsa_4)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-4)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-4)</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown (Hamsa-4)</TableHead>
+                    <TableHead className="text-center">Other⠀Time (Hamsa-4)</TableHead>
                     <TableHead className="text-center">Mc On (Hamsa_5)</TableHead>
                     <TableHead className="text-center">Mc Off (Hamsa_5)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-5)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-5)</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown (Hamsa-5)</TableHead>
+                    <TableHead className="text-center">Other⠀Time (Hamsa-5)</TableHead>
                     <TableHead className="text-center">Mc On (Spectrum)</TableHead>
                     <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
-                    <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown (Spectrum)</TableHead>
+                    <TableHead className="text-center">Other⠀Time (Spectrum)</TableHead>
                    
                    
-                    <TableHead className="text-center">Runtime_Hamsa_1</TableHead>
-                    <TableHead className="text-center">Runtime_Hamsa_2</TableHead>
-                    <TableHead className="text-center">Runtime_Hamsa_3</TableHead>
-                    <TableHead className="text-center">Runtime_Hamsa_4</TableHead>
-                    <TableHead className="text-center">Runtime_Hamsa_5</TableHead>
-                    <TableHead className="text-center">Runtime_Spectrum</TableHead>
+                    <TableHead className="text-center">Runtime⠀Hamsa⠀1</TableHead>
+                    <TableHead className="text-center">Runtime⠀Hamsa⠀2</TableHead>
+                    <TableHead className="text-center">Runtime⠀Hamsa⠀3</TableHead>
+                    <TableHead className="text-center">Runtime⠀Hamsa⠀4</TableHead>
+                    <TableHead className="text-center">Runtime⠀Hamsa⠀5</TableHead>
+                    <TableHead className="text-center">Runtime⠀Spectrum</TableHead>
                 
            
-                    <TableHead className="text-center">Operator_Day</TableHead>
-                    <TableHead className="text-center">Operator_Night</TableHead>
+                    <TableHead className="text-center">Operator⠀Day</TableHead>
+                    <TableHead className="text-center">Operator⠀Night</TableHead>
                
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Created By </TableHead>
+                   
+                    <TableHead className="text-center" >Created⠀By </TableHead>
                     
                 </TableHeader>
                 <TableBody>
@@ -1024,52 +1079,83 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         return (
                             <TableRow key={item.id}>
                             <TableCell className="text-center">{idx + 1}</TableCell>
+                             <TableCell className="text-center flex flex-row gap-3">
+
+
+                                        <AlertDialog>
+                                            <AlertDialogTrigger >
+                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent  >
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Approve the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleApprove(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Decline the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleRejection(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+
+
+                                    </TableCell>
                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                     
                             <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                     <TableCell className="text-center" > <button
+                                                                                    className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                          ${item.editStatus === "Approved"
+                                                                                            ? "text-green-600 border-green-600 bg-green-50"
+                                                                                            : item.editStatus === "NA"
+                                                                                                ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                                : "text-red-600 border-red-600 bg-red-50"
+                                                                                        }`}
+                                                                                >
+                                                                                    {item.editStatus}
+                                                                                </button></TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                                                   <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
 
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                      <TableCell className="text-center">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
+                                 
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center ">{formatNumber(item.rcv_pw_w)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_w_lot)}</TableCell>
@@ -1168,7 +1254,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                 
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                           
@@ -1178,20 +1264,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             return (
                                 <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                    
-                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                                                  <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
-
-                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
-<TableCell className="text-center">
+                                    <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
-                                            </PopoverTrigger>
+                                                    <button className={`p-2 ${item.editStatus === 'Pending' || item.latest === 0? 'text-red-500 bg-red-50 w-20 border border-red-300 font-semibold rounded-lg' : 'text-blue-500 bg-blue-50 w-20 border border-blue-300 font-bold rounded-lg'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                                </PopoverTrigger>
                                             <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
@@ -1240,6 +1317,27 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                             
                                         </Popover>
                                     </TableCell>
+                                    <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                    
+                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                      <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                      ${item.editStatus === "Approved"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "NA"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                                                  <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
+                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
+
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center ">{formatNumber(item.rcv_pw_w)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_w_lot)}</TableCell>
@@ -1335,7 +1433,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                  
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     
                                 </TableRow>
@@ -1362,30 +1460,44 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </TableBody>
 
             </Table>
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 1) {
-                                return prev
-                            }
-                            if (prev <= 0) {
-                                return prev + 1
-                            }
-                            return prev - 1
-                        })} />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+           <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
             <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
             <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
             <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

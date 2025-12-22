@@ -703,48 +703,48 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Peeling⠀Date</TableHead>
-                          <TableHead className="text-center" >Edit⠀Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item⠀Lot⠀No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Date</TableHead>
+                          <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
                        
-                        <TableHead className="text-center" >Pressure</TableHead>
-                        <TableHead className="text-center " >Moisture⠀(Min-Max)</TableHead>
-                        <TableHead className="text-center" >Peeling⠀Time</TableHead>
-                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
-                        <TableHead className="text-center ">Total⠀Input⠀(Kg)</TableHead>
-                        <TableHead className="text-center" >Pieces⠀Unpeel (Village)</TableHead>
-                        <TableHead className="text-center" >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
-                        <TableHead className="text-center" >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pressure</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Moisture⠀(Min⠀:⠀Max)⠀%</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
                        
-                        <TableHead className="text-center" >DP (DP&DS)</TableHead>
-                        <TableHead className="text-center" >DS (DP&DS)</TableHead>
-                        <TableHead className="text-center" >DP1 (DP&DS)</TableHead>
-                        <TableHead className="text-center" >JJH (Sorting)</TableHead>
-                        <TableHead className="text-center" >SJH (Sorting)</TableHead>
-                        <TableHead className="text-center" >SJH1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >JK/K (Sorting)</TableHead>
-                        <TableHead className="text-center" >SP1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >JH1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >RCN⠀Husk</TableHead>
-                        <TableHead className="text-center" >Rejection</TableHead>
-                        <TableHead className="text-center" >Big⠀Taiho</TableHead>
-                        <TableHead className="text-center font-bold" >Total⠀Issue(Kg)</TableHead>
-                        <TableHead className="text-center font-bold" >Total⠀Backlog</TableHead>
-                        <TableHead className="text-center" >Peeling⠀ON</TableHead>
-                        <TableHead className="text-center" >Peeling⠀OFF</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DP (DP&DS)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DS (DP&DS)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>DP1 (DP&DS)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >JJH (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >SJH (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >SJH1 (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >JK/K (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>SP1 (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>JH1 (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >RCN⠀Husk</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Rejection</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Big⠀Taiho</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Issue(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Backlog</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Peeling⠀ON</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀OFF</TableHead>
                         
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
-                        <TableHead className="text-center" >Run Duration</TableHead>
-                        <TableHead className="text-center" >No Of Operator</TableHead>
-                        <TableHead className="text-center" >Operator (Day)</TableHead>
-                        <TableHead className="text-center" >Operator (Night)</TableHead>
-                        <TableHead className="text-center" >Operator (Husk)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Breakdown Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Other Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Run Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No Of Operator</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Operator (Day)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Operator (Night)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Operator (Husk)</TableHead>
                      
-                        <TableHead className="text-center" >Created⠀By </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
                    
                     </TableHeader>
                     <TableBody>
