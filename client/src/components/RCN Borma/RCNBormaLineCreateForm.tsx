@@ -196,7 +196,7 @@ const RCNBormaLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Output⠀Wholes⠀(Kg)</TableHead>
                         <TableHead className="text-center" >Output⠀Pieces⠀(Kg)</TableHead>
                         <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
-                        <TableHead className="text-center" >Temp</TableHead>
+                        <TableHead className="text-center" >Temparature</TableHead>
                         <TableHead className="text-center" >Borma⠀On</TableHead>
                         <TableHead className="text-center" >Borma⠀Off</TableHead>
                         <TableHead className="text-center" >Breakdown⠀Duration</TableHead>

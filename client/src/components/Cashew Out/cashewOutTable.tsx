@@ -464,6 +464,7 @@ const CashewOutTable = (props: any) => {
                   <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Action</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >GatePass⠀No</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Dispatch⠀Date</TableHead>
+                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Edit⠀Status </TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Enrty⠀Vehicle⠀No</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Initial⠀Weight(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Final⠀Cashew⠀Invoice⠀No</TableHead>
@@ -476,7 +477,7 @@ const CashewOutTable = (props: any) => {
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Mapping⠀Weight(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Actual⠀Count⠀(Pouch/Bucket)</TableHead>
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Actual⠀Weight(Kg)</TableHead>
-                        <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Edit⠀Status </TableHead>
+                       
                         <TableHead className={`text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`} >Created⠀By </TableHead>
                       
                     </TableHeader>
@@ -546,7 +547,17 @@ const CashewOutTable = (props: any) => {
                                     <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
 
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-
+                                    <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+                                                                                  ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "NA"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
                                     <TableCell className="text-center">{item.invoice}</TableCell>
@@ -600,6 +611,17 @@ const CashewOutTable = (props: any) => {
                                         <TableCell className="text-center font-bold text-red-500">{item.gatePassNo}</TableCell>
 
                                         <TableCell className="text-center font-semibold text-cyan-500">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+                                                                                  ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "NA"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
 
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
@@ -613,7 +635,7 @@ const CashewOutTable = (props: any) => {
                                         <TableCell className="text-center font-bold text-green-500" >{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.noOfActualBags)}</TableCell>
                                         <TableCell className="text-center font-bold text-red-500" >{formatNumber(item.actualquantity)}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                      
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                    
                                     </TableRow>

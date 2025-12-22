@@ -803,64 +803,66 @@ const MayurTable = (props:any) => {
                     <TableHeader className="bg-neutral-200 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Mayur_Issue_Type</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Mayur⠀Issue⠀Type</TableHead>
                         
-                        <TableHead className="text-center" >Item_Lot_No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Issue_No</TableHead>
-                        <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
- <TableHead className="text-center font-bold">Current_Backlog</TableHead>
-                        <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item⠀Lot⠀No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Issue⠀No</TableHead>
+                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mayur⠀Entry⠀Date</TableHead>
+                       
+ <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Current⠀Backlog</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
                          
                         {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                        <TableHead className="text-center">Wholes_Peel/ Wholes_&_JB</TableHead>
-                    <TableHead className="text-center">Wholes_Unpeel/ LW</TableHead>
-                    <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Receive DPDS</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
-                    <TableHead className="text-center">Receive Village</TableHead>
-                    <TableHead className="text-center">Mayur Total_Opening</TableHead>
-                    <TableHead className="text-center">PW_W / V_PW_W</TableHead>
-                    <TableHead className="text-center">W_Lot / V_W_Lot</TableHead>
-                    <TableHead className="text-center">WW / V_WW</TableHead>
-                    <TableHead className="text-center">Issue Hamsa</TableHead>
-                    <TableHead className="text-center">Issue Rejection</TableHead>
-                    <TableHead className="text-center">Issue Village</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Wholes⠀Peel/ Wholes⠀&⠀JB</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Wholes⠀Unpeel/ LW</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receive Peeling</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receive DPDS</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receive Sorting</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Receive Village</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mayur⠀Total⠀Opening</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>PW⠀W / V⠀PW⠀W</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>W⠀Lot / V⠀W⠀Lot</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>WW / V⠀WW</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue Hamsa</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue Rejection</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue Village</TableHead>
                     
-                    <TableHead className="text-center">Issue LW</TableHead>
-                    <TableHead className="text-center">Issue JB</TableHead>
-                    <TableHead className="text-center">Issue Big_Taiho</TableHead>
-                    <TableHead className="text-center font-bold">Mayur Total_Issue(Kg)</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue LW</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue JB</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Issue Big⠀Taiho</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mayur Total⠀Issue⠀(Kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                    
-                    <TableHead className="text-center">Mc_On_133</TableHead>
-                    <TableHead className="text-center">Mc_Off_133</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
-                    <TableHead className="text-center">Other_Time 133</TableHead>
-                    <TableHead className="text-center">Mc_On_331</TableHead>
-                    <TableHead className="text-center">Mc_Off_331</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 331</TableHead>
-                    <TableHead className="text-center">Other_Time 331</TableHead>
-                    <TableHead className="text-center">Mc_On_292</TableHead>
-                    <TableHead className="text-center">Mc_Off_292</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 292</TableHead>
-                    <TableHead className="text-center">Other_Time 292</TableHead>
-                    <TableHead className="text-center">Mc_On_293</TableHead>
-                    <TableHead className="text-center">Mc_Off_293</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
-                    <TableHead className="text-center">Other_Time 293</TableHead>
-                    <TableHead className="text-center">Runtime_133</TableHead>
-                    <TableHead className="text-center">Runtime_331</TableHead>
-                    <TableHead className="text-center">Runtime_292</TableHead>
-                    <TableHead className="text-center">Runtime_293</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀On⠀133</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Off⠀133</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Breakdown 133</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Other⠀Time 133</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀On⠀331</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Off⠀331</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Breakdown 331</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Other⠀Time 331</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀On⠀292</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Off⠀292</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Breakdown 292</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Other⠀Time 292</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀On⠀293</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Off⠀293</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Mc⠀Breakdown 293</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Other⠀Time 293</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Runtime⠀133</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Runtime⠀331</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Runtime⠀292</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Runtime⠀293</TableHead>
                
-                    <TableHead className="text-center">Operator_Day</TableHead>
-                    <TableHead className="text-center">Operator_Night</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Operator⠀Day</TableHead>
+                    <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Operator⠀Night</TableHead>
                    
-                        <TableHead className="text-center" >Edit Status </TableHead>
-                        <TableHead className="text-center" >Created By </TableHead>
+                        
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
                        
                     </TableHeader>
                     <TableBody>
@@ -932,8 +934,20 @@ const MayurTable = (props:any) => {
                                         <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                       
+                                         <TableCell className="text-center" > <button
+                                                                                    className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                          ${item.editStatus === "Approved"
+                                                                                            ? "text-green-600 border-green-600 bg-green-50"
+                                                                                            : item.editStatus === "NA"
+                                                                                                ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                                : "text-red-600 border-red-600 bg-red-50"
+                                                                                        }`}
+                                                                                >
+                                                                                    {item.editStatus}
+                                                                                </button></TableCell>
                                                                           <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+                                                                           <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
 
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                       
@@ -1000,7 +1014,7 @@ const MayurTable = (props:any) => {
 
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                     
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                                 
@@ -1074,7 +1088,19 @@ const MayurTable = (props:any) => {
                                         <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                       
+                                         <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
+                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                                                           <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)} kg</TableCell>
 
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
@@ -1140,7 +1166,7 @@ const MayurTable = (props:any) => {
 
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                   
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                                         
@@ -1168,30 +1194,44 @@ const MayurTable = (props:any) => {
                     </TableBody>
 
                 </Table>
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+             <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
                 <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

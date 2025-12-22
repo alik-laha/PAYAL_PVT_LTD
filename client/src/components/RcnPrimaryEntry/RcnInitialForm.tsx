@@ -47,12 +47,13 @@ const RCNInitialForm = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="px-2 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >GatePass No</TableHead>
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                        <TableHead className="text-center" >GatePass⠀No</TableHead>
+                        <TableHead className="text-center" >GatePass⠀Type</TableHead>
                         <TableHead className="text-center" >Status</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
@@ -67,8 +68,12 @@ const RCNInitialForm = (props: any) => {
                                         <TableCell className="text-center">
                                             {idx + 1}
                                         </TableCell>
-                                        <TableCell className="text-center font-semibold">
+                                        <TableCell className="text-center text-red-500 font-semibold">
                                             {item.gatePassNo}
+                                        </TableCell>
+
+                                           <TableCell className="text-center font-semibold">
+                                          IN
                                         </TableCell>
 
                                         <TableCell className="text-center text-orange-500 font-semibold">PENDING</TableCell>

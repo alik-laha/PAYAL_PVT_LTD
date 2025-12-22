@@ -328,32 +328,33 @@ const GeneralStoreTable = () => {
                             </Button></div>
                             <Table>
                                 <TableHeader className="bg-neutral-100 text-stone-950 ">
-                                    <TableHead className="text-center bg-gray-200 text-gray-700" >Sl_No</TableHead>
+                                    <TableHead className="text-center bg-gray-200 text-gray-700" >Sl⠀No</TableHead>
                                     <TableHead className="text-center bg-gray-100 text-gray-700" >Action</TableHead>
 
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass_No.</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass⠀No</TableHead>
                                     <TableHead className="text-center bg-gray-100 text-gray-700" >Type</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving_Date</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Entry_Vehicle_No</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Initial_Wt(Kg)</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Net_Wt(Kg)</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Item_Invoice_No</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Date</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Type_Of_Material</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Material_Item_Code(SKU)</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor_Name(Store_Item)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving⠀Date</TableHead>
+                                      <TableHead className="text-center bg-gray-100 text-gray-700" >Edit⠀Status</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Entry⠀Vehicle⠀No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Initial⠀Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Net⠀Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Item⠀Invoice⠀No</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice⠀Date</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Type⠀Of⠀Material</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >General⠀Material⠀Item⠀Code(SKU)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor⠀Name(General⠀Item)</TableHead>
 
 
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Qty</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Physical_Qty</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice⠀Qty</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Physical⠀Qty</TableHead>
                                     <TableHead className="text-center bg-gray-100 text-gray-700" >Unit</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Item_Wt(Kg)</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" > Bill_Amount</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Row⠀Item⠀Wt(Kg)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" > Bill⠀Amount</TableHead>
 
 
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Edit_Status</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Store_Item_Remarks(Any)</TableHead>
-                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Forwarded_By</TableHead>
+                                  
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >General⠀Item⠀Remarks(Any)</TableHead>
+                                    <TableHead className="text-center bg-gray-100 text-gray-700" >Forwarded⠀By</TableHead>
 
 
 
@@ -424,6 +425,17 @@ const GeneralStoreTable = () => {
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                          <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Accepted"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "N/A"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                         <TableCell className="text-center ">{item.netWeight}  </TableCell>
@@ -437,7 +449,7 @@ const GeneralStoreTable = () => {
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
                                         <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                           
@@ -581,31 +593,32 @@ const GeneralStoreTable = () => {
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                        <TableHead className="text-center" >Sl_No</TableHead>
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
                           <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >GatePass_No.</TableHead>
+                        <TableHead className="text-center" >GatePass⠀No</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
-                        <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-                          <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >General_Invoice_No</TableHead>
-                           <TableHead className="text-center" >Invoice_Date</TableHead>
-                           <TableHead className="text-center" >Item_Type</TableHead>
-                           <TableHead className="text-center" >General_Item_Code(SKU)</TableHead>
-                        <TableHead className="text-center" >Assigned_Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Receiving⠀Date</TableHead>
+                          <TableHead className="text-center" >Edit⠀Status</TableHead>
+                        <TableHead className="text-center" >Entry⠀Vehicle⠀No</TableHead>
+                          <TableHead className="text-center" >Initial⠀Wt⠀(Kg)</TableHead>
+                           <TableHead className="text-center" >Net⠀Wt⠀(Kg)</TableHead>
+                           <TableHead className="text-center" >General⠀Invoice⠀No</TableHead>
+                           <TableHead className="text-center" >Invoice⠀Date</TableHead>
+                           <TableHead className="text-center" >Item⠀Type</TableHead>
+                           <TableHead className="text-center" >General⠀Item⠀Code⠀(SKU)</TableHead>
+                        <TableHead className="text-center" >Assigned⠀Vendor⠀Name</TableHead>
                         
                        
-                        <TableHead className="text-center" >Invoice_Qty</TableHead>
-                        <TableHead className="text-center" >Physical_Qty</TableHead>
+                        <TableHead className="text-center" >Invoice⠀Qty</TableHead>
+                        <TableHead className="text-center" >Physical⠀Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
-                        <TableHead className="text-center" > Bill_Amount</TableHead>
+                        <TableHead className="text-center" > Row⠀Item⠀Wt⠀(Kg)</TableHead>
+                        <TableHead className="text-center" > Bill⠀Amount</TableHead>
 
-                        <TableHead className="text-center" >Edit_Status</TableHead>
-                        <TableHead className="text-center" >General_Item_Remarks</TableHead>
-                        <TableHead className="text-center" >Entried_By</TableHead>
-                        <TableHead className="text-center" >Actioned_By</TableHead>
+                   
+                        <TableHead className="text-center" >General⠀Item⠀Remarks</TableHead>
+                        <TableHead className="text-center" >Entried⠀By</TableHead>
+                        <TableHead className="text-center" >Actioned⠀By</TableHead>
                       
 
                     </TableHeader>
@@ -646,6 +659,17 @@ const GeneralStoreTable = () => {
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                          <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Accepted"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "N/A"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                         <TableCell className="text-center ">{item.netWeight}  </TableCell>
@@ -659,7 +683,7 @@ const GeneralStoreTable = () => {
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
                                         <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                     
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
@@ -723,27 +747,7 @@ const GeneralStoreTable = () => {
                                                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
                                                        </PaginationItem>
                                                    </PaginationContent>
-                                               </Pagination><Pagination className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+                                               </Pagination>
                 <dialog id="recevingeditapprove" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

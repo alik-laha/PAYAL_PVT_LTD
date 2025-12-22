@@ -317,10 +317,10 @@ console.log(vilLot)
             
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Item_LotNo</TableHead>
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                        <TableHead className="text-center" >Item⠀LotNo</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Total_Input(Kg)</TableHead>
+                        <TableHead className="text-center" >Total⠀Input(Kg)</TableHead>
                          { !LotNo.includes('V')? <TableHead className="text-center" >Pressure</TableHead>:''}
                          { !LotNo.includes('V')? <TableHead className="text-center" >Moisture (Min%_Max%)</TableHead>:''}
                          { !LotNo.includes('V')? <TableHead className="text-center" >Peeling Time (Min(s)_Max(s))</TableHead>:''}
@@ -342,7 +342,7 @@ console.log(vilLot)
                         { !LotNo.includes('V')?  <TableHead className="text-center" >JH1 (Sorting)</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >JK/K (Sorting)</TableHead>:''}
                        { !LotNo.includes('V')?   <TableHead className="text-center" >SP1 (Sorting)</TableHead>:''}
-                        <TableHead className="text-center" >Big_Taiho</TableHead>
+                        <TableHead className="text-center" >Big⠀Taiho</TableHead>
                         <TableHead className="text-center" >Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                     </TableHeader>

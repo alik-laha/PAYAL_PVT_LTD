@@ -406,6 +406,7 @@ const OilMillTable = (props:any) => {
 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >GatePass⠀Type</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Receiving⠀Date</TableHead>
+                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Entry⠀Vehicle⠀No</TableHead>
 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Initial⠀Weight(Kg)</TableHead>
@@ -420,7 +421,7 @@ const OilMillTable = (props:any) => {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bag/Item⠀Count</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Row⠀Weight</TableHead> 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Bill⠀Amount(Rs)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
+                       
                          <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
                          {props.props==='non-edit' && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Actioned⠀By</TableHead>} 
 
@@ -489,7 +490,17 @@ const OilMillTable = (props:any) => {
                                 <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
-
+ <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+                                                                                  ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "N/A"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
                                 <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
                                 <TableCell className="text-center">{item.type}</TableCell>
@@ -503,7 +514,7 @@ const OilMillTable = (props:any) => {
 
                                 <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                              
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
                                
                                 </TableRow>
@@ -540,7 +551,17 @@ const OilMillTable = (props:any) => {
                                         <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
-
+ <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+                                                                                  ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "N/A"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                         <TableCell className="text-center">{item.type}</TableCell>
@@ -554,7 +575,7 @@ const OilMillTable = (props:any) => {
 
                                       <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0} &#8377;</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
                                        
@@ -620,7 +641,8 @@ const OilMillTable = (props:any) => {
                                                      </PaginationItem>
                                                  </PaginationContent>
                                              </Pagination>
-                <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
+                <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border
+                 border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">Modification Request has Been Approved</p></span>

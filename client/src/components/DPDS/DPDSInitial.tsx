@@ -34,6 +34,7 @@ interface lotPropsdata{
     rcv_ds:string;
     rcv_dp1:string;
     rcv_Sorting:string;
+    rcv_transfer:string;
 }
 
 const DPDSInitial = (props: any) => {
@@ -162,7 +163,7 @@ const DPDSInitial = (props: any) => {
                                     } 
                                 }
                                 else{
-                                    if(item.rcv_Sorting && (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
+                                    if( item.rcv_transfer && (parseFloat(item.current_backlog)>0)){
                                         return (
                                             <TableRow key={idx}>
                                                 <TableCell className="text-center">

@@ -321,29 +321,30 @@ const PackageMetrialRecivingTable = () => {
                             <Table>
                            <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-            <TableHead className="text-center bg-gray-200 text-gray-700" >Sl_No</TableHead>
+            <TableHead className="text-center bg-gray-200 text-gray-700" >Sl⠀No</TableHead>
             <TableHead className="text-center bg-gray-100 text-gray-700" >Action</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass_No.</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving_Date</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Entry_Vehicle_No</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Gross_Wt(Kg)</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Net_Wt(Kg)</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_No(Packaging_Material)</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Date</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >PM_Item_Type</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Item_Code(Packaging_Material_SKU)</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor_Name(Packaging_Material)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >GatePass⠀No</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Receiving⠀Date</TableHead>
+             <TableHead className="text-center bg-gray-100 text-gray-700" >Edit⠀Status</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Entry⠀Vehicle⠀No</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Gross⠀Wt⠀(Kg)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Net⠀Wt⠀(Kg)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice⠀No(Packaging⠀Material)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice⠀Date</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >PM⠀Item⠀Type</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Item⠀Code(Packaging⠀Material⠀SKU)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Vendor⠀Name(Packaging⠀Material)</TableHead>
 
 
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice_Qty</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Physical_Qty</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Invoice⠀Qty</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Physical⠀Qty</TableHead>
             <TableHead className="text-center bg-gray-100 text-gray-700" >Unit</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Row_Item_Wt(Kg)</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Bill_Amount</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Quality_Status</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Edit_Status</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" > Package_Material_Remarks</TableHead>
-            <TableHead className="text-center bg-gray-100 text-gray-700" >Forwaded_By</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Row⠀Item⠀Wt⠀(Kg)</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Bill⠀Amount</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Quality⠀Status</TableHead>
+           
+            <TableHead className="text-center bg-gray-100 text-gray-700" > Package⠀Material⠀Remarks</TableHead>
+            <TableHead className="text-center bg-gray-100 text-gray-700" >Forwaded⠀By</TableHead>
           
             
 
@@ -420,6 +421,17 @@ const PackageMetrialRecivingTable = () => {
                     <TableCell className="text-center font-semibold text-cyan-600">
                       {handletimezone(item.recevingDate)}
                     </TableCell>
+                       <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Accepted"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "N/A"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
                     <TableCell className="text-center ">
                       {item.truckNo}
                     </TableCell>
@@ -615,30 +627,31 @@ const PackageMetrialRecivingTable = () => {
         <Table className="mt-4">
           <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-            <TableHead className="text-center" >Sl_No</TableHead>
+            <TableHead className="text-center" >Sl⠀No</TableHead>
              <TableHead className="text-center" >Action</TableHead>
-            <TableHead className="text-center" >GatePass_No.</TableHead>
-            <TableHead className="text-center" >Receiving_Date</TableHead>
-            <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-            <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
-            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-            <TableHead className="text-center" >Invoice_No(Packaging_Material)</TableHead>
-            <TableHead className="text-center" >Invoice_Date</TableHead>
-            <TableHead className="text-center" >PM_Item_Type</TableHead>
-            <TableHead className="text-center" >Item_Code(Packaging_Material_SKU)</TableHead>
-            <TableHead className="text-center" >Vendor_Name(Packaging_Material)</TableHead>
+            <TableHead className="text-center" >GatePass⠀No.</TableHead>
+            <TableHead className="text-center" >Receiving⠀Date</TableHead>
+              <TableHead className="text-center" >Edit⠀Status</TableHead>
+            <TableHead className="text-center" >Entry⠀Vehicle⠀No</TableHead>
+            <TableHead className="text-center" >Gross⠀Wt⠀(Kg)</TableHead>
+            <TableHead className="text-center" >Net⠀Wt⠀(Kg)</TableHead>
+            <TableHead className="text-center" >Invoice⠀No⠀(Packaging⠀Material)</TableHead>
+            <TableHead className="text-center" >Invoice⠀Date</TableHead>
+            <TableHead className="text-center" >PM⠀Item⠀Type</TableHead>
+            <TableHead className="text-center" >Item⠀Code⠀(Packaging⠀Material⠀SKU)</TableHead>
+            <TableHead className="text-center" >Vendor⠀Name⠀(Packaging⠀Material)</TableHead>
 
 
-            <TableHead className="text-center" >Invoice_Qty</TableHead>
-            <TableHead className="text-center" >Physical_Qty</TableHead>
+            <TableHead className="text-center" >Invoice⠀Qty</TableHead>
+            <TableHead className="text-center" >Physical⠀Qty</TableHead>
             <TableHead className="text-center" >Unit</TableHead>
-            <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
-            <TableHead className="text-center" > Bill_Amount</TableHead>
-            <TableHead className="text-center" >Quality_Status</TableHead>
-            <TableHead className="text-center" >Edit_Status</TableHead>
-            <TableHead className="text-center" > Package_Material_Remarks</TableHead>
-            <TableHead className="text-center" >Entried_By</TableHead>
-            <TableHead className="text-center" >Actioned_By</TableHead>
+            <TableHead className="text-center" > Row⠀Item⠀Wt⠀(Kg)</TableHead>
+            <TableHead className="text-center" > Bill⠀Amount</TableHead>
+            <TableHead className="text-center" >Quality⠀Status</TableHead>
+          
+            <TableHead className="text-center" > Package⠀Material⠀Remarks</TableHead>
+            <TableHead className="text-center" >Entried⠀By</TableHead>
+            <TableHead className="text-center" >Actioned⠀By</TableHead>
            
 
           </TableHeader>
@@ -677,6 +690,17 @@ const PackageMetrialRecivingTable = () => {
                     </TableCell>
                     <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                     <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                     <TableCell className="text-center" > <button
+                                                                                                    className={`p-2 rounded w-20 border 
+                                                                  ${item.editStatus === "Accepted"
+                                                                                                            ? "text-green-600 border-green-600 bg-green-50"
+                                                                                                            : item.editStatus === "N/A"
+                                                                                                                ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                                                : "text-red-600 border-red-600 bg-red-50"
+                                                                                                        }`}
+                                                                                                >
+                                                                                                    {item.editStatus}
+                                                                                                </button></TableCell>
                     <TableCell className="text-center ">{item.truckNo}</TableCell>
                     <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                     <TableCell className="text-center ">{item.netWeight}  </TableCell>
@@ -704,7 +728,7 @@ const PackageMetrialRecivingTable = () => {
                         </p>
                       )}
                     </TableCell>
-                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                 
                     <TableCell className="text-center">{item.remarks}</TableCell>
                     <TableCell className="text-center">{item.createdBy}</TableCell>
                     <TableCell className="text-center">{item.approvedBy}</TableCell>

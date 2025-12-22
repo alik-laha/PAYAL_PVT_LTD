@@ -48,12 +48,13 @@ const PMInitial = (props: any) => {
     }
     return (
         <>
-            <div className="px-5 max-h-64 overflow-scroll">
+            <div className="px-2 max-h-64 overflow-scroll">
          
                 <Table>
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >GatePass No</TableHead>
+                        <TableHead className="text-center" >GatePass Type</TableHead>
                         <TableHead className="text-center" >Status</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
@@ -68,8 +69,11 @@ const PMInitial = (props: any) => {
                                         <TableCell className="text-center">
                                             {idx + 1}
                                         </TableCell>
-                                        <TableCell className="text-center font-semibold">
+                                        <TableCell className="text-center text-red-500 font-semibold">
                                             {item.gatePassNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold">
+                                            IN
                                         </TableCell>
 
                                         <TableCell className="text-center font-semibold text-orange-500">PENDING</TableCell>
@@ -77,7 +81,7 @@ const PMInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                  <DialogContent style={{display:'block'}} className='max-w-screen'>
+                                  <DialogContent style={{display:'block'}} className='max-w-7xl'>
                                                     <DialogHeader >
                                                         <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Packaging Material Incoming Entry</p></DialogTitle>
 

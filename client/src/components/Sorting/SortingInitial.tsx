@@ -36,6 +36,7 @@ interface lotPropsdata{
     rcv_jh1:string;
     rcv_jk_k:string;
     rcv_sp1:string;
+    rcv_bigTaiho:string;
 }
 
 const SortingInitial = (props: any) => {
@@ -148,10 +149,7 @@ const SortingInitial = (props: any) => {
                                     }
                                 }
                                 else{
-                                    if(((item.rcv_jjh ?parseFloat(item.rcv_jjh):0)+ (item.rcv_sjh ?parseFloat(item.rcv_sjh):0 )
-                                    +(item.rcv_sjh1 ?parseFloat(item.rcv_sjh1):0)+(item.rcv_jh1 ?parseFloat(item.rcv_jh1):0)
-                                    +(item.rcv_jk_k ?parseFloat(item.rcv_jk_k):0)+(item.rcv_sp1 ?parseFloat(item.rcv_sp1):0)
-                                    )>0){
+                                    if(item.rcv_bigTaiho && (parseFloat(item.current_backlog)>0)){
                                       return (
                                           <TableRow key={idx}>
                                               <TableCell className="text-center">

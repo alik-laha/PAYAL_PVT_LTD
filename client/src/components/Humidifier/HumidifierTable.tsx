@@ -383,27 +383,28 @@ const HumidTable = (props:any) => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                      <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Humidify⠀Date</TableHead>
-                        <TableHead className="text-center" >Input⠀Moisture</TableHead>
-                        <TableHead className="text-center" >Output⠀Moisture</TableHead>
-                        <TableHead className="text-center ">Total⠀Input⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Id</TableHead>
+                      <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item⠀Lot⠀No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Humidify⠀Date</TableHead>
+                            <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Input⠀Moisture</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Output⠀Moisture</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
                         
-                        <TableHead className="text-center " >Total⠀Output⠀(Kg)</TableHead>
-                        <TableHead className="text-center" >Moisture⠀Gain</TableHead>
-                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
-                        <TableHead className="text-center" >Humidifier⠀ON</TableHead>
-                        <TableHead className="text-center" >Humidifier⠀OFF</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Output⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Moisture⠀Gain</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Humidifier⠀ON</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Humidifier⠀OFF</TableHead>
                         
-                        <TableHead className="text-center" >Breakdown</TableHead>
-                        <TableHead className="text-center" >Other</TableHead>
-                        <TableHead className="text-center" >MC⠀Run⠀Duration</TableHead>
-                        <TableHead className="text-center" >No⠀Of⠀Operator</TableHead>
-                        <TableHead className="text-center" >Edit⠀Status</TableHead>
-                        <TableHead className="text-center" >Created⠀By </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Breakdown</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Other</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >MC⠀Run⠀Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Operator</TableHead>
+                    
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
                       
                     </TableHeader> 
                     <TableBody>
@@ -473,6 +474,17 @@ const HumidTable = (props:any) => {
                                 <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center" > <button
+                                        className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                : item.editStatus === "NA"
+                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                    : "text-red-600 border-red-600 bg-red-50"
+                                            }`}
+                                    >
+                                        {item.editStatus}
+                                    </button></TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalInput)}</TableCell>
@@ -486,7 +498,7 @@ const HumidTable = (props:any) => {
                             <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                     
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                 
                                 </TableRow>
@@ -508,7 +520,7 @@ const HumidTable = (props:any) => {
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-5xl">
+                                                        <DialogContent className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Humidifier Entry Modification</p>
@@ -523,6 +535,17 @@ const HumidTable = (props:any) => {
                                         <TableCell className="text-center font-bold text-red-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold ">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(item.TotalInput)} Kg</TableCell>
@@ -536,7 +559,7 @@ const HumidTable = (props:any) => {
                             <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                  
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                                      

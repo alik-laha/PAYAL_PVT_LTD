@@ -703,48 +703,48 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
-                        <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Peeling⠀Date</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item⠀Lot⠀No</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Date</TableHead>
+                          <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
                        
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pressure</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Moisture⠀(Min⠀:⠀Max)⠀%</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
                        
-                        <TableHead className="text-center" >Pressure</TableHead>
-                        <TableHead className="text-center " >Moisture⠀(Min-Max)</TableHead>
-                        <TableHead className="text-center" >Peeling⠀Time</TableHead>
-                        <TableHead className="text-center" >No⠀Of⠀Trolley</TableHead>
-                        <TableHead className="text-center ">Total⠀Input⠀(Kg)</TableHead>
-                        <TableHead className="text-center" >Pieces⠀Unpeel (Village)</TableHead>
-                        <TableHead className="text-center" >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
-                        <TableHead className="text-center" >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
-                       
-                        <TableHead className="text-center" >DP (DP&DS)</TableHead>
-                        <TableHead className="text-center" >DS (DP&DS)</TableHead>
-                        <TableHead className="text-center" >DP1 (DP&DS)</TableHead>
-                        <TableHead className="text-center" >JJH (Sorting)</TableHead>
-                        <TableHead className="text-center" >SJH (Sorting)</TableHead>
-                        <TableHead className="text-center" >SJH1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >JK/K (Sorting)</TableHead>
-                        <TableHead className="text-center" >SP1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >JH1 (Sorting)</TableHead>
-                        <TableHead className="text-center" >Husk</TableHead>
-                        <TableHead className="text-center" >Rejection</TableHead>
-                        <TableHead className="text-center" >Big_Taiho</TableHead>
-                        <TableHead className="text-center font-bold" >Total⠀Issue(Kg)</TableHead>
-                        <TableHead className="text-center font-bold" >Total⠀Backlog</TableHead>
-                        <TableHead className="text-center" >Peeling⠀ON</TableHead>
-                        <TableHead className="text-center" >Peeling⠀OFF</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DP (DP&DS)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DS (DP&DS)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>DP1 (DP&DS)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >JJH (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >SJH (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >SJH1 (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >JK/K (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>SP1 (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>JH1 (Sorting)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >RCN⠀Husk</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Rejection</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Big⠀Taiho</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Issue(Kg)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Backlog</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Peeling⠀ON</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀OFF</TableHead>
                         
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
-                        <TableHead className="text-center" >Run Duration</TableHead>
-                        <TableHead className="text-center" >No Of Operator</TableHead>
-                        <TableHead className="text-center" >Operator (Day)</TableHead>
-                        <TableHead className="text-center" >Operator (Night)</TableHead>
-                        <TableHead className="text-center" >Operator (Husk)</TableHead>
-                        <TableHead className="text-center" >Edit⠀Status </TableHead>
-                        <TableHead className="text-center" >Created⠀By </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Breakdown Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Other Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Run Duration</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No Of Operator</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Operator (Day)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Operator (Night)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Operator (Husk)</TableHead>
+                     
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Created⠀By </TableHead>
                    
                     </TableHeader>
                     <TableBody>
@@ -814,7 +814,17 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                 <TableCell className="text-center font-bold text-red-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                        <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                        
                                         <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
                                         <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
@@ -851,7 +861,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
                             
                                 </TableRow>
@@ -875,7 +885,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent  className="max-w-5xl">
+                                                        <DialogContent  className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Peeling Entry Modification</p>
@@ -890,7 +900,17 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center font-bold text-red-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-blue-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                      <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                        
                                            <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>
                                            <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
@@ -912,7 +932,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
+                                        <TableCell className="text-center bg-blue-200">{formatNumber(item.Rejection)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
                                         <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.TotalInput)-parseFloat(item.difference)).toString())} </TableCell>
 
@@ -927,7 +947,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                       
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                                         
@@ -955,30 +975,44 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                     </TableBody>
 
                 </Table>
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+               <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
                 <dialog id="rcneditapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

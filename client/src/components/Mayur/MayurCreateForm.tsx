@@ -231,17 +231,17 @@ const RCNMayurCreateForm = (props:Props) => {
         <>
         <div className="py-2 overflow-auto">
             <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
-               <div className="grid grid-cols-1 md:grid-cols-4 gap-3"> 
+               <div className="grid grid-cols-1 md:grid-cols-5 gap-3"> 
          
-                        <div ><Label>Date of Entry</Label>
+                        <div ><Label className="text-xs font-bold text-gray-500">Date of Entry</Label>
                             <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required />
                         </div>
 
-                        <div ><Label>No. of Operator(Day)</Label>
+                        <div ><Label className="text-xs font-bold text-gray-500">No. of Operator(Day)</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={dayOpRef} />
                         </div>
-                        <div ><Label>No. of Operator(Night)</Label>
+                        <div ><Label className="text-xs font-bold text-gray-500">No. of Operator(Night)</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
                             <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of Operator" ref={nightOpRef} />
                         </div>
@@ -275,17 +275,17 @@ const RCNMayurCreateForm = (props:Props) => {
                      
                    
                 </div>
-                <Label className="w-100 pt-5 text-center">1. General Information</Label>
+                <Label className="w-100 pt-5 text-center tracking-wider font-bold">1. General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
-                    <TableHead className="text-center">Sl. No.</TableHead>
-                    <TableHead className="text-center">Lot_No</TableHead>
+                    <TableHead className="text-center">Sl⠀No</TableHead>
+                    <TableHead className="text-center">Lot⠀No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Mixed⠀Lot</TableHead>
                     {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Receive Wholes_&_JB':'Receive_Wholes_Peel'):'Receive_Wholes_Peel'}</TableHead>
-                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Receive LW':'Receive_Wholes_UnPeel'):'Receive_Wholes_UnPeel'}</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Receive Wholes⠀&⠀JB':'Receive⠀Wholes⠀Peel'):'Receive_Wholes_Peel'}</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Receive LW':'Receive⠀Wholes⠀UnPeel'):'Receive_Wholes_UnPeel'}</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
@@ -294,12 +294,12 @@ const RCNMayurCreateForm = (props:Props) => {
  
                    
                    
-                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Issue V_PW_W':'Issue PW_W'):'Issue PW_W'}</TableHead>
-                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_W_Lot':'Issue W_Lot'):'Issue W_Lot'}</TableHead>
-                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_WW':'Issue WW'):'Issue WW'}</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Issue V⠀PW⠀W':'Issue PW⠀W'):'Issue PW⠀W'}</TableHead>
+                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V⠀W⠀Lot':'Issue W⠀Lot'):'Issue W⠀Lot'}</TableHead>
+                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V⠀WW':'Issue WW'):'Issue WW'}</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Big_Taiho</TableHead>
+                    <TableHead className="text-center">Issue Big⠀Taiho</TableHead>
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
                    
@@ -344,25 +344,25 @@ const RCNMayurCreateForm = (props:Props) => {
                     </TableBody>
                 </Table>  
 
-                    <Label className="w-100 pt-5 text-center">2. Machine Information</Label>
+                    <Label className="w-100 pt-5 text-center tracking-wider font-bold">2. Machine Information</Label>
                                                 <Table className="mt-3">
                                                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                                                    <TableHead className="text-center">Mc On 133</TableHead>
-                    <TableHead className="text-center ">Mc Off 133</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
-                    <TableHead className="text-center ">Other_Time 133</TableHead>
-                    <TableHead className="text-center ">Mc On 331</TableHead>
-                    <TableHead className="text-center ">Mc Off 331</TableHead>
-                    <TableHead className="text-center ">Mc_Breakdown 331</TableHead>
-                    <TableHead className="text-center ">Other_Time 331</TableHead>
-                    <TableHead className="text-center ">Mc On 292</TableHead>
-                    <TableHead className="text-center ">Mc Off 292</TableHead>
-                    <TableHead className="text-center ">Mc_Breakdown 292</TableHead>
-                    <TableHead className="text-center ">Other_Time 292</TableHead>
-                    <TableHead className="text-center">Mc On 293</TableHead>
-                    <TableHead className="text-center">Mc Off 293</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
-                    <TableHead className="text-center">Other_Time 293</TableHead>
+                    <TableHead className="text-center ">Mc⠀Off 133</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown 133</TableHead>
+                    <TableHead className="text-center ">Other⠀Time 133</TableHead>
+                    <TableHead className="text-center ">Mc⠀On 331</TableHead>
+                    <TableHead className="text-center ">Mc⠀Off 331</TableHead>
+                    <TableHead className="text-center ">Mc⠀Breakdown 331</TableHead>
+                    <TableHead className="text-center ">Other⠀Time 331</TableHead>
+                    <TableHead className="text-center ">Mc⠀On 292</TableHead>
+                    <TableHead className="text-center ">Mc⠀Off 292</TableHead>
+                    <TableHead className="text-center ">Mc⠀Breakdown 292</TableHead>
+                    <TableHead className="text-center ">Other⠀Time 292</TableHead>
+                    <TableHead className="text-center">Mc⠀On 293</TableHead>
+                    <TableHead className="text-center">Mc⠀Off 293</TableHead>
+                    <TableHead className="text-center">Mc⠀Breakdown 293</TableHead>
+                    <TableHead className="text-center">Other⠀Time 293</TableHead>
                                                   
                                                
                                                     </TableHeader>

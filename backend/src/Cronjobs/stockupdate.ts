@@ -1,4 +1,4 @@
-import cron from 'node-cron';
+//import cron from 'node-cron';
 
 import { Op } from 'sequelize';
 import sequelize from '../config/databaseConfig';
@@ -120,9 +120,9 @@ const updateStock = async () => {
 };
 
 // Schedule the job to run at 6 PM and 12 AM
-cron.schedule('0 20 * * *', () => {
-    console.log('Running scheduled stock update job...');
-    updateStock();
-});
+// cron.schedule('0 20 * * *', () => {
+//     console.log('Running scheduled stock update job...');
+//     updateStock();
+// });
 
 export { updateStock };

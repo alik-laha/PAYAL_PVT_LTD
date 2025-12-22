@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ItemIssue from "../../model/itemissueModel";
 import sequelize from "../../config/databaseConfig";
 import SkuModel from "../../model/SkuModel";
+import StoreStockNew from "../../model/storeStockModelNew";
 
 const CreateIssueEntire = async (req: Request, res: Response) => {
     try{
@@ -41,6 +42,35 @@ const CreateIssueEntire = async (req: Request, res: Response) => {
                     remarks:data.remarks,
                     CreatedBy:feeledBy
                 },{transaction})
+
+            const itemExist = await StoreStockNew.findOne({
+            where: {
+              sku:data.material,
+            },
+          });
+
+          if (!itemExist) {
+            await StoreStockNew.create(
+              {
+                sku:data.material,
+              },
+              { transaction }
+            );
+          }
+          const stockUpdate = await StoreStockNew.update(
+            {
+              issueStock: sequelize.literal(`issueStock + ${data.quantity}`),
+            },
+            {
+              where: {
+                sku:data.material,
+              },
+              transaction,
+            }
+          );
+          if (!stockUpdate) {
+            throw new Error("Failed to Update Stock Issue Entry.");
+          }
 
                
             }
