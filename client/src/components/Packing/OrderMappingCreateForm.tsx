@@ -372,18 +372,39 @@ const OrderMappingCreateForm = (props:Props) => {
          }
         }
 
+        let selectedSet:any
+
     const handleOpenLotNo =  (index: any) => {
         // e.preventDefault()
+        selectedSet = new Set(
+            rows
+                .filter((_, i) => i !== index)
+                .map(
+                    r => `${r.LotNo}-${r.porigin}-${r.section}-${r.grade}`
+                )
+        );
+        console.log(selectedSet)
+
         axios.post('/api/packing/viewprodStockQtyFind',{
             origin:rows[index].porigin,
             section:rows[index].section,grade:rows[index].grade}
 
         ).then(res => {
             console.log(res)
-            setViewlotData(res.data)
+
+            const filtered = res.data.filter((item: any) => {
+                const key = `${item.LotNo}-${rows[index].porigin}-${rows[index].section}-${rows[index].grade}`;
+                return !selectedSet.has(key);
+            });
+            console.log(filtered)
+
+            //setViewlotData(res.data)
+            setViewlotData(filtered);
             console.log(viewlotdata)
         })
     }
+
+    
  
 
 
@@ -391,27 +412,34 @@ const OrderMappingCreateForm = (props:Props) => {
 
     return (
         <>
-            <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5' onSubmit={handleSubmit2}>
+            <div>
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit2}>
 
-                      <div className="mx-8 flex flex-col gap-1"> 
-                                    <div className="flex mt-4"><Label className="w-1/4  pt-2">Order ID</Label>
-                                    <Input className="w-1/4 bg-yellow-200 font-semibold text-center" placeholder="order ID" value={orderID} readOnly /> </div>
-                                    <div className="flex"><Label className="w-1/4  pt-2">Order Entry Date</Label>
-                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="order Entry Date" value={orderDate} readOnly /> </div>
-                                    <div className="flex"><Label className="w-1/4  pt-2">Vendor Name</Label>
-                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Vendor Name" value={vendor}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-1/4  pt-2">Origin</Label>
-                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Origin" value={origin}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-1/4  pt-2">Final Grade</Label>
-                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-1/4  pt-2">Demand Quantity</Label>
-                                    <Input className="w-1/4   bg-yellow-100 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
-                                    <div className="flex"><Label className="w-1/4  pt-2">total Mix Quantity</Label>
-                                    <Input className="w-1/4  bg-red-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
-                                    <div className="flex mt-1">
-                            <Label className="w-1/4 pt-1">Order Mapping Date (*)</Label>
-                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                     <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
+                                    <div>
+                            <Label className="text-xs text-gray-500 font-bold">Order ID</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="order ID" value={orderID} readOnly /> </div>
+                                    <div>
+                            <Label className="text-xs text-gray-500 font-bold">Order Entry Date</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="order Entry Date" value={orderDate} readOnly /> </div>
+                                     <div>
+                            <Label className="text-xs text-gray-500 font-bold">Vendor Name</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vendor Name" value={vendor}  readOnly /> </div> 
+                                     <div>
+                            <Label className="text-xs text-gray-500 font-bold">Origin</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Origin" value={origin}  readOnly /> </div> 
+                                     <div>
+                            <Label className="text-xs text-gray-500 font-bold">Final Grade</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
+                                     <div>
+                            <Label className="text-xs text-gray-500 font-bold">Demand Quantity</Label>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
+                                     <div>
+                            <Label className="text-xs text-gray-500 font-bold">Total Mix Quantity</Label>
+                            <Input className="mt-1 bg-pink-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
+                                    <div>
+                            <Label className="text-xs text-gray-500 font-bold">Order Mapping date (*)</Label>
+                            <Input type='date' className="mt-1  font-semibold text-center border-gray-500 items-center justify-between" ref={dateIssueref} required />
                         </div>
                                     </div>
 
@@ -420,18 +448,18 @@ const OrderMappingCreateForm = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                                <TableHead className="text-center" >Sl. No.</TableHead>             
+                                <TableHead className="text-center" >Sl⠀No</TableHead>             
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
                                     <TableHead className="text-center" >View</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
                             
-                                <TableHead className="text-center" >Production_Lot_No</TableHead>
-                                <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
-                                <TableHead className="text-center" >Actual_Stock (Kg)</TableHead>
-                                <TableHead className="text-center" >Percentage Mix(%)</TableHead>
-                                <TableHead className="text-center" >Mixed_Quantity (Kg)</TableHead>
-                                <TableHead className="text-center w-30" >Mapping_Remarks(Any)</TableHead>
+                                <TableHead className="text-center" >Production⠀Lot⠀No</TableHead>
+                                <TableHead className="text-center" >Stock⠀Quantity⠀(Kg)</TableHead>
+                                <TableHead className="text-center" >Actual⠀Stock⠀(Kg)</TableHead>
+                                <TableHead className="text-center" >Percentage⠀Mix(%)</TableHead>
+                                <TableHead className="text-center" >Mixed⠀Quantity⠀(Kg)</TableHead>
+                                <TableHead className="text-center" >Mapping⠀Remarks(Any)</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
 
                             </TableHeader>
@@ -489,11 +517,13 @@ const OrderMappingCreateForm = (props:Props) => {
                                                                     </DialogTrigger>
                                                                 <DialogContent className='max-w-3xl'>
                                                                     <DialogHeader>
-                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Stock Details</p></DialogTitle>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-1 tracking-wider drop-shadow-xl font-bold'>Stock Details</p></DialogTitle>
 
                                                                     </DialogHeader>
 
                                                                     <ViewLotDetailsMapping props={viewlotdata} grade={row.grade} index={index} rows={rows} handleRowChange={handleRowChange}/>
+
+                                                                    
                                                                 </DialogContent>
                                                             </Dialog>
                                                         ) : (<p className="w-full text-center flex"><FaEyeSlash size={20} className="text-red-500 px-auto"/></p>

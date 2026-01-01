@@ -19,6 +19,7 @@ import axios from "axios";
 import OrderMappingInitial from "./OrderMappingInitial";
 import UseQueryData from "../common/dataFetcher";
 import Loader from "../common/Loader";
+import { FaHistory } from "react-icons/fa";
 
 
 const Packing = () => {
@@ -55,12 +56,12 @@ const Packing = () => {
     }
 
     const handleOpenMapping = async () => {
-            axios.get('/api/packing/getUnMappingEntry/0').then(res => {
-                console.log(res)
-                setMappedData(res.data.scoopingLot)
-                console.log(mappeddata)
-            })
-        }
+        axios.get('/api/packing/getUnMappingEntry/0').then(res => {
+            console.log(res)
+            setMappedData(res.data.scoopingLot)
+            console.log(mappeddata)
+        })
+    }
 
 
     const handleTransferFetch = () => {
@@ -77,7 +78,7 @@ const Packing = () => {
 
     const { data, error, isLoading } = UseQueryData('/api/packing/activeordercount', 'GET', 'getTtotalActvOrder')
     if (isLoading) {
-        return <Loader/>
+        return <Loader />
     }
     if (error) {
         return <div>Error</div>
@@ -90,42 +91,42 @@ const Packing = () => {
                 <DashboardHeader />
                 <DashboardSidebar />
                 <div className='dashboard-main-container'>
-                <div className="flexbox-header">
-                <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-                        Total Issued <br /><p>{data.Issued} </p>
+                    <div className="flexbox-header mx-2">
+                        <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
+                            <p>Total Issued</p> <br /><p>{data.Issued} </p>
+                        </div>
+                        <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
+                            <p>Completed</p> <br /><p>{data.Completed}</p>
+                        </div>
+                        <div className="flexbox-tile bg-green-500 hover:bg-green-400">
+                            <p>Rejected</p><br /><p>{data.Rejected}</p>
+                        </div>
+                        <div className="flexbox-tile bg-lime-500 hover:bg-lime-400">
+                            <p>Cancelled</p> <br /><p>{data.Cancelled} </p>
+                        </div>
+
+
+                        <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
+                            <p>Pending Approval</p><br /><p>{data.PendingApproval} </p>
+                        </div>
+                        <div className="flexbox-tile bg-red-500 hover:bg-red-400">
+                            <p>Pending Mapping</p> <br /><p>{data.PendingMapping} </p>
+                        </div>
+
+                        <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
+                            <p>Pending Packing</p><br /><p>{data.PendingPacking} </p>
+                        </div>
+
+
                     </div>
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-                       Completed<br /><p>{data.Completed}</p>
-                    </div>
-                    <div className="flexbox-tile bg-green-500 hover:bg-green-400">
-                      Rejected<br /><p>{data.Rejected}</p>
-                    </div>
-                    <div className="flexbox-tile bg-lime-500 hover:bg-lime-400">
-                        Cancelled <br /><p>{data.Cancelled} </p>
-                    </div>
-                   
-                    
-                    <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
-                       Pending Approval<br /><p>{data.PendingApproval} </p>
-                    </div>
-                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
-                        Pending Mapping<br /><p>{data.PendingMapping} </p>
-                    </div>
-                    
-                    <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
-                       Pending Packing<br /><p>{data.PendingPacking} </p>
-                    </div>
-                   
-                    
-                </div>
-                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold '>CURRENT F.Y. {FY} ORDER COUNT</p>
+                    <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold '>CURRENT F.Y. {FY} ORDER COUNT</p>
                     <div className="flex flex-row-reverse">
-                      
+
                     </div>
-                    <div className="flex text-center">
+                    <div>
                         {checkpending('OrderCreate') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-orange-500 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" >+ Sales Order</Button></DialogTrigger>
-                            <DialogContent className='max-w-screen' style={{ display: 'block' }}>
+                            <DialogTrigger>   <Button className="md:w-40 w-28 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" >+ Sales order</Button></DialogTrigger>
+                            <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                 <DialogHeader>
                                     <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Sales Order Create Form</p></DialogTitle>
 
@@ -135,34 +136,52 @@ const Packing = () => {
                             </DialogContent>
                         </Dialog>}
 
-                        {checkpending('OrderMapping') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenMapping}>+ Map Order</Button></DialogTrigger>
-                            <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
+                        {checkpending('OrderMapping') && <div className="relative inline-block ml-4 responsive-button-adjust"> <Dialog>
+                            <DialogTrigger>
+
+                                <Button
+                                    className="w-28 md:w-40 bg-gradient-to-r from-purple-500 to-lime-500 hover:from-purple-600 hover:to-lime-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                    /* FIX 1: Use ?? 0 for the disabled prop */
+
+                                    onClick={handleOpenMapping}
+                                >+ Map Order</Button>
+
+
+
+                            </DialogTrigger>
+                            <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
                                 <DialogHeader>
                                     <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Order Mapping Form</p></DialogTitle>
 
                                 </DialogHeader>
 
-                                <OrderMappingInitial props={mappeddata}/>
+                                <OrderMappingInitial props={mappeddata} />
                             </DialogContent>
-                        </Dialog>}
+                        </Dialog></div>
+                        }
 
-                          {checkpending('StockUpdate') && <Button className="bg-lime-600 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
-                            disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Stock Sync'} <RxUpdate size={20} className="ml-2" /></Button>}
+                        {checkpending('StockUpdate') && <div className="relative inline-block ml-4 responsive-button-adjust">
 
-                             {checkpending('StockUpdate') && <span className="text-center w-100">            
-                            <Button className="bg-stone-600 hover:bg-stone-400 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Order History ' : ' Stock History >'}</Button>
-                        </span>}
+                            <Button className="w-28 md:w-40 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-600 hover:to-red-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md"
+                                disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2" /></Button>
+                        </div>
+
+                        }
+
+                        {checkpending('StockUpdate') && <div className="relative inline-block ml-4 responsive-button-adjust">
+
+                            <Button className="w-28 md:w-40 bg-gradient-to-r from-stone-500 to-black-500 hover:from-stone-600 hover:to-black-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md" onClick={handleTransferFetch}> {stocktable === 'block' ? 'Order History ' : ' Stock History'}<FaHistory size={16} className='ml-2'/></Button>
+                        </div>}
                     </div>
 
-                    
+
                     <div className="flex flex-col">
-                       
+
 
 
                         {/* {checkpending('StockUpdate') && <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>} */}
                     </div>
-                    
+
 
                     <div style={{ display: stocktable }}>
                         <ProdStockTable />

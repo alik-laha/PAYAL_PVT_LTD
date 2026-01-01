@@ -70,7 +70,7 @@ const ViewLotDetailsMapping = (props: any) => {
         <>
            <div className="mx-2 max-h-80 overflow-scroll">
             <Button
-                            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-7 px-4 transition-all duration-200 shadow-sm mb-2"
                             onClick={exportToExcel}
                         >
                             <LuDownload size={16} />

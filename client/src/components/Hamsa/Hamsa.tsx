@@ -24,6 +24,7 @@ import HamsaInitial from './HamsaInitial';
 import HamsaTable from './HamsaTable';
 import HamsaHistoryTable from './HamsaHistory';
 import { MdPendingActions } from 'react-icons/md';
+import { FaHistory } from 'react-icons/fa';
 
 
 
@@ -201,7 +202,7 @@ const Hamsa = () => {
 
 
 
-                    <Button className="w-28 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'History':'Main Entry '}</Button>
+                    <Button className="w-28 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'History':'Main Entry '}<FaHistory size={16} className='ml-2'/></Button>
                 </div>
                 <div style={{ display: maintable }}>
                     <HamsaTable props='non-edit'/>
