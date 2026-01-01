@@ -54,6 +54,21 @@ const ViewLotDetailsMapping = (props: any) => {
     }
 
     const SelectValue = async (item:lotPropsdata) => {
+
+        const key = props.buildLotKey(
+            item.LotNo,
+            item.origin,
+          props.rows[props.index].section,
+    props.rows[props.index].grade
+        );
+
+        props.setdata((prev: Iterable<unknown> | null | undefined) => {
+            const next = new Set(prev);
+            next.add(key);
+            console.log(next)
+            return next;
+        });
+
         props.rows[props.index].stockquantity=item.stock
         props.handleRowChange(props.index,'stockquantity',item.stock)
         props.rows[props.index].actual_stockquantity=item.stock
@@ -88,7 +103,7 @@ const ViewLotDetailsMapping = (props: any) => {
 
                     </TableHeader>
                     <TableBody>
-                        {props.props.length > 0 ? (
+                        {props.props.length > 0 && props.eye? (
                             props.props.map((item: lotPropsdata, idx: number) => {
 
                                 return (
@@ -113,11 +128,10 @@ const ViewLotDetailsMapping = (props: any) => {
                                     </TableRow>
                                 );
                             })
-                        ) : <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Peeling</TableCell>
-                            <TableCell></TableCell>
+                        ) : <TableRow >
+                          
+                            <TableCell colSpan={6} className="text-center  text-red-500 font-semibold">No Pending Details</TableCell>
+                          
                             </TableRow>}
                     </TableBody>
                 </Table>

@@ -73,6 +73,7 @@ const OrderMappingCreateForm = (props:Props) => {
     const [isdisable, setisdisable] = useState<boolean>(false)
     const [lotdata, setLotData] = useState<any[]>([])
     const [viewlotdata, setViewlotData] = useState<any[]>([])
+    const [eye, setEye] = useState<boolean>(false)
 
     
   
@@ -372,18 +373,31 @@ const OrderMappingCreateForm = (props:Props) => {
          }
         }
 
-        let selectedSet:any
+    const [selectedLotSet, setSelectedLotSet] = useState<Set<string>>(new Set());
+    const buildLotKey = (
+        LotNo: string,
+        origin: string,
+        section: string,
+        grade: string
+       
+    ) => `${LotNo}-${origin}-${section}-${grade}`;
+
+    const filteredViewLotData = (index: number) => {
+        return viewlotdata.filter((item) => {
+            const key = buildLotKey(
+                item.LotNo,
+                item.origin,
+                rows[index]?.section,
+                rows[index]?.grade
+            );
+
+            return !selectedLotSet.has(key);
+        });
+    };
 
     const handleOpenLotNo =  (index: any) => {
         // e.preventDefault()
-        selectedSet = new Set(
-            rows
-                .filter((_, i) => i !== index)
-                .map(
-                    r => `${r.LotNo}-${r.porigin}-${r.section}-${r.grade}`
-                )
-        );
-        console.log(selectedSet)
+      
 
         axios.post('/api/packing/viewprodStockQtyFind',{
             origin:rows[index].porigin,
@@ -391,17 +405,17 @@ const OrderMappingCreateForm = (props:Props) => {
 
         ).then(res => {
             console.log(res)
-
-            const filtered = res.data.filter((item: any) => {
-                const key = `${item.LotNo}-${rows[index].porigin}-${rows[index].section}-${rows[index].grade}`;
-                return !selectedSet.has(key);
-            });
-            console.log(filtered)
-
-            //setViewlotData(res.data)
-            setViewlotData(filtered);
+            setViewlotData(res.data)
+            setEye(true)
+            //setViewlotData(filtered);
             console.log(viewlotdata)
-        })
+        }).catch((err)=>{
+            console.log(err)
+            setEye(false)
+            
+        
+        }
+        )
     }
 
     
@@ -507,7 +521,12 @@ const OrderMappingCreateForm = (props:Props) => {
                                                  <TableCell className="text-center">
                                                     {
                                                         (row.grade && row.section && !row.porigin) ? (
-                                                            <Dialog >
+                                                            <Dialog onOpenChange={(isOpen) => {
+                                                                if (!isOpen) {
+                                                                    rows[index].section=''
+                                                                    rows[index].grade=''
+                                                                }
+                                                            }}>
                                                                 <DialogTrigger> 
                                                                     <button className="flex flex-row justify-center w-full text-center" onClick={() => handleOpenLotNo(index)}>
                                                                         
@@ -521,7 +540,9 @@ const OrderMappingCreateForm = (props:Props) => {
 
                                                                     </DialogHeader>
 
-                                                                    <ViewLotDetailsMapping props={viewlotdata} grade={row.grade} index={index} rows={rows} handleRowChange={handleRowChange}/>
+                                                                    <ViewLotDetailsMapping props={filteredViewLotData(index)} grade={row.grade} index={index} rows={rows} setdata={setSelectedLotSet}
+                                                                    buildLotKey={buildLotKey} eye={eye}
+                                                                    handleRowChange={handleRowChange}/>
 
                                                                     
                                                                 </DialogContent>
