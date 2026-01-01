@@ -262,22 +262,9 @@ const EmployeeTable = () => {
                     {Error ?
 
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-semibold text-red-500 text-center pt-3 pb-10">{Error}</p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                           
+                            <TableCell colSpan={17}><p className="tracking-wider font-bold capitalize text-red-500 text-center py-3">{Error}</p></TableCell>
+                          
                         </TableRow>
                         : null}
                     {
