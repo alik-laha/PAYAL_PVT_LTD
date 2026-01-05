@@ -527,213 +527,193 @@ const ProdTransacTable = () => {
 
     return (
         <>
-            <div className="ml-5 mt-5 ">
-                <div className="w-full">
-                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
-
-                        {dropdown.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="flex flexbox-search">
-
-                    <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Order ID" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                    <select className='flexbox-search-width flex h-8 w-1/7 ml-2 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                        {Origin.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
-
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        // value={hidetodate}
-                        // onChange={handleTodate}
-                          value={todate}
-                        onChange={(e) => settoDate(e.target.value)}
-                        placeholder="To Date"
-
-                    />
+            <div className="mx-2 mt-5 ">
+                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-7 gap-4 items-end">
+                        {/* Type */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot Type
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
+                                onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+                                value={searchType}
 
 
-
-                    {searchType === 'Order' && <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
-                        </option>
-                        {
-                            OrderStatusAll.map((item) => {
-                                return (
-                                    <option key={item} value={item}>
-                                        {item}
+                                {dropdown.map((data, index) => (
+                                    <option key={index} value={data} className="bg-white">
+                                        {data}
                                     </option>
-                                )
-                            })
-                        }
-
-
-                    </select>}
-
-
-
-                    {searchType === 'Mapping' && <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setMapsectionstatus(e.target.value)} value={mapsectionstatus}>
-
-                        {
-                            mapdropdown.map((item) => {
-                                return (
-                                    <option key={item} value={item}>
-                                        {item}
+                                ))}
+                            </select>
+                        </div>
+                        {/* Lot No. / Line Name */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No
+                        </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                placeholder="Order ID"
+                                value={blConNo}
+                                onChange={(e) => setBlConNo(e.target.value)}
+                            />
+                        </div>
+                        {/* Origin */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setOrigin(e.target.value)}
+                                value={origin}
+                            >
+                                <option value="">Origin (All)</option>
+                                {Origin.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
                                     </option>
-                                )
-                            })
-                        }
+                                ))}
+                            </select>
+                        </div>
+                        {/* From Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                From
+                            </label>
+                            <Input
+                                type="date"
+                                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={fromdate}
+                                onChange={(e) => setfromDate(e.target.value)}
+                            />
+                        </div>
+                        {/* To Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                To
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={todate}
+                                onChange={(e) => settoDate(e.target.value)}
+                            />
+                        </div>
+                        {/* Order Type */}
+                        {searchType === 'Order' && <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}
+                            >
+                                <option value=''>Status (All)
+                                </option>
+                                {
+                                    OrderStatusAll.map((item) => {
+                                        return (
+                                            <option key={item} value={item}>
+                                                {item}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>}
+                        {/* Mapping Type */}
+                        {searchType === 'Mapping' && <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setMapsectionstatus(e.target.value)} value={mapsectionstatus}
+                            >
 
+                                {
+                                    mapdropdown.map((item) => {
+                                        return (
+                                            <option key={item} value={item}>
+                                                {item}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>}
+                            {/* Search & Export Buttons */}
+                        <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleTransactionSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
+                            </Button>
 
-                    </select>}
+                            {checkpending('ProdStockExcel') && (
+                                <Button
+                                    className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                    onClick={handleTransactionSearchExcel}
+                                >
+                                    <LuDownload size={16} />
 
-
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
-
+                                </Button>
+                            )}
+                        </div>
+                
+                
                 </div>
-     {checkpending('ProdStockExcel') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleTransactionSearchExcel}><LuDownload size={18} /></Button>  </span>}               
+                   
+                </div>
+                      
                
                 {searchTableType === 'Order' ?
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl_No</TableHead>
-                            <TableHead className="text-center">Generated_Sales_Order_ID</TableHead>
-                            <TableHead className="text-center">Order_Origin</TableHead>
-                            <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Approval_Status</TableHead>
-                            <TableHead className="text-center">Order_Receive_Date</TableHead>
-                            <TableHead className="text-center">Order_Entry_Date</TableHead>
-                            <TableHead className="text-center">Sales_Vendor_Name</TableHead>
-                            <TableHead className="text-center">Sales_Broker_Name</TableHead>
-                            <TableHead className="text-center">Demand_Quantity</TableHead>
-                            <TableHead className="text-center">Mapped_Quantity</TableHead>
-                            <TableHead className="text-center">Mapping_Backlog</TableHead>
-                            <TableHead className="text-center">Mapping_Progress_(%)</TableHead>
-                            <TableHead className="text-center">Packed_Quantity</TableHead>
-                            <TableHead className="text-center">Packing_Backlog</TableHead>
-                            <TableHead className="text-center">Packing_Progress_(%)</TableHead>
-                            <TableHead className="text-center">Price_UnitRate</TableHead>
-                            <TableHead className="text-center">SO_Total_Amount</TableHead>
-                            <TableHead className="text-center">GST</TableHead>
-                            <TableHead className="text-center">SO_Created_By</TableHead>
-                            <TableHead className="text-center">Approved/Rejected_By</TableHead>
-                            <TableHead className="text-center">Order_Remarks</TableHead>
+                            <TableHead className="text-center">Sl⠀No</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
+                            <TableHead className="text-center">Generated⠀Sales⠀Order⠀ID</TableHead>
+                            <TableHead className="text-center">Order⠀Origin</TableHead>
+                            <TableHead className="text-center">Final⠀GradeName</TableHead>
+                            <TableHead className="text-center">Approval⠀Status</TableHead>
+                            <TableHead className="text-center">Order⠀Receive⠀Date</TableHead>
+                            <TableHead className="text-center">Order⠀Entry⠀Date</TableHead>
+                            <TableHead className="text-center">Sales⠀Vendor⠀Name</TableHead>
+                            <TableHead className="text-center">Sales⠀Broker⠀Name</TableHead>
+                            <TableHead className="text-center">Demand⠀Quantity</TableHead>
+                            <TableHead className="text-center">Mapped⠀Quantity</TableHead>
+                            <TableHead className="text-center">Mapping⠀Backlog</TableHead>
+                            <TableHead className="text-center">Mapping⠀Progress⠀(%)</TableHead>
+                            <TableHead className="text-center">Packed⠀Quantity</TableHead>
+                            <TableHead className="text-center">Packing⠀Backlog</TableHead>
+                            <TableHead className="text-center">Packing⠀Progress⠀(%)</TableHead>
+                            <TableHead className="text-center">Price⠀UnitRate</TableHead>
+                            <TableHead className="text-center">SO⠀Total⠀Amount</TableHead>
+                            <TableHead className="text-center">GST</TableHead>
+                            <TableHead className="text-center">SO⠀Created⠀By</TableHead>
+                            <TableHead className="text-center">Approved/Rejected⠀By</TableHead>
+                            <TableHead className="text-center">Order⠀Remarks</TableHead>
+                            
                         </TableHeader>
                         <TableBody>
                             {Data.length > 0 ? (Data.map((item: any, idx) => {
                                 return (
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
-                                        <TableCell className="text-center text-cyan-500  font-bold">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold text-yellow-700">{item.gradeName}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.ordApproveStatus === 'Pending' ? (
-                                                <p className="flex flex-row justify-center">
-                                          <MdOutlinePendingActions
-                                            color="red"
-                                            size={20}
-                                          />
-                                        </p>
-                                            ) : (
-                                                item.ordApproveStatus === 'Approved' ? (
-                                                    <p className="flex flex-row justify-center">
-                                          <SiTicktick color="green" size={18} />
-                                        </p>
-                                                ) : (
-                                                    item.ordApproveStatus!=='Closed'? <p className="text-red-500 font-bold drop-shadow-lg tracking-wide uppercase">{ item.ordApproveStatus}</p>
-                                                    :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
-                                                )
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
-                                        <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.brokerName}</TableCell>
-                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}  
-                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ? `${formatNumber(item.mapquantity)} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
-                                        <div className="flex flex-row items-center justify-center w-100 ">
-                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
-                                            <div className="w-3/4 text-center font-bold text-white bg-red-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
-                                        </div>
-                                        ) : (
-                                            
-                                            
-                                        <div className="flex flex-row items-center justify-center w-100 ">
-                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
-                                                            <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
-                                        </div>
-                                            
-                                            
-                                            // <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
-                                        )):'--'}</TableCell>
-                                      
-
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?`${formatNumber(item.actualquantity)} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
-
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?
-                                        `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString()))} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
-                                       <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
-                                             <div className="flex flex-row items-center justify-center ">
-                                            <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="red" className=" w-3/4" />
-                                            <div className="w-3/4 text-center font-bold text-white  bg-red-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
-                                        </div>  
-                                        ) : (
-                                            <div className="flex flex-row items-center justify-center ">
-                                            <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
-                                            <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
-                                        </div>                                        )):'--'}</TableCell> {/* Order completion Status */}
-
-
-                                      <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
-                                        <TableCell className="text-center">
-                                            <input type="checkbox" checked={item.gst} />
-                                        </TableCell> {/* GST */}
-                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
-                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
-                                        <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
-                                        <TableCell className="text-center">{item.remarks ? item.remarks:'--'}</TableCell>
                                         {checkpending('StockUpdate') && <TableCell className="text-center">
 
                                             {item.ordStatus !== 1 && (item.ordStatus === 1 ?
                                                 (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>) :
                                                 (<Popover>
                                                     <PopoverTrigger>
-                                                        <button className={`p-2 text-white rounded ${
+                                                        <button className={`p-2 w-20 border font-bold rounded-lg ${
                                                             item.ordApproveStatus === 'Rejected'
-                                                         ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={
+                                                         ? 'bg-red-50 text-red-500 border-red-300 ' : 'bg-blue-50 text-blue-500 border-blue-300 '}`} disabled={
                                                             item.ordApproveStatus === 'Rejected' ? true : false}>Action</button>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
@@ -870,6 +850,79 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                                 </Popover>))}
                                         </TableCell>}
+                                        <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
+                                        <TableCell className="text-center text-cyan-500  font-bold">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold text-yellow-700">{item.gradeName}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.ordApproveStatus === 'Pending' ? (
+                                                <p className="flex flex-row justify-center">
+                                          <MdOutlinePendingActions
+                                            color="red"
+                                            size={20}
+                                          />
+                                        </p>
+                                            ) : (
+                                                item.ordApproveStatus === 'Approved' ? (
+                                                    <p className="flex flex-row justify-center">
+                                          <SiTicktick color="green" size={18} />
+                                        </p>
+                                                ) : (
+                                                    item.ordApproveStatus!=='Closed'? <p className="text-red-500 font-bold drop-shadow-lg tracking-wide uppercase">{ item.ordApproveStatus}</p>
+                                                    :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
+                                                )
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                        <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.brokerName}</TableCell>
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}  
+                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ? `${formatNumber(item.mapquantity)} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
+                                        <div className="flex flex-row items-center justify-center w-100 ">
+                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
+                                            <div className="w-3/4 text-center font-bold text-white bg-red-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
+                                        </div>
+                                        ) : (
+                                            
+                                            
+                                        <div className="flex flex-row items-center justify-center w-100 ">
+                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
+                                                            <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
+                                        </div>
+                                            
+                                            
+                                            // <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
+                                        )):'--'}</TableCell>
+                                      
+
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?`${formatNumber(item.actualquantity)} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
+
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?
+                                        `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString()))} Kg`:'--'} </TableCell> {/* Prepared Quantity */}
+                                       <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
+                                             <div className="flex flex-row items-center justify-center ">
+                                            <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="red" className=" w-3/4" />
+                                            <div className="w-3/4 text-center font-bold text-white  bg-red-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
+                                        </div>  
+                                        ) : (
+                                            <div className="flex flex-row items-center justify-center ">
+                                            <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
+                                            <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
+                                        </div>                                        )):'--'}</TableCell> {/* Order completion Status */}
+
+
+                                      <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
+                                        <TableCell className="text-center">
+                                            <input type="checkbox" checked={item.gst} />
+                                        </TableCell> {/* GST */}
+                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
+                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
+                                        <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
+                                        <TableCell className="text-center">{item.remarks ? item.remarks:'--'}</TableCell>
+                                        
 
                                     </TableRow>
                                 );
@@ -1087,40 +1140,82 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                     </Table>)
                        ):( <Table className="mt-4">
                        <TableHeader className="bg-neutral-100 text-stone-950 ">
-                           <TableHead className="text-center">Sl_No</TableHead>
-                          
-                           <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
-                           <TableHead className="text-center">Issue_No (Packing)</TableHead>
-                           <TableHead className="text-center">Order_Origin</TableHead>
-                           <TableHead className="text-center">QC_Status</TableHead>
-                           <TableHead className="text-center">Packing_Status</TableHead>
-                           <TableHead className="text-center">Dispatch_Status</TableHead>
-                           <TableHead className="text-center">Order_Entry_Date</TableHead>
+                           <TableHead className="text-center">Sl⠀No</TableHead>
+                          <TableHead className="text-center" >Action</TableHead>
+                           <TableHead className="text-center">Generated⠀Sales⠀Order⠀ID</TableHead>
+                           <TableHead className="text-center">Issue⠀No (Packing)</TableHead>
+                           <TableHead className="text-center">Order⠀Origin</TableHead>
+                           <TableHead className="text-center">QC⠀Status</TableHead>
+                           <TableHead className="text-center">Packing⠀Status</TableHead>
+                           <TableHead className="text-center">Dispatch⠀Status</TableHead>
+                           <TableHead className="text-center">Order⠀Entry⠀Date</TableHead>
                          
-                           <TableHead className="text-center">Final_GradeName</TableHead>
-                           <TableHead className="text-center">Opening_Demand</TableHead>
+                           <TableHead className="text-center">Final⠀GradeName</TableHead>
+                           <TableHead className="text-center">Opening⠀Demand</TableHead>
                           
-                           <TableHead className="text-center">Unit_Rate</TableHead>
+                           <TableHead className="text-center">Unit⠀Rate</TableHead>
                            <TableHead className="text-center">GST</TableHead>
-                           <TableHead className="text-center">Total_Bill_Price</TableHead>
+                           <TableHead className="text-center">Total⠀Bill⠀Price</TableHead>
                           
-                           <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
-                           <TableHead className="text-center">Fulfilled_Quantity</TableHead>
-                           <TableHead className="text-center">Manufacturing_Date</TableHead>
-                           <TableHead className="text-center">Packing_Batch_No</TableHead>
-                           <TableHead className="text-center">System_Count (Pouch/Bucket)</TableHead>
-                           <TableHead className="text-center">Actual_Count (Pouch/Bucket)</TableHead>
-                           <TableHead className="text-center">Remarks</TableHead>
+                           <TableHead className="text-center">Sales⠀Vendor⠀Name</TableHead>
+                           <TableHead className="text-center">Fulfilled⠀Quantity</TableHead>
+                           <TableHead className="text-center">Manufacturing⠀Date</TableHead>
+                           <TableHead className="text-center">Packing⠀Batch⠀No</TableHead>
+                           <TableHead className="text-center">System⠀Count (Pouch/Bucket)</TableHead>
+                           <TableHead className="text-center">Actual⠀Count (Pouch/Bucket)</TableHead>
+                           <TableHead className="text-center">Packing⠀Remarks</TableHead>
                     
-                           <TableHead className="text-center" >Action</TableHead>
+                           
                        </TableHeader>
                        <TableBody>
                            {Data.length > 0 ? (Data.map((item: any, idx) => {
                                return (
                                    <TableRow key={item.id} >
                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                       
-                                       <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
+                                        <TableCell className="text-center">
+
+                                       <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 bg-blue-50 w-20 border  font-bold rounded-lg ${item.dispatchStatus === 1 ? 'bg-red-50 text-red-500 border-red-300' : 'border-blue-300 bg-blue-50 text-blue-500'}`} 
+                                                disabled={item.dispatchStatus === 1  ? true : false}>Action</button>
+                                            </PopoverTrigger>
+                                            {item.packingStatus!==1 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Pack</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-3xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Order Packing</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <PackingCreateForm data={item} />
+                                                    </DialogContent>
+                                                </Dialog>
+                                                    </PopoverContent>}
+
+
+                                                    {item.packingStatus===1 && item.dispatchStatus === 0 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <AlertDialog>
+                                                <AlertDialogTrigger className="flex mt-2">
+                                                    <FcCancel size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500"> Unpack</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Unpack the Entry?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleUnpack(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                                    </PopoverContent>}
+                                                                                                
+                                                                                            </Popover>
+                                       </TableCell>
+                                       <TableCell className="text-center text-purple-500 font-bold ">{item.orderID}</TableCell>
 
                                        <TableCell className="text-center  font-semibold ">{item.altid}</TableCell>
                                        <TableCell className="text-center ">{item.origin}</TableCell>
@@ -1160,9 +1255,9 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
                                        <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
-                                       <TableCell className="text-center ">{formatNumber(item.demandquantity)} Kg</TableCell>
+                                       <TableCell className="text-center">{formatNumber(item.demandquantity)} Kg</TableCell>
                                       
-                                       <TableCell className="text-center ">{item.unitRate}  &#8377;</TableCell>
+                                       <TableCell className="text-center">{item.unitRate}  &#8377;</TableCell>
                                        <TableCell className="text-center">
                                             <input type="checkbox" checked={item.gst} />
                                         </TableCell> {/* GST */}
@@ -1170,58 +1265,16 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                        <TableCell className="text-center ">{item.vendorName}</TableCell>
                                        <TableCell className="text-center ">{item.fulfillquantity ?formatNumber(item.fulfillquantity):0} Kg</TableCell>
-                                       <TableCell className="text-center font-extrabold">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                       <TableCell className="text-center bg-gray-200 font-extrabold">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
-                                       <TableCell className="text-center font-extrabold">{item.BatchID}</TableCell>
-                                       <TableCell className="text-center font-extrabold">{item.packingquantity}</TableCell>
-                                       <TableCell className="text-center font-extrabold">{item.convpackingquantity}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.remarks}</TableCell>
+                                       <TableCell className="text-center bg-gray-200 font-extrabold">{item.BatchID}</TableCell>
+                                       <TableCell className="text-center bg-gray-200 font-extrabold">{item.packingquantity}</TableCell>
+                                       <TableCell className="text-center bg-gray-200 font-extrabold">{item.convpackingquantity}</TableCell>
+                                        <TableCell className="text-center bg-gray-200 font-bold">{item.remarks}</TableCell>
                                       
                                       
                                  
-                                       <TableCell className="text-center">
-
-                                       <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.dispatchStatus === 1 ? 'bg-cyan-200' : 'bg-cyan-500'}`} 
-                                                disabled={item.dispatchStatus === 1  ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            {item.packingStatus!==1 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
-                                                <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Pack</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-3xl">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Order Packing</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <PackingCreateForm data={item} />
-                                                    </DialogContent>
-                                                </Dialog>
-                                                    </PopoverContent>}
-
-
-                                                    {item.packingStatus===1 && item.dispatchStatus === 0 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
-                                                <AlertDialog>
-                                                <AlertDialogTrigger className="flex mt-2">
-                                                    <FcCancel size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500"> Unpack</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Unpack the Entry?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleUnpack(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                                    </PopoverContent>}
-                                                                                                
-                                                                                            </Popover>
-                                       </TableCell>
+                                      
 
                                    </TableRow>
                                );

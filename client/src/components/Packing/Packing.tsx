@@ -175,12 +175,7 @@ const Packing = () => {
                     </div>
 
 
-                    <div className="flex flex-col">
-
-
-
-                        {/* {checkpending('StockUpdate') && <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>} */}
-                    </div>
+               
 
 
                     <div style={{ display: stocktable }}>
