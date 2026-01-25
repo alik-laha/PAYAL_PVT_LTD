@@ -373,17 +373,17 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             </div>
 
             <dialog id="packageMetrialQc" className="dashboard-modal">
-                <button id="packageMetrialQccross" className="dashboard-modal-close-btn ">X </button>
+                <button id="packageMetrialQccross" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Quality Report is Uploaded Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">Quality Report is Uploaded Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialQcError" className="dashboard-modal">
+            <dialog id="packagingMetirialQcError" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="packagigQcerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

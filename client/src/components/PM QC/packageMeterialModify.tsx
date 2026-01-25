@@ -2,10 +2,11 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { PackagingMeterialQc } from '../../type/type'
 import { Button } from "../ui/button"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, Key } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
+import { Textarea } from "../ui/textarea"
 
 
 const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) => {
@@ -22,17 +23,18 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
     const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
     const [remarks, setRemarks] = useState('')
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
-    const [damagePartsImage, setDamagePartsImage] = useState<any>()
+    const [damagePartsImage, setDamagePartsImage] = useState<string[]>([])
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
 
-    const [newCoaFile, setNewCoaFile] = useState<File | null>(null)
-    const [newFoodGradeFile, setNewFoodGradeFile] = useState<File | null>(null)
-    const [newdamageFile, setNewDamageFile] = useState<FileList | null>(null)
+    const [newCoaFile, setNewCoaFile] = useState<any>(null)
+    const [newFoodGradeFile, setNewFoodGradeFile] = useState<any>(null)
+    const [newdamageFile, setNewDamageFile] = useState<any>(null)
 
 
     const dateRef = useRef<HTMLInputElement>(null)
     const [coaview, setCOAview] = useState('none')
     const [foodview, setFoodView] = useState('none')
+     const [ischecked, setischecked] = useState<boolean>(false)
 
     const successdialog = document.getElementById('packageMetrialQcedit') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialQcErroredit') as HTMLInputElement;
@@ -112,14 +114,42 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
         formData.append('coa', coa)
         formData.append('foodGradeCirtiicate', foodGradeCirtiicate)
         formData.append('remarks', remarks)
-        formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
-        formData.append('coaCirtificateFile', coaCirtificateFile)
-        formData.append('testingDate', testingDate as string)
-        if (damagePartsImage) {
-            for (let i = 0; i < damagePartsImage.length; i++) {
-                formData.append('damagePartsImage', damagePartsImage[i])
-            }
+
+        if(coa){
+            if(coaCirtificateFile && !newCoaFile){formData.append('existingcoaCirtificateFile', coaCirtificateFile)}
+            else if (newCoaFile){formData.append('coaCertificate', newCoaFile)}
+
         }
+        else{formData.append('existingcoaCirtificateFile', '')}
+        if(foodGradeCirtiicate){
+            if(foodGradeCirtiFicateFile && !newFoodGradeFile){formData.append('existingfoodGradeCirtiFicateFile', foodGradeCirtiFicateFile)}
+            else if(newFoodGradeFile){formData.append('foodGradeCertificate', newFoodGradeFile)}
+
+        }
+        else{formData.append('existingfoodGradeCirtiFicateFile', '')}
+
+        if(ischecked){
+            if (damagePartsImage) {
+                damagePartsImage.forEach(file =>
+                    formData.append('existingDamageFiles[]', file)
+                )
+            }
+            else{ for (let i = 0; i < newdamageFile.length; i++) {
+                formData.append('damagePartsImage', newdamageFile[i])
+            }}
+
+        }
+        else{formData.append('damagePartsImage', '')}
+
+
+        //formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
+        //formData.append('coaCirtificateFile', coaCirtificateFile)
+        formData.append('testingDate', testingDate as string)
+        // if (damagePartsImage) {
+        //     for (let i = 0; i < damagePartsImage.length; i++) {
+        //         formData.append('damagePartsImage', damagePartsImage[i])
+        //     }
+        // }
         axios.put(`/api/qcpackage/modifyQcPackageMaterial/${data.id}`, formData)
             .then((res) => {
                 console.log(res)
@@ -173,14 +203,21 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
         }
 
         if (data.damageFile) {
+            setischecked(true)
             try {
                 const parsed = JSON.parse(data.damageFile) // VERY IMPORTANT
                 setDamagePartsImage(parsed)
+                console.log(damagePartsImage)
             } catch (err) {
                 console.error('Invalid damageFile JSON')
             }
         }
     }, [data])
+
+    const handlecheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+      
+        setischecked(e.target.checked)
+    }
 
     return (
         <>
@@ -317,6 +354,9 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                         </select>
                     </div>
 
+                       <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
+                        <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
+
                     <div className="flex"><Label className="w-2/4  pt-2">Coa Report</Label>
                         <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
@@ -398,15 +438,36 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
 
 
 
+                         <div className="flex">
+                        <Label className="w-2/4 pt-2 ">Damage Parts</Label>
+                        <input className="text-center flex items-center w-full" type="checkbox" checked={ischecked} onChange={handlecheckbox} />
 
+                         </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
-                        <Input className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
+                 
 
-                    <div className="flex">
-                        <Label className="w-2/4 pt-2 ">Damage Parts Upload</Label>
-                        <input type="file" accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />
+                    <div className="flex flex-row gap-2">
+                        
+                                    {ischecked && damagePartsImage && damagePartsImage.map((file, index) => (
+                        <div key={index}>
+                            <span className="text-blue-600 underline text-sm">
+                                {getFileName(file)}
+                            </span>
+                            <button
+                                type="button"
+                                className="text-red-500"
+                                onClick={() =>
+                                    setDamagePartsImage(prev => prev.filter(f => f !== file))
+                                }
+                            >
+                                ❌ Delete
+                            </button>
+                        </div>
+))}
+                        {damagePartsImage.length===0 && ischecked && <input type="file" accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />}
                     </div>
+
+        
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
@@ -414,18 +475,18 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
 
             </div>
 
-            <dialog id="packageMetrialQcedit" className="dashboard-modal">
+            <dialog id="packageMetrialQcedit" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="packageMetrialQccrossedit" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging Material is Received Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">Modification Requested Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialQcErroredit" className="dashboard-modal">
+            <dialog id="packagingMetirialQcErroredit" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="packagigQcerrorcrossedit" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Error In Raising Modification</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

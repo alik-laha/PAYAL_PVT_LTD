@@ -61,10 +61,9 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { pendingCheckRole } from '../common/exportData';
 import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/type";
-// import { saveAs } from 'file-saver';
-// import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 import { CiEdit } from "react-icons/ci"
-// import PackagingMetirialQcEditForm from "./packageMeterialModify"
 import { LuDownload } from "react-icons/lu"
 import Carousel from "./ModalCarousel"
 import { SiTicktick } from "react-icons/si"
@@ -98,88 +97,78 @@ const QCPackageMaterialTable = () => {
     //const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     // const [isModalOpen, setModalOpen] = useState(false);
-    // const currDate = new Date().toLocaleDateString();
 
-    const exportToExcel = async () => {
-        // const response = await axios.put('/api/qcRcn/searchqcRcn', {
-        //     blConNo: blConNo,
-        //     origin: origin,
-        //     fromDate: fromdate,
-        //     toDate: todate
-        // })
-        // const data1 = await response.data
 
-        // let ws
-        // let transformed: QcRcnEntryExcelData[] = [];
-        // if (pendingData.length > 0) {
+ const exportToExcel = async () => {
+  const currDate = new Date().toISOString().slice(0, 10);
 
-        //     transformed = pendingData.map((item: QcRcnEntryData, idx: number) => ({
-        //         id: idx + 1,
-        //         blNo: item.blNo,
-        //         conNo: item.conNo,
-        //         date: item.date,
-        //         origin: item.origin,
-        //         truckNo: item.rcnEntry.truckNo,
-        //         BLWeight: item.rcnEntry.blWeight,
-        //         NoOfBags: item.rcnEntry.noOfBags,
-        //         QCStatus: item.rcnEntry.rcnStatus,
-        //         sampling: item.sampling,
-        //         moisture: item.moisture,
-        //         nutCount: item.nutCount,
-        //         fluteRate: item.fluteRate,
-        //         goodKernel: item.goodKernel,
-        //         spIm: item.spIm,
-        //         reject: item.reject,
-        //         shell: item.shell,
-        //         outTurn: item.outTurn,
-        //         Remarks: item.Remarks,
-        //         qcapprovedBy: item.qcapprovedBy,
-        //         reportStatus: item.reportStatus === 1 ? 'Done' : 'Pending',
-        //         EntriedBy: item.createdBy,
-        //         editStatus: item.editStatus,
-        //         editapprovedorRejectedBy: item.editapprovedBy,
+  const transformed = Data.map((item: any, idx: number) => ({
+    "Sl No": idx + 1,
 
-        //     }));
-        //     //setTransformedData(transformed);
-        //     ws = XLSX.utils.json_to_sheet(transformed);
-        // }
-        // else {
-        //     transformed = data1.rcnEntries.map((item: QcRcnEntryData, idx: number) => ({
-        //         id: idx + 1,
-        //         blNo: item.blNo,
-        //         conNo: item.conNo,
-        //         date: item.date,
-        //         origin: item.origin,
-        //         truckNo: item.rcnEntry.truckNo,
-        //         BLWeight: item.rcnEntry.blWeight,
-        //         NoOfBags: item.rcnEntry.noOfBags,
-        //         QCStatus: item.rcnEntry.rcnStatus,
-        //         sampling: item.sampling,
-        //         moisture: item.moisture,
-        //         nutCount: item.nutCount,
-        //         fluteRate: item.fluteRate,
-        //         goodKernel: item.goodKernel,
-        //         spIm: item.spIm,
-        //         reject: item.reject,
-        //         shell: item.shell,
-        //         outTurn: item.outTurn,
-        //         Remarks: item.Remarks,
-        //         qcapprovedBy: item.qcapprovedBy,
-        //         reportStatus: item.reportStatus === 1 ? 'Done' : 'Pending',
-        //         EntriedBy: item.createdBy,
-        //         editStatus: item.editStatus,
-        //         editapprovedorRejectedBy: item.editapprovedBy,
+    // 🔹 Gate & Vendor Info
+    "Gate Pass No": item.gatePassNo ?? "NA",
+    "Vendor Name": item.packagingMaterialreceving?.vendorName ?? "NA",
+    "SKU": item.packagingMaterialreceving?.sku ?? "NA",
+    "Type": item.packagingMaterialreceving?.type ?? "NA",
 
-        //     }));
-        //     // setTransformedData(transformed);
-        //     ws = XLSX.utils.json_to_sheet(transformed);
-        // }
-        // const wb = XLSX.utils.book_new();
-        // XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        // const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        // const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        // saveAs(blob, 'QC_RCN_Entry_' + currDate + '.xlsx');
-    };
+    // 🔹 Vehicle & Quantity
+    "Truck No": item.packagingMaterialreceving?.truckNo ?? "NA",
+    "Invoice No": item.packagingMaterialreceving?.invoice ?? "NA",
+    "Invoice Date": item.packagingMaterialreceving?.invoicedate
+      ? new Date(item.packagingMaterialreceving.invoicedate).toLocaleDateString()
+      : "NA",
+    "Quantity": item.packagingMaterialreceving?.quantity ?? "NA",
+    "Unit": item.packagingMaterialreceving?.unit ?? "NA",
+
+    // 🔹 QC Measurements
+    "Testing Date": item.testingDate
+      ? new Date(item.testingDate).toLocaleDateString()
+      : "NA",
+    "Length (mm)": item.length ?? "NA",
+    "Width (mm)": item.width ?? "NA",
+    "Height (mm)": item.height ?? "NA",
+    "GSM": item.gsm ?? "NA",
+    "Avg Weight": item.avgWeight ?? "NA",
+
+    // 🔹 Test Results
+    "Leakage Test": item.leakageTest ?? "NA",
+    "Drop Test": item.dropTest ?? "NA",
+    "Seal Condition": item.sealCondition ?? "NA",
+    "Labeling Condition": item.labelingCondition ?? "NA",
+
+    // 🔹 Certificates
+    "COA Required": item.coa ?? "NA",
+    "COA Status": item.coaCirtificateStatus ?? "NA",
+    "Food Grade Required": item.foodGradeCirtiicate ?? "NA",
+    "Food Grade Status": item.foodGradeCirtificateStatus ?? "NA",
+
+    // 🔹 Damage
+    "Damage Images": item.damageFile
+      ? JSON.parse(item.damageFile).length
+      : 0,
+
+    // 🔹 Status & Audit
+    "Quality Status": item.qualityStatus ? "Passed" : "Failed",
+    "Edit Status": item.editStatus ?? "NA",
+    "Created By": item.createdBy ?? "NA",
+    "Approved By": item.approvedBy ?? "NA",
+
+    // 🔹 Remarks
+    "QC Remarks": item.remarks ?? "NA",
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(transformed);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "QC Packaging Material");
+
+  const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+  const blob = new Blob([wbout], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  saveAs(blob, `QC_Packaging_Material_${currDate}.xlsx`);
+};
+
 
     if (approvecloseDialogButton) {
         approvecloseDialogButton.addEventListener('click', () => {
@@ -229,7 +218,7 @@ const QCPackageMaterialTable = () => {
     }
 
     const handleSearchPendingEdit = async () => {
-        setData([])
+        //setData([])
         const response = await axios.get('/api/qcpackage/viewQcPackageMaterial')
         // const data = await response.data
         // setPendingData(data.rcnEdit)
@@ -419,7 +408,7 @@ const QCPackageMaterialTable = () => {
                                 </Button>
 
                                 {/* FIX 2: Use ?? 0 for the badge display condition and value */}
-                                {(sumOfallelement?.editCount ?? 0) > 0 && (
+                                {(counteditpending ?? 0) > 0 && (
                                     <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
                                         {sumOfallelement?.editCount ?? 0}
                                     </span>
@@ -557,7 +546,7 @@ const QCPackageMaterialTable = () => {
                                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                                         <TableCell className="text-center" > <button
                                                             className={`p-2 rounded w-20 border 
-                                              ${item.editStatus === "Accepted"
+                                              ${item.editStatus === "Approved"
                                                                     ? "text-green-600 border-green-600 bg-green-50"
                                                                     : item.editStatus === "NA"
                                                                         ? "text-gray-700 border-gray-400 bg-gray-100"
@@ -891,7 +880,7 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                         <TableCell className="text-center" > <button
                                             className={`p-2 rounded w-20 border 
-                                              ${item.editStatus === "Accepted"
+                                              ${item.editStatus === "Approved"
                                                     ? "text-green-600 border-green-600 bg-green-50"
                                                     : item.editStatus === "NA"
                                                         ? "text-gray-700 border-gray-400 bg-gray-100"
@@ -1079,17 +1068,17 @@ const QCPackageMaterialTable = () => {
                 </PaginationContent>
             </Pagination>
             <dialog id="qcapproveScsDialogpackage" className="dashboard-modal">
-                <button id="qcapproveScscloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
+                <button id="qcapproveScscloseDialogpackage" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">The Edit has been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">Modify Request has been Approved Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="qcRejectDialogpackage" className="dashboard-modal">
+            <dialog id="qcRejectDialogpackage" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="qcrejectcloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">The Edit Has Been Rejected</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modify Request has been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
