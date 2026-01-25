@@ -255,6 +255,7 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Pincode</TableHead>
                     <TableHead className="text-center " >Emg⠀Contact⠀Name</TableHead>
                     <TableHead className="text-center" >Emg⠀Contact⠀No.</TableHead>
+                     <TableHead className="text-center" >Employee⠀Address⠀Details</TableHead>
                  
 
                 </TableHeader>
@@ -365,6 +366,7 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{item.pincode}</TableCell>
                                     <TableCell className="text-center text-left" >{item.emergencyContact}</TableCell>
                                     <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
+                                    <TableCell className="text-center" >{item.address}</TableCell>
 
 
                                 
