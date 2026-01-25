@@ -24,7 +24,15 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
     const [damagePartsImage, setDamagePartsImage] = useState<any>()
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
+
+    const [newCoaFile, setNewCoaFile] = useState<File | null>(null)
+    const [newFoodGradeFile, setNewFoodGradeFile] = useState<File | null>(null)
+    const [newdamageFile, setNewDamageFile] = useState<FileList | null>(null)
+
+
     const dateRef = useRef<HTMLInputElement>(null)
+    const [coaview, setCOAview] = useState('none')
+    const [foodview, setFoodView] = useState('none')
 
     const successdialog = document.getElementById('packageMetrialQcedit') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialQcErroredit') as HTMLInputElement;
@@ -48,7 +56,24 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
         setCoa(data.coa)
         setFoodGradeCirtiicate(data.foodGradeCirtiicate)
         setRemarks(data.remarks)
+
     }, [])
+
+    useEffect(() => {  
+       if(coa==='Yes'){
+        setCOAview('block')
+       }
+       else{
+        setCOAview('none')
+       }
+       if(foodGradeCirtiicate==='Yes'){
+        setFoodView('block')
+       }
+       else{
+        setFoodView('none')
+       }
+        
+    }, [coa,foodGradeCirtiicate]);
 
 
     if (closeDialogButton) {
@@ -119,19 +144,43 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
     }
     const handleCoaFileChamge = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setCoaCirtificateFile(e.target.files[0])
+            setNewCoaFile(e.target.files[0])
         }
     }
     const handleFoodGradeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setFoodGradeCirtiFicateFile(e.target.files[0])
+            setNewFoodGradeFile(e.target.files[0])
         }
     }
     const handleDamagePartsImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setDamagePartsImage(e.target.files)
+            setNewDamageFile(e.target.files)
         }
     }
+
+    const getFileName = (path: string) => {
+        return path.split('\\').pop() || path.split('/').pop()
+    }
+
+
+    useEffect(() => {
+        if (data.coaCirtificateFile) {
+            setCoaCirtificateFile(data.coaCirtificateFile)
+        }
+
+        if (data.foodGradeCirtiFicateFile) {
+            setFoodGradeCirtiFicateFile(data.foodGradeCirtiFicateFile)
+        }
+
+        if (data.damageFile) {
+            try {
+                const parsed = JSON.parse(data.damageFile) // VERY IMPORTANT
+                setDamagePartsImage(parsed)
+            } catch (err) {
+                console.error('Invalid damageFile JSON')
+            }
+        }
+    }, [data])
 
     return (
         <>
@@ -141,23 +190,30 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                     <div className="flex"><Label className="w-2/4  pt-2">Testing Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Testing Date" required ref={dateRef} type="date" />
                     </div>
-                    <div className="flex"><Label className="w-2/4  pt-2">Width</Label>
-                        <Input className="w-2/4 " placeholder="Width" required value={width} type="number" step="0.1" onChange={(e) => setWidth(parseInt(e.target.value))} />
+                      <div className="flex">
+                        
                         <Label className="w-2/4  pt-2">Length</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseInt(e.target.value))} />
+                        <Input className="w-2/4 text-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseInt(e.target.value))} />
                     </div>
-
+                    <div className="flex"><Label className="w-2/4  pt-2">Width</Label>
+                        <Input className="w-2/4 text-center" placeholder="Width" required value={width} type="number" step="0.1" onChange={(e) => setWidth(parseInt(e.target.value))} />
+                    </div>
                     <div className="flex"><Label className="w-2/4  pt-2">Height</Label>
-                        <Input className="w-2/4 " placeholder="Height" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.1" />
+                       <Input className="w-2/4 text-center" placeholder="Height" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.1" />
+                    </div>
+                  
+
+                    <div className="flex">
+                        
                         <Label className="w-2/4  pt-2">GSM</Label>
-                        <Input className="w-2/4 " placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.1" />
+                        <Input className="w-2/4 text-center" placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.1" />
                     </div>
 
                     <div className="flex"><Label className="w-2/4  pt-2">Avg Weight</Label>
-                        <Input className="w-2/4 " placeholder="Avg Weight" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseInt(e.target.value))} step="0.1" /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Avg Weight" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseInt(e.target.value))} step="0.1" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-2">Leakage Test</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
+                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setLeakageTest(e.target.value)} value={leakageTest}>
@@ -179,8 +235,11 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                             </option>
 
                         </select>
-                        <Label className="w-2/4  pt-2">Drop Test</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
+
+                        </div>
+                          <div className="flex">
+                        <Label className="w-2/4 pt-2">Drop Test</Label>
+                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setDropTest(e.target.value)} value={dropTest}>
@@ -205,8 +264,9 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                     </div>
 
 
-                    <div className="flex"><Label className="w-2/4  pt-2">Labeling Condition</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <div className="flex">
+                        <Label className="w-2/4  pt-2">Labeling Condition</Label>
+                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setLabelingCondition(e.target.value)} value={labelingCondition}>
@@ -228,8 +288,12 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                             </option>
 
                         </select>
+                        </div>  
+
+
+                     <div className="flex">  
                         <Label className="w-2/4  pt-2">Seal Condition</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} >
@@ -254,7 +318,7 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                     </div>
 
                     <div className="flex"><Label className="w-2/4  pt-2">Coa Report</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setCoa(e.target.value)} value={coa}>
@@ -271,12 +335,27 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                             </option>
                         </select></div>
 
-                    <div className="flex">
-                        <Label className="w-2/4 pt-2 ">Coa File</Label>
-                        <input type="file" accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
+                    <div className="flex flex-row gap-2" style={{display:coaview}}>
+                        {/* <Label className="w-2/4 pt-2 ">Coa File</Label> */}
+                        {coaCirtificateFile &&  (<div className="">
+                                 <span className="text-sm text-blue-600 underline">
+                               {getFileName(coaCirtificateFile)}
+                            </span>
+                            <button
+                                type="button"
+                                className="text-sm p-1 text-red-500"
+                                onClick={() => setCoaCirtificateFile(null)}
+                            >
+                                ❌ Delete
+                            </button>
+                        </div>  
+                        )}
+                          {!coaCirtificateFile && <input type="file" accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" className="w-2/4 text-center text-sm float-right" multiple onChange={handleCoaFileChamge} />}
+                        
+                        
                     </div>
-                    <div className="flex"><Label className="w-2/4  pt-2">Food Grade Cirtificate</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <div className="flex"><Label className="w-2/4  pt-2">Food Grade Certificate</Label>
+                        <select className=' flex h-8 w-2/4 items-center text-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setFoodGradeCirtiicate(e.target.value)} value={foodGradeCirtiicate}>
@@ -293,10 +372,34 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                                 Yes
                             </option>
                         </select></div>
-                    <div className="flex">
-                        <Label className="w-2/4 pt-2 ">Food Grade Report Upload</Label>
-                        <input type="file" accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
+
+
+
+                   
+                     <div className="flex flex-row gap-2" style={{display:foodview}}>
+                        {/* <Label className="w-2/4 pt-2 ">Coa File</Label> */}
+                        {foodGradeCirtiFicateFile &&  (<div>
+                                 <span className="text-sm text-blue-600 underline">
+                               {getFileName(foodGradeCirtiFicateFile)}
+                            </span>
+                            <button
+                                type="button"
+                                className="text-red-500 text-sm p-1"
+                                onClick={() => setFoodGradeCirtiFicateFile(null)}
+                            >
+                                ❌ Delete
+                            </button>
+                        </div>  
+                        )}
+                          {!foodGradeCirtiFicateFile && <input type="file" accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" className="w-2/4 text-center text-sm float-right" multiple onChange={handleFoodGradeUpload} />}
+                        
+                        
                     </div>
+
+
+
+
+
                     <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Input className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
 

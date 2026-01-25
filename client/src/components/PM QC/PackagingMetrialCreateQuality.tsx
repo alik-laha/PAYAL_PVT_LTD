@@ -156,7 +156,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
 
     return (
         <>
-            <div className="pl-10 pr-10 mt-3">
+            <div className="px-10 mt-3">
                 <form className='flex flex-col gap-1 max-h-80 overflow-y-scroll' onSubmit={handleSubmit}>
 
                     <div className="flex mt-2"><Label className="w-2/4  pt-2">Testing Date</Label>
