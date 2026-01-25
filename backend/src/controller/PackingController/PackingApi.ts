@@ -1234,6 +1234,7 @@ export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) =
       group: ["origin", "LotNo"],
       where: {
             Status: { [Op.notLike]: 0 },
+            [grade]: { [Op.ne]: 0 },      // ✅ dynamic column
           },
       raw: true,
     });
@@ -1257,6 +1258,7 @@ export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) =
             LotNo,
             origin,
             Status: { [Op.notLike]: 0 },
+            
             editStatus: { [Op.notLike]: "Pending" },
           },
           group: ['LotNo'],
