@@ -20,6 +20,7 @@ import OrderMappingInitial from "./OrderMappingInitial";
 import UseQueryData from "../common/dataFetcher";
 import Loader from "../common/Loader";
 import { FaHistory } from "react-icons/fa";
+import DashboardFooter from "../dashboard/DashboardFooter";
 
 
 const Packing = () => {
@@ -187,6 +188,7 @@ const Packing = () => {
 
 
                 </div>
+                <DashboardFooter/>
             </div>
         </>
     )

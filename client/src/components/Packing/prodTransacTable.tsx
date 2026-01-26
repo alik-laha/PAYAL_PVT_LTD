@@ -630,7 +630,7 @@ const ProdTransacTable = () => {
                             Origin
                         </label> */}
                             <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none bg-yellow-100"
                                 onChange={(e) => setMapsectionstatus(e.target.value)} value={mapsectionstatus}
                             >
 
@@ -945,31 +945,31 @@ const ProdTransacTable = () => {
                     </Table>) : (searchTableType === 'Mapping' ? ( searchMapTableType==='LineWise'?(
                         <Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl_No</TableHead>
-                            <TableHead className="text-center">Mapping_Type</TableHead>
-                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                            <TableHead className="text-center">Sl⠀No</TableHead>
+                            <TableHead className="text-center">Mapping⠀Type</TableHead>
+                            <TableHead className="text-center">Generated⠀Sales⠀Order⠀ID</TableHead>
                             
-                            <TableHead className="text-center">Order_Origin</TableHead>
-                            <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Mapping_Issue_No</TableHead>
+                            <TableHead className="text-center">Order⠀Origin</TableHead>
+                            <TableHead className="text-center">Final⠀GradeName</TableHead>
+                            <TableHead className="text-center">Mapping⠀Issue⠀No</TableHead>
                             {/* <TableHead className="text-center">Order_Quantity</TableHead> */}
-                            <TableHead className="text-center">Order_Entry_Date</TableHead>
-                            <TableHead className="text-center">Order_Mapping_Date</TableHead>
-                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Order⠀Entry⠀Date</TableHead>
+                            <TableHead className="text-center">Order⠀Mapping⠀Date</TableHead>
+                            <TableHead className="text-center">Purchase⠀Vendor⠀Name</TableHead>
                            
-                            <TableHead className="text-center">Production_Section</TableHead>
-                            <TableHead className="text-center">Production_LotNo</TableHead>
-                            <TableHead className="text-center">Lot_Origin</TableHead>
-                            <TableHead className="text-center">Lot_Grade</TableHead>
-                            <TableHead className="text-center">Available_Quantity</TableHead>
-                            <TableHead className="text-center">Actual_Available</TableHead>
-                            <TableHead className="text-center">Percentage_Mapping</TableHead>
-                            <TableHead className="text-center">Mapped_Quantity</TableHead>
+                            <TableHead className="text-center">Production⠀Section</TableHead>
+                            <TableHead className="text-center">Production⠀LotNo</TableHead>
+                            <TableHead className="text-center">Lot⠀Origin</TableHead>
+                            <TableHead className="text-center">Lot⠀Grade</TableHead>
+                            <TableHead className="text-center">Available⠀Quantity</TableHead>
+                            <TableHead className="text-center">Actual⠀Available</TableHead>
+                            <TableHead className="text-center">Percentage⠀Mapping</TableHead>
+                            <TableHead className="text-center">Mapped⠀Quantity</TableHead>
                            
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
-                            <TableHead className="text-center">Created_By</TableHead>
+                            <TableHead className="text-center">Created⠀By</TableHead>
                             {/* <TableHead className="text-center">Edited_By</TableHead> */}
-                            <TableHead className="text-center">Mapping_Remarks</TableHead>
+                            <TableHead className="text-center">Mapping⠀Remarks</TableHead>
                             {/* <TableHead className="text-center" >Action</TableHead> */}
                         </TableHeader>
                         <TableBody>
@@ -1030,17 +1030,18 @@ const ProdTransacTable = () => {
                     </Table>
                     ):(<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl_No</TableHead>
-                            <TableHead className="text-center">Mapping_Type</TableHead>
-                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                            <TableHead className="text-center">Sl⠀No</TableHead>
+                              <TableHead className="text-center" >Action</TableHead>
+                            <TableHead className="text-center">Mapping⠀Type</TableHead>
+                            <TableHead className="text-center">Generated⠀Sales⠀Order⠀ID</TableHead>
                             
-                            <TableHead className="text-center">Order_Origin</TableHead>
-                            <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Mapping_Issue_No</TableHead>
+                            <TableHead className="text-center">Order⠀Origin</TableHead>
+                            <TableHead className="text-center">Final⠀GradeName</TableHead>
+                            <TableHead className="text-center">Mapping⠀Issue⠀No</TableHead>
                            
-                            <TableHead className="text-center">Order_Entry_Date</TableHead>
-                            <TableHead className="text-center">Order_Mapping_Date</TableHead>
-                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Order⠀Entry⠀Date</TableHead>
+                            <TableHead className="text-center">Order⠀Mapping⠀Date</TableHead>
+                            <TableHead className="text-center">Purchase⠀Vendor⠀Name</TableHead>
                            
                             {/* <TableHead className="text-center">Production_Section</TableHead>
                             <TableHead className="text-center">Production_LotNo</TableHead>
@@ -1049,20 +1050,45 @@ const ProdTransacTable = () => {
                             <TableHead className="text-center">Available_Quantity</TableHead>
                             <TableHead className="text-center">Actual Available_Quantity</TableHead>
                             <TableHead className="text-center">Percentage_Mapping</TableHead> */}
-                             <TableHead className="text-center">Demand_Quantity</TableHead>
-                            <TableHead className="text-center">Mapped_Quantity</TableHead>
+                             <TableHead className="text-center">Demand⠀Quantity</TableHead>
+                            <TableHead className="text-center">Mapped⠀Quantity</TableHead>
                            
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
-                            <TableHead className="text-center">Created_By</TableHead>
+                            <TableHead className="text-center">Created⠀By</TableHead>
                             {/* <TableHead className="text-center">Edited_By</TableHead> */}
-                            <TableHead className="text-center">Mapping_Remarks</TableHead>
-                            <TableHead className="text-center" >Action</TableHead>
+                            <TableHead className="text-center">Mapping⠀Remarks</TableHead>
+                          
                         </TableHeader>
                         <TableBody>
                             {Data.length > 0 ? (Data.map((item: any, idx) => {
                                 return (
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                           {checkpending('StockUpdate') && <TableCell className="text-center">
+
+                                            <Popover>
+                                                <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded text-red-500 h-8  w-20 border border-red-400 font-bold  hover:bg-red-200 `}>Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger className="flex flex-row text-center gap-2">
+                                                            <FcDeleteDatabase size={20} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-red-500">Delete</button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Delete the Mapping ?</AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleDeleteMapping(item)}>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                   
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>}
                                              <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh' : 'Re-Mapping'}</TableCell>
                                         <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
                                         <TableCell className="text-center text-cyan-500 font-semibold">{item.origin}</TableCell>
@@ -1093,31 +1119,7 @@ const ProdTransacTable = () => {
                                         <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
                                         {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
                                         <TableCell className="text-center">{item.remarks}</TableCell>
-                                        {checkpending('StockUpdate') && <TableCell className="text-center">
-
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcDeleteDatabase size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Delete</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Delete the Mapping ?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleDeleteMapping(item)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                   
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>}
+                                     
  
                                     </TableRow>
                                 );
@@ -1300,42 +1302,56 @@ const ProdTransacTable = () => {
 
 
 
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
-                <dialog id="machinescs" className="dashboard-modal">
+              <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                 <PaginationContent className="">
+                                                     {page > 1 && <PaginationItem>
+                                                         <PaginationPrevious onClick={() => setPage((prev) => {
+                                                             if (prev === 1) {
+                                                                 return prev
+                                                             }
+                                                             if (prev <= 0) {
+                                                                 return prev + 1
+                                                             }
+                                                             return prev - 1
+                                                         })} />
+                                                     </PaginationItem>}
+                                                     {page > 2 && <PaginationItem>
+                                                         <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                     </PaginationItem>}
+                                                     {page > 1 && <PaginationItem>
+                                                         <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                     </PaginationItem>}
+                                 
+                                 
+                                                     <PaginationItem>
+                                                         <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                     </PaginationItem>
+                                                     <PaginationItem>
+                                                         <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                     </PaginationItem>
+                                                     <PaginationItem>
+                                                         <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                     </PaginationItem>
+                                                     <PaginationItem>
+                                                         <PaginationEllipsis />
+                                                     </PaginationItem>
+                                                     <PaginationItem>
+                                                         <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                     </PaginationItem>
+                                                 </PaginationContent>
+                                             </Pagination>
+                <dialog id="machinescs" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                           <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
                           <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                            <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                            <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
                 
                           {/* <!-- Add more elements as needed --> */}
                         </dialog>
                 
-                        <dialog id="machineerror" className="dashboard-modal">
+                        <dialog id="machineerror" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                           <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
                           <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                            <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                            <p id="modal-text" className="pl-3 mt-1 font-medium text-red-500">{errortext}</p></span>
                 
                           {/* <!-- Add more elements as needed --> */}
                         </dialog>

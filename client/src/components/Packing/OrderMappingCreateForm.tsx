@@ -150,11 +150,42 @@ const OrderMappingCreateForm = (props:Props) => {
             remarks: ''
         }])
     }
-    const deleteRow = (index: number,e:any) => {
-        e.preventDefault()
+    // const deleteRow = (index: number,e:any) => {
+    //     e.preventDefault()
+    //     const newRows = rows.filter((_, i) => i !== index);
+    //     setRows(newRows)
+    // }
+
+    const deleteRow = (index: number, e: any) => {
+        e.preventDefault();
+
+        const rowToDelete = rows[index];
+
+        // Only remove from selectedLotSet if a lot was actually selected
+        if (
+            rowToDelete.LotNo &&
+            rowToDelete.porigin &&
+            rowToDelete.section &&
+            rowToDelete.grade
+        ) {
+            const key = buildLotKey(
+                rowToDelete.LotNo,
+                rowToDelete.porigin,
+                rowToDelete.section,
+                rowToDelete.grade
+            );
+
+            setSelectedLotSet(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(key);
+                return newSet;
+            });
+        }
+
+        // Remove the row itself
         const newRows = rows.filter((_, i) => i !== index);
-        setRows(newRows)
-    }
+        setRows(newRows);
+    };
 
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
@@ -653,19 +684,19 @@ const OrderMappingCreateForm = (props:Props) => {
 
                 </form>
 
-                <dialog id="successemployeedialog" className="dashboard-modal">
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                     </span>
 
 
                 </dialog>
 
-                <dialog id="erroremployeedialog" className="dashboard-modal">
+                <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-red-500">{errortext}</p>
                     </span>
 
 

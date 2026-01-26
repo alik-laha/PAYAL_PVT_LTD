@@ -163,10 +163,10 @@ const OrderMappingInitial = (props: any) => {
 
 
             </div>
-            <dialog id="rcneditapproveRejectDialogPeel" className="dashboard-modal">
+            <dialog id="rcneditapproveRejectDialogPeel" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="rcneditRejectcloseDialogPeel" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

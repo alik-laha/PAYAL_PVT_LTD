@@ -1290,6 +1290,8 @@ export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) =
 
         // 🔹 Final Stock
         const finalStock = formatNumber(stockSum - consumedSum);
+        // 🚫 DISCARD zero or negative stock
+        if (Number(finalStock) <= 0) return null;
 
         // ✅ return fully typed object
         return {
@@ -1297,11 +1299,15 @@ export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) =
           origin,
           stock: finalStock,
         };
+
+         
       })
     );
+     // 3️⃣ Remove nulls (discarded zero-stock lots)
+    const filteredResults = stockResults.filter(Boolean);
 
     // 3️⃣ Respond
-    return res.status(200).json(stockResults);
+    return res.status(200).json(filteredResults);
   } catch (error) {
     console.error("Error in lotQtydataFindAllOriginWise:", error);
     return res.status(500).json({
