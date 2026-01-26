@@ -257,6 +257,10 @@ const OrderMappingCreateForm = (props:Props) => {
                     .catch((err) => {
                         if (err.response.status === 404) {
                             rows[index].stockquantity=0
+                            // rows[index].section=''
+                            // handleRowChange(index, 'section', '')
+                            rows[index].grade=''
+                            handleRowChange(index, 'grade', '')
                         }
                     })
         rows[index].LotNo = item.LotNo
@@ -524,7 +528,10 @@ const OrderMappingCreateForm = (props:Props) => {
                                                             <Dialog onOpenChange={(isOpen) => {
                                                                 if (!isOpen) {
                                                                     rows[index].section=''
+                                                                    handleRowChange(index, 'section', '')
                                                                     rows[index].grade=''
+                                                                    handleRowChange(index, 'grade', '')
+                                                                    setEye(false)
                                                                 }
                                                             }}>
                                                                 <DialogTrigger> 
