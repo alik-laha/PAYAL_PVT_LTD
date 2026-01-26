@@ -630,7 +630,7 @@ const ProdTransacTable = () => {
                             Origin
                         </label> */}
                             <select
-                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none bg-yellow-100"
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
                                 onChange={(e) => setMapsectionstatus(e.target.value)} value={mapsectionstatus}
                             >
 
