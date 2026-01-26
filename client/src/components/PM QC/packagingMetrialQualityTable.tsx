@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import React from "react"
@@ -14,6 +14,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
+
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "../ui/drawer"
 import { format, toZonedTime } from 'date-fns-tz'
 import {
     AlertDialog,
@@ -59,21 +61,21 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { pendingCheckRole } from '../common/exportData';
 import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/type";
-// import { saveAs } from 'file-saver';
-// import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 import { CiEdit } from "react-icons/ci"
-// import PackagingMetirialQcEditForm from "./packageMeterialModify"
 import { LuDownload } from "react-icons/lu"
 import Carousel from "./ModalCarousel"
 import { SiTicktick } from "react-icons/si"
-import { MdOutlinePendingActions } from "react-icons/md"
+import { MdOutlinePendingActions, MdPendingActions } from "react-icons/md"
 import { IoMdCloseCircle } from "react-icons/io"
+import PackagingMetirialQcEditForm from "./packageMeterialModify"
 
 
 const QCPackageMaterialTable = () => {
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
-   // const [hidetodate, sethidetoDate] = React.useState<string>('');
+    // const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>("")
     const [Data, setData] = useState<PackagingMeterialQc[]>([])
     const [page, setPage] = useState(pageNo)
@@ -95,88 +97,78 @@ const QCPackageMaterialTable = () => {
     //const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     // const [isModalOpen, setModalOpen] = useState(false);
-    // const currDate = new Date().toLocaleDateString();
 
-    // const exportToExcel = async () => {
-    //     const response = await axios.put('/api/qcRcn/searchqcRcn', {
-    //         blConNo: blConNo,
-    //         origin: origin,
-    //         fromDate: fromdate,
-    //         toDate: todate
-    //     })
-    //     const data1 = await response.data
 
-    //     let ws
-    //     let transformed: QcRcnEntryExcelData[] = [];
-    //     if (pendingData.length > 0) {
+ const exportToExcel = async () => {
+  const currDate = new Date().toISOString().slice(0, 10);
 
-    //         transformed = pendingData.map((item: QcRcnEntryData, idx: number) => ({
-    //             id: idx + 1,
-    //             blNo: item.blNo,
-    //             conNo: item.conNo,
-    //             date: item.date,
-    //             origin: item.origin,
-    //             truckNo: item.rcnEntry.truckNo,
-    //             BLWeight: item.rcnEntry.blWeight,
-    //             NoOfBags: item.rcnEntry.noOfBags,
-    //             QCStatus: item.rcnEntry.rcnStatus,
-    //             sampling: item.sampling,
-    //             moisture: item.moisture,
-    //             nutCount: item.nutCount,
-    //             fluteRate: item.fluteRate,
-    //             goodKernel: item.goodKernel,
-    //             spIm: item.spIm,
-    //             reject: item.reject,
-    //             shell: item.shell,
-    //             outTurn: item.outTurn,
-    //             Remarks: item.Remarks,
-    //             qcapprovedBy: item.qcapprovedBy,
-    //             reportStatus: item.reportStatus === 1 ? 'Done' : 'Pending',
-    //             EntriedBy: item.createdBy,
-    //             editStatus: item.editStatus,
-    //             editapprovedorRejectedBy: item.editapprovedBy,
+  const transformed = Data.map((item: any, idx: number) => ({
+    "Sl No": idx + 1,
 
-    //         }));
-    //         //setTransformedData(transformed);
-    //         ws = XLSX.utils.json_to_sheet(transformed);
-    //     }
-    //     else {
-    //         transformed = data1.rcnEntries.map((item: QcRcnEntryData, idx: number) => ({
-    //             id: idx + 1,
-    //             blNo: item.blNo,
-    //             conNo: item.conNo,
-    //             date: item.date,
-    //             origin: item.origin,
-    //             truckNo: item.rcnEntry.truckNo,
-    //             BLWeight: item.rcnEntry.blWeight,
-    //             NoOfBags: item.rcnEntry.noOfBags,
-    //             QCStatus: item.rcnEntry.rcnStatus,
-    //             sampling: item.sampling,
-    //             moisture: item.moisture,
-    //             nutCount: item.nutCount,
-    //             fluteRate: item.fluteRate,
-    //             goodKernel: item.goodKernel,
-    //             spIm: item.spIm,
-    //             reject: item.reject,
-    //             shell: item.shell,
-    //             outTurn: item.outTurn,
-    //             Remarks: item.Remarks,
-    //             qcapprovedBy: item.qcapprovedBy,
-    //             reportStatus: item.reportStatus === 1 ? 'Done' : 'Pending',
-    //             EntriedBy: item.createdBy,
-    //             editStatus: item.editStatus,
-    //             editapprovedorRejectedBy: item.editapprovedBy,
+    // 🔹 Gate & Vendor Info
+    "Gate Pass No": item.gatePassNo ?? "NA",
+    "Vendor Name": item.packagingMaterialreceving?.vendorName ?? "NA",
+    "SKU": item.packagingMaterialreceving?.sku ?? "NA",
+    "Type": item.packagingMaterialreceving?.type ?? "NA",
 
-    //         }));
-    //         // setTransformedData(transformed);
-    //         ws = XLSX.utils.json_to_sheet(transformed);
-    //     }
-    //     const wb = XLSX.utils.book_new();
-    //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    //     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    //     const blob = new Blob([wbout], { type: 'application/octet-stream' });
-    //     saveAs(blob, 'QC_RCN_Entry_' + currDate + '.xlsx');
-    // };
+    // 🔹 Vehicle & Quantity
+    "Truck No": item.packagingMaterialreceving?.truckNo ?? "NA",
+    "Invoice No": item.packagingMaterialreceving?.invoice ?? "NA",
+    "Invoice Date": item.packagingMaterialreceving?.invoicedate
+      ? new Date(item.packagingMaterialreceving.invoicedate).toLocaleDateString()
+      : "NA",
+    "Quantity": item.packagingMaterialreceving?.quantity ?? "NA",
+    "Unit": item.packagingMaterialreceving?.unit ?? "NA",
+
+    // 🔹 QC Measurements
+    "Testing Date": item.testingDate
+      ? new Date(item.testingDate).toLocaleDateString()
+      : "NA",
+    "Length (mm)": item.length ?? "NA",
+    "Width (mm)": item.width ?? "NA",
+    "Height (mm)": item.height ?? "NA",
+    "GSM": item.gsm ?? "NA",
+    "Avg Weight": item.avgWeight ?? "NA",
+
+    // 🔹 Test Results
+    "Leakage Test": item.leakageTest ?? "NA",
+    "Drop Test": item.dropTest ?? "NA",
+    "Seal Condition": item.sealCondition ?? "NA",
+    "Labeling Condition": item.labelingCondition ?? "NA",
+
+    // 🔹 Certificates
+    "COA Required": item.coa ?? "NA",
+    "COA Status": item.coaCirtificateStatus ?? "NA",
+    "Food Grade Required": item.foodGradeCirtiicate ?? "NA",
+    "Food Grade Status": item.foodGradeCirtificateStatus ?? "NA",
+
+    // 🔹 Damage
+    "Damage Images": item.damageFile
+      ? JSON.parse(item.damageFile).length
+      : 0,
+
+    // 🔹 Status & Audit
+    "Quality Status": item.qualityStatus ? "Passed" : "Failed",
+    "Edit Status": item.editStatus ?? "NA",
+    "Created By": item.createdBy ?? "NA",
+    "Approved By": item.approvedBy ?? "NA",
+
+    // 🔹 Remarks
+    "QC Remarks": item.remarks ?? "NA",
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(transformed);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "QC Packaging Material");
+
+  const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+  const blob = new Blob([wbout], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  saveAs(blob, `QC_Packaging_Material_${currDate}.xlsx`);
+};
+
 
     if (approvecloseDialogButton) {
         approvecloseDialogButton.addEventListener('click', () => {
@@ -226,7 +218,7 @@ const QCPackageMaterialTable = () => {
     }
 
     const handleSearchPendingEdit = async () => {
-        setData([])
+        //setData([])
         const response = await axios.get('/api/qcpackage/viewQcPackageMaterial')
         // const data = await response.data
         // setPendingData(data.rcnEdit)
@@ -376,375 +368,470 @@ const QCPackageMaterialTable = () => {
     }
     return (
         // disabled={pendingqccount === 0 ? true : false}
-        <div className="ml-5 mt-5 ">
-            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust drop-shadow-md" onClick={handleSearchPendingQC} >Pending QC ({sumOfallelement ? sumOfallelement.QualityNotEntered : 0})</Button>
-            {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust " onClick={handleSearchPendingEdit} disabled={counteditpending === 0 ? true : false}>
-                Pending Edit ({sumOfallelement ? sumOfallelement.editCount : 0})</Button>}
+        <div>
+            <div className="relative inline-block top-1 responsive-button-adjust">
+                <Button className="ml-2 w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md" onClick={handleSearchPendingQC} disabled={(sumOfallelement?.QualityNotEntered ?? 0) === 0} >
+                    <div className="flex items-center gap-2">
+                        <MdPendingActions size={18} />Pending QC
 
-            <div className="flex flexbox-search mt-5 mb-8">
-
-
-
-                
-
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left text-start">From </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
-
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                        value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
-
-                />
-                <Input className="no-padding w-1/5 ml-10 flexbox-search-width no-margin-left-absolute" placeholder=" Sku. / VendorName." value={searchData} onChange={(e) => setSearchData(e.target.value)} />
-
-
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                    </div>
+                </Button>
+                {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                {(sumOfallelement?.QualityNotEntered ?? 0) > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                        {sumOfallelement?.QualityNotEntered ?? 0}
+                    </span>
+                )}
 
             </div>
-            {/* {checkpending('QCRCN') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
 
-            <Table className="mt-4">
-                <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >GatePass_No</TableHead>
-                    <TableHead className="text-center" >Receiving_Date</TableHead>
-                    <TableHead className="text-center" >QC_Status</TableHead>
-                    <TableHead className="text-center" >Invoice_No(Packaging_Material)</TableHead>
-                    <TableHead className="text-center" >Invoice_Date </TableHead>
 
-                   
-                    <TableHead className="text-center" >Item_Name(Packaging_Material_SKU)</TableHead>
-                    
-                    <TableHead className="text-center" >Quantity</TableHead>
-                    <TableHead className="text-center" >Unit</TableHead>
-                    <TableHead className="text-center" >Vendor_Name(QC_Packaging_Material)</TableHead>
-                  
-                 
 
-                    <TableHead className="text-center" >Testing_Date</TableHead>
-                         <TableHead className="text-center" >Leakage_Test</TableHead>
-                    <TableHead className="text-center" >Drop_Test</TableHead>
-                    <TableHead className="text-center" >Seal_Condition</TableHead>
-                    <TableHead className="text-center" >Label_Condition</TableHead>
-                    <TableHead className="text-center" >Length(mm)</TableHead>
-                    <TableHead className="text-center" >Width(mm)</TableHead>
-                    <TableHead className="text-center" >Height(mm)</TableHead>
-                    <TableHead className="text-center" >Gsm_Value</TableHead>
-                    <TableHead className="text-center" >Avg_Weight(gm)</TableHead>
-                              <TableHead className="text-center" >Remarks(Regarding_Quality_PM)</TableHead>
-                   
-                    
-                    <TableHead className="text-center" >Damage_Image</TableHead>
-             
-              
-                    {/* <TableHead className="text-center" >COA</TableHead> */}
-                    <TableHead className="text-center" >COA_Certificate</TableHead>
-                    {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
-                    <TableHead className="text-center" >FoodGrade_Certificate</TableHead>
-                
+            {checkpending('QCRCN') && ((sumOfallelement?.editCount ?? 0) !== 0) &&
 
-                    <TableHead className="text-center" >Reported_By</TableHead>
-                    <TableHead className="text-center" >Edit_Status</TableHead>
+                (
 
-                    <TableHead className="text-center" >Action</TableHead>
+                    <Drawer>
+                        <DrawerTrigger asChild >
+                            <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                                <Button
+                                    className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                    /* FIX 1: Use ?? 0 for the disabled prop */
+                                    disabled={(sumOfallelement?.editCount ?? 0) === 0}
+                                    onClick={handleSearchPendingEdit}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <MdPendingActions size={18} />
+                                        Pending Actions
+                                    </div>
+                                </Button>
 
-                </TableHeader>
-                <TableBody>
+                                {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                                {(counteditpending ?? 0) > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                        {sumOfallelement?.editCount ?? 0}
+                                    </span>
+                                )}
+                            </div>
+                        </DrawerTrigger>
+                        <DrawerContent>
+                            <DrawerHeader>
+                                <DrawerTitle>Pending Actions</DrawerTitle>
+                                <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+                            </DrawerHeader>
+                            <div className='mx-5 flex flex-col'>
+                                <div className="flex flex-row w-full  justify-end"><Button
+                                    className="w-12 mb-2 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                    onClick={exportToExcel}
+                                >
+                                    <LuDownload size={16} />
 
-                    {pendingData.length > 0 ?
-                        (pendingData.map((item: PackagingMeterialQc, idx: number) => {
-                            return (
-                                <TableRow key={item.id}>
-                                    <TableCell className="text-center">{idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.packagingMaterialreceving.qualityStatus ? (
-                                                 <p className="flex flex-row justify-center">
-                                                                        <SiTicktick color="green" size={18} />
-                                                                      </p>
-                                            ) : (
-                                                <p className="flex flex-row justify-center">
-                                                                        <MdOutlinePendingActions color="red" size={23} />
-                                                                      </p>
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
+                                </Button></div>
+                                <Table>
+                                    <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                                        
-                                        <TableCell className="text-center">{item.packagingMaterialreceving.sku}</TableCell>
-                                        
-                                        <TableCell className="text-center">{formatNumber(item.packagingMaterialreceving.quantity)}</TableCell>
-                                        
-                                        <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
-                                        <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
-                                        
-                          
-                                       
-                                        <TableCell className="text-center   ">{
-                                            item.leakageTest === "Pass" ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
-                                            ) : (
-                                                item.leakageTest === "Fail" ? (
-                                                    <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
-                                                ) : 'NA'
-                                            )
-                                        }</TableCell>
-                                        <TableCell className="text-center ">{item.dropTest === "Pass" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
-                                        ) : (
-                                            item.dropTest === "Fail" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
-                                            ) : 'NA'
-                                        )}</TableCell>
-                                        <TableCell className="text-center ">{item.sealCondition === "OK" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
-                                        ) : (
-                                            item.sealCondition === "Not OK" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
-                                            ) : 'NA'
-                                        )}</TableCell>
-                                        <TableCell className="text-center">{item.labelingCondition === "OK" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
-                                        ) : (
-                                            item.labelingCondition === "Not OK" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
-                                            ) : 'NA'
-                                        )}</TableCell>
-                                        <TableCell className="text-center ">
+                                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                                        <TableHead className="text-center" >Action</TableHead>
+                                        <TableHead className="text-center" >GatePass⠀No</TableHead>
+                                        <TableHead className="text-center" >Type</TableHead>
+                                        <TableHead className="text-center" >Receiving⠀Date</TableHead>
+                                        <TableHead className="text-center" >Edit⠀Status</TableHead>
+                                        <TableHead className="text-center" >QC⠀Status</TableHead>
+                                        <TableHead className="text-center" >Invoice⠀No⠀(Packaging⠀Material)</TableHead>
+                                        <TableHead className="text-center" >Invoice⠀Date </TableHead>
+
+
+                                        <TableHead className="text-center" >Item⠀Name(Packaging⠀Material⠀SKU)</TableHead>
+
+                                        <TableHead className="text-center" >Quantity</TableHead>
+                                        <TableHead className="text-center" >Unit</TableHead>
+                                        <TableHead className="text-center" >Vendor⠀Name(QC⠀Packaging⠀Material)</TableHead>
+
+
+
+                                        <TableHead className="text-center" >Testing⠀Date</TableHead>
+                                        <TableHead className="text-center" >Leakage⠀Test</TableHead>
+                                        <TableHead className="text-center" >Drop⠀Test</TableHead>
+                                        <TableHead className="text-center" >Seal⠀Condition</TableHead>
+                                        <TableHead className="text-center" >Label⠀Condition</TableHead>
+                                        <TableHead className="text-center" >Length⠀(mm)</TableHead>
+                                        <TableHead className="text-center" >Width⠀(mm)</TableHead>
+                                        <TableHead className="text-center" >Height⠀(mm)</TableHead>
+                                        <TableHead className="text-center" >Gsm⠀Value</TableHead>
+                                        <TableHead className="text-center" >Avg⠀Weight(gm)</TableHead>
+                                        <TableHead className="text-center" >Remarks⠀(Regarding⠀Quality⠀PM)</TableHead>
+
+
+                                        <TableHead className="text-center" >Damage⠀Image</TableHead>
+
+
+                                        {/* <TableHead className="text-center" >COA</TableHead> */}
+                                        <TableHead className="text-center" >COA⠀Certificate</TableHead>
+                                        {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
+                                        <TableHead className="text-center" >FoodGrade⠀Certificate</TableHead>
+
+
+                                        <TableHead className="text-center" >Reported⠀By</TableHead>
+
+
+
+
+                                    </TableHeader>
+                                    <TableBody>
+                                        {pendingData.length > 0 &&
+                                            pendingData.map((item: PackagingMeterialQc, idx: number) => {
+
+                                                return (
+                                                    <TableRow key={item.id}>
+                                                        <TableCell className="text-center">{idx + 1}</TableCell>
+                                                        <TableCell className="text-center flex flex-row gap-3">
+
+
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger >
+                                                                    <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                                        <button className="text-green-600">
+                                                                            Approve
+                                                                        </button>
+
+                                                                    </div>
+
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent  >
+                                                                    <AlertDialogHeader>
+                                                                        <AlertDialogTitle>
+                                                                            Do you want to Approve the Edit Request?
+                                                                        </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                        <AlertDialogAction
+                                                                            onClick={() => handleApprove(item.id)}>
+                                                                            Continue
+                                                                        </AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger>
+                                                                    <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                                        <FcDisapprove size={18} />
+                                                                        <button className=" text-red-600">
+                                                                            Revert
+                                                                        </button>
+                                                                    </div>
+
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent>
+                                                                    <AlertDialogHeader>
+                                                                        <AlertDialogTitle>
+                                                                            Do you want to Decline the Edit Request?
+                                                                        </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                        <AlertDialogAction
+                                                                            onClick={() => handleRejection(item.id)}>
+                                                                            Continue
+                                                                        </AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
+
+
+                                                        </TableCell>
+                                                        <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
+                                                        <TableCell className="text-center font-semibold text-red-600">IN</TableCell>
+                                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
+                                                        <TableCell className="text-center" > <button
+                                                            className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Approved"
+                                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                                    : item.editStatus === "NA"
+                                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                                }`}
+                                                        >
+                                                            {item.editStatus}
+                                                        </button></TableCell>
+
+                                                        <TableCell className="text-center">
+                                                            {item.packagingMaterialreceving.qualityStatus ? (
+                                                                <p className="flex flex-row justify-center">
+                                                                    <SiTicktick color="green" size={18} />
+                                                                </p>
+                                                            ) : (
+                                                                <p className="flex flex-row justify-center">
+                                                                    <MdOutlinePendingActions color="red" size={23} />
+                                                                </p>
+                                                            )}
+                                                        </TableCell>
+                                                        <TableCell className="text-left">{item.packagingMaterialreceving.invoice}</TableCell>
+                                                        <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
+
+
+                                                        <TableCell className="text-left">{item.packagingMaterialreceving.sku}</TableCell>
+
+                                                        <TableCell className="text-center">{formatNumber(item.packagingMaterialreceving.quantity)}</TableCell>
+
+                                                        <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
+                                                        <TableCell className="text-left">{item.packagingMaterialreceving.vendorName}</TableCell>
+
+
+
+
+                                                        <TableCell className={`text-center font-semibold ${item.testingDate ? 'text-white bg-blue-500' : 'bg-blue-500 text-white '}`}>{item.testingDate ? handletimezone(item.testingDate) : 'NA'}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.leakageTest ? ' ' : 'text-red-500 font-semibold'}`}>{
+                                                            item.leakageTest === "Pass" ? (
+                                                                <p className="flex flex-row justify-center">
+                                                                    <SiTicktick color="green" size={18} />
+                                                                </p>
+                                                            ) : (
+                                                                item.leakageTest === "Fail" ? (
+                                                                    <p className="flex flex-row justify-center">
+                                                                        <IoMdCloseCircle color="red" size={23} />
+                                                                    </p>
+                                                                ) : '--'
+                                                            )
+                                                        }</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.dropTest ? ' ' : 'text-red-500 font-semibold'}`}>{item.dropTest === "Pass" ? (
+                                                            <p className="flex flex-row justify-center">
+                                                                <SiTicktick color="green" size={18} />
+                                                            </p>
+                                                        ) : (
+                                                            item.dropTest === "Fail" ? (
+                                                                <p className="flex flex-row justify-center">
+                                                                    <IoMdCloseCircle color="red" size={23} />
+                                                                </p>
+                                                            ) : '--'
+                                                        )}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.sealCondition ? ' ' : 'text-red-500 font-semibold'}`}>{item.sealCondition === "OK" ? (
+                                                            <p className="flex flex-row justify-center">
+                                                                <SiTicktick color="green" size={18} />
+                                                            </p>
+                                                        ) : (
+                                                            item.sealCondition === "Not OK" ? (
+                                                                <p className="flex flex-row justify-center">
+                                                                    <IoMdCloseCircle color="red" size={23} />
+                                                                </p>
+                                                            ) : '--'
+                                                        )}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.labelingCondition ? ' ' : 'text-red-500 font-semibold'}`}>{item.labelingCondition === "OK" ? (
+                                                            <p className="flex flex-row justify-center">
+                                                                <SiTicktick color="green" size={18} />
+                                                            </p>
+                                                        ) : (
+                                                            item.labelingCondition === "Not OK" ? (
+                                                                <p className="flex flex-row justify-center">
+                                                                    <IoMdCloseCircle color="red" size={23} />
+                                                                </p>
+                                                            ) : '--'
+                                                        )}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500 '}`}>{item.length ? item.length : '--'}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500'}`}>{item.width ? item.width : '--'}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500'}`}>{item.height ? item.height : '--'}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500 '}`}>{item.gsm ? item.gsm : '--'}</TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500'}`}>{item.avgWeight ? item.avgWeight : '-'}</TableCell>
+                                                        <TableCell className={`text-center ${item.testingDate ? ' ' : 'text-red-500 '}`}>{item.remarks ? item.remarks : '-'}</TableCell>
+
+                                                        <TableCell className={`text-center ${item.testingDate ? ' ' : 'text-red-500 '}`}>
+                                                            {
+                                                                (item.damageFile && item.damageFile.length > 3) ? (
+                                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20} /></button>
+                                                                ) : (
+                                                                    '--'
+                                                                )
+
+                                                            }
+                                                        </TableCell>
+
+
+
+                                                        {/* <TableCell className="text-center ">
                                             { item.qualityStatus && (item.coa === "Yes" ? (
                                             <Input type="checkbox" className="h-4" checked/>
                                         ) : <Input type="checkbox" className="h-4" checked={false}/>)}
                                         
                                      
-                                        </TableCell>
-                                        <TableCell className="text-center ">
-                                        {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
-                                        style={{ background: 'orange', color: 'white' }} 
-                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={15} /></button> : 
-                                       null}
-                                        </TableCell>
+                                        </TableCell> */}
+                                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus === 'Uploaded' ? ' ' : 'text-orange-500 font-semibold'}`}>
+                                                            {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm '
+                                                                style={{ background: 'white', color: 'orange' }}
+                                                                onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={20} /></button> :
+                                                                '--'}
+                                                        </TableCell>
 
 
-                                        <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
+                                                        {/* <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
                                        <Input type="checkbox" className="h-4" checked/> ) : <Input type="checkbox" className="h-4" checked={false}/>)
                                         }
-                                        </TableCell>
-                                       
-                                        <TableCell className="text-center ">
-                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
-                                        style={{ background: 'orange', color: 'white' }} 
-                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={15} /></button>
-                                             : null}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold">{item.testingDate ? handletimezone(item.testingDate):''}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.length}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.width}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.height}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gsm}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.avgWeight}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        
-                                        <TableCell className="text-center">
-                                            {
-                                               (item.damageFile && item.damageFile.length > 3) ? (
-                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
-                                                ) : (
-                                                   ''
-                                                )
+                                        </TableCell> */}
 
-                                            }
-                                        </TableCell>
-                                    <TableCell className="text-center">{item.createdBy}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus === 'Uploaded' ? ' ' : 'text-orange-500 font-semibold'}`}>
+                                                            {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm '
+                                                                style={{ background: 'white', color: 'orange' }}
+                                                                onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={20} /></button>
+                                                                : '--'}
+                                                        </TableCell>
 
-                                </TableRow>
-                            );
-                        })
-                        ) : (
+                                                        <TableCell className="text-center">{item.createdBy ? item.createdBy : <p className="flex flex-row justify-center">
+                                                            <MdOutlinePendingActions color="red" size={23} />
+                                                        </p>}</TableCell>
 
+
+                                                    </TableRow>
+                                                );
+                                            })}
+
+                                    </TableBody>
+                                </Table>
+
+                            </div>
+                            <DrawerFooter>
+
+                                <DrawerClose asChild>
+                                    <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                                    >Close</Button>
+                                </DrawerClose>
+                            </DrawerFooter>
+
+                        </DrawerContent>
+                    </Drawer>
+
+                )
+            }
+
+
+
+
+            <div className="mx-2 mt-5">
+                <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-end">
+
+                        {/* SKU / Vendor */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                SKU / Vendor
+                            </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                                placeholder="Search SKU/Vendor"
+                                value={searchData}
+                                onChange={(e) => setSearchData(e.target.value)}
+                            />
+                        </div>
+
+                        {/* From Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                From
+                            </label>
+                            <Input
+                                type="date"
+                                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={fromdate}
+                                onChange={(e) => setfromDate(e.target.value)}
+                            />
+                        </div>
+
+                        {/* To Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                To
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={todate}
+                                onChange={(e) => settoDate(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="flex flex-wrap justify-end sm:justify-between gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
+                            </Button>
+
+                            <Button
+                                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={exportToExcel}
+                            >
+                                <LuDownload size={16} />
+
+                            </Button>
+                        </div>
+
+
+                    </div>
+                </div>
+                <Table className="mt-4">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
+                        <TableHead className="text-center" >GatePass⠀No</TableHead>
+                       
+                        <TableHead className="text-center" >Receiving⠀Date</TableHead>
+                        <TableHead className="text-center" >Edit⠀Status</TableHead>
+                        <TableHead className="text-center" >QC⠀Status</TableHead>
+                        <TableHead className="text-center" >Invoice⠀No⠀(Packaging⠀Material)</TableHead>
+                        <TableHead className="text-center" >Invoice⠀Date </TableHead>
+
+
+                        <TableHead className="text-center" >Item⠀Name(Packaging⠀Material⠀SKU)</TableHead>
+
+                        <TableHead className="text-center" >Quantity</TableHead>
+                        <TableHead className="text-center" >Unit</TableHead>
+                        <TableHead className="text-center" >Vendor⠀Name(QC⠀Packaging⠀Material)</TableHead>
+
+
+
+                        <TableHead className="text-center" >Testing⠀Date</TableHead>
+                        <TableHead className="text-center" >Leakage⠀Test</TableHead>
+                        <TableHead className="text-center" >Drop⠀Test</TableHead>
+                        <TableHead className="text-center" >Seal⠀Condition</TableHead>
+                        <TableHead className="text-center" >Label⠀Condition</TableHead>
+                        <TableHead className="text-center" >Length⠀(mm)</TableHead>
+                        <TableHead className="text-center" >Width⠀(mm)</TableHead>
+                        <TableHead className="text-center" >Height⠀(mm)</TableHead>
+                        <TableHead className="text-center" >Gsm⠀Value</TableHead>
+                        <TableHead className="text-center" >Avg⠀Weight(gm)</TableHead>
+                        <TableHead className="text-center" >Remarks⠀(Regarding⠀Quality⠀PM)</TableHead>
+
+
+                        <TableHead className="text-center" >Damage⠀Image</TableHead>
+
+
+                        {/* <TableHead className="text-center" >COA</TableHead> */}
+                        <TableHead className="text-center" >COA⠀Certificate</TableHead>
+                        {/* <TableHead className="text-center" >FoodGrade Certificate</TableHead> */}
+                        <TableHead className="text-center" >FoodGrade⠀Certificate</TableHead>
+
+
+                        <TableHead className="text-center" >Reported⠀By</TableHead>
+
+
+
+
+                    </TableHeader>
+                    <TableBody>
+                        {
                             Data.length > 0 ? (Data.map((item: PackagingMeterialQc, idx) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.packagingMaterialreceving.qualityStatus ? (
-                                               <p className="flex flex-row justify-center">
-                                                                       <SiTicktick color="green" size={18} />
-                                                                     </p>
-                                            ) : (
-                                               <p className="flex flex-row justify-center">
-                                                                       <MdOutlinePendingActions  color="red" size={23} />
-                                                                     </p>
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-left">{item.packagingMaterialreceving.invoice}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
-
-                                        
-                                        <TableCell className="text-left">{item.packagingMaterialreceving.sku}</TableCell>
-                                        
-                                        <TableCell className="text-center">{formatNumber(item.packagingMaterialreceving.quantity)}</TableCell>
-                                        
-                                        <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
-                                        <TableCell className="text-left">{item.packagingMaterialreceving.vendorName}</TableCell>
-                                        
-                          
-                                       
-                                     
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?'text-white bg-blue-500':'bg-blue-500 text-white '}`}>{item.testingDate ? handletimezone(item.testingDate):'NA'}</TableCell>
-                                                <TableCell className={`text-center font-semibold ${item.leakageTest ?' ':'text-red-500 font-semibold'}`}>{
-                                            item.leakageTest === "Pass" ? (
-                                                <p className="flex flex-row justify-center">
-                                                                       <SiTicktick color="green" size={18} />
-                                                                     </p>
-                                            ) : (
-                                                item.leakageTest === "Fail" ? (
-                                                    <p className="flex flex-row justify-center">
-                                                                       <IoMdCloseCircle  color="red" size={23} />
-                                                                     </p>
-                                                ) : '--'
-                                            )
-                                        }</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.dropTest ?' ':'text-red-500 font-semibold'}`}>{item.dropTest === "Pass" ? (
-                                           <p className="flex flex-row justify-center">
-                                                                       <SiTicktick color="green" size={18} />
-                                                                     </p>
-                                        ) : (
-                                            item.dropTest === "Fail" ? (
-                                                <p className="flex flex-row justify-center">
-                                                                       <IoMdCloseCircle  color="red" size={23} />
-                                                                     </p>
-                                            ) : '--'
-                                        )}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.sealCondition ?' ':'text-red-500 font-semibold'}`}>{item.sealCondition === "OK" ? (
-                                            <p className="flex flex-row justify-center">
-                                                                       <SiTicktick color="green" size={18} />
-                                                                     </p>
-                                        ) : (
-                                            item.sealCondition === "Not OK" ? (
-                                               <p className="flex flex-row justify-center">
-                                                                       <IoMdCloseCircle  color="red" size={23} />
-                                                                     </p>
-                                            ) : '--'
-                                        )}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.labelingCondition ?' ':'text-red-500 font-semibold'}`}>{item.labelingCondition === "OK" ? (
-                                            <p className="flex flex-row justify-center">
-                                                                       <SiTicktick color="green" size={18} />
-                                                                     </p>
-                                        ) : (
-                                            item.labelingCondition === "Not OK" ? (
-                                                <p className="flex flex-row justify-center">
-                                                                       <IoMdCloseCircle  color="red" size={23} />
-                                                                     </p>
-                                            ) : '--'
-                                        )}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.length ?item.length:'--'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.width ?item.width:'--'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.height?item.height:'--'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500 '}`}>{item.gsm ?item.gsm:'--'}</TableCell>
-                                        <TableCell className={`text-center font-semibold ${item.testingDate ?' bg-yellow-50':'text-red-500'}`}>{item.avgWeight ?item.avgWeight:'-'}</TableCell>
-                                         <TableCell className={`text-center ${item.testingDate ?' ':'text-red-500 '}`}>{item.remarks ? item.remarks :'-'}</TableCell>
-                                        
-                                        <TableCell className={`text-center ${item.testingDate ?' ':'text-red-500 '}`}>
-                                            {
-                                               (item.damageFile && item.damageFile.length > 3) ? (
-                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
-                                                ) : (
-                                                   '--'
-                                                )
-
-                                            }
-                                        </TableCell>
-
-                                   
-                                       
-                                        {/* <TableCell className="text-center ">
-                                            { item.qualityStatus && (item.coa === "Yes" ? (
-                                            <Input type="checkbox" className="h-4" checked/>
-                                        ) : <Input type="checkbox" className="h-4" checked={false}/>)}
-                                        
-                                     
-                                        </TableCell> */}
-                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus==='Uploaded' ?' ':'text-orange-500 font-semibold'}`}>
-                                        {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
-                                        style={{ background: 'white', color: 'orange' }} 
-                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={20} /></button> : 
-                                       '--'}
-                                        </TableCell>
-
-
-                                        {/* <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
-                                       <Input type="checkbox" className="h-4" checked/> ) : <Input type="checkbox" className="h-4" checked={false}/>)
-                                        }
-                                        </TableCell> */}
-                                       
-                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus ==='Uploaded'?' ':'text-orange-500 font-semibold'}`}>
-                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
-                                        style={{ background: 'white', color: 'orange' }} 
-                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={20} /></button>
-                                             : '--'}
-                                        </TableCell>
-                                        
-                                        <TableCell className="text-center">{item.createdBy ?item.createdBy:<p className="flex flex-row justify-center">
-                                                                       <MdOutlinePendingActions  color="red" size={23} />
-                                                                     </p>}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${(item.qualityStatus === true && !item.editStatus) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.qualityStatus === true && !item.editStatus) ? true : false}>Action</button>
+                                                    <button className={`p-2 bg-white rounded ${(item.qualityStatus && item.editStatus !== 'Pending') ?
+                                                        'text-red-500 h-8 w-20 border border-red-400 font-bold rounded-lg  hover:bg-red-200' : 'text-blue-500 h-8 w-20 border border-blue-400 font-bold rounded-lg  hover:bg-blue-200'}`} disabled={(item.qualityStatus && item.editStatus === 'Pending') ? true : false}>
+                                                        Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <div className={item.qualityStatus == true ? "block" : "hidden"}>
@@ -752,7 +839,7 @@ const QCPackageMaterialTable = () => {
                                                             <DialogTrigger className="flex"><CiEdit size={20} />
                                                                 <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
                                                             </DialogTrigger>
-                                                            <DialogContent>
+                                                            <DialogContent className="max-w-3xl">
                                                                 <DialogHeader>
                                                                     <DialogTitle>
                                                                         <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Modify</p>
@@ -761,14 +848,14 @@ const QCPackageMaterialTable = () => {
                                                                         <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
                                                                     </DialogDescription>
                                                                 </DialogHeader>
-                                                                {/* <PackagingMetirialQcEditForm data={item} /> */}
+                                                                <PackagingMetirialQcEditForm data={item} />
                                                             </DialogContent>
                                                         </Dialog>
                                                     </div>
                                                     <div className={item.qualityStatus == false ? "block" : "hidden"}>
                                                         <Dialog >
                                                             <DialogTrigger className="flex"><CiEdit size={20} />
-                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Entry</button>
+                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Report Entry</button>
                                                             </DialogTrigger>
                                                             <DialogContent className="max-w-3xl">
                                                                 <DialogHeader>
@@ -788,48 +875,163 @@ const QCPackageMaterialTable = () => {
 
                                         </TableCell>
 
+                                        <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
+                                       
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
+                                        <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                              ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "NA"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
+
+                                        <TableCell className="text-center">
+                                            {item.packagingMaterialreceving.qualityStatus ? (
+                                                <p className="flex flex-row justify-center">
+                                                    <SiTicktick color="green" size={18} />
+                                                </p>
+                                            ) : (
+                                                <p className="flex flex-row justify-center">
+                                                    <MdOutlinePendingActions color="red" size={23} />
+                                                </p>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-left">{item.packagingMaterialreceving.invoice}</TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
+
+
+                                        <TableCell className="text-left">{item.packagingMaterialreceving.sku}</TableCell>
+
+                                        <TableCell className="text-center">{formatNumber(item.packagingMaterialreceving.quantity)}</TableCell>
+
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
+                                        <TableCell className="text-left">{item.packagingMaterialreceving.vendorName}</TableCell>
+
+
+
+
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ? 'text-white bg-blue-500' : 'bg-blue-500 text-white '}`}>{item.testingDate ? handletimezone(item.testingDate) : 'NA'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.leakageTest ? ' ' : 'text-red-500 font-semibold'}`}>{
+                                            item.leakageTest === "Pass" ? (
+                                                <p className="flex flex-row justify-center">
+                                                    <SiTicktick color="green" size={18} />
+                                                </p>
+                                            ) : (
+                                                item.leakageTest === "Fail" ? (
+                                                    <p className="flex flex-row justify-center">
+                                                        <IoMdCloseCircle color="red" size={23} />
+                                                    </p>
+                                                ) : '--'
+                                            )
+                                        }</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.dropTest ? ' ' : 'text-red-500 font-semibold'}`}>{item.dropTest === "Pass" ? (
+                                            <p className="flex flex-row justify-center">
+                                                <SiTicktick color="green" size={18} />
+                                            </p>
+                                        ) : (
+                                            item.dropTest === "Fail" ? (
+                                                <p className="flex flex-row justify-center">
+                                                    <IoMdCloseCircle color="red" size={23} />
+                                                </p>
+                                            ) : '--'
+                                        )}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.sealCondition ? ' ' : 'text-red-500 font-semibold'}`}>{item.sealCondition === "OK" ? (
+                                            <p className="flex flex-row justify-center">
+                                                <SiTicktick color="green" size={18} />
+                                            </p>
+                                        ) : (
+                                            item.sealCondition === "Not OK" ? (
+                                                <p className="flex flex-row justify-center">
+                                                    <IoMdCloseCircle color="red" size={23} />
+                                                </p>
+                                            ) : '--'
+                                        )}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.labelingCondition ? ' ' : 'text-red-500 font-semibold'}`}>{item.labelingCondition === "OK" ? (
+                                            <p className="flex flex-row justify-center">
+                                                <SiTicktick color="green" size={18} />
+                                            </p>
+                                        ) : (
+                                            item.labelingCondition === "Not OK" ? (
+                                                <p className="flex flex-row justify-center">
+                                                    <IoMdCloseCircle color="red" size={23} />
+                                                </p>
+                                            ) : '--'
+                                        )}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500 '}`}>{item.length ? item.length : '--'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500'}`}>{item.width ? item.width : '--'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500'}`}>{item.height ? item.height : '--'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500 '}`}>{item.gsm ? item.gsm : '--'}</TableCell>
+                                        <TableCell className={`text-center font-semibold ${item.testingDate ? ' bg-yellow-50' : 'text-red-500'}`}>{item.avgWeight ? item.avgWeight : '-'}</TableCell>
+                                        <TableCell className={`text-center ${item.testingDate ? ' ' : 'text-red-500 '}`}>{item.remarks ? item.remarks : '-'}</TableCell>
+
+                                        <TableCell className={`text-center ${item.testingDate ? ' ' : 'text-red-500 '}`}>
+                                            {
+                                                (item.damageFile && item.damageFile.length > 3) ? (
+                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20} /></button>
+                                                ) : (
+                                                    '--'
+                                                )
+
+                                            }
+                                        </TableCell>
+
+
+
+                                        {/* <TableCell className="text-center ">
+                                            { item.qualityStatus && (item.coa === "Yes" ? (
+                                            <Input type="checkbox" className="h-4" checked/>
+                                        ) : <Input type="checkbox" className="h-4" checked={false}/>)}
+                                        
+                                     
+                                        </TableCell> */}
+                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus === 'Uploaded' ? ' ' : 'text-orange-500 font-semibold'}`}>
+                                            {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm '
+                                                style={{ background: 'white', color: 'orange' }}
+                                                onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={20} /></button> :
+                                                '--'}
+                                        </TableCell>
+
+
+                                        {/* <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
+                                       <Input type="checkbox" className="h-4" checked/> ) : <Input type="checkbox" className="h-4" checked={false}/>)
+                                        }
+                                        </TableCell> */}
+
+                                        <TableCell className={`text-center font-semibold ${item.coaCirtificateStatus === 'Uploaded' ? ' ' : 'text-orange-500 font-semibold'}`}>
+                                            {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm '
+                                                style={{ background: 'white', color: 'orange' }}
+                                                onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={20} /></button>
+                                                : '--'}
+                                        </TableCell>
+
+                                        <TableCell className="text-center">{item.createdBy ? item.createdBy : <p className="flex flex-row justify-center">
+                                            <MdOutlinePendingActions color="red" size={23} />
+                                        </p>}</TableCell>
+
+
+
                                     </TableRow>
                                 );
                             })) : (<TableRow>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-
-
-                                <TableCell><p className="w-100 text-red-500 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-
-
-
-
+                                <TableCell colSpan={28}><p className="w-100 text-red-500 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
                             </TableRow>)
-                        )}
-                </TableBody>
-            </Table>
+                        }
+                    </TableBody>
+                </Table>
+
+            </div>
 
 
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
+
+
+            <Pagination style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                <PaginationContent className="">
+                    {page > 1 && <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
@@ -839,9 +1041,23 @@ const QCPackageMaterialTable = () => {
                             }
                             return prev - 1
                         })} />
+                    </PaginationItem>}
+                    {page > 2 && <PaginationItem>
+                        <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                    </PaginationItem>}
+                    {page > 1 && <PaginationItem>
+                        <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                    </PaginationItem>}
+
+
+                    <PaginationItem>
+                        <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
+                        <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationEllipsis />
@@ -852,17 +1068,17 @@ const QCPackageMaterialTable = () => {
                 </PaginationContent>
             </Pagination>
             <dialog id="qcapproveScsDialogpackage" className="dashboard-modal">
-                <button id="qcapproveScscloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
+                <button id="qcapproveScscloseDialogpackage" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">The Edit has been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">Modify Request has been Approved Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="qcRejectDialogpackage" className="dashboard-modal">
+            <dialog id="qcRejectDialogpackage" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="qcrejectcloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">The Edit Has Been Rejected</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">Modify Request has been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -874,10 +1090,10 @@ const QCPackageMaterialTable = () => {
                     <div className="gallery-main text-1xl">
                         <Carousel slides={images} />
                     </div>
-                  
+
                 </div>
             </dialog>
-         
+
 
 
         </div>

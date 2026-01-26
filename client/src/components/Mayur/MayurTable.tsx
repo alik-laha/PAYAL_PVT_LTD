@@ -691,109 +691,109 @@ const MayurTable = (props:any) => {
 
 
                 {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
 
-                     {/* Type */}
-                    <div className="flex flex-col gap-1">
-                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* Type */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Lot Type
                         </label> */}
-                        <select
-                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
-                            onChange={(e) => setsearchType(e.target.value)}
-                            value={searchType}
-                        >
-                           
-                            {dropdown.map((data, index) => (
-                                <option key={index} value={data} className="bg-white">
-                                    {data}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
+                                onChange={(e) => setsearchType(e.target.value)}
+                                value={searchType}
+                            >
 
-                    {/* Lot No. / Line Name */}
-                    <div className="flex flex-col gap-1">
-                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                {dropdown.map((data, index) => (
+                                    <option key={index} value={data} className="bg-white">
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Lot No. / Line Name */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Lot No
                         </label> */}
-                        <Input
-                            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                            placeholder="Lot No."
-                            value={blConNo}
-                            onChange={(e) => setBlConNo(e.target.value)}
-                        />
-                    </div>
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                placeholder="Lot No."
+                                value={blConNo}
+                                onChange={(e) => setBlConNo(e.target.value)}
+                            />
+                        </div>
 
-                    {/* Origin */}
-                    <div className="flex flex-col gap-1">
-                        {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                        {/* Origin */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
                             Origin
                         </label> */}
-                        <select
-                            className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
-                            onChange={(e) => setOrigin(e.target.value)}
-                            value={origin}
-                        >
-                            <option value="">Origin (All)</option>
-                            {Origin.map((data, index) => (
-                                <option key={index} value={data}>
-                                    {data}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-
-                      {/* From Date */}
-                                                       <div className="flex flex-col md:flex-row gap-1 md:items-center ">
-                                                         <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                                           From
-                                                         </label>
-                                                         <Input
-                                                           type="date"
-                                                           className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                                           value={fromdate}
-                                                           onChange={(e) => setfromDate(e.target.value)}
-                                                         />
-                                                       </div>
-                                           
-                                                       {/* To Date */}
-                                                       <div className="flex flex-col md:flex-row gap-1 md:items-center">
-                                                         <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
-                                                           To
-                                                         </label>
-                                                         <Input
-                                                           type="date"
-                                                           className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
-                                                           value={todate}
-                                                           onChange={(e) => settoDate(e.target.value)}
-                                                         />
-                                                       </div>
-
-                   
-
-
-                    {/* Search & Export Buttons */}
-                    <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
-                        <Button
-                            className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
-                            onClick={handleSearch}
-                        >
-                            <FaSearch size={14} />
-                            Search
-                        </Button>
-
-                        {checkpending('Mayur') && (
-                            <Button
-                                className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
-                                onClick={exportToExcel}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setOrigin(e.target.value)}
+                                value={origin}
                             >
-                                <LuDownload size={16} />
+                                <option value="">Origin (All)</option>
+                                {Origin.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
+
+                        {/* From Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                From
+                            </label>
+                            <Input
+                                type="date"
+                                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={fromdate}
+                                onChange={(e) => setfromDate(e.target.value)}
+                            />
+                        </div>
+
+                        {/* To Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                To
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={todate}
+                                onChange={(e) => settoDate(e.target.value)}
+                            />
+                        </div>
+
+
+
+
+                        {/* Search & Export Buttons */}
+                        <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
                             </Button>
-                        )}
-                    </div>
+
+                            {checkpending('Mayur') && (
+                                <Button
+                                    className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                    onClick={exportToExcel}
+                                >
+                                    <LuDownload size={16} />
+
+                                </Button>
+                            )}
+                        </div>
 
                     </div>
 

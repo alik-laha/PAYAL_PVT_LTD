@@ -8,6 +8,7 @@ import DashboardSidebar from '../dashboard/DashboardSidebar'
 
 import PackagingMetrialtable from './packagingMetrialQualityTable';
 import Loader from '../common/Loader';
+import DashboardFooter from '../dashboard/DashboardFooter';
 
 
 const PackagingMetirialQuality = () => {
@@ -26,13 +27,13 @@ const PackagingMetirialQuality = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-            <div className="flexbox-header">
+            <div className="flexbox-header mx-2">
                 <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
-                    Approved QC<br /><p>{data.approvedQC}</p>
+                    <p>Approved QC</p><br /><p>{data.approvedQC}</p>
                     </div>
                     
                 <div className="flexbox-tile bg-purple-500 hover:bg-purple-600">
-                        Pending QC<br/><p>{data.pendingQC}</p>
+                        <p>Pending QC</p><br/><p>{data.pendingQC}</p>
                     </div>
                     
                     
@@ -48,8 +49,10 @@ const PackagingMetirialQuality = () => {
                 </div>
                 
                <PackagingMetrialtable />
+               
 
             </div>
+            <DashboardFooter/>
         </div>
     )
 }

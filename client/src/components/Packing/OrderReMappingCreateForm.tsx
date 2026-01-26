@@ -15,7 +15,14 @@ import cross from '../../assets/Static_Images/error_img.png'
 import { Button } from "../ui/button";
 
 import { Origin, ProdGradeOnSection, prodStockSection } from "../common/exportData";
+import {
+    Dialog,
+    DialogContent,
 
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import {
     Select,
     SelectContent,
@@ -28,6 +35,8 @@ import {
 import { MdDelete } from "react-icons/md";
 import { ScrollArea } from "../ui/scroll-area";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ViewLotDetailsMapping from "./ViewLotDetailsMapping";
 
 interface Props {
     mapping: any[]       
@@ -61,6 +70,9 @@ const OrderReMappingCreateForm = (props:Props) => {
     const [lotview, setLotView] = useState("none")
     const [errortext, setErrortext] = useState('')
     const [isdisable, setisdisable] = useState<boolean>(false)
+     const [lotdata, setLotData] = useState<any[]>([])
+        const [viewlotdata, setViewlotData] = useState<any[]>([])
+    const [eye, setEye] = useState<boolean>(false)
   
 
 
@@ -76,7 +88,7 @@ const OrderReMappingCreateForm = (props:Props) => {
   };
  
 
- const [lotdata, setLotData] = useState<any[]>([])
+
     useEffect(() => {  
         if(props.mapping[0]){
             console.log(props.mapping[0])
@@ -132,11 +144,41 @@ const OrderReMappingCreateForm = (props:Props) => {
             remarks: ''
         }])
     }
-    const deleteRow = (index: number,e:any) => {
-        e.preventDefault()
+    // const deleteRow = (index: number,e:any) => {
+    //     e.preventDefault()
+    //     const newRows = rows.filter((_, i) => i !== index);
+    //     setRows(newRows)
+    // }
+     const deleteRow = (index: number, e: any) => {
+        e.preventDefault();
+
+        const rowToDelete = rows[index];
+
+        // Only remove from selectedLotSet if a lot was actually selected
+        if (
+            rowToDelete.LotNo &&
+            rowToDelete.porigin &&
+            rowToDelete.section &&
+            rowToDelete.grade
+        ) {
+            const key = buildLotKey(
+                rowToDelete.LotNo,
+                rowToDelete.porigin,
+                rowToDelete.section,
+                rowToDelete.grade
+            );
+
+            setSelectedLotSet(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(key);
+                return newSet;
+            });
+        }
+
+        // Remove the row itself
         const newRows = rows.filter((_, i) => i !== index);
-        setRows(newRows)
-    }
+        setRows(newRows);
+    };
 
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
@@ -238,6 +280,8 @@ const OrderReMappingCreateForm = (props:Props) => {
                     .catch((err) => {
                         if (err.response.status === 404) {
                             rows[index].stockquantity=0
+                             rows[index].grade=''
+                            handleRowChange(index, 'grade', '')
                         }
                     })
         rows[index].LotNo = item.LotNo
@@ -341,30 +385,74 @@ const OrderReMappingCreateForm = (props:Props) => {
          }
         }
 
+         const [selectedLotSet, setSelectedLotSet] = useState<Set<string>>(new Set());
+            const buildLotKey = (
+                LotNo: string,
+                origin: string,
+                section: string,
+                grade: string
+               
+            ) => `${LotNo}-${origin}-${section}-${grade}`;
+        
+            const filteredViewLotData = (index: number) => {
+                return viewlotdata.filter((item) => {
+                    const key = buildLotKey(
+                        item.LotNo,
+                        item.origin,
+                        rows[index]?.section,
+                        rows[index]?.grade
+                    );
+        
+                    return !selectedLotSet.has(key);
+                });
+            };
+             const handleOpenLotNo =  (index: any) => {
+                    // e.preventDefault()
+                  
+            
+                    axios.post('/api/packing/viewprodStockQtyFind',{
+                        origin:rows[index].porigin,
+                        section:rows[index].section,grade:rows[index].grade}
+            
+                    ).then(res => {
+                        console.log(res)
+                        setViewlotData(res.data)
+                        setEye(true)
+                        //setViewlotData(filtered);
+                        console.log(viewlotdata)
+                    }).catch((err)=>{
+                        console.log(err)
+                        setEye(false)
+                        
+                    
+                    }
+                    )
+                }
+
 
     return (
         <>
-            <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5' onSubmit={handleSubmit2}>
+            <div>
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
 
-                      <div className="mx-8 flex flex-col gap-1"> 
-                                    <div className="flex mt-4"><Label className="w-1/4  pt-2">Order ID</Label>
-                                    <Input className="w-1/4 bg-yellow-200 font-semibold text-center" placeholder="order ID" value={orderID} readOnly /> </div>
-                                    <div className="flex"><Label className="w-1/4  pt-2">Order Entry Date</Label>
-                                    <Input className="w-1/4  font-semibold text-center" placeholder="order Entry Date" value={orderDate} readOnly /> </div>
-                                    <div className="flex"><Label className="w-1/4  pt-2">Vendor Name</Label>
-                                    <Input className="w-1/4  font-semibold text-center" placeholder="Vendor Name" value={vendor}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-1/4  pt-2">Origin</Label>
-                                    <Input className="w-1/4  font-semibold text-center" placeholder="Origin" value={origin}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-1/4  pt-2">Final Grade</Label>
-                                    <Input className="w-1/4  font-semibold text-center" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-1/4  pt-2">Demand Quantity</Label>
-                                    <Input className="w-1/4 text-center bg-yellow-100 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
-                                    <div className="flex"><Label className="w-1/4  pt-2">total Mix Quantity</Label>
-                                    <Input className="w-1/4 text-center bg-yellow-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
-                                    <div className="flex mt-1">
-                            <Label className="w-1/4 pt-1">Order Re-Mapping Date (*)</Label>
-                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                      <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
+                                    <div><Label className="text-xs text-gray-500 font-bold">Order ID</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="order ID" value={orderID} readOnly /> </div>
+                                    <div><Label className="text-xs text-gray-500 font-bold">Order Entry Date</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="order Entry Date" value={orderDate} readOnly /> </div>
+                                    <div><Label className="text-xs text-gray-500 font-bold">Vendor Name</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vendor Name" value={vendor}  readOnly /> </div> 
+                                    <div><Label className="text-xs text-gray-500 font-bold">Origin</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Origin" value={origin}  readOnly /> </div> 
+                                    <div><Label className="text-xs text-gray-500 font-bold">Final Grade</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
+                                    <div><Label className="text-xs text-gray-500 font-bold">Demand Quantity</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
+                                    <div><Label className="text-xs text-gray-500 font-bold">Total Mix Quantity</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
+                                    <div>
+                            <Label className="text-xs text-gray-500 font-bold">Order Re-Mapping Date (*)</Label>
+                            <Input type='date' className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                                     </div>
 
@@ -376,13 +464,14 @@ const OrderReMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Sl. No.</TableHead>             
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
+                                <TableHead className="text-center" >View</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                                <TableHead className="text-center" >Production_Lot_No</TableHead>
-                                <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
-                                <TableHead className="text-center" >Actual_Stock_Quantity (Kg)</TableHead>
-                                <TableHead className="text-center" >Percentage Mix(%)</TableHead>
-                                <TableHead className="text-center" >Mixed_Quantity (Kg)</TableHead>
-                                <TableHead className="text-center w-30" >Mapping_Remarks(Any)</TableHead>
+                                <TableHead className="text-center" >Production⠀Lot⠀No</TableHead>
+                                <TableHead className="text-center" >Stock⠀Quantity (Kg)</TableHead>
+                                <TableHead className="text-center" >Actual⠀Stock⠀Quantity (Kg)</TableHead>
+                                <TableHead className="text-center" >Percentage⠀Mix(%)</TableHead>
+                                <TableHead className="text-center" >Mixed⠀Quantity⠀(Kg)</TableHead>
+                                <TableHead className="text-center w-30" >Mapping⠀Remarks(Any)</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
 
                             </TableHeader>
@@ -426,6 +515,44 @@ const OrderReMappingCreateForm = (props:Props) => {
                                                                 ))
                                                               ) : <option key={index} value=''>Grade</option>}
                                                             </select>
+                                                </TableCell>
+                                                <TableCell className="text-center">
+                                                    {
+                                                        (row.grade && row.section && !row.porigin) ? (
+                                                            <Dialog onOpenChange={(isOpen) => {
+                                                                if (!isOpen) {
+                                                                    rows[index].section = ''
+                                                                    handleRowChange(index, 'section', '')
+                                                                    rows[index].grade = ''
+                                                                    handleRowChange(index, 'grade', '')
+                                                                    setEye(false)
+                                                                }
+                                                            }}>
+                                                                <DialogTrigger>
+                                                                    <button className="flex flex-row justify-center w-full text-center" onClick={() => handleOpenLotNo(index)}>
+
+
+                                                                        <FaEye size={20} className="text-center px-auto flex flex-row w-full justify-center" /></button>
+
+                                                                </DialogTrigger>
+                                                                <DialogContent className='max-w-3xl'>
+                                                                    <DialogHeader>
+                                                                        <DialogTitle><p className='text-lg text-gray-600 text-center my-1 tracking-wider drop-shadow-xl font-bold'>Stock Details</p></DialogTitle>
+
+                                                                    </DialogHeader>
+
+                                                                    <ViewLotDetailsMapping props={filteredViewLotData(index)} grade={row.grade} index={index} rows={rows} setdata={setSelectedLotSet}
+                                                                        buildLotKey={buildLotKey} eye={eye}
+                                                                        handleRowChange={handleRowChange} />
+
+
+                                                                </DialogContent>
+                                                            </Dialog>
+                                                        ) : (<p className="w-full text-center flex"><FaEyeSlash size={20} className="text-red-500 px-auto" /></p>
+
+                                                        )
+
+                                                    }
                                                 </TableCell>
 
                                                 <TableCell className="text-center">
@@ -516,19 +643,19 @@ const OrderReMappingCreateForm = (props:Props) => {
 
                 </form>
 
-                <dialog id="successemployeedialog" className="dashboard-modal">
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                     </span>
 
 
                 </dialog>
 
-                <dialog id="erroremployeedialog" className="dashboard-modal">
+                <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                     <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium text-red-500">{errortext}</p>
                     </span>
 
 

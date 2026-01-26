@@ -229,18 +229,18 @@ const OrderModify = (props:Props) => {
 
             </div>
             
-            <dialog id="packageMetrialReceveUpdate" className="dashboard-modal">
+            <dialog id="packageMetrialReceveUpdate" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                 <button id="packageMetrialRecivecrossUpdate" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errText}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errText}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialReciveErrorUpdate" className="dashboard-modal">
+            <dialog id="packagingMetirialReciveErrorUpdate" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="packagigreciveerrorcrossUpdate" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errText}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium text-red-500">{errText}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

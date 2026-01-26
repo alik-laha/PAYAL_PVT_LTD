@@ -6,6 +6,14 @@ import { promises as fs } from "fs";
 const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
     try {
         const { testingDate, length, width, height, gsm, avgWeight, leakageTest, dropTest, sealCondition, labelingCondition, coa, foodGradeCirtiicate, remarks } = req.body;
+
+        const {
+  existingcoaCirtificateFile,
+  existingfoodGradeCirtiFicateFile,
+  existingDamageFiles
+} = req.body;
+
+
         const name = req.cookies.user;
         const id = req.params.id;
         const files: any = req.files;
@@ -16,36 +24,71 @@ const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
         if (!qualityPackageMaterial) {
             return res.status(404).json({ error: "Quality Package Material not found" });
         }
-        if (files.foodGradeCirtiFicateFile) {
-            if (qualityPackageMaterial.foodGradeCirtiFicateFile) {
-                fs.unlink(qualityPackageMaterial.foodGradeCirtiFicateFile);
-            }
-            foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
+       if (files?.foodGradeCertificate) {
+         if (qualityPackageMaterial.foodGradeCirtiFicateFile) {
+           await fs.unlink(qualityPackageMaterial.foodGradeCirtiFicateFile);
+         }
+         foodGradeCirtiFicateFile = files.foodGradeCertificate[0].path;
+       } else if (existingfoodGradeCirtiFicateFile) {
+         foodGradeCirtiFicateFile = existingfoodGradeCirtiFicateFile;
+       } else {
+         if (qualityPackageMaterial.foodGradeCirtiFicateFile) {
+           await fs.unlink(qualityPackageMaterial.foodGradeCirtiFicateFile);
+         }
+         foodGradeCirtiFicateFile = "";
+       }
+
+
+      if (files?.coaCertificate) {
+        // replace
+        if (qualityPackageMaterial.coaCirtificateFile) {
+          await fs.unlink(qualityPackageMaterial.coaCirtificateFile);
         }
-        if (!files.foodGradeCirtiFicateFile) {
-            foodGradeCirtiFicateFile = qualityPackageMaterial.foodGradeCirtiFicateFile;
+        coaCirtificateFile = files.coaCertificate[0].path;
+      } else if (existingcoaCirtificateFile) {
+        // unchanged
+        coaCirtificateFile = existingcoaCirtificateFile;
+      } else {
+        // deleted
+        if (qualityPackageMaterial.coaCirtificateFile) {
+          await fs.unlink(qualityPackageMaterial.coaCirtificateFile);
         }
-        if (files.coaCirtificateFile) {
-            if (qualityPackageMaterial.coaCirtificateFile) {
-                fs.unlink(qualityPackageMaterial.coaCirtificateFile);
-            }
-            coaCirtificateFile = files.coaCirtificateFile[0].path;
-        }
-        if (!files.coaCirtificateFile) {
-            coaCirtificateFile = qualityPackageMaterial.coaCirtificateFile;
-        }
-        if (files.damagePartsImage) {
-            if (qualityPackageMaterial.damageFile) {
-                qualityPackageMaterial.damageFile.JSON.parse().map((file: any) => fs.unlink(file));
-            }
-            files.damagePartsImage.map((file: any) => damagePartsImage.push(file.path));
-        }
-        if (!files.damagePartsImage) {
-            damagePartsImage = JSON.parse(qualityPackageMaterial.damageFile);
-        }
+        coaCirtificateFile = "";
+      }
+
+
+
+
+    //let damagePartsImage: string[] = [];
+
+    const existingDamage = existingDamageFiles
+      ? Array.isArray(existingDamageFiles)
+        ? existingDamageFiles
+        : [existingDamageFiles]
+      : [];
+
+    // delete removed old files
+    const oldFiles = JSON.parse(qualityPackageMaterial.damageFile || "[]");
+    oldFiles.forEach(async (file: string) => {
+      if (!existingDamage.includes(file)) {
+        await fs.unlink(file);
+      }
+    });
+
+    // keep remaining
+    damagePartsImage.push(...existingDamage);
+
+    // add new
+    if (files?.damagePartsImage) {
+      files.damagePartsImage.forEach((file: any) => {
+        damagePartsImage.push(file.path);
+      });
+    }
 
         await QualityEditPackageMaterial.create({
             id: id,
+            gatePassNo:qualityPackageMaterial.gatePassNo,
+            qualityStatus:1,
             testingDate: testingDate,
             length: length,
             width: width,

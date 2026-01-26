@@ -479,32 +479,34 @@ const QCRcnTable = () => {
       <Table className="mt-4">
         <TableHeader className="bg-neutral-100 text-stone-950 ">
           <TableHead className="text-center">Id</TableHead>
+           <TableHead className="text-center">Action</TableHead>
+            <TableHead className="text-center">GatePass⠀No</TableHead>
           <TableHead className="text-center">Origin</TableHead>
-          <TableHead className="text-center">Incoming_Date </TableHead>
-          <TableHead className="text-center">GatePass_No</TableHead>
-          <TableHead className="text-center">BL_No.</TableHead>
-          <TableHead className="text-center">Con_No.</TableHead>
-          <TableHead className="text-center">Entry_Truck_No.</TableHead>
-          <TableHead className="text-center">BL_Weight</TableHead>
-          <TableHead className="text-center">Bag_Count</TableHead>
-          <TableHead className="text-center">QC_Approval Status</TableHead>
-          <TableHead className="text-center">Checked_By </TableHead>
+          <TableHead className="text-center">Incoming⠀Date </TableHead>
+         <TableHead className="text-center">Edit⠀Status</TableHead>
+          <TableHead className="text-center">BL⠀No.</TableHead>
+          <TableHead className="text-center">Con⠀No.</TableHead>
+          <TableHead className="text-center">Entry⠀Truck⠀No.</TableHead>
+          <TableHead className="text-center">BL⠀Weight</TableHead>
+          <TableHead className="text-center">Bag⠀Count</TableHead>
+          <TableHead className="text-center">QC⠀Approval⠀Status</TableHead>
+          <TableHead className="text-center">Checked⠀By </TableHead>
 
-          <TableHead className="text-center">Sampling (%)</TableHead>
-          <TableHead className="text-center">Moisture (%)</TableHead>
-          <TableHead className="text-center">Nut_Count (Pcs)</TableHead>
-          <TableHead className="text-center">Flute_Rate (gm/Kg)</TableHead>
-          <TableHead className="text-center">Good_Kernel (gm)</TableHead>
-          <TableHead className="text-center">SP+IM (gm)</TableHead>
-          <TableHead className="text-center">Reject (gm)</TableHead>
-          <TableHead className="text-center">Shell (gm)</TableHead>
+          <TableHead className="text-center">Sampling⠀(%)</TableHead>
+          <TableHead className="text-center">Moisture⠀(%)</TableHead>
+          <TableHead className="text-center">Nut⠀Count⠀(Pcs)</TableHead>
+          <TableHead className="text-center">Flute⠀Rate⠀(gm/Kg)</TableHead>
+          <TableHead className="text-center">Good⠀Kernel⠀(gm)</TableHead>
+          <TableHead className="text-center">SP+IM⠀(gm)</TableHead>
+          <TableHead className="text-center">Reject⠀(gm)</TableHead>
+          <TableHead className="text-center">Shell⠀(gm)</TableHead>
 
           <TableHead className="text-center">Outturn(Lbs)</TableHead>
 
-          <TableHead className="text-center">Report_By</TableHead>
-          <TableHead className="text-center">Edit Status</TableHead>
+          <TableHead className="text-center">Report⠀By</TableHead>
+          
 
-          <TableHead className="text-center">Action</TableHead>
+         
         </TableHeader>
         <TableBody>
           {pendingData.length > 0 ? (
@@ -512,87 +514,7 @@ const QCRcnTable = () => {
               return (
                 <TableRow key={item.id}>
                   <TableCell className="text-center">{idx + 1}</TableCell>
-                  <TableCell className="text-center font-semibold text-cyan-600">
-                    {item.origin}
-                  </TableCell>
-                  <TableCell className="text-center font-semibold">
-                    {handletimezone(item.date)}
-                  </TableCell>
-                  <TableCell className="text-center font-semibold text-red-600">
-                    {item.rcnEntry.gatePassNo}
-                  </TableCell>
-                  <TableCell className="text-center">{item.blNo}</TableCell>
-                  <TableCell className="text-center">{item.conNo}</TableCell>
-                  <TableCell className="text-center">
-                    {item.rcnEntry.truckNo}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {item.rcnEntry.blWeight}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {item.rcnEntry.noOfBags}
-                  </TableCell>
-                 <TableCell className="text-center">
-                    {item.rcnEntry.rcnStatus === "QC Approved" ? (
-                      <p className="flex flex-row justify-center">
-                        <SiTicktick color="green" size={18} />
-                      </p>
-                    ) : item.rcnEntry.rcnStatus === "QC Pending" ? (
-                      <p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
-                      </p>
-                    ) : (
-                      <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">
-                        {item.rcnEntry.rcnStatus}
-                      </button>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {item.qcapprovedBy? item.qcapprovedBy:<p className="flex flex-row justify-center text-red-500 font-semibold">
-                        Pending
-                      </p>}
-                  </TableCell>
-
-                  {/* <TableCell className="text-center">
-
-                                            <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
-                                        </TableCell> */}
-                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.sampling ? `${item.sampling} %` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.moisture ? `${item.moisture} %` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.nutCount ? `${item.nutCount} Pcs` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.fluteRate ? `${item.fluteRate} g/kg` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.goodKernel ? `${item.goodKernel} g` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.spIm ? `${item.spIm} g` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.reject ? `${item.reject} g` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.shell ? `${item.shell} g` : ""}
-                  </TableCell>
-                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
-                    {item.outTurn ? `${item.outTurn} Lbs` : ""}
-                  </TableCell>
-                  <TableCell className="text-center">
-                      {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">
-                        <MdOutlinePendingActions color="red" size={23} />
-                      </p>}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {item.editStatus}
-                  </TableCell>
-                  <TableCell className="text-center">
+                   <TableCell className="text-center">
                     <Popover>
                       <PopoverTrigger>
                         <button
@@ -761,15 +683,8 @@ const QCRcnTable = () => {
                       </PopoverContent>
                     </Popover>
                   </TableCell>
-                </TableRow>
-              );
-            })
-          ) : Data.length > 0 ? (
-            Data.map((item: QcRcnEntryData, idx) => {
-              return (
-                <TableRow key={item.id}>
-                  <TableCell className="text-center">
-                    {limit * (page - 1) + idx + 1}
+                   <TableCell className="text-center font-semibold text-red-600">
+                    {item.rcnEntry.gatePassNo}
                   </TableCell>
                   <TableCell className="text-center font-semibold text-cyan-600">
                     {item.origin}
@@ -777,9 +692,10 @@ const QCRcnTable = () => {
                   <TableCell className="text-center font-semibold">
                     {handletimezone(item.date)}
                   </TableCell>
-                  <TableCell className="text-center font-semibold text-red-500">
-                    {item.rcnEntry.gatePassNo}
+                    <TableCell className="text-center">
+                    {item.editStatus}
                   </TableCell>
+                 
                   <TableCell className="text-center">{item.blNo}</TableCell>
                   <TableCell className="text-center">{item.conNo}</TableCell>
                   <TableCell className="text-center">
@@ -791,7 +707,7 @@ const QCRcnTable = () => {
                   <TableCell className="text-center">
                     {item.rcnEntry.noOfBags}
                   </TableCell>
-                  <TableCell className="text-center">
+                 <TableCell className="text-center">
                     {item.rcnEntry.rcnStatus === "QC Approved" ? (
                       <p className="flex flex-row justify-center">
                         <SiTicktick color="green" size={18} />
@@ -816,50 +732,59 @@ const QCRcnTable = () => {
 
                                             <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                         </TableCell> */}
-                  <TableCell className={`text-center font-semibold ${item.sampling ? 'bg-yellow-50':'text-red-500'}`}>
+                  <TableCell className={`text-center  ${item.sampling ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
                     {item.sampling ? `${item.sampling} %` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold ${item.moisture ? 'bg-yellow-50':'text-red-500 '}`}>
+                  <TableCell className={`text-center  ${item.moisture ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
                     {item.moisture ? `${item.moisture} %` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold  ${item.nutCount ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.nutCount ? `${item.nutCount}` : ""}
+                  <TableCell className={`text-center  ${item.nutCount ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.nutCount ? `${item.nutCount} Pcs` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold ${item.fluteRate ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.fluteRate ? `${item.fluteRate} ` : ""}
+                  <TableCell className={`text-center  ${item.fluteRate ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.fluteRate ? `${item.fluteRate} g/kg` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold ${item.goodKernel ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.goodKernel ? `${item.goodKernel} ` : ""}
+                  <TableCell className={`text-center  ${item.goodKernel ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.goodKernel ? `${item.goodKernel} g` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold  ${item.spIm ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.spIm ? `${item.spIm} ` : ""}
+                  <TableCell className={`text-center  ${item.spIm ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.spIm ? `${item.spIm} g` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold ${item.reject ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.reject ? `${item.reject} ` : ""}
+                  <TableCell className={`text-center  ${item.reject ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.reject ? `${item.reject} g` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold ${item.shell ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.shell ? `${item.shell} ` : ""}
+                  <TableCell className={`text-center  ${item.shell ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.shell ? `${item.shell} g` : ""}
                   </TableCell>
-                  <TableCell className={`text-center font-semibold ${item.outTurn ? 'bg-yellow-50':'text-red-500 '}`}>
-                    {item.outTurn ? `${item.outTurn} ` : ""}
+                  <TableCell className={`text-center  ${item.outTurn ? 'bg-yellow-50':'text-red-500 font-semibold'}`}>
+                    {item.outTurn ? `${item.outTurn} Lbs` : ""}
                   </TableCell>
                   <TableCell className="text-center">
-                    {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">
+                      {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">
                         <MdOutlinePendingActions color="red" size={23} />
                       </p>}
                   </TableCell>
+                
+                 
+                </TableRow>
+              );
+            })
+          ) : Data.length > 0 ? (
+            Data.map((item: QcRcnEntryData, idx) => {
+              return (
+                <TableRow key={item.id}>
                   <TableCell className="text-center">
-                    {item.editStatus}
+                    {limit * (page - 1) + idx + 1}
                   </TableCell>
                   <TableCell className="text-center">
                     <Popover>
                       <PopoverTrigger>
                         <button
-                          className={`p-2 text-white rounded ${
+                          className={`p-2 bg-white rounded  ${
                             item.editStatus === "Pending" ||
                             item.rcnEntry.rcnStatus === "QC Rejected"
-                              ? "bg-cyan-200"
-                              : "bg-cyan-500"
+                              ? "text-red-500 h-8 w-20 border border-red-400 font-bold rounded-lg  hover:bg-red-200"
+                              : "text-blue-500 h-8 w-20 border border-blue-400 font-bold rounded-lg  hover:bg-blue-200"
                           }`}
                           disabled={
                             item.editStatus === "Pending" ||
@@ -968,6 +893,97 @@ const QCRcnTable = () => {
                       </PopoverContent>
                     </Popover>
                   </TableCell>
+                  <TableCell className="text-center font-semibold text-red-500">
+                    {item.rcnEntry.gatePassNo}
+                  </TableCell>
+                  <TableCell className="text-center font-semibold text-cyan-600">
+                    {item.origin}
+                  </TableCell>
+                  <TableCell className="text-center font-semibold">
+                    {handletimezone(item.date)}
+                  </TableCell>
+                  <TableCell className="text-center" > <button
+                                                             className={`p-2 rounded w-20 border 
+                                                               ${item.editStatus === "Approved"
+                                                                     ? "text-green-600 border-green-600 bg-green-50"
+                                                                     : item.editStatus === "NA"
+                                                                         ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                         : "text-red-600 border-red-600 bg-red-50"
+                                                                 }`}
+                                                         >
+                                                             {item.editStatus}
+                                                         </button></TableCell>
+                  
+                  <TableCell className="text-center">{item.blNo}</TableCell>
+                  <TableCell className="text-center">{item.conNo}</TableCell>
+                  <TableCell className="text-center">
+                    {item.rcnEntry.truckNo}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.rcnEntry.blWeight}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.rcnEntry.noOfBags}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.rcnEntry.rcnStatus === "QC Approved" ? (
+                      <p className="flex flex-row justify-center">
+                        <SiTicktick color="green" size={18} />
+                      </p>
+                    ) : item.rcnEntry.rcnStatus === "QC Pending" ? (
+                      <p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>
+                    ) : (
+                      <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">
+                        {item.rcnEntry.rcnStatus}
+                      </button>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.qcapprovedBy? item.qcapprovedBy:<p className="flex flex-row justify-center text-red-500 font-semibold">
+                        Pending
+                      </p>}
+                  </TableCell>
+
+                  {/* <TableCell className="text-center">
+
+                                            <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
+                                        </TableCell> */}
+                  <TableCell className={`text-center font-semibold ${item.sampling ? 'bg-yellow-50':'text-red-500'}`}>
+                    {item.sampling ? `${item.sampling} %` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold ${item.moisture ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.moisture ? `${item.moisture} %` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold  ${item.nutCount ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.nutCount ? `${item.nutCount}` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold ${item.fluteRate ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.fluteRate ? `${item.fluteRate} ` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold ${item.goodKernel ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.goodKernel ? `${item.goodKernel} ` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold  ${item.spIm ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.spIm ? `${item.spIm} ` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold ${item.reject ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.reject ? `${item.reject} ` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold ${item.shell ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.shell ? `${item.shell} ` : ""}
+                  </TableCell>
+                  <TableCell className={`text-center font-semibold ${item.outTurn ? 'bg-yellow-50':'text-red-500 '}`}>
+                    {item.outTurn ? `${item.outTurn} ` : ""}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {item.createdBy ?item.createdBy  :<p className="flex flex-row justify-center">
+                        <MdOutlinePendingActions color="red" size={23} />
+                      </p>}
+                  </TableCell>
+                  
+                  
                 </TableRow>
               );
             })
@@ -1007,35 +1023,45 @@ const QCRcnTable = () => {
         </TableBody>
       </Table>
 
-      <Pagination style={{ display: blockpagen }} className="pt-5 ">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() =>
-                setPage((prev) => {
-                  if (prev === 1) {
-                    return prev;
-                  }
-                  if (prev <= 0) {
-                    return prev + 1;
-                  }
-                  return prev - 1;
-                })
-              }
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">{page}</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-      <dialog id="qcapproveScsDialog" className="dashboard-modal">
+     <Pagination style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                     <PaginationContent className="">
+                         {page > 1 && <PaginationItem>
+                             <PaginationPrevious onClick={() => setPage((prev) => {
+                                 if (prev === 1) {
+                                     return prev
+                                 }
+                                 if (prev <= 0) {
+                                     return prev + 1
+                                 }
+                                 return prev - 1
+                             })} />
+                         </PaginationItem>}
+                         {page > 2 && <PaginationItem>
+                             <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                         </PaginationItem>}
+                         {page > 1 && <PaginationItem>
+                             <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                         </PaginationItem>}
+     
+     
+                         <PaginationItem>
+                             <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                         </PaginationItem>
+                         <PaginationItem>
+                             <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                         </PaginationItem>
+                         <PaginationItem>
+                             <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                         </PaginationItem>
+                         <PaginationItem>
+                             <PaginationEllipsis />
+                         </PaginationItem>
+                         <PaginationItem>
+                             <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                         </PaginationItem>
+                     </PaginationContent>
+                 </Pagination>
+      <dialog id="qcapproveScsDialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
         <button
           id="qcapproveScscloseDialog"
           className="dashboard-modal-close-btn ">
@@ -1043,7 +1069,7 @@ const QCRcnTable = () => {
         </button>
         <span className="flex">
           <img src={tick} height={2} width={35} alt="tick_image" />
-          <p id="modal-text" className="pl-3 mt-1 font-medium">
+          <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">
             {successtext}
           </p>
         </span>
@@ -1051,13 +1077,13 @@ const QCRcnTable = () => {
         {/* <!-- Add more elements as needed --> */}
       </dialog>
 
-      <dialog id="qcRejectDialog" className="dashboard-modal">
+      <dialog id="qcRejectDialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
         <button id="qcrejectcloseDialog" className="dashboard-modal-close-btn ">
           X{" "}
         </button>
         <span className="flex">
           <img src={cross} height={25} width={25} alt="error_image" />
-          <p id="modal-text" className="pl-3 mt-1 text-base font-medium">
+          <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">
             {errortext}
           </p>
         </span>

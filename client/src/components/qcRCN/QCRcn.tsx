@@ -6,6 +6,7 @@ import QCRcnTable from "./QCRcnTable"
 import { useContext } from "react";
 import Context from "../context/context";
 import { FY } from "../common/exportData";
+import DashboardFooter from "../dashboard/DashboardFooter";
 
 
 
@@ -49,6 +50,8 @@ const QCRcn = () => {
                 <p className='text-lg text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>CURRENT FY {FY} QC RCN TRANSACTION </p>
                 <QCRcnTable/>
                 </div>
+
+                <DashboardFooter/>
             
             
         </div>

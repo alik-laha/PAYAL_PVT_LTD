@@ -190,16 +190,19 @@ const RCNBoilingTable = (props:any) => {
     }, [page])
 
     const exportToExcel = async () => {
-        const response = await axios.post('/api/boiling/searchBoiling', {
+        let ws
+        if(selecttype==='LineWise'){
+            const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
             toDate: todate,
             SizeName: size,
+            type:'line'
         })
         const data1 = await response.data
 
-        let ws
+        
         let transformed: BoilingExcelData[] = []
         if (EditData.length > 0) {
 
@@ -256,6 +259,32 @@ const RCNBoilingTable = (props:any) => {
             //setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
         }
+        }
+        else{
+            const response = await axios.post('/api/boiling/searchBoiling', {
+            blConNo: blConNo,
+            origin: origin,
+            fromDate: fromdate,
+            toDate: todate,
+            SizeName: size,
+            type:'lot'
+        })
+        const data1 = await response.data
+        let transformed: any[] = [] 
+
+         transformed = data1.map((item: any, idx: number) => ({
+
+                Sl_No: idx + 1,
+                Lot_No: item.LotNo,
+                Entry_Date: handletimezone(item.date),  
+                Boiling_Qty: Number(item.quantity) || 0,
+                Labour: item.noOfEmployees,
+                Created_By:item.CreatedBy
+                 }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });

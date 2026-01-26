@@ -220,14 +220,10 @@ const DashboardTable = () => {
                     {Error ?
 
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            
 
-                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            <TableCell colSpan={8}><p className="font-bold tracking-wider capitalize text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
+                        
 
 
 

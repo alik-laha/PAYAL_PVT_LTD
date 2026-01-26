@@ -156,7 +156,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
 
     return (
         <>
-            <div className="pl-10 pr-10 mt-3">
+            <div className="px-10 mt-3">
                 <form className='flex flex-col gap-1 max-h-80 overflow-y-scroll' onSubmit={handleSubmit}>
 
                     <div className="flex mt-2"><Label className="w-2/4  pt-2">Testing Date</Label>
@@ -373,17 +373,17 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             </div>
 
             <dialog id="packageMetrialQc" className="dashboard-modal">
-                <button id="packageMetrialQccross" className="dashboard-modal-close-btn ">X </button>
+                <button id="packageMetrialQccross" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Quality Report is Uploaded Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">Quality Report is Uploaded Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialQcError" className="dashboard-modal">
+            <dialog id="packagingMetirialQcError" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                 <button id="packagigQcerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

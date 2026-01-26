@@ -255,6 +255,7 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Pincode</TableHead>
                     <TableHead className="text-center " >Emg⠀Contact⠀Name</TableHead>
                     <TableHead className="text-center" >Emg⠀Contact⠀No.</TableHead>
+                     <TableHead className="text-center" >Employee⠀Address⠀Details</TableHead>
                  
 
                 </TableHeader>
@@ -262,22 +263,9 @@ const EmployeeTable = () => {
                     {Error ?
 
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-semibold text-red-500 text-center pt-3 pb-10">{Error}</p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                           
+                            <TableCell colSpan={17}><p className="tracking-wider font-bold capitalize text-red-500 text-center py-3">{Error}</p></TableCell>
+                          
                         </TableRow>
                         : null}
                     {
@@ -378,6 +366,7 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{item.pincode}</TableCell>
                                     <TableCell className="text-center text-left" >{item.emergencyContact}</TableCell>
                                     <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
+                                    <TableCell className="text-center" >{item.address}</TableCell>
 
 
                                 
