@@ -2,7 +2,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { PackagingMeterialQc } from '../../type/type'
 import { Button } from "../ui/button"
-import { useState, useRef, useEffect, Key } from "react"
+import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
