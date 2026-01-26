@@ -776,7 +776,7 @@ const QCPackageMaterialTable = () => {
                         <TableHead className="text-center" >Sl⠀No</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
                         <TableHead className="text-center" >GatePass⠀No</TableHead>
-                        <TableHead className="text-center" >Type</TableHead>
+                       
                         <TableHead className="text-center" >Receiving⠀Date</TableHead>
                         <TableHead className="text-center" >Edit⠀Status</TableHead>
                         <TableHead className="text-center" >QC⠀Status</TableHead>
@@ -876,7 +876,7 @@ const QCPackageMaterialTable = () => {
                                         </TableCell>
 
                                         <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">IN</TableCell>
+                                       
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
                                         <TableCell className="text-center" > <button
                                             className={`p-2 rounded w-20 border 
