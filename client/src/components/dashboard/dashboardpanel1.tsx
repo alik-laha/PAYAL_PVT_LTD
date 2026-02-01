@@ -4,6 +4,7 @@ import DashboardHeader from "./DashboardHeader";
 import DashboardSidebar from "./DashboardSidebar";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import DashboardFooter from "./DashboardFooter";
 
 // import { Button } from '../ui/button';
 // import { FaWhatsapp } from "react-icons/fa6";
@@ -22,6 +23,7 @@ const DashboardPanel1: React.FC = () => {
   // Static data (can be replaced with API later)
 
   const [data, setData] = useState<PanelData[]>([]);
+  const [lotdata, setLotdata] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   // const handlesendWp = async () => {
@@ -231,6 +233,28 @@ const DashboardPanel1: React.FC = () => {
     fetchPanelData();
   }, []);
 
+
+  useEffect(() => {
+    const fetchLotTracker = async () => {
+      try {
+        axios.get("/api/dashboard/lottracker").then((res) => {
+          console.log(res);
+          const result = res.data;
+
+         
+
+          setLotdata(result);
+        });
+      } catch (error) {
+        console.error("Failed to fetch dashboard data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLotTracker();
+  }, []);
+
   if (loading) {
     return <div className="dashboard-container">Loading...</div>;
   }
@@ -249,16 +273,20 @@ const DashboardPanel1: React.FC = () => {
         style={{ backgroundColor: "white" }}>
         <div className="dashboard-container">
           <div className="panel-container mb-5 ">
+            <div className="panel1  bg-orange-400 hover:bg-orange-500">
+              <p className=" mt-3">Director</p>
+              <NavLink to="/dashboard/dashboard1/director">
+              <p className="mt-2 text-sm underline">Click here</p>
+              </NavLink>
+              
+            </div>
             <div className="panel1 bg-cyan-400 hover:bg-cyan-500">
               <p className=" mt-3">Factory Manager</p>
               <NavLink to="/dashboard/dashboard1/factoryManager">
                 <p className="mt-2 text-sm underline">Click here</p>
               </NavLink>
             </div>
-            <div className="panel1  bg-orange-400 hover:bg-orange-500">
-              <p className=" mt-3">Production Manager</p>
-              <p className="mt-2 text-sm underline">Click here</p>
-            </div>
+            
           </div>
 
           <div className="text-center py-5">
@@ -282,7 +310,11 @@ const DashboardPanel1: React.FC = () => {
               disabled={loading} onClick={handlesendWp} >  {loading ? 'Sending...' : 'Send'} <FaWhatsapp size={20} className="ml-2" /></Button>
           </div>} */}
         </div>
+        <div>
+
+        </div>
       </div>
+      <DashboardFooter/>
     </>
   );
 };

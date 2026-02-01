@@ -52,6 +52,7 @@ import FactoryManager from './components/dashboard/factoryManager'
 import QCOnline from './components/QCOnline/QCOnline'
 import CreditNote from './components/Credit Note/CreditNote'
 import QCOutgoing from './components/QCOutgoing/QCOutgoing'
+import DirectorDashboard from './components/dashboard/DirectorDashboard'
 
 
 
@@ -345,6 +346,12 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager'
           ]} />}>
           <Route path="/dashboard/dashboard1/factoryManager" element={<FactoryManager />} />
+        </Route>
+
+         {/*Director Dashboard  */}
+        <Route element={<Private allowedRoles={['Director'
+          ]} />}>
+          <Route path="/dashboard/dashboard1/director" element={<DirectorDashboard />} />
         </Route>
 
        
