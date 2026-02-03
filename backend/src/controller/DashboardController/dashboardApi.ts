@@ -1096,7 +1096,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
     =============================== */
     let customBoiling = 0;
 
-    if (type === "search" && fromDate && toDate) {
+    if (type === "boiling" && fromDate && toDate) {
       const from = new Date(fromDate);
       from.setHours(0, 0, 0, 0);
 
