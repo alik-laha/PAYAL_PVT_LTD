@@ -2,15 +2,16 @@ interface Props {
   title: string;
   value: number|string;
   subtitle?: string;
-  color?:string
+  color?:string;
 }
 
 export const StatCard = ({ title, value, subtitle,color}: Props) => {
   return (
-    <div className={`rounded-2xl bg-gray-100 p-5 shadow-sm border border-gray-100 bg-${color}-100`}>
-      <p className="text-sm text-gray-500 font-semibold">{title}</p>
+    <div className={`rounded-2xl p-5 shadow-sm border border-gray-100 bg-${color}-100`}>
+      <p className={`text-sm text-${color}-500 font-semibold `}>{title}</p>
 
-      <h2 className={`mt-2 text-3xl font-semibold text-${color}-800 `}>
+      <h2 className={color ?`mt-2 text-2xl font-semibold text-${color}-500 `:
+      'mt-2 text-2xl font-semibold text-gray-500'}>
         {value.toLocaleString()}
       </h2>
 

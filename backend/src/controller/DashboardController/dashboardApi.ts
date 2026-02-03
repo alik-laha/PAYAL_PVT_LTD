@@ -1013,7 +1013,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
        1️⃣ GET LAST DATE FROM DB
        (Previous boiling date)
     =============================== */
-    const lastEntry = await RcnBoiling.findOne({
+    const lastEntryboil = await RcnBoiling.findOne({
       attributes: [[fn("MAX", col("date")), "lastDate"]],
       where: {
         ...commonWhere,
@@ -1022,16 +1022,28 @@ export const directorDashboard = async (req: Request, res: Response) => {
       //raw: true,
     });
 
-    const lastDate = lastEntry?.dataValues.lastDate;
+    const lastEntryborma = await RcnBorma.findOne({
+      attributes: [[fn("MAX", col("date")), "lastDate"]],
+      where: {
+        ...commonWhere,
+        date: { [Op.lt]: searchnowIST },
+      },
+      //raw: true,
+    });
+
+    const lastDateboil = lastEntryboil?.dataValues.lastDate;
+    const lastDateborma = lastEntryborma?.dataValues.lastDate;
 
     let previousBoiling = 0;
     let previousBoilingDate = null;
+    let previousBorma = 0;
+    let previousBormaDate = null;
 
-    if (lastDate) {
-      const start = new Date(lastDate);
+    if (lastDateboil) {
+      const start = new Date(lastDateboil);
       start.setHours(0, 0, 0, 0);
 
-      const end = new Date(lastDate);
+      const end = new Date(lastDateboil);
       end.setHours(23, 59, 59, 999);
 
       const prevResult = await RcnBoiling.findOne({
@@ -1044,8 +1056,29 @@ export const directorDashboard = async (req: Request, res: Response) => {
       });
 
       previousBoiling = Number(prevResult?.dataValues.total || 0);
-      previousBoilingDate = lastDate;
+      previousBoilingDate = lastDateboil;
     }
+    if (lastDateborma) {
+      const start = new Date(lastDateborma);
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date(lastDateborma);
+      end.setHours(23, 59, 59, 999);
+
+      const prevResult = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [start, end] },
+        },
+        //raw: true,
+      });
+
+      previousBorma = Number(prevResult?.dataValues.total || 0);
+      previousBormaDate = lastDateborma;
+    }
+
+
 
     /* ===============================
        2️⃣ CURRENT FINANCIAL YEAR
@@ -1059,7 +1092,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
     fyStart.setHours(0, 0, 0, 0);
 
-    const fyResult = await RcnBoiling.findOne({
+    const fyResultBoil = await RcnBoiling.findOne({
       attributes: [[fn("SUM", col("Size")), "total"]],
       where: {
         ...commonWhere,
@@ -1067,8 +1100,10 @@ export const directorDashboard = async (req: Request, res: Response) => {
       },
       //raw: true,
     });
+   
 
-    const currentYearBoiling = Number(fyResult?.dataValues.total || 0);
+    const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
+    
 
     /* ===============================
        3️⃣ CURRENT MONTH
@@ -1080,7 +1115,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
     );
     monthStart.setHours(0, 0, 0, 0);
 
-    const monthResult = await RcnBoiling.findOne({
+    const monthResultBoil = await RcnBoiling.findOne({
       attributes: [[fn("SUM", col("Size")), "total"]],
       where: {
         ...commonWhere,
@@ -1088,13 +1123,23 @@ export const directorDashboard = async (req: Request, res: Response) => {
       },
       //raw: true,
     });
+    const monthResultBorma = await RcnBorma.findOne({
+      attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+      where: {
+        ...commonWhere,
+        date: { [Op.between]: [monthStart, nowIST] },
+      },
+      //raw: true,
+    });
 
-    const currentMonthBoiling = Number(monthResult?.dataValues.total || 0);
+    const currentMonthBoiling = Number(monthResultBoil?.dataValues.total || 0);
+    const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
 
     /* ===============================
        4️⃣ CUSTOM FROM–TO
     =============================== */
     let customBoiling = 0;
+    let customBorma = 0;
 
     if (type === "boiling" && fromDate && toDate) {
       const from = new Date(fromDate);
@@ -1116,6 +1161,27 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
       customBoiling = Number(customResult?.dataValues.total || 0);
     }
+     if (type === "borma" && fromDate && toDate) {
+      const from = new Date(fromDate);
+      from.setHours(0, 0, 0, 0);
+
+      const to = new Date(toDate);
+      to.setHours(to.getHours() + 5);
+      to.setMinutes(to.getMinutes() + 30);
+      to.setHours(23, 59, 59, 999);
+
+      const customResultBorma = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [from, to] },
+        },
+        //raw: true,
+      });
+
+      
+      customBorma = Number(customResultBorma?.dataValues.total || 0);
+    }
 
     /* ===============================
        RESPONSE
@@ -1123,15 +1189,15 @@ export const directorDashboard = async (req: Request, res: Response) => {
     return res.status(200).json({
       msg: "ok",
       data: {
-        previousBoiling,
-        previousBoilingDate,
+        previousBoiling,previousBorma,
+        previousBoilingDate,previousBormaDate,
         currentYearBoiling,
-        currentMonthBoiling,
-        customBoiling,
+        currentMonthBoiling,currentMonthBorma,
+        customBoiling,customBorma
       },
     });
   } catch (error) {
-    console.error("Boiling Dashboard Error:", error);
+    console.error(" Dashboard Error:", error);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 
