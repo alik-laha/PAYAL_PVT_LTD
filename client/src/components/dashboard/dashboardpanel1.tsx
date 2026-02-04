@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./dashboard1.css"; // Optional CSS file
-import DashboardHeader from "./DashboardHeader";
-import DashboardSidebar from "./DashboardSidebar";
+
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+
+import { StatCard2 } from "../common/StatCard2";
+
 
 // import { Button } from '../ui/button';
 // import { FaWhatsapp } from "react-icons/fa6";
@@ -22,6 +23,7 @@ const DashboardPanel1: React.FC = () => {
   // Static data (can be replaced with API later)
 
   const [data, setData] = useState<PanelData[]>([]);
+  const [lotdata, setLotdata] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   // const handlesendWp = async () => {
@@ -231,6 +233,29 @@ const DashboardPanel1: React.FC = () => {
     fetchPanelData();
   }, []);
 
+
+  useEffect(() => {
+    const fetchLotTracker = async () => {
+      try {
+        axios.get("/api/dashboard/lottracker").then((res) => {
+          console.log(res);
+          const result = res.data;
+
+         
+
+          setLotdata(result);
+          console.log(lotdata)
+        });
+      } catch (error) {
+        console.error("Failed to fetch dashboard data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLotTracker();
+  }, []);
+
   if (loading) {
     return <div className="dashboard-container">Loading...</div>;
   }
@@ -242,38 +267,48 @@ const DashboardPanel1: React.FC = () => {
 
   return (
     <>
-      <DashboardHeader />
-      <DashboardSidebar />
-      <div
-        className="dashboard-main-container"
-        style={{ backgroundColor: "white" }}>
-        <div className="dashboard-container">
-          <div className="panel-container mb-5 ">
+     
+     
+        
+          {/* <div className="panel-container mb-5 ">
+            <div className="panel1  bg-orange-400 hover:bg-orange-500">
+              <p className=" mt-3">Director</p>
+              <NavLink to="/dashboard/dashboard1/director">
+              <p className="mt-2 text-sm underline">Click here</p>
+              </NavLink>
+              
+            </div>
             <div className="panel1 bg-cyan-400 hover:bg-cyan-500">
               <p className=" mt-3">Factory Manager</p>
               <NavLink to="/dashboard/dashboard1/factoryManager">
                 <p className="mt-2 text-sm underline">Click here</p>
               </NavLink>
             </div>
-            <div className="panel1  bg-orange-400 hover:bg-orange-500">
-              <p className=" mt-3">Production Manager</p>
-              <p className="mt-2 text-sm underline">Click here</p>
-            </div>
-          </div>
+            
+          </div> */}
 
           <div className="text-center py-5">
-            <p className="text-xl tracking-widest italic drop-shadow-xl">Current Lot & Section Backlog</p>
+            <p className="text-xl tracking-wider bg-gray-50 drop-shadow-xl py-8 font-bold">Current Lot & Section Backlog</p>
           </div>
 
-          <div className="panel-container mt-5 justify-evenly">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-2">
             {data.map((item) => (
-              <div key={item.id} className="panel bg-lime-100">
-                <h2 className="text-rose-500">{item.title}</h2>
+
+              
+              <div key={item.id}>
+                <StatCard2 
+                title={item.title} 
+                value1={item.value1}
+                value2={item.value2}
+                value3={item.value3 ? `Backlog: ${item.value3} Kg` : ""}
+                color={'red'}
+                />
+                {/* <h2 className="text-rose-500">{item.title}</h2>
                 <p className="font-semibold pt-2 "> {item.value1}</p>
                 <p className="font-semibold pt-1"> {item.value2}</p>
                 <p className="pt-2 text-2xl font-bold text-red-500">
                   {item.value3 ? `Backlog: ${item.value3} Kg` : ""}
-                </p>
+                </p> */}
               </div>
             ))}
           </div>
@@ -281,8 +316,10 @@ const DashboardPanel1: React.FC = () => {
             <Button className="bg-green-400 mb-2  responsive-button-adjust"
               disabled={loading} onClick={handlesendWp} >  {loading ? 'Sending...' : 'Send'} <FaWhatsapp size={20} className="ml-2" /></Button>
           </div>} */}
-        </div>
-      </div>
+        
+        
+     
+      
     </>
   );
 };

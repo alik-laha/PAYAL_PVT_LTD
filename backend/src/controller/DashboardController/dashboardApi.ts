@@ -23,6 +23,32 @@ import orderPrimaryModel from "../../model/orderModel";
 import orderMappingModel from "../../model/orderMappingModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
+import LotNo from "../../model/lotNomodel";
+import lotoriginmodel from "../../model/lotoriginModel";
+import {  fn, col } from "sequelize";
+import User from "../../model/userModel";
+import Employee from "../../model/employeeModel";
+import gatePassMaster from "../../model/gatePassMasterModel";
+
+const IST_OFFSET_MIN = 5 * 60 + 30;
+
+const toIST = (date: Date) => {
+  const d = new Date(date);
+  d.setMinutes(d.getMinutes() + IST_OFFSET_MIN);
+  return d;
+};
+
+const startOfDay = (date: Date) => {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  return d;
+};
+
+const endOfDay = (date: Date) => {
+  const d = new Date(date);
+  d.setHours(23, 59, 59, 999);
+  return d;
+};
 
 
 export const infoOfallSection = async (req: Request, res: Response) => {
@@ -60,7 +86,9 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                    { LotNo: { [Op.notLike]: '%R%' } },
+
                 ]
 
             }
@@ -105,7 +133,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -150,7 +179,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -195,7 +225,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -240,7 +271,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -285,7 +317,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -329,7 +362,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -372,7 +406,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -416,7 +451,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -459,7 +495,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -897,4 +934,459 @@ export const factorymanagerDashboard = async (req: Request, res: Response) => {
     catch (err) {
         return res.status(500).json({ message: "Internal Server Error", err });
     }
+}
+export const Lottracker = async (req: Request, res: Response) => {
+  try {
+    const lotNos = await LotNo.findAll({
+      order: [["lotNo", "DESC"]],
+      raw: true,
+    });
+
+    // normalize lotNos
+    const lotNoList = lotNos.map((lot: any) =>
+      String(lot.lotNo).trim().toUpperCase()
+    );
+
+    const originTracks = await lotoriginmodel.findAll({
+      where: {
+        lotNo: {
+          [Op.in]: lotNoList,
+        },
+      },
+    });
+
+    // build map with normalized key
+    const originTrackMap: Record<string, any> = {};
+    originTracks.forEach((track: any) => {
+      const key = String(track.dataValues.lotNo)
+        .trim()
+        .toUpperCase();
+
+      originTrackMap[key] = track.dataValues;
+    });
+
+    console.log(originTrackMap)
+
+    // merge
+    const result = lotNos.map((lot: any) => {
+      const key = String(lot.lotNo)
+        .trim()
+        .toUpperCase();
+
+      return {
+        lotNo: lot.lotNo,
+        modifiedBy: lot.modifiedBy,
+        originTrack: originTrackMap[key] || null,
+      };
+    });
+
+    return res.status(200).json({
+      msg: "data fetched",
+      result,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      err,
+    });
+  }
+};
+
+
+export const directorDashboard = async (req: Request, res: Response) => {
+    try {
+      console.log("starting director");
+      const { fromDate, toDate, type } = req.body;
+
+      /* ===============================
+       IST TIME
+    =============================== */
+      const nowIST = new Date();
+      const searchnowIST = new Date();
+      //nowIST.setHours(nowIST.getHours() + 5);
+      //nowIST.setMinutes(nowIST.getMinutes() + 30);
+      if (
+        nowIST.getHours() < 5 ||
+        (nowIST.getHours() === 5 && nowIST.getMinutes() <= 30)
+      ) {
+        nowIST.setHours(nowIST.getHours() + 5);
+        nowIST.setMinutes(nowIST.getMinutes() + 30);
+      }
+      searchnowIST.setHours(0, 0, 0, 0);
+
+      /* ===============================
+       COMMON WHERE
+    =============================== */
+      const commonWhere = {
+        [Op.or]: [{ editStatus: "Approved" }, { editStatus: "NA" }],
+      };
+      const usercount = await User.count();
+      const employeecount = await Employee.count({ where: { status: true } });
+      const Issued = await gatePassMaster.count({ col:'gatePassNo'});
+      const completed  = await gatePassMaster.count({ col:'gatePassNo',
+                where: { status: 'Closed' } });
+      const pendingGatepass:number=Issued>0 && completed>0 ? Issued-completed:0 
+
+
+      /* ===============================
+       1️⃣ GET LAST DATE FROM DB
+       (Previous boiling date)
+    =============================== */
+      const lastEntryboil = await RcnBoiling.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
+
+      const lastEntryborma = await RcnBorma.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
+
+      const lastEntryhumid = await Humidifier.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
+
+      const lastDateboil = lastEntryboil?.dataValues.lastDate;
+      const lastDateborma = lastEntryborma?.dataValues.lastDate;
+      const lastDatehumid = lastEntryhumid?.dataValues.lastDate;
+
+      let previousBoiling = 0;
+      let previousBoilingDate = null;
+      let previousBorma = 0;
+      let previousBormaDate = null;
+      let previousHumid = 0;
+      let previousHumidDate = null;
+
+      if (lastDateboil) {
+        const start = new Date(lastDateboil);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDateboil);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnBoiling.findOne({
+          attributes: [[fn("SUM", col("Size")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousBoiling = Number(prevResult?.dataValues.total || 0);
+        previousBoilingDate = lastDateboil;
+      }
+      if (lastDateborma) {
+        const start = new Date(lastDateborma);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDateborma);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnBorma.findOne({
+          attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousBorma = Number(prevResult?.dataValues.total || 0);
+        previousBormaDate = lastDateborma;
+      }
+       if (lastDatehumid) {
+        const start = new Date(lastDatehumid);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDatehumid);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await Humidifier.findOne({
+          attributes: [[fn("AVG", col("MoistGain")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousHumid = Number(prevResult?.dataValues.total || 0);
+        previousHumidDate = lastDatehumid;
+      }
+
+      /* ===============================
+       2️⃣ CURRENT FINANCIAL YEAR
+       (India: Apr–Mar)
+    =============================== */
+      const year = nowIST.getFullYear();
+      const fyStart =
+        nowIST < new Date(`${year}-04-01`)
+          ? new Date(`${year - 1}-04-01`)
+          : new Date(`${year}-04-01`);
+
+      fyStart.setHours(0, 0, 0, 0);
+
+      const fyResultBoil = await RcnBoiling.findOne({
+        attributes: [[fn("SUM", col("Size")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [fyStart, nowIST] },
+        },
+        //raw: true,
+      });
+
+
+         const fyResultBorma = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [fyStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+       const fyResultHumid = await Humidifier.findOne({
+        attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [fyStart, nowIST] },
+        },
+        // raw: true,
+      });
+      const fyReceivingTotal = await RcnPrimary.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.literal('noOfBags * 80')), 'Total_Receiving']
+            ],
+            where: {
+                rcnStatus: 'QC Approved',
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'NA' }],
+                date: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+
+        
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Outside_Gatepass = await RcvVillageModel.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('totalWt')), 'Final_Village_Out']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                recevingDate: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Outside_Production = await villageProduction.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('issue_outside')), 'Production_Village_Out']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'NA' }],
+                date: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Inside_gatepass = await RcvVillageInModel.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('totalWt')), 'Village_In']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                recevingDate: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+
+        const village_out_prod = Number(Ville_Outside_Production?.dataValues.Production_Village_Out) || 0;
+        const village_out_gate = Number(Ville_Outside_Gatepass?.dataValues.Final_Village_Out) || 0;
+        const village_pending = village_out_gate-village_out_prod ;
+
+      const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
+
+      /* ===============================
+       2️⃣ CURRENT Week
+       (India: Mon–Sun)
+    =============================== */
+
+      const weekStart = new Date(nowIST);
+      const day = weekStart.getDay();
+      // JS: Sun=0, Mon=1, Tue=2 ...
+
+      const diffToMonday = day === 0 ? -6 : 1 - day;
+      weekStart.setDate(weekStart.getDate() + diffToMonday);
+      weekStart.setHours(0, 0, 0, 0);
+      //console.log(weekStart)
+
+       const weekResultBoil = await RcnBoiling.findOne({
+        attributes: [[fn("SUM", col("Size")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+      const weekResultBorma = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+       const weekResultHumid = await Humidifier.findOne({
+        attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+       const currentWeekBoil = Number(weekResultBoil?.dataValues.total || 0);
+      const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
+      const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
+
+      /* ===============================
+       3️⃣ CURRENT MONTH
+    =============================== */
+      const monthStart = new Date(nowIST.getFullYear(), nowIST.getMonth(), 1);
+      monthStart.setHours(0, 0, 0, 0);
+
+      const monthResultBoil = await RcnBoiling.findOne({
+        attributes: [[fn("SUM", col("Size")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+      const monthResultBorma = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+       const monthResultHumid = await Humidifier.findOne({
+        attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+      const currentMonthBoiling = Number(
+        monthResultBoil?.dataValues.total || 0,
+      );
+      const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
+      const currentMonthHumid = Number(monthResultHumid?.dataValues.total || 0);
+
+      /* ===============================
+       4️⃣ CUSTOM FROM–TO
+    =============================== */
+      let customBoiling = 0;
+      let customBorma = 0;
+      let customHumid = 0;
+
+      if (type === "boiling" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResult = await RcnBoiling.findOne({
+          attributes: [[fn("SUM", col("Size")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customBoiling = Number(customResult?.dataValues.total || 0);
+      }
+      if (type === "borma" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultBorma = await RcnBorma.findOne({
+          attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customBorma = Number(customResultBorma?.dataValues.total || 0);
+      }
+      if (type === "humid" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultHumid = await Humidifier.findOne({
+          attributes: [[fn("AVG", col("MoistGain")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customHumid = Number(customResultHumid?.dataValues.total || 0);
+      }
+
+      /* ===============================
+       RESPONSE
+    =============================== */
+      return res.status(200).json({
+        msg: "ok",
+        data: {usercount,employeecount,pendingGatepass,village_pending,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
+          previousBoiling,previousBorma,previousHumid,
+          previousBoilingDate,previousBormaDate,previousHumidDate,
+          currentWeekBoil,currentWeekBorma,currentWeekHumid,
+          currentMonthBoiling,currentMonthBorma,currentMonthHumid,
+          customBoiling,customBorma,customHumid,
+          currentYearBoiling,fyResultBorma,fyResultHumid
+        },
+      });
+    } catch (error) {
+    console.error(" Dashboard Error:", error);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
+
 }

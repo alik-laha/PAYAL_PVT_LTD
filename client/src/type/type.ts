@@ -2043,4 +2043,6 @@ export interface GatePassExcelData {
   
 }
 
+export type SectionType = "boiling" | "scooping";
+
 
