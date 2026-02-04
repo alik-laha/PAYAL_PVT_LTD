@@ -982,17 +982,16 @@ export const Lottracker = async (req: Request, res: Response) => {
 
 export const directorDashboard = async (req: Request, res: Response) => {
     try {
-        console.log('starting director')
-  const { fromDate, toDate, type } = req.body;
+      console.log("starting director");
+      const { fromDate, toDate, type } = req.body;
 
-  
-    /* ===============================
+      /* ===============================
        IST TIME
     =============================== */
-    const nowIST = new Date();
-    const searchnowIST= new Date();
-    //nowIST.setHours(nowIST.getHours() + 5);
-    //nowIST.setMinutes(nowIST.getMinutes() + 30);
+      const nowIST = new Date();
+      const searchnowIST = new Date();
+      //nowIST.setHours(nowIST.getHours() + 5);
+      //nowIST.setMinutes(nowIST.getMinutes() + 30);
       if (
         nowIST.getHours() < 5 ||
         (nowIST.getHours() === 5 && nowIST.getMinutes() <= 30)
@@ -1000,203 +999,292 @@ export const directorDashboard = async (req: Request, res: Response) => {
         nowIST.setHours(nowIST.getHours() + 5);
         nowIST.setMinutes(nowIST.getMinutes() + 30);
       }
-      searchnowIST.setHours(0,0,0,0)
+      searchnowIST.setHours(0, 0, 0, 0);
 
-    /* ===============================
+      /* ===============================
        COMMON WHERE
     =============================== */
-    const commonWhere = {
-      [Op.or]: [{ editStatus: "Approved" }, { editStatus: "NA" }],
-    };
+      const commonWhere = {
+        [Op.or]: [{ editStatus: "Approved" }, { editStatus: "NA" }],
+      };
 
-    /* ===============================
+      /* ===============================
        1️⃣ GET LAST DATE FROM DB
        (Previous boiling date)
     =============================== */
-    const lastEntryboil = await RcnBoiling.findOne({
-      attributes: [[fn("MAX", col("date")), "lastDate"]],
-      where: {
-        ...commonWhere,
-        date: { [Op.lt]: searchnowIST },
-      },
-      //raw: true,
-    });
-
-    const lastEntryborma = await RcnBorma.findOne({
-      attributes: [[fn("MAX", col("date")), "lastDate"]],
-      where: {
-        ...commonWhere,
-        date: { [Op.lt]: searchnowIST },
-      },
-      //raw: true,
-    });
-
-    const lastDateboil = lastEntryboil?.dataValues.lastDate;
-    const lastDateborma = lastEntryborma?.dataValues.lastDate;
-
-    let previousBoiling = 0;
-    let previousBoilingDate = null;
-    let previousBorma = 0;
-    let previousBormaDate = null;
-
-    if (lastDateboil) {
-      const start = new Date(lastDateboil);
-      start.setHours(0, 0, 0, 0);
-
-      const end = new Date(lastDateboil);
-      end.setHours(23, 59, 59, 999);
-
-      const prevResult = await RcnBoiling.findOne({
-        attributes: [[fn("SUM", col("Size")), "total"]],
+      const lastEntryboil = await RcnBoiling.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [start, end] },
+          date: { [Op.lt]: searchnowIST },
         },
         //raw: true,
       });
 
-      previousBoiling = Number(prevResult?.dataValues.total || 0);
-      previousBoilingDate = lastDateboil;
-    }
-    if (lastDateborma) {
-      const start = new Date(lastDateborma);
-      start.setHours(0, 0, 0, 0);
-
-      const end = new Date(lastDateborma);
-      end.setHours(23, 59, 59, 999);
-
-      const prevResult = await RcnBorma.findOne({
-        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+      const lastEntryborma = await RcnBorma.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [start, end] },
+          date: { [Op.lt]: searchnowIST },
         },
         //raw: true,
       });
 
-      previousBorma = Number(prevResult?.dataValues.total || 0);
-      previousBormaDate = lastDateborma;
-    }
+      const lastEntryhumid = await Humidifier.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
 
+      const lastDateboil = lastEntryboil?.dataValues.lastDate;
+      const lastDateborma = lastEntryborma?.dataValues.lastDate;
+      const lastDatehumid = lastEntryhumid?.dataValues.lastDate;
 
+      let previousBoiling = 0;
+      let previousBoilingDate = null;
+      let previousBorma = 0;
+      let previousBormaDate = null;
+      let previousHumid = 0;
+      let previousHumidDate = null;
 
-    /* ===============================
+      if (lastDateboil) {
+        const start = new Date(lastDateboil);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDateboil);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnBoiling.findOne({
+          attributes: [[fn("SUM", col("Size")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousBoiling = Number(prevResult?.dataValues.total || 0);
+        previousBoilingDate = lastDateboil;
+      }
+      if (lastDateborma) {
+        const start = new Date(lastDateborma);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDateborma);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnBorma.findOne({
+          attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousBorma = Number(prevResult?.dataValues.total || 0);
+        previousBormaDate = lastDateborma;
+      }
+       if (lastDatehumid) {
+        const start = new Date(lastDatehumid);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDatehumid);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await Humidifier.findOne({
+          attributes: [[fn("AVG", col("MoistGain")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousHumid = Number(prevResult?.dataValues.total || 0);
+        previousHumidDate = lastDatehumid;
+      }
+
+      /* ===============================
        2️⃣ CURRENT FINANCIAL YEAR
        (India: Apr–Mar)
     =============================== */
-    const year = nowIST.getFullYear();
-    const fyStart =
-      nowIST < new Date(`${year}-04-01`)
-        ? new Date(`${year - 1}-04-01`)
-        : new Date(`${year}-04-01`);
+      const year = nowIST.getFullYear();
+      const fyStart =
+        nowIST < new Date(`${year}-04-01`)
+          ? new Date(`${year - 1}-04-01`)
+          : new Date(`${year}-04-01`);
 
-    fyStart.setHours(0, 0, 0, 0);
+      fyStart.setHours(0, 0, 0, 0);
 
-    const fyResultBoil = await RcnBoiling.findOne({
-      attributes: [[fn("SUM", col("Size")), "total"]],
-      where: {
-        ...commonWhere,
-        date: { [Op.between]: [fyStart, nowIST] },
-      },
-      //raw: true,
-    });
-   
-
-    const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
-    
-
-    /* ===============================
-       3️⃣ CURRENT MONTH
-    =============================== */
-    const monthStart = new Date(
-      nowIST.getFullYear(),
-      nowIST.getMonth(),
-      1
-    );
-    monthStart.setHours(0, 0, 0, 0);
-
-    const monthResultBoil = await RcnBoiling.findOne({
-      attributes: [[fn("SUM", col("Size")), "total"]],
-      where: {
-        ...commonWhere,
-        date: { [Op.between]: [monthStart, nowIST] },
-      },
-      //raw: true,
-    });
-    const monthResultBorma = await RcnBorma.findOne({
-      attributes: [[fn("AVG", col("BormaLoss")), "total"]],
-      where: {
-        ...commonWhere,
-        date: { [Op.between]: [monthStart, nowIST] },
-      },
-      //raw: true,
-    });
-
-    const currentMonthBoiling = Number(monthResultBoil?.dataValues.total || 0);
-    const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
-
-    /* ===============================
-       4️⃣ CUSTOM FROM–TO
-    =============================== */
-    let customBoiling = 0;
-    let customBorma = 0;
-
-    if (type === "boiling" && fromDate && toDate) {
-      const from = new Date(fromDate);
-      from.setHours(0, 0, 0, 0);
-
-      const to = new Date(toDate);
-      to.setHours(to.getHours() + 5);
-      to.setMinutes(to.getMinutes() + 30);
-      to.setHours(23, 59, 59, 999);
-
-      const customResult = await RcnBoiling.findOne({
+      const fyResultBoil = await RcnBoiling.findOne({
         attributes: [[fn("SUM", col("Size")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [from, to] },
+          date: { [Op.between]: [fyStart, nowIST] },
         },
         //raw: true,
       });
 
-      customBoiling = Number(customResult?.dataValues.total || 0);
-    }
-     if (type === "borma" && fromDate && toDate) {
-      const from = new Date(fromDate);
-      from.setHours(0, 0, 0, 0);
+      const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
 
-      const to = new Date(toDate);
-      to.setHours(to.getHours() + 5);
-      to.setMinutes(to.getMinutes() + 30);
-      to.setHours(23, 59, 59, 999);
+      /* ===============================
+       2️⃣ CURRENT Week
+       (India: Mon–Sun)
+    =============================== */
 
-      const customResultBorma = await RcnBorma.findOne({
+      const weekStart = new Date(nowIST);
+      const day = weekStart.getDay();
+      // JS: Sun=0, Mon=1, Tue=2 ...
+
+      const diffToMonday = day === 0 ? -6 : 1 - day;
+      weekStart.setDate(weekStart.getDate() + diffToMonday);
+      weekStart.setHours(0, 0, 0, 0);
+      //console.log(weekStart)
+
+      const weekResultBorma = await RcnBorma.findOne({
         attributes: [[fn("AVG", col("BormaLoss")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [from, to] },
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+       const weekResultHumid = await Humidifier.findOne({
+        attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+      const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
+      const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
+
+      /* ===============================
+       3️⃣ CURRENT MONTH
+    =============================== */
+      const monthStart = new Date(nowIST.getFullYear(), nowIST.getMonth(), 1);
+      monthStart.setHours(0, 0, 0, 0);
+
+      const monthResultBoil = await RcnBoiling.findOne({
+        attributes: [[fn("SUM", col("Size")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
         },
         //raw: true,
       });
+      const monthResultBorma = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+       const monthResultHumid = await Humidifier.findOne({
+        attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+      const currentMonthBoiling = Number(
+        monthResultBoil?.dataValues.total || 0,
+      );
+      const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
+      const currentMonthHumid = Number(monthResultHumid?.dataValues.total || 0);
 
-      
-      customBorma = Number(customResultBorma?.dataValues.total || 0);
-    }
+      /* ===============================
+       4️⃣ CUSTOM FROM–TO
+    =============================== */
+      let customBoiling = 0;
+      let customBorma = 0;
+      let customHumid = 0;
 
-    /* ===============================
+      if (type === "boiling" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResult = await RcnBoiling.findOne({
+          attributes: [[fn("SUM", col("Size")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customBoiling = Number(customResult?.dataValues.total || 0);
+      }
+      if (type === "borma" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultBorma = await RcnBorma.findOne({
+          attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customBorma = Number(customResultBorma?.dataValues.total || 0);
+      }
+      if (type === "humid" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultHumid = await Humidifier.findOne({
+          attributes: [[fn("AVG", col("MoistGain")), "total"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customHumid = Number(customResultHumid?.dataValues.total || 0);
+      }
+
+      /* ===============================
        RESPONSE
     =============================== */
-    return res.status(200).json({
-      msg: "ok",
-      data: {
-        previousBoiling,previousBorma,
-        previousBoilingDate,previousBormaDate,
-        currentYearBoiling,
-        currentMonthBoiling,currentMonthBorma,
-        customBoiling,customBorma
-      },
-    });
-  } catch (error) {
+      return res.status(200).json({
+        msg: "ok",
+        data: {
+          previousBoiling,previousBorma,previousHumid,
+          previousBoilingDate,previousBormaDate,previousHumidDate,
+          currentWeekBorma,currentWeekHumid,
+          currentMonthBoiling,currentMonthBorma,currentMonthHumid,
+          customBoiling,customBorma,customHumid,
+          currentYearBoiling
+        },
+      });
+    } catch (error) {
     console.error(" Dashboard Error:", error);
     return res.status(500).json({ msg: "Internal Server Error" });
   }

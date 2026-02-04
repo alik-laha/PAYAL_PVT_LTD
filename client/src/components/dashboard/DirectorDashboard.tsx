@@ -4,11 +4,9 @@ import DashboardSidebar from "./DashboardSidebar";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FY, FY_Array, Origin } from "../common/exportData";
-import { Input } from "../ui/input";
 
-import { FaSearch } from "react-icons/fa";
-import { Table, TableBody, TableCell, TableRow } from "../ui/table";
+
+
 import { StatCard } from "../common/StatCard";
 import { DateRangeForm } from "../common/DateRangeForm";
 
@@ -136,14 +134,36 @@ const DirectorDashboard: React.FC = () => {
                                         : "No data"
                                 } 
                             />
-                            <StatCard title="Current Week" value={`${data.currentMonthBoiling} Kg`} />
+                            <StatCard title="Current Week" value={`Loss: ${data.currentWeekBorma} %`} />
                             <StatCard title="Current Month" value={`Loss: ${data.currentMonthBorma} %`} />
 
                             <DateRangeForm
-                                onSearch={(from, to) => handleSearch("boiling", from, to)}
+                                onSearch={(from, to) => handleSearch("borma", from, to)}
                             />
 
-                            <StatCard title="Custom Date Range" value={`${data.customBoiling} Kg`} />
+                            <StatCard title="Custom Date Range" value={`${data.customBorma} %`} />
+                        </div>
+
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 mt-5">
+                            <StatCard title="Section" value={'Humidifier'} color={'red'} />
+                            <StatCard
+                                title="Previous Day"
+                                value={`Gain: ${data.previousHumid} %`}
+                                subtitle={
+                                    data.previousHumidDate
+                                        ? `Date: ${data.previousHumidDate.slice(0, 10)}`
+                                        : "No data"
+                                } 
+                            />
+                            <StatCard title="Current Week" value={`Gain: ${data.currentWeekHumid} %`} />
+                            <StatCard title="Current Month" value={`Gain: ${data.currentMonthHumid} %`} />
+
+                            <DateRangeForm
+                                onSearch={(from, to) => handleSearch("humid", from, to)}
+                            />
+
+                            <StatCard title="Custom Date Range" value={`${data.customHumid} %`} />
                         </div>
                     </>
                       
