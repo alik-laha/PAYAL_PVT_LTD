@@ -26,6 +26,9 @@ import RcvVillageInModel from "../../model/RcvVillageInModel";
 import LotNo from "../../model/lotNomodel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import {  fn, col } from "sequelize";
+import User from "../../model/userModel";
+import Employee from "../../model/employeeModel";
+import gatePassMaster from "../../model/gatePassMasterModel";
 
 const IST_OFFSET_MIN = 5 * 60 + 30;
 
@@ -83,7 +86,9 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                    { LotNo: { [Op.notLike]: '%R%' } },
+
                 ]
 
             }
@@ -128,7 +133,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -173,7 +179,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -218,7 +225,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -263,7 +271,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -308,7 +317,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -352,7 +362,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -395,7 +406,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -439,7 +451,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -482,7 +495,8 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 Status: 1,
                 [Op.and]: [
                     { LotNo: { [Op.notLike]: '2025-999' } },
-                    { LotNo: { [Op.notLike]: '%V%' } }
+                    { LotNo: { [Op.notLike]: '%V%' } },
+                     { LotNo: { [Op.notLike]: '%R%' } },
                 ]
 
             }
@@ -1007,6 +1021,13 @@ export const directorDashboard = async (req: Request, res: Response) => {
       const commonWhere = {
         [Op.or]: [{ editStatus: "Approved" }, { editStatus: "NA" }],
       };
+      const usercount = await User.count();
+      const employeecount = await Employee.count({ where: { status: true } });
+      const Issued = await gatePassMaster.count({ col:'gatePassNo'});
+      const completed  = await gatePassMaster.count({ col:'gatePassNo',
+                where: { status: 'Closed' } });
+      const pendingGatepass:number=Issued>0 && completed>0 ? Issued-completed:0 
+
 
       /* ===============================
        1️⃣ GET LAST DATE FROM DB
@@ -1129,6 +1150,75 @@ export const directorDashboard = async (req: Request, res: Response) => {
         //raw: true,
       });
 
+
+         const fyResultBorma = await RcnBorma.findOne({
+        attributes: [[fn("AVG", col("BormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [fyStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+       const fyResultHumid = await Humidifier.findOne({
+        attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [fyStart, nowIST] },
+        },
+        // raw: true,
+      });
+      const fyReceivingTotal = await RcnPrimary.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.literal('noOfBags * 80')), 'Total_Receiving']
+            ],
+            where: {
+                rcnStatus: 'QC Approved',
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'NA' }],
+                date: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+
+        
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Outside_Gatepass = await RcvVillageModel.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('totalWt')), 'Final_Village_Out']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                recevingDate: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Outside_Production = await villageProduction.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('issue_outside')), 'Production_Village_Out']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'NA' }],
+                date: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+
+        //4.Total Village Outside ///////////////////////////////////////////////////////////////////////////////////   
+        const Ville_Inside_gatepass = await RcvVillageInModel.findOne({
+            attributes: [
+                [sequelize.fn('SUM', sequelize.col('totalWt')), 'Village_In']
+            ],
+            where: {
+               
+                [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                recevingDate: { [Op.between]: [fyStart, nowIST] }
+            }
+        });
+
+        const village_out_prod = Number(Ville_Outside_Production?.dataValues.Production_Village_Out) || 0;
+        const village_out_gate = Number(Ville_Outside_Gatepass?.dataValues.Final_Village_Out) || 0;
+        const village_pending = village_out_gate-village_out_prod ;
+
       const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
 
       /* ===============================
@@ -1144,6 +1234,15 @@ export const directorDashboard = async (req: Request, res: Response) => {
       weekStart.setDate(weekStart.getDate() + diffToMonday);
       weekStart.setHours(0, 0, 0, 0);
       //console.log(weekStart)
+
+       const weekResultBoil = await RcnBoiling.findOne({
+        attributes: [[fn("SUM", col("Size")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
 
       const weekResultBorma = await RcnBorma.findOne({
         attributes: [[fn("AVG", col("BormaLoss")), "total"]],
@@ -1163,6 +1262,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         // raw: true,
       });
 
+       const currentWeekBoil = Number(weekResultBoil?.dataValues.total || 0);
       const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
       const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
 
@@ -1275,13 +1375,13 @@ export const directorDashboard = async (req: Request, res: Response) => {
     =============================== */
       return res.status(200).json({
         msg: "ok",
-        data: {
+        data: {usercount,employeecount,pendingGatepass,village_pending,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
           previousBoiling,previousBorma,previousHumid,
           previousBoilingDate,previousBormaDate,previousHumidDate,
-          currentWeekBorma,currentWeekHumid,
+          currentWeekBoil,currentWeekBorma,currentWeekHumid,
           currentMonthBoiling,currentMonthBorma,currentMonthHumid,
           customBoiling,customBorma,customHumid,
-          currentYearBoiling
+          currentYearBoiling,fyResultBorma,fyResultHumid
         },
       });
     } catch (error) {

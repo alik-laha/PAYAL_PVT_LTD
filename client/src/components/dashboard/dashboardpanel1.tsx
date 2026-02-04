@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./dashboard1.css"; // Optional CSS file
 
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+
 import { StatCard2 } from "../common/StatCard2";
 
 
@@ -244,6 +244,7 @@ const DashboardPanel1: React.FC = () => {
          
 
           setLotdata(result);
+          console.log(lotdata)
         });
       } catch (error) {
         console.error("Failed to fetch dashboard data", error);
