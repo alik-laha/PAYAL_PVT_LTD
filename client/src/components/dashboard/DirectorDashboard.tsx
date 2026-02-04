@@ -127,7 +127,7 @@ const DirectorDashboard: React.FC = () => {
               Total RCN Receiving
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.fyReceivingTotal.Total_Receiving ? formatNumber(data.fyReceivingTotal.Total_Receiving):0} Kg
+              {data.fyReceivingTotal.Total_Receiving ? formatNumber(Number(data.fyReceivingTotal.Total_Receiving)/1000):0} Ton
             </span>
           </div>
 
@@ -137,7 +137,7 @@ const DirectorDashboard: React.FC = () => {
               Total Boiling
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.currentYearBoiling? formatNumber(data.currentYearBoiling):0} Kg
+              {data.currentYearBoiling? formatNumber(Number(data.currentYearBoiling)/1000):0} Ton
             </span>
           </div>
 
@@ -166,7 +166,7 @@ const DirectorDashboard: React.FC = () => {
              Village In
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.Ville_Inside_gatepass.Village_In ? formatNumber(data.Ville_Inside_gatepass.Village_In):0} Kg
+              {data.Ville_Inside_gatepass.Village_In ? formatNumber(Number(data.Ville_Inside_gatepass.Village_In)/1000):0} Ton
             </span>
           </div>
           <div className="bg-stone-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
@@ -175,7 +175,7 @@ const DirectorDashboard: React.FC = () => {
              Village Out (GatePass)
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.village_out_gate ? formatNumber(data.village_out_gate):0} Kg
+              {data.village_out_gate ? formatNumber(Number(data.village_out_gate)/1000):0} Ton
             </span>
           </div>
            <div className="bg-pink-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
@@ -184,7 +184,7 @@ const DirectorDashboard: React.FC = () => {
              Village Out (Prod)
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.village_out_prod ? formatNumber(data.village_out_prod):0} Kg
+              {data.village_out_prod ? formatNumber(Number(data.village_out_prod)/1000):0} Ton
             </span>
           </div>
            <div className="bg-emerald-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
@@ -193,74 +193,95 @@ const DirectorDashboard: React.FC = () => {
              Pending Village Out 
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.village_pending ? formatNumber(data.village_pending):0} Kg
+              {data.village_pending ? formatNumber(Number(data.village_pending)/1000):0} Ton
             </span>
           </div>
         
 
           </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Section" value={'Boiling'} color={'green'} />
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
+                            <StatCard title="Pending" value={'Gatepass'} color={'orange'} />
                             <StatCard
                                 title="Previous Day"
-                                value={`${data.previousBoiling} Kg`}
+                                value={`${data.previousGate}`}
+                                subtitle={
+                                    data.previousGateDate
+                                        ? `Date: ${data.previousGateDate.slice(0, 10)}`
+                                        : "No data"
+                                }
+                            />
+                            <StatCard title="Current Week" value={`${data.weekResultGate}`} />
+                            <StatCard title="Current Month" value={`${data.monthResultGate}`} />
+
+                            <DateRangeForm
+                                onSearch={(from, to) => handleSearch("gatepass", from, to)}
+                            />
+
+                            <StatCard title="Custom Date Range" value={`${data.customGate}`} />
+                        </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
+                            <StatCard title="Quantity (Ton)" value={'Boiling'} color={'green'} />
+                            <StatCard
+                                title="Previous Day"
+                                value={`${Number(data.previousBoiling)/1000} `}
                                 subtitle={
                                     data.previousBoilingDate
                                         ? `Date: ${data.previousBoilingDate.slice(0, 10)}`
                                         : "No data"
                                 }
                             />
-                            <StatCard title="Current Week" value={`${data.currentWeekBoil} Kg`} />
-                            <StatCard title="Current Month" value={`${data.currentMonthBoiling} Kg`} />
+                            <StatCard title="Current Week" value={`${Number(data.currentWeekBoil)/1000} `} />
+                            <StatCard title="Current Month" value={`${Number(data.currentMonthBoiling)/1000} `} />
 
                             <DateRangeForm
                                 onSearch={(from, to) => handleSearch("boiling", from, to)}
                             />
 
-                            <StatCard title="Custom Date Range" value={`${data.customBoiling} Kg`} />
+                            <StatCard title="Custom Date Range" value={`${Number(data.customBoiling)/1000} `} />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Section" value={'Borma'} color={'blue'} />
+                            <StatCard title="Loss %" value={'Borma'} color={'blue'} />
                             <StatCard
                                 title="Previous Day"
-                                value={`Loss: ${data.previousBorma} %`}
+                                value={` ${formatNumber(data.previousBorma)} %`}
                                 subtitle={
                                     data.previousBormaDate
                                         ? `Date: ${data.previousBormaDate.slice(0, 10)}`
                                         : "No data"
                                 } 
                             />
-                            <StatCard title="Current Week" value={`Loss: ${data.currentWeekBorma} %`} />
-                            <StatCard title="Current Month" value={`Loss: ${data.currentMonthBorma} %`} />
+                            <StatCard title="Current Week" value={` ${formatNumber(data.currentWeekBorma)} %`} />
+                            <StatCard title="Current Month" value={` ${formatNumber(data.currentMonthBorma)} %`} />
 
                             <DateRangeForm
                                 onSearch={(from, to) => handleSearch("borma", from, to)}
                             />
 
-                            <StatCard title="Custom Date Range" value={`${data.customBorma} %`} />
+                            <StatCard title="Custom Date Range" value={`${formatNumber(data.customBorma)} %`} />
                         </div>
 
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Section" value={'Humidifier'} color={'red'} />
+                            <StatCard title="Moisture Gain %" value={'Humidifier'} color={'red'} />
                             <StatCard
                                 title="Previous Day"
-                                value={`Gain: ${data.previousHumid} %`}
+                                value={` ${formatNumber(data.previousHumid)} %`}
                                 subtitle={
                                     data.previousHumidDate
                                         ? `Date: ${data.previousHumidDate.slice(0, 10)}`
                                         : "No data"
                                 } 
                             />
-                            <StatCard title="Current Week" value={`Gain: ${data.currentWeekHumid} %`} />
-                            <StatCard title="Current Month" value={`Gain: ${data.currentMonthHumid} %`} />
+                            <StatCard title="Current Week" value={`${formatNumber(data.currentWeekHumid)} %`} />
+                            <StatCard title="Current Month" value={` ${formatNumber(data.currentMonthHumid)} %`} />
 
                             <DateRangeForm
                                 onSearch={(from, to) => handleSearch("humid", from, to)}
                             />
 
-                            <StatCard title="Custom Date Range" value={`${data.customHumid} %`} />
+                            <StatCard title="Custom Date Range" value={`${formatNumber(data.customHumid)} %`} />
                         </div>
                     </>
                       
