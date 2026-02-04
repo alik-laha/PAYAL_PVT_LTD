@@ -1023,7 +1023,8 @@ export const directorDashboard = async (req: Request, res: Response) => {
       };
       const usercount = await User.count();
       const employeecount = await Employee.count({ where: { status: true } });
-      const Issued = await gatePassMaster.count({ col:'gatePassNo'});
+      const Issued = await gatePassMaster.count({ col:'gatePassNo'
+        ,where: { status: { [Op.notLike]: 'Cancelled' } }} );
       const completed  = await gatePassMaster.count({ col:'gatePassNo',
                 where: { status: 'Closed' } });
       const pendingGatepass:number=Issued>0 && completed>0 ? Issued-completed:0 
@@ -1033,6 +1034,14 @@ export const directorDashboard = async (req: Request, res: Response) => {
        1️⃣ GET LAST DATE FROM DB
        (Previous boiling date)
     =============================== */
+
+    const lastEntrygatepass = await gatePassMaster.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
       const lastEntryboil = await RcnBoiling.findOne({
         attributes: [[fn("MAX", col("date")), "lastDate"]],
         where: {
@@ -1060,16 +1069,37 @@ export const directorDashboard = async (req: Request, res: Response) => {
         //raw: true,
       });
 
+      const lastDategate = lastEntrygatepass?.dataValues.lastDate;
       const lastDateboil = lastEntryboil?.dataValues.lastDate;
       const lastDateborma = lastEntryborma?.dataValues.lastDate;
       const lastDatehumid = lastEntryhumid?.dataValues.lastDate;
 
+      let previousGate = 0;
+      let previousGateDate = null;
       let previousBoiling = 0;
       let previousBoilingDate = null;
       let previousBorma = 0;
       let previousBormaDate = null;
       let previousHumid = 0;
       let previousHumidDate = null;
+
+      if (lastDategate) {
+        const start = new Date(lastDategate);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDategate);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await gatePassMaster.count(
+            { col:'gatePassNo',  where: {
+                [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                date: { [Op.between]: [start, end] }
+
+            }})
+              
+        previousGate = prevResult || 0;
+        previousGateDate = lastDategate;
+      }
 
       if (lastDateboil) {
         const start = new Date(lastDateboil);
@@ -1235,6 +1265,13 @@ export const directorDashboard = async (req: Request, res: Response) => {
       weekStart.setHours(0, 0, 0, 0);
       //console.log(weekStart)
 
+    const weekResultGate = await gatePassMaster.count(
+            { col:'gatePassNo',  where: {
+                 [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                date: { [Op.between]: [weekStart, nowIST] }
+
+      }})
+
        const weekResultBoil = await RcnBoiling.findOne({
         attributes: [[fn("SUM", col("Size")), "total"]],
         where: {
@@ -1272,6 +1309,13 @@ export const directorDashboard = async (req: Request, res: Response) => {
       const monthStart = new Date(nowIST.getFullYear(), nowIST.getMonth(), 1);
       monthStart.setHours(0, 0, 0, 0);
 
+      const monthResultGate = await gatePassMaster.count(
+            { col:'gatePassNo',  where: {
+                 [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                date: { [Op.between]: [monthStart, nowIST] }
+
+      }})
+
       const monthResultBoil = await RcnBoiling.findOne({
         attributes: [[fn("SUM", col("Size")), "total"]],
         where: {
@@ -1296,6 +1340,8 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         //raw: true,
       });
+
+
       const currentMonthBoiling = Number(
         monthResultBoil?.dataValues.total || 0,
       );
@@ -1308,6 +1354,27 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let customBoiling = 0;
       let customBorma = 0;
       let customHumid = 0;
+       let customGate = 0;
+
+      if (type === "gatepass" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultGate = await gatePassMaster.count(
+            { col:'gatePassNo',  where: {
+                 [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                date: { [Op.between]: [from, to] }
+
+      }})
+      customGate=customResultGate
+
+       
+      }
 
       if (type === "boiling" && fromDate && toDate) {
         const from = new Date(fromDate);
@@ -1376,11 +1443,11 @@ export const directorDashboard = async (req: Request, res: Response) => {
       return res.status(200).json({
         msg: "ok",
         data: {usercount,employeecount,pendingGatepass,village_pending,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
-          previousBoiling,previousBorma,previousHumid,
-          previousBoilingDate,previousBormaDate,previousHumidDate,
-          currentWeekBoil,currentWeekBorma,currentWeekHumid,
-          currentMonthBoiling,currentMonthBorma,currentMonthHumid,
-          customBoiling,customBorma,customHumid,
+          previousBoiling,previousBorma,previousHumid,previousGate,
+          previousBoilingDate,previousBormaDate,previousHumidDate,previousGateDate,
+          currentWeekBoil,currentWeekBorma,currentWeekHumid,weekResultGate,
+          currentMonthBoiling,currentMonthBorma,currentMonthHumid,monthResultGate,
+          customBoiling,customBorma,customHumid,customGate,
           currentYearBoiling,fyResultBorma,fyResultHumid
         },
       });
