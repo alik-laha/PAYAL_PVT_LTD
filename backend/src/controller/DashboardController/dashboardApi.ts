@@ -1092,7 +1092,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         const prevResult = await gatePassMaster.count(
             { col:'gatePassNo',  where: {
-                [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                [Op.and]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
                 date: { [Op.between]: [start, end] }
 
             }})
@@ -1267,7 +1267,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
     const weekResultGate = await gatePassMaster.count(
             { col:'gatePassNo',  where: {
-                 [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                 [Op.and]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
                 date: { [Op.between]: [weekStart, nowIST] }
 
       }})
@@ -1311,7 +1311,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
       const monthResultGate = await gatePassMaster.count(
             { col:'gatePassNo',  where: {
-                 [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                 [Op.and]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
                 date: { [Op.between]: [monthStart, nowIST] }
 
       }})
@@ -1367,7 +1367,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         const customResultGate = await gatePassMaster.count(
             { col:'gatePassNo',  where: {
-                 [Op.or]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
+                 [Op.and]: [{ Status: { [Op.notLike]: 'Closed' } }, { Status: { [Op.notLike]: 'Cancelled' }}],
                 date: { [Op.between]: [from, to] }
 
       }})
