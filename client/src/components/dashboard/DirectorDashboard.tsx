@@ -1,7 +1,4 @@
-import { NavLink } from "react-router-dom";
-import DashboardHeader from "./DashboardHeader";
-import DashboardSidebar from "./DashboardSidebar";
-import { Button } from "../ui/button";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -85,24 +82,10 @@ const DirectorDashboard: React.FC = () => {
 
     return (
         <>
-            <DashboardHeader />
-            <DashboardSidebar />
-            <div className='dashboard-main-container' style={{ backgroundColor: 'white' }} >
-                <div className="dashboard-container" style={{ backgroundColor: 'ghostwhite' }}>
-
-
-                    <div className='text-2xl font-semibold text-gray-800 text-center py-5 shadow-md bg-yellow-50'>Director Dashboard
-
-                        <NavLink to="/dashboard/dashboard1/" >
-                            <Button className="mr-6  right bg-orange-500 float-right h-8">Back</Button>
-
-                        </NavLink>
-                    </div>
-
-
+            
 
                     {data && (<>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 mt-5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
                             <StatCard title="Section" value={'Boiling'} color={'green'} />
                             <StatCard
                                 title="Previous Day"
@@ -123,7 +106,7 @@ const DirectorDashboard: React.FC = () => {
                             <StatCard title="Custom Date Range" value={`${data.customBoiling} Kg`} />
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 mt-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
                             <StatCard title="Section" value={'Borma'} color={'blue'} />
                             <StatCard
                                 title="Previous Day"
@@ -145,7 +128,7 @@ const DirectorDashboard: React.FC = () => {
                         </div>
 
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 mt-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
                             <StatCard title="Section" value={'Humidifier'} color={'red'} />
                             <StatCard
                                 title="Previous Day"
@@ -171,8 +154,7 @@ const DirectorDashboard: React.FC = () => {
 
 
 
-                </div>
-            </div>
+           
 
         </>
     )

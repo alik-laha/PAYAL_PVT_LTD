@@ -18,6 +18,7 @@ import {
     MdOutlineAdminPanelSettings, MdOutlineStorefront,
     MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality,
     MdOutlineSpaceDashboard,
+    MdDashboard,
     
 } from "react-icons/md";
 import { IoIosNavigate, IoMdSettings   } from "react-icons/io";
@@ -147,6 +148,8 @@ const toggleSection = (sectionKey: string) => {
           </button>
         </div>
 
+      
+
         <div className={`sidebar  ${sidebarOpen ? "open" : ""}`}>
           <div className="flex items-center justify-between bg-cyan-900 px-4 py-5 shadow-md text-white">
             {/* <a href="#" className="closebtn float-right" onClick={closeSidebar}> */}
@@ -171,9 +174,31 @@ const toggleSection = (sectionKey: string) => {
             {/* </a> */}
           </div>
 
-          <div className="min-h-[152vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
+           {/* Dashboard */}
+        {rendersection("Dashboard") && (
+          <div className="flex items-center flex-row justify-between bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 shadow-lg ">
+            <NavLink
+              to="/dashboard"
+              className="flex items-center gap-2 group transition-all duration-200 flex-row"
+            ><div className="flex flex-row items-center gap-2 mt-4">
+                <MdDashboard
+                  size={22}
+                  className="text-white group-hover:scale-110 transition-transform duration-200"
+                />
+                <p className="text-white font-semibold tracking-widest text-sm group-hover:text-yellow-200 transition-colors duration-200 drop-shadow">
+                  DASHBOARD
+                </p>
+              </div>
+
+            </NavLink>
+          </div>
+        )}
+
+          
+
+          <div className="min-h-[143vh] pt-5 bg-gray-100 border-r-8 border-gray-300">
             <a>
-              <Collapsible
+              {/* <Collapsible
                 open={openSection === "dashboard"}
                 onOpenChange={() => toggleSection("dashboard")}>
                 <CollapsibleTrigger
@@ -201,7 +226,7 @@ const toggleSection = (sectionKey: string) => {
                     </p>
                   </NavLink>
                 </CollapsibleContent>
-              </Collapsible>
+              </Collapsible> */}
 
               {rendersection("HR & Admin") && (
                 <Collapsible
