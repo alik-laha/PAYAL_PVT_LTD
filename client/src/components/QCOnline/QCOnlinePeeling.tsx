@@ -124,7 +124,7 @@ const QCOnlinePeeling = () => {
           {/* Cashew % */}
           <div className="flex">
             <Label className="w-2/4 pt-1">Cashew % in Husk</Label>
-            <Input className="w-2/4 text-center" ref={cashewPcntngRef} type="text"  required placeholder="1 gm in 3 Bag" />
+            <Input className="w-2/4 text-center" ref={cashewPcntngRef} type="number" step='0.0001' required placeholder="1 gm in 3 Bag" />
           </div>
 
         

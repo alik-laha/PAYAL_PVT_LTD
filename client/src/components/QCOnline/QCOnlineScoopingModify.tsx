@@ -147,7 +147,7 @@ const QCOnlineScoopingModify = ({ data, onSuccess }: QCOnlineScoopingModifyProps
             <Input
               className="w-2/4 text-center"
               type="number"
-              step="0.01"
+              step="0.0001"
               value={cashewHuskprcnt}
               onChange={(e) => setCashewHuskprcnt(e.target.value)}
               required

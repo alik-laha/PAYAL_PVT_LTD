@@ -149,7 +149,7 @@ const QCOnlineScooping = () => {
               className="w-2/4 text-center"
               ref={cashewHuskRef}
               type="number"
-              step="0.01"
+              step="0.0001"
               required
               placeholder="%"
             />
