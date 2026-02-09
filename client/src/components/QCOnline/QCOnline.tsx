@@ -57,6 +57,9 @@ import QCOnlinePouchTable from "./QCOnlinePouchTable";
 import QCOnlineBucketTable from "./QCOnlineBucketTable";
 import QCOnlineHandGradeTable from "./QCOnlineHandGradeTable";
 import DashboardFooter from "../dashboard/DashboardFooter";
+import axios from "axios";
+import QcKORInitial from './qcKORInitial'
+
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -65,6 +68,8 @@ import DashboardFooter from "../dashboard/DashboardFooter";
 const QCOnline = () => {
   const [section, setSection] = useState<string>("");
   const [tablesection, setTablesection] = useState<string>("BOILER");
+
+  const [lotdata, setLotData] = useState<any[]>([])
   const { data, isLoading, error } = UseQueryData(
     "/api/qconline/sumofallQCOnline",
     "GET",
@@ -77,6 +82,17 @@ const QCOnline = () => {
   if (error) {
     return <div>Error</div>;
   }
+
+   const handleOpenLotNo = async () => {
+        axios.get('/api/qconline/getUnKOREntry/0').then(res => {
+            console.log(res)
+            setLotData(res.data.scoopingLot)
+        })
+
+
+
+
+    }
   return (
     <>
       <div>
@@ -165,7 +181,7 @@ const QCOnline = () => {
                 <Button
                   className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
                   >
-                  + Add QC Entry
+                  +  Add QC
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-4xl" style={{ display: "block" }}>
@@ -216,6 +232,18 @@ const QCOnline = () => {
                 {/* <QCWaterCreate /> */}
               </DialogContent>
             </Dialog>
+
+            <Dialog>
+                        <DialogTrigger> <Button className="w-40 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add KOR</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
+                            <DialogHeader>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>KOR Entry Form</p></DialogTitle>
+
+                            </DialogHeader>
+
+                            <QcKORInitial props={lotdata} />
+                        </DialogContent>
+                    </Dialog>
            <div className="mb-2 mt-5 responsive-button-adjust no-margin-left ml-4">
 <Select
               value={tablesection}

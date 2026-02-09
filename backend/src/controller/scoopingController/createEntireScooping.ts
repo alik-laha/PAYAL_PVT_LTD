@@ -6,6 +6,7 @@ import RcnAllScooping from "../../model/scoopingAllmodel";
 import RcnBorma from "../../model/bormaModel";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
+import qcKOR from "../../model/qcKorModel";
 
 const CreateEntireScooping = async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
@@ -147,6 +148,13 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     InputWholes:data.Wholes,
                     InputPieces:data.Broken, 
                     TotalInput:totalInput,
+                },{transaction});
+
+                await qcKOR.create({
+                    id:lotwise.dataValues.id,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    prodKOR:kor2
                 },{transaction});
 
             }

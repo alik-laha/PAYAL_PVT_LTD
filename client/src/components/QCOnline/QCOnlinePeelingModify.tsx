@@ -173,7 +173,7 @@ const PeelingModify = ({ data }: Props) => {
             <Label className="w-2/4 pt-1">Cashew % in Husk</Label>
             <Input
               className="w-2/4 text-center"
-              type="text"
+              type="number"    step="0.0001"
               value={cashewPcntng}
               onChange={(e) => setCashewPcntng(e.target.value)}
               required

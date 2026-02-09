@@ -12,6 +12,8 @@ import OnlineHandGrade from "../../model/onlineHandGrading";
 import OnlinePeeling from "../../model/onlinePeeling";
 import OnlineNanopix from "../../model/onlineNanopix";
 import OnlineTaiho from "../../model/onlineTaiho";
+import qcKOR from "../../model/qcKorModel";
+import sequelize from "../../config/databaseConfig";
 
 
 export const sumOfallQCOnline = async (req: Request, res: Response) => {
@@ -1887,3 +1889,58 @@ export const editQCTaiho = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const getQCKORLot = async (req: Request, res: Response) => {
+
+    try {
+        const status = req.params.status;
+        const scoopingLot = await qcKOR.findAll({
+            
+            attributes:[[sequelize.fn('DISTINCT',sequelize.col('LotNo')),'LotNo']],
+            where: {
+                BormaStatus:status
+            }
+
+        });
+        if(scoopingLot){
+            res.status(200).json({ message: "Un KOR Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding Un-KOR Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const getKORBylot = async (req: Request, res: Response) => {
+
+    try {
+        const lotNO=req.params.lotNO
+        const scoopingLot = await qcKOR.findAll({
+            where: {
+                LotNo:lotNO
+            }, order: [['id', 'ASC']]
+
+        }
+        );
+        if(scoopingLot){
+            res.status(200).json({ message: "UnKOR Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Un_KOR Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
