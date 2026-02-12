@@ -190,10 +190,19 @@ const DirectorDashboard: React.FC = () => {
            <div className="bg-emerald-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
             <div className="text-3xl mb-3">🧆</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
-             Pending Village Out 
+             Pending Village (Floor) 
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
               {data.village_pending ? formatNumber(Number(data.village_pending)/1000):0} Ton
+            </span>
+          </div>
+           <div className="bg-blue-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+            <div className="text-3xl mb-3">🧆</div>
+            <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
+             Pending Village (Outside) 
+            </h2>
+            <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
+              {data.village_pending_in ? formatNumber(Number(data.village_pending_in)/1000):0} Ton
             </span>
           </div>
         
@@ -221,18 +230,18 @@ const DirectorDashboard: React.FC = () => {
                             <StatCard title="Custom Date Range" value={`${data.customGate}`} />
                         </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Quantity (Ton)" value={'Boiling'} color={'green'} />
+                            <StatCard title="Quantity (Bag)" value={'Boiling'} color={'green'} />
                             <StatCard
                                 title="Previous Day"
-                                value={`${Number(data.previousBoiling)/1000} `}
+                                value={`${formatNumber(Number(data.previousBoiling)/80)} `}
                                 subtitle={
                                     data.previousBoilingDate
                                         ? `Date: ${data.previousBoilingDate.slice(0, 10)}`
                                         : "No data"
                                 }
                             />
-                            <StatCard title="Current Week" value={`${Number(data.currentWeekBoil)/1000} `} />
-                            <StatCard title="Current Month" value={`${Number(data.currentMonthBoiling)/1000} `} />
+                            <StatCard title="Current Week" value={`${formatNumber(Number(data.currentWeekBoil)/80)} `} />
+                            <StatCard title="Current Month" value={`${formatNumber(Number(data.currentMonthBoiling)/80)} `} />
 
                             <DateRangeForm
                                 onSearch={(from, to) => handleSearch("boiling", from, to)}

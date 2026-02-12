@@ -1247,7 +1247,9 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         const village_out_prod = Number(Ville_Outside_Production?.dataValues.Production_Village_Out) || 0;
         const village_out_gate = Number(Ville_Outside_Gatepass?.dataValues.Final_Village_Out) || 0;
+        const village_in_gate = Number(Ville_Inside_gatepass?.dataValues.Village_In) || 0;
         const village_pending = village_out_gate-village_out_prod ;
+        const village_pending_in = village_out_gate-village_in_gate ;
 
       const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
 
@@ -1442,7 +1444,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
     =============================== */
       return res.status(200).json({
         msg: "ok",
-        data: {usercount,employeecount,pendingGatepass,village_pending,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
+        data: {usercount,employeecount,pendingGatepass,village_pending,village_pending_in,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
           previousBoiling,previousBorma,previousHumid,previousGate,
           previousBoilingDate,previousBormaDate,previousHumidDate,previousGateDate,
           currentWeekBoil,currentWeekBorma,currentWeekHumid,weekResultGate,
