@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 
-// import RCNBormaLineCreateForm from "./RCNBormaLineCreateForm";
+ import QCKORCreateForm from "./QCKORCreateForm";
 
 import cross from '../../assets/Static_Images/error_img.png'
 
@@ -50,7 +50,7 @@ const QcKORInitial = (props: any) => {
     const handleLineEntry = async (lotNO: string) => {
 
 
-        axios.get(`/api/borma/getBormaByLot/${lotNO}`).then(res => {
+        axios.get(`/api/qconline/getKORBylot/${lotNO}`).then(res => {
             console.log(res)
             if (Array.isArray(res.data.scoopingLot)) {
                 //scoopdata=res.data.scoopingLot
@@ -103,13 +103,13 @@ const QcKORInitial = (props: any) => {
                                                 
                                                     <RCNBormaLineCreateForm borma={bormaData}/>
                                                 </DialogContent>} */}
-                                                <DialogContent className='max-w-screen'>
+                                                <DialogContent className='max-w-3xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-lg text-orange-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold'>KOR Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
 
-                                                    {/* <RCNBormaLineCreateForm borma={bormaData}/> */}
+                                                    <QCKORCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>

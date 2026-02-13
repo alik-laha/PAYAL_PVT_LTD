@@ -5,6 +5,7 @@ import sequelize from "../../config/databaseConfig";
 import RcnBorma from "../../model/bormaModel";
 import LotNo from "../../model/lotNomodel";
 import Humidifier from "../../model/humidfierModel";
+import qcKOR from "../../model/qcKorModel";
 
 
 const CreateEntireBorma = async (req: Request, res: Response) => {
@@ -88,7 +89,18 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            if(bormaUpdate){
+            const qcbormaUpdate=await qcKOR.update(
+                {     
+                   BormaLoss:prcntg
+                  
+                },
+                {
+                    where: {
+                        id: data.id
+                    }, transaction
+                }
+            );
+            if(bormaUpdate && qcbormaUpdate){
                 await Humidifier.create({
                     id:data.id,
                     LotNo:data.LotNo,

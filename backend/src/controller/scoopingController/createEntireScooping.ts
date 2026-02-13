@@ -154,7 +154,8 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     id:lotwise.dataValues.id,
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    prodKOR:kor2
+                    prodKOR:kor2,
+                    proddate:data.Date,
                 },{transaction});
 
             }

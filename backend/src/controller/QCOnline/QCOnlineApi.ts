@@ -1944,3 +1944,52 @@ export const getKORBylot = async (req: Request, res: Response) => {
     }
 
 }
+
+
+export const CreateEntireQCKOR = async (req: Request, res: Response) => {
+   
+    // Helper function to convert milliseconds to "HH:MM"
+    
+
+  
+
+    try{
+    const feeledBy = req.cookies.user;
+    const lineborma = req.body.lineborma
+    
+
+    await sequelize.transaction(async (transaction: any) => {
+
+        for (let data of lineborma) 
+        {
+            await qcKOR.update(
+                {     
+                    date:data.Date,
+                    qcKOR:data.qcKOR,
+                    qcBormaLoss:data.qcBormaLoss,
+                    BormaStatus: 1,
+                    CreatedBy: feeledBy
+                  
+                },
+                {
+                    where: {
+                        id: data.id
+                    }, transaction
+                }
+            );
+      
+        }
+            return res.status(200).json({ message: "QC KOR Entry Made Successfully" });
+
+    })
+    }
+    catch(error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating Borma Entry" ,error});
+        }
+    }
+    
+
+
+}

@@ -5,7 +5,7 @@ import sequelize from "../../config/databaseConfig";
 import RcnScoopingEdit from "../../model/scoopingEditModel";
 import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 import RcnAllScooping from "../../model/scoopingAllmodel";
-
+import qcKOR from "../../model/qcKorModel";
 import RcnBorma from "../../model/bormaModel";
 
 
@@ -183,8 +183,20 @@ const updateScoopingOpeningEntire = async (req: Request, res: Response) => {
                         where: {
                             LotNo:data.LotNo,
                         origin:data.origin
-                        }
+                        },transaction
                     });
+
+                    await qcKOR.update({
+                        prodKOR:kor2,
+                       
+                    }, {
+                        where: {
+                            LotNo:data.LotNo,
+                            origin:data.origin
+                        },transaction
+                    });
+
+
             }
             for (let data of updatescoop) {
                 const Scooping_Line_Mc=data.Scooping_Line_Mc

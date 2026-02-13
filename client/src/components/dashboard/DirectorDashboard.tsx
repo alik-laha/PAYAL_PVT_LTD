@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { StatCard } from "../common/StatCard";
 import { DateRangeForm } from "../common/DateRangeForm";
+import { StatCardBig } from "../common/StatCardBig";
 
 
 
@@ -82,6 +83,8 @@ const DirectorDashboard: React.FC = () => {
         return <div className="dashboard-container">Loading...</div>;
     }
 
+    const tileBase =
+  "relative rounded-2xl p-6 flex flex-col items-center text-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl backdrop-blur-lg border border-white/20 overflow-hidden";
 
 
     return (
@@ -90,8 +93,16 @@ const DirectorDashboard: React.FC = () => {
 
                     {data && (<>
                      {/* Users Card */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
-          <div className=" bg-red-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+                    
+           
+
+
+      
+
+
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+              <div className={`${tileBase} bg-gradient-to-br from-rose-500 via-red-500 to-red-600 shadow-red-500/30 shadow-lg`}>
             <div className="text-3xl mb-3">🧑‍💻</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
               Total Users
@@ -101,7 +112,8 @@ const DirectorDashboard: React.FC = () => {
             </span>
           </div>
 
-          <div className="bg-yellow-500 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+         <div className={`${tileBase} bg-gradient-to-br from-amber-400 via-yellow-500 to-orange-500 shadow-yellow-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">👥</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
               Total Employee
@@ -111,7 +123,8 @@ const DirectorDashboard: React.FC = () => {
             </span>
           </div>
 
-          <div className="bg-blue-500 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+        <div className={`${tileBase} bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 shadow-blue-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🚒</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
               Pending GatePass
@@ -121,7 +134,8 @@ const DirectorDashboard: React.FC = () => {
             </span>
           </div>
 
-            <div className="bg-green-600 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+          <div className={`${tileBase} bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 shadow-green-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🥔</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
               Total RCN Receiving
@@ -131,7 +145,8 @@ const DirectorDashboard: React.FC = () => {
             </span>
           </div>
 
-          <div className="bg-purple-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+         <div className={`${tileBase} bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 shadow-purple-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🫖</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
               Total Boiling
@@ -140,17 +155,8 @@ const DirectorDashboard: React.FC = () => {
               {data.currentYearBoiling? formatNumber(Number(data.currentYearBoiling)/1000):0} Ton
             </span>
           </div>
+           <div className={`${tileBase} bg-gradient-to-br from-cyan-400 via-sky-500 to-blue-500 shadow-cyan-500/30 shadow-lg`}>
 
-          <div className="bg-gray-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
-            <div className="text-3xl mb-3">💹</div>
-            <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
-              Avg Borma Loss
-            </h2>
-            <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
-              {data.fyResultBorma.total ?formatNumber(data.fyResultBorma.total) :0} %
-            </span>
-          </div>
-          <div className="bg-orange-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
             <div className="text-3xl mb-3">💦</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
               Avg Moisture Gain
@@ -159,8 +165,21 @@ const DirectorDashboard: React.FC = () => {
               {data.fyResultHumid.total ?formatNumber(data.fyResultHumid.total):0} %
             </span>
           </div>
+
+        <div className={`${tileBase} bg-gradient-to-br from-slate-500 via-gray-600 to-slate-700 shadow-gray-500/30 shadow-lg`}>
+
+            <div className="text-3xl mb-3">💹</div>
+            <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
+              Avg Borma Loss
+            </h2>
+            <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
+              {data.fyResultBorma.total ?formatNumber(data.fyResultBorma.total) :0} %
+            </span>
+          </div>
+      
           
-          <div className="bg-cyan-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+         <div className={`${tileBase} bg-gradient-to-br from-indigo-400 via-blue-500 to-indigo-600 shadow-indigo-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🏠</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
              Village In
@@ -169,7 +188,8 @@ const DirectorDashboard: React.FC = () => {
               {data.Ville_Inside_gatepass.Village_In ? formatNumber(Number(data.Ville_Inside_gatepass.Village_In)/1000):0} Ton
             </span>
           </div>
-          <div className="bg-stone-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+      <div className={`${tileBase} bg-gradient-to-br from-stone-400 via-neutral-500 to-stone-600 shadow-stone-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🏛️</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
              Village Out (GatePass)
@@ -178,7 +198,8 @@ const DirectorDashboard: React.FC = () => {
               {data.village_out_gate ? formatNumber(Number(data.village_out_gate)/1000):0} Ton
             </span>
           </div>
-           <div className="bg-pink-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+           <div className={`${tileBase} bg-gradient-to-br from-pink-400 via-rose-500 to-red-500 shadow-pink-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🏫</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
              Village Out (Prod)
@@ -187,7 +208,8 @@ const DirectorDashboard: React.FC = () => {
               {data.village_out_prod ? formatNumber(Number(data.village_out_prod)/1000):0} Ton
             </span>
           </div>
-           <div className="bg-emerald-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+        <div className={`${tileBase} bg-gradient-to-br from-emerald-400 via-teal-500 to-green-600 shadow-emerald-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🧆</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
              Pending Village (Floor) 
@@ -196,7 +218,8 @@ const DirectorDashboard: React.FC = () => {
               {data.village_pending ? formatNumber(Number(data.village_pending)/1000):0} Ton
             </span>
           </div>
-           <div className="bg-blue-400 rounded-xl shadow-xl p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-all duration-300 transform cursor-default">
+           <div className={`${tileBase} bg-gradient-to-br from-blue-400 via-cyan-500 to-blue-600 shadow-blue-500/30 shadow-lg`}>
+
             <div className="text-3xl mb-3">🧆</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
              Pending Village (Outside) 
@@ -210,7 +233,7 @@ const DirectorDashboard: React.FC = () => {
           </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Pending" value={'Gatepass'} color={'orange'} />
+                            <StatCard title="GatePass" value={'Pending'} color={'orange'} />
                             <StatCard
                                 title="Previous Day"
                                 value={`${data.previousGate}`}
@@ -230,7 +253,7 @@ const DirectorDashboard: React.FC = () => {
                             <StatCard title="Custom Date Range" value={`${data.customGate}`} />
                         </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Quantity (Bag)" value={'Boiling'} color={'green'} />
+                            <StatCard title="Boiling" value={'Bag'} color={'green'} />
                             <StatCard
                                 title="Previous Day"
                                 value={`${formatNumber(Number(data.previousBoiling)/80)} `}
@@ -249,9 +272,10 @@ const DirectorDashboard: React.FC = () => {
 
                             <StatCard title="Custom Date Range" value={`${Number(data.customBoiling)/1000} `} />
                         </div>
+                        
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Loss %" value={'Borma'} color={'blue'} />
+                            <StatCard title="Borma" value={'Loss'} color={'blue'} />
                             <StatCard
                                 title="Previous Day"
                                 value={` ${formatNumber(data.previousBorma)} %`}
@@ -273,7 +297,7 @@ const DirectorDashboard: React.FC = () => {
 
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Moisture Gain %" value={'Humidifier'} color={'red'} />
+                            <StatCard title="Humidifier" value={'Gain'} color={'red'} />
                             <StatCard
                                 title="Previous Day"
                                 value={` ${formatNumber(data.previousHumid)} %`}
@@ -291,6 +315,73 @@ const DirectorDashboard: React.FC = () => {
                             />
 
                             <StatCard title="Custom Date Range" value={`${formatNumber(data.customHumid)} %`} />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
+                            <StatCardBig title="Scooping" value1={'Broken'} 
+                            value2={'Uncut'} 
+                            value3={'NonCut'} 
+                            value4={'Unscoop'} 
+                            
+                            value5={'Dust'} color={'purple'} />
+                            <StatCardBig
+                                title="Previous Day"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={` ${formatNumber(data.previousbrokenprcntg)} %`}
+                                 value3={` ${formatNumber(data.previousuncutprcntg)} %`}
+                                  value4={` ${formatNumber(data.previousnoncutprcntg)} %`}
+                                   value5={` ${formatNumber(data.previousunscoopprcntg)} %`}
+                                    value6={` ${formatNumber(data.previousdustprcntg)} %`}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                                subtitle={
+                                    data.previousBoilingDate
+                                        ? `Date: ${data.previousscoopDate.slice(0, 10)}`
+                                        : "No data"
+                                }
+                            />
+                            <StatCardBig
+                                title="Current Week"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={`${formatNumber(data.weeklyBrokenAvg)} %`}
+                                 value3={` ${formatNumber(data.weeklyUncutAvg)} %`}
+                                  value4={` ${formatNumber(data.weeklyNoncutAvg)} %`}
+                                   value5={` ${formatNumber(data.weeklyUnscoopAvg)} %`}
+                                    value6={` ${formatNumber(data.weeklyDustAvg)} %`}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                             <StatCardBig
+                                title="Current Month"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={`${formatNumber(data.monthlyBrokenAvg)} %`}
+                                 value3={` ${formatNumber(data.monthlyUncutAvg)} %`}
+                                  value4={` ${formatNumber(data.monthlyNoncutAvg)} %`}
+                                   value5={` ${formatNumber(data.monthlyUnscoopAvg)} %`}
+                                    value6={` ${formatNumber(data.monthlyDustAvg)} %`}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                            <DateRangeForm
+                                onSearch={(from, to) => handleSearch("scoop", from, to)}
+                            />
+
+                             <StatCardBig
+                                title="Custom Date Range"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={`${formatNumber(data.customBrokenAvg)} %`}
+                                 value3={` ${formatNumber(data.customUncutAvg)} %`}
+                                  value4={` ${formatNumber(data.customNoncutAvg)} %`}
+                                   value5={` ${formatNumber(data.customUnscoopAvg)} %`}
+                                    value6={` ${formatNumber(data.customDustAvg)} %`}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                            
+
+                            
                         </div>
                     </>
                       
