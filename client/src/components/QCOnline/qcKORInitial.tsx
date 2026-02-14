@@ -57,6 +57,10 @@ const QcKORInitial = (props: any) => {
                 setBormaData(res.data.scoopingLot)
                 console.log(bormaData)
             }
+            else{
+                seterrorText('error in Finding LOT')
+                setBormaData([])
+            }
 
             //set(res.data.scoopingLot)
         })
