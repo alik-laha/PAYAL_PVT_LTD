@@ -641,6 +641,9 @@ export interface PeelingData {
             JH1: string;
             JK_K: string;
             SP1: string;
+            brokenp: string;
+            unpeelp: string;
+            churap: string;
             Mc_on: string;
             Husk: string;
             Rejection: string;

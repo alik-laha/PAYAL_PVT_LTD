@@ -1074,6 +1074,15 @@ export const directorDashboard = async (req: Request, res: Response) => {
         //raw: true,
       });
 
+      const lastEntrypeel = await RcnPeeling.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
+
        const lastEntryscoop = await RcnAllScooping.findOne({
         attributes: [[fn("MAX", col("date")), "lastDate"]],
         where: {
@@ -1087,6 +1096,9 @@ export const directorDashboard = async (req: Request, res: Response) => {
       const lastDateboil = lastEntryboil?.dataValues.lastDate;
       const lastDateborma = lastEntryborma?.dataValues.lastDate;
       const lastDatehumid = lastEntryhumid?.dataValues.lastDate;
+      const lastDatepeel = lastEntrypeel?.dataValues.lastDate;
+
+
       const lastDatescoop = lastEntryscoop?.dataValues.lastDate;
 
       let previousGate = 0;
@@ -1097,6 +1109,11 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let previousBormaDate = null;
       let previousHumid = 0;
       let previousHumidDate = null;
+      let previousUnpeel = 0;
+      let previousBroken = 0;
+      let previousChura = 0;
+      let previousPeelDate = null;
+
 
       let previousopen = 0;
       let previousrcv = 0;
@@ -1107,6 +1124,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
        let previousunscoop = 0;
       let previousdust = 0;
       let previousrejection = 0;
+      let previouskor = 0;
 
       let previouswholesprcntg = 0;
       let previousbrokenprcntg = 0;
@@ -1193,6 +1211,30 @@ export const directorDashboard = async (req: Request, res: Response) => {
         previousHumid = Number(prevResult?.dataValues.total || 0);
         previousHumidDate = lastDatehumid;
       }
+        if (lastDatepeel) {
+        const start = new Date(lastDatepeel);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDatepeel);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnPeeling.findOne({
+          attributes: [[fn("AVG", col("unpeelp")), "totalunpeel"],
+        [fn("AVG", col("brokenp")), "totalbroken"],
+    [fn("AVG", col("churap")), "totalchura"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousUnpeel = Number(prevResult?.dataValues.totalunpeel || 0);
+        previousBroken = Number(prevResult?.dataValues.totalbroken || 0);
+        previousChura = Number(prevResult?.dataValues.totalchura || 0);
+        previousPeelDate = lastDatepeel;
+      }
+
           if (lastDatescoop) {
         const start = new Date(lastDatescoop);
         start.setHours(0, 0, 0, 0);
@@ -1210,6 +1252,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
                     [fn("SUM", col("Rejection")), "Rejection"],
                     [fn("SUM", col("Dust")), "Dust"],
                     [fn("SUM", col("NonCut")), "NonCut"],
+                    [fn("AVG", col("KOR")), "KOR"],
         ],
           where: {
             ...commonWhere,
@@ -1227,6 +1270,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         previousunscoop = Number(prevResult?.dataValues.Unscoop || 0);
         previousdust = Number(prevResult?.dataValues.Dust || 0);
         previousrejection = Number(prevResult?.dataValues.Rejection || 0);
+        previouskor = Number(prevResult?.dataValues.KOR || 0);
         previousscoopDate = lastDatescoop;
 
         if((previousopen+previousrcv)!==0){
@@ -1382,9 +1426,26 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         // raw: true,
       });
+
+          const weekResultPeel = await RcnPeeling.findOne({
+        attributes: [[fn("AVG", col("brokenp")), "totalbroken"],
+                    [fn("AVG", col("unpeelp")), "totalunpeel"],
+                    [fn("AVG", col("churap")), "totalchura"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+
        const currentWeekBoil = Number(weekResultBoil?.dataValues.total || 0);
        const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
        const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
+
+       const currentWeekBroken = Number(weekResultPeel?.dataValues.totalbroken || 0);
+       const currentWeekUnpeel = Number(weekResultPeel?.dataValues.totalunpeel || 0);
+       const currentWeekChura = Number(weekResultPeel?.dataValues.totalchura || 0);
 
     const weeklyRows = await RcnAllScooping.findAll({
       attributes: [
@@ -1394,7 +1455,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         "NonCut",
         "Unscoop",
         "Broken",
-        "Dust",
+        "Dust","KOR"
       ],
       where: {
         ...commonWhere,
@@ -1410,6 +1471,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
     let weeklyUnscoopAvg = 0;
     let weeklyBrokenAvg = 0;
     let weeklyDustAvg = 0;
+    let weeklyKORAvg = 0;
 
     if (weeklyRows.length > 0) {
       let totalUncutP = 0;
@@ -1417,6 +1479,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let totalUnscoopP = 0;
       let totalBrokenP = 0;
       let totalDustP = 0;
+      let totalKOR = 0;
 
       let validRows = 0;
 
@@ -1428,7 +1491,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         const Unscoop = Number(row.dataValues.Unscoop || 0);
         const Broken = Number(row.dataValues.Broken || 0);
         const Dust = Number(row.dataValues.Dust || 0);
-
+        const KOR = Number(row.dataValues.KOR || 0);
         const base = open + rcv;
 
         if (base > 0) {
@@ -1437,6 +1500,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           totalUnscoopP += (Unscoop / base) * 100;
           totalBrokenP += (Broken / base) * 100;
           totalDustP += (Dust / base) * 100;
+          totalKOR +=KOR
           validRows++;
         }
       }
@@ -1446,6 +1510,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       weeklyUnscoopAvg = validRows > 0 ? totalUnscoopP / validRows : 0;
       weeklyBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
       weeklyDustAvg = validRows > 0 ? totalDustP / validRows : 0;
+      weeklyKORAvg = validRows > 0 ? totalKOR / validRows : 0;
     }
 
       /* ===============================
@@ -1486,12 +1551,27 @@ export const directorDashboard = async (req: Request, res: Response) => {
         //raw: true,
       });
 
+       const monthResultPeel = await RcnPeeling.findOne({
+       attributes: [[fn("AVG", col("brokenp")), "totalbroken"],
+                    [fn("AVG", col("unpeelp")), "totalunpeel"],
+                    [fn("AVG", col("churap")), "totalchura"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+
 
       const currentMonthBoiling = Number(
         monthResultBoil?.dataValues.total || 0,
       );
       const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
       const currentMonthHumid = Number(monthResultHumid?.dataValues.total || 0);
+
+      const currentMonthBroken = Number(monthResultPeel?.dataValues.totalbroken || 0);
+      const currentMonthUnpeel = Number(monthResultPeel?.dataValues.totalunpeel || 0);
+      const currentMonthChura = Number(monthResultPeel?.dataValues.totalchura || 0);
 
       const monthlyRows = await RcnAllScooping.findAll({
         attributes: [
@@ -1501,7 +1581,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           "NonCut",
           "Unscoop",
           "Broken",
-          "Dust",
+          "Dust","KOR"
         ],
         where: {
           ...commonWhere,
@@ -1516,6 +1596,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let monthlyUnscoopAvg = 0;
       let monthlyBrokenAvg = 0;
       let monthlyDustAvg = 0;
+      let monthlyKORAvg = 0;
 
       if (monthlyRows.length > 0) {
         let totalUncutP = 0;
@@ -1523,7 +1604,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         let totalUnscoopP = 0;
         let totalBrokenP = 0;
         let totalDustP = 0;
-
+        let totalKOR = 0;
         let validRows = 0;
 
         for (const row of monthlyRows) {
@@ -1534,6 +1615,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           const Unscoop = Number(row.dataValues.Unscoop || 0);
           const Broken = Number(row.dataValues.Broken || 0);
           const Dust = Number(row.dataValues.Dust || 0);
+          const KOR = Number(row.dataValues.KOR || 0);
 
           const base = open + rcv;
 
@@ -1543,7 +1625,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
             totalUnscoopP += (Unscoop / base) * 100;
             totalBrokenP += (Broken / base) * 100;
             totalDustP += (Dust / base) * 100;
-
+            totalKOR += KOR;
             validRows++;
           }
         }
@@ -1553,6 +1635,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         monthlyUnscoopAvg = validRows > 0 ? totalUnscoopP / validRows : 0;
         monthlyBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
         monthlyDustAvg = validRows > 0 ? totalDustP / validRows : 0;
+        monthlyKORAvg = validRows > 0 ? totalKOR / validRows : 0;
       }
 
    
@@ -1610,11 +1693,18 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let customBorma = 0;
       let customHumid = 0;
        let customGate = 0;
+
+        let customBroken = 0;
+         let customUnpeel = 0;
+          let customChura = 0;
+
+
            let customUncutAvg = 0;
       let customNoncutAvg = 0;
       let customUnscoopAvg = 0;
       let customBrokenAvg = 0;
       let customDustAvg = 0;
+      let customKORAvg = 0;
 
       if (type === "gatepass" && fromDate && toDate) {
         const from = new Date(fromDate);
@@ -1696,6 +1786,31 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         customHumid = Number(customResultHumid?.dataValues.total || 0);
       }
+        if (type === "peeling" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultPeeling = await RcnPeeling.findOne({
+           attributes: [[fn("AVG", col("brokenp")), "totalbroken"],
+                    [fn("AVG", col("unpeelp")), "totalunpeel"],
+                    [fn("AVG", col("churap")), "totalchura"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customBroken = Number(customResultPeeling?.dataValues.totalbroken || 0);
+        customUnpeel= Number(customResultPeeling?.dataValues.totalunpeel || 0);
+        customChura = Number(customResultPeeling?.dataValues.totalchura || 0);
+      }
+
        if (type === "scoop" && fromDate && toDate) {
         const from = new Date(fromDate);
         from.setHours(0, 0, 0, 0);
@@ -1719,7 +1834,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           "NonCut",
           "Unscoop",
           "Broken",
-          "Dust",
+          "Dust","KOR"
         ],
         where: {
           ...commonWhere,
@@ -1736,7 +1851,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         let totalUnscoopP = 0;
         let totalBrokenP = 0;
         let totalDustP = 0;
-
+        let totalKOR = 0;
         let validRows = 0;
 
         for (const row of customResultScoop) {
@@ -1747,7 +1862,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           const Unscoop = Number(row.dataValues.Unscoop || 0);
           const Broken = Number(row.dataValues.Broken || 0);
           const Dust = Number(row.dataValues.Dust || 0);
-
+            const KOR = Number(row.dataValues.KOR || 0);
           const base = open + rcv;
 
           if (base > 0) {
@@ -1756,7 +1871,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
             totalUnscoopP += (Unscoop / base) * 100;
             totalBrokenP += (Broken / base) * 100;
             totalDustP += (Dust / base) * 100;
-
+            totalKOR += KOR;
             validRows++;
           }
         }
@@ -1766,8 +1881,11 @@ export const directorDashboard = async (req: Request, res: Response) => {
         customUnscoopAvg = validRows > 0 ? totalUnscoopP / validRows : 0;
         customBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
         customDustAvg = validRows > 0 ? totalDustP / validRows : 0;
+        customKORAvg = validRows > 0 ? totalKOR / validRows : 0;
       }
       }
+
+      
     
 
       /* ===============================
@@ -1782,10 +1900,12 @@ export const directorDashboard = async (req: Request, res: Response) => {
           currentMonthBoiling,currentMonthBorma,currentMonthHumid,monthResultGate,
           customBoiling,customBorma,customHumid,customGate,
           currentYearBoiling,fyResultBorma,fyResultHumid,
-          previousscoopDate,previouswholesprcntg,previousbrokenprcntg,previousuncutprcntg,previousnoncutprcntg,previousunscoopprcntg,previousdustprcntg,previousrejectionprcntg,
-          monthlyBrokenAvg,monthlyDustAvg,monthlyNoncutAvg,monthlyUnscoopAvg,monthlyUncutAvg,
-          weeklyBrokenAvg,weeklyDustAvg,weeklyNoncutAvg,weeklyUnscoopAvg,weeklyUncutAvg,
-          customBrokenAvg,customDustAvg,customNoncutAvg,customUnscoopAvg,customUncutAvg
+          previousscoopDate,previouswholesprcntg,previousbrokenprcntg,previousuncutprcntg,previousnoncutprcntg,previousunscoopprcntg,previousdustprcntg,previousrejectionprcntg,previouskor,
+          monthlyBrokenAvg,monthlyDustAvg,monthlyNoncutAvg,monthlyUnscoopAvg,monthlyUncutAvg,monthlyKORAvg,
+          weeklyBrokenAvg,weeklyDustAvg,weeklyNoncutAvg,weeklyUnscoopAvg,weeklyUncutAvg,weeklyKORAvg,
+          customBrokenAvg,customDustAvg,customNoncutAvg,customUnscoopAvg,customUncutAvg,customKORAvg,
+          customBroken,customUnpeel,customChura,currentMonthBroken,currentMonthUnpeel,currentMonthChura,
+          currentWeekBroken,currentWeekUnpeel,currentWeekChura,previousBroken,previousChura,previousUnpeel,previousPeelDate
         },
       });
     } catch (error) {

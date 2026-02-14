@@ -317,12 +317,73 @@ const DirectorDashboard: React.FC = () => {
                             <StatCard title="Custom Date Range" value={`${formatNumber(data.customHumid)} %`} />
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
+                            <StatCardBig title="Peeling" value1={'Broken %'} 
+                            value2={'Unpeel %'} 
+                            value3={'Chura %'} 
+                            color={'gray'} />
+                            <StatCardBig
+                                title="Previous Day"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={` ${formatNumber(data.previousBroken)} %`}
+                                 value3={` ${formatNumber(data.previousUnpeel)} %`}
+                                  value4={` ${formatNumber(data.previousChura)} %`}
+                                  
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                                subtitle={
+                                    data.previousPeelDate
+                                        ? `Date: ${data.previousPeelDate.slice(0, 10)}`
+                                        : "No data"
+                                }
+                            />
+                            <StatCardBig
+                                title="Current Week"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={`${formatNumber(data.currentWeekBroken)} %`}
+                                 value3={` ${formatNumber(data.currentWeekUnpeel)} %`}
+                                  value4={` ${formatNumber(data.currentWeekChura)} %`}
+                                  
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                             <StatCardBig
+                                title="Current Month"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={`${formatNumber(data.currentMonthBroken)} %`}
+                                 value3={` ${formatNumber(data.monthlyUncutAvg)} %`}
+                                  value4={` ${formatNumber(data.monthlyNoncutAvg)} %`}
+                                   
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                            <DateRangeForm
+                                onSearch={(from, to) => handleSearch("peeling", from, to)}
+                            />
+
+                             <StatCardBig
+                                title="Custom Date Range"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value2={`${formatNumber(data.customBroken)} %`}
+                                 value3={` ${formatNumber(data.customUnpeel)} %`}
+                                  value4={` ${formatNumber(data.customChura)} %`}
+                                   
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                            
+
+                            
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
                             <StatCardBig title="Scooping" value1={'Broken'} 
                             value2={'Uncut'} 
                             value3={'NonCut'} 
                             value4={'Unscoop'} 
                             
-                            value5={'Dust'} color={'purple'} />
+                            value5={'Dust'} value6={'KOR'} color={'purple'} />
                             <StatCardBig
                                 title="Previous Day"
                                 // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
@@ -331,10 +392,11 @@ const DirectorDashboard: React.FC = () => {
                                   value4={` ${formatNumber(data.previousnoncutprcntg)} %`}
                                    value5={` ${formatNumber(data.previousunscoopprcntg)} %`}
                                     value6={` ${formatNumber(data.previousdustprcntg)} %`}
+                                    value7={` ${formatNumber(data.previouskor)}`}
                                     //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
 
                                 subtitle={
-                                    data.previousBoilingDate
+                                    data.previousscoopDate
                                         ? `Date: ${data.previousscoopDate.slice(0, 10)}`
                                         : "No data"
                                 }
@@ -347,6 +409,7 @@ const DirectorDashboard: React.FC = () => {
                                   value4={` ${formatNumber(data.weeklyNoncutAvg)} %`}
                                    value5={` ${formatNumber(data.weeklyUnscoopAvg)} %`}
                                     value6={` ${formatNumber(data.weeklyDustAvg)} %`}
+                                    value7={` ${formatNumber(data.weeklyKORAvg)} `}
                                     //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
 
                        
@@ -359,6 +422,7 @@ const DirectorDashboard: React.FC = () => {
                                   value4={` ${formatNumber(data.monthlyNoncutAvg)} %`}
                                    value5={` ${formatNumber(data.monthlyUnscoopAvg)} %`}
                                     value6={` ${formatNumber(data.monthlyDustAvg)} %`}
+                                    value7={` ${formatNumber(data.monthlyKORAvg)} `}
                                     //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
 
                        
@@ -375,6 +439,7 @@ const DirectorDashboard: React.FC = () => {
                                   value4={` ${formatNumber(data.customNoncutAvg)} %`}
                                    value5={` ${formatNumber(data.customUnscoopAvg)} %`}
                                     value6={` ${formatNumber(data.customDustAvg)} %`}
+                                    value7={` ${formatNumber(data.customKORAvg)}`}
                                     //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
 
                        

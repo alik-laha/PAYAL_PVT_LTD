@@ -130,6 +130,9 @@ const PeelingTable = (props:any) => {
                 Pressure:formatNumber(item.pressure),
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
+                UnPeel_Prcnt:formatNumber(item.unpeelp),
+               Broken_Prcnt:formatNumber(item.brokenp),
+               Chura_Prcnt:formatNumber(item.churap),
                 Unpeel_Piece:formatNumber(item.UnpeelPiece),
                 WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
                 WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
@@ -173,6 +176,9 @@ const PeelingTable = (props:any) => {
                 Pressure:formatNumber(item.pressure),
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
+                  UnPeel_Prcnt:formatNumber(item.unpeelp),
+               Broken_Prcnt:formatNumber(item.brokenp),
+               Chura_Prcnt:formatNumber(item.churap),
                 Unpeel_Piece:formatNumber(item.UnpeelPiece),
                 WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
                 WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
@@ -235,6 +241,9 @@ const PeelingTable = (props:any) => {
                 Pressure:formatNumber(item.pressure),
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
+                  UnPeel_Prcnt:formatNumber(item.unpeelp),
+               Broken_Prcnt:formatNumber(item.brokenp),
+               Chura_Prcnt:formatNumber(item.churap),
                 Unpeel_Piece:formatNumber(item.UnpeelPiece),
                 WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
                 WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
@@ -278,6 +287,9 @@ const PeelingTable = (props:any) => {
                 Pressure:formatNumber(item.pressure),
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
+                  UnPeel_Prcnt:formatNumber(item.unpeelp),
+               Broken_Prcnt:formatNumber(item.brokenp),
+               Chura_Prcnt:formatNumber(item.churap),
                 Unpeel_Piece:formatNumber(item.UnpeelPiece),
                 WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
                 WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
@@ -340,6 +352,9 @@ const PeelingTable = (props:any) => {
                 Pressure:formatNumber(item.pressure),
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
+                  UnPeel_Prcnt:formatNumber(item.unpeelp),
+               Broken_Prcnt:formatNumber(item.brokenp),
+               Chura_Prcnt:formatNumber(item.churap),
                 Unpeel_Piece:Number(item.UnpeelPiece) ||0,
                 WholesPeel_Or_WholesJB: Number(item.WholesPeel)||0,
                 WholesUnpeel_Or_LW:Number(item.WholesUnpeel)||0,
@@ -383,6 +398,9 @@ const PeelingTable = (props:any) => {
                 Pressure:formatNumber(item.pressure),
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
+                  UnPeel_Prcnt:formatNumber(item.unpeelp),
+               Broken_Prcnt:formatNumber(item.brokenp),
+               Chura_Prcnt:formatNumber(item.churap),
                 Unpeel_Piece:Number(item.UnpeelPiece) ||0,
                 WholesPeel_Or_WholesJB: Number(item.WholesPeel)||0,
                 WholesUnpeel_Or_LW:Number(item.WholesUnpeel)||0,
@@ -715,6 +733,11 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
+
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Unpeel (%)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Broken (%)</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Chura (%)</TableHead>
+
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
@@ -832,6 +855,11 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.TotalInput)}</TableCell>
+                                        
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.unpeelp)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.brokenp)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.churap)}</TableCell>
+
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
@@ -918,6 +946,11 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.TotalInput)} </TableCell>
+
+                                        <TableCell className="text-center font-semibold">{item.unpeelp ?`${formatNumber(item.unpeelp)} %`:''} </TableCell>
+                                        <TableCell className="text-center font-semibold">{item.brokenp ?`${formatNumber(item.brokenp)} %`:''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.churap ?`${formatNumber(item.churap)} %`:''}</TableCell>
+
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>

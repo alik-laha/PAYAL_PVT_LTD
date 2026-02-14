@@ -3,6 +3,7 @@
 import { Request, Response } from "express";
 import LotNo from "../../model/lotNomodel";
 import VLotNo from "../../model/vlotNomodel";
+import RLotNo from "../../model/rlotNomodel";
 
 export const getStatusBoiling = async (req: Request, res: Response) => {
 try{
@@ -43,6 +44,30 @@ export const getStatusBoilingVil = async (req: Request, res: Response) => {
       );
   
         return res.status(201).json({ msg: 'VLot No Status Found', lotStatus });
+      
+       
+  
+  }
+  catch (err) {
+      return res.status(500).json({ message: "Error in Updating VLot No.", err });
+  }
+  }
+
+  export const getStatusBoilingR = async (req: Request, res: Response) => {
+  try{
+  
+        // Generate the new sequence
+        const LOTId = req.body.lotNo;
+       
+      
+        // Save the new sequence to the database
+        const lotStatus = await RLotNo.findOne(
+          ({ where: { rlotNo:LOTId } })
+        
+          
+      );
+  
+        return res.status(201).json({ msg: 'RLot No Status Found', lotStatus });
       
        
   

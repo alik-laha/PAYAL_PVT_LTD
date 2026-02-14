@@ -31,6 +31,9 @@ interface PeelingRowData{
     JH1: number;
     JK_K: number;
     SP1: number;
+    brokenp: number;
+    unpeelp: number;
+    churap: number;
     Mc_on: string;
     Husk: number;
     Rejection: number;
@@ -121,6 +124,9 @@ const RCNPeelingCreateForm = (props:Props) => {
             JH1: 0,
             JK_K: 0,
             SP1: 0,
+            brokenp: 0,
+            unpeelp: 0,
+            churap: 0,
             Husk: 0,
             Rejection: 0,
             UnpeelPiece: 0,
@@ -329,6 +335,12 @@ console.log(vilLot)
                         { !LotNo.includes('V')?  <TableHead className="text-center" >Peeling⠀Off</TableHead>:''}
                          { !LotNo.includes('V')? <TableHead className="text-center" >Breakdown Duration</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >Other Duration</TableHead>:''}
+
+                        <TableHead className="text-center" >Unpeel (%)</TableHead>
+                        <TableHead className="text-center" >Broken (%)</TableHead>
+                        <TableHead className="text-center" >Chura (%)</TableHead>
+
+
                         <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>
                         <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'}</TableHead>
                         <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes_UnPeel (Mayur)'):'Wholes_UnPeel (Mayur)'}</TableHead>
@@ -368,6 +380,14 @@ console.log(vilLot)
                                         {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell> */}
                                         { !LotNo.includes('V')?  <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>:''}
                                       { !LotNo.includes('V')?    <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>:''}
+
+
+                                         <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.unpeelp} placeholder="%" onChange={(e) => handleRowChange(idx,'unpeelp',e.target.value)} required /></TableCell>
+                                          <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.brokenp} placeholder="%" onChange={(e) => handleRowChange(idx,'brokenp',e.target.value)} required /></TableCell>
+                                           <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.churap} placeholder="%" onChange={(e) => handleRowChange(idx,'churap',e.target.value)} required /></TableCell>
+
+
+
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.UnpeelPiece} placeholder="Pr." onChange={(e) => handleRowChange(idx,'UnpeelPiece',e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.WholesPeel} placeholder="Pr." onChange={(e) => handleRowChange(idx,'WholesPeel',e.target.value)} required /></TableCell>
