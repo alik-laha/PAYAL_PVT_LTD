@@ -56,6 +56,10 @@ import QCOnlineNanopixTable from "./QCOnlineNanopixTable";
 import QCOnlinePouchTable from "./QCOnlinePouchTable";
 import QCOnlineBucketTable from "./QCOnlineBucketTable";
 import QCOnlineHandGradeTable from "./QCOnlineHandGradeTable";
+import DashboardFooter from "../dashboard/DashboardFooter";
+import axios from "axios";
+import QcKORInitial from './qcKORInitial'
+
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
 
@@ -64,6 +68,8 @@ import QCOnlineHandGradeTable from "./QCOnlineHandGradeTable";
 const QCOnline = () => {
   const [section, setSection] = useState<string>("");
   const [tablesection, setTablesection] = useState<string>("BOILER");
+
+  const [lotdata, setLotData] = useState<any[]>([])
   const { data, isLoading, error } = UseQueryData(
     "/api/qconline/sumofallQCOnline",
     "GET",
@@ -76,6 +82,17 @@ const QCOnline = () => {
   if (error) {
     return <div>Error</div>;
   }
+
+   const handleOpenLotNo = async () => {
+        axios.get('/api/qconline/getUnKOREntry/0').then(res => {
+            console.log(res)
+            setLotData(res.data.scoopingLot)
+        })
+
+
+
+
+    }
   return (
     <>
       <div>
@@ -83,73 +100,73 @@ const QCOnline = () => {
         <DashboardSidebar />
 
         <div className="dashboard-main-container">
-          <div className="flexbox-header">
+          <div className="flexbox-header mx-2">
             <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-              Boiler <br />
+              <p>Boiler</p> <br />
               <p>{data.boilerdata} </p>
             </div>
             <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-              Grading
+              <p>Grading</p>
               <br />
               <p>{data.gradingdata}</p>
             </div>
             <div className="flexbox-tile bg-green-500 hover:bg-green-400">
-              Boiling
+              <p>Boiling</p>
               <br />
               <p>{data.boilingdata}</p>
             </div>
             <div className="flexbox-tile bg-red-500 hover:bg-red-400">
-              Scooping <br />
+              <p>Scooping</p> <br />
               <p>{data.scoopingdata} </p>
             </div>
             <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
-              Borma
+              <p>Borma</p>
               <br />
               <p>{data.bormadata} </p>
             </div>
             <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
-              Humidifier
+             <p>Humidifier</p> 
               <br />
               <p>{data.humiddata} </p>
             </div>
 
            
           </div>
-           <div className="flexbox-header">
+           <div className="flexbox-header mx-2">
             
 
             <div className="flexbox-tile bg-rose-500 hover:bg-rose-400">
-              Peeling
+              <p>Peeling</p>
               <br />
               <p>{data.peelingData} </p>
             </div>
 
             <div className="flexbox-tile bg-lime-500 hover:bg-lime-400">
-              Hand Grading
+              <p>Hand Grading</p>
               <br />
               <p>{data.handgradeData} </p>
             </div>
 
             <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
-              Nanopix
+              <p>Nanopix</p>
               <br />
               <p>{data.nanopixData} </p>
             </div>
 
             <div className="flexbox-tile bg-slate-400 hover:bg-slate-300">
-              Taiho
+              <p>Taiho</p>
               <br />
               <p>{data.taihodata} </p>
             </div>
 
             <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-              Bucket
+              <p>Bucket</p>
               <br />
               <p>{data.bucketData} </p>
             </div>
 
             <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
-              Pouch
+              <p>Pouch</p>
               <br />
               <p>{data.pouchData} </p>
             </div>
@@ -162,9 +179,9 @@ const QCOnline = () => {
               <DialogTrigger >
                 {" "}
                 <Button
-                  className="bg-cyan-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4 drop-shadow-md h-11"
+                  className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
                   >
-                  + Add New Entry
+                  +  Add QC
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-4xl" style={{ display: "block" }}>
@@ -215,12 +232,24 @@ const QCOnline = () => {
                 {/* <QCWaterCreate /> */}
               </DialogContent>
             </Dialog>
+
+            <Dialog>
+                        <DialogTrigger> <Button className="w-40 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add KOR</Button></DialogTrigger>
+                        <DialogContent className='max-w-3xl'>
+                            <DialogHeader>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>KOR Entry Form</p></DialogTitle>
+
+                            </DialogHeader>
+
+                            <QcKORInitial props={lotdata} />
+                        </DialogContent>
+                    </Dialog>
            <div className="mb-2 mt-5 responsive-button-adjust no-margin-left ml-4">
 <Select
               value={tablesection}
               onValueChange={(value) => setTablesection(value)}
               required={true}>
-              <SelectTrigger className="w-40 justify-center h-10 drop-shadow-lg bg-yellow-100 font-bold border">
+              <SelectTrigger className="w-40 justify-center h-10 drop-shadow-lg bg-yellow-100 font-bold border-2 border-gray-300">
                 <SelectValue placeholder="Section Name" />
               </SelectTrigger>
               <SelectContent>
@@ -256,6 +285,7 @@ const QCOnline = () => {
            {tablesection==='BUCKET' && <QCOnlineBucketTable />}
            {tablesection==='HAND_GRADE' && <QCOnlineHandGradeTable />}
         </div>
+        <DashboardFooter/>
       </div>
     </>
   );

@@ -173,6 +173,7 @@ const QCOnlineGradingTable = () => {
       <Table className="mt-4">
         <TableHeader className="bg-neutral-100 text-stone-950 ">
           <TableHead className="text-center">Id</TableHead>
+          <TableHead className="text-center">Action</TableHead>
           <TableHead className="text-center ">Date</TableHead>
           <TableHead className="text-center">Time</TableHead>
           <TableHead className="text-center">Vibrator Speed 1</TableHead>
@@ -183,7 +184,7 @@ const QCOnlineGradingTable = () => {
           <TableHead className="text-center">Maintainance Remarks</TableHead>
           <TableHead className="text-center">Created By</TableHead>
           <TableHead className="text-center">Modified By</TableHead>
-          <TableHead className="text-center">Action</TableHead>
+          
         </TableHeader>
         <TableBody>
           {ItemWiseData.length > 0 ? (
@@ -191,6 +192,36 @@ const QCOnlineGradingTable = () => {
               <TableRow key={item.id}>
                 <TableCell className="text-center">
                   {limit * (page - 1) + idx + 1}
+                </TableCell>
+                 <TableCell className="text-center">
+                  <Popover>
+                    <PopoverTrigger>
+                      <button className={`p-1 bg-white rounded  h-8  w-20 border  font-bold   ${item.editStatus === 'Pending' ? 'text-red-800 border-red-500' : 'text-blue-800 border-blue-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>
+                        Action
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                      <Dialog>
+                        <DialogTrigger className="flex">
+                          <CiEdit size={20} />
+                          <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">
+                            Modify
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-3xl">
+                          <DialogHeader>
+                            <DialogTitle>
+                              <p className="text-1xl pb-1 text-center mt-5">
+                                QC Online Grading Modify
+                              </p>
+                            </DialogTitle>
+                          </DialogHeader>
+                         
+                             <QCOnlineGradingModify data={item} />
+                        </DialogContent>
+                      </Dialog>
+                    </PopoverContent>
+                  </Popover>
                 </TableCell>
                 <TableCell className="text-center font-semibold">
                   {handletimezone(item.date)}
@@ -233,36 +264,7 @@ const QCOnlineGradingTable = () => {
                 </TableCell>
 
                 {/* Action Button with Popover */}
-                <TableCell className="text-center">
-                  <Popover>
-                    <PopoverTrigger>
-                      <button className="p-2 text-white rounded bg-cyan-500">
-                        Action
-                      </button>
-                    </PopoverTrigger>
-                    <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                      <Dialog>
-                        <DialogTrigger className="flex">
-                          <CiEdit size={20} />
-                          <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">
-                            Modify
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-3xl">
-                          <DialogHeader>
-                            <DialogTitle>
-                              <p className="text-1xl pb-1 text-center mt-5">
-                                QC Online Grading Modify
-                              </p>
-                            </DialogTitle>
-                          </DialogHeader>
-                         
-                             <QCOnlineGradingModify data={item} />
-                        </DialogContent>
-                      </Dialog>
-                    </PopoverContent>
-                  </Popover>
-                </TableCell>
+               
               </TableRow>
             ))
           ) : (
@@ -276,24 +278,44 @@ const QCOnlineGradingTable = () => {
       </Table>
 
       {/* Pagination */}
-      <Pagination style={{ display: blockpagen }} className="pt-5 ">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : prev))}
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">{page}</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+       <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                         <PaginationContent className="">
+                                             {page > 1 && <PaginationItem>
+                                                 <PaginationPrevious onClick={() => setPage((prev) => {
+                                                     if (prev === 1) {
+                                                         return prev
+                                                     }
+                                                     if (prev <= 0) {
+                                                         return prev + 1
+                                                     }
+                                                     return prev - 1
+                                                 })} />
+                                             </PaginationItem>}
+                                             {page > 2 && <PaginationItem>
+                                                 <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                             </PaginationItem>}
+                                             {page > 1 && <PaginationItem>
+                                                 <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                             </PaginationItem>}
+                         
+                         
+                                             <PaginationItem>
+                                                 <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                             </PaginationItem>
+                                             <PaginationItem>
+                                                 <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                             </PaginationItem>
+                                             <PaginationItem>
+                                                 <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                             </PaginationItem>
+                                             <PaginationItem>
+                                                 <PaginationEllipsis />
+                                             </PaginationItem>
+                                             <PaginationItem>
+                                                 <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                             </PaginationItem>
+                                         </PaginationContent>
+                                     </Pagination>
     </div>
   );
 };

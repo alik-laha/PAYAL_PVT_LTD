@@ -3,6 +3,7 @@ import { BormarcvData } from "../../type/type";
 import RcnBorma from "../../model/bormaModel";
 import RcnBormaEdit from "../../model/bormaEditModel";
 import Humidifier from "../../model/humidfierModel";
+import qcKOR from "../../model/qcKorModel";
 
 const approveBorma = async (req: Request, res: Response) => {
     try {
@@ -47,7 +48,17 @@ const approveBorma = async (req: Request, res: Response) => {
                     id
                 }
             });
-            if(bormaEdit)
+            const qcbormaEdit = await qcKOR.update(
+                 {
+                   BormaLoss: data.BormaLoss,
+                 },
+                 {
+                   where: {
+                     id: id,
+                   },
+                 },
+               );
+            if(bormaEdit && qcbormaEdit)
             {
                 await Humidifier.update(
                     {  
@@ -60,6 +71,7 @@ const approveBorma = async (req: Request, res: Response) => {
                             id:id
                         }
                     });
+                 
                     const bormaEditDelete = await RcnBormaEdit.destroy({
                         where: {
                             id

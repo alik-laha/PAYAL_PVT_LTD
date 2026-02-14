@@ -17,7 +17,7 @@ const OnlineScooping = sequelize.define('onlineScooping', {
         allowNull: false
     },
     cashewHuskprcnt: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10,4),
         allowNull: false
     },
     

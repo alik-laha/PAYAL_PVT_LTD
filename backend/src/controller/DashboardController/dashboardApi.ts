@@ -29,6 +29,7 @@ import {  fn, col } from "sequelize";
 import User from "../../model/userModel";
 import Employee from "../../model/employeeModel";
 import gatePassMaster from "../../model/gatePassMasterModel";
+import qcKOR from "../../model/qcKorModel";
 
 const IST_OFFSET_MIN = 5 * 60 + 30;
 
@@ -1021,8 +1022,13 @@ export const directorDashboard = async (req: Request, res: Response) => {
       const commonWhere = {
         [Op.or]: [{ editStatus: "Approved" }, { editStatus: "NA" }],
       };
+
+
+
       const usercount = await User.count();
+
       const employeecount = await Employee.count({ where: { status: true } });
+
       const Issued = await gatePassMaster.count({ col:'gatePassNo'
         ,where: { status: { [Op.notLike]: 'Cancelled' } }} );
       const completed  = await gatePassMaster.count({ col:'gatePassNo',
@@ -1069,19 +1075,69 @@ export const directorDashboard = async (req: Request, res: Response) => {
         //raw: true,
       });
 
+      const lastEntrypeel = await RcnPeeling.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
+
+       const lastEntryscoop = await RcnAllScooping.findOne({
+        attributes: [[fn("MAX", col("date")), "lastDate"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.lt]: searchnowIST },
+        },
+        //raw: true,
+      });
+
       const lastDategate = lastEntrygatepass?.dataValues.lastDate;
       const lastDateboil = lastEntryboil?.dataValues.lastDate;
       const lastDateborma = lastEntryborma?.dataValues.lastDate;
       const lastDatehumid = lastEntryhumid?.dataValues.lastDate;
+      const lastDatepeel = lastEntrypeel?.dataValues.lastDate;
+
+
+      const lastDatescoop = lastEntryscoop?.dataValues.lastDate;
 
       let previousGate = 0;
       let previousGateDate = null;
       let previousBoiling = 0;
       let previousBoilingDate = null;
       let previousBorma = 0;
+      let previousBormalab = 0;
       let previousBormaDate = null;
       let previousHumid = 0;
       let previousHumidDate = null;
+      let previousUnpeel = 0;
+      let previousBroken = 0;
+      let previousChura = 0;
+      let previousPeelDate = null;
+
+
+      let previousopen = 0;
+      let previousrcv = 0;
+      let previouswholes = 0;
+      let previousbroken = 0;
+      let previousuncut = 0;
+      let previousnoncut = 0;
+       let previousunscoop = 0;
+      let previousdust = 0;
+      let previousrejection = 0;
+      let previouskor = 0;
+      let previouskorlab = 0;
+
+      let previouswholesprcntg = 0;
+      let previousbrokenprcntg = 0;
+      let previousuncutprcntg = 0;
+      let previousnoncutprcntg = 0;
+       let previousunscoopprcntg = 0;
+      let previousdustprcntg = 0;
+      let previousrejectionprcntg = 0;
+
+      let previousscoopDate = null;
 
       if (lastDategate) {
         const start = new Date(lastDategate);
@@ -1135,8 +1191,17 @@ export const directorDashboard = async (req: Request, res: Response) => {
           },
           //raw: true,
         });
+        const prevResultlab = await qcKOR.findOne({
+          attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            prodbormadate: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
 
         previousBorma = Number(prevResult?.dataValues.total || 0);
+        previousBormalab = Number(prevResultlab?.dataValues.total || 0);
         previousBormaDate = lastDateborma;
       }
        if (lastDatehumid) {
@@ -1157,6 +1222,90 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         previousHumid = Number(prevResult?.dataValues.total || 0);
         previousHumidDate = lastDatehumid;
+      }
+        if (lastDatepeel) {
+        const start = new Date(lastDatepeel);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDatepeel);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnPeeling.findOne({
+          attributes: [[fn("AVG", col("unpeelp")), "totalunpeel"],
+        [fn("AVG", col("brokenp")), "totalbroken"],
+    [fn("AVG", col("churap")), "totalchura"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousUnpeel = Number(prevResult?.dataValues.totalunpeel || 0);
+        previousBroken = Number(prevResult?.dataValues.totalbroken || 0);
+        previousChura = Number(prevResult?.dataValues.totalchura || 0);
+        previousPeelDate = lastDatepeel;
+      }
+
+          if (lastDatescoop) {
+        const start = new Date(lastDatescoop);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(lastDatescoop);
+        end.setHours(23, 59, 59, 999);
+
+        const prevResult = await RcnAllScooping.findOne({
+          attributes: [[fn("SUM", col("Opening_Qty")), "Opening_Qty"],
+                    [fn("SUM", col("Receiving_Qty")), "Receiving_Qty"],
+                    [fn("SUM", col("Wholes")), "Wholes"],
+                    [fn("SUM", col("Broken")), "Broken"],
+                    [fn("SUM", col("Uncut")), "Uncut"],
+                    [fn("SUM", col("Unscoop")), "Unscoop"],
+                    [fn("SUM", col("Rejection")), "Rejection"],
+                    [fn("SUM", col("Dust")), "Dust"],
+                    [fn("SUM", col("NonCut")), "NonCut"],
+                    [fn("AVG", col("KOR")), "KOR"],
+        ],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+        const prevResultlab = await qcKOR.findOne({
+          attributes: [
+                    [fn("AVG", col("qcKOR")), "qcKOR"]
+        ],
+          where: {
+            ...commonWhere,
+            proddate: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
+
+        previousopen = Number(prevResult?.dataValues.Opening_Qty || 0);
+        previousrcv = Number(prevResult?.dataValues.Receiving_Qty || 0);
+        previouswholes = Number(prevResult?.dataValues.Wholes || 0);
+        previousbroken = Number(prevResult?.dataValues.Broken || 0);
+        previousuncut = Number(prevResult?.dataValues.Uncut || 0);
+        previousnoncut = Number(prevResult?.dataValues.NonCut || 0);
+        previousunscoop = Number(prevResult?.dataValues.Unscoop || 0);
+        previousdust = Number(prevResult?.dataValues.Dust || 0);
+        previousrejection = Number(prevResult?.dataValues.Rejection || 0);
+        previouskor = Number(prevResult?.dataValues.KOR || 0);
+        previouskorlab = Number(prevResultlab?.dataValues.qcKOR || 0);
+        previousscoopDate = lastDatescoop;
+
+        if((previousopen+previousrcv)!==0){
+            
+        previouswholesprcntg = ((previouswholes/(previousopen+previousrcv))*100) || 0;
+        previousbrokenprcntg =  ((previousbroken/(previousopen+previousrcv))*100) || 0;
+        previousuncutprcntg =  ((previousuncut/(previousopen+previousrcv))*100) || 0;
+        previousnoncutprcntg =  ((previousnoncut/(previousopen+previousrcv))*100) || 0;
+        previousunscoopprcntg =  ((previousunscoop/(previousopen+previousrcv))*100) || 0;
+        previousdustprcntg =  ((previousdust/(previousopen+previousrcv))*100) || 0;
+        previousrejectionprcntg =  ((previousrejection/(previousopen+previousrcv))*100) || 0;
+        }
       }
 
       /* ===============================
@@ -1181,7 +1330,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       });
 
 
-         const fyResultBorma = await RcnBorma.findOne({
+        const fyResultBorma = await RcnBorma.findOne({
         attributes: [[fn("AVG", col("BormaLoss")), "total"]],
         where: {
           ...commonWhere,
@@ -1247,7 +1396,9 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         const village_out_prod = Number(Ville_Outside_Production?.dataValues.Production_Village_Out) || 0;
         const village_out_gate = Number(Ville_Outside_Gatepass?.dataValues.Final_Village_Out) || 0;
+        const village_in_gate = Number(Ville_Inside_gatepass?.dataValues.Village_In) || 0;
         const village_pending = village_out_gate-village_out_prod ;
+        const village_pending_in = village_out_gate-village_in_gate ;
 
       const currentYearBoiling = Number(fyResultBoil?.dataValues.total || 0);
 
@@ -1289,6 +1440,14 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         // raw: true,
       });
+      const weekResultBormalab = await qcKOR.findOne({
+        attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          prodbormadate: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
 
        const weekResultHumid = await Humidifier.findOne({
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
@@ -1299,9 +1458,115 @@ export const directorDashboard = async (req: Request, res: Response) => {
         // raw: true,
       });
 
+          const weekResultPeel = await RcnPeeling.findOne({
+        attributes: [[fn("AVG", col("brokenp")), "totalbroken"],
+                    [fn("AVG", col("unpeelp")), "totalunpeel"],
+                    [fn("AVG", col("churap")), "totalchura"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
+
+
        const currentWeekBoil = Number(weekResultBoil?.dataValues.total || 0);
-      const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
-      const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
+       const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
+       const currentWeekBormaLab = Number(weekResultBormalab?.dataValues.total || 0);
+       const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
+
+       const currentWeekBroken = Number(weekResultPeel?.dataValues.totalbroken || 0);
+       const currentWeekUnpeel = Number(weekResultPeel?.dataValues.totalunpeel || 0);
+       const currentWeekChura = Number(weekResultPeel?.dataValues.totalchura || 0);
+
+    const weeklyRows = await RcnAllScooping.findAll({
+      attributes: [
+        "Opening_Qty",
+        "Receiving_Qty",
+        "Uncut",
+        "NonCut",
+        "Unscoop",
+        "Broken",
+        "Dust","KOR"
+      ],
+      where: {
+        ...commonWhere,
+        date: {
+          [Op.between]: [weekStart, nowIST],
+        },
+      },
+      //raw: true,
+    });
+    const weeklyRowsLab = await qcKOR.findAll({
+      attributes: [
+        "qcKOR"
+      ],
+      where: {
+        ...commonWhere,
+        proddate: {
+          [Op.between]: [weekStart, nowIST],
+        },
+      },
+      //raw: true,
+    });
+
+    let weeklyUncutAvg = 0;
+    let weeklyNoncutAvg = 0;
+    let weeklyUnscoopAvg = 0;
+    let weeklyBrokenAvg = 0;
+    let weeklyDustAvg = 0;
+    let weeklyKORAvg = 0;
+    let weeklyKORLabAvg = 0;
+
+    if (weeklyRows.length > 0) {
+      let totalUncutP = 0;
+      let totalNoncutP = 0;
+      let totalUnscoopP = 0;
+      let totalBrokenP = 0;
+      let totalDustP = 0;
+      let totalKOR = 0;
+      let totalKORlab = 0;
+
+      let validRows = 0;
+      let validRowslab = 0;
+
+      for (const row of weeklyRows) {
+        const open = Number(row.dataValues.Opening_Qty || 0);
+        const rcv = Number(row.dataValues.Receiving_Qty || 0);
+        const uncut = Number(row.dataValues.Uncut || 0);
+        const noncut = Number(row.dataValues.NonCut || 0);
+        const Unscoop = Number(row.dataValues.Unscoop || 0);
+        const Broken = Number(row.dataValues.Broken || 0);
+        const Dust = Number(row.dataValues.Dust || 0);
+        const KOR = Number(row.dataValues.KOR || 0);
+        const base = open + rcv;
+
+        if (base > 0) {
+          totalUncutP += (uncut / base) * 100;
+          totalNoncutP += (noncut / base) * 100;
+          totalUnscoopP += (Unscoop / base) * 100;
+          totalBrokenP += (Broken / base) * 100;
+          totalDustP += (Dust / base) * 100;
+          totalKOR +=KOR
+          validRows++;
+        }
+      }
+      for (const row of weeklyRowsLab) {
+        const qcKOR = Number(row.dataValues.qcKOR || 0);
+        
+          totalKORlab +=qcKOR
+          validRowslab++;
+        
+      }
+
+      weeklyUncutAvg = validRows > 0 ? totalUncutP / validRows : 0;
+      weeklyNoncutAvg = validRows > 0 ? totalNoncutP / validRows : 0;
+      weeklyUnscoopAvg = validRows > 0 ? totalUnscoopP / validRows : 0;
+      weeklyBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
+      weeklyDustAvg = validRows > 0 ? totalDustP / validRows : 0;
+      weeklyKORAvg = validRows > 0 ? totalKOR / validRows : 0;
+      weeklyKORLabAvg = validRowslab > 0 ? totalKORlab / validRowslab : 0;
+    }
 
       /* ===============================
        3️⃣ CURRENT MONTH
@@ -1332,8 +1597,27 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         //raw: true,
       });
+       const monthResultBormaLab = await qcKOR.findOne({
+        attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          prodbormadate: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
        const monthResultHumid = await Humidifier.findOne({
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
+        where: {
+          ...commonWhere,
+          date: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
+
+       const monthResultPeel = await RcnPeeling.findOne({
+       attributes: [[fn("AVG", col("brokenp")), "totalbroken"],
+                    [fn("AVG", col("unpeelp")), "totalunpeel"],
+                    [fn("AVG", col("churap")), "totalchura"]],
         where: {
           ...commonWhere,
           date: { [Op.between]: [monthStart, nowIST] },
@@ -1346,15 +1630,171 @@ export const directorDashboard = async (req: Request, res: Response) => {
         monthResultBoil?.dataValues.total || 0,
       );
       const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
+      const currentMonthBormaLab = Number(monthResultBormaLab?.dataValues.total || 0);
       const currentMonthHumid = Number(monthResultHumid?.dataValues.total || 0);
+
+      const currentMonthBroken = Number(monthResultPeel?.dataValues.totalbroken || 0);
+      const currentMonthUnpeel = Number(monthResultPeel?.dataValues.totalunpeel || 0);
+      const currentMonthChura = Number(monthResultPeel?.dataValues.totalchura || 0);
+
+      const monthlyRows = await RcnAllScooping.findAll({
+        attributes: [
+          "Opening_Qty",
+          "Receiving_Qty",
+          "Uncut",
+          "NonCut",
+          "Unscoop",
+          "Broken",
+          "Dust","KOR"
+        ],
+        where: {
+          ...commonWhere,
+          date: {
+            [Op.between]: [monthStart, nowIST],
+          },
+        },
+        //raw: true,
+      });
+      const monthlyRowsLab = await qcKOR.findAll({
+        attributes: [
+          "qcKOR"
+        ],
+        where: {
+          ...commonWhere,
+          proddate: {
+            [Op.between]: [monthStart, nowIST],
+          },
+        },
+        //raw: true,
+      });
+      let monthlyUncutAvg = 0;
+      let monthlyNoncutAvg = 0;
+      let monthlyUnscoopAvg = 0;
+      let monthlyBrokenAvg = 0;
+      let monthlyDustAvg = 0;
+      let monthlyKORAvg = 0;
+      let monthlyKORAvglab = 0;
+
+      if (monthlyRows.length > 0) {
+        let totalUncutP = 0;
+        let totalNoncutP = 0;
+        let totalUnscoopP = 0;
+        let totalBrokenP = 0;
+        let totalDustP = 0;
+        let totalKOR = 0;
+        let totalKORlab = 0;
+        let validRows = 0;
+        let validRowslab = 0;
+
+        for (const row of monthlyRows) {
+          const open = Number(row.dataValues.Opening_Qty || 0);
+          const rcv = Number(row.dataValues.Receiving_Qty || 0);
+          const uncut = Number(row.dataValues.Uncut || 0);
+          const noncut = Number(row.dataValues.NonCut || 0);
+          const Unscoop = Number(row.dataValues.Unscoop || 0);
+          const Broken = Number(row.dataValues.Broken || 0);
+          const Dust = Number(row.dataValues.Dust || 0);
+          const KOR = Number(row.dataValues.KOR || 0);
+
+          const base = open + rcv;
+
+          if (base > 0) {
+            totalUncutP += (uncut / base) * 100;
+            totalNoncutP += (noncut / base) * 100;
+            totalUnscoopP += (Unscoop / base) * 100;
+            totalBrokenP += (Broken / base) * 100;
+            totalDustP += (Dust / base) * 100;
+            totalKOR += KOR;
+            validRows++;
+          }
+        }
+         for (const row of monthlyRowsLab) {
+         
+          const qcKOR = Number(row.dataValues.qcKOR || 0);
+
+            totalKORlab += qcKOR;
+            validRowslab++;
+          
+        }
+
+        monthlyUncutAvg = validRows > 0 ? totalUncutP / validRows : 0;
+        monthlyNoncutAvg = validRows > 0 ? totalNoncutP / validRows : 0;
+        monthlyUnscoopAvg = validRows > 0 ? totalUnscoopP / validRows : 0;
+        monthlyBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
+        monthlyDustAvg = validRows > 0 ? totalDustP / validRows : 0;
+        monthlyKORAvg = validRows > 0 ? totalKOR / validRows : 0;
+        monthlyKORAvglab = validRowslab > 0 ? totalKORlab / validRowslab : 0;
+      }
+
+   
+
+    //    const monthResultScoop = await RcnAllScooping.findOne({
+    //    attributes: [[fn("SUM", col("Opening_Qty")), "Opening_Qty"],
+    //                 [fn("SUM", col("Receiving_Qty")), "Receiving_Qty"],
+    //                 [fn("SUM", col("Wholes")), "Wholes"],
+    //                 [fn("SUM", col("Broken")), "Broken"],
+    //                 [fn("SUM", col("Uncut")), "Uncut"],
+    //                 [fn("SUM", col("Unscoop")), "Unscoop"],
+    //                 [fn("SUM", col("Rejection")), "Rejection"],
+    //                 [fn("SUM", col("Dust")), "Dust"],
+    //                 [fn("SUM", col("NonCut")), "NonCut"]],
+    //     where: {
+    //       ...commonWhere,
+    //      date: { [Op.between]: [monthStart, nowIST] },
+    //     },
+    //     // raw: true,
+    //   });
+
+    // let previouswholesprcntgmt = 0;
+    //   let previousbrokenprcntgmt = 0;
+    //   let previousuncutprcntgmt= 0;
+    //   let previousnoncutprcntgmt = 0;
+    //   let previousunscoopprcntgmt = 0;
+    //   let previousdustprcntgmt = 0;
+    //   let previousrejectionprcntgmt = 0;
+
+    //     const currentMtScoopOpen = Number(monthResultScoop?.dataValues.Opening_Qty || 0);
+    //     const currentMtScoopRcv = Number(monthResultScoop?.dataValues.Receiving_Qty || 0);
+    //     const currentMtScoopWholes = Number(monthResultScoop?.dataValues.Wholes || 0);
+    //     const currentMtScoopBroken = Number(monthResultScoop?.dataValues.Broken || 0);
+    //     const currentMtScoopUncut = Number(monthResultScoop?.dataValues.Uncut || 0);
+    //     const currentMtScoopNoncut = Number(monthResultScoop?.dataValues.NonCut || 0);
+    //     const currentMtScoopUnscoop = Number(monthResultScoop?.dataValues.Unscoop || 0);
+    //     const currentMtScoopDust = Number(monthResultScoop?.dataValues.Dust || 0);
+    //     const currentMtScoopRej = Number(monthResultScoop?.dataValues.Rejection || 0);
+
+    //     if((currentMtScoopOpen+currentMtScoopRcv)!==0){
+            
+    //     previouswholesprcntgmt = (currentMtScoopWholes/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     previousbrokenprcntgmt =  (currentMtScoopBroken/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     previousuncutprcntgmt =  (currentMtScoopUncut/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     previousnoncutprcntgmt =  (currentMtScoopNoncut/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     previousunscoopprcntgmt =  (currentMtScoopUnscoop/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     previousdustprcntgmt =  (currentMtScoopDust/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     previousrejectionprcntgmt =  (currentMtScoopRej/(currentMtScoopRcv+currentMtScoopOpen)) || 0;
+    //     }
 
       /* ===============================
        4️⃣ CUSTOM FROM–TO
     =============================== */
       let customBoiling = 0;
       let customBorma = 0;
+      let customBormalab = 0;
       let customHumid = 0;
        let customGate = 0;
+
+        let customBroken = 0;
+         let customUnpeel = 0;
+          let customChura = 0;
+
+
+           let customUncutAvg = 0;
+      let customNoncutAvg = 0;
+      let customUnscoopAvg = 0;
+      let customBrokenAvg = 0;
+      let customDustAvg = 0;
+      let customKORAvg = 0;
+      let customKORAvglab = 0;
 
       if (type === "gatepass" && fromDate && toDate) {
         const from = new Date(fromDate);
@@ -1413,8 +1853,17 @@ export const directorDashboard = async (req: Request, res: Response) => {
           },
           //raw: true,
         });
+        const customResultBormalab = await qcKOR.findOne({
+          attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            prodbormadate: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
 
         customBorma = Number(customResultBorma?.dataValues.total || 0);
+        customBormalab = Number(customResultBormalab?.dataValues.total || 0);
       }
       if (type === "humid" && fromDate && toDate) {
         const from = new Date(fromDate);
@@ -1436,19 +1885,144 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
         customHumid = Number(customResultHumid?.dataValues.total || 0);
       }
+        if (type === "peeling" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+        const customResultPeeling = await RcnPeeling.findOne({
+           attributes: [[fn("AVG", col("brokenp")), "totalbroken"],
+                    [fn("AVG", col("unpeelp")), "totalunpeel"],
+                    [fn("AVG", col("churap")), "totalchura"]],
+          where: {
+            ...commonWhere,
+            date: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
+
+        customBroken = Number(customResultPeeling?.dataValues.totalbroken || 0);
+        customUnpeel= Number(customResultPeeling?.dataValues.totalunpeel || 0);
+        customChura = Number(customResultPeeling?.dataValues.totalchura || 0);
+      }
+
+       if (type === "scoop" && fromDate && toDate) {
+        const from = new Date(fromDate);
+        from.setHours(0, 0, 0, 0);
+
+        const to = new Date(toDate);
+        to.setHours(to.getHours() + 5);
+        to.setMinutes(to.getMinutes() + 30);
+        to.setHours(23, 59, 59, 999);
+
+
+          const customResultScoop = await RcnAllScooping.findAll({
+        attributes: [
+          "Opening_Qty",
+          "Receiving_Qty",
+          "Uncut",
+          "NonCut",
+          "Unscoop",
+          "Broken",
+          "Dust","KOR"
+        ],
+        where: {
+          ...commonWhere,
+          date: {
+            [Op.between]: [from, to],
+          },
+        },
+        //raw: true,
+      });
+           const customResultScooplab = await qcKOR.findAll({
+        attributes: [
+         "qcKOR"
+        ],
+        where: {
+          ...commonWhere,
+          proddate: {
+            [Op.between]: [from, to],
+          },
+        },
+        //raw: true,
+      });
+
+      if (customResultScoop.length > 0) {
+        let totalUncutP = 0;
+        let totalNoncutP = 0;
+        let totalUnscoopP = 0;
+        let totalBrokenP = 0;
+        let totalDustP = 0;
+        let totalKOR = 0;
+        let totalKORlab = 0;
+        let validRows = 0;
+        let validRowslab = 0;
+
+        for (const row of customResultScoop) {
+          const open = Number(row.dataValues.Opening_Qty || 0);
+          const rcv = Number(row.dataValues.Receiving_Qty || 0);
+          const uncut = Number(row.dataValues.Uncut || 0);
+          const noncut = Number(row.dataValues.NonCut || 0);
+          const Unscoop = Number(row.dataValues.Unscoop || 0);
+          const Broken = Number(row.dataValues.Broken || 0);
+          const Dust = Number(row.dataValues.Dust || 0);
+            const KOR = Number(row.dataValues.KOR || 0);
+          const base = open + rcv;
+
+          if (base > 0) {
+            totalUncutP += (uncut / base) * 100;
+            totalNoncutP += (noncut / base) * 100;
+            totalUnscoopP += (Unscoop / base) * 100;
+            totalBrokenP += (Broken / base) * 100;
+            totalDustP += (Dust / base) * 100;
+            totalKOR += KOR;
+            validRows++;
+          }
+        }
+         for (const row of customResultScooplab) {
+        
+            const qcKOR = Number(row.dataValues.qcKOR || 0);
+ 
+            totalKORlab += qcKOR;
+            validRowslab++;
+          
+        }
+
+        customUncutAvg = validRows > 0 ? totalUncutP / validRows : 0;
+        customNoncutAvg = validRows > 0 ? totalNoncutP / validRows : 0;
+        customUnscoopAvg = validRows > 0 ? totalUnscoopP / validRows : 0;
+        customBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
+        customDustAvg = validRows > 0 ? totalDustP / validRows : 0;
+        customKORAvg = validRows > 0 ? totalKOR / validRows : 0;
+        customKORAvglab = validRowslab > 0 ? totalKORlab / validRowslab : 0;
+      }
+      }
+
+      
+    
 
       /* ===============================
        RESPONSE
     =============================== */
       return res.status(200).json({
         msg: "ok",
-        data: {usercount,employeecount,pendingGatepass,village_pending,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
-          previousBoiling,previousBorma,previousHumid,previousGate,
+        data: {usercount,employeecount,pendingGatepass,village_pending,village_pending_in,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
+          previousBoiling,previousBorma,previousHumid,previousGate,previousBormalab,
           previousBoilingDate,previousBormaDate,previousHumidDate,previousGateDate,
-          currentWeekBoil,currentWeekBorma,currentWeekHumid,weekResultGate,
-          currentMonthBoiling,currentMonthBorma,currentMonthHumid,monthResultGate,
-          customBoiling,customBorma,customHumid,customGate,
-          currentYearBoiling,fyResultBorma,fyResultHumid
+          currentWeekBoil,currentWeekBorma,currentWeekBormaLab,currentWeekHumid,weekResultGate,
+          currentMonthBoiling,currentMonthBorma,currentMonthBormaLab,currentMonthHumid,monthResultGate,
+          customBoiling,customBorma,customBormalab,customHumid,customGate,
+          currentYearBoiling,fyResultBorma,fyResultHumid,
+          previousscoopDate,previouswholesprcntg,previousbrokenprcntg,previousuncutprcntg,previousnoncutprcntg,previousunscoopprcntg,previousdustprcntg,previousrejectionprcntg,previouskor,previouskorlab,
+          monthlyBrokenAvg,monthlyDustAvg,monthlyNoncutAvg,monthlyUnscoopAvg,monthlyUncutAvg,monthlyKORAvg,monthlyKORAvglab,
+          weeklyBrokenAvg,weeklyDustAvg,weeklyNoncutAvg,weeklyUnscoopAvg,weeklyUncutAvg,weeklyKORAvg,weeklyKORLabAvg,
+          customBrokenAvg,customDustAvg,customNoncutAvg,customUnscoopAvg,customUncutAvg,customKORAvg,customKORAvglab,
+          customBroken,customUnpeel,customChura,currentMonthBroken,currentMonthUnpeel,currentMonthChura,
+          currentWeekBroken,currentWeekUnpeel,currentWeekChura,previousBroken,previousChura,previousUnpeel,previousPeelDate
         },
       });
     } catch (error) {

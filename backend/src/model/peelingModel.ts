@@ -99,6 +99,21 @@ const RcnPeeling = sequelize.define('rcnPeeling', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    unpeelp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    brokenp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    churap: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     Mc_on: {
         type: DataTypes.TIME,
         allowNull: true

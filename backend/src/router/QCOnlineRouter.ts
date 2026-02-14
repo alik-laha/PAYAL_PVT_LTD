@@ -2,7 +2,7 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline, editQCOnlineHumidifier, CreateHandGrade, SearchHandGrade, editQCHandGrade, CreatePouch, SearchPouch, editQCPouch, CreatePeeling, SearchPeeling, editQCPeeling, CreateNanopix, SearchNanopix, editQCNanopix, CreateTaiho, SearchTaiho, editQCTaiho, editQCBucket, SearchBucket, CreateBucket } from '../controller/QCOnline/QCOnlineApi';
+import  { CreateBoiler, CreateBoiling, CreateBorma, CreateGrading, CreateHumidifier, CreateScooping, editQCOnlineBoiler, editQCOnlineBorma, editQCOnlineGrading, editQCOnlineScooping, SearchBoiler, SearchBoiling, SearchBorma, SearchGrading, editQCOnlineBoiling,SearchHumidifier, SearchScooping, sumOfallQCOnline, editQCOnlineHumidifier, CreateHandGrade, SearchHandGrade, editQCHandGrade, CreatePouch, SearchPouch, editQCPouch, CreatePeeling, SearchPeeling, editQCPeeling, CreateNanopix, SearchNanopix, editQCNanopix, CreateTaiho, SearchTaiho, editQCTaiho, editQCBucket, SearchBucket, CreateBucket, getQCKORLot,getKORBylot ,CreateEntireQCKOR} from '../controller/QCOnline/QCOnlineApi';
 
 const router = express.Router();
 
@@ -62,6 +62,12 @@ router.put("/editQCOnlineNanopix/:id", jwtVerify, editQCNanopix);
 router.post("/createQCOnlineTaiho", jwtVerify, CreateTaiho);
 router.post("/searchQCOnlineTaiho", jwtVerify, SearchTaiho);
 router.put("/updateQCOnlineTaiho/:id", jwtVerify, editQCTaiho);
+
+router.get("/getUnKOREntry/:status", jwtVerify, getQCKORLot)
+router.get("/getKORBylot/:lotNO", jwtVerify, getKORBylot)
+router.post("/createEntireQCKOR", jwtVerify, CreateEntireQCKOR)
+
+
 
 
 export default router

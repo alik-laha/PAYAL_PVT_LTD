@@ -449,6 +449,9 @@ export interface PeelingRcvData {
             SJH1: string;
             JH1: string;
             JK_K: string;
+              unpeelp: string;
+            brokenp: string;
+            churap: string;
             SP1: string;
             Mc_on: string;
             Husk: string;

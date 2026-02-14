@@ -32,6 +32,9 @@ interface PeelingModifyProps {
             JH1: string;
             JK_K: string;
             SP1: string;
+            unpeelp: string;
+            brokenp: string;
+            churap: string;
             Mc_on: string;
             Husk: string;
             Rejection: string;
@@ -68,6 +71,12 @@ const PeelingModify = (props: PeelingModifyProps) => {
     const [sp1, setsp1] = useState('')
     const [jh1, setjh1] = useState('')
     const [jkK, setjkK] = useState('')
+
+    const [unpeelp, setUnpeelp] = useState('')
+    const [brokenp, setBrokenp] = useState('')
+    const [churap, setChuraP] = useState('')
+
+
     const [husk, sethusk] = useState('')
     const [rejection, setrejection] = useState('')
     const [pieceunpeel, setpieceunpeel] = useState('')
@@ -91,11 +100,15 @@ const PeelingModify = (props: PeelingModifyProps) => {
     const [isdisable, setisdisable] = useState<boolean>(false)
     const [errortext, setErrorText] = useState<string>("")
     const [vilLot,setVilLot]=useState<boolean>(false)
+    const [rLot,setRLot]=useState<boolean>(false)
     useEffect(() => {
 
         if(props.data){
             if(props.data.LotNo.includes('V')){
                 setVilLot(true)
+            }
+            else if(props.data.LotNo.includes('R')){
+                setRLot(true)
             }
         }
         // console.log(typeof (props.data.date))
@@ -119,6 +132,10 @@ const PeelingModify = (props: PeelingModifyProps) => {
         setjjh(props.data.JJH)
         setjkK(props.data.JK_K)
         setsp1(props.data.SP1)
+
+        setUnpeelp(props.data.unpeelp)
+        setBrokenp(props.data.brokenp)
+        setChuraP(props.data.churap)
 
         setDayOp(props.data.noOfdayOperators)
         setNightOp(props.data.noOfnightOperators)
@@ -170,6 +187,10 @@ const PeelingModify = (props: PeelingModifyProps) => {
             resStatus = await axios.post('/api/boiling/getStatusBoilingVLot', { lotNo: props.data.LotNo})
             console.log(resStatus)
         }
+        else if(rLot===true){
+            resStatus = await axios.post('/api/boiling/getStatusBoilingRLot', { lotNo: props.data.LotNo})
+            console.log(resStatus)
+        }
         else{
             resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.data.LotNo})
             console.log(resStatus)
@@ -186,7 +207,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
         setisdisable(true)
         axios.post(`/api/peeling/updatePeeling/${props.data.id}`, {origin,iptot,lotNo,pres,moist,peeltime,dayOp,nightOp,huskOp,
             wholepeel,wholeunpeel,pieceunpeel,dp,dp1,ds,sjh,sjh1,jjh,jkK,jh1,sp1,husk,rejection,bigT,
-            
+            brokenp,unpeelp,churap,
             Mc_off, Mc_on, Mc_breakdown, otherTime, trolley, noOfEmployees, date
         })
             .then((res) => {
@@ -259,6 +280,13 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <Input className="w-2/4 text-center " placeholder="Operator" value={nightOp} onChange={(e) => setNightOp(e.target.value)} /> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">No Of Operator(Husk)</Label>
                         <Input className="w-2/4 text-center " placeholder="Operator" value={huskOp} onChange={(e) => sethuskOp(e.target.value)} /> </div>
+
+                        <div className="flex"><Label className="w-2/4 mt-2"> Unpeel (%)</Label>
+                        <Input className="w-2/4 text-center " placeholder="%" value={unpeelp} onChange={(e) => setUnpeelp(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Broken (%)</Label>
+                        <Input className="w-2/4 text-center " placeholder="%" value={brokenp} onChange={(e) => setBrokenp(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Chura (Village)</Label>
+                        <Input className="w-2/4 text-center " placeholder="%" value={churap} onChange={(e) => setChuraP(e.target.value)} required/> </div>
 
                     <div className="flex"><Label className="w-2/4 mt-2">{lotNo ? (lotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'} </Label>
                         <Input className="w-2/4 text-center " placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} required/> </div>
