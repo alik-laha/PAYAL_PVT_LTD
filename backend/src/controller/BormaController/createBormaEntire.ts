@@ -91,7 +91,8 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
             );
             const qcbormaUpdate=await qcKOR.update(
                 {     
-                   BormaLoss:prcntg
+                   BormaLoss:prcntg,
+                   prodbormadate:data.Date
                   
                 },
                 {

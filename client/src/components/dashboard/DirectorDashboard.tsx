@@ -272,27 +272,105 @@ const DirectorDashboard: React.FC = () => {
 
                             <StatCard title="Custom Date Range" value={`${Number(data.customBoiling)/1000} `} />
                         </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
+                            <StatCardBig title="Scooping" value1={'Broken'} 
+                            value2={'Uncut'} 
+                            value3={'NonCut'} 
+                            value4={'Unscoop'} 
+                            
+                            value5={'Dust'} value6={'KOR (Prod)'} value7={'KOR (Lab)'} color={'purple'} />
+                            <StatCardBig
+                                title="Previous Day"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value1={` ${formatNumber(data.previousbrokenprcntg)} %`}
+                                 value2={` ${formatNumber(data.previousuncutprcntg)} %`}
+                                  value3={` ${formatNumber(data.previousnoncutprcntg)} %`}
+                                   value4={` ${formatNumber(data.previousunscoopprcntg)} %`}
+                                    value5={` ${formatNumber(data.previousdustprcntg)} %`}
+                                    value6={` ${formatNumber(data.previouskor)}`}
+                                     value7={` ${formatNumber(data.previouskorlab)}`}
+
+                                subtitle={
+                                    data.previousscoopDate
+                                        ? `Date: ${data.previousscoopDate.slice(0, 10)}`
+                                        : "No data"
+                                }
+                            />
+                            <StatCardBig
+                                title="Current Week"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value1={`${formatNumber(data.weeklyBrokenAvg)} %`}
+                                 value2={` ${formatNumber(data.weeklyUncutAvg)} %`}
+                                  value3={` ${formatNumber(data.weeklyNoncutAvg)} %`}
+                                   value4={` ${formatNumber(data.weeklyUnscoopAvg)} %`}
+                                    value5={` ${formatNumber(data.weeklyDustAvg)} %`}
+                                    value6={` ${formatNumber(data.weeklyKORAvg)} `}
+                                    value7={` ${formatNumber(data.weeklyKORLabAvg)} `}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                             <StatCardBig
+                                title="Current Month"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value1={`${formatNumber(data.monthlyBrokenAvg)} %`}
+                                 value2={` ${formatNumber(data.monthlyUncutAvg)} %`}
+                                  value3={` ${formatNumber(data.monthlyNoncutAvg)} %`}
+                                   value4={` ${formatNumber(data.monthlyUnscoopAvg)} %`}
+                                    value5={` ${formatNumber(data.monthlyDustAvg)} %`}
+                                    value6={` ${formatNumber(data.monthlyKORAvg)} `}
+                                    value7={` ${formatNumber(data.monthlyKORAvglab)} `}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                            <DateRangeForm
+                                onSearch={(from, to) => handleSearch("scoop", from, to)}
+                            />
+
+                             <StatCardBig
+                                title="Custom Date Range"
+                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
+                                value1={`${formatNumber(data.customBrokenAvg)} %`}
+                                 value2={` ${formatNumber(data.customUncutAvg)} %`}
+                                  value3={` ${formatNumber(data.customNoncutAvg)} %`}
+                                   value4={` ${formatNumber(data.customUnscoopAvg)} %`}
+                                    value5={` ${formatNumber(data.customDustAvg)} %`}
+                                    value6={` ${formatNumber(data.customKORAvg)}`}
+                                    value7={` ${formatNumber(data.customKORAvglab)}`}
+                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
+
+                       
+                            />
+                            
+
+                            
+                        </div>
                         
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCard title="Borma" value={'Loss'} color={'blue'} />
-                            <StatCard
+                            <StatCardBig title="Borma" value1={'Loss (Prod)'} value2={'Loss (Lab)'} color={'blue'} />
+                            <StatCardBig
                                 title="Previous Day"
-                                value={` ${formatNumber(data.previousBorma)} %`}
+                                value1={` ${formatNumber(data.previousBorma)} %`}
+                                value2={` ${formatNumber(data.previousBormalab)} %`}
                                 subtitle={
                                     data.previousBormaDate
                                         ? `Date: ${data.previousBormaDate.slice(0, 10)}`
                                         : "No data"
                                 } 
                             />
-                            <StatCard title="Current Week" value={` ${formatNumber(data.currentWeekBorma)} %`} />
-                            <StatCard title="Current Month" value={` ${formatNumber(data.currentMonthBorma)} %`} />
+                            <StatCardBig title="Current Week" value1={` ${formatNumber(data.currentWeekBorma)} %`} 
+                            value2={` ${formatNumber(data.currentWeekBormaLab)} %`}/>
+                            <StatCardBig title="Current Month" value1={` ${formatNumber(data.currentMonthBorma)} %`}
+                            value2={` ${formatNumber(data.currentMonthBormaLab)} %`} />
 
                             <DateRangeForm
                                 onSearch={(from, to) => handleSearch("borma", from, to)}
                             />
 
-                            <StatCard title="Custom Date Range" value={`${formatNumber(data.customBorma)} %`} />
+                            <StatCardBig title="Custom Date Range" value1={`${formatNumber(data.customBorma)} %`} 
+                            value2={`${formatNumber(data.customBormalab)} %`}/>
                         </div>
 
 
@@ -317,9 +395,9 @@ const DirectorDashboard: React.FC = () => {
                             <StatCard title="Custom Date Range" value={`${formatNumber(data.customHumid)} %`} />
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCardBig title="Peeling" value1={'Broken %'} 
-                            value2={'Unpeel %'} 
-                            value3={'Chura %'} 
+                            <StatCardBig title="Peeling" value1={'Broken'} 
+                            value2={'Unpeel'} 
+                            value3={'Chura'} 
                             color={'gray'} />
                             <StatCardBig
                                 title="Previous Day"
@@ -377,77 +455,7 @@ const DirectorDashboard: React.FC = () => {
 
                             
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-5">
-                            <StatCardBig title="Scooping" value1={'Broken'} 
-                            value2={'Uncut'} 
-                            value3={'NonCut'} 
-                            value4={'Unscoop'} 
-                            
-                            value5={'Dust'} value6={'KOR'} color={'purple'} />
-                            <StatCardBig
-                                title="Previous Day"
-                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
-                                value2={` ${formatNumber(data.previousbrokenprcntg)} %`}
-                                 value3={` ${formatNumber(data.previousuncutprcntg)} %`}
-                                  value4={` ${formatNumber(data.previousnoncutprcntg)} %`}
-                                   value5={` ${formatNumber(data.previousunscoopprcntg)} %`}
-                                    value6={` ${formatNumber(data.previousdustprcntg)} %`}
-                                    value7={` ${formatNumber(data.previouskor)}`}
-                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
-
-                                subtitle={
-                                    data.previousscoopDate
-                                        ? `Date: ${data.previousscoopDate.slice(0, 10)}`
-                                        : "No data"
-                                }
-                            />
-                            <StatCardBig
-                                title="Current Week"
-                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
-                                value2={`${formatNumber(data.weeklyBrokenAvg)} %`}
-                                 value3={` ${formatNumber(data.weeklyUncutAvg)} %`}
-                                  value4={` ${formatNumber(data.weeklyNoncutAvg)} %`}
-                                   value5={` ${formatNumber(data.weeklyUnscoopAvg)} %`}
-                                    value6={` ${formatNumber(data.weeklyDustAvg)} %`}
-                                    value7={` ${formatNumber(data.weeklyKORAvg)} `}
-                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
-
-                       
-                            />
-                             <StatCardBig
-                                title="Current Month"
-                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
-                                value2={`${formatNumber(data.monthlyBrokenAvg)} %`}
-                                 value3={` ${formatNumber(data.monthlyUncutAvg)} %`}
-                                  value4={` ${formatNumber(data.monthlyNoncutAvg)} %`}
-                                   value5={` ${formatNumber(data.monthlyUnscoopAvg)} %`}
-                                    value6={` ${formatNumber(data.monthlyDustAvg)} %`}
-                                    value7={` ${formatNumber(data.monthlyKORAvg)} `}
-                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
-
-                       
-                            />
-                            <DateRangeForm
-                                onSearch={(from, to) => handleSearch("scoop", from, to)}
-                            />
-
-                             <StatCardBig
-                                title="Custom Date Range"
-                                // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
-                                value2={`${formatNumber(data.customBrokenAvg)} %`}
-                                 value3={` ${formatNumber(data.customUncutAvg)} %`}
-                                  value4={` ${formatNumber(data.customNoncutAvg)} %`}
-                                   value5={` ${formatNumber(data.customUnscoopAvg)} %`}
-                                    value6={` ${formatNumber(data.customDustAvg)} %`}
-                                    value7={` ${formatNumber(data.customKORAvg)}`}
-                                    //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
-
-                       
-                            />
-                            
-
-                            
-                        </div>
+                        
                     </>
                       
                     )}

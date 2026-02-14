@@ -17,7 +17,7 @@ export const StatCard = ({ title, value, subtitle,color}: Props) => {
       </h2>
 
       {subtitle && (
-        <p className="mt-1 text-xs text-gray-700">{subtitle}</p>
+        <p className="mt-1 text-xs text-blue-500 font-bold">{subtitle}</p>
       )}
     </div>
   );

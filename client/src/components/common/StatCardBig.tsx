@@ -48,7 +48,7 @@ export const StatCardBig = ({ title, value1,value2, value3,
       </h2>}
 
       {subtitle && (
-        <p className="mt-1 text-xs text-gray-700">{subtitle}</p>
+        <p className="mt-1 text-xs text-blue-500 font-semibold">{subtitle}</p>
       )}
     </div>
   );

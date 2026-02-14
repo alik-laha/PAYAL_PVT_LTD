@@ -29,6 +29,7 @@ import {  fn, col } from "sequelize";
 import User from "../../model/userModel";
 import Employee from "../../model/employeeModel";
 import gatePassMaster from "../../model/gatePassMasterModel";
+import qcKOR from "../../model/qcKorModel";
 
 const IST_OFFSET_MIN = 5 * 60 + 30;
 
@@ -1106,6 +1107,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let previousBoiling = 0;
       let previousBoilingDate = null;
       let previousBorma = 0;
+      let previousBormalab = 0;
       let previousBormaDate = null;
       let previousHumid = 0;
       let previousHumidDate = null;
@@ -1125,6 +1127,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let previousdust = 0;
       let previousrejection = 0;
       let previouskor = 0;
+      let previouskorlab = 0;
 
       let previouswholesprcntg = 0;
       let previousbrokenprcntg = 0;
@@ -1188,8 +1191,17 @@ export const directorDashboard = async (req: Request, res: Response) => {
           },
           //raw: true,
         });
+        const prevResultlab = await qcKOR.findOne({
+          attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            prodbormadate: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
 
         previousBorma = Number(prevResult?.dataValues.total || 0);
+        previousBormalab = Number(prevResultlab?.dataValues.total || 0);
         previousBormaDate = lastDateborma;
       }
        if (lastDatehumid) {
@@ -1260,6 +1272,16 @@ export const directorDashboard = async (req: Request, res: Response) => {
           },
           //raw: true,
         });
+        const prevResultlab = await qcKOR.findOne({
+          attributes: [
+                    [fn("AVG", col("qcKOR")), "qcKOR"]
+        ],
+          where: {
+            ...commonWhere,
+            proddate: { [Op.between]: [start, end] },
+          },
+          //raw: true,
+        });
 
         previousopen = Number(prevResult?.dataValues.Opening_Qty || 0);
         previousrcv = Number(prevResult?.dataValues.Receiving_Qty || 0);
@@ -1271,6 +1293,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         previousdust = Number(prevResult?.dataValues.Dust || 0);
         previousrejection = Number(prevResult?.dataValues.Rejection || 0);
         previouskor = Number(prevResult?.dataValues.KOR || 0);
+        previouskorlab = Number(prevResultlab?.dataValues.qcKOR || 0);
         previousscoopDate = lastDatescoop;
 
         if((previousopen+previousrcv)!==0){
@@ -1417,6 +1440,14 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         // raw: true,
       });
+      const weekResultBormalab = await qcKOR.findOne({
+        attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          prodbormadate: { [Op.between]: [weekStart, nowIST] },
+        },
+        // raw: true,
+      });
 
        const weekResultHumid = await Humidifier.findOne({
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
@@ -1441,6 +1472,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
        const currentWeekBoil = Number(weekResultBoil?.dataValues.total || 0);
        const currentWeekBorma = Number(weekResultBorma?.dataValues.total || 0);
+       const currentWeekBormaLab = Number(weekResultBormalab?.dataValues.total || 0);
        const currentWeekHumid = Number(weekResultHumid?.dataValues.total || 0);
 
        const currentWeekBroken = Number(weekResultPeel?.dataValues.totalbroken || 0);
@@ -1465,6 +1497,18 @@ export const directorDashboard = async (req: Request, res: Response) => {
       },
       //raw: true,
     });
+    const weeklyRowsLab = await qcKOR.findAll({
+      attributes: [
+        "qcKOR"
+      ],
+      where: {
+        ...commonWhere,
+        proddate: {
+          [Op.between]: [weekStart, nowIST],
+        },
+      },
+      //raw: true,
+    });
 
     let weeklyUncutAvg = 0;
     let weeklyNoncutAvg = 0;
@@ -1472,6 +1516,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
     let weeklyBrokenAvg = 0;
     let weeklyDustAvg = 0;
     let weeklyKORAvg = 0;
+    let weeklyKORLabAvg = 0;
 
     if (weeklyRows.length > 0) {
       let totalUncutP = 0;
@@ -1480,8 +1525,10 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let totalBrokenP = 0;
       let totalDustP = 0;
       let totalKOR = 0;
+      let totalKORlab = 0;
 
       let validRows = 0;
+      let validRowslab = 0;
 
       for (const row of weeklyRows) {
         const open = Number(row.dataValues.Opening_Qty || 0);
@@ -1504,6 +1551,13 @@ export const directorDashboard = async (req: Request, res: Response) => {
           validRows++;
         }
       }
+      for (const row of weeklyRowsLab) {
+        const qcKOR = Number(row.dataValues.qcKOR || 0);
+        
+          totalKORlab +=qcKOR
+          validRowslab++;
+        
+      }
 
       weeklyUncutAvg = validRows > 0 ? totalUncutP / validRows : 0;
       weeklyNoncutAvg = validRows > 0 ? totalNoncutP / validRows : 0;
@@ -1511,6 +1565,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       weeklyBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
       weeklyDustAvg = validRows > 0 ? totalDustP / validRows : 0;
       weeklyKORAvg = validRows > 0 ? totalKOR / validRows : 0;
+      weeklyKORLabAvg = validRowslab > 0 ? totalKORlab / validRowslab : 0;
     }
 
       /* ===============================
@@ -1542,6 +1597,14 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         //raw: true,
       });
+       const monthResultBormaLab = await qcKOR.findOne({
+        attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+        where: {
+          ...commonWhere,
+          prodbormadate: { [Op.between]: [monthStart, nowIST] },
+        },
+        //raw: true,
+      });
        const monthResultHumid = await Humidifier.findOne({
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
         where: {
@@ -1567,6 +1630,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         monthResultBoil?.dataValues.total || 0,
       );
       const currentMonthBorma = Number(monthResultBorma?.dataValues.total || 0);
+      const currentMonthBormaLab = Number(monthResultBormaLab?.dataValues.total || 0);
       const currentMonthHumid = Number(monthResultHumid?.dataValues.total || 0);
 
       const currentMonthBroken = Number(monthResultPeel?.dataValues.totalbroken || 0);
@@ -1591,12 +1655,25 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         //raw: true,
       });
+      const monthlyRowsLab = await qcKOR.findAll({
+        attributes: [
+          "qcKOR"
+        ],
+        where: {
+          ...commonWhere,
+          proddate: {
+            [Op.between]: [monthStart, nowIST],
+          },
+        },
+        //raw: true,
+      });
       let monthlyUncutAvg = 0;
       let monthlyNoncutAvg = 0;
       let monthlyUnscoopAvg = 0;
       let monthlyBrokenAvg = 0;
       let monthlyDustAvg = 0;
       let monthlyKORAvg = 0;
+      let monthlyKORAvglab = 0;
 
       if (monthlyRows.length > 0) {
         let totalUncutP = 0;
@@ -1605,7 +1682,9 @@ export const directorDashboard = async (req: Request, res: Response) => {
         let totalBrokenP = 0;
         let totalDustP = 0;
         let totalKOR = 0;
+        let totalKORlab = 0;
         let validRows = 0;
+        let validRowslab = 0;
 
         for (const row of monthlyRows) {
           const open = Number(row.dataValues.Opening_Qty || 0);
@@ -1629,6 +1708,14 @@ export const directorDashboard = async (req: Request, res: Response) => {
             validRows++;
           }
         }
+         for (const row of monthlyRowsLab) {
+         
+          const qcKOR = Number(row.dataValues.qcKOR || 0);
+
+            totalKORlab += qcKOR;
+            validRowslab++;
+          
+        }
 
         monthlyUncutAvg = validRows > 0 ? totalUncutP / validRows : 0;
         monthlyNoncutAvg = validRows > 0 ? totalNoncutP / validRows : 0;
@@ -1636,6 +1723,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         monthlyBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
         monthlyDustAvg = validRows > 0 ? totalDustP / validRows : 0;
         monthlyKORAvg = validRows > 0 ? totalKOR / validRows : 0;
+        monthlyKORAvglab = validRowslab > 0 ? totalKORlab / validRowslab : 0;
       }
 
    
@@ -1691,6 +1779,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
     =============================== */
       let customBoiling = 0;
       let customBorma = 0;
+      let customBormalab = 0;
       let customHumid = 0;
        let customGate = 0;
 
@@ -1705,6 +1794,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
       let customBrokenAvg = 0;
       let customDustAvg = 0;
       let customKORAvg = 0;
+      let customKORAvglab = 0;
 
       if (type === "gatepass" && fromDate && toDate) {
         const from = new Date(fromDate);
@@ -1763,8 +1853,17 @@ export const directorDashboard = async (req: Request, res: Response) => {
           },
           //raw: true,
         });
+        const customResultBormalab = await qcKOR.findOne({
+          attributes: [[fn("AVG", col("qcBormaLoss")), "total"]],
+          where: {
+            ...commonWhere,
+            prodbormadate: { [Op.between]: [from, to] },
+          },
+          //raw: true,
+        });
 
         customBorma = Number(customResultBorma?.dataValues.total || 0);
+        customBormalab = Number(customResultBormalab?.dataValues.total || 0);
       }
       if (type === "humid" && fromDate && toDate) {
         const from = new Date(fromDate);
@@ -1820,12 +1919,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         to.setMinutes(to.getMinutes() + 30);
         to.setHours(23, 59, 59, 999);
 
-        
 
-        
-
-     
-  
           const customResultScoop = await RcnAllScooping.findAll({
         attributes: [
           "Opening_Qty",
@@ -1844,6 +1938,18 @@ export const directorDashboard = async (req: Request, res: Response) => {
         },
         //raw: true,
       });
+           const customResultScooplab = await qcKOR.findAll({
+        attributes: [
+         "qcKOR"
+        ],
+        where: {
+          ...commonWhere,
+          proddate: {
+            [Op.between]: [from, to],
+          },
+        },
+        //raw: true,
+      });
 
       if (customResultScoop.length > 0) {
         let totalUncutP = 0;
@@ -1852,7 +1958,9 @@ export const directorDashboard = async (req: Request, res: Response) => {
         let totalBrokenP = 0;
         let totalDustP = 0;
         let totalKOR = 0;
+        let totalKORlab = 0;
         let validRows = 0;
+        let validRowslab = 0;
 
         for (const row of customResultScoop) {
           const open = Number(row.dataValues.Opening_Qty || 0);
@@ -1875,6 +1983,14 @@ export const directorDashboard = async (req: Request, res: Response) => {
             validRows++;
           }
         }
+         for (const row of customResultScooplab) {
+        
+            const qcKOR = Number(row.dataValues.qcKOR || 0);
+ 
+            totalKORlab += qcKOR;
+            validRowslab++;
+          
+        }
 
         customUncutAvg = validRows > 0 ? totalUncutP / validRows : 0;
         customNoncutAvg = validRows > 0 ? totalNoncutP / validRows : 0;
@@ -1882,6 +1998,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         customBrokenAvg = validRows > 0 ? totalBrokenP / validRows : 0;
         customDustAvg = validRows > 0 ? totalDustP / validRows : 0;
         customKORAvg = validRows > 0 ? totalKOR / validRows : 0;
+        customKORAvglab = validRowslab > 0 ? totalKORlab / validRowslab : 0;
       }
       }
 
@@ -1894,16 +2011,16 @@ export const directorDashboard = async (req: Request, res: Response) => {
       return res.status(200).json({
         msg: "ok",
         data: {usercount,employeecount,pendingGatepass,village_pending,village_pending_in,fyReceivingTotal,village_out_gate,village_out_prod,Ville_Inside_gatepass,
-          previousBoiling,previousBorma,previousHumid,previousGate,
+          previousBoiling,previousBorma,previousHumid,previousGate,previousBormalab,
           previousBoilingDate,previousBormaDate,previousHumidDate,previousGateDate,
-          currentWeekBoil,currentWeekBorma,currentWeekHumid,weekResultGate,
-          currentMonthBoiling,currentMonthBorma,currentMonthHumid,monthResultGate,
-          customBoiling,customBorma,customHumid,customGate,
+          currentWeekBoil,currentWeekBorma,currentWeekBormaLab,currentWeekHumid,weekResultGate,
+          currentMonthBoiling,currentMonthBorma,currentMonthBormaLab,currentMonthHumid,monthResultGate,
+          customBoiling,customBorma,customBormalab,customHumid,customGate,
           currentYearBoiling,fyResultBorma,fyResultHumid,
-          previousscoopDate,previouswholesprcntg,previousbrokenprcntg,previousuncutprcntg,previousnoncutprcntg,previousunscoopprcntg,previousdustprcntg,previousrejectionprcntg,previouskor,
-          monthlyBrokenAvg,monthlyDustAvg,monthlyNoncutAvg,monthlyUnscoopAvg,monthlyUncutAvg,monthlyKORAvg,
-          weeklyBrokenAvg,weeklyDustAvg,weeklyNoncutAvg,weeklyUnscoopAvg,weeklyUncutAvg,weeklyKORAvg,
-          customBrokenAvg,customDustAvg,customNoncutAvg,customUnscoopAvg,customUncutAvg,customKORAvg,
+          previousscoopDate,previouswholesprcntg,previousbrokenprcntg,previousuncutprcntg,previousnoncutprcntg,previousunscoopprcntg,previousdustprcntg,previousrejectionprcntg,previouskor,previouskorlab,
+          monthlyBrokenAvg,monthlyDustAvg,monthlyNoncutAvg,monthlyUnscoopAvg,monthlyUncutAvg,monthlyKORAvg,monthlyKORAvglab,
+          weeklyBrokenAvg,weeklyDustAvg,weeklyNoncutAvg,weeklyUnscoopAvg,weeklyUncutAvg,weeklyKORAvg,weeklyKORLabAvg,
+          customBrokenAvg,customDustAvg,customNoncutAvg,customUnscoopAvg,customUncutAvg,customKORAvg,customKORAvglab,
           customBroken,customUnpeel,customChura,currentMonthBroken,currentMonthUnpeel,currentMonthChura,
           currentWeekBroken,currentWeekUnpeel,currentWeekChura,previousBroken,previousChura,previousUnpeel,previousPeelDate
         },

@@ -19,6 +19,10 @@ const qcKOR = sequelize.define('qcKOR', {
         type: DataTypes.DATE,
         allowNull: true
     },
+    prodbormadate: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
     origin: {
         type: DataTypes.STRING,
         allowNull: false
