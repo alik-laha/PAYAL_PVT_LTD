@@ -429,8 +429,8 @@ const DirectorDashboard: React.FC = () => {
                                 title="Current Month"
                                 // value1={`Wholes : ${formatNumber(data.previouswholesprcntg)} %`}
                                 value2={`${formatNumber(data.currentMonthBroken)} %`}
-                                 value3={` ${formatNumber(data.monthlyUncutAvg)} %`}
-                                  value4={` ${formatNumber(data.monthlyNoncutAvg)} %`}
+                                 value3={` ${formatNumber(data.currentMonthUnpeel)} %`}
+                                  value4={` ${formatNumber(data.currentMonthChura)} %`}
                                    
                                     //  value7={`Rejection : ${formatNumber(data.previousrejectionprcntg)} %`}
 
