@@ -1367,6 +1367,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
             where: {
                
                 [Op.or]: [{ editStatus: 'Approved' }, { editStatus: 'N/A' }],
+                gateType:'OUT',
                 recevingDate: { [Op.between]: [fyStart, nowIST] }
             }
         });
