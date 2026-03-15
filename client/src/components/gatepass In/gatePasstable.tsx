@@ -1415,7 +1415,11 @@ const GatePassTable = () => {
                   <TableCell className="text-center font-semibold shadow-md ">
                     {handlesection(item.section)}
                   </TableCell>
-                          {item.status !== "Cancelled" ? (
+
+
+
+
+                          {/* {item.status !== "Cancelled" ? (
                     <TableCell className="text-center font-semibold tracking-wide text-cyan-600 text-xs">
                      
                    
@@ -1430,7 +1434,29 @@ const GatePassTable = () => {
                         Cancelled
                       </button>
                     </TableCell>
-                  )}
+                  )} */}
+
+
+
+                   <TableCell className="text-center font-bold">
+                                        <button
+                                            className={`p-2 h-8  rounded w-40 font-semibold transition duration-300 tracking-wider 
+      ${item.status === "Pending_Receiving" ? "bg-gradient-to-br text-white from-red-700 via-rose-600 to-red-500 animate-pulse" : ""}
+      ${item.status === "Pending_NetWeight" ? "bg-gradient-to-br text-white from-gray-800 via-blue-700 to-sky-500 animate-bounce [animation-duration:3s]" : ""}
+      ${item.status === "Pending_Verification" ? "bg-gradient-to-tl text-white from-yellow-600 via-orange-500 to-red-500 animate-pulse [animation-duration:2s]" : ""}
+      ${item.status === "Pending_Release" ? "bg-gradient-to-tl text-white from-green-600 via-orange-500 to-lime-500 animate-pulse [animation-duration:2s]" : ""}
+      ${item.status === "Cancelled" ? "bg-white p-2 text-red-500 border border-red-500 font-bold rounded w-40" : ""}
+      ${item.status === "Closed" ? "bg-gradient-to-tl text-white from-green-600 via-lime-500 to-green-500 w-40" : ""}
+    `}
+                                        >
+                                            {formatString2(item.status)}
+                                        </button>
+                                    </TableCell>
+
+
+
+
+
                    
 
                   <TableCell className="text-center ">

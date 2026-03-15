@@ -262,31 +262,31 @@ const RcvVillageInTable = () => {
                     ReceivingDate: handletimezone(item.recevingDate),
                     Vehicle_No:item.truckNo,
                     vendorName:item.vendorName,
-                    grossWt:formatNumber(item.grossWt),
-                    netWeight:item.netWeight ? item.netWeight : 0 ,
+                    grossWt:Number(item.grossWt)||0,
+                    netWeight:Number(item.netWeight) || 0 ,
                     type:item.type,
                     grade:item.sku,
                     invoice:item.invoice,
                     origin:item.origin,
     
-                    totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
-                    wholes:formatNumber(item.wholes_quantity),
-                    wholes_prcntg:formatNumber(item.wholes_quantity),
-                    lw:formatNumber(item.lw_quantity),
-                    lw_prcntg:formatNumber(item.lw_prcntg),
-                    jb:formatNumber(item.jb_quantity),
-                    jb_prcntg:formatNumber(item.jb_prcntg),
-                    husk:formatNumber(item.husk_quantity),
-                    husk_prcntg:formatNumber(item.husk_prcntg),
-                    jbp:formatNumber(item.jbp_quantity),
-                    jbp_prcntg:formatNumber(item.jbp_prcntg),
-                    sdp:formatNumber(item.sdp_quantity),
-                    sdp_prcntg:formatNumber(item.sdp_prcntg),
-                    pieces:formatNumber(item.pieces_quantity),
-                    pieces_prcntg:formatNumber(item.pieces_prcntg),
-                    Unpeel:formatNumber(item.e1_quantity),
-                    Unpeel_prcntg:formatNumber(item.e1_prcntg),
-                    Item_Or_Bag_Count:item.quantity,
+                    totalWt:Number(item.totalWt)||0 ,
+                    wholes:Number(item.wholes_quantity)||0,
+                    wholes_prcntg:Number(item.wholes_quantity)||0,
+                    lw:Number(item.lw_quantity)||0,
+                    lw_prcntg:Number(item.lw_prcntg)||0,
+                    jb:Number(item.jb_quantity)||0,
+                    jb_prcntg:Number(item.jb_prcntg)||0,
+                    husk:Number(item.husk_quantity)||0,
+                    husk_prcntg:Number(item.husk_prcntg)||0,
+                    jbp:Number(item.jbp_quantity)||0,
+                    jbp_prcntg:Number(item.jbp_prcntg)||0,
+                    sdp:Number(item.sdp_quantity)||0,
+                    sdp_prcntg:Number(item.sdp_prcntg)||0,
+                    pieces:Number(item.pieces_quantity)||0,
+                    pieces_prcntg:Number(item.pieces_prcntg)||0,
+                    Unpeel:Number(item.e1_quantity)||0,
+                    Unpeel_prcntg:Number(item.e1_prcntg)||0,
+                    Item_Or_Bag_Count:Number(item.quantity)||0,
                     editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
                 }));
                 ws = XLSX.utils.json_to_sheet(transformed);
@@ -299,32 +299,31 @@ const RcvVillageInTable = () => {
                     ReceivingDate: handletimezone(item.recevingDate),
                     Vehicle_No:item.truckNo,
                     vendorName:item.vendorName,
-                    grossWt:formatNumber(item.grossWt),
-                    netWeight:item.netWeight ? item.netWeight : 0 ,
+                    grossWt:Number(item.grossWt)||0,
+                    netWeight:Number(item.netWeight) || 0 ,
                     type:item.type,
                     grade:item.sku,
                     invoice:item.invoice,
                     origin:item.origin,
     
-                    totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
-                    wholes:formatNumber(item.wholes_quantity),
-                    wholes_prcntg:formatNumber(item.wholes_quantity),
-                    lw:formatNumber(item.lw_quantity),
-                    lw_prcntg:formatNumber(item.lw_prcntg),
-                    jb:formatNumber(item.jb_quantity),
-                    jb_prcntg:formatNumber(item.jb_prcntg),
-                    husk:formatNumber(item.husk_quantity),
-                    husk_prcntg:formatNumber(item.husk_prcntg),
-                    jbp:formatNumber(item.jbp_quantity),
-                    jbp_prcntg:formatNumber(item.jbp_prcntg),
-                    sdp:formatNumber(item.sdp_quantity),
-                    sdp_prcntg:formatNumber(item.sdp_prcntg),
-                    pieces:formatNumber(item.pieces_quantity),
-                    pieces_prcntg:formatNumber(item.pieces_prcntg),
-                    Unpeel:formatNumber(item.e1_quantity),
-                    Unpeel_prcntg:formatNumber(item.e1_prcntg),
-                  
-                    Item_Or_Bag_Count:item.quantity,
+                    totalWt:Number(item.totalWt)||0 ,
+                    wholes:Number(item.wholes_quantity)||0,
+                    wholes_prcntg:Number(item.wholes_quantity)||0,
+                    lw:Number(item.lw_quantity)||0,
+                    lw_prcntg:Number(item.lw_prcntg)||0,
+                    jb:Number(item.jb_quantity)||0,
+                    jb_prcntg:Number(item.jb_prcntg)||0,
+                    husk:Number(item.husk_quantity)||0,
+                    husk_prcntg:Number(item.husk_prcntg)||0,
+                    jbp:Number(item.jbp_quantity)||0,
+                    jbp_prcntg:Number(item.jbp_prcntg)||0,
+                    sdp:Number(item.sdp_quantity)||0,
+                    sdp_prcntg:Number(item.sdp_prcntg)||0,
+                    pieces:Number(item.pieces_quantity)||0,
+                    pieces_prcntg:Number(item.pieces_prcntg)||0,
+                    Unpeel:Number(item.e1_quantity)||0,
+                    Unpeel_prcntg:Number(item.e1_prcntg)||0,
+                    Item_Or_Bag_Count:Number(item.quantity)||0,
                     editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
     
                 }));
@@ -344,21 +343,21 @@ const RcvVillageInTable = () => {
                 toDate: todate,origin: originp})
             const data1 = response.data.rcnEntries
             console.log(data1)
-            let ws
+            //let ws
             let transformed: any[] = [];
             transformed = data1.map((item: any,idx:number) => ({
                 id: idx + 1,
                 VlotNo:item.vlotNo,
                 Creation_Date:handletimezone(item.recevingDate),
                 Origin:item.origin,
-                Entry_Weight:formatNumber(item.qty),
-                Actual_Weight:formatNumber(item.actual_qty),
-                Loss_Kg:formatNumber(item.loss),
-                Loss_Prcntg:formatNumber(item.loss_prcntg),
+                Entry_Weight:Number(item.qty)||0,
+                Actual_Weight:Number(item.actual_qty)||0,
+                Loss_Kg:Number(item.loss)||0,
+                Loss_Prcntg:Number(item.loss_prcntg)||0,
                 Created_By:item.createdBy
 
             }))
-            ws = XLSX.utils.json_to_sheet(transformed);
+            const ws = XLSX.utils.json_to_sheet(transformed);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
