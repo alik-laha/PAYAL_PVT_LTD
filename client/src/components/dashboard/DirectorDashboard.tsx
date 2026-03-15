@@ -182,7 +182,7 @@ const DirectorDashboard: React.FC = () => {
 
             <div className="text-3xl mb-3">🏠</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
-             Village In
+             Village In (GatePass)
             </h2>
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
               {data.Ville_Inside_gatepass.Village_In ? formatNumber(Number(data.Ville_Inside_gatepass.Village_In)/1000):0} Ton
@@ -208,7 +208,7 @@ const DirectorDashboard: React.FC = () => {
               {data.village_out_prod ? formatNumber(Number(data.village_out_prod)/1000):0} Ton
             </span>
           </div>
-        <div className={`${tileBase} bg-gradient-to-br from-emerald-400 via-teal-500 to-green-600 shadow-emerald-500/30 shadow-lg`}>
+        {/* <div className={`${tileBase} bg-gradient-to-br from-emerald-400 via-teal-500 to-green-600 shadow-emerald-500/30 shadow-lg`}>
 
             <div className="text-3xl mb-3">🧆</div>
             <h2 className="font-bold text-white text-sm uppercase tracking-wider opacity-90">
@@ -217,7 +217,7 @@ const DirectorDashboard: React.FC = () => {
             <span className="text-2xl font-extrabold text-white mt-2 drop-shadow-lg">
               {data.village_pending ? formatNumber(Number(data.village_pending)/1000):0} Ton
             </span>
-          </div>
+          </div> */}
            <div className={`${tileBase} bg-gradient-to-br from-blue-400 via-cyan-500 to-blue-600 shadow-blue-500/30 shadow-lg`}>
 
             <div className="text-3xl mb-3">🧆</div>

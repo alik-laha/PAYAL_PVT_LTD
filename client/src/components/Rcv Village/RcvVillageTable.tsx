@@ -236,15 +236,15 @@ const RcvVillageTable = () => {
                 ReceivingDate: handletimezone(item.recevingDate),
                 Vehicle_No:item.truckNo,
                 vendorName:item.vendorName,
-                grossWt:formatNumber(item.grossWt),
-                netWeight:item.netWeight ? item.netWeight : 0 ,
+                grossWt:Number(item.grossWt)||0,
+                netWeight: Number(item.netWeight) || 0 ,
                 type:item.type,
                 grade:item.sku,
                 invoice:item.invoice,
            
-                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
+                totalWt:Number(item.totalWt)||0 ,
     
-                Item_Or_Bag_Count:item.quantity,
+                Item_Or_Bag_Count:Number(item.quantity)||0,
                 editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
             }));
             ws = XLSX.utils.json_to_sheet(transformed);
@@ -257,15 +257,15 @@ const RcvVillageTable = () => {
                 ReceivingDate: handletimezone(item.recevingDate),
                 Vehicle_No:item.truckNo,
                 vendorName:item.vendorName,
-                grossWt:formatNumber(item.grossWt),
-                netWeight:item.netWeight ? item.netWeight : 0 ,
+                grossWt:Number(item.grossWt)||0,
+                netWeight:Number(item.netWeight)|| 0 ,
                 type:item.type,
                 grade:item.sku,
                 invoice:item.invoice,
              
-                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
+                totalWt:Number(item.totalWt)||0 ,
               
-                Item_Or_Bag_Count:item.quantity,
+                Item_Or_Bag_Count:Number(item.quantity)||0,
                 editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
 
             }));
