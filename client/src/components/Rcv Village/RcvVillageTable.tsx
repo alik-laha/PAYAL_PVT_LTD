@@ -244,7 +244,7 @@ const RcvVillageTable = () => {
            
                 totalWt:Number(item.totalWt)||0 ,
     
-                Item_Or_Bag_Count:Number(item.quantity)||0,
+                Item_Or_Bag_Count:item.quantity,
                 editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
             }));
             ws = XLSX.utils.json_to_sheet(transformed);
@@ -265,7 +265,7 @@ const RcvVillageTable = () => {
              
                 totalWt:Number(item.totalWt)||0 ,
               
-                Item_Or_Bag_Count:Number(item.quantity)||0,
+                Item_Or_Bag_Count:item.quantity,
                 editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
 
             }));
