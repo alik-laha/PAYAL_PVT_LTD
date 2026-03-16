@@ -278,6 +278,7 @@ const RCNBoilingTable = (props:any) => {
                 Lot_No: item.LotNo,
                 Entry_Date: handletimezone(item.date),  
                 Boiling_Qty: Number(item.quantity) || 0,
+                Boiling_Bag: Number(item.quantity)/80 || 0,
                 Labour: item.noOfEmployees,
                 Created_By:item.CreatedBy
                  }));
@@ -772,6 +773,7 @@ const RCNBoilingTable = (props:any) => {
                     <TableHead className="text-center " >Boiling⠀Lot⠀No</TableHead>
                     <TableHead className="text-center " >Boiling⠀Date</TableHead>
                     <TableHead className="text-center" >Boiling⠀Quantity⠀(Kg)</TableHead>
+                    <TableHead className="text-center" >Boiling⠀Quantity⠀(Bag)</TableHead>
                     <TableHead className="text-center" >No⠀of⠀Labour</TableHead>
                     <TableHead className="text-center" >Created⠀By</TableHead>
                     
@@ -812,6 +814,7 @@ const RCNBoilingTable = (props:any) => {
                                     <TableCell className="text-center font-bold text-cyan-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-bold ">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center ">{item.quantity} Kg</TableCell>
+                                    <TableCell className="text-center ">{(Number(item.quantity)/80).toFixed(2)} Bag</TableCell>
                                      <TableCell className="text-center ">{item.noOfEmployees} </TableCell>
                                      <TableCell className="text-center ">{item.CreatedBy} </TableCell>
                                     

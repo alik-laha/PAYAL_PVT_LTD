@@ -159,8 +159,8 @@ const QCOnlineScoopingTable = () => {
         <TableHeader className="bg-neutral-100 text-stone-950 ">
           <TableHead className="text-center">Id</TableHead>
           <TableHead className="text-center">Action</TableHead>
-          <TableHead className="text-center">Date</TableHead>
-          <TableHead className="text-center">Time</TableHead>
+          <TableHead className="text-center">Testing Date</TableHead>
+          <TableHead className="text-center">Testing Time</TableHead>
           <TableHead className="text-center">Cashew % In Husk </TableHead>
           <TableHead className="text-center">Oil Contain Status</TableHead>
           <TableHead className="text-center">Sieve Cleaning Status</TableHead>
