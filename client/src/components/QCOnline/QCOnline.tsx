@@ -60,6 +60,7 @@ import DashboardFooter from "../dashboard/DashboardFooter";
 import axios from "axios";
 import QcKORInitial from './qcKORInitial'
 import { FaHistory } from "react-icons/fa";
+import QCProductionKORTable from "./QCKORTable";
 
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
@@ -288,6 +289,7 @@ const QCOnline = () => {
            
           </div> */}
 
+          <div style={{ display: maintable }}>
           {tablesection==='BOILER' && <QCOnlineBoilerTable />}
           {tablesection==='GRADING' && <QCOnlineGradingTable />}
           {tablesection==='BOILING' && <QCOnlineBoilingTable />}
@@ -301,6 +303,12 @@ const QCOnline = () => {
            {tablesection==='POUCH' && <QCOnlinePouchTable />}
            {tablesection==='BUCKET' && <QCOnlineBucketTable />}
            {tablesection==='HAND_GRADE' && <QCOnlineHandGradeTable />}
+          </div>
+            <div style={{ display: kortable }}>
+              <QCProductionKORTable/>
+            </div>
+
+        
         </div>
         <DashboardFooter/>
       </div>
