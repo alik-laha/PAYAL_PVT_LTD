@@ -99,7 +99,47 @@ const LWInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_mayur && item.rcv_hamsa && item.rcv_wholes && ((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+
+                                if(item.LotNo.includes('V')|| item.LotNo.includes('R')){
+                                    if(parseFloat(item.current_backlog)>0){
+                                        return(
+                                            <TableRow key={idx}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">
+                                            {item.LotNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">
+                                            {item.origin}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold ">
+                                        {formatNumber(item.current_backlog)} Kg
+                                        </TableCell>
+                                        
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                          <DialogContent className='max-w-screen'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>LW Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <LWCreateForm borma={bormaData}/>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </TableCell>
+
+                                    </TableRow>
+                                        )
+                                    }
+
+
+                                }
+                                else{
+                                    if(item.rcv_mayur && item.rcv_hamsa && item.rcv_wholes && ((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
                               (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) 
                               )>0){
@@ -136,6 +176,8 @@ const LWInitial = (props: any) => {
                                     </TableRow>
                                 );
                               }
+                                }
+                              
                              
                                 
                             })

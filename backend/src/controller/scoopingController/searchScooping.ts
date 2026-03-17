@@ -44,6 +44,13 @@ const SearchScooping = async (req: Request, res: Response) => {
            
 
         }
+        else{
+           whereClause.push({
+                    LotNo: {
+                        [Op.notLike]:  '%999%'
+                    }
+                }); 
+        }
         if (origin) {
             whereClause.push({
                 origin
