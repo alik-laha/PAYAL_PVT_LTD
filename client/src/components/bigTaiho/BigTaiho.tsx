@@ -26,6 +26,7 @@ import BigTaihoInitial from './BigTaihoInitial';
 import { MdPendingActions } from 'react-icons/md';
 import PendingBacklog from '../common/PendingBacklog';
 import DashboardFooter from '../dashboard/DashboardFooter';
+import { FaHistory } from 'react-icons/fa';
 
 
 
@@ -179,7 +180,7 @@ const BigTaiho = () => {
                     </Dialog>
 
 
-                    {checkpending('BigTaiho') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust drop-shadow-md" onClick={handleEditFetch} disabled={data.EditData===0? true:false}> Pending Edit ({data.EditData})</Button> }
+                   
 
 
                      {checkpending('BigTaiho') && (data?.EditData ?? 0) > 0 && <Drawer>
@@ -221,7 +222,7 @@ const BigTaiho = () => {
                     
                                             </DrawerContent>
                                         </Drawer>}
-                    <Button className="bg-slate-400 mb-2 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch} > {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
+                  <Button className="w-25 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'History':'Main Entry '}<FaHistory size={16} className='ml-2'/></Button>
 
                      { (data?.PendingData ?? 0) > 0 && <Dialog>
                         <DialogTrigger>

@@ -105,7 +105,7 @@ const BigTaihoInitial = (props: any) => {
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Current_Backlog</TableHead>
+                        <TableHead className="text-center" >Current⠀Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
 
