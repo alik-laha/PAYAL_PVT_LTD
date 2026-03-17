@@ -1993,3 +1993,77 @@ export const CreateEntireQCKOR = async (req: Request, res: Response) => {
 
 
 }
+
+export const SearchKOR = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string, 10) || 0;
+    const size = parseInt(req.query.limit as string, 10) || 0;
+    const { fromDate, toDate } = req.body;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    let whereClause: any[] = [];
+
+    if (fromDate && toDate) {
+      whereClause.push({
+        date: {
+          [Op.between]: [fromDate, toDate],
+        },
+      });
+    }
+
+    whereClause.push({
+        BormaStatus: 1
+      });
+
+    const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+
+    let taihoEntries;
+    if (limit === 0 && offset === 0) {
+      taihoEntries = await qcKOR.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+      });
+    } else {
+      taihoEntries = await qcKOR.findAll({
+        where,
+        order: [["id", "DESC"], ["date", "DESC"]],
+        limit,
+        offset,
+      });
+    }
+
+    return res.status(200).json(taihoEntries);
+  } catch (err) {
+    console.error("Error in Search KOR:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};
+
+export const editKOR = async (req: Request, res: Response) => {
+  try {
+    
+    const qcBormaLoss  = req.body.qcBormaLoss;
+    const qcKOR2=  req.body.qcKOR
+    const id= req.params.id 
+    const modifiedBy=req.cookies.user
+
+    await qcKOR.update(
+      {
+        qcKOR:qcKOR2,
+        qcBormaLoss,
+        modifiedBy: modifiedBy
+      },
+      {
+        where: { id }
+      }
+    )
+
+    res.status(200).json({ message: "Updated Successfully" })
+
+  } catch (err) {
+    console.error("Error in Edit KOR:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};

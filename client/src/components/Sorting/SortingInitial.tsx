@@ -90,7 +90,7 @@ const SortingInitial = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="mx-2 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -107,7 +107,7 @@ const SortingInitial = (props: any) => {
                             props.props.map((item: lotPropsdata, idx: number) => {
 
 
-                                if(item.LotNo.includes('V')){
+                                if(item.LotNo.includes('V')|| item.LotNo.includes('R')){
                                     if(parseFloat(item.current_backlog)>0){
                                       return (
                                           <TableRow key={idx}>

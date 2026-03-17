@@ -60,7 +60,7 @@ import SortingEditForm from "./SortingEdit";
 
 
 
-const SortingTable = () => {
+const SortingTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -108,790 +108,990 @@ const SortingTable = () => {
             return prev
         })
     }, [page])
+    // const exportToExcel = async () => {
+
+    //     if (searchType === 'LOT') {
+    //         const response = await axios.put('/api/sorting/sortingprimarysearch', {
+    //             searchitem: blConNo,
+    //             fromDate: fromdate,
+    //             toDate: todate,
+    //             origin: origin,
+    //             type: 'LOT'
+    //         })
+    //         const data1 = await response.data
+
+    //         let ws
+    //         let transformed: any[] = [];
+    //         if (EditData.length > 0) {
+    //             transformed = EditData.map((item: SortingData, idx: number) => ({
+    //                 Sl_No: idx + 1,
+    //                 Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+    //                 Item_Lot_No: item.LotNo,
+    //                 Origin: item.origin,
+    //                 Issue_No: item.altid,
+    //                 Sorting_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,
+    //                 Opening_JJH: formatNumber(item.rcv_jjh),
+    //                 Opening_SJH: formatNumber(item.rcv_sjh),
+    //                 Opening_SJH1: formatNumber(item.rcv_sjh1),
+    //                 Opening_JK_K: formatNumber(item.rcv_jk_k),
+    //                 Opening_JH1: formatNumber(item.rcv_jh1),
+    //                 Opening_SP1: formatNumber(item.rcv_sp1),
+    //                 Borma_JJH: formatNumber(item.issue_add_4),
+    //                 Borma_SJH: formatNumber(item.issue_add_5),
+    //                 Borma_SJH1: formatNumber(item.issue_add_6),
+    //                 Borma_JK_K: formatNumber(item.issue_add_8),
+    //                 Borma_JH1: formatNumber(item.issue_add_7),
+    //                 Borma_SP1: formatNumber(item.issue_add_9),
+    //                 Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
+    //                     + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
+    //                 Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
+    //                     Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
+    //                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
+    //                     + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
+    //                 issue_SJH: formatNumber(item.issue_sjh),
+    //                 issue_JJH: formatNumber(item.issue_jjh),
+    //                 issue_JJH1: formatNumber(item.issue_jjh1),
+    //                 issue_jk: formatNumber(item.issue_jk),
+    //                 issue_jk1: formatNumber(item.issue_jk1),
+    //                 issue_k: formatNumber(item.issue_k),
+    //                 issue_k1: formatNumber(item.issue_k1),
+    //                 issue_lwp: formatNumber(item.issue_lwp),
+    //                 issue_lwp1: formatNumber(item.issue_lwp1),
+    //                 issue_s: formatNumber(item.issue_s),
+    //                 issue_ss: formatNumber(item.issue_ss),
+    //                 issue_yk: formatNumber(item.issue_yk),
+    //                 issue_sp2: formatNumber(item.issue_sp2),
+    //                 issue_kp: formatNumber(item.issue_kp),
+
+    //                 issue_in_k: formatNumber(item.issue_in_k),
+    //                 issue_in_jh: formatNumber(item.issue_in_jh),
+    //                 issue_V_sjh: formatNumber(item.issue_V_sjh),
+    //                 issue_V_k: formatNumber(item.issue_V_k),
+    //                 issue_V_k1: formatNumber(item.issue_V_k1),
+    //                 issue_V_lwp: formatNumber(item.issue_V_lwp),
+    //                 issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+    //                 issue_V_jk: formatNumber(item.issue_V_jk),
+    //                 issue_V_jk1: formatNumber(item.issue_V_jk1),
+    //                 issue_V_ss: formatNumber(item.issue_V_ss),
+    //                 issue_V_sp: formatNumber(item.issue_V_sp),
+    //                 issue_V_sp2: formatNumber(item.issue_V_sp2),
+    //                 issue_V_jh1: formatNumber(item.issue_V_jh1),
+    //                 issue_V_yk: formatNumber(item.issue_V_yk),
+    //                 issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+    //                 issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+    //                 issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+    //                 issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+    //                 issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+    //                 issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+    //                 issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+    //                 issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+    //                 issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+    //                 issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+    //                 issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
+    //                 Issue_Packing: formatNumber((
+    //                     parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
+    //                     parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
+    //                     parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
+    //                     parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
+    //                     parseFloat(item.issue_in_jh) +
+    //                     parseFloat(item.issue_V_sjh) +
+    //                     parseFloat(item.issue_V_k) +
+    //                     parseFloat(item.issue_V_k1) +
+    //                     parseFloat(item.issue_V_lwp) +
+    //                     parseFloat(item.issue_V_lwp1) +
+    //                     parseFloat(item.issue_V_jk) +
+    //                     parseFloat(item.issue_V_jk1) +
+    //                     parseFloat(item.issue_V_ss) +
+    //                     parseFloat(item.issue_V_sp) +
+    //                     parseFloat(item.issue_V_sp2) +
+    //                     parseFloat(item.issue_V_jh1) +
+    //                     parseFloat(item.issue_V_yk) +
+    //                     parseFloat(item.issue_V_m_jk1) +
+    //                     parseFloat(item.issue_ext_grade_1) +
+    //                     parseFloat(item.issue_ext_grade_2) +
+    //                     parseFloat(item.issue_ext_grade_3) +
+    //                     parseFloat(item.issue_ext_grade_4) +
+    //                     parseFloat(item.issue_ext_grade_5) +
+    //                     parseFloat(item.issue_ext_grade_6) +
+    //                     parseFloat(item.issue_ext_grade_7) +
+    //                     parseFloat(item.issue_ext_grade_8) +
+    //                     parseFloat(item.issue_ext_grade_9) +
+    //                     parseFloat(item.issue_ext_grade_10)
+    //                 ).toString()),
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_mayur: formatNumber(item.issue_mayur),
+    //                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+    //                 issue_dpds: formatNumber(item.issue_dpds),
+    //                 issue_rejection: formatNumber(item.issue_rejection),
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+    //                 Labour: item.noOfdayOperators,
+
+
+    //                 Edit_Status: item.editStatus,
+    //                 Created_By: item.CreatedBy,
+    //                 Modified_By: item.modifiedBy
+
+    //             }));
+    //             //setTransformedData(transformed);
+    //             ws = XLSX.utils.json_to_sheet(transformed);
+    //         }
+    //         else {
+    //             transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
+    //                 Sl_No: idx + 1,
+    //                 Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+    //                 Item_Lot_No: item.LotNo,
+    //                 Origin: item.origin,
+    //                 Issue_No: item.altid,
+    //                 Sorting_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,
+    //                 Opening_JJH: formatNumber(item.rcv_jjh),
+    //                 Opening_SJH: formatNumber(item.rcv_sjh),
+    //                 Opening_SJH1: formatNumber(item.rcv_sjh1),
+    //                 Opening_JK_K: formatNumber(item.rcv_jk_k),
+    //                 Opening_JH1: formatNumber(item.rcv_jh1),
+    //                 Opening_SP1: formatNumber(item.rcv_sp1),
+    //                 Borma_JJH: formatNumber(item.issue_add_4),
+    //                 Borma_SJH: formatNumber(item.issue_add_5),
+    //                 Borma_SJH1: formatNumber(item.issue_add_6),
+    //                 Borma_JK_K: formatNumber(item.issue_add_8),
+    //                 Borma_JH1: formatNumber(item.issue_add_7),
+    //                 Borma_SP1: formatNumber(item.issue_add_9),
+    //                 Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
+    //                     + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
+    //                 Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
+    //                     Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
+    //                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
+    //                     + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
+    //                 issue_SJH: formatNumber(item.issue_sjh),
+    //                 issue_JJH: formatNumber(item.issue_jjh),
+    //                 issue_JJH1: formatNumber(item.issue_jjh1),
+    //                 issue_jk: formatNumber(item.issue_jk),
+    //                 issue_jk1: formatNumber(item.issue_jk1),
+    //                 issue_k: formatNumber(item.issue_k),
+    //                 issue_k1: formatNumber(item.issue_k1),
+    //                 issue_lwp: formatNumber(item.issue_lwp),
+    //                 issue_lwp1: formatNumber(item.issue_lwp1),
+    //                 issue_s: formatNumber(item.issue_s),
+    //                 issue_ss: formatNumber(item.issue_ss),
+    //                 issue_yk: formatNumber(item.issue_yk),
+    //                 issue_sp2: formatNumber(item.issue_sp2),
+    //                 issue_kp: formatNumber(item.issue_kp),
+
+    //                 issue_in_k: formatNumber(item.issue_in_k),
+    //                 issue_in_jh: formatNumber(item.issue_in_jh),
+    //                 issue_V_sjh: formatNumber(item.issue_V_sjh),
+    //                 issue_V_k: formatNumber(item.issue_V_k),
+    //                 issue_V_k1: formatNumber(item.issue_V_k1),
+    //                 issue_V_lwp: formatNumber(item.issue_V_lwp),
+    //                 issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+    //                 issue_V_jk: formatNumber(item.issue_V_jk),
+    //                 issue_V_jk1: formatNumber(item.issue_V_jk1),
+    //                 issue_V_ss: formatNumber(item.issue_V_ss),
+    //                 issue_V_sp: formatNumber(item.issue_V_sp),
+    //                 issue_V_sp2: formatNumber(item.issue_V_sp2),
+    //                 issue_V_jh1: formatNumber(item.issue_V_jh1),
+    //                 issue_V_yk: formatNumber(item.issue_V_yk),
+    //                 issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+    //                 issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+    //                 issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+    //                 issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+    //                 issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+    //                 issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+    //                 issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+    //                 issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+    //                 issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+    //                 issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+    //                 issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
+    //                 Issue_Packing: formatNumber((
+    //                     parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
+    //                     parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
+    //                     parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
+    //                     parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
+    //                     parseFloat(item.issue_in_jh) +
+    //                     parseFloat(item.issue_V_sjh) +
+    //                     parseFloat(item.issue_V_k) +
+    //                     parseFloat(item.issue_V_k1) +
+    //                     parseFloat(item.issue_V_lwp) +
+    //                     parseFloat(item.issue_V_lwp1) +
+    //                     parseFloat(item.issue_V_jk) +
+    //                     parseFloat(item.issue_V_jk1) +
+    //                     parseFloat(item.issue_V_ss) +
+    //                     parseFloat(item.issue_V_sp) +
+    //                     parseFloat(item.issue_V_sp2) +
+    //                     parseFloat(item.issue_V_jh1) +
+    //                     parseFloat(item.issue_V_yk) +
+    //                     parseFloat(item.issue_V_m_jk1) +
+    //                     parseFloat(item.issue_ext_grade_1) +
+    //                     parseFloat(item.issue_ext_grade_2) +
+    //                     parseFloat(item.issue_ext_grade_3) +
+    //                     parseFloat(item.issue_ext_grade_4) +
+    //                     parseFloat(item.issue_ext_grade_5) +
+    //                     parseFloat(item.issue_ext_grade_6) +
+    //                     parseFloat(item.issue_ext_grade_7) +
+    //                     parseFloat(item.issue_ext_grade_8) +
+    //                     parseFloat(item.issue_ext_grade_9) +
+    //                     parseFloat(item.issue_ext_grade_10)
+    //                 ).toString()),
+
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_mayur: formatNumber(item.issue_mayur),
+    //                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+    //                 issue_dpds: formatNumber(item.issue_dpds),
+    //                 issue_rejection: formatNumber(item.issue_rejection),
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+    //                 Labour: item.noOfdayOperators,
+
+    //                 Edit_Status: item.editStatus,
+    //                 Created_By: item.CreatedBy,
+    //                 Modified_By: item.modifiedBy
+
+    //             }));
+    //             // setTransformedData(transformed);
+    //             ws = XLSX.utils.json_to_sheet(transformed);
+    //         }
+    //         const wb = XLSX.utils.book_new();
+    //         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //         const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //         saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
+    //     }
+    //     else if (searchType === 'R-LOT') {
+    //         const response = await axios.put('/api/sorting/sortingprimarysearch', {
+    //             searchitem: blConNo,
+    //             fromDate: fromdate,
+    //             toDate: todate,
+    //             origin: origin,
+    //             type: 'RLOT'
+    //         })
+    //         const data1 = await response.data
+
+    //         let ws
+    //         let transformed: any[] = [];
+    //         if (EditData.length > 0) {
+    //             transformed = EditData.map((item: SortingData, idx: number) => ({
+    //                 Sl_No: idx + 1,
+    //                 Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+    //                 Item_Lot_No: item.LotNo,
+    //                 Origin: item.origin,
+    //                 Issue_No: item.altid,
+    //                 Sorting_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,
+    //                 Opening_JJH: formatNumber(item.rcv_jjh),
+    //                 Opening_SJH: formatNumber(item.rcv_sjh),
+    //                 Opening_SJH1: formatNumber(item.rcv_sjh1),
+    //                 Opening_JK_K: formatNumber(item.rcv_jk_k),
+    //                 Opening_JH1: formatNumber(item.rcv_jh1),
+    //                 Opening_SP1: formatNumber(item.rcv_sp1),
+    //                 Borma_JJH: formatNumber(item.issue_add_4),
+    //                 Borma_SJH: formatNumber(item.issue_add_5),
+    //                 Borma_SJH1: formatNumber(item.issue_add_6),
+    //                 Borma_JK_K: formatNumber(item.issue_add_8),
+    //                 Borma_JH1: formatNumber(item.issue_add_7),
+    //                 Borma_SP1: formatNumber(item.issue_add_9),
+    //                 Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
+    //                     + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
+    //                 Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
+    //                     Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
+    //                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
+    //                     + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
+    //                 issue_SJH: formatNumber(item.issue_sjh),
+    //                 issue_JJH: formatNumber(item.issue_jjh),
+    //                 issue_JJH1: formatNumber(item.issue_jjh1),
+    //                 issue_jk: formatNumber(item.issue_jk),
+    //                 issue_jk1: formatNumber(item.issue_jk1),
+    //                 issue_k: formatNumber(item.issue_k),
+    //                 issue_k1: formatNumber(item.issue_k1),
+    //                 issue_lwp: formatNumber(item.issue_lwp),
+    //                 issue_lwp1: formatNumber(item.issue_lwp1),
+    //                 issue_s: formatNumber(item.issue_s),
+    //                 issue_ss: formatNumber(item.issue_ss),
+    //                 issue_yk: formatNumber(item.issue_yk),
+    //                 issue_sp2: formatNumber(item.issue_sp2),
+    //                 issue_kp: formatNumber(item.issue_kp),
+
+    //                 issue_in_k: formatNumber(item.issue_in_k),
+    //                 issue_in_jh: formatNumber(item.issue_in_jh),
+    //                 issue_V_sjh: formatNumber(item.issue_V_sjh),
+    //                 issue_V_k: formatNumber(item.issue_V_k),
+    //                 issue_V_k1: formatNumber(item.issue_V_k1),
+    //                 issue_V_lwp: formatNumber(item.issue_V_lwp),
+    //                 issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+    //                 issue_V_jk: formatNumber(item.issue_V_jk),
+    //                 issue_V_jk1: formatNumber(item.issue_V_jk1),
+    //                 issue_V_ss: formatNumber(item.issue_V_ss),
+    //                 issue_V_sp: formatNumber(item.issue_V_sp),
+    //                 issue_V_sp2: formatNumber(item.issue_V_sp2),
+    //                 issue_V_jh1: formatNumber(item.issue_V_jh1),
+    //                 issue_V_yk: formatNumber(item.issue_V_yk),
+    //                 issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+    //                 issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+    //                 issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+    //                 issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+    //                 issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+    //                 issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+    //                 issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+    //                 issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+    //                 issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+    //                 issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+    //                 issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
+    //                 Issue_Packing: formatNumber((
+    //                     parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
+    //                     parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
+    //                     parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
+    //                     parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
+    //                     parseFloat(item.issue_in_jh) +
+    //                     parseFloat(item.issue_V_sjh) +
+    //                     parseFloat(item.issue_V_k) +
+    //                     parseFloat(item.issue_V_k1) +
+    //                     parseFloat(item.issue_V_lwp) +
+    //                     parseFloat(item.issue_V_lwp1) +
+    //                     parseFloat(item.issue_V_jk) +
+    //                     parseFloat(item.issue_V_jk1) +
+    //                     parseFloat(item.issue_V_ss) +
+    //                     parseFloat(item.issue_V_sp) +
+    //                     parseFloat(item.issue_V_sp2) +
+    //                     parseFloat(item.issue_V_jh1) +
+    //                     parseFloat(item.issue_V_yk) +
+    //                     parseFloat(item.issue_V_m_jk1) +
+    //                     parseFloat(item.issue_ext_grade_1) +
+    //                     parseFloat(item.issue_ext_grade_2) +
+    //                     parseFloat(item.issue_ext_grade_3) +
+    //                     parseFloat(item.issue_ext_grade_4) +
+    //                     parseFloat(item.issue_ext_grade_5) +
+    //                     parseFloat(item.issue_ext_grade_6) +
+    //                     parseFloat(item.issue_ext_grade_7) +
+    //                     parseFloat(item.issue_ext_grade_8) +
+    //                     parseFloat(item.issue_ext_grade_9) +
+    //                     parseFloat(item.issue_ext_grade_10)
+    //                 ).toString()),
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_mayur: formatNumber(item.issue_mayur),
+    //                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+    //                 issue_dpds: formatNumber(item.issue_dpds),
+    //                 issue_rejection: formatNumber(item.issue_rejection),
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+    //                 Labour: item.noOfdayOperators,
+
+
+    //                 Edit_Status: item.editStatus,
+    //                 Created_By: item.CreatedBy,
+    //                 Modified_By: item.modifiedBy
+
+    //             }));
+    //             //setTransformedData(transformed);
+    //             ws = XLSX.utils.json_to_sheet(transformed);
+    //         }
+    //         else {
+    //             transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
+    //                 Sl_No: idx + 1,
+    //                 Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+    //                 Item_Lot_No: item.LotNo,
+    //                 Origin: item.origin,
+    //                 Issue_No: item.altid,
+    //                 Sorting_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,
+    //                 Opening_JJH: formatNumber(item.rcv_jjh),
+    //                 Opening_SJH: formatNumber(item.rcv_sjh),
+    //                 Opening_SJH1: formatNumber(item.rcv_sjh1),
+    //                 Opening_JK_K: formatNumber(item.rcv_jk_k),
+    //                 Opening_JH1: formatNumber(item.rcv_jh1),
+    //                 Opening_SP1: formatNumber(item.rcv_sp1),
+    //                 Borma_JJH: formatNumber(item.issue_add_4),
+    //                 Borma_SJH: formatNumber(item.issue_add_5),
+    //                 Borma_SJH1: formatNumber(item.issue_add_6),
+    //                 Borma_JK_K: formatNumber(item.issue_add_8),
+    //                 Borma_JH1: formatNumber(item.issue_add_7),
+    //                 Borma_SP1: formatNumber(item.issue_add_9),
+    //                 Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
+    //                     + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
+    //                 Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
+    //                     Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
+    //                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
+    //                     + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
+    //                 issue_SJH: formatNumber(item.issue_sjh),
+    //                 issue_JJH: formatNumber(item.issue_jjh),
+    //                 issue_JJH1: formatNumber(item.issue_jjh1),
+    //                 issue_jk: formatNumber(item.issue_jk),
+    //                 issue_jk1: formatNumber(item.issue_jk1),
+    //                 issue_k: formatNumber(item.issue_k),
+    //                 issue_k1: formatNumber(item.issue_k1),
+    //                 issue_lwp: formatNumber(item.issue_lwp),
+    //                 issue_lwp1: formatNumber(item.issue_lwp1),
+    //                 issue_s: formatNumber(item.issue_s),
+    //                 issue_ss: formatNumber(item.issue_ss),
+    //                 issue_yk: formatNumber(item.issue_yk),
+    //                 issue_sp2: formatNumber(item.issue_sp2),
+    //                 issue_kp: formatNumber(item.issue_kp),
+
+    //                 issue_in_k: formatNumber(item.issue_in_k),
+    //                 issue_in_jh: formatNumber(item.issue_in_jh),
+    //                 issue_V_sjh: formatNumber(item.issue_V_sjh),
+    //                 issue_V_k: formatNumber(item.issue_V_k),
+    //                 issue_V_k1: formatNumber(item.issue_V_k1),
+    //                 issue_V_lwp: formatNumber(item.issue_V_lwp),
+    //                 issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+    //                 issue_V_jk: formatNumber(item.issue_V_jk),
+    //                 issue_V_jk1: formatNumber(item.issue_V_jk1),
+    //                 issue_V_ss: formatNumber(item.issue_V_ss),
+    //                 issue_V_sp: formatNumber(item.issue_V_sp),
+    //                 issue_V_sp2: formatNumber(item.issue_V_sp2),
+    //                 issue_V_jh1: formatNumber(item.issue_V_jh1),
+    //                 issue_V_yk: formatNumber(item.issue_V_yk),
+    //                 issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+    //                 issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+    //                 issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+    //                 issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+    //                 issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+    //                 issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+    //                 issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+    //                 issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+    //                 issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+    //                 issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+    //                 issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
+    //                 Issue_Packing: formatNumber((
+    //                     parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
+    //                     parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
+    //                     parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
+    //                     parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
+    //                     parseFloat(item.issue_in_jh) +
+    //                     parseFloat(item.issue_V_sjh) +
+    //                     parseFloat(item.issue_V_k) +
+    //                     parseFloat(item.issue_V_k1) +
+    //                     parseFloat(item.issue_V_lwp) +
+    //                     parseFloat(item.issue_V_lwp1) +
+    //                     parseFloat(item.issue_V_jk) +
+    //                     parseFloat(item.issue_V_jk1) +
+    //                     parseFloat(item.issue_V_ss) +
+    //                     parseFloat(item.issue_V_sp) +
+    //                     parseFloat(item.issue_V_sp2) +
+    //                     parseFloat(item.issue_V_jh1) +
+    //                     parseFloat(item.issue_V_yk) +
+    //                     parseFloat(item.issue_V_m_jk1) +
+    //                     parseFloat(item.issue_ext_grade_1) +
+    //                     parseFloat(item.issue_ext_grade_2) +
+    //                     parseFloat(item.issue_ext_grade_3) +
+    //                     parseFloat(item.issue_ext_grade_4) +
+    //                     parseFloat(item.issue_ext_grade_5) +
+    //                     parseFloat(item.issue_ext_grade_6) +
+    //                     parseFloat(item.issue_ext_grade_7) +
+    //                     parseFloat(item.issue_ext_grade_8) +
+    //                     parseFloat(item.issue_ext_grade_9) +
+    //                     parseFloat(item.issue_ext_grade_10)
+    //                 ).toString()),
+
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_mayur: formatNumber(item.issue_mayur),
+    //                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+    //                 issue_dpds: formatNumber(item.issue_dpds),
+    //                 issue_rejection: formatNumber(item.issue_rejection),
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+    //                 Labour: item.noOfdayOperators,
+
+    //                 Edit_Status: item.editStatus,
+    //                 Created_By: item.CreatedBy,
+    //                 Modified_By: item.modifiedBy
+
+    //             }));
+    //             // setTransformedData(transformed);
+    //             ws = XLSX.utils.json_to_sheet(transformed);
+    //         }
+    //         const wb = XLSX.utils.book_new();
+    //         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //         const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //         saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
+    //     }
+    //     else {
+    //         const response = await axios.put('/api/sorting/sortingprimarysearch', {
+    //             searchitem: blConNo,
+    //             fromDate: fromdate,
+    //             toDate: todate,
+    //             origin: origin,
+    //             type: 'VLOT'
+    //         })
+    //         const data1 = await response.data
+
+    //         let ws
+    //         let transformed: any[] = [];
+    //         if (EditData.length > 0) {
+    //             transformed = EditData.map((item: SortingData, idx: number) => ({
+    //                 Sl_No: idx + 1,
+    //                 Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+    //                 Item_Lot_No: item.LotNo,
+    //                 Origin: item.origin,
+    //                 Issue_No: item.altid,
+    //                 Sorting_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,
+    //                 Opening_JJH: formatNumber(item.rcv_jjh),
+    //                 Opening_SJH: formatNumber(item.rcv_sjh),
+    //                 Opening_SJH1: formatNumber(item.rcv_sjh1),
+    //                 Opening_JK_K: formatNumber(item.rcv_jk_k),
+    //                 Opening_JH1: formatNumber(item.rcv_jh1),
+    //                 Opening_SP1: formatNumber(item.rcv_sp1),
+    //                 Borma_JJH: formatNumber(item.issue_add_4),
+    //                 Borma_SJH: formatNumber(item.issue_add_5),
+    //                 Borma_SJH1: formatNumber(item.issue_add_6),
+    //                 Borma_JK_K: formatNumber(item.issue_add_8),
+    //                 Borma_JH1: formatNumber(item.issue_add_7),
+    //                 Borma_SP1: formatNumber(item.issue_add_9),
+    //                 Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
+    //                     + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
+    //                 Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
+    //                     Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
+    //                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
+    //                     + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
+    //                 issue_SJH: formatNumber(item.issue_sjh),
+    //                 issue_JJH: formatNumber(item.issue_jjh),
+    //                 issue_JJH1: formatNumber(item.issue_jjh1),
+    //                 issue_jk: formatNumber(item.issue_jk),
+    //                 issue_jk1: formatNumber(item.issue_jk1),
+    //                 issue_k: formatNumber(item.issue_k),
+    //                 issue_k1: formatNumber(item.issue_k1),
+    //                 issue_lwp: formatNumber(item.issue_lwp),
+    //                 issue_lwp1: formatNumber(item.issue_lwp1),
+    //                 issue_s: formatNumber(item.issue_s),
+    //                 issue_ss: formatNumber(item.issue_ss),
+    //                 issue_yk: formatNumber(item.issue_yk),
+    //                 issue_sp2: formatNumber(item.issue_sp2),
+    //                 issue_kp: formatNumber(item.issue_kp),
+
+    //                 issue_in_k: formatNumber(item.issue_in_k),
+    //                 issue_in_jh: formatNumber(item.issue_in_jh),
+    //                 issue_V_sjh: formatNumber(item.issue_V_sjh),
+    //                 issue_V_k: formatNumber(item.issue_V_k),
+    //                 issue_V_k1: formatNumber(item.issue_V_k1),
+    //                 issue_V_lwp: formatNumber(item.issue_V_lwp),
+    //                 issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+    //                 issue_V_jk: formatNumber(item.issue_V_jk),
+    //                 issue_V_jk1: formatNumber(item.issue_V_jk1),
+    //                 issue_V_ss: formatNumber(item.issue_V_ss),
+    //                 issue_V_sp: formatNumber(item.issue_V_sp),
+    //                 issue_V_sp2: formatNumber(item.issue_V_sp2),
+    //                 issue_V_jh1: formatNumber(item.issue_V_jh1),
+    //                 issue_V_yk: formatNumber(item.issue_V_yk),
+    //                 issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+    //                 issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+    //                 issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+    //                 issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+    //                 issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+    //                 issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+    //                 issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+    //                 issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+    //                 issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+    //                 issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+    //                 issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
+    //                 Issue_Packing: formatNumber((
+    //                     parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
+    //                     parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
+    //                     parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
+    //                     parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
+    //                     parseFloat(item.issue_in_jh) +
+    //                     parseFloat(item.issue_V_sjh) +
+    //                     parseFloat(item.issue_V_k) +
+    //                     parseFloat(item.issue_V_k1) +
+    //                     parseFloat(item.issue_V_lwp) +
+    //                     parseFloat(item.issue_V_lwp1) +
+    //                     parseFloat(item.issue_V_jk) +
+    //                     parseFloat(item.issue_V_jk1) +
+    //                     parseFloat(item.issue_V_ss) +
+    //                     parseFloat(item.issue_V_sp) +
+    //                     parseFloat(item.issue_V_sp2) +
+    //                     parseFloat(item.issue_V_jh1) +
+    //                     parseFloat(item.issue_V_yk) +
+    //                     parseFloat(item.issue_V_m_jk1) +
+    //                     parseFloat(item.issue_ext_grade_1) +
+    //                     parseFloat(item.issue_ext_grade_2) +
+    //                     parseFloat(item.issue_ext_grade_3) +
+    //                     parseFloat(item.issue_ext_grade_4) +
+    //                     parseFloat(item.issue_ext_grade_5) +
+    //                     parseFloat(item.issue_ext_grade_6) +
+    //                     parseFloat(item.issue_ext_grade_7) +
+    //                     parseFloat(item.issue_ext_grade_8) +
+    //                     parseFloat(item.issue_ext_grade_9) +
+    //                     parseFloat(item.issue_ext_grade_10)
+    //                 ).toString()),
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_mayur: formatNumber(item.issue_mayur),
+    //                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+    //                 issue_dpds: formatNumber(item.issue_dpds),
+    //                 issue_rejection: formatNumber(item.issue_rejection),
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+    //                 Labour: item.noOfdayOperators,
+
+
+    //                 Edit_Status: item.editStatus,
+    //                 Created_By: item.CreatedBy,
+    //                 Modified_By: item.modifiedBy
+
+    //             }));
+    //             //setTransformedData(transformed);
+    //             ws = XLSX.utils.json_to_sheet(transformed);
+    //         }
+    //         else {
+    //             transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
+    //                 Sl_No: idx + 1,
+    //                 Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+    //                 Item_Lot_No: item.LotNo,
+    //                 Origin: item.origin,
+    //                 Issue_No: item.altid,
+    //                 Sorting_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,
+    //                 Opening_JJH: formatNumber(item.rcv_jjh),
+    //                 Opening_SJH: formatNumber(item.rcv_sjh),
+    //                 Opening_SJH1: formatNumber(item.rcv_sjh1),
+    //                 Opening_JK_K: formatNumber(item.rcv_jk_k),
+    //                 Opening_JH1: formatNumber(item.rcv_jh1),
+    //                 Opening_SP1: formatNumber(item.rcv_sp1),
+    //                 Borma_JJH: formatNumber(item.issue_add_4),
+    //                 Borma_SJH: formatNumber(item.issue_add_5),
+    //                 Borma_SJH1: formatNumber(item.issue_add_6),
+    //                 Borma_JK_K: formatNumber(item.issue_add_8),
+    //                 Borma_JH1: formatNumber(item.issue_add_7),
+    //                 Borma_SP1: formatNumber(item.issue_add_9),
+    //                 Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
+    //                     + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
+    //                 Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
+    //                     Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
+    //                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
+    //                     + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
+    //                 issue_SJH: formatNumber(item.issue_sjh),
+    //                 issue_JJH: formatNumber(item.issue_jjh),
+    //                 issue_JJH1: formatNumber(item.issue_jjh1),
+    //                 issue_jk: formatNumber(item.issue_jk),
+    //                 issue_jk1: formatNumber(item.issue_jk1),
+    //                 issue_k: formatNumber(item.issue_k),
+    //                 issue_k1: formatNumber(item.issue_k1),
+    //                 issue_lwp: formatNumber(item.issue_lwp),
+    //                 issue_lwp1: formatNumber(item.issue_lwp1),
+    //                 issue_s: formatNumber(item.issue_s),
+    //                 issue_ss: formatNumber(item.issue_ss),
+    //                 issue_yk: formatNumber(item.issue_yk),
+    //                 issue_sp2: formatNumber(item.issue_sp2),
+    //                 issue_kp: formatNumber(item.issue_kp),
+
+    //                 issue_in_k: formatNumber(item.issue_in_k),
+    //                 issue_in_jh: formatNumber(item.issue_in_jh),
+    //                 issue_V_sjh: formatNumber(item.issue_V_sjh),
+    //                 issue_V_k: formatNumber(item.issue_V_k),
+    //                 issue_V_k1: formatNumber(item.issue_V_k1),
+    //                 issue_V_lwp: formatNumber(item.issue_V_lwp),
+    //                 issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+    //                 issue_V_jk: formatNumber(item.issue_V_jk),
+    //                 issue_V_jk1: formatNumber(item.issue_V_jk1),
+    //                 issue_V_ss: formatNumber(item.issue_V_ss),
+    //                 issue_V_sp: formatNumber(item.issue_V_sp),
+    //                 issue_V_sp2: formatNumber(item.issue_V_sp2),
+    //                 issue_V_jh1: formatNumber(item.issue_V_jh1),
+    //                 issue_V_yk: formatNumber(item.issue_V_yk),
+    //                 issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+    //                 issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+    //                 issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+    //                 issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+    //                 issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+    //                 issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+    //                 issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+    //                 issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+    //                 issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+    //                 issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+    //                 issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
+    //                 Issue_Packing: formatNumber((
+    //                     parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
+    //                     parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
+    //                     parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
+    //                     parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
+    //                     parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
+    //                     parseFloat(item.issue_in_jh) +
+    //                     parseFloat(item.issue_V_sjh) +
+    //                     parseFloat(item.issue_V_k) +
+    //                     parseFloat(item.issue_V_k1) +
+    //                     parseFloat(item.issue_V_lwp) +
+    //                     parseFloat(item.issue_V_lwp1) +
+    //                     parseFloat(item.issue_V_jk) +
+    //                     parseFloat(item.issue_V_jk1) +
+    //                     parseFloat(item.issue_V_ss) +
+    //                     parseFloat(item.issue_V_sp) +
+    //                     parseFloat(item.issue_V_sp2) +
+    //                     parseFloat(item.issue_V_jh1) +
+    //                     parseFloat(item.issue_V_yk) +
+    //                     parseFloat(item.issue_V_m_jk1) +
+    //                     parseFloat(item.issue_ext_grade_1) +
+    //                     parseFloat(item.issue_ext_grade_2) +
+    //                     parseFloat(item.issue_ext_grade_3) +
+    //                     parseFloat(item.issue_ext_grade_4) +
+    //                     parseFloat(item.issue_ext_grade_5) +
+    //                     parseFloat(item.issue_ext_grade_6) +
+    //                     parseFloat(item.issue_ext_grade_7) +
+    //                     parseFloat(item.issue_ext_grade_8) +
+    //                     parseFloat(item.issue_ext_grade_9) +
+    //                     parseFloat(item.issue_ext_grade_10)
+    //                 ).toString()),
+
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_mayur: formatNumber(item.issue_mayur),
+    //                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+    //                 issue_dpds: formatNumber(item.issue_dpds),
+    //                 issue_rejection: formatNumber(item.issue_rejection),
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+    //                 Labour: item.noOfdayOperators,
+
+    //                 Edit_Status: item.editStatus,
+    //                 Created_By: item.CreatedBy,
+    //                 Modified_By: item.modifiedBy
+
+    //             }));
+    //             // setTransformedData(transformed);
+    //             ws = XLSX.utils.json_to_sheet(transformed);
+    //         }
+    //         const wb = XLSX.utils.book_new();
+    //         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //         const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //         saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
+    //     }
+
+    // }
+
     const exportToExcel = async () => {
 
-        if (searchType === 'LOT') {
-            const response = await axios.put('/api/sorting/sortingprimarysearch', {
-                searchitem: blConNo,
-                fromDate: fromdate,
-                toDate: todate,
-                origin: origin,
-                type: 'LOT'
-            })
-            const data1 = await response.data
+        const toNum = (val: any) => Number(val) || 0;
 
-            let ws
-            let transformed: any[] = [];
-            if (EditData.length > 0) {
-                transformed = EditData.map((item: SortingData, idx: number) => ({
-                    Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
-                    Item_Lot_No: item.LotNo,
-                    Origin: item.origin,
-                    Issue_No: item.altid,
-                    Sorting_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,
-                    Opening_JJH: formatNumber(item.rcv_jjh),
-                    Opening_SJH: formatNumber(item.rcv_sjh),
-                    Opening_SJH1: formatNumber(item.rcv_sjh1),
-                    Opening_JK_K: formatNumber(item.rcv_jk_k),
-                    Opening_JH1: formatNumber(item.rcv_jh1),
-                    Opening_SP1: formatNumber(item.rcv_sp1),
-                    Borma_JJH: formatNumber(item.issue_add_4),
-                    Borma_SJH: formatNumber(item.issue_add_5),
-                    Borma_SJH1: formatNumber(item.issue_add_6),
-                    Borma_JK_K: formatNumber(item.issue_add_8),
-                    Borma_JH1: formatNumber(item.issue_add_7),
-                    Borma_SP1: formatNumber(item.issue_add_9),
-                    Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
-                        + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
-                    Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
-                        Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
-                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
-                        + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
-                    issue_SJH: formatNumber(item.issue_sjh),
-                    issue_JJH: formatNumber(item.issue_jjh),
-                    issue_JJH1: formatNumber(item.issue_jjh1),
-                    issue_jk: formatNumber(item.issue_jk),
-                    issue_jk1: formatNumber(item.issue_jk1),
-                    issue_k: formatNumber(item.issue_k),
-                    issue_k1: formatNumber(item.issue_k1),
-                    issue_lwp: formatNumber(item.issue_lwp),
-                    issue_lwp1: formatNumber(item.issue_lwp1),
-                    issue_s: formatNumber(item.issue_s),
-                    issue_ss: formatNumber(item.issue_ss),
-                    issue_yk: formatNumber(item.issue_yk),
-                    issue_sp2: formatNumber(item.issue_sp2),
-                    issue_kp: formatNumber(item.issue_kp),
+        const type =
+            searchType === "LOT"
+                ? "LOT"
+                : searchType === "R-LOT"
+                    ? "RLOT"
+                    : "VLOT";
 
-                    issue_in_k: formatNumber(item.issue_in_k),
-                    issue_in_jh: formatNumber(item.issue_in_jh),
-                    issue_V_sjh: formatNumber(item.issue_V_sjh),
-                    issue_V_k: formatNumber(item.issue_V_k),
-                    issue_V_k1: formatNumber(item.issue_V_k1),
-                    issue_V_lwp: formatNumber(item.issue_V_lwp),
-                    issue_V_lwp1: formatNumber(item.issue_V_lwp1),
-                    issue_V_jk: formatNumber(item.issue_V_jk),
-                    issue_V_jk1: formatNumber(item.issue_V_jk1),
-                    issue_V_ss: formatNumber(item.issue_V_ss),
-                    issue_V_sp: formatNumber(item.issue_V_sp),
-                    issue_V_sp2: formatNumber(item.issue_V_sp2),
-                    issue_V_jh1: formatNumber(item.issue_V_jh1),
-                    issue_V_yk: formatNumber(item.issue_V_yk),
-                    issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
-                    issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
-                    issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
-                    issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
-                    issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
-                    issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
-                    issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
-                    issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
-                    issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
-                    issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
-                    issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+        const response = await axios.put('/api/sorting/sortingprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type
+        });
 
-                    Issue_Packing: formatNumber((
-                        parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
-                        parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
-                        parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
-                        parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
-                        parseFloat(item.issue_in_jh) +
-                        parseFloat(item.issue_V_sjh) +
-                        parseFloat(item.issue_V_k) +
-                        parseFloat(item.issue_V_k1) +
-                        parseFloat(item.issue_V_lwp) +
-                        parseFloat(item.issue_V_lwp1) +
-                        parseFloat(item.issue_V_jk) +
-                        parseFloat(item.issue_V_jk1) +
-                        parseFloat(item.issue_V_ss) +
-                        parseFloat(item.issue_V_sp) +
-                        parseFloat(item.issue_V_sp2) +
-                        parseFloat(item.issue_V_jh1) +
-                        parseFloat(item.issue_V_yk) +
-                        parseFloat(item.issue_V_m_jk1) +
-                        parseFloat(item.issue_ext_grade_1) +
-                        parseFloat(item.issue_ext_grade_2) +
-                        parseFloat(item.issue_ext_grade_3) +
-                        parseFloat(item.issue_ext_grade_4) +
-                        parseFloat(item.issue_ext_grade_5) +
-                        parseFloat(item.issue_ext_grade_6) +
-                        parseFloat(item.issue_ext_grade_7) +
-                        parseFloat(item.issue_ext_grade_8) +
-                        parseFloat(item.issue_ext_grade_9) +
-                        parseFloat(item.issue_ext_grade_10)
-                    ).toString()),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_mayur: formatNumber(item.issue_mayur),
-                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                    issue_dpds: formatNumber(item.issue_dpds),
-                    issue_rejection: formatNumber(item.issue_rejection),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+        const data1 = response.data;
+        const sourceData = EditData.length > 0 ? EditData : data1.rcnEntries;
 
-                    Labour: item.noOfdayOperators,
+        const transformed = sourceData.map((item: SortingData, idx: number) => ({
 
+            Sl_No: idx + 1,
+            Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            Sorting_Entry_Date: handletimezone(item.date),
+            Mixing_Lot: item.mixingLot,
 
-                    Edit_Status: item.editStatus,
-                    Created_By: item.CreatedBy,
-                    Modified_By: item.modifiedBy
+            // Opening
+            Opening_JJH: toNum(item.rcv_jjh),
+            Opening_SJH: toNum(item.rcv_sjh),
+            Opening_SJH1: toNum(item.rcv_sjh1),
+            Opening_JK_K: toNum(item.rcv_jk_k),
+            Opening_JH1: toNum(item.rcv_jh1),
+            Opening_SP1: toNum(item.rcv_sp1),
 
-                }));
-                //setTransformedData(transformed);
-                ws = XLSX.utils.json_to_sheet(transformed);
-            }
-            else {
-                transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
-                    Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
-                    Item_Lot_No: item.LotNo,
-                    Origin: item.origin,
-                    Issue_No: item.altid,
-                    Sorting_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,
-                    Opening_JJH: formatNumber(item.rcv_jjh),
-                    Opening_SJH: formatNumber(item.rcv_sjh),
-                    Opening_SJH1: formatNumber(item.rcv_sjh1),
-                    Opening_JK_K: formatNumber(item.rcv_jk_k),
-                    Opening_JH1: formatNumber(item.rcv_jh1),
-                    Opening_SP1: formatNumber(item.rcv_sp1),
-                    Borma_JJH: formatNumber(item.issue_add_4),
-                    Borma_SJH: formatNumber(item.issue_add_5),
-                    Borma_SJH1: formatNumber(item.issue_add_6),
-                    Borma_JK_K: formatNumber(item.issue_add_8),
-                    Borma_JH1: formatNumber(item.issue_add_7),
-                    Borma_SP1: formatNumber(item.issue_add_9),
-                    Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
-                        + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
-                    Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
-                        Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
-                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
-                        + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
-                    issue_SJH: formatNumber(item.issue_sjh),
-                    issue_JJH: formatNumber(item.issue_jjh),
-                    issue_JJH1: formatNumber(item.issue_jjh1),
-                    issue_jk: formatNumber(item.issue_jk),
-                    issue_jk1: formatNumber(item.issue_jk1),
-                    issue_k: formatNumber(item.issue_k),
-                    issue_k1: formatNumber(item.issue_k1),
-                    issue_lwp: formatNumber(item.issue_lwp),
-                    issue_lwp1: formatNumber(item.issue_lwp1),
-                    issue_s: formatNumber(item.issue_s),
-                    issue_ss: formatNumber(item.issue_ss),
-                    issue_yk: formatNumber(item.issue_yk),
-                    issue_sp2: formatNumber(item.issue_sp2),
-                    issue_kp: formatNumber(item.issue_kp),
+            // Borma
+            Borma_JJH: toNum(item.issue_add_4),
+            Borma_SJH: toNum(item.issue_add_5),
+            Borma_SJH1: toNum(item.issue_add_6),
+            Borma_JK_K: toNum(item.issue_add_8),
+            Borma_JH1: toNum(item.issue_add_7),
+            Borma_SP1: toNum(item.issue_add_9),
 
-                    issue_in_k: formatNumber(item.issue_in_k),
-                    issue_in_jh: formatNumber(item.issue_in_jh),
-                    issue_V_sjh: formatNumber(item.issue_V_sjh),
-                    issue_V_k: formatNumber(item.issue_V_k),
-                    issue_V_k1: formatNumber(item.issue_V_k1),
-                    issue_V_lwp: formatNumber(item.issue_V_lwp),
-                    issue_V_lwp1: formatNumber(item.issue_V_lwp1),
-                    issue_V_jk: formatNumber(item.issue_V_jk),
-                    issue_V_jk1: formatNumber(item.issue_V_jk1),
-                    issue_V_ss: formatNumber(item.issue_V_ss),
-                    issue_V_sp: formatNumber(item.issue_V_sp),
-                    issue_V_sp2: formatNumber(item.issue_V_sp2),
-                    issue_V_jh1: formatNumber(item.issue_V_jh1),
-                    issue_V_yk: formatNumber(item.issue_V_yk),
-                    issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
-                    issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
-                    issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
-                    issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
-                    issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
-                    issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
-                    issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
-                    issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
-                    issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
-                    issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
-                    issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+            // Peeling
+            Receive_Peeling:
+                toNum(item.rcv_jjh) +
+                toNum(item.rcv_sjh) +
+                toNum(item.rcv_sjh1) +
+                toNum(item.rcv_jk_k) +
+                toNum(item.rcv_jh1) +
+                toNum(item.rcv_sp1),
 
-                    Issue_Packing: formatNumber((
-                        parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
-                        parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
-                        parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
-                        parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
-                        parseFloat(item.issue_in_jh) +
-                        parseFloat(item.issue_V_sjh) +
-                        parseFloat(item.issue_V_k) +
-                        parseFloat(item.issue_V_k1) +
-                        parseFloat(item.issue_V_lwp) +
-                        parseFloat(item.issue_V_lwp1) +
-                        parseFloat(item.issue_V_jk) +
-                        parseFloat(item.issue_V_jk1) +
-                        parseFloat(item.issue_V_ss) +
-                        parseFloat(item.issue_V_sp) +
-                        parseFloat(item.issue_V_sp2) +
-                        parseFloat(item.issue_V_jh1) +
-                        parseFloat(item.issue_V_yk) +
-                        parseFloat(item.issue_V_m_jk1) +
-                        parseFloat(item.issue_ext_grade_1) +
-                        parseFloat(item.issue_ext_grade_2) +
-                        parseFloat(item.issue_ext_grade_3) +
-                        parseFloat(item.issue_ext_grade_4) +
-                        parseFloat(item.issue_ext_grade_5) +
-                        parseFloat(item.issue_ext_grade_6) +
-                        parseFloat(item.issue_ext_grade_7) +
-                        parseFloat(item.issue_ext_grade_8) +
-                        parseFloat(item.issue_ext_grade_9) +
-                        parseFloat(item.issue_ext_grade_10)
-                    ).toString()),
+            Borma_Peeling:
+                toNum(item.issue_add_4) +
+                toNum(item.issue_add_5) +
+                toNum(item.issue_add_6) +
+                toNum(item.issue_add_7) +
+                toNum(item.issue_add_8) +
+                toNum(item.issue_add_9),
 
-                    issue_village: formatNumber(item.issue_village),
-                    issue_mayur: formatNumber(item.issue_mayur),
-                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                    issue_dpds: formatNumber(item.issue_dpds),
-                    issue_rejection: formatNumber(item.issue_rejection),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+            Borma_Loss_Kg: toNum(item.issue_add_2),
+            Borma_Loss_Percentage: toNum(item.issue_add_3),
 
-                    Labour: item.noOfdayOperators,
+            Receive_BigTaiho: toNum(item.rcv_bigTaiho),
 
-                    Edit_Status: item.editStatus,
-                    Created_By: item.CreatedBy,
-                    Modified_By: item.modifiedBy
+            Receive_Total:
+                toNum(item.issue_add_4) +
+                toNum(item.issue_add_5) +
+                toNum(item.issue_add_6) +
+                toNum(item.issue_add_7) +
+                toNum(item.issue_add_8) +
+                toNum(item.issue_add_9) +
+                toNum(item.rcv_bigTaiho),
 
-                }));
-                // setTransformedData(transformed);
-                ws = XLSX.utils.json_to_sheet(transformed);
-            }
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-            saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
-        }
-        else if (searchType === 'R-LOT') {
-            const response = await axios.put('/api/sorting/sortingprimarysearch', {
-                searchitem: blConNo,
-                fromDate: fromdate,
-                toDate: todate,
-                origin: origin,
-                type: 'RLOT'
-            })
-            const data1 = await response.data
+            // Issue
+            issue_SJH: toNum(item.issue_sjh),
+            issue_JJH: toNum(item.issue_jjh),
+            issue_JJH1: toNum(item.issue_jjh1),
+            issue_jk: toNum(item.issue_jk),
+            issue_jk1: toNum(item.issue_jk1),
+            issue_k: toNum(item.issue_k),
+            issue_k1: toNum(item.issue_k1),
+            issue_lwp: toNum(item.issue_lwp),
+            issue_lwp1: toNum(item.issue_lwp1),
+            issue_s: toNum(item.issue_s),
+            issue_ss: toNum(item.issue_ss),
+            issue_yk: toNum(item.issue_yk),
+            issue_sp2: toNum(item.issue_sp2),
+            issue_kp: toNum(item.issue_kp),
 
-            let ws
-            let transformed: any[] = [];
-            if (EditData.length > 0) {
-                transformed = EditData.map((item: SortingData, idx: number) => ({
-                    Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
-                    Item_Lot_No: item.LotNo,
-                    Origin: item.origin,
-                    Issue_No: item.altid,
-                    Sorting_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,
-                    Opening_JJH: formatNumber(item.rcv_jjh),
-                    Opening_SJH: formatNumber(item.rcv_sjh),
-                    Opening_SJH1: formatNumber(item.rcv_sjh1),
-                    Opening_JK_K: formatNumber(item.rcv_jk_k),
-                    Opening_JH1: formatNumber(item.rcv_jh1),
-                    Opening_SP1: formatNumber(item.rcv_sp1),
-                    Borma_JJH: formatNumber(item.issue_add_4),
-                    Borma_SJH: formatNumber(item.issue_add_5),
-                    Borma_SJH1: formatNumber(item.issue_add_6),
-                    Borma_JK_K: formatNumber(item.issue_add_8),
-                    Borma_JH1: formatNumber(item.issue_add_7),
-                    Borma_SP1: formatNumber(item.issue_add_9),
-                    Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
-                        + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
-                    Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
-                        Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
-                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
-                        + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
-                    issue_SJH: formatNumber(item.issue_sjh),
-                    issue_JJH: formatNumber(item.issue_jjh),
-                    issue_JJH1: formatNumber(item.issue_jjh1),
-                    issue_jk: formatNumber(item.issue_jk),
-                    issue_jk1: formatNumber(item.issue_jk1),
-                    issue_k: formatNumber(item.issue_k),
-                    issue_k1: formatNumber(item.issue_k1),
-                    issue_lwp: formatNumber(item.issue_lwp),
-                    issue_lwp1: formatNumber(item.issue_lwp1),
-                    issue_s: formatNumber(item.issue_s),
-                    issue_ss: formatNumber(item.issue_ss),
-                    issue_yk: formatNumber(item.issue_yk),
-                    issue_sp2: formatNumber(item.issue_sp2),
-                    issue_kp: formatNumber(item.issue_kp),
+            issue_in_k: toNum(item.issue_in_k),
+            issue_in_jh: toNum(item.issue_in_jh),
 
-                    issue_in_k: formatNumber(item.issue_in_k),
-                    issue_in_jh: formatNumber(item.issue_in_jh),
-                    issue_V_sjh: formatNumber(item.issue_V_sjh),
-                    issue_V_k: formatNumber(item.issue_V_k),
-                    issue_V_k1: formatNumber(item.issue_V_k1),
-                    issue_V_lwp: formatNumber(item.issue_V_lwp),
-                    issue_V_lwp1: formatNumber(item.issue_V_lwp1),
-                    issue_V_jk: formatNumber(item.issue_V_jk),
-                    issue_V_jk1: formatNumber(item.issue_V_jk1),
-                    issue_V_ss: formatNumber(item.issue_V_ss),
-                    issue_V_sp: formatNumber(item.issue_V_sp),
-                    issue_V_sp2: formatNumber(item.issue_V_sp2),
-                    issue_V_jh1: formatNumber(item.issue_V_jh1),
-                    issue_V_yk: formatNumber(item.issue_V_yk),
-                    issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
-                    issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
-                    issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
-                    issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
-                    issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
-                    issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
-                    issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
-                    issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
-                    issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
-                    issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
-                    issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+            // V Issue
+            issue_V_sjh: toNum(item.issue_V_sjh),
+            issue_V_k: toNum(item.issue_V_k),
+            issue_V_k1: toNum(item.issue_V_k1),
+            issue_V_lwp: toNum(item.issue_V_lwp),
+            issue_V_lwp1: toNum(item.issue_V_lwp1),
+            issue_V_jk: toNum(item.issue_V_jk),
+            issue_V_jk1: toNum(item.issue_V_jk1),
+            issue_V_ss: toNum(item.issue_V_ss),
+            issue_V_sp: toNum(item.issue_V_sp),
+            issue_V_sp2: toNum(item.issue_V_sp2),
+            issue_V_jh1: toNum(item.issue_V_jh1),
+            issue_V_yk: toNum(item.issue_V_yk),
+            issue_V_m_jk1: toNum(item.issue_V_m_jk1),
 
-                    Issue_Packing: formatNumber((
-                        parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
-                        parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
-                        parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
-                        parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
-                        parseFloat(item.issue_in_jh) +
-                        parseFloat(item.issue_V_sjh) +
-                        parseFloat(item.issue_V_k) +
-                        parseFloat(item.issue_V_k1) +
-                        parseFloat(item.issue_V_lwp) +
-                        parseFloat(item.issue_V_lwp1) +
-                        parseFloat(item.issue_V_jk) +
-                        parseFloat(item.issue_V_jk1) +
-                        parseFloat(item.issue_V_ss) +
-                        parseFloat(item.issue_V_sp) +
-                        parseFloat(item.issue_V_sp2) +
-                        parseFloat(item.issue_V_jh1) +
-                        parseFloat(item.issue_V_yk) +
-                        parseFloat(item.issue_V_m_jk1) +
-                        parseFloat(item.issue_ext_grade_1) +
-                        parseFloat(item.issue_ext_grade_2) +
-                        parseFloat(item.issue_ext_grade_3) +
-                        parseFloat(item.issue_ext_grade_4) +
-                        parseFloat(item.issue_ext_grade_5) +
-                        parseFloat(item.issue_ext_grade_6) +
-                        parseFloat(item.issue_ext_grade_7) +
-                        parseFloat(item.issue_ext_grade_8) +
-                        parseFloat(item.issue_ext_grade_9) +
-                        parseFloat(item.issue_ext_grade_10)
-                    ).toString()),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_mayur: formatNumber(item.issue_mayur),
-                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                    issue_dpds: formatNumber(item.issue_dpds),
-                    issue_rejection: formatNumber(item.issue_rejection),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+            // External grades
+            issue_ext_grade_1: toNum(item.issue_ext_grade_1),
+            issue_ext_grade_2: toNum(item.issue_ext_grade_2),
+            issue_ext_grade_3: toNum(item.issue_ext_grade_3),
+            issue_ext_grade_4: toNum(item.issue_ext_grade_4),
+            issue_ext_grade_5: toNum(item.issue_ext_grade_5),
+            issue_ext_grade_6: toNum(item.issue_ext_grade_6),
+            issue_ext_grade_7: toNum(item.issue_ext_grade_7),
+            issue_ext_grade_8: toNum(item.issue_ext_grade_8),
+            issue_ext_grade_9: toNum(item.issue_ext_grade_9),
+            issue_ext_grade_10: toNum(item.issue_ext_grade_10),
 
-                    Labour: item.noOfdayOperators,
+            // Total Packing
+            Issue_Packing:
+                toNum(item.issue_jjh) +
+                toNum(item.issue_jjh1) +
+                toNum(item.issue_sjh) +
+                toNum(item.issue_jk) +
+                toNum(item.issue_jk1) +
+                toNum(item.issue_k) +
+                toNum(item.issue_k1) +
+                toNum(item.issue_lwp) +
+                toNum(item.issue_lwp1) +
+                toNum(item.issue_s) +
+                toNum(item.issue_ss) +
+                toNum(item.issue_yk) +
+                toNum(item.issue_sp2) +
+                toNum(item.issue_kp) +
+                toNum(item.issue_in_k) +
+                toNum(item.issue_in_jh) +
+                toNum(item.issue_V_sjh) +
+                toNum(item.issue_V_k) +
+                toNum(item.issue_V_k1) +
+                toNum(item.issue_V_lwp) +
+                toNum(item.issue_V_lwp1) +
+                toNum(item.issue_V_jk) +
+                toNum(item.issue_V_jk1) +
+                toNum(item.issue_V_ss) +
+                toNum(item.issue_V_sp) +
+                toNum(item.issue_V_sp2) +
+                toNum(item.issue_V_jh1) +
+                toNum(item.issue_V_yk) +
+                toNum(item.issue_V_m_jk1) +
+                toNum(item.issue_ext_grade_1) +
+                toNum(item.issue_ext_grade_2) +
+                toNum(item.issue_ext_grade_3) +
+                toNum(item.issue_ext_grade_4) +
+                toNum(item.issue_ext_grade_5) +
+                toNum(item.issue_ext_grade_6) +
+                toNum(item.issue_ext_grade_7) +
+                toNum(item.issue_ext_grade_8) +
+                toNum(item.issue_ext_grade_9) +
+                toNum(item.issue_ext_grade_10),
 
+            issue_village: toNum(item.issue_village),
+            issue_mayur: toNum(item.issue_mayur),
+            issue_bigTaiho: toNum(item.issue_bigTaiho),
+            issue_dpds: toNum(item.issue_dpds),
+            issue_rejection: toNum(item.issue_rejection),
 
-                    Edit_Status: item.editStatus,
-                    Created_By: item.CreatedBy,
-                    Modified_By: item.modifiedBy
+            Current_Backlog: toNum(item.current_backlog),
 
-                }));
-                //setTransformedData(transformed);
-                ws = XLSX.utils.json_to_sheet(transformed);
-            }
-            else {
-                transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
-                    Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
-                    Item_Lot_No: item.LotNo,
-                    Origin: item.origin,
-                    Issue_No: item.altid,
-                    Sorting_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,
-                    Opening_JJH: formatNumber(item.rcv_jjh),
-                    Opening_SJH: formatNumber(item.rcv_sjh),
-                    Opening_SJH1: formatNumber(item.rcv_sjh1),
-                    Opening_JK_K: formatNumber(item.rcv_jk_k),
-                    Opening_JH1: formatNumber(item.rcv_jh1),
-                    Opening_SP1: formatNumber(item.rcv_sp1),
-                    Borma_JJH: formatNumber(item.issue_add_4),
-                    Borma_SJH: formatNumber(item.issue_add_5),
-                    Borma_SJH1: formatNumber(item.issue_add_6),
-                    Borma_JK_K: formatNumber(item.issue_add_8),
-                    Borma_JH1: formatNumber(item.issue_add_7),
-                    Borma_SP1: formatNumber(item.issue_add_9),
-                    Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
-                        + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
-                    Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
-                        Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
-                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
-                        + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
-                    issue_SJH: formatNumber(item.issue_sjh),
-                    issue_JJH: formatNumber(item.issue_jjh),
-                    issue_JJH1: formatNumber(item.issue_jjh1),
-                    issue_jk: formatNumber(item.issue_jk),
-                    issue_jk1: formatNumber(item.issue_jk1),
-                    issue_k: formatNumber(item.issue_k),
-                    issue_k1: formatNumber(item.issue_k1),
-                    issue_lwp: formatNumber(item.issue_lwp),
-                    issue_lwp1: formatNumber(item.issue_lwp1),
-                    issue_s: formatNumber(item.issue_s),
-                    issue_ss: formatNumber(item.issue_ss),
-                    issue_yk: formatNumber(item.issue_yk),
-                    issue_sp2: formatNumber(item.issue_sp2),
-                    issue_kp: formatNumber(item.issue_kp),
+            Labour: item.noOfdayOperators,
 
-                    issue_in_k: formatNumber(item.issue_in_k),
-                    issue_in_jh: formatNumber(item.issue_in_jh),
-                    issue_V_sjh: formatNumber(item.issue_V_sjh),
-                    issue_V_k: formatNumber(item.issue_V_k),
-                    issue_V_k1: formatNumber(item.issue_V_k1),
-                    issue_V_lwp: formatNumber(item.issue_V_lwp),
-                    issue_V_lwp1: formatNumber(item.issue_V_lwp1),
-                    issue_V_jk: formatNumber(item.issue_V_jk),
-                    issue_V_jk1: formatNumber(item.issue_V_jk1),
-                    issue_V_ss: formatNumber(item.issue_V_ss),
-                    issue_V_sp: formatNumber(item.issue_V_sp),
-                    issue_V_sp2: formatNumber(item.issue_V_sp2),
-                    issue_V_jh1: formatNumber(item.issue_V_jh1),
-                    issue_V_yk: formatNumber(item.issue_V_yk),
-                    issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
-                    issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
-                    issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
-                    issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
-                    issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
-                    issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
-                    issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
-                    issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
-                    issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
-                    issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
-                    issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy
 
-                    Issue_Packing: formatNumber((
-                        parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
-                        parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
-                        parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
-                        parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
-                        parseFloat(item.issue_in_jh) +
-                        parseFloat(item.issue_V_sjh) +
-                        parseFloat(item.issue_V_k) +
-                        parseFloat(item.issue_V_k1) +
-                        parseFloat(item.issue_V_lwp) +
-                        parseFloat(item.issue_V_lwp1) +
-                        parseFloat(item.issue_V_jk) +
-                        parseFloat(item.issue_V_jk1) +
-                        parseFloat(item.issue_V_ss) +
-                        parseFloat(item.issue_V_sp) +
-                        parseFloat(item.issue_V_sp2) +
-                        parseFloat(item.issue_V_jh1) +
-                        parseFloat(item.issue_V_yk) +
-                        parseFloat(item.issue_V_m_jk1) +
-                        parseFloat(item.issue_ext_grade_1) +
-                        parseFloat(item.issue_ext_grade_2) +
-                        parseFloat(item.issue_ext_grade_3) +
-                        parseFloat(item.issue_ext_grade_4) +
-                        parseFloat(item.issue_ext_grade_5) +
-                        parseFloat(item.issue_ext_grade_6) +
-                        parseFloat(item.issue_ext_grade_7) +
-                        parseFloat(item.issue_ext_grade_8) +
-                        parseFloat(item.issue_ext_grade_9) +
-                        parseFloat(item.issue_ext_grade_10)
-                    ).toString()),
+        }));
 
-                    issue_village: formatNumber(item.issue_village),
-                    issue_mayur: formatNumber(item.issue_mayur),
-                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                    issue_dpds: formatNumber(item.issue_dpds),
-                    issue_rejection: formatNumber(item.issue_rejection),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+        const ws = XLSX.utils.json_to_sheet(transformed);
+        const wb = XLSX.utils.book_new();
 
-                    Labour: item.noOfdayOperators,
+        XLSX.utils.book_append_sheet(wb, ws, "Sorting");
 
-                    Edit_Status: item.editStatus,
-                    Created_By: item.CreatedBy,
-                    Modified_By: item.modifiedBy
+        const wbout = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "array",
+        });
 
-                }));
-                // setTransformedData(transformed);
-                ws = XLSX.utils.json_to_sheet(transformed);
-            }
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-            saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
-        }
-        else {
-            const response = await axios.put('/api/sorting/sortingprimarysearch', {
-                searchitem: blConNo,
-                fromDate: fromdate,
-                toDate: todate,
-                origin: origin,
-                type: 'VLOT'
-            })
-            const data1 = await response.data
+        const blob = new Blob([wbout], {
+            type: "application/octet-stream",
+        });
 
-            let ws
-            let transformed: any[] = [];
-            if (EditData.length > 0) {
-                transformed = EditData.map((item: SortingData, idx: number) => ({
-                    Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
-                    Item_Lot_No: item.LotNo,
-                    Origin: item.origin,
-                    Issue_No: item.altid,
-                    Sorting_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,
-                    Opening_JJH: formatNumber(item.rcv_jjh),
-                    Opening_SJH: formatNumber(item.rcv_sjh),
-                    Opening_SJH1: formatNumber(item.rcv_sjh1),
-                    Opening_JK_K: formatNumber(item.rcv_jk_k),
-                    Opening_JH1: formatNumber(item.rcv_jh1),
-                    Opening_SP1: formatNumber(item.rcv_sp1),
-                    Borma_JJH: formatNumber(item.issue_add_4),
-                    Borma_SJH: formatNumber(item.issue_add_5),
-                    Borma_SJH1: formatNumber(item.issue_add_6),
-                    Borma_JK_K: formatNumber(item.issue_add_8),
-                    Borma_JH1: formatNumber(item.issue_add_7),
-                    Borma_SP1: formatNumber(item.issue_add_9),
-                    Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
-                        + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
-                    Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
-                        Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
-                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
-                        + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
-                    issue_SJH: formatNumber(item.issue_sjh),
-                    issue_JJH: formatNumber(item.issue_jjh),
-                    issue_JJH1: formatNumber(item.issue_jjh1),
-                    issue_jk: formatNumber(item.issue_jk),
-                    issue_jk1: formatNumber(item.issue_jk1),
-                    issue_k: formatNumber(item.issue_k),
-                    issue_k1: formatNumber(item.issue_k1),
-                    issue_lwp: formatNumber(item.issue_lwp),
-                    issue_lwp1: formatNumber(item.issue_lwp1),
-                    issue_s: formatNumber(item.issue_s),
-                    issue_ss: formatNumber(item.issue_ss),
-                    issue_yk: formatNumber(item.issue_yk),
-                    issue_sp2: formatNumber(item.issue_sp2),
-                    issue_kp: formatNumber(item.issue_kp),
-
-                    issue_in_k: formatNumber(item.issue_in_k),
-                    issue_in_jh: formatNumber(item.issue_in_jh),
-                    issue_V_sjh: formatNumber(item.issue_V_sjh),
-                    issue_V_k: formatNumber(item.issue_V_k),
-                    issue_V_k1: formatNumber(item.issue_V_k1),
-                    issue_V_lwp: formatNumber(item.issue_V_lwp),
-                    issue_V_lwp1: formatNumber(item.issue_V_lwp1),
-                    issue_V_jk: formatNumber(item.issue_V_jk),
-                    issue_V_jk1: formatNumber(item.issue_V_jk1),
-                    issue_V_ss: formatNumber(item.issue_V_ss),
-                    issue_V_sp: formatNumber(item.issue_V_sp),
-                    issue_V_sp2: formatNumber(item.issue_V_sp2),
-                    issue_V_jh1: formatNumber(item.issue_V_jh1),
-                    issue_V_yk: formatNumber(item.issue_V_yk),
-                    issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
-                    issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
-                    issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
-                    issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
-                    issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
-                    issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
-                    issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
-                    issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
-                    issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
-                    issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
-                    issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
-
-                    Issue_Packing: formatNumber((
-                        parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
-                        parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
-                        parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
-                        parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
-                        parseFloat(item.issue_in_jh) +
-                        parseFloat(item.issue_V_sjh) +
-                        parseFloat(item.issue_V_k) +
-                        parseFloat(item.issue_V_k1) +
-                        parseFloat(item.issue_V_lwp) +
-                        parseFloat(item.issue_V_lwp1) +
-                        parseFloat(item.issue_V_jk) +
-                        parseFloat(item.issue_V_jk1) +
-                        parseFloat(item.issue_V_ss) +
-                        parseFloat(item.issue_V_sp) +
-                        parseFloat(item.issue_V_sp2) +
-                        parseFloat(item.issue_V_jh1) +
-                        parseFloat(item.issue_V_yk) +
-                        parseFloat(item.issue_V_m_jk1) +
-                        parseFloat(item.issue_ext_grade_1) +
-                        parseFloat(item.issue_ext_grade_2) +
-                        parseFloat(item.issue_ext_grade_3) +
-                        parseFloat(item.issue_ext_grade_4) +
-                        parseFloat(item.issue_ext_grade_5) +
-                        parseFloat(item.issue_ext_grade_6) +
-                        parseFloat(item.issue_ext_grade_7) +
-                        parseFloat(item.issue_ext_grade_8) +
-                        parseFloat(item.issue_ext_grade_9) +
-                        parseFloat(item.issue_ext_grade_10)
-                    ).toString()),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_mayur: formatNumber(item.issue_mayur),
-                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                    issue_dpds: formatNumber(item.issue_dpds),
-                    issue_rejection: formatNumber(item.issue_rejection),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-
-                    Labour: item.noOfdayOperators,
-
-
-                    Edit_Status: item.editStatus,
-                    Created_By: item.CreatedBy,
-                    Modified_By: item.modifiedBy
-
-                }));
-                //setTransformedData(transformed);
-                ws = XLSX.utils.json_to_sheet(transformed);
-            }
-            else {
-                transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
-                    Sl_No: idx + 1,
-                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
-                    Item_Lot_No: item.LotNo,
-                    Origin: item.origin,
-                    Issue_No: item.altid,
-                    Sorting_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,
-                    Opening_JJH: formatNumber(item.rcv_jjh),
-                    Opening_SJH: formatNumber(item.rcv_sjh),
-                    Opening_SJH1: formatNumber(item.rcv_sjh1),
-                    Opening_JK_K: formatNumber(item.rcv_jk_k),
-                    Opening_JH1: formatNumber(item.rcv_jh1),
-                    Opening_SP1: formatNumber(item.rcv_sp1),
-                    Borma_JJH: formatNumber(item.issue_add_4),
-                    Borma_SJH: formatNumber(item.issue_add_5),
-                    Borma_SJH1: formatNumber(item.issue_add_6),
-                    Borma_JK_K: formatNumber(item.issue_add_8),
-                    Borma_JH1: formatNumber(item.issue_add_7),
-                    Borma_SP1: formatNumber(item.issue_add_9),
-                    Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh)) + Number(formatNumber(item.rcv_sjh1))
-                        + Number(formatNumber(item.rcv_jk_k)) + Number(formatNumber(item.rcv_jh1)) + Number(formatNumber(item.rcv_sp1)),
-                    Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5)) + Number(formatNumber(item.issue_add_6)) +
-                        Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8)) + Number(formatNumber(item.issue_add_9)),
-                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Receive_Total: formatNumber((parseFloat(item.issue_add_4) + parseFloat(item.issue_add_5) + parseFloat(item.issue_add_6)
-                        + parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8) + parseFloat(item.issue_add_9) + item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0).toString()),
-                    issue_SJH: formatNumber(item.issue_sjh),
-                    issue_JJH: formatNumber(item.issue_jjh),
-                    issue_JJH1: formatNumber(item.issue_jjh1),
-                    issue_jk: formatNumber(item.issue_jk),
-                    issue_jk1: formatNumber(item.issue_jk1),
-                    issue_k: formatNumber(item.issue_k),
-                    issue_k1: formatNumber(item.issue_k1),
-                    issue_lwp: formatNumber(item.issue_lwp),
-                    issue_lwp1: formatNumber(item.issue_lwp1),
-                    issue_s: formatNumber(item.issue_s),
-                    issue_ss: formatNumber(item.issue_ss),
-                    issue_yk: formatNumber(item.issue_yk),
-                    issue_sp2: formatNumber(item.issue_sp2),
-                    issue_kp: formatNumber(item.issue_kp),
-
-                    issue_in_k: formatNumber(item.issue_in_k),
-                    issue_in_jh: formatNumber(item.issue_in_jh),
-                    issue_V_sjh: formatNumber(item.issue_V_sjh),
-                    issue_V_k: formatNumber(item.issue_V_k),
-                    issue_V_k1: formatNumber(item.issue_V_k1),
-                    issue_V_lwp: formatNumber(item.issue_V_lwp),
-                    issue_V_lwp1: formatNumber(item.issue_V_lwp1),
-                    issue_V_jk: formatNumber(item.issue_V_jk),
-                    issue_V_jk1: formatNumber(item.issue_V_jk1),
-                    issue_V_ss: formatNumber(item.issue_V_ss),
-                    issue_V_sp: formatNumber(item.issue_V_sp),
-                    issue_V_sp2: formatNumber(item.issue_V_sp2),
-                    issue_V_jh1: formatNumber(item.issue_V_jh1),
-                    issue_V_yk: formatNumber(item.issue_V_yk),
-                    issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
-                    issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
-                    issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
-                    issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
-                    issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
-                    issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
-                    issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
-                    issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
-                    issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
-                    issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
-                    issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
-
-                    Issue_Packing: formatNumber((
-                        parseFloat(item.issue_jjh) + parseFloat(item.issue_jjh1) +
-                        parseFloat(item.issue_sjh) + parseFloat(item.issue_jk) + parseFloat(item.issue_jk1) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_k1) + parseFloat(item.issue_lwp) +
-                        parseFloat(item.issue_lwp1) + parseFloat(item.issue_s) + parseFloat(item.issue_ss) +
-                        parseFloat(item.issue_k) + parseFloat(item.issue_yk) + parseFloat(item.issue_sp2) +
-                        parseFloat(item.issue_kp) + parseFloat(item.issue_in_k) +
-                        parseFloat(item.issue_in_jh) +
-                        parseFloat(item.issue_V_sjh) +
-                        parseFloat(item.issue_V_k) +
-                        parseFloat(item.issue_V_k1) +
-                        parseFloat(item.issue_V_lwp) +
-                        parseFloat(item.issue_V_lwp1) +
-                        parseFloat(item.issue_V_jk) +
-                        parseFloat(item.issue_V_jk1) +
-                        parseFloat(item.issue_V_ss) +
-                        parseFloat(item.issue_V_sp) +
-                        parseFloat(item.issue_V_sp2) +
-                        parseFloat(item.issue_V_jh1) +
-                        parseFloat(item.issue_V_yk) +
-                        parseFloat(item.issue_V_m_jk1) +
-                        parseFloat(item.issue_ext_grade_1) +
-                        parseFloat(item.issue_ext_grade_2) +
-                        parseFloat(item.issue_ext_grade_3) +
-                        parseFloat(item.issue_ext_grade_4) +
-                        parseFloat(item.issue_ext_grade_5) +
-                        parseFloat(item.issue_ext_grade_6) +
-                        parseFloat(item.issue_ext_grade_7) +
-                        parseFloat(item.issue_ext_grade_8) +
-                        parseFloat(item.issue_ext_grade_9) +
-                        parseFloat(item.issue_ext_grade_10)
-                    ).toString()),
-
-                    issue_village: formatNumber(item.issue_village),
-                    issue_mayur: formatNumber(item.issue_mayur),
-                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                    issue_dpds: formatNumber(item.issue_dpds),
-                    issue_rejection: formatNumber(item.issue_rejection),
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-
-                    Labour: item.noOfdayOperators,
-
-                    Edit_Status: item.editStatus,
-                    Created_By: item.CreatedBy,
-                    Modified_By: item.modifiedBy
-
-                }));
-                // setTransformedData(transformed);
-                ws = XLSX.utils.json_to_sheet(transformed);
-            }
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-            saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
-        }
-
-    }
+        saveAs(blob, `Sorting_Entry_${currDate}.xlsx`);
+    };
     const handleSearch = async () => {
 
         setEditData([])
@@ -1029,219 +1229,308 @@ const SortingTable = () => {
         }
     }
 
-    const formatNumberWithSign = (number: number) => {
-        if (number > 0) {
-            return `+${number}`;
-        } else {
-            return `${number}`;
-        }
-    };
+    // const formatNumberWithSign = (number: number) => {
+    //     if (number > 0) {
+    //         return `+${number}`;
+    //     } else {
+    //         return `${number}`;
+    //     }
+    // };
+
+    const thClass = `text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`;
    
     return (
         <>
 
-        <div className="ml-5 mt-5 ">
-            <div className="w-full">
-                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+        <div className="mx-2 mt-5 ">
+           {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
 
-                        {dropdown.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            <div className="flex flexbox-search">
+                        {/* Type */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot Type
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
+                                onChange={(e) => setsearchType(e.target.value)}
+                                value={searchType}
+                            >
 
-                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                                {dropdown.map((data, index) => (
+                                    <option key={index} value={data} className="bg-white">
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-<option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
+                        {/* Lot No. / Line Name */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No
+                        </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                placeholder="Lot No."
+                                value={blConNo}
+                                onChange={(e) => setBlConNo(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Origin */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setOrigin(e.target.value)}
+                                value={origin}
+                            >
+                                <option value="">Origin (All)</option>
+                                {Origin.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
+                        {/* From Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                From
+                            </label>
+                            <Input
+                                type="date"
+                                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={fromdate}
+                                onChange={(e) => setfromDate(e.target.value)}
+                            />
+                        </div>
 
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                       value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
+                        {/* To Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                To
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={todate}
+                                onChange={(e) => settoDate(e.target.value)}
+                            />
+                        </div>
 
-                />
-
-               
 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
-            </div>
-            {checkpending('Sorting') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                        {/* Search & Export Buttons */}
+                        <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
+                            </Button>
+
+                            {checkpending('Sorting') && (
+                                <Button
+                                    className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                    onClick={exportToExcel}
+                                >
+                                    <LuDownload size={16} />
+
+                                </Button>
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>}
+
+                  {props.props==='edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Issue_Type</TableHead>
+                
+
+<TableHead className={thClass}>Id</TableHead>
+<TableHead className={thClass}>Action</TableHead>
+<TableHead className={thClass}>Sorting⠀Issue⠀Type</TableHead>
+<TableHead className={thClass}>Item⠀Lot⠀No</TableHead>
+<TableHead className={thClass}>Origin</TableHead>
+<TableHead className={thClass}>Issue⠀No</TableHead>
+<TableHead className={thClass}>Edit⠀Status</TableHead>
+<TableHead className={thClass}>Sorting⠀Entry⠀Date</TableHead>
+
+<TableHead className={`${thClass} font-bold`}>Current⠀Backlog</TableHead>
+
+<TableHead className={thClass}>Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
+
+
+<TableHead className={thClass}>Opening JJH</TableHead>
+<TableHead className={thClass}>Opening SJH</TableHead>
+<TableHead className={thClass}>Opening SJH1</TableHead>
+<TableHead className={thClass}>Opening JH1</TableHead>
+<TableHead className={thClass}>Opening JK⠀K</TableHead>
+<TableHead className={thClass}>Opening SP1</TableHead>
+<TableHead className={thClass}>Opening Peeling</TableHead>
+
+<TableHead className={thClass}>Borma⠀Loss(Kg)</TableHead>
+<TableHead className={thClass}>Borma⠀Loss(%)</TableHead>
+
+<TableHead className={thClass}>JJH (Borma)</TableHead>
+<TableHead className={thClass}>SJH (Borma)</TableHead>
+<TableHead className={thClass}>SJH1 (Borma)</TableHead>
+<TableHead className={thClass}>JH1 (Borma)</TableHead>
+<TableHead className={thClass}>JK_K (Borma)</TableHead>
+<TableHead className={thClass}>SP1 (Borma)</TableHead>
+<TableHead className={thClass}>Receive Peeling(Borma)</TableHead>
+
+<TableHead className={thClass}>Receive BigTaiho</TableHead>
+<TableHead className={thClass}>Sorting⠀Total⠀Opening (Borma)</TableHead>
+
+<TableHead className={thClass}>Issue JJH</TableHead>
+<TableHead className={thClass}>Issue JJH1</TableHead>
+<TableHead className={thClass}>Issue SJH</TableHead>
+<TableHead className={thClass}>Issue JK</TableHead>
+<TableHead className={thClass}>Issue JK1</TableHead>
+<TableHead className={thClass}>Issue K</TableHead>
+<TableHead className={thClass}>Issue K1</TableHead>
+<TableHead className={thClass}>Issue LWP</TableHead>
+<TableHead className={thClass}>Issue LWP1</TableHead>
+<TableHead className={thClass}>Issue S</TableHead>
+<TableHead className={thClass}>Issue SS</TableHead>
+<TableHead className={thClass}>Issue YK</TableHead>
+<TableHead className={thClass}>Issue SP2</TableHead>
+<TableHead className={thClass}>Issue KP</TableHead>
+
+<TableHead className={thClass}>Issue IN⠀K</TableHead>
+<TableHead className={thClass}>Issue IN⠀JH</TableHead>
+
+<TableHead className={thClass}>Lot⠀Village Seperator</TableHead>
+
+<TableHead className={thClass}>Issue V⠀SJH</TableHead>
+<TableHead className={thClass}>Issue V⠀K</TableHead>
+<TableHead className={thClass}>Issue V⠀K1</TableHead>
+<TableHead className={thClass}>Issue V⠀LWP</TableHead>
+<TableHead className={thClass}>Issue V⠀LWP1</TableHead>
+<TableHead className={thClass}>Issue V⠀JK</TableHead>
+<TableHead className={thClass}>Issue V⠀JK1</TableHead>
+<TableHead className={thClass}>Issue V⠀SS</TableHead>
+<TableHead className={thClass}>Issue V⠀SP</TableHead>
+<TableHead className={thClass}>Issue V⠀SP2</TableHead>
+<TableHead className={thClass}>Issue V⠀JH1</TableHead>
+<TableHead className={thClass}>Issue V⠀YK</TableHead>
+<TableHead className={thClass}>Issue V⠀M⠀JK1</TableHead>
+
+<TableHead className={thClass}>Issue Packing</TableHead>
+<TableHead className={thClass}>Issue Village</TableHead>
+<TableHead className={thClass}>Issue Mayur</TableHead>
+<TableHead className={thClass}>Issue BigTaiho</TableHead>
+<TableHead className={thClass}>Issue DPDS</TableHead>
+<TableHead className={thClass}>Issue Rejection</TableHead>
+
+<TableHead className={`${thClass} font-bold`}>
+  Sorting_Total_Issue
+</TableHead>
+
+<TableHead className={thClass}>No of Labour</TableHead>
+
+<TableHead className={thClass}>Created By</TableHead>
+
+</TableHeader>
                     
-                    <TableHead className="text-center" >Item_Lot_No</TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >Sorting_Entry_Date</TableHead>
-                    <TableHead className="text-center font-bold">Current_Backlog</TableHead>  
-                    <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
-                    {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Opening JJH</TableHead>
-                    <TableHead className="text-center">Opening SJH</TableHead>
-                    
-                    <TableHead className="text-center">Opening SJH1</TableHead>
-                    <TableHead className="text-center">Opening JH1</TableHead>
-                    <TableHead className="text-center">Opening JK_K</TableHead>
-                    <TableHead className="text-center">Opening SP1</TableHead>
-                    <TableHead className="text-center">Opening Peeling</TableHead>
-                    <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Borma_Loss(%)</TableHead>
-                    
-                    <TableHead className="text-center"> JJH (Borma)</TableHead>
-                <TableHead className="text-center"> SJH (Borma)</TableHead>
-                <TableHead className="text-center"> SJH1 (Borma)</TableHead>
-                <TableHead className="text-center"> JH1 (Borma)</TableHead>
-                <TableHead className="text-center"> JK_K (Borma)</TableHead>
-                <TableHead className="text-center"> SP1 (Borma)</TableHead>
-                <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-                    <TableHead className="text-center">Receive BigTaiho</TableHead>
-                    <TableHead className="text-center">Sorting_Total_Opening (Borma)</TableHead>
-                    <TableHead className="text-center">Issue JJH</TableHead>
-                    <TableHead className="text-center">Issue JJH1</TableHead>
-                    <TableHead className="text-center">Issue SJH</TableHead>
-                    <TableHead className="text-center">Issue JK</TableHead>
-                    <TableHead className="text-center">Issue JK1</TableHead>
-                    <TableHead className="text-center">Issue K</TableHead>
-                    <TableHead className="text-center">Issue K1</TableHead>
-                    <TableHead className="text-center">Issue LWP</TableHead>
-                    <TableHead className="text-center">Issue LWP1</TableHead>
-                    <TableHead className="text-center">Issue S</TableHead>
-                    <TableHead className="text-center">Issue SS</TableHead>
-                    <TableHead className="text-center">Issue YK</TableHead>
-                    <TableHead className="text-center">Issue SP2</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>
-                            <TableHead className="text-center">Issue IN_K</TableHead>
-                                        <TableHead className="text-center">Issue IN_JH</TableHead>
-                      <TableHead className="text-center">Lot_Village Seperator</TableHead>
-                      <TableHead className="text-center">Issue V_SJH</TableHead>
-                      <TableHead className="text-center">Issue V_K</TableHead>
-                      <TableHead className="text-center">Issue V_K1</TableHead>
-                      <TableHead className="text-center">Issue V_LWP</TableHead>
-                      <TableHead className="text-center">Issue V_LWP1</TableHead>
-                      <TableHead className="text-center">Issue V_JK</TableHead>
-                      <TableHead className="text-center">Issue V_JK1</TableHead>
-                      <TableHead className="text-center">Issue V_SS</TableHead>
-                      <TableHead className="text-center">Issue V_SP</TableHead>
-                      <TableHead className="text-center">Issue V_SP2</TableHead>
-                      <TableHead className="text-center">Issue V_JH1</TableHead>
-                      <TableHead className="text-center">Issue V_YK</TableHead>
-                      <TableHead className="text-center">Issue V_M_JK1</TableHead>       
-                    {/* <TableHead className="text-center">Issue Add 1</TableHead>
-                    <TableHead className="text-center">Issue Add 2</TableHead>
-                    <TableHead className="text-center">Issue Add 3</TableHead>
-                    <TableHead className="text-center">Issue Add 4</TableHead>
-                    <TableHead className="text-center">Issue Add 5</TableHead>
-                    <TableHead className="text-center">Issue Add 6</TableHead>
-                    <TableHead className="text-center">Issue Add 7</TableHead>
-                    <TableHead className="text-center">Issue Add 8</TableHead>
-                    <TableHead className="text-center">Issue Add 9</TableHead>
-                    <TableHead className="text-center">Issue Add 10</TableHead> */}
-                     <TableHead className="text-center">Issue Packing</TableHead>
-                     <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Mayur</TableHead>
-                    <TableHead className="text-center">Issue BigTaiho</TableHead>
-                    <TableHead className="text-center">Issue DPDS</TableHead>
-                    <TableHead className="text-center">Issue Rejection</TableHead>
-                    <TableHead className="text-center font-bold">Sorting_Total_Issue</TableHead>
-                    {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
-                    
-                    <TableHead className="text-center">No of Labour</TableHead>
-                    {/* <TableHead className="text-center">Operator_Night</TableHead>
-                */}
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Created By </TableHead>
-                    
-                </TableHeader>
+                
                 <TableBody>
 
 
-                    {EditData.length > 0 ? (EditData.map((item: SortingData, idx) => {
+                    {EditData.length > 0 && props.props==='edit'? (EditData.map((item: SortingData, idx) => {
 
                         return (
                             <TableRow key={item.id}>
                             <TableCell className="text-center">{idx + 1}</TableCell>
+                              <TableCell className="text-center flex flex-row gap-3">
+
+
+                                        <AlertDialog>
+                                            <AlertDialogTrigger >
+                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                    <button className="text-green-600">
+                                                        Approve
+                                                    </button>
+
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent  >
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Approve the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleApprove(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                    <FcDisapprove size={18} />
+                                                    <button className=" text-red-600">
+                                                        Revert
+                                                    </button>
+                                                </div>
+
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        Do you want to Decline the Edit Request?
+                                                    </AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleRejection(item)}>
+                                                        Continue
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+
+
+                                    </TableCell>
                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                     
                                     <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                <TableCell className="text-center"><button
+                                    className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                                                              ${item.editStatus === "Approved"
+                                            ? "text-green-600 border-green-600 bg-green-50"
+                                            : item.editStatus === "NA"
+                                                ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                : "text-red-600 border-red-600 bg-red-50"
+                                        }`}
+                                >
+                                    {item.editStatus}
+                                </button></TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                     <TableCell className="text-center">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
+                                    
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center ">{formatNumber(item.rcv_jjh)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_sjh)}</TableCell>
@@ -1381,7 +1670,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         {/* <TableCell className="text-center">{item.noOfnightOperators}</TableCell> */}
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                            
@@ -1391,18 +1680,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             return (
                                 <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                    
-                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
-                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                                <button className={`p-2 ${item.editStatus === 'Pending' || item.latest === 0? 'text-red-500 bg-red-50 w-20 border border-red-300 font-semibold rounded-lg' : 'text-blue-500 bg-blue-50 w-20 border border-blue-300 font-bold rounded-lg'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
@@ -1452,6 +1733,26 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                             
                                         </Popover>
                                     </TableCell>
+                                    <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                    
+                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                    <TableCell className="text-center" > <button
+                                                                                className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                      ${item.editStatus === "Approved"
+                                                                                        ? "text-green-600 border-green-600 bg-green-50"
+                                                                                        : item.editStatus === "NA"
+                                                                                            ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                            : "text-red-600 border-red-600 bg-red-50"
+                                                                                    }`}
+                                                                            >
+                                                                                {item.editStatus}
+                                                                            </button></TableCell>
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                    
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center ">{formatNumber(item.rcv_jjh)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_sjh)}</TableCell>
@@ -1590,7 +1891,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         {/* <TableCell className="text-center">{item.noOfnightOperators}</TableCell> */}
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                  
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     
                                 </TableRow>
@@ -1617,30 +1918,44 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </TableBody>
 
             </Table>
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 1) {
-                                return prev
-                            }
-                            if (prev <= 0) {
-                                return prev + 1
-                            }
-                            return prev - 1
-                        })} />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+              <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
             <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
             <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
             <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

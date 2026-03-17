@@ -34,6 +34,7 @@ interface lotPropsdata{
     rcv_wholespeel:string;
     rcv_wholesunpeel:string;
     rcv_DPDS:string;
+    rcv_sorting:string;
 }
 
 const MayurInitial = (props: any) => {
@@ -126,7 +127,7 @@ const MayurInitial = (props: any) => {
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl</TableHead>
-                        <TableHead className="text-center" >Lot_No</TableHead>
+                        <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -136,7 +137,10 @@ const MayurInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if( (Number(item.rcv_wholespeel)+ Number(item.rcv_wholesunpeel))>0 ){
+                                if( ((Number(item.rcv_wholespeel)||0)
+                                    + (Number(item.rcv_wholesunpeel)||0)
+                                     +(Number(item.rcv_DPDS)||0)+(Number(item.rcv_sorting)||0)
+                                    )>0 ){
                                     return (
                                         <TableRow key={idx}>
                                             <TableCell className="text-center">

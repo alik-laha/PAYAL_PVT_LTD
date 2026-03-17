@@ -59,6 +59,8 @@ import QCOnlineHandGradeTable from "./QCOnlineHandGradeTable";
 import DashboardFooter from "../dashboard/DashboardFooter";
 import axios from "axios";
 import QcKORInitial from './qcKORInitial'
+import { FaHistory } from "react-icons/fa";
+import QCProductionKORTable from "./QCKORTable";
 
 //import QCWaterCreate from "./QCWaterCreate";
 //import QCWaterTable from "./QCWaterTable";
@@ -70,6 +72,8 @@ const QCOnline = () => {
   const [tablesection, setTablesection] = useState<string>("BOILER");
 
   const [lotdata, setLotData] = useState<any[]>([])
+  const [maintable, setMainTable] = useState<string>('block')
+  const [kortable, setKorTable] = useState<string>('none')
   const { data, isLoading, error } = UseQueryData(
     "/api/qconline/sumofallQCOnline",
     "GET",
@@ -82,6 +86,16 @@ const QCOnline = () => {
   if (error) {
     return <div>Error</div>;
   }
+  const handleTransferFetch =  () => {
+        if(maintable === 'block'){
+            setMainTable('none')
+            setKorTable('block')
+        }
+        else{
+            setMainTable('block')
+            setKorTable('none')
+        }
+    }
 
    const handleOpenLotNo = async () => {
         axios.get('/api/qconline/getUnKOREntry/0').then(res => {
@@ -179,7 +193,7 @@ const QCOnline = () => {
               <DialogTrigger >
                 {" "}
                 <Button
-                  className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                  className="w-20 md:w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
                   >
                   +  Add QC
                 </Button>
@@ -234,7 +248,7 @@ const QCOnline = () => {
             </Dialog>
 
             <Dialog>
-                        <DialogTrigger> <Button className="w-40 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add KOR</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="w-20 md:w-40 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add KOR</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>KOR Entry Form</p></DialogTitle>
@@ -244,12 +258,14 @@ const QCOnline = () => {
                             <QcKORInitial props={lotdata} />
                         </DialogContent>
                     </Dialog>
-           <div className="mb-2 mt-5 responsive-button-adjust no-margin-left ml-4">
+
+                      <Button className="w-20 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'KOR':'Online'}<FaHistory size={16} className='ml-2'/></Button>
+           {/* <div className="mb-2 mt-5 responsive-button-adjust no-margin-left ml-4"> */}
 <Select
               value={tablesection}
               onValueChange={(value) => setTablesection(value)}
               required={true}>
-              <SelectTrigger className="w-40 justify-center h-10 drop-shadow-lg bg-yellow-100 font-bold border-2 border-gray-300">
+              <SelectTrigger className="w-28 md:w-40 justify-center h-10 bg-yellow-100 font-bold border-2 border-gray-300 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md">
                 <SelectValue placeholder="Section Name" />
               </SelectTrigger>
               <SelectContent>
@@ -264,13 +280,16 @@ const QCOnline = () => {
                 </SelectGroup>
               </SelectContent>
             </Select>
-           </div>
+          
+
+          
            
           </div>
           {/* <div className="mt-2 mb-5 flex justify-center items-center">
            
           </div> */}
 
+          <div style={{ display: maintable }}>
           {tablesection==='BOILER' && <QCOnlineBoilerTable />}
           {tablesection==='GRADING' && <QCOnlineGradingTable />}
           {tablesection==='BOILING' && <QCOnlineBoilingTable />}
@@ -284,6 +303,12 @@ const QCOnline = () => {
            {tablesection==='POUCH' && <QCOnlinePouchTable />}
            {tablesection==='BUCKET' && <QCOnlineBucketTable />}
            {tablesection==='HAND_GRADE' && <QCOnlineHandGradeTable />}
+          </div>
+            <div style={{ display: kortable }}>
+              <QCProductionKORTable/>
+            </div>
+
+        
         </div>
         <DashboardFooter/>
       </div>

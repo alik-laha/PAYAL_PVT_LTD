@@ -354,9 +354,9 @@ const DPDSEditForm = (props:Props) => {
  
     return (
         <>
-        <div className="px-5 py-2 overflow-auto">
+        <div className=" py-2 overflow-auto">
             <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
-               <div className="mx-1 flex flex-col gap-0.5"> 
+               <div className="mx-1 flex flex-col gap-1"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>

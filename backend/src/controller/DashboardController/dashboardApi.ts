@@ -1335,6 +1335,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         where: {
           ...commonWhere,
           date: { [Op.between]: [fyStart, nowIST] },
+          BormaStatus:1
         },
         // raw: true,
       });
@@ -1344,6 +1345,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         where: {
           ...commonWhere,
           date: { [Op.between]: [fyStart, nowIST] },
+          Status:1
         },
         // raw: true,
       });
@@ -1438,6 +1440,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         where: {
           ...commonWhere,
           date: { [Op.between]: [weekStart, nowIST] },
+          BormaStatus:1
         },
         // raw: true,
       });
@@ -1454,7 +1457,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [weekStart, nowIST] },
+          date: { [Op.between]: [weekStart, nowIST] },Status:1
         },
         // raw: true,
       });
@@ -1594,7 +1597,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         attributes: [[fn("AVG", col("BormaLoss")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [monthStart, nowIST] },
+          date: { [Op.between]: [monthStart, nowIST] },BormaStatus:1
         },
         //raw: true,
       });
@@ -1610,7 +1613,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [monthStart, nowIST] },
+          date: { [Op.between]: [monthStart, nowIST] },Status:1
         },
         //raw: true,
       });
@@ -1850,7 +1853,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           attributes: [[fn("AVG", col("BormaLoss")), "total"]],
           where: {
             ...commonWhere,
-            date: { [Op.between]: [from, to] },
+            date: { [Op.between]: [from, to] },BormaStatus:1
           },
           //raw: true,
         });
@@ -1879,7 +1882,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           attributes: [[fn("AVG", col("MoistGain")), "total"]],
           where: {
             ...commonWhere,
-            date: { [Op.between]: [from, to] },
+            date: { [Op.between]: [from, to] },Status:1
           },
           //raw: true,
         });
@@ -2030,5 +2033,89 @@ export const directorDashboard = async (req: Request, res: Response) => {
     console.error(" Dashboard Error:", error);
     return res.status(500).json({ msg: "Internal Server Error" });
   }
+
+}
+
+export const getBacklogLot = async (req: Request, res: Response) => {
+       try {
+        const section = req.params.section;
+        let scoopingLot
+        if(section==='mayur'){
+            scoopingLot = await Mayur.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                }
+            }
+
+        });
+        }
+
+        if(section==='hamsa'){
+            scoopingLot = await hamsaModel.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },
+            }
+
+        });
+        }
+
+         if(section==='dpds'){
+            scoopingLot = await DPDS.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },
+            }
+
+        });
+        }
+
+          if(section==='sorting'){
+            scoopingLot = await SortingModel.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },
+            }
+
+        });
+        }
+        
+        if(scoopingLot){
+            res.status(200).json({ message: "Backlog Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
 
 }

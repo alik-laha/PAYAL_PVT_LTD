@@ -196,7 +196,7 @@ const IssueItem = () => {
                                             >
                                                 <div className="flex items-center gap-1">
                                                     <MdPendingActions size={16} />
-                                                    Pending
+                                                    Actions
                                                 </div>
                                             </Button>
 

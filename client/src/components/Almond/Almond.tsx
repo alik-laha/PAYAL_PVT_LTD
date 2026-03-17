@@ -125,7 +125,7 @@ const Almond = () => {
                                 >
                                     <div className="flex items-center gap-2">
                                         <MdPendingActions size={18} />
-                                        Pending Actions
+                                         Actions
                                     </div>
                                 </Button>
 

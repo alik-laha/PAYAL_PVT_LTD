@@ -326,15 +326,35 @@ const RCNDPDSCreateForm = (props:Props) => {
  
     return (
         <>
-        <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
-               <div className="mx-1 flex flex-col gap-0.5"> 
+        <div className=" py-2 overflow-auto">
+            <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+               <div className="grid grid-cols-1 md:grid-cols-5 gap-3"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
-                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> 
-                   <Label className="w-1/4  text-end font-semibold ">Total Receiving : </Label>
-                    <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+                <div>
+                  
+                  <Label className="text-xs font-bold text-gray-500">Date of Entry</Label>
+                <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="Date" ref={DateRef} type="date" required /> 
+                   
+                   
+                   </div>
+               
+                     <div><Label className="text-xs font-bold text-gray-500">No. of Labour</Label>
+                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of labour" ref={dayOpRef}  />
+                    
+                     </div>
+                     <div><Label className="text-xs font-bold text-gray-500">No. of Supervisor</Label>
+                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
+                    <Input className="mt-1 bg-gray-50 font-semibold text-center border-gray-300" placeholder="No. of supervisor" ref={nightOpRef}  />
+                     
+                     
+                     </div>
+
+                     <div className="flex flex-col justify-end">
+                            <div className="w-full ">
+                                 <Label className=" font-semibold ">Total Receiving : </Label>
+                    <Label className="font-semibold text-green-500">
                                                    {rows[0] ? (
                                                        (
                                                            Number(rows[0].issue_add_1) +
@@ -343,14 +363,12 @@ const RCNDPDSCreateForm = (props:Props) => {
                                                        ).toFixed(2)
                                                    ) : 0} Kg
                                                </Label>
-                   
-                   </div>
-               
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
-                     <Label className="w-1/4 text-end font-semibold ">Total Issue : </Label>
-                     <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+
+                                               </div>
+                                               <div>
+
+                                                <Label className="font-semibold ">Total Issue : </Label>
+                     <Label className=" font-semibold text-blue-500">
                   {rows[0] ? (
                     (
                       Number(rows[0].issue_m_ds) +
@@ -407,12 +425,11 @@ const RCNDPDSCreateForm = (props:Props) => {
                     ).toFixed(2)
                   ) : 0} Kg
                 </Label>
-                     </div>
-                     <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-1/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
-                      <Label className="w-1/4 text-end font-semibold  ">Backlog : </Label>
-                                               <Label className="w-1/4 text-left font-semibold ml-2 text-red-500">
+
+                </div><div>
+
+                 <Label className="font-semibold  ">Backlog : </Label>
+                                               <Label className="font-semibold  text-red-500">
                                                      {props.borma[0] && rows[0] ? (
                                                          (
                                                           (Number(rows[0].issue_add_1) +
@@ -474,8 +491,14 @@ const RCNDPDSCreateForm = (props:Props) => {
                                                          ).toFixed(2)
                                                      ) : 0} Kg
                                                  </Label>
-                     
-                     </div>
+                            </div>
+
+                            </div>
+
+
+
+
+                  
                    
                      
                    
@@ -483,11 +506,11 @@ const RCNDPDSCreateForm = (props:Props) => {
                 <Label className="w-100 pt-2 text-center">General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
-                    <TableHead className="text-center">Sl. No.</TableHead>
-                    <TableHead className="text-center">Lot_No</TableHead>
+                    <TableHead className="text-center">Sl⠀No</TableHead>
+                    <TableHead className="text-center">Lot⠀No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Incoming_Mixed_Lot_&_Origin</TableHead>
+                    <TableHead className="text-center">Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
                     <TableHead className="text-center">Receive DP</TableHead>
                     <TableHead className="text-center">Receive DS</TableHead>
                     <TableHead className="text-center">Receive DP1</TableHead>
@@ -562,21 +585,21 @@ const RCNDPDSCreateForm = (props:Props) => {
                   
                     
                    
-                    <TableHead className="text-center">Issue M_DS</TableHead>
-                    <TableHead className="text-center">Issue M_DP</TableHead>
-                    <TableHead className="text-center">Issue K_DP</TableHead>
-                    <TableHead className="text-center">Issue DS 1</TableHead>
-                    <TableHead className="text-center">Issue DS 2</TableHead>
-                    <TableHead className="text-center">Issue SP 2</TableHead>
+                    <TableHead className="text-center">Issue M⠀DS</TableHead>
+                    <TableHead className="text-center">Issue M⠀DP</TableHead>
+                    <TableHead className="text-center">Issue K⠀DP</TableHead>
+                    <TableHead className="text-center">Issue DS⠀1</TableHead>
+                    <TableHead className="text-center">Issue DS⠀2</TableHead>
+                    <TableHead className="text-center">Issue SP⠀2</TableHead>
                     <TableHead className="text-center">Issue YJH</TableHead>
                     <TableHead className="text-center">Issue YK</TableHead>
                     <TableHead className="text-center">Issue KP</TableHead>
                     <TableHead className="text-center">Issue WP</TableHead>
                     <TableHead className="text-center">Issue RS</TableHead>
-                    <TableHead className="text-center">Issue DP 2</TableHead>
-                    <TableHead className="text-center">Issue DP 3</TableHead>
-                    <TableHead className="text-center">Issue DP 4</TableHead>
-                    <TableHead className="text-center">Issue DP_3L</TableHead>
+                    <TableHead className="text-center">Issue DP⠀2</TableHead>
+                    <TableHead className="text-center">Issue DP⠀3</TableHead>
+                    <TableHead className="text-center">Issue DP⠀4</TableHead>
+                    <TableHead className="text-center">Issue DP⠀3L</TableHead>
                     <TableHead className="text-center">Issue SS</TableHead>
                     <TableHead className="text-center">Issue OS</TableHead>
                     <TableHead className="text-center">Issue OS1</TableHead>
@@ -619,26 +642,26 @@ const RCNDPDSCreateForm = (props:Props) => {
                 <Label className="w-100 pt-1 text-center">Village Packing Grade</Label>
                 <Table className="mt-3">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Issue V_DS</TableHead>
-                            <TableHead className="text-center">Issue V_M_DS</TableHead>
-                            <TableHead className="text-center">Issue V_DP</TableHead>
-                            <TableHead className="text-center">Issue V_M_DP</TableHead>
-                            <TableHead className="text-center">Issue V_K_DP</TableHead>
-                            <TableHead className="text-center">Issue V_LP</TableHead>
-                            <TableHead className="text-center">Issue V_LP2</TableHead>
+                            <TableHead className="text-center">Issue V⠀DS</TableHead>
+                            <TableHead className="text-center">Issue V⠀M⠀DS</TableHead>
+                            <TableHead className="text-center">Issue V⠀DP</TableHead>
+                            <TableHead className="text-center">Issue V⠀M⠀DP</TableHead>
+                            <TableHead className="text-center">Issue V⠀K⠀DP</TableHead>
+                            <TableHead className="text-center">Issue V⠀LP</TableHead>
+                            <TableHead className="text-center">Issue V⠀LP2</TableHead>
                            
-                            <TableHead className="text-center">Issue V_SS</TableHead>
-                            <TableHead className="text-center">Issue V_YJH</TableHead>
-                            <TableHead className="text-center">Issue V_YK</TableHead>
-                            <TableHead className="text-center">Issue V_SP2</TableHead>
-                            <TableHead className="text-center">Issue V_KP</TableHead>
-                            <TableHead className="text-center">Issue V_DP2</TableHead>
-                            <TableHead className="text-center">Issue V_DP3</TableHead>
-                            <TableHead className="text-center">Issue V_DP4</TableHead>
-                            <TableHead className="text-center">Issue V_OS</TableHead>
-                            <TableHead className="text-center">Issue V_OS1</TableHead>
-                            <TableHead className="text-center">Issue V_WP</TableHead>
-                            <TableHead className="text-center">Issue V_RS</TableHead>
+                            <TableHead className="text-center">Issue V⠀SS</TableHead>
+                            <TableHead className="text-center">Issue V⠀YJH</TableHead>
+                            <TableHead className="text-center">Issue V⠀YK</TableHead>
+                            <TableHead className="text-center">Issue V⠀SP2</TableHead>
+                            <TableHead className="text-center">Issue V⠀KP</TableHead>
+                            <TableHead className="text-center">Issue V⠀DP2</TableHead>
+                            <TableHead className="text-center">Issue V⠀DP3</TableHead>
+                            <TableHead className="text-center">Issue V⠀DP4</TableHead>
+                            <TableHead className="text-center">Issue V⠀OS</TableHead>
+                            <TableHead className="text-center">Issue V⠀OS1</TableHead>
+                            <TableHead className="text-center">Issue V⠀WP</TableHead>
+                            <TableHead className="text-center">Issue V⠀RS</TableHead>
                 </TableHeader>
 
                 <TableBody>
@@ -774,19 +797,22 @@ const RCNDPDSCreateForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+                  
+
+
+                <dialog id="successemployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                      <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 font-medium text-green-500">{errortext}</p>
                   </span>
   
   
               </dialog>
   
-              <dialog id="erroremployeedialog" className="dashboard-modal">
+              <dialog id="erroremployeedialog" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
                   <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                      <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
                   </span>
   
   

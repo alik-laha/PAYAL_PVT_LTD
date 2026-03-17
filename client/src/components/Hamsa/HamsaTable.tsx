@@ -978,7 +978,7 @@ const HamsaTable = (props:any) => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
-                    <TableHead className="text-center" >Issue⠀Type</TableHead>
+                    <TableHead className="text-center" >Hamsa⠀Issue⠀Type</TableHead>
                     
                     <TableHead className="text-center" >Item⠀Lot⠀No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>

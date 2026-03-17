@@ -147,8 +147,15 @@ export const sumOfallDPDS = async (req: Request, res: Response) => {
                     }
                 });
         const EditData = await DPDSEdit.count()
+
+        const PendingData = await DPDS.count({where: { [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ],latest: 1,current_backlog: {
+                    [Op.gt]: 0
+                }}} )
         if (data && Sumdata) {
-            return res.status(200).json({ data, EditData,Sumdata });
+            return res.status(200).json({ data, EditData,Sumdata,PendingData });
         }
     }
     catch (err) {

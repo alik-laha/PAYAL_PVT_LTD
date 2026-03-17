@@ -159,18 +159,18 @@ const QCOnlineScoopingTable = () => {
         <TableHeader className="bg-neutral-100 text-stone-950 ">
           <TableHead className="text-center">Id</TableHead>
           <TableHead className="text-center">Action</TableHead>
-          <TableHead className="text-center">Date</TableHead>
-          <TableHead className="text-center">Time</TableHead>
-          <TableHead className="text-center">Cashew % In Husk </TableHead>
-          <TableHead className="text-center">Oil Contain Status</TableHead>
-          <TableHead className="text-center">Sieve Cleaning Status</TableHead>
+          <TableHead className="text-center">Entry⠀Date</TableHead>
+          <TableHead className="text-center">Entry⠀Time</TableHead>
+          <TableHead className="text-center">Cashew⠀%⠀In⠀Husk </TableHead>
+          <TableHead className="text-center">Oil⠀Contain⠀Status</TableHead>
+          <TableHead className="text-center">Sieve⠀Cleaning⠀Status</TableHead>
 
-          <TableHead className="text-center">Cleaning Status</TableHead>
-          <TableHead className="text-center">Maintainance Status</TableHead>
-          <TableHead className="text-center">Cleaning Remarks</TableHead>
-          <TableHead className="text-center">Maintainance Remarks</TableHead>
-          <TableHead className="text-center">Created By</TableHead>
-          <TableHead className="text-center">Modified By</TableHead>
+          <TableHead className="text-center">Cleaning⠀Status</TableHead>
+          <TableHead className="text-center">Maintainance⠀Status</TableHead>
+          <TableHead className="text-center">Cleaning⠀Remarks</TableHead>
+          <TableHead className="text-center">Maintainance⠀Remarks</TableHead>
+          <TableHead className="text-center">Created⠀By</TableHead>
+          <TableHead className="text-center">Modified⠀By</TableHead>
           
         </TableHeader>
         <TableBody>
