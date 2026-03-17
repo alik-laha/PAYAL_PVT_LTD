@@ -372,11 +372,11 @@ const BigTaihoEditForm = (props:Props) => {
             
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
-                   <TableHead className="text-center">Sl. No.</TableHead>
-                    <TableHead className="text-center">Lot_No</TableHead>
+                   <TableHead className="text-center">Sl⠀No</TableHead>
+                    <TableHead className="text-center">Lot⠀No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Mixed⠀Lot</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     {/* <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
             
@@ -470,20 +470,20 @@ const BigTaihoEditForm = (props:Props) => {
                                         <TableHeader className="bg-neutral-100 text-stone-950 ">
                                             <TableHead className="text-center">Issue SSP</TableHead>
                                             <TableHead className="text-center">Issue SSP(Small)</TableHead>
-                                            <TableHead className="text-center">Issue SWP_1</TableHead>
+                                            <TableHead className="text-center">Issue SWP⠀1</TableHead>
                                             <TableHead className="text-center">Issue WSP</TableHead>
                                             <TableHead className="text-center">Issue Bits</TableHead>
                                             <TableHead className="text-center">Issue SWP</TableHead>
                                             <TableHead className="text-center">Issue BB</TableHead>
-                                            <TableHead className="text-center">Issue W_BB</TableHead>
-                                            <TableHead className="text-center">Issue BB A</TableHead>
+                                            <TableHead className="text-center">Issue W⠀BB</TableHead>
+                                            <TableHead className="text-center">Issue BB⠀A</TableHead>
                                             <TableHead className="text-center">Issue BB1</TableHead>
                                             <TableHead className="text-center">Issue BB1(A)</TableHead>
-                                            <TableHead className="text-center">Issue BB 2</TableHead>
-                                            <TableHead className="text-center">Issue SSP_1</TableHead>
-                                            <TableHead className="text-center">Issue SSP_1(Small)</TableHead>
-                                            <TableHead className="text-center">Issue SSP_2</TableHead>
-                                            <TableHead className="text-center">Issue SSP_2(Small)</TableHead>
+                                            <TableHead className="text-center">Issue BB⠀2</TableHead>
+                                            <TableHead className="text-center">Issue SSP⠀1</TableHead>
+                                            <TableHead className="text-center">Issue SSP⠀1(Small)</TableHead>
+                                            <TableHead className="text-center">Issue SSP⠀2</TableHead>
+                                            <TableHead className="text-center">Issue SSP⠀2(Small)</TableHead>
                                             <TableHead className="text-center">Issue SDP</TableHead>
                 
                 
@@ -522,18 +522,18 @@ const BigTaihoEditForm = (props:Props) => {
                                     <Label className="w-100 pt-5 text-center">3. Machine Information</Label>
                                     <Table className="mt-3">
                                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                                            <TableHead className="text-center">Mc On (Taiho)</TableHead>
-                                            <TableHead className="text-center">Mc Off (Taiho)</TableHead>
-                                            <TableHead className="text-center">Mc_Breakdown (Taiho)</TableHead>
-                                            <TableHead className="text-center">Other_Time (Taiho)</TableHead>
-                                            <TableHead className="text-center">Mc On (Spectrum)</TableHead>
-                                            <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
-                                            <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
-                                            <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
-                                            <TableHead className="text-center">Mc On (Amrita)</TableHead>
-                                            <TableHead className="text-center">Mc Off (Amrita)</TableHead>
-                                            <TableHead className="text-center">Mc_Breakdown (Amrita)</TableHead>
-                                            <TableHead className="text-center">Other_Time (Amrita)</TableHead>
+                                            <TableHead className="text-center">Mc⠀On (Taiho)</TableHead>
+                                            <TableHead className="text-center">Mc⠀Off (Taiho)</TableHead>
+                                            <TableHead className="text-center">Mc⠀Breakdown (Taiho)</TableHead>
+                                            <TableHead className="text-center">Other⠀Time (Taiho)</TableHead>
+                                            <TableHead className="text-center">Mc⠀On (Spectrum)</TableHead>
+                                            <TableHead className="text-center">Mc⠀Off (Spectrum)</TableHead>
+                                            <TableHead className="text-center">Mc⠀Breakdown (Spectrum)</TableHead>
+                                            <TableHead className="text-center">Other⠀Time (Spectrum)</TableHead>
+                                            <TableHead className="text-center">Mc⠀On (Amrita)</TableHead>
+                                            <TableHead className="text-center">Mc⠀Off (Amrita)</TableHead>
+                                            <TableHead className="text-center">Mc⠀Breakdown (Amrita)</TableHead>
+                                            <TableHead className="text-center">Other⠀Time (Amrita)</TableHead>
                 
                 
                                         </TableHeader>

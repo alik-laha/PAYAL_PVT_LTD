@@ -1359,90 +1359,90 @@ const SortingTable = (props:any) => {
 
                 
 
-<TableHead className={thClass}>Id</TableHead>
-<TableHead className={thClass}>Action</TableHead>
-<TableHead className={thClass}>Sorting⠀Issue⠀Type</TableHead>
-<TableHead className={thClass}>Item⠀Lot⠀No</TableHead>
-<TableHead className={thClass}>Origin</TableHead>
-<TableHead className={thClass}>Issue⠀No</TableHead>
-<TableHead className={thClass}>Edit⠀Status</TableHead>
-<TableHead className={thClass}>Sorting⠀Entry⠀Date</TableHead>
+                        <TableHead className={thClass}>Id</TableHead>
+                        <TableHead className={thClass}>Action</TableHead>
+                        <TableHead className={thClass}>Sorting⠀Issue⠀Type</TableHead>
+                        <TableHead className={thClass}>Item⠀Lot⠀No</TableHead>
+                        <TableHead className={thClass}>Origin</TableHead>
+                        <TableHead className={thClass}>Issue⠀No</TableHead>
+                        <TableHead className={thClass}>Edit⠀Status</TableHead>
+                        <TableHead className={thClass}>Sorting⠀Entry⠀Date</TableHead>
 
-<TableHead className={`${thClass} font-bold`}>Current⠀Backlog</TableHead>
+                        <TableHead className={`${thClass} font-bold`}>Current⠀Backlog</TableHead>
 
-<TableHead className={thClass}>Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
+                        <TableHead className={thClass}>Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
 
 
-<TableHead className={thClass}>Opening JJH</TableHead>
-<TableHead className={thClass}>Opening SJH</TableHead>
-<TableHead className={thClass}>Opening SJH1</TableHead>
-<TableHead className={thClass}>Opening JH1</TableHead>
-<TableHead className={thClass}>Opening JK⠀K</TableHead>
-<TableHead className={thClass}>Opening SP1</TableHead>
-<TableHead className={thClass}>Opening Peeling</TableHead>
+                        <TableHead className={thClass}>Opening JJH</TableHead>
+                        <TableHead className={thClass}>Opening SJH</TableHead>
+                        <TableHead className={thClass}>Opening SJH1</TableHead>
+                        <TableHead className={thClass}>Opening JH1</TableHead>
+                        <TableHead className={thClass}>Opening JK⠀K</TableHead>
+                        <TableHead className={thClass}>Opening SP1</TableHead>
+                        <TableHead className={thClass}>Opening Peeling</TableHead>
 
-<TableHead className={thClass}>Borma⠀Loss(Kg)</TableHead>
-<TableHead className={thClass}>Borma⠀Loss(%)</TableHead>
+                        <TableHead className={thClass}>Borma⠀Loss(Kg)</TableHead>
+                        <TableHead className={thClass}>Borma⠀Loss(%)</TableHead>
 
-<TableHead className={thClass}>JJH (Borma)</TableHead>
-<TableHead className={thClass}>SJH (Borma)</TableHead>
-<TableHead className={thClass}>SJH1 (Borma)</TableHead>
-<TableHead className={thClass}>JH1 (Borma)</TableHead>
-<TableHead className={thClass}>JK_K (Borma)</TableHead>
-<TableHead className={thClass}>SP1 (Borma)</TableHead>
-<TableHead className={thClass}>Receive Peeling(Borma)</TableHead>
+                        <TableHead className={thClass}>JJH (Borma)</TableHead>
+                        <TableHead className={thClass}>SJH (Borma)</TableHead>
+                        <TableHead className={thClass}>SJH1 (Borma)</TableHead>
+                        <TableHead className={thClass}>JH1 (Borma)</TableHead>
+                        <TableHead className={thClass}>JK_K (Borma)</TableHead>
+                        <TableHead className={thClass}>SP1 (Borma)</TableHead>
+                        <TableHead className={thClass}>Receive Peeling(Borma)</TableHead>
 
-<TableHead className={thClass}>Receive BigTaiho</TableHead>
-<TableHead className={thClass}>Sorting⠀Total⠀Opening (Borma)</TableHead>
+                        <TableHead className={thClass}>Receive BigTaiho</TableHead>
+                        <TableHead className={thClass}>Sorting⠀Total⠀Opening (Borma)</TableHead>
 
-<TableHead className={thClass}>Issue JJH</TableHead>
-<TableHead className={thClass}>Issue JJH1</TableHead>
-<TableHead className={thClass}>Issue SJH</TableHead>
-<TableHead className={thClass}>Issue JK</TableHead>
-<TableHead className={thClass}>Issue JK1</TableHead>
-<TableHead className={thClass}>Issue K</TableHead>
-<TableHead className={thClass}>Issue K1</TableHead>
-<TableHead className={thClass}>Issue LWP</TableHead>
-<TableHead className={thClass}>Issue LWP1</TableHead>
-<TableHead className={thClass}>Issue S</TableHead>
-<TableHead className={thClass}>Issue SS</TableHead>
-<TableHead className={thClass}>Issue YK</TableHead>
-<TableHead className={thClass}>Issue SP2</TableHead>
-<TableHead className={thClass}>Issue KP</TableHead>
+                        <TableHead className={thClass}>Issue JJH</TableHead>
+                        <TableHead className={thClass}>Issue JJH1</TableHead>
+                        <TableHead className={thClass}>Issue SJH</TableHead>
+                        <TableHead className={thClass}>Issue JK</TableHead>
+                        <TableHead className={thClass}>Issue JK1</TableHead>
+                        <TableHead className={thClass}>Issue K</TableHead>
+                        <TableHead className={thClass}>Issue K1</TableHead>
+                        <TableHead className={thClass}>Issue LWP</TableHead>
+                        <TableHead className={thClass}>Issue LWP1</TableHead>
+                        <TableHead className={thClass}>Issue S</TableHead>
+                        <TableHead className={thClass}>Issue SS</TableHead>
+                        <TableHead className={thClass}>Issue YK</TableHead>
+                        <TableHead className={thClass}>Issue SP2</TableHead>
+                        <TableHead className={thClass}>Issue KP</TableHead>
 
-<TableHead className={thClass}>Issue IN⠀K</TableHead>
-<TableHead className={thClass}>Issue IN⠀JH</TableHead>
+                        <TableHead className={thClass}>Issue IN⠀K</TableHead>
+                        <TableHead className={thClass}>Issue IN⠀JH</TableHead>
 
-<TableHead className={thClass}>Lot⠀Village Seperator</TableHead>
+                        <TableHead className={thClass}>Lot⠀Village Seperator</TableHead>
 
-<TableHead className={thClass}>Issue V⠀SJH</TableHead>
-<TableHead className={thClass}>Issue V⠀K</TableHead>
-<TableHead className={thClass}>Issue V⠀K1</TableHead>
-<TableHead className={thClass}>Issue V⠀LWP</TableHead>
-<TableHead className={thClass}>Issue V⠀LWP1</TableHead>
-<TableHead className={thClass}>Issue V⠀JK</TableHead>
-<TableHead className={thClass}>Issue V⠀JK1</TableHead>
-<TableHead className={thClass}>Issue V⠀SS</TableHead>
-<TableHead className={thClass}>Issue V⠀SP</TableHead>
-<TableHead className={thClass}>Issue V⠀SP2</TableHead>
-<TableHead className={thClass}>Issue V⠀JH1</TableHead>
-<TableHead className={thClass}>Issue V⠀YK</TableHead>
-<TableHead className={thClass}>Issue V⠀M⠀JK1</TableHead>
+                        <TableHead className={thClass}>Issue V⠀SJH</TableHead>
+                        <TableHead className={thClass}>Issue V⠀K</TableHead>
+                        <TableHead className={thClass}>Issue V⠀K1</TableHead>
+                        <TableHead className={thClass}>Issue V⠀LWP</TableHead>
+                        <TableHead className={thClass}>Issue V⠀LWP1</TableHead>
+                        <TableHead className={thClass}>Issue V⠀JK</TableHead>
+                        <TableHead className={thClass}>Issue V⠀JK1</TableHead>
+                        <TableHead className={thClass}>Issue V⠀SS</TableHead>
+                        <TableHead className={thClass}>Issue V⠀SP</TableHead>
+                        <TableHead className={thClass}>Issue V⠀SP2</TableHead>
+                        <TableHead className={thClass}>Issue V⠀JH1</TableHead>
+                        <TableHead className={thClass}>Issue V⠀YK</TableHead>
+                        <TableHead className={thClass}>Issue V⠀M⠀JK1</TableHead>
 
-<TableHead className={thClass}>Issue Packing</TableHead>
-<TableHead className={thClass}>Issue Village</TableHead>
-<TableHead className={thClass}>Issue Mayur</TableHead>
-<TableHead className={thClass}>Issue BigTaiho</TableHead>
-<TableHead className={thClass}>Issue DPDS</TableHead>
-<TableHead className={thClass}>Issue Rejection</TableHead>
+                        <TableHead className={thClass}>Issue Packing</TableHead>
+                        <TableHead className={thClass}>Issue Village</TableHead>
+                        <TableHead className={thClass}>Issue Mayur</TableHead>
+                        <TableHead className={thClass}>Issue BigTaiho</TableHead>
+                        <TableHead className={thClass}>Issue DPDS</TableHead>
+                        <TableHead className={thClass}>Issue Rejection</TableHead>
 
-<TableHead className={`${thClass} font-bold`}>
-  Sorting_Total_Issue
-</TableHead>
+                        <TableHead className={`${thClass} font-bold`}>
+                            Sorting⠀Total⠀Issue
+                        </TableHead>
 
-<TableHead className={thClass}>No of Labour</TableHead>
+                        <TableHead className={thClass}>No of Labour</TableHead>
 
-<TableHead className={thClass}>Created By</TableHead>
+                        <TableHead className={thClass}>Created By</TableHead>
 
 </TableHeader>
                     
