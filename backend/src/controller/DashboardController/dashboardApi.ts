@@ -86,7 +86,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                     { LotNo: { [Op.notLike]: '%R%' } },
 
@@ -103,7 +103,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -133,7 +133,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -149,7 +149,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -179,7 +179,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -195,7 +195,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -225,7 +225,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -241,7 +241,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -271,7 +271,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -287,7 +287,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -317,7 +317,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -333,7 +333,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -362,7 +362,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -378,7 +378,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -406,7 +406,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -422,7 +422,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -451,7 +451,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -467,7 +467,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -495,7 +495,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.notLike]: '%V%' } },
                      { LotNo: { [Op.notLike]: '%R%' } },
                 ]
@@ -511,7 +511,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
                 [Op.and]: [
-                    { LotNo: { [Op.notLike]: '2025-999' } },
+                    { LotNo: { [Op.notLike]: '%999%' } },
                     { LotNo: { [Op.like]: '%V%' } }
                 ]
 
@@ -538,7 +538,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 BormaStatus: 1,
 
-                LotNo: { [Op.notLike]: '2025-999' },
+                LotNo: { [Op.notLike]: '%999%' },
 
 
 
@@ -566,7 +566,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 Status: 1,
 
-                LotNo: { [Op.notLike]: '2025-999' },
+                LotNo: { [Op.notLike]: '%999%' },
 
 
 
@@ -593,7 +593,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
                 scoopStatus: 1,
 
-                LotNo: { [Op.notLike]: '2025-999' },
+                LotNo: { [Op.notLike]: '%999%' },
 
 
 
@@ -622,7 +622,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
             where: {
 
 
-                LotNo: { [Op.notLike]: '2025-999' },
+                LotNo: { [Op.notLike]: '%999%' },
 
 
 
