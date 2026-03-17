@@ -2135,6 +2135,21 @@ export const getBacklogLot = async (req: Request, res: Response) => {
 
         });
         }
+                if(section==='wholes'){
+            scoopingLot = await WholesModel.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },
+            }
+
+        });
+        }
         
         if(scoopingLot){
             res.status(200).json({ message: "Backlog Entry", scoopingLot });

@@ -629,11 +629,11 @@ issue_ext_grade_10: props.borma[0].issue_ext_grade_10,
             
                                 <Table className="mt-3">
                                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                                        <TableHead className="text-center">Sl. No.</TableHead>
-                                        <TableHead className="text-center">Lot_No</TableHead>
+                                        <TableHead className="text-center">Sl⠀No.</TableHead>
+                                        <TableHead className="text-center">Lot⠀No</TableHead>
             
                                         <TableHead className="text-center">Origin</TableHead>
-                                        <TableHead className="text-center">Incoming_Mixed_Lot</TableHead>
+                                        <TableHead className="text-center">Incoming⠀Mixed⠀Lot</TableHead>
             
             
                                         {/* <TableHead className="text-center">Receive PW_210 (Borma)</TableHead>
@@ -654,8 +654,8 @@ issue_ext_grade_10: props.borma[0].issue_ext_grade_10,
                                         <TableHead className="text-center">Receive PW_400 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive W_400 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive WW_400 (Borma)</TableHead> */}
-                                        <TableHead className="text-center">Receive_Hamsa (Borma)</TableHead>
-                                        <TableHead className="text-center">Receive_Mayur (Borma)</TableHead>
+                                        <TableHead className="text-center">Receive⠀Hamsa (Borma)</TableHead>
+                                        <TableHead className="text-center">Receive⠀Mayur (Borma)</TableHead>
                                      
                                         
                                         {/* <TableHead className="text-center">Total Receive</TableHead>
