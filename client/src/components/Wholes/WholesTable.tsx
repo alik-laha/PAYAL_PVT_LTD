@@ -1790,19 +1790,7 @@ const WholesTable = (props:any) => {
                 num(item.rcv_jb_mayur) + num(item.rcv_jb_hamsa);
 
             // 🔹 Issue Total (auto)
-            const getIssueTotal = (item: WholesData) =>
-                Object.keys(item)
-                    .filter(
-                        (k) =>
-                            k.startsWith("issue_") &&
-                            ![
-                                "issue_village",
-                                "issue_bigTaiho",
-                                "issue_lw",
-                                "issue_rejection"
-                            ].includes(k)
-                    )
-                    .reduce((sum, key) => sum + num((item as any)[key]), 0);
+            
 
            const transformed = sourceData.map((item: WholesData, idx: number) => {
   const receiveTotal = getReceiveTotal(item);
