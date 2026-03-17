@@ -243,7 +243,7 @@ export const getWholesLot = async (req: Request, res: Response) => {
                 'rcv_pw_320', 'rcv_w_320', 'rcv_ww_320',
                 'rcv_pw_360', 'rcv_w_360', 'rcv_ww_360',
                 'rcv_pw_400', 'rcv_w_400', 'rcv_ww_400',
-                'rcv_jb_hamsa'],
+                'rcv_jb_hamsa','rcv_jb_mayur'],
             where: {
                 Status: status
             }

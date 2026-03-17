@@ -49,6 +49,7 @@ interface lotPropsdata{
     rcv_w_400: string;
     rcv_ww_400: string;
     rcv_jb_hamsa: string;
+    rcv_jb_mayur:string;
 }
 
 const WholesInitial = (props: any) => {
@@ -133,7 +134,7 @@ const WholesInitial = (props: any) => {
                               (item.rcv_pw_400 ? parseFloat(item.rcv_pw_400) : 0) + 
                               (item.rcv_w_400 ? parseFloat(item.rcv_w_400) : 0) + 
                               (item.rcv_ww_400 ? parseFloat(item.rcv_ww_400) : 0) + 
-                             
+                                (item.rcv_jb_mayur ? parseFloat(item.rcv_jb_mayur) : 0) + 
                               (item.rcv_jb_hamsa ? parseFloat(item.rcv_jb_hamsa) : 0))>0){
                                 return (
                                     <TableRow key={idx}>
