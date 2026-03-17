@@ -57,7 +57,7 @@ const QCKORModify = (props: ModifyProps) => {
     }
 
     axios
-      .post(`/api/qc/editQCKOR/${props.data.id}`, payload)
+      .post(`/api/qconline/editQCKOR/${props.data.id}`, payload)
       .then((res) => {
         if (res.status === 200) {
           successDialog.current?.showModal()

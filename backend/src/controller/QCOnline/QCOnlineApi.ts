@@ -2040,3 +2040,30 @@ export const SearchKOR = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal Server Error", err });
   }
 };
+
+export const editKOR = async (req: Request, res: Response) => {
+  try {
+    
+    const qcBormaLoss  = req.body.qcBormaLoss;
+    const qcKOR2=  req.body.qcKOR
+    const id= req.params.id 
+    const modifiedBy=req.cookies.user
+
+    await qcKOR.update(
+      {
+        qcKOR:qcKOR2,
+        qcBormaLoss,
+        modifiedBy: modifiedBy
+      },
+      {
+        where: { id }
+      }
+    )
+
+    res.status(200).json({ message: "Updated Successfully" })
+
+  } catch (err) {
+    console.error("Error in Edit KOR:", err);
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+};

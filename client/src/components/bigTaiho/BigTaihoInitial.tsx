@@ -114,7 +114,7 @@ const BigTaihoInitial = (props: any) => {
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
 
-                                if(item.LotNo.includes('V')){
+                                if(item.LotNo.includes('V')|| item.LotNo.includes('R')){
                                     console.log('Hi')
                                     return (
                                         <TableRow key={idx}>
