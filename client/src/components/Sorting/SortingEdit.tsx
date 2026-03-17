@@ -386,11 +386,11 @@ const SortingEditForm = (props: Props) => {
 
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl. No.</TableHead>
-                            <TableHead className="text-center">Lot_No</TableHead>
+                            <TableHead className="text-center">Sl⠀No</TableHead>
+                            <TableHead className="text-center">Lot⠀No</TableHead>
 
                             <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Sorting_Mixed_Lot_&_Origin</TableHead>
+                            <TableHead className="text-center">Sorting⠀Mixe⠀Lot⠀&⠀Origin</TableHead>
 
                             {/* <TableHead className="text-center">Receive JJH</TableHead>
                     <TableHead className="text-center">Receive SJH</TableHead>
@@ -537,8 +537,8 @@ const SortingEditForm = (props: Props) => {
                             <TableHead className="text-center">Issue SP2</TableHead>
                             <TableHead className="text-center">Issue KP</TableHead>
 
-                            <TableHead className="text-center">Issue IN_K</TableHead>
-                            <TableHead className="text-center">Issue IN_JH</TableHead>
+                            <TableHead className="text-center">Issue IN⠀K</TableHead>
+                            <TableHead className="text-center">Issue IN⠀JH</TableHead>
 
 
                         </TableHeader>
@@ -574,19 +574,19 @@ const SortingEditForm = (props: Props) => {
                     <Label className="w-100 pt-1 text-center">Village Packing Grade</Label>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Issue V SJH</TableHead>
-                            <TableHead className="text-center">Issue V K</TableHead>
-                            <TableHead className="text-center">Issue V K1</TableHead>
-                            <TableHead className="text-center">Issue V LWP</TableHead>
-                            <TableHead className="text-center">Issue V LWP1</TableHead>
-                            <TableHead className="text-center">Issue V JK</TableHead>
-                            <TableHead className="text-center">Issue V JK1</TableHead>
-                            <TableHead className="text-center">Issue V SS</TableHead>
-                            <TableHead className="text-center">Issue V SP</TableHead>
-                            <TableHead className="text-center">Issue V SP2</TableHead>
-                            <TableHead className="text-center">Issue V JH1</TableHead>
-                            <TableHead className="text-center">Issue V YK</TableHead>
-                            <TableHead className="text-center">Issue V M JK1</TableHead>
+                            <TableHead className="text-center">Issue V⠀SJH</TableHead>
+                            <TableHead className="text-center">Issue V⠀K</TableHead>
+                            <TableHead className="text-center">Issue V⠀K1</TableHead>
+                            <TableHead className="text-center">Issue V⠀LWP</TableHead>
+                            <TableHead className="text-center">Issue V⠀LWP1</TableHead>
+                            <TableHead className="text-center">Issue V⠀JK</TableHead>
+                            <TableHead className="text-center">Issue V⠀JK1</TableHead>
+                            <TableHead className="text-center">Issue V⠀SS</TableHead>
+                            <TableHead className="text-center">Issue V⠀SP</TableHead>
+                            <TableHead className="text-center">Issue V⠀SP2</TableHead>
+                            <TableHead className="text-center">Issue V⠀JH1</TableHead>
+                            <TableHead className="text-center">Issue V⠀YK</TableHead>
+                            <TableHead className="text-center">Issue V⠀M⠀JK1</TableHead>
                         </TableHeader>
 
                         <TableBody>

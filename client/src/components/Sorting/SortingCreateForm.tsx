@@ -475,23 +475,23 @@ const SortingCreateForm = (props:Props) => {
                 <Label className="w-100 pt-2 text-center">General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
-                    <TableHead className="text-center">Sl. No.</TableHead>
-                    <TableHead className="text-center">Lot_No</TableHead>
+                    <TableHead className="text-center">Sl⠀No</TableHead>
+                    <TableHead className="text-center">Lot⠀No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Sorting_Mixed_Lot_&_Origin</TableHead>
+                    <TableHead className="text-center">Sorting⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
                   
                     <TableHead className="text-center">Receive JJH</TableHead>
                     <TableHead className="text-center">Receive SJH</TableHead>
                     <TableHead className="text-center">Receive SJH1</TableHead>
                     <TableHead className="text-center">Receive JH1</TableHead>
-                    <TableHead className="text-center">Receive JK_K</TableHead>
+                    <TableHead className="text-center">Receive JK⠀K</TableHead>
                     <TableHead className="text-center">Receive SP1</TableHead>
                     <TableHead className="text-center">Receive JJH(Borma)</TableHead>
                     <TableHead className="text-center">Receive SJH(Borma)</TableHead>
                     <TableHead className="text-center">Receive SJH1(Borma)</TableHead>
                     <TableHead className="text-center">Receive JH1(Borma)</TableHead>
-                    <TableHead className="text-center">Receive JK_K(Borma)</TableHead>
+                    <TableHead className="text-center">Receive JK⠀K(Borma)</TableHead>
                     <TableHead className="text-center">Receive SP1(Borma)</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
@@ -622,8 +622,8 @@ const SortingCreateForm = (props:Props) => {
                     <TableHead className="text-center">Issue SP2</TableHead>
                     <TableHead className="text-center">Issue KP</TableHead>
 
-                    <TableHead className="text-center">Issue IN_K</TableHead>
-                    <TableHead className="text-center">Issue IN_JH</TableHead>
+                    <TableHead className="text-center">Issue IN⠀K</TableHead>
+                    <TableHead className="text-center">Issue IN⠀JH</TableHead>
                                   
                                
                                     </TableHeader>
@@ -660,18 +660,18 @@ const SortingCreateForm = (props:Props) => {
                                 <Table className="mt-3">
                                 <TableHeader className="bg-neutral-100 text-stone-950 ">
                                 <TableHead className="text-center">Issue V SJH</TableHead>
-<TableHead className="text-center">Issue V K</TableHead>
-<TableHead className="text-center">Issue V K1</TableHead>
-<TableHead className="text-center">Issue V LWP</TableHead>
-<TableHead className="text-center">Issue V LWP1</TableHead>
-<TableHead className="text-center">Issue V JK</TableHead>
-<TableHead className="text-center">Issue V JK1</TableHead>
-<TableHead className="text-center">Issue V SS</TableHead>
-<TableHead className="text-center">Issue V SP</TableHead>
-<TableHead className="text-center">Issue V SP2</TableHead>
-<TableHead className="text-center">Issue V JH1</TableHead>
-<TableHead className="text-center">Issue V YK</TableHead>
-<TableHead className="text-center">Issue V M_JK1</TableHead>
+<TableHead className="text-center">Issue V⠀K</TableHead>
+<TableHead className="text-center">Issue V⠀K1</TableHead>
+<TableHead className="text-center">Issue V⠀LWP</TableHead>
+<TableHead className="text-center">Issue V⠀LWP1</TableHead>
+<TableHead className="text-center">Issue V⠀JK</TableHead>
+<TableHead className="text-center">Issue V⠀JK1</TableHead>
+<TableHead className="text-center">Issue V⠀SS</TableHead>
+<TableHead className="text-center">Issue V⠀SP</TableHead>
+<TableHead className="text-center">Issue V⠀SP2</TableHead>
+<TableHead className="text-center">Issue V⠀JH1</TableHead>
+<TableHead className="text-center">Issue V⠀YK</TableHead>
+<TableHead className="text-center">Issue V⠀M⠀JK1</TableHead>
                                 </TableHeader>
                 
                                 <TableBody>
