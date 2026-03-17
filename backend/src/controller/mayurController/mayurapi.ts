@@ -37,7 +37,7 @@ export const getMayurLot = async (req: Request, res: Response) => {
         const status = req.params.status;
         const scoopingLot = await Mayur.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting'],
             where: {
                 Status:status
             }
@@ -1434,8 +1434,7 @@ export const sumOfallMayur = async (req: Request, res: Response) => {
                     { editStatus: "NA" }
                 ],latest: 1,current_backlog: {
                     [Op.gt]: 0
-                },date: {
-                    [Op.ne]: null }}} )
+                }}} )
         
         if (data && Sumdata) {
             return res.status(200).json({ data, EditData,Sumdata,PendingData });

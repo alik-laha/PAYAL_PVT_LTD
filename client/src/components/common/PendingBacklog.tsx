@@ -8,6 +8,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import { LuDownload } from "react-icons/lu";
 
 const PendingBacklog = (props: any) => {
     const [lotdata, setLotData] = useState<any[]>([])
@@ -21,7 +24,6 @@ const PendingBacklog = (props: any) => {
     }
     useEffect(() => {
         handleBacklog()
-
     }, [])
 
     const getPendingDays = (inputDate: string | Date): number => {
@@ -39,14 +41,62 @@ const PendingBacklog = (props: any) => {
         return Math.floor(diffTime / (1000 * 60 * 60 * 24));
     };
 
-       function formatNumber(num: string) {
+    function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
+
+    const totalBacklog = lotdata.reduce((sum, item) => {
+        return sum + Number(item.current_backlog || 0);
+    }, 0);
+
+    const exportToExcel = () => {
+
+        const data = lotdata.map((item, idx) => ({
+            Sl_No: idx + 1,
+            Lot_No: item.LotNo,
+            Origin: item.origin,
+            Backlog: formatNumber(item.current_backlog),
+            Pending_Days: item.date ? getPendingDays(item.date) : "--",
+        }));
+
+        // Add total row
+        data.push({
+            Sl_No: 1,
+            Lot_No: "",
+            Origin: "TOTAL",
+            Backlog: totalBacklog.toFixed(2),
+            Pending_Days: "",
+        });
+
+        const ws = XLSX.utils.json_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(wb, ws, "Pending_Backlog");
+
+        const wbout = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "array",
+        });
+
+        const blob = new Blob([wbout], {
+            type: "application/octet-stream",
+        });
+
+        saveAs(blob, `Pending_Backlog_${props.props}.xlsx`);
+    };
 
 
 
     return (
         <><div className="mx-2 max-h-64 overflow-scroll">
+            <div className="flex justify-end mr-2 mt-2">
+                <button
+                    onClick={exportToExcel}
+                    className="bg-green-600 text-white px-3 py-1 rounded flex items-center gap-1"
+                >
+                    <LuDownload />
+                </button>
+            </div>
 
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -76,10 +126,13 @@ const PendingBacklog = (props: any) => {
                                     <TableCell className="text-center font-semibold ">
                                         {formatNumber(item.current_backlog)} kg
                                     </TableCell>
-
-                                    <TableCell className="text-center font-bold text-red-500">
-                                        {getPendingDays(item.date)} Days
-                                    </TableCell>
+                                    {item.date ?
+                                        <TableCell className="text-center font-bold text-red-500">
+                                            {getPendingDays(item.date)} Days
+                                        </TableCell> :
+                                        <TableCell className="text-center font-bold text-red-500">
+                                            --
+                                        </TableCell>}
 
 
 
@@ -92,6 +145,15 @@ const PendingBacklog = (props: any) => {
                         <TableCell colSpan={5} className="text-center  text-red-500 font-semibold">No Pending {props.props}</TableCell>
 
                     </TableRow>}
+                    <TableRow>
+                        <TableCell colSpan={3} className="text-right font-bold">
+                            Total
+                        </TableCell>
+                        <TableCell className="text-center font-bold text-green-600">
+                            {formatNumber(totalBacklog.toString())} kg
+                        </TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
                 </TableBody>
             </Table>
 

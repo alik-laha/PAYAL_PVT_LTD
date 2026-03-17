@@ -1335,6 +1335,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         where: {
           ...commonWhere,
           date: { [Op.between]: [fyStart, nowIST] },
+          BormaStatus:1
         },
         // raw: true,
       });
@@ -1344,6 +1345,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         where: {
           ...commonWhere,
           date: { [Op.between]: [fyStart, nowIST] },
+          Status:1
         },
         // raw: true,
       });
@@ -1438,6 +1440,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         where: {
           ...commonWhere,
           date: { [Op.between]: [weekStart, nowIST] },
+          BormaStatus:1
         },
         // raw: true,
       });
@@ -1454,7 +1457,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [weekStart, nowIST] },
+          date: { [Op.between]: [weekStart, nowIST] },Status:1
         },
         // raw: true,
       });
@@ -1594,7 +1597,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         attributes: [[fn("AVG", col("BormaLoss")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [monthStart, nowIST] },
+          date: { [Op.between]: [monthStart, nowIST] },BormaStatus:1
         },
         //raw: true,
       });
@@ -1610,7 +1613,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
         attributes: [[fn("AVG", col("MoistGain")), "total"]],
         where: {
           ...commonWhere,
-          date: { [Op.between]: [monthStart, nowIST] },
+          date: { [Op.between]: [monthStart, nowIST] },Status:1
         },
         //raw: true,
       });
@@ -1850,7 +1853,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           attributes: [[fn("AVG", col("BormaLoss")), "total"]],
           where: {
             ...commonWhere,
-            date: { [Op.between]: [from, to] },
+            date: { [Op.between]: [from, to] },BormaStatus:1
           },
           //raw: true,
         });
@@ -1879,7 +1882,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
           attributes: [[fn("AVG", col("MoistGain")), "total"]],
           where: {
             ...commonWhere,
-            date: { [Op.between]: [from, to] },
+            date: { [Op.between]: [from, to] },Status:1
           },
           //raw: true,
         });
@@ -2047,8 +2050,7 @@ export const getBacklogLot = async (req: Request, res: Response) => {
                                     { editStatus: "NA" }
                                 ],latest: 1,current_backlog: {
                                     [Op.gt]: 0
-                                },date: {
-                                    [Op.ne]: null }
+                                }
             }
 
         });
@@ -2064,8 +2066,23 @@ export const getBacklogLot = async (req: Request, res: Response) => {
                                     { editStatus: "NA" }
                                 ],latest: 1,current_backlog: {
                                     [Op.gt]: 0
-                                },date: {
-                                    [Op.ne]: null }
+                                },
+            }
+
+        });
+        }
+
+         if(section==='dpds'){
+            scoopingLot = await DPDS.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },
             }
 
         });

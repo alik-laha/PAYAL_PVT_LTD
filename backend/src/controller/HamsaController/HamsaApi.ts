@@ -115,8 +115,7 @@ export const sumOfallHamsa = async (req: Request, res: Response) => {
                     { editStatus: "NA" }
                 ],latest: 1,current_backlog: {
                     [Op.gt]: 0
-                },date: {
-                    [Op.ne]: null }}} )
+                }}} )
         if (data && Sumdata) {
             return res.status(200).json({ data, EditData,Sumdata,PendingData });
         }

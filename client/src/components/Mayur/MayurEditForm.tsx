@@ -258,7 +258,7 @@ const RCNMayurEditForm = (props:Props) => {
  
     return (
         <>
-        <div className="px-5 py-2 overflow-auto">
+        <div className=" py-2 overflow-auto">
             <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
                <div className="mx-1 flex flex-col gap-1"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
