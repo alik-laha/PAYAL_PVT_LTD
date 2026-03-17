@@ -849,11 +849,11 @@ const WholesCreateForm = (props: Props) => {
                     <Label className="w-100 pt-2 text-center">General Information</Label>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl. No.</TableHead>
-                            <TableHead className="text-center">Lot_No</TableHead>
+                            <TableHead className="text-center">Sl⠀No</TableHead>
+                            <TableHead className="text-center">Lot⠀No</TableHead>
 
                             <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Mixed_Lot</TableHead>
+                            <TableHead className="text-center">Mixed⠀Lot</TableHead>
 
 
                             <TableHead className="text-center">

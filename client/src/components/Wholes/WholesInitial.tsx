@@ -100,14 +100,14 @@ const WholesInitial = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="mx-2 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Current_Backlog</TableHead>
+                        <TableHead className="text-center" >Current⠀Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
 
