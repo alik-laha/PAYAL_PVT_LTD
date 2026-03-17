@@ -478,11 +478,11 @@ const LWCreateForm = (props: Props) => {
 
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-                            <TableHead className="text-center">Sl. No.</TableHead>
-                            <TableHead className="text-center">Lot_No</TableHead>
+                            <TableHead className="text-center">Sl⠀No</TableHead>
+                            <TableHead className="text-center">Lot⠀No</TableHead>
 
                             <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Mixed_Lot_&_Origin</TableHead>
+                            <TableHead className="text-center">Mixed⠀Lot⠀&⠀Origin</TableHead>
 
 
 
@@ -583,23 +583,23 @@ const LWCreateForm = (props: Props) => {
                             <TableHead className="text-center">Issue PW</TableHead>
                             <TableHead className="text-center">Issue ROW</TableHead>
                             <TableHead className="text-center">Issue REJ_1</TableHead>
-                            <TableHead className="text-center">Issue LW3_180</TableHead>
-                            <TableHead className="text-center">Issue LW3_210</TableHead>
-                            <TableHead className="text-center">Issue LW3_240</TableHead>
-                            <TableHead className="text-center">Issue LW3_280</TableHead>
-                            <TableHead className="text-center">Issue LW3_360</TableHead>
+                            <TableHead className="text-center">Issue LW3⠀180</TableHead>
+                            <TableHead className="text-center">Issue LW3⠀210</TableHead>
+                            <TableHead className="text-center">Issue LW3⠀240</TableHead>
+                            <TableHead className="text-center">Issue LW3⠀280</TableHead>
+                            <TableHead className="text-center">Issue LW3⠀360</TableHead>
                             <TableHead className="text-center">Issue LW2</TableHead>
                             <TableHead className="text-center">Issue LW4</TableHead>
                             <TableHead className="text-center">Issue LW5</TableHead>
                             <TableHead className="text-center">Issue LW6</TableHead>
                             <TableHead className="text-center">Issue LW7</TableHead>
-                            <TableHead className="text-center">Issue REJ_3</TableHead>
-                            <TableHead className="text-center">Issue REJ_4</TableHead>
+                            <TableHead className="text-center">Issue REJ⠀3</TableHead>
+                            <TableHead className="text-center">Issue REJ⠀4</TableHead>
                             <TableHead className="text-center">Issue JB2</TableHead>
                             <TableHead className="text-center">Issue SJB</TableHead>
-                            <TableHead className="text-center">Issue K_240</TableHead>
-                            <TableHead className="text-center">Issue K_280</TableHead>
-                            <TableHead className="text-center">Issue K_360</TableHead>
+                            <TableHead className="text-center">Issue K⠀240</TableHead>
+                            <TableHead className="text-center">Issue K⠀280</TableHead>
+                            <TableHead className="text-center">Issue K⠀360</TableHead>
                             <TableHead className="text-center">Issue PKW</TableHead>
                             <TableHead className="text-center">Issue BW</TableHead>
                             <TableHead className="text-center">Issue RW</TableHead>

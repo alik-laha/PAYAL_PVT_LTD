@@ -239,7 +239,7 @@ const MayurHistoryTable = () => {
                                 <select
                                     className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 bg-yellow-100 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none"
                                     onChange={(e) => setsearchType(e.target.value)}
-                                    value={origin}
+                                    value={searchType}
                                 >
                                     
                                     {dropdown.map((data, index) => (

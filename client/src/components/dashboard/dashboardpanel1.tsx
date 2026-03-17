@@ -161,7 +161,10 @@ const DashboardPanel1: React.FC = () => {
               title: "Mayur ",
               value1: `${latestLotmayur} `,
               value2: ` ${latestvLotmayur} `,
-              value3: ` ${formatNumber(mayurbacklog)} `,
+              value3: ` ${formatNumber(mayurbacklog)} 
+              
+              
+              `,
             },
             {
               id: 7,
