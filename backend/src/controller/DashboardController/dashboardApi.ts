@@ -2032,3 +2032,57 @@ export const directorDashboard = async (req: Request, res: Response) => {
   }
 
 }
+
+export const getBacklogLot = async (req: Request, res: Response) => {
+       try {
+        const section = req.params.section;
+        let scoopingLot
+        if(section==='mayur'){
+            scoopingLot = await Mayur.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },date: {
+                                    [Op.ne]: null }
+            }
+
+        });
+        }
+
+        if(section==='hamsa'){
+            scoopingLot = await hamsaModel.findAll({
+            
+            attributes: ['LotNo', 'origin','current_backlog','date'],
+            
+                where: { [Op.or]: [
+                                    { editStatus: "Approved" },
+                                    { editStatus: "NA" }
+                                ],latest: 1,current_backlog: {
+                                    [Op.gt]: 0
+                                },date: {
+                                    [Op.ne]: null }
+            }
+
+        });
+        }
+        
+        if(scoopingLot){
+            res.status(200).json({ message: "Backlog Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}

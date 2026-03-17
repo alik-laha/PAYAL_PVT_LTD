@@ -25,6 +25,7 @@ import HamsaTable from './HamsaTable';
 import HamsaHistoryTable from './HamsaHistory';
 import { MdPendingActions } from 'react-icons/md';
 import { FaHistory } from 'react-icons/fa';
+import PendingBacklog from '../common/PendingBacklog';
 
 
 
@@ -139,7 +140,7 @@ const Hamsa = () => {
                 <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md'>CURRENT F.Y. {FY} REPORT (HAMSA)</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="md:w-40 w-28 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="md:w-40 w-25 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>Hamsa Entry Form</p></DialogTitle>
@@ -160,14 +161,14 @@ const Hamsa = () => {
                         <DrawerTrigger asChild >
                             <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
                                 <Button
-                                    className="w-28 md:w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                    className="w-25 md:w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
                                     /* FIX 1: Use ?? 0 for the disabled prop */
                                     disabled={(data?.EditData ?? 0) === 0}
                                     onClick={handleEditFetch}
                                 >
                                     <div className="flex items-center gap-2">
                                         <MdPendingActions size={18} />
-                                        Pending 
+                                        Actions 
                                     </div>
                                 </Button>
 
@@ -194,7 +195,41 @@ const Hamsa = () => {
                             </DrawerFooter>
 
                         </DrawerContent>
-                    </Drawer>}           
+                    </Drawer>}  
+
+
+                    { (data?.PendingData ?? 0) > 0 && <Dialog>
+                        <DialogTrigger>
+                            <div className="relative inline-block ml-2 md:ml-4 top-1 responsive-button-adjust">
+                                <Button
+                                    className="w-25 md:w-40 bg-gradient-to-r from-red-500 to-yellow-400 hover:from-red-600 hover:to-yellow-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                    /* FIX 1: Use ?? 0 for the disabled prop */
+                                    disabled={(data?.PendingData ?? 0) === 0}
+                                    
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <MdPendingActions size={18} />
+                                        Backlog 
+                                    </div>
+                                </Button>
+
+                                {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                                {(data?.PendingData ?? 0) > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                        {data?.PendingData ?? 0}
+                                    </span>
+                                )}
+                            </div>
+                        </DialogTrigger>
+                        <DialogContent className='max-w-4xl'>
+                            <DialogHeader>
+                                <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Hamsa Backlog</p></DialogTitle>
+
+                            </DialogHeader>
+
+                            <PendingBacklog props={'hamsa'} />
+                        </DialogContent>
+                    </Dialog>}         
 
 
 
@@ -202,7 +237,7 @@ const Hamsa = () => {
 
 
 
-                    <Button className="w-28 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'History':'Main Entry '}<FaHistory size={16} className='ml-2'/></Button>
+                    <Button className="w-28 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 md:mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'History':'Main Entry '}<FaHistory size={16} className='ml-2'/></Button>
                 </div>
                 <div style={{ display: maintable }}>
                     <HamsaTable props='non-edit'/>

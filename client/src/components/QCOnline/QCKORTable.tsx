@@ -95,7 +95,7 @@ const QCProductionKORTable = () => {
 
   const exportToExcel = async () => {
 
-    const res = await axios.post("/api/qcproduction/search", {
+    const res = await axios.post("/api/qconline/searchQCKOR", {
       fromDate: fromdate,
       toDate: todate,
     });
@@ -103,17 +103,18 @@ const QCProductionKORTable = () => {
     const excelData = res.data.map((item: any, i: number) => ({
       Sl_No: i + 1,
       Lot_No: item.LotNo,
-      Date: formatDate(item.date),
+      QC_Date: formatDate(item.date),
+      Prod_KOR_Date: formatDate(item.proddate),
+      Prod_Borma_Date: formatDate(item.prodbormadate),
       Origin: item.origin,
       QC_KOR: item.qcKOR,
       Prod_KOR: item.prodKOR,
       Borma_Loss: item.BormaLoss,
       QC_Borma_Loss: item.qcBormaLoss,
-      Borma_Status: item.BormaStatus,
+      
       Created_By: item.CreatedBy,
       Modified_By: item.modifiedBy,
-      Production_Date: formatDate(item.proddate),
-      Prod_Borma_Date: formatDate(item.prodbormadate),
+     
     }));
 
     const ws = XLSX.utils.json_to_sheet(excelData);

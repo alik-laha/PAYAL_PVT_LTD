@@ -1429,8 +1429,16 @@ export const sumOfallMayur = async (req: Request, res: Response) => {
             }
         });
         const EditData = await MayurEdit.count()
+        const PendingData = await Mayur.count({where: { [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ],latest: 1,current_backlog: {
+                    [Op.gt]: 0
+                },date: {
+                    [Op.ne]: null }}} )
+        
         if (data && Sumdata) {
-            return res.status(200).json({ data, EditData,Sumdata });
+            return res.status(200).json({ data, EditData,Sumdata,PendingData });
         }
     }
     catch (err) {
