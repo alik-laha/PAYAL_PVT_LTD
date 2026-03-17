@@ -230,26 +230,26 @@ const WholesCreateForm = (props: Props) => {
             id: item.id,
             LotNo: item.LotNo,
             origin: item.origin,
-            rcv_pw_210: item.rcv_pw_210,
-            rcv_w_210: item.rcv_w_210,
-            rcv_ww_210: item.rcv_ww_210,
-            rcv_pw_240: item.rcv_pw_240,
-            rcv_w_240: item.rcv_w_240,
-            rcv_ww_240: item.rcv_ww_240,
-            rcv_pw_280: item.rcv_pw_280,
-            rcv_w_280: item.rcv_w_280,
-            rcv_ww_280: item.rcv_ww_280,
-            rcv_pw_320: item.rcv_pw_320,
-            rcv_w_320: item.rcv_w_320,
-            rcv_ww_320: item.rcv_ww_320,
-            rcv_pw_360: item.rcv_pw_360,
-            rcv_w_360: item.rcv_w_360,
-            rcv_ww_360: item.rcv_ww_360,
-            rcv_pw_400: item.rcv_pw_400,
-            rcv_w_400: item.rcv_w_400,
-            rcv_ww_400: item.rcv_ww_400,
-            rcv_jb_mayur: item.rcv_jb_mayur,
-            rcv_jb_hamsa: item.rcv_jb_hamsa,
+            rcv_pw_210: item.rcv_pw_210||0,
+            rcv_w_210: item.rcv_w_210||0,
+            rcv_ww_210: item.rcv_ww_210||0,
+            rcv_pw_240: item.rcv_pw_240||0,
+            rcv_w_240: item.rcv_w_240||0,
+            rcv_ww_240: item.rcv_ww_240||0,
+            rcv_pw_280: item.rcv_pw_280||0,
+            rcv_w_280: item.rcv_w_280||0,
+            rcv_ww_280: item.rcv_ww_280||0,
+            rcv_pw_320: item.rcv_pw_320||0,
+            rcv_w_320: item.rcv_w_320||0,
+            rcv_ww_320: item.rcv_ww_320||0,
+            rcv_pw_360: item.rcv_pw_360||0,
+            rcv_w_360: item.rcv_w_360||0,
+            rcv_ww_360: item.rcv_ww_360||0,
+            rcv_pw_400: item.rcv_pw_400||0,
+            rcv_w_400: item.rcv_w_400||0,
+            rcv_ww_400: item.rcv_ww_400||0,
+            rcv_jb_mayur: item.rcv_jb_mayur||0,
+            rcv_jb_hamsa: item.rcv_jb_hamsa||0,
             issue_pw_150: 0,
             issue_w_150: 0,
             issue_ww_150: 0,
@@ -986,26 +986,26 @@ const WholesCreateForm = (props: Props) => {
 
                                             <TableCell className="text-center font-semibold  text-green-700">
                                                 {formatNumber((
-                                                    parseFloat(String(props.borma[0].rcv_pw_210)) +
-                                                    parseFloat(String(props.borma[0].rcv_w_210)) +
-                                                    parseFloat(String(props.borma[0].rcv_ww_210)) +
-                                                    parseFloat(String(props.borma[0].rcv_pw_240)) +
-                                                    parseFloat(String(props.borma[0].rcv_w_240)) +
-                                                    parseFloat(String(props.borma[0].rcv_ww_240)) +
-                                                    parseFloat(String(props.borma[0].rcv_pw_280)) +
-                                                    parseFloat(String(props.borma[0].rcv_w_280)) +
-                                                    parseFloat(String(props.borma[0].rcv_ww_280)) +
-                                                    parseFloat(String(props.borma[0].rcv_pw_320)) +
-                                                    parseFloat(String(props.borma[0].rcv_w_320)) +
-                                                    parseFloat(String(props.borma[0].rcv_ww_320)) +
-                                                    parseFloat(String(props.borma[0].rcv_pw_360)) +
-                                                    parseFloat(String(props.borma[0].rcv_w_360)) +
-                                                    parseFloat(String(props.borma[0].rcv_ww_360)) +
-                                                    parseFloat(String(props.borma[0].rcv_pw_400)) +
-                                                    parseFloat(String(props.borma[0].rcv_w_400)) +
-                                                    parseFloat(String(props.borma[0].rcv_ww_400)) +
-                                                    parseFloat(String(props.borma[0].rcv_jb_mayur)) +
-                                                    parseFloat(String(props.borma[0].rcv_jb_hamsa))
+                                                    parseFloat(String(props.borma[0].rcv_pw_210||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_w_210||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_ww_210||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_pw_240||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_w_240||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_ww_240||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_pw_280||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_w_280||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_ww_280||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_pw_320||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_w_320||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_ww_320||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_pw_360||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_w_360||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_ww_360||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_pw_400||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_w_400||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_ww_400||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_jb_mayur||0)) +
+                                                    parseFloat(String(props.borma[0].rcv_jb_hamsa||0))
                                                 ).toString())} kg
                                             </TableCell>
 
