@@ -21,6 +21,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "../ui/drawer"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -57,6 +58,7 @@ import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import RcvVillageInModify from "./RcvVillageInModify"
+import { MdPendingActions } from "react-icons/md"
 
 
 const RcvVillageInTable = () => {
@@ -388,9 +390,242 @@ const RcvVillageInTable = () => {
     return (
         <>
 
-{checkpending('Village') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.RcvVillageInPrimary===0 ?true :false}
-onClick={GetPendingEdit}>Pending Edit ({EditSumData?.RcvVillageInPrimary})</Button>}
+          {checkpending('Village') &&  ((EditSumData?.RcvVillageInPrimary ?? 0) !== 0)  &&
+                    
+                    (
+        
+                        <Drawer>
+                            <DrawerTrigger asChild >
+                                <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
+                            <Button
+                                className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                /* FIX 1: Use ?? 0 for the disabled prop */
+                                disabled={(EditSumData?.RcvVillageInPrimary ?? 0) === 0}
+                                onClick={GetPendingEdit}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <MdPendingActions size={18} />
+                                    Actions
+                                </div>
+                            </Button>
+        
+                            {/* FIX 2: Use ?? 0 for the badge display condition and value */}
+                            {(EditSumData?.RcvVillageInPrimary ?? 0) > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center transform scale-90 origin-center animate-pulse shadow-lg ring-2 ring-white dark:ring-gray-800">
+                                    {EditSumData?.RcvVillageInPrimary ?? 0}
+                                </span>
+                            )}
+                        </div>
+                            </DrawerTrigger>
+                            <DrawerContent>
+                                <DrawerHeader>
+                                    <DrawerTitle>Pending Actions</DrawerTitle>
+                                    <DrawerDescription>Approve Or Reject Modify Request</DrawerDescription>
+                                </DrawerHeader>
+                                <div className='mx-5 flex flex-col'>
+                                    <div className="flex flex-row w-full  justify-end">
+                                        
+                                        <Button
+                                        className="w-12 mb-2 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                        onClick={exportToExcel}
+                                    >
+                                        <LuDownload size={16} />
+        
+                                    </Button></div>
+                                    <Table>
+                                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                            <TableHead className="text-center bg-gray-200 text-gray-700" >Sl⠀No</TableHead>
+                                          <TableHead className="text-center bg-gray-200 text-gray-700" >Action</TableHead>
+                                        
+                                         <TableHead className="text-center bg-gray-200 text-gray-700" >GatePass⠀No</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >GatePass⠀Type</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Receiving⠀Date</TableHead>
+                         <TableHead className="text-center bg-gray-200 text-gray-700" >Edit⠀Status </TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Entry⠀Vehicle⠀No</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Initial⠀Weight</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Receiving⠀Origin</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Village⠀Item⠀Type</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Village⠀Item⠀Name</TableHead> 
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Doc⠀No</TableHead>            
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Net⠀Weight</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Receiving⠀Vendor⠀Name</TableHead>
+                      
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Bag/Item⠀Count</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Total⠀Weight(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Wholes(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Wholes(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀LW(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀LW(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀JB(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀JB(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀JBP(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀JBP(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀SDP(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀SDP(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Husk(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Husk(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Piece(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Piece(%)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀DP(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀DP(%)</TableHead>     
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Unpeel(Kg)</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Unpeel(%)</TableHead>       
+                        <TableHead className="text-center bg-gray-200 text-gray-700">Net⠀Backlog(kg)</TableHead>               
+                       
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Receiving⠀Village⠀Remarks</TableHead>
+                        <TableHead className="text-center bg-gray-200 text-gray-700" >Created⠀By </TableHead>
+                       
+                                        </TableHeader>
+                                        <TableBody>
+                                            {
+                                    EditData.map((item: rcvVillageInprimaryData, idx: number) => {
+        
+                                        return (
+                                            <TableRow key={item.id}>
+                                                <TableCell className="text-center">{idx + 1}</TableCell>
+                                                 <TableCell className="text-center flex flex-row gap-3">
+        
+        
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger >
+                                                                        <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                            <button className="text-green-600">
+                                                                Approve
+                                                            </button>
+        
+                                                        </div>
+        
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent  >
+                                                                    <AlertDialogHeader>
+                                                                        <AlertDialogTitle>
+                                                                            Do you want to Approve the Edit Request?
+                                                                        </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                        <AlertDialogAction
+                                                                            onClick={() => handleApprove(item.id)}>
+                                                                            Continue
+                                                                        </AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger>
+                                                                      <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                                                                                      <FcDisapprove size={18} />
+                                                                                                                      <button className=" text-red-600">
+                                                                                                                          Revert
+                                                                                                                      </button>
+                                                                                                                  </div>
+        
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent>
+                                                                    <AlertDialogHeader>
+                                                                        <AlertDialogTitle>
+                                                                            Do you want to Decline the Edit Request?
+                                                                        </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                        <AlertDialogAction
+                                                                            onClick={() => handleRejection(item.id)}>
+                                                                            Continue
+                                                                        </AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
+        
+        
+                                                </TableCell>
+                                               <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center" > <button
+                                                                                        className={`p-2 rounded w-20 border 
+                                                      ${item.editStatus === "Accepted"
+                                                                                                ? "text-green-600 border-green-600 bg-green-50"
+                                                                                                : item.editStatus === "N/A"
+                                                                                                    ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                                    : "text-red-600 border-red-600 bg-red-50"
+                                                                                            }`}
+                                                                                    >
+                                                                                        {item.editStatus}
+                                                                                    </button></TableCell>
+                                      <TableCell className="text-center">{item.truckNo}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
+                                <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                <TableCell className="text-center">{item.type}</TableCell>
+                                <TableCell className="text-center" >{item.sku}</TableCell> 
+                                <TableCell className="text-center">{item.invoice}</TableCell>                            
+                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
+                                <TableCell className="text-center">{item.vendorName}</TableCell>
+                             
+                                <TableCell className="text-center ">{formatNumber(item.quantity)}</TableCell>
+                                <TableCell className="text-center font-bold bg-green-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
+                                <TableCell className="text-center ">{formatNumber(item.wholes_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.wholes_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.lw_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.lw_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.jb_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jb_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.jbp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jbp_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.sdp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.sdp_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.husk_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.husk_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.pieces_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.pieces_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.dp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.dp_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.e1_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.e1_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center font-bold bg-blue-500 text-white" >
+                                    
+                                    {formatNumber((Number(item.totalWt)-(Number(item.wholes_quantity)+Number(item.lw_quantity)+Number(item.jb_quantity)
+                                    +Number(item.jbp_quantity)+Number(item.sdp_quantity)+Number(item.husk_quantity)+Number(item.pieces_quantity)
+                                    +Number(item.dp_quantity)+Number(item.e1_quantity))).toString())} Kg</TableCell> 
+                                <TableCell className="text-center">{item.editStatus}</TableCell>
+
+                                <TableCell className="text-center">{item.remarks}</TableCell>
+                                <TableCell className="text-center">{item.createdBy}</TableCell>
+                                
+                                               
+                                            </TableRow>
+                                        );
+                                    })}
+                               
+                                        </TableBody>
+                                    </Table>
+        
+                                </div>
+                                <DrawerFooter>
+        
+                                    <DrawerClose asChild>
+                                        <Button className="w-28 md:w-40 bg-gradient-to-r from-red-600 to-rose-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                                        >Close</Button>
+                                    </DrawerClose>
+                                </DrawerFooter>
+        
+                            </DrawerContent>
+                        </Drawer>
+        
+                    )
+                                     
+                  }
+
+
 
             <div className="ml-5 mt-5 ">
             <div className="w-full ">

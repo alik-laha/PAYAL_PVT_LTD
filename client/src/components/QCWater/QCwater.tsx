@@ -58,7 +58,7 @@ const QCWater = () => {
     }
     const { data, isLoading, error } = UseQueryData('/api/qcWater/sumofallQCWater', 'GET', 'AllBoilerQCWaterSum');
     if (isLoading) {
-        return <Loader />
+        return <Loader/>
     }
 
     if (error) {
@@ -76,7 +76,7 @@ const QCWater = () => {
 
                             data.data && data.data.map((item: any, idx: any) => {
                                 return (
-                                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={idx}>
+                                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={item.boilertype}>
                                         <p>{item.boilertype}</p> <br /><p>{item.count} </p>
                                     </div>
                                 )
