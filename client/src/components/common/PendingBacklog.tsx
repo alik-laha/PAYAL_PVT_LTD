@@ -56,7 +56,7 @@ const PendingBacklog = (props: any) => {
             Lot_No: item.LotNo,
             Origin: item.origin,
             Backlog: formatNumber(item.current_backlog),
-            Pending_Days: item.date ? getPendingDays(item.date) : "--",
+            Pending_Days: item.date ? getPendingDays(item.date) : "Un-Entried",
         }));
 
         // Add total row
@@ -130,8 +130,8 @@ const PendingBacklog = (props: any) => {
                                         <TableCell className="text-center font-bold text-red-500">
                                             {getPendingDays(item.date)} Days
                                         </TableCell> :
-                                        <TableCell className="text-center font-bold text-red-500">
-                                            --
+                                        <TableCell className="text-center font-semibold text-blue-500">
+                                            Un-Entried
                                         </TableCell>}
 
 
