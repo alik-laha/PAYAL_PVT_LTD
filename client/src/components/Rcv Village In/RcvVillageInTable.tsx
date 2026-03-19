@@ -390,15 +390,13 @@ const RcvVillageInTable = () => {
     return (
         <>
 
-          {checkpending('Village') &&  ((EditSumData?.RcvVillageInPrimary ?? 0) !== 0)  &&
-                    
-                    (
-        
+          {checkpending('Village') &&  ((EditSumData?.RcvVillageInPrimary ?? 0) !== 0)  &&       
+                    (   
                         <Drawer>
                             <DrawerTrigger asChild >
                                 <div className="relative inline-block ml-4 top-1 responsive-button-adjust">
                             <Button
-                                className="w-40 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                className="md:w-40 w-28 bg-gradient-to-r from-orange-400 to-red-200 hover:from-red-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md mb-2 "
                                 /* FIX 1: Use ?? 0 for the disabled prop */
                                 disabled={(EditSumData?.RcvVillageInPrimary ?? 0) === 0}
                                 onClick={GetPendingEdit}
@@ -544,7 +542,7 @@ const RcvVillageInTable = () => {
                                         <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center" > <button
                                                                                         className={`p-2 rounded w-20 border 
-                                                      ${item.editStatus === "Accepted"
+                                                      ${item.editStatus === "Approved"
                                                                                                 ? "text-green-600 border-green-600 bg-green-50"
                                                                                                 : item.editStatus === "N/A"
                                                                                                     ? "text-gray-700 border-gray-400 bg-gray-100"
@@ -596,7 +594,7 @@ const RcvVillageInTable = () => {
                                     {formatNumber((Number(item.totalWt)-(Number(item.wholes_quantity)+Number(item.lw_quantity)+Number(item.jb_quantity)
                                     +Number(item.jbp_quantity)+Number(item.sdp_quantity)+Number(item.husk_quantity)+Number(item.pieces_quantity)
                                     +Number(item.dp_quantity)+Number(item.e1_quantity))).toString())} Kg</TableCell> 
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                              
 
                                 <TableCell className="text-center">{item.remarks}</TableCell>
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -620,74 +618,118 @@ const RcvVillageInTable = () => {
         
                             </DrawerContent>
                         </Drawer>
-        
-                    )
-                                     
+                    )               
                   }
 
 
 
-            <div className="ml-5 mt-5 ">
-            <div className="w-full ">
-                    <select className='mb-5 h-10 bg-purple-100 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
-                 
-                                        {dropdown.map((data, index) => (
-                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                                {data}
-                                            </option>
-                                        ))}
-                </select>
-                    </div>
-                <div className="flex flexbox-search">
-                    <Input className="no-padding w-1/7 " placeholder={searchType==='Village Details' ?" GatePass No":"V-Lot No"} value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                    { searchType==='Village Details' &&<select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Type (All)</option>
-                        {sku.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                                {data.sku}
-                            </option>
-                        ))}
-                    </select>}
+            <div className="mx-2 mt-5 ">
+            <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8 gap-4 items-end">
+                    
+                    
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400 block mb-1">
+                Search Type
+              </label> */}
+                            <select
+                                className="select-with-icon bg-yellow-100 w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 dark:text-gray-200 appearance-none font-bold"
+                                onChange={(e) => setsearchType(e.target.value)}
+                                value={searchType}
+                            >
+                                {dropdown.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
+                          {/* GatePass or V-Lot No */}
+                        <div className="flex flex-col gap-1">
+                    
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150"
+                                placeholder={
+                                    searchType === "Village Details" ? "GatePass No." : "V-Lot No."
+                                }
+                                value={blConNo}
+                                onChange={(e) => setBlConNo(e.target.value)}
+                            />
+                        </div>
 
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        // value={hidetodate}
-                        // onChange={handleTodate}
-                         value={todate}
-                        onChange={(e) => settoDate(e.target.value)}
-                        placeholder="To Date"
+                        {/* SKU Type (conditional) */}
+                        {searchType === "Village Details" && (
+                            <div className="flex flex-col gap-1">
+                                {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                  Type
+                </label> */}
+                                <select
+                                    className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                    onChange={(e) => setOrigin(e.target.value)}
+                                    value={origin}
+                                >
+                                    <option value="">Type (All)</option>
+                                    {sku.map((data, index) => (
+                                        <option key={index} value={data.sku}>
+                                            {data.sku}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
 
-                    />
-                  { searchType==='Village Details' && <select className='flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setgradeor(e.target.value)} value={gradeor}>
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Grade (All)</option>
-                        {grade.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                                {data.sku}
-                            </option>
-                        ))}
-                    </select>}
-                    <select className='flexbox-search-width hidden no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                        {/* From Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       From
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={fromdate}
+                                       onChange={(e) => setfromDate(e.target.value)}
+                                     />
+                                   </div>
+                       
+                                   {/* To Date */}
+                                   <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                                     <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                       To
+                                     </label>
+                                     <Input
+                                       type="date"
+                                       className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                       value={todate}
+                                       onChange={(e) => settoDate(e.target.value)}
+                                     />
+                                   </div>
+
+                                    {/* SKU Type (conditional) */}
+                       
+                       
+                        {searchType === "Village Details" && (
+                            <div className="flex flex-col gap-1">
+                                {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                  Type
+                </label> */}
+                                <select
+                                    className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                    onChange={(e) => setgradeor(e.target.value)}
+                                    value={gradeor}
+                                >
+                                    <option value="">Grade (All)</option>
+                                    {grade.map((data, index) => (
+                                        <option key={index} value={data.sku}>
+                                            {data.sku}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
+                        <select className='flexbox-search-width hidden no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setselectType(e.target.value)} value={selectType}>
  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -699,182 +741,153 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             </option>
                         ))}
                     </select>
-                    <select className='flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                        onChange={(e) => setOriginp(e.target.value)} value={originp}>
-                                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                                        {Origin.map((data, index) => (
-                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                                                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                                {data}
-                                            </option>
-                                        ))}
-                                    </select>
 
+                    <div className="flex flex-col gap-1">
+                                {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                  Type
+                </label> */}
+                                <select
+                                    className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 pr-8 appearance-none"
+                                    onChange={(e) => setOriginp(e.target.value)}
+                                    value={originp}
+                                >
+                                    <option value="">Origin (All)</option>
+                                    {Origin.map((data, index) => (
+                                        <option key={index} value={data}>
+                                            {data}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
+            {/* Buttons: Search + Export */}
+                        {/* Occupy the remaining space, pushed to the right on larger screens */}
+                        <div className="flex flex-wrap justify-end sm:justify-between gap-3 mt-2 md:mt-0">
+                                                <Button
+                                                    className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                                    onClick={handleSearch}
+                                                >
+                                                    <FaSearch size={14} />
+                                                    Search
+                                                </Button>
+                        
+                                                {checkpending('Village') && <Button
+                                                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                                    onClick={exportToExcel}
+                                                >
+                                                    <LuDownload size={16} />
+                                                    
+                                                </Button>}
+                                            </div>
 
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('Village') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+
+
+
+             
+                    </div>
+               
+            
 
 
 
                {searchTableType==='Village Details' ?  (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >GatePass_No</TableHead>
-                        <TableHead className="text-center" >GatePass_Type</TableHead>
-                        <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
-                        <TableHead className="text-center" >Initial_Weight</TableHead>
-                        <TableHead className="text-center" >Receiving_Origin</TableHead>
-                        <TableHead className="text-center" >Village_Item_Type</TableHead>
-                        <TableHead className="text-center" >Village_Item_Name</TableHead> 
-                        <TableHead className="text-center" >Doc_No.</TableHead>            
-                        <TableHead className="text-center" >Net_Weight</TableHead>
-                        <TableHead className="text-center" >Receiving_Vendor_Name</TableHead>
+                    <TableHead className="text-center" >SL⠀No</TableHead>
+                    <TableHead className="text-center" >Action</TableHead>
+                        <TableHead className="text-center" >GatePass⠀No</TableHead>
+                        <TableHead className="text-center" >GatePass⠀Type</TableHead>
+                        <TableHead className="text-center" >Receiving⠀Date</TableHead>
+                         <TableHead className="text-center" >Edit⠀Status </TableHead>
+                        <TableHead className="text-center" >Entry⠀Vehicle⠀No</TableHead>
+                        <TableHead className="text-center" >Initial⠀Weight</TableHead>
+                        <TableHead className="text-center" >Receiving⠀Origin</TableHead>
+                        <TableHead className="text-center" >Village⠀Item⠀Type</TableHead>
+                        <TableHead className="text-center" >Village⠀Item⠀Name</TableHead> 
+                        <TableHead className="text-center" >Doc⠀No</TableHead>            
+                        <TableHead className="text-center" >Net⠀Weight</TableHead>
+                        <TableHead className="text-center" >Receiving⠀Vendor⠀Name</TableHead>
                       
-                        <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
-                        <TableHead className="text-center">Net_Wholes(Kg)</TableHead>
-                        <TableHead className="text-center">Net_Wholes(%)</TableHead>
-                        <TableHead className="text-center">Net_LW(Kg)</TableHead>
-                        <TableHead className="text-center">Net_LW(%)</TableHead>
-                        <TableHead className="text-center">Net_JB(Kg)</TableHead>
-                        <TableHead className="text-center">Net_JB(%)</TableHead>
-                        <TableHead className="text-center">Net_JBP(Kg)</TableHead>
-                        <TableHead className="text-center">Net_JBP(%)</TableHead>
-                        <TableHead className="text-center">Net_SDP(Kg)</TableHead>
-                        <TableHead className="text-center">Net_SDP(%)</TableHead>
-                        <TableHead className="text-center">Net_Husk(Kg)</TableHead>
-                        <TableHead className="text-center">Net_Husk(%)</TableHead>
-                        <TableHead className="text-center">Net_Piece(Kg)</TableHead>
-                        <TableHead className="text-center">Net_Piece(%)</TableHead>
-                        <TableHead className="text-center">Net_DP(Kg)</TableHead>
-                        <TableHead className="text-center">Net_DP(%)</TableHead>     
-                        <TableHead className="text-center">Net_Unpeel(Kg)</TableHead>
-                        <TableHead className="text-center">Net_Unpeel(%)</TableHead>       
-                        <TableHead className="text-center">Net_Backlog(kg)</TableHead>               
-                        <TableHead className="text-center" >Edit_Status </TableHead>
-                        <TableHead className="text-center" >Receiving_Village_Remarks</TableHead>
-                        <TableHead className="text-center" >Created_By </TableHead>
-                        <TableHead className="text-center" >Approved_By </TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+                        <TableHead className="text-center" >Bag/Item⠀Count</TableHead>
+                        <TableHead className="text-center" >Total⠀Weight(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀Wholes(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀Wholes(%)</TableHead>
+                        <TableHead className="text-center">Net⠀LW(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀LW(%)</TableHead>
+                        <TableHead className="text-center">Net⠀JB(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀JB(%)</TableHead>
+                        <TableHead className="text-center">Net⠀JBP(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀JBP(%)</TableHead>
+                        <TableHead className="text-center">Net⠀SDP(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀SDP(%)</TableHead>
+                        <TableHead className="text-center">Net⠀Husk(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀Husk(%)</TableHead>
+                        <TableHead className="text-center">Net⠀Piece(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀Piece(%)</TableHead>
+                        <TableHead className="text-center">Net⠀DP(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀DP(%)</TableHead>     
+                        <TableHead className="text-center">Net⠀Unpeel(Kg)</TableHead>
+                        <TableHead className="text-center">Net⠀Unpeel(%)</TableHead>       
+                        <TableHead className="text-center">Net⠀Backlog(kg)</TableHead>               
+                       
+                        <TableHead className="text-center" >Receiving⠀Village⠀Remarks</TableHead>
+                        <TableHead className="text-center" >Created⠀By </TableHead>
+                        <TableHead className="text-center" >Approved⠀By </TableHead>
+                        
 
 
                     </TableHeader>
                     <TableBody>
-                        {EditData.length > 0 ? (
-                            EditData.map((item: rcvVillageInprimaryData, idx: number) => {
-
-                                return (
-                                    <TableRow key={item.id}>
-                                <TableCell className="text-center font-bold">{idx+1}</TableCell>
-                   
-                                <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
-                                <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
-                                <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
-                                <TableCell className="text-center">{item.truckNo}</TableCell>
-                                <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
-                                <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                <TableCell className="text-center">{item.type}</TableCell>
-                                <TableCell className="text-center" >{item.sku}</TableCell> 
-                                <TableCell className="text-center">{item.invoice}</TableCell>                            
-                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
-                                <TableCell className="text-center">{item.vendorName}</TableCell>
-                             
-                                <TableCell className="text-center ">{formatNumber(item.quantity)}</TableCell>
-                                <TableCell className="text-center font-bold bg-green-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
-                                <TableCell className="text-center ">{formatNumber(item.wholes_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.wholes_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.lw_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.lw_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.jb_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jb_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.jbp_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jbp_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.sdp_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.sdp_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.husk_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.husk_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.pieces_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.pieces_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.dp_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.dp_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center ">{formatNumber(item.e1_quantity)} Kg</TableCell>
-                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.e1_prcntg)} %</TableCell>
-
-                                <TableCell className="text-center font-bold bg-blue-500 text-white" >
-                                    
-                                    {formatNumber((Number(item.totalWt)-(Number(item.wholes_quantity)+Number(item.lw_quantity)+Number(item.jb_quantity)
-                                    +Number(item.jbp_quantity)+Number(item.sdp_quantity)+Number(item.husk_quantity)+Number(item.pieces_quantity)
-                                    +Number(item.dp_quantity)+Number(item.e1_quantity))).toString())} Kg</TableCell> 
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
-
-                                <TableCell className="text-center">{item.remarks}</TableCell>
-                                <TableCell className="text-center">{item.createdBy}</TableCell>
-                                <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })
-                        ) : (
+                        {
                             Data.length > 0 ? (Data.map((item: rcvVillageInprimaryData, idx: number) => {
 
 
                                 return (
                                     <TableRow key={item.id}>
                                           <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                          <TableCell className="text-center">
+                                            <Popover>
+                                                <PopoverTrigger>
+                                                    <button className={`p-2 bg-white rounded ${item.editStatus === 'Pending' ? 'text-red-500 h-8  w-20 border border-red-400 font-bold rounded-lg opacity-60 hover:bg-red-200' : 'text-blue-500 h-8  w-20 border border-blue-400 font-bold rounded-lg hover:bg-blue-200'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className="max-w-3xl">
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village Item Modification</p>
+                                                                </DialogTitle>
+                                                                <DialogDescription>
+                                                                    <p className='text-1xl text-center mb-2'>To Be Filled Up By Village Supervisor</p>
+                                                                </DialogDescription>
+                                                            </DialogHeader>
+                                                            <RcvVillageInModify data={item} />
+                                                            
+                                                            
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>
                                           <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
+                                 <TableCell className="text-center" > <button
+                                            className={`p-2 rounded w-20 border 
+                                                                              ${item.editStatus === "Approved"
+                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                    : item.editStatus === "N/A"
+                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                }`}
+                                        >
+                                            {item.editStatus}
+                                        </button></TableCell>
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
                                 <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
@@ -919,38 +932,12 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                     +Number(item.jbp_quantity)+Number(item.sdp_quantity)+Number(item.husk_quantity)+Number(item.pieces_quantity)
                                     +Number(item.dp_quantity)+Number(item.e1_quantity))).toString())} Kg</TableCell> 
 
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                               
 
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className="max-w-3xl">
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village Item Modification</p>
-                                                                </DialogTitle>
-                                                                <DialogDescription>
-                                                                    <p className='text-1xl text-center mb-2'>To Be Filled Up By Village Supervisor</p>
-                                                                </DialogDescription>
-                                                            </DialogHeader>
-                                                            <RcvVillageInModify data={item} />
-                                                            
-                                                            
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </TableCell>
+                                        
                                     </TableRow>
                                 );
                             })) : (<TableRow>
@@ -970,18 +957,18 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                 <TableCell></TableCell>
                                 
                             </TableRow>)
-                        )}
+                        }
                     </TableBody>
                 </Table>):(<Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
                 <TableHead className="text-center" >Id</TableHead>
-                <TableHead className="text-center" >VLOT-NO</TableHead>
+                <TableHead className="text-center" >V-LOT⠀NO</TableHead>
                 <TableHead className="text-center" >Origin</TableHead>
                 <TableHead className="text-center" >Date Of Entry</TableHead>
                 <TableHead className="text-center" >Receive Qty(Kg)</TableHead>
-                <TableHead className="text-center" >Actual Receive_Qty(Kg)</TableHead>
-                <TableHead className="text-center" >Receive_Loss(Kg)</TableHead>
-                <TableHead className="text-center" >Receive_Loss(%)</TableHead>
+                <TableHead className="text-center" >Actual Receive⠀Qty(Kg)</TableHead>
+                <TableHead className="text-center" >Receive⠀Loss(Kg)</TableHead>
+                <TableHead className="text-center" >Receive⠀Loss(%)</TableHead>
                     </TableHeader>
 
                     <TableBody>
@@ -1016,27 +1003,45 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                     </Table>)
                     
                     }
-                <Pagination className="pt-5 " style={{ display: blockpagen }}>
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+               
+                <Pagination style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                   <PaginationContent className="">
+                                                       {page > 1 && <PaginationItem>
+                                                           <PaginationPrevious onClick={() => setPage((prev) => {
+                                                               if (prev === 1) {
+                                                                   return prev
+                                                               }
+                                                               if (prev <= 0) {
+                                                                   return prev + 1
+                                                               }
+                                                               return prev - 1
+                                                           })} />
+                                                       </PaginationItem>}
+                                                       {page > 2 && <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                       </PaginationItem>}
+                                                       {page > 1 && <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                       </PaginationItem>}
+                                   
+                                   
+                                                       <PaginationItem>
+                                                           <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationEllipsis />
+                                                       </PaginationItem>
+                                                       <PaginationItem>
+                                                           <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                       </PaginationItem>
+                                                   </PaginationContent>
+                                               </Pagination>
                 <dialog id="recevingeditapprove" className="dashboard-modal">
                     <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

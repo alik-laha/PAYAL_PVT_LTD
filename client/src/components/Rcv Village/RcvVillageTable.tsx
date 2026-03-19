@@ -436,7 +436,7 @@ const RcvVillageTable = () => {
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
                                 <TableCell className="text-center" > <button
                                                                                 className={`p-2 rounded w-20 border 
-                                              ${item.editStatus === "Accepted"
+                                              ${item.editStatus === "Approved"
                                                                                         ? "text-green-600 border-green-600 bg-green-50"
                                                                                         : item.editStatus === "N/A"
                                                                                             ? "text-gray-700 border-gray-400 bg-gray-100"
@@ -670,7 +670,7 @@ const RcvVillageTable = () => {
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center" > <button
                                             className={`p-2 rounded w-20 border 
-                                                                              ${item.editStatus === "Accepted"
+                                                                              ${item.editStatus === "Approved"
                                                     ? "text-green-600 border-green-600 bg-green-50"
                                                     : item.editStatus === "N/A"
                                                         ? "text-gray-700 border-gray-400 bg-gray-100"
