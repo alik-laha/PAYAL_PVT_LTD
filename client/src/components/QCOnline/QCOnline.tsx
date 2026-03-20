@@ -77,7 +77,7 @@ const QCOnline = () => {
   const { data, isLoading, error } = UseQueryData(
     "/api/qconline/sumofallQCOnline",
     "GET",
-    "AllBoilerQCWaterSum"
+    "AllBoilerQCOnlineSum"
   );
   if (isLoading) {
     return <Loader/>;

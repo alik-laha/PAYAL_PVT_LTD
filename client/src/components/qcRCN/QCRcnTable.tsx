@@ -385,7 +385,7 @@ const QCRcnTable = () => {
   //     settoDate(nextday)
   // }
   return (
-    <div className="mx-2 ">
+    <div className="mx-2 mt-5">
      {(pendingqccount ?? 0) > 0 && 
      
      <div className="relative inline-block responsive-button-adjust">
@@ -1025,7 +1025,7 @@ const QCRcnTable = () => {
                           <MdOutlinePendingActions color="red" size={23} />
                         </p>
                       ) : (
-                        <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">
+                        <button className="text-red-600 border-red-600 bg-red-50 p-2 rounded w-20 border fix-button-width-rcnprimary ">
                           {item.rcnEntry.rcnStatus}
                         </button>
                       )}
@@ -1242,7 +1242,7 @@ const QCRcnTable = () => {
                           <MdOutlinePendingActions color="red" size={23} />
                         </p>
                       ) : (
-                        <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">
+                        <button className="text-red-600 border-red-600 bg-red-50 p-2 rounded w-20 border fix-button-width-rcnprimary">
                           {item.rcnEntry.rcnStatus}
                         </button>
                       )}

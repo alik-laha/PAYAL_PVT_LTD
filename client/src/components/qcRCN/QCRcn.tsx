@@ -11,7 +11,7 @@ import DashboardFooter from "../dashboard/DashboardFooter";
 
 
 const QCRcn = () => {
-    const { data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'getTotalQcCount')
+    const { data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'AllBoilerQCRCNSum')
     const { setpendingqcCount,setpendingreportCount } = useContext(Context);
 
       useEffect(() => {
