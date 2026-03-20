@@ -802,113 +802,141 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Issue_Type</TableHead>
-                    
-                    <TableHead className="text-center" >Item_Lot_No</TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >Rejection_Entry_Date</TableHead>
-                    <TableHead className="text-center font-bold">Current_Backlog</TableHead> 
-                    <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
-                      <TableHead className="text-center" >Action</TableHead>
-                    {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Peeling Borma_Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Peeling Borma_Loss(%)</TableHead>
-                   
-                    <TableHead className="text-center">Receive Mayur</TableHead>
-                    <TableHead className="text-center">Mayur Borma_Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Mayur Borma_Loss(%)</TableHead>
-                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-                    <TableHead className="text-center">Receive Mayur(Borma)</TableHead>
-                    <TableHead className="text-center">Receive Wholes</TableHead>
-                    <TableHead className="text-center">Receive LW</TableHead>
-                    <TableHead className="text-center">Receive DPDS</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
-                    <TableHead className="text-center">Receive BigTaiho</TableHead>
-                    <TableHead className="text-center">Receive Village</TableHead>
-                    <TableHead className="text-center">Rejection_Total_Opening (Borma)</TableHead>
-                    <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Packing</TableHead>
-                            <TableHead className="text-center">Issue Uncut_Unscoop</TableHead>
-                            <TableHead className="text-center">Issue Shell</TableHead>
-                            <TableHead className="text-center">Issue Catelfeed</TableHead>
-                               
-                    {/* <TableHead className="text-center">Issue Add 1</TableHead>
-                    <TableHead className="text-center">Issue Add 2</TableHead>
-                    <TableHead className="text-center">Issue Add 3</TableHead>
-                    <TableHead className="text-center">Issue Add 4</TableHead>
-                    <TableHead className="text-center">Issue Add 5</TableHead>
-                    <TableHead className="text-center">Issue Add 6</TableHead>
-                    <TableHead className="text-center">Issue Add 7</TableHead>
-                    <TableHead className="text-center">Issue Add 8</TableHead>
-                    <TableHead className="text-center">Issue Add 9</TableHead>
-                    <TableHead className="text-center">Issue Add 10</TableHead> */}
-                     <TableHead className="text-center font-bold">Rejection Total_Issue(Kg)</TableHead>
-                    {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
-                    
-                    <TableHead className="text-center">No of Labour</TableHead>
-                    <TableHead className="text-center">No of Supervisor</TableHead>
-               
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Created By </TableHead>
+                   <TableHead className={thClass}>SL⠀No</TableHead>
+                   <TableHead className={thClass}>Action</TableHead>
+<TableHead className={thClass}>Rejection⠀Issue⠀Type</TableHead>
+
+<TableHead className={thClass}>Item⠀Lot⠀No</TableHead>
+<TableHead className={thClass}>Origin</TableHead>
+<TableHead className={thClass}>Issue⠀No</TableHead>
+<TableHead className={thClass}>Edit Status</TableHead>
+<TableHead className={thClass}>Rejection⠀Entry⠀Date</TableHead>
+
+<TableHead className={thClass}>Current⠀Backlog</TableHead>
+
+<TableHead className={thClass}>Incoming⠀Mixed⠀Lot⠀&⠀Origin</TableHead>
+
+
+<TableHead className={thClass}>Receive Peeling</TableHead>
+<TableHead className={thClass}>Peeling Borma⠀Loss(Kg)</TableHead>
+<TableHead className={thClass}>Peeling Borma⠀Loss(%)</TableHead>
+
+<TableHead className={thClass}>Receive Mayur</TableHead>
+<TableHead className={thClass}>Mayur Borma⠀Loss(Kg)</TableHead>
+<TableHead className={thClass}>Mayur Borma⠀Loss(%)</TableHead>
+
+<TableHead className={thClass}>Receive Peeling(Borma)</TableHead>
+<TableHead className={thClass}>Receive Mayur(Borma)</TableHead>
+
+<TableHead className={thClass}>Receive Wholes</TableHead>
+<TableHead className={thClass}>Receive LW</TableHead>
+<TableHead className={thClass}>Receive DPDS</TableHead>
+<TableHead className={thClass}>Receive Sorting</TableHead>
+<TableHead className={thClass}>Receive BigTaiho</TableHead>
+<TableHead className={thClass}>Receive Village</TableHead>
+
+<TableHead className={thClass}>Rejection⠀Total⠀Opening (Borma)</TableHead>
+
+<TableHead className={thClass}>Issue Village</TableHead>
+<TableHead className={thClass}>Issue Packing</TableHead>
+<TableHead className={thClass}>Issue Uncut⠀Unscoop</TableHead>
+<TableHead className={thClass}>Issue Shell</TableHead>
+<TableHead className={thClass}>Issue Catelfeed</TableHead>
+
+<TableHead className={thClass}>Rejection Total⠀Issue(Kg)</TableHead>
+
+<TableHead className={thClass}>No of Labour</TableHead>
+<TableHead className={thClass}>No of Supervisor</TableHead>
+
+
+<TableHead className={thClass}>Created By</TableHead>
                   
                 </TableHeader>
                 <TableBody>
 
 
-                    {EditData.length > 0 ? (EditData.map((item: RejectionData, idx) => {
+                    {EditData.length > 0 && props.props==='edit' ? (EditData.map((item: RejectionData, idx) => {
 
                         return (
                             <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
+                                  <TableCell className="text-center flex flex-row gap-3">
+                                
+                                
+                                                                        <AlertDialog>
+                                                                            <AlertDialogTrigger >
+                                                                                <div className="flex flex-row gap-1 bg-green-50 px-3 py-1 rounded border border-green-300 "> <FcApprove size={18} />
+                                                                                    <button className="text-green-600">
+                                                                                        Approve
+                                                                                    </button>
+                                
+                                                                                </div>
+                                
+                                                                            </AlertDialogTrigger>
+                                                                            <AlertDialogContent  >
+                                                                                <AlertDialogHeader>
+                                                                                    <AlertDialogTitle>
+                                                                                        Do you want to Approve the Edit Request?
+                                                                                    </AlertDialogTitle>
+                                                                                </AlertDialogHeader>
+                                                                                <AlertDialogFooter>
+                                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                                    <AlertDialogAction
+                                                                                        onClick={() => handleApprove(item)}>
+                                                                                        Continue
+                                                                                    </AlertDialogAction>
+                                                                                </AlertDialogFooter>
+                                                                            </AlertDialogContent>
+                                                                        </AlertDialog>
+                                                                        <AlertDialog>
+                                                                            <AlertDialogTrigger>
+                                                                                <div className="flex flex-row gap-1 bg-red-50 px-3 py-1 rounded border border-red-300">
+                                                                                    <FcDisapprove size={18} />
+                                                                                    <button className=" text-red-600">
+                                                                                        Revert
+                                                                                    </button>
+                                                                                </div>
+                                
+                                                                            </AlertDialogTrigger>
+                                                                            <AlertDialogContent>
+                                                                                <AlertDialogHeader>
+                                                                                    <AlertDialogTitle>
+                                                                                        Do you want to Decline the Edit Request?
+                                                                                    </AlertDialogTitle>
+                                                                                </AlertDialogHeader>
+                                                                                <AlertDialogFooter>
+                                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                                    <AlertDialogAction
+                                                                                        onClick={() => handleRejection(item)}>
+                                                                                        Continue
+                                                                                    </AlertDialogAction>
+                                                                                </AlertDialogFooter>
+                                                                            </AlertDialogContent>
+                                                                        </AlertDialog>
+                                
+                                
+                                                                    </TableCell>
                                 <TableCell className="text-center font-bold ">{item.altid == 1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                
                                 <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                <TableCell className="text-center"><button
+                                                                    className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                                                                                          ${item.editStatus === "Approved"
+                                                                            ? "text-green-600 border-green-600 bg-green-50"
+                                                                            : item.editStatus === "NA"
+                                                                                ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                : "text-red-600 border-red-600 bg-red-50"
+                                                                        }`}
+                                                                >
+                                                                    {item.editStatus}
+                                                                </button></TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
 
                                 <TableCell className="text-center font-semibold">{item.mixingLot}</TableCell>
-                                <TableCell className="text-center">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
+                               
                                 {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                 <TableCell className="text-center ">{formatNumber(item.rcv_peeling)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
@@ -944,7 +972,7 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                                 +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
                                 <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                                 <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                             
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                             
@@ -954,18 +982,10 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                             return (
                                 <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-bold ">{item.altid == 1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
-
-                                <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                <TableCell className="text-center">
+                                       <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                                <button className={`p-2 ${item.editStatus === 'Pending' || item.latest === 0? 'text-red-500 bg-red-50 w-20 border border-red-300 font-semibold rounded-lg' : 'text-blue-500 bg-blue-50 w-20 border border-blue-300 font-bold rounded-lg'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
@@ -1015,6 +1035,26 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                                             
                                         </Popover>
                                     </TableCell>
+                                    <TableCell className="text-center font-bold ">{item.altid == 1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                <TableCell className="text-center" > <button
+                                                                            className={`p-2 rounded w-20 border 
+                                                                                                                                                                                                  ${item.editStatus === "Approved"
+                                                                                    ? "text-green-600 border-green-600 bg-green-50"
+                                                                                    : item.editStatus === "NA"
+                                                                                        ? "text-gray-700 border-gray-400 bg-gray-100"
+                                                                                        : "text-red-600 border-red-600 bg-red-50"
+                                                                                }`}
+                                                                        >
+                                                                            {item.editStatus}
+                                                                        </button></TableCell>
+                                <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
+                                <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                             
                                 {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                 <TableCell className="text-center font-semibold">{formatNumber(item.rcv_peeling)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
@@ -1050,7 +1090,7 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                                 +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
                                 <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                                 <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                               
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     
                                 </TableRow>
@@ -1077,30 +1117,44 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                 </TableBody>
 
             </Table>
-            <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 1) {
-                                return prev
-                            }
-                            if (prev <= 0) {
-                                return prev + 1
-                            }
-                            return prev - 1
-                        })} />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">{page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+             <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                                  <PaginationContent className="">
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationPrevious onClick={() => setPage((prev) => {
+                                                              if (prev === 1) {
+                                                                  return prev
+                                                              }
+                                                              if (prev <= 0) {
+                                                                  return prev + 1
+                                                              }
+                                                              return prev - 1
+                                                          })} />
+                                                      </PaginationItem>}
+                                                      {page > 2 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                      </PaginationItem>}
+                                                      {page > 1 && <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                      </PaginationItem>}
+                                  
+                                  
+                                                      <PaginationItem>
+                                                          <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationEllipsis />
+                                                      </PaginationItem>
+                                                      <PaginationItem>
+                                                          <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                      </PaginationItem>
+                                                  </PaginationContent>
+                                              </Pagination>
             <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
             <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
             <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

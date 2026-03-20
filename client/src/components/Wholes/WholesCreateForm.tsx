@@ -372,12 +372,31 @@ const WholesCreateForm = (props: Props) => {
             issue_village: 0,
             issue_bigTaiho: 0,
             issue_lw: 0,
-            issue_add_1: formatNumber((Number(item.rcv_pw_210)||0 + Number(item.rcv_w_210)||0 + Number(item.rcv_ww_210)||0
-                + Number(item.rcv_pw_240)||0 + Number(item.rcv_w_240)||0 + Number(item.rcv_ww_240)||0 + Number(item.rcv_pw_280)||0 +
-                Number(item.rcv_w_280)||0 + Number(item.rcv_ww_280)||0 + Number(item.rcv_pw_320)||0 + Number(item.rcv_w_320)||0 +
-                Number(item.rcv_ww_320)||0 + Number(item.rcv_pw_360)||0 + Number(item.rcv_w_360)||0 + Number(item.rcv_ww_360)||0 +
-                Number(item.rcv_pw_400)||0 + Number(item.rcv_w_400)||0 + Number(item.rcv_ww_400)||0 + Number(item.rcv_jb_mayur)||0 +
-                Number(item.rcv_jb_hamsa)||0).toString()),
+            issue_add_1: ((Number(item.rcv_pw_210)||0)
+                + (Number(item.rcv_w_210)||0)
+                + (Number(item.rcv_ww_210)||0)
+                
+                + (Number(item.rcv_pw_240)||0 )
+                + (Number(item.rcv_w_240)||0)
+                + (Number(item.rcv_ww_240)||0) + 
+                
+                (Number(item.rcv_pw_280)||0 )+
+                (Number(item.rcv_w_280)||0 )+
+                (Number(item.rcv_ww_280)||0 )+ 
+                
+                (Number(item.rcv_pw_320)||0 )+ 
+                (Number(item.rcv_w_320)||0 )+
+                (Number(item.rcv_ww_320)||0 )+ 
+                
+                (Number(item.rcv_pw_360)||0 )+ 
+                (Number(item.rcv_w_360)||0 )+ 
+                (Number(item.rcv_ww_360)||0 )+
+                
+                (Number(item.rcv_pw_400)||0 )+ 
+                (Number(item.rcv_w_400)||0 )+ 
+                (Number(item.rcv_ww_400)||0) + 
+                (Number(item.rcv_jb_mayur)||0) +
+                (Number(item.rcv_jb_hamsa)||0)),
             issue_add_2: '0',
             issue_add_3: '0',
             issue_add_4: 0,
