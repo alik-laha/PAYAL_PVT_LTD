@@ -534,7 +534,7 @@ const WholesCreateForm = (props: Props) => {
             (Number(props.borma[0].rcv_w_400)||0) +
             (Number(props.borma[0].rcv_ww_400)||0) +
             (Number(props.borma[0].rcv_jb_mayur)||0) +
-                Number(props.borma[0].rcv_jb_hamsa)||0) - Number(e.target.value))
+                (Number(props.borma[0].rcv_jb_hamsa)||0)) - Number(e.target.value))
 
             rows[index].issue_add_3 = (Number(rows[index].issue_add_2) / ((Number(props.borma[0].rcv_pw_210)||0) +
               (Number(props.borma[0].rcv_w_210)||0 )+
@@ -555,7 +555,7 @@ const WholesCreateForm = (props: Props) => {
             (Number(props.borma[0].rcv_w_400)||0) +
             (Number(props.borma[0].rcv_ww_400)||0) +
             (Number(props.borma[0].rcv_jb_mayur)||0) +
-                Number(props.borma[0].rcv_jb_hamsa))) * 100
+                (Number(props.borma[0].rcv_jb_hamsa)||0))) * 100
             rows[index].rcv_pw_210 = ((Number(props.borma[0].rcv_pw_210)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
             rows[index].rcv_w_210 = ((Number(props.borma[0].rcv_w_210)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
             rows[index].rcv_ww_210 = ((Number(props.borma[0].rcv_ww_210)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
