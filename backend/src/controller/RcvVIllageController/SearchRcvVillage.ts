@@ -5,7 +5,7 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 
 const searchRcvVillage = async (req: Request, res: Response) => {
     try {
-        const { searchitem, gatetype,fromDate, toDate, almondtype,almondgrade } = req.body;
+        const { searchitem,fromDate, toDate, almondtype,almondgrade } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
 
@@ -44,13 +44,7 @@ const searchRcvVillage = async (req: Request, res: Response) => {
                 }
             });
         }
-        if (gatetype) {
-            whereClause.push({
-                gateType: {
-                    [Op.like]: `%${gatetype}%`
-                }
-            });
-        }
+   
         whereClause.push({
             status: {
                 [Op.eq]: 1

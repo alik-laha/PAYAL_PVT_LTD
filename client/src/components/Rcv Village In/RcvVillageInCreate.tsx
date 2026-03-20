@@ -441,18 +441,19 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
 
     return (
         <>
-            <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
-                <div className="mx-8 flex flex-col gap-1"> 
-                <div className="flex mt-4"><Label className="w-1/4  pt-2">GatePass No.</Label>
-                <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div className="flex"><Label className="w-1/4  pt-2">GatePass Type</Label>
-                <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Type" value={gateType} readOnly /> </div>
-                <div className="flex"><Label className="w-1/4  pt-2">Date</Label>
-                <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Date" value={date}  readOnly /> </div> 
+            <div>
+                <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
+                     <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                         
+                <div><Label className="text-gray-500 font-bold text-xs">GatePass No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                <div><Label className="text-gray-500 font-bold text-xs">GatePass Type</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400" placeholder="Type" value={gateType} readOnly /> </div>
+                <div><Label className="text-gray-500 font-bold text-xs">Date</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400" placeholder="Date" value={date}  readOnly /> </div> 
                 
-                <div className="flex"><Label className="w-1/4  pt-2">Vehicle No.</Label>
-                <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No" value={truck}  readOnly /> </div> 
+                <div><Label className="text-gray-500 font-bold text-xs">Vehicle No.</Label>
+                <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-400" placeholder="Vehicle No" value={truck}  readOnly /> </div> 
                 {/* <div className="flex"><Label className="w-2/4  pt-2">Document No</Label>
                 <Input className="w-2/4 text-center" placeholder="Doc No" required  ref={invoiceref} /> </div> */}
 
@@ -482,17 +483,17 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
                     <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
-                            <TableHead className="text-center" >Sl. No.</TableHead>
-                            <TableHead className="text-center" >Item_Type</TableHead>
-                            <TableHead className="text-center" >Item_Name</TableHead>
+                            <TableHead className="text-center" >Sl⠀No</TableHead>
+                            <TableHead className="text-center" >Item⠀Type</TableHead>
+                            <TableHead className="text-center" >Item⠀Name</TableHead>
                           
                             <TableHead className="text-center" >Origin</TableHead>
-                            <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Invoice_No</TableHead>
+                            <TableHead className="text-center" >Vendor⠀Name</TableHead>
+                            <TableHead className="text-center" >Invoice⠀No</TableHead>
                           
                             
                             <TableHead className="text-center" >Bucket</TableHead>   
-                            <TableHead className="text-center" >Total_Weight</TableHead>
+                            <TableHead className="text-center" >Total⠀Weight</TableHead>
                             <TableHead className="text-center">Wholes</TableHead>
                                 <TableHead className="text-center"> %</TableHead>
                                 <TableHead className="text-center">LW</TableHead>

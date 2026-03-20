@@ -80,7 +80,7 @@ const QCOnline = () => {
     "AllBoilerQCWaterSum"
   );
   if (isLoading) {
-    return <Loader />;
+    return <Loader/>;
   }
 
   if (error) {

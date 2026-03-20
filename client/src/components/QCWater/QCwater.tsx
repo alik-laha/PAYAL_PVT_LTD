@@ -58,7 +58,7 @@ const QCWater = () => {
     }
     const { data, isLoading, error } = UseQueryData('/api/qcWater/sumofallQCWater', 'GET', 'AllBoilerQCWaterSum');
     if (isLoading) {
-        return <Loader />
+        return <Loader/>
     }
 
     if (error) {

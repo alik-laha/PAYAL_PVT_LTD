@@ -120,7 +120,7 @@ const VillageInitial = (props: any) => {
     }
     return (
         <>
-            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+            <div className="mx-2 max-h-64 overflow-scroll">
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -135,18 +135,11 @@ const VillageInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_mayur && item.rcv_wholes && item.rcv_lw
-                                 && item.rcv_rejection && (item.rcv_dpds || item.rcv_sorting)
-                                &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
-                              (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
-                              (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
-                              (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + 
-                              (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
-                              (item.rcv_rejection ? parseFloat(item.rcv_rejection) : 0) + 
-                              (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
-                              (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) 
-                              )>0){
-                                return (
+
+
+                                 if(item.LotNo.includes('V') || item.LotNo.includes('R')){
+                                    if( parseFloat(item.current_backlog)>0 ){
+                                         return (
                                     <TableRow key={idx}>
                                         <TableCell className="text-center">
                                             {idx + 1}
@@ -177,8 +170,47 @@ const VillageInitial = (props: any) => {
                                         </TableCell>
 
                                     </TableRow>
-                                );
-                              }
+                                )
+                                    }}else{
+                                        if( item.rcv_bigTaiho && (parseFloat(item.current_backlog)>0)){
+                                                       return (
+                                    <TableRow key={idx}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">
+                                            {item.LotNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">
+                                            {item.origin}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold ">
+                                        {formatNumber(item.current_backlog)} Kg
+                                        </TableCell>
+                                        
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                          <DialogContent className='max-w-screen'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>Village Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <VillageCreateForm borma={bormaData}/>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </TableCell>
+
+                                    </TableRow>
+                                )
+                                        }
+                                    }
+
+
+
+
                              
                                 
                             })

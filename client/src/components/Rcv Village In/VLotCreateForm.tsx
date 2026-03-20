@@ -225,17 +225,17 @@ const VLOTCreateForm = (props:Props) => {
             <div className="overflow-auto max-h-screen">
                 <Table className="w-full mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableRow>
+                     
                         <TableHead className="text-center">SL_No</TableHead>
                             <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Item_Type</TableHead>
-                            <TableHead className="text-center">Item_Name</TableHead>
-                            <TableHead className="text-center">Receiving_Vendor</TableHead>
-                            <TableHead className="text-center">Receiving Qty</TableHead>
-                            <TableHead className="text-center">Actual_Qty</TableHead>
-                            <TableHead className="text-center">Weight_Loss</TableHead>
-                            <TableHead className="text-center">Loss_prcntg</TableHead>
-                        </TableRow>
+                            <TableHead className="text-center">Item⠀Type</TableHead>
+                            <TableHead className="text-center">Item⠀Name</TableHead>
+                            <TableHead className="text-center">Receiving⠀Vendor</TableHead>
+                            <TableHead className="text-center">Receiving⠀Qty</TableHead>
+                            <TableHead className="text-center">Actual⠀Qty</TableHead>
+                            <TableHead className="text-center">Weight⠀Loss</TableHead>
+                            <TableHead className="text-center">Loss⠀%</TableHead>
+                      
                     </TableHeader>
                     <TableBody>
                         {props.props.length > 0 ? (rows.map((row,idx:number) => (

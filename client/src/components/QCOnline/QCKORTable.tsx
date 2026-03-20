@@ -20,6 +20,7 @@ import {
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -51,12 +52,10 @@ const QCProductionKORTable = () => {
   const [page, setPage] = useState(pageNo);
   const [data, setData] = useState<any[]>([]);
   const limit = pagelimit;
-
+  const [blockpagen, setblockpagen] = useState("flex");
   const currDate = new Date().toLocaleDateString();
 
-  useEffect(() => {
-    handleSearch();
-  }, [page]);
+
 
   const handleSearch = async () => {
 
@@ -92,6 +91,10 @@ const QCProductionKORTable = () => {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     });
   }
+  useEffect(() => {
+    setblockpagen("flex");
+    handleSearch();
+  }, [page]);
 
   const exportToExcel = async () => {
 
@@ -99,6 +102,7 @@ const QCProductionKORTable = () => {
       fromDate: fromdate,
       toDate: todate,
     });
+    
 
     const excelData = res.data.map((item: any, i: number) => ({
       Sl_No: i + 1,
@@ -298,29 +302,44 @@ const QCProductionKORTable = () => {
 
       {/* Pagination */}
 
-      <Pagination className="pt-5 flex justify-end">
-
-        <PaginationContent>
-
-          {page > 1 && (
-            <PaginationItem>
-              <PaginationPrevious onClick={() => setPage(page - 1)} />
-            </PaginationItem>
-          )}
-
-          <PaginationItem>
-            <PaginationLink className="font-bold bg-blue-200">
-              {page}
-            </PaginationLink>
-          </PaginationItem>
-
-          <PaginationItem>
-            <PaginationNext onClick={() => setPage(page + 1)} />
-          </PaginationItem>
-
-        </PaginationContent>
-
-      </Pagination>
+       <Pagination  style={{ display: blockpagen }} className="pt-5 flex flex-row justify-end ">
+                                               <PaginationContent className="">
+                                                   {page > 1 && <PaginationItem>
+                                                       <PaginationPrevious onClick={() => setPage((prev) => {
+                                                           if (prev === 1) {
+                                                               return prev
+                                                           }
+                                                           if (prev <= 0) {
+                                                               return prev + 1
+                                                           }
+                                                           return prev - 1
+                                                       })} />
+                                                   </PaginationItem>}
+                                                   {page > 2 && <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev - 2)}>{page - 2}</PaginationLink>
+                                                   </PaginationItem>}
+                                                   {page > 1 && <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                                                   </PaginationItem>}
+                               
+                               
+                                                   <PaginationItem>
+                                                       <PaginationLink href="#" className="font-bold bg-blue-200  rounded-md">{page}</PaginationLink>
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev + 1)}>{page + 1}</PaginationLink>
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationLink onClick={() => setPage((prev) => prev + 2)}>{page + 2}</PaginationLink>
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationEllipsis />
+                                                   </PaginationItem>
+                                                   <PaginationItem>
+                                                       <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                                                   </PaginationItem>
+                                               </PaginationContent>
+                                           </Pagination>
 
     </div>
   );
