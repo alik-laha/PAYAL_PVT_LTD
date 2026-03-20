@@ -77,7 +77,7 @@ const QCOnline = () => {
   const { data, isLoading, error } = UseQueryData(
     "/api/qconline/sumofallQCOnline",
     "GET",
-    "AllBoilerQCWaterSum"
+    "AllBoilerQCOnlineSum"
   );
   if (isLoading) {
     return <Loader/>;
@@ -261,7 +261,7 @@ const QCOnline = () => {
 
                       <Button className="w-20 md:w-40 bg-gradient-to-r from-purple-600 to-blue-400 hover:from-slate-500 hover:to-slate-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" onClick={handleTransferFetch}> {maintable==='block' ? 'KOR':'Online'}<FaHistory size={16} className='ml-2'/></Button>
            {/* <div className="mb-2 mt-5 responsive-button-adjust no-margin-left ml-4"> */}
-<Select
+           {maintable === 'block' && <Select
               value={tablesection}
               onValueChange={(value) => setTablesection(value)}
               required={true}>
@@ -279,7 +279,7 @@ const QCOnline = () => {
                   })}
                 </SelectGroup>
               </SelectContent>
-            </Select>
+            </Select>}
           
 
           

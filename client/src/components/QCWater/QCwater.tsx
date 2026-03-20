@@ -74,7 +74,7 @@ const QCWater = () => {
                     <div className="flexbox-header mx-2">
                         {
 
-                            data.data && data.data.map((item: any, idx: any) => {
+                            data && data.data && data.data.map((item: any, idx: any) => {
                                 return (
                                     <div className="flexbox-tile bg-sky-500 hover:bg-sky-400" key={idx}>
                                         <p>{item.boilertype}</p> <br /><p>{item.count} </p>
