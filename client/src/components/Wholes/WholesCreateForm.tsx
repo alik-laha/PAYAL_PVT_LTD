@@ -488,26 +488,26 @@ const WholesCreateForm = (props: Props) => {
     }
     const handleOpeningChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
 
-        if (Number(e.target.value) > (Number(props.borma[0].rcv_pw_210)||0 +
-            Number(props.borma[0].rcv_w_210)||0 +
-            Number(props.borma[0].rcv_ww_210)||0 +
-            Number(props.borma[0].rcv_pw_240)||0 +
-            Number(props.borma[0].rcv_w_240)||0 +
-            Number(props.borma[0].rcv_ww_240)||0 +
-            Number(props.borma[0].rcv_pw_280)||0 +
-            Number(props.borma[0].rcv_w_280)||0 +
-            Number(props.borma[0].rcv_ww_280)||0 +
-            Number(props.borma[0].rcv_pw_320)||0 +
-            Number(props.borma[0].rcv_w_320)||0 +
-            Number(props.borma[0].rcv_ww_320)||0 +
-            Number(props.borma[0].rcv_pw_360)||0 +
-            Number(props.borma[0].rcv_w_360)||0 +
-            Number(props.borma[0].rcv_ww_360)||0 +
-            Number(props.borma[0].rcv_pw_400)||0 +
-            Number(props.borma[0].rcv_w_400)||0 +
-            Number(props.borma[0].rcv_ww_400)||0 +
-            Number(props.borma[0].rcv_jb_mayur)||0 +
-            Number(props.borma[0].rcv_jb_hamsa)||0)) {
+        if (Number(e.target.value) > ((Number(props.borma[0].rcv_pw_210)||0) +
+            (Number(props.borma[0].rcv_w_210)||0 )+
+            (Number(props.borma[0].rcv_ww_210)||0 )+
+            (Number(props.borma[0].rcv_pw_240)||0) +
+            (Number(props.borma[0].rcv_w_240)||0 )+
+            (Number(props.borma[0].rcv_ww_240)||0 )+
+            (Number(props.borma[0].rcv_pw_280)||0) +
+            (Number(props.borma[0].rcv_w_280)||0) +
+            (Number(props.borma[0].rcv_ww_280)||0 )+
+            (Number(props.borma[0].rcv_pw_320)||0) +
+            (Number(props.borma[0].rcv_w_320)||0) +
+            (Number(props.borma[0].rcv_ww_320)||0) +
+            (Number(props.borma[0].rcv_pw_360)||0) +
+            (Number(props.borma[0].rcv_w_360)||0) +
+            (Number(props.borma[0].rcv_ww_360)||0) +
+            (Number(props.borma[0].rcv_pw_400)||0) +
+            (Number(props.borma[0].rcv_w_400)||0) +
+            (Number(props.borma[0].rcv_ww_400)||0) +
+            (Number(props.borma[0].rcv_jb_mayur)||0) +
+    (Number(props.borma[0].rcv_jb_hamsa)||0))) {
             setErrortext('Borma Weight Cant be Higher Than Receiving !')
             if (errordialog != null) {
                 (errordialog as any).showModal();
@@ -515,67 +515,67 @@ const WholesCreateForm = (props: Props) => {
             return
         }
         if (rows[0].issue_add_1) {
-            rows[index].issue_add_2 = ((Number(props.borma[0].rcv_pw_210)||0 +
-                Number(props.borma[0].rcv_w_210)||0 +
-                Number(props.borma[0].rcv_ww_210)||0 +
-                Number(props.borma[0].rcv_pw_240)||0 +
-                Number(props.borma[0].rcv_w_240)||0 +
-                Number(props.borma[0].rcv_ww_240)||0 +
-                Number(props.borma[0].rcv_pw_280)||0 +
-                Number(props.borma[0].rcv_w_280)||0 +
-                Number(props.borma[0].rcv_ww_280)||0 +
-                Number(props.borma[0].rcv_pw_320)||0 +
-                Number(props.borma[0].rcv_w_320)||0 +
-                Number(props.borma[0].rcv_ww_320)||0 +
-                Number(props.borma[0].rcv_pw_360)||0 +
-                Number(props.borma[0].rcv_w_360)||0 +
-                Number(props.borma[0].rcv_ww_360)||0 +
-                Number(props.borma[0].rcv_pw_400)||0 +
-                Number(props.borma[0].rcv_w_400)||0 +
-                Number(props.borma[0].rcv_ww_400)||0 +
-                Number(props.borma[0].rcv_jb_mayur)||0 +
-                Number(props.borma[0].rcv_jb_hamsa)||0) - Number(e.target.value))
+            rows[index].issue_add_2 = (((Number(props.borma[0].rcv_pw_210)||0) +
+                  (Number(props.borma[0].rcv_w_210)||0 )+
+            (Number(props.borma[0].rcv_ww_210)||0 )+
+            (Number(props.borma[0].rcv_pw_240)||0) +
+            (Number(props.borma[0].rcv_w_240)||0 )+
+            (Number(props.borma[0].rcv_ww_240)||0 )+
+            (Number(props.borma[0].rcv_pw_280)||0) +
+            (Number(props.borma[0].rcv_w_280)||0) +
+            (Number(props.borma[0].rcv_ww_280)||0 )+
+            (Number(props.borma[0].rcv_pw_320)||0) +
+            (Number(props.borma[0].rcv_w_320)||0) +
+            (Number(props.borma[0].rcv_ww_320)||0) +
+            (Number(props.borma[0].rcv_pw_360)||0) +
+            (Number(props.borma[0].rcv_w_360)||0) +
+            (Number(props.borma[0].rcv_ww_360)||0) +
+            (Number(props.borma[0].rcv_pw_400)||0) +
+            (Number(props.borma[0].rcv_w_400)||0) +
+            (Number(props.borma[0].rcv_ww_400)||0) +
+            (Number(props.borma[0].rcv_jb_mayur)||0) +
+                (Number(props.borma[0].rcv_jb_hamsa)||0)) - Number(e.target.value))
 
-            rows[index].issue_add_3 = (Number(rows[index].issue_add_2) / (Number(props.borma[0].rcv_pw_210)||0 +
-                Number(props.borma[0].rcv_w_210)||0 +
-                Number(props.borma[0].rcv_ww_210)||0 +
-                Number(props.borma[0].rcv_pw_240)||0 +
-                Number(props.borma[0].rcv_w_240)||0 +
-                Number(props.borma[0].rcv_ww_240)||0 +
-                Number(props.borma[0].rcv_pw_280)||0 +
-                Number(props.borma[0].rcv_w_280)||0 +
-                Number(props.borma[0].rcv_ww_280)||0 +
-                Number(props.borma[0].rcv_pw_320)||0 +
-                Number(props.borma[0].rcv_w_320)||0 +
-                Number(props.borma[0].rcv_ww_320)||0 +
-                Number(props.borma[0].rcv_pw_360)||0 +
-                Number(props.borma[0].rcv_w_360)||0 +
-                Number(props.borma[0].rcv_ww_360)||0 +
-                Number(props.borma[0].rcv_pw_400)||0 +
-                Number(props.borma[0].rcv_w_400)||0 +
-                Number(props.borma[0].rcv_ww_400)||0 +
-                Number(props.borma[0].rcv_jb_mayur)||0 +
-                Number(props.borma[0].rcv_jb_hamsa))) * 100
-            rows[index].rcv_pw_210 = (Number(props.borma[0].rcv_pw_210)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_w_210 = (Number(props.borma[0].rcv_w_210)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_ww_210 = (Number(props.borma[0].rcv_ww_210)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_pw_240 = (Number(props.borma[0].rcv_pw_240)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_w_240 = (Number(props.borma[0].rcv_w_240)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_ww_240 = (Number(props.borma[0].rcv_ww_240)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_pw_280 = (Number(props.borma[0].rcv_pw_280)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_w_280 = (Number(props.borma[0].rcv_w_280)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_ww_280 = (Number(props.borma[0].rcv_ww_280)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_pw_320 = (Number(props.borma[0].rcv_pw_320)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_w_320 = (Number(props.borma[0].rcv_w_320)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_ww_320 = (Number(props.borma[0].rcv_ww_320)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_pw_360 = (Number(props.borma[0].rcv_pw_360)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_w_360 = (Number(props.borma[0].rcv_w_360)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_ww_360 = (Number(props.borma[0].rcv_ww_360)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_pw_400 = (Number(props.borma[0].rcv_pw_400)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_w_400 = (Number(props.borma[0].rcv_w_400)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_ww_400 = (Number(props.borma[0].rcv_ww_400)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_jb_mayur = (Number(props.borma[0].rcv_jb_mayur)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
-            rows[index].rcv_jb_hamsa = (Number(props.borma[0].rcv_jb_hamsa)||0 * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].issue_add_3 = (Number(rows[index].issue_add_2) / ((Number(props.borma[0].rcv_pw_210)||0) +
+              (Number(props.borma[0].rcv_w_210)||0 )+
+            (Number(props.borma[0].rcv_ww_210)||0 )+
+            (Number(props.borma[0].rcv_pw_240)||0) +
+            (Number(props.borma[0].rcv_w_240)||0 )+
+            (Number(props.borma[0].rcv_ww_240)||0 )+
+            (Number(props.borma[0].rcv_pw_280)||0) +
+            (Number(props.borma[0].rcv_w_280)||0) +
+            (Number(props.borma[0].rcv_ww_280)||0 )+
+            (Number(props.borma[0].rcv_pw_320)||0) +
+            (Number(props.borma[0].rcv_w_320)||0) +
+            (Number(props.borma[0].rcv_ww_320)||0) +
+            (Number(props.borma[0].rcv_pw_360)||0) +
+            (Number(props.borma[0].rcv_w_360)||0) +
+            (Number(props.borma[0].rcv_ww_360)||0) +
+            (Number(props.borma[0].rcv_pw_400)||0) +
+            (Number(props.borma[0].rcv_w_400)||0) +
+            (Number(props.borma[0].rcv_ww_400)||0) +
+            (Number(props.borma[0].rcv_jb_mayur)||0) +
+                (Number(props.borma[0].rcv_jb_hamsa)||0))) * 100
+            rows[index].rcv_pw_210 = ((Number(props.borma[0].rcv_pw_210)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_w_210 = ((Number(props.borma[0].rcv_w_210)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_ww_210 = ((Number(props.borma[0].rcv_ww_210)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_pw_240 = ((Number(props.borma[0].rcv_pw_240)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_w_240 = ((Number(props.borma[0].rcv_w_240)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_ww_240 = ((Number(props.borma[0].rcv_ww_240)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_pw_280 = ((Number(props.borma[0].rcv_pw_280)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_w_280 = ((Number(props.borma[0].rcv_w_280)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_ww_280 = ((Number(props.borma[0].rcv_ww_280)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_pw_320 = ((Number(props.borma[0].rcv_pw_320)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_w_320 = ((Number(props.borma[0].rcv_w_320)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_ww_320 = ((Number(props.borma[0].rcv_ww_320)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_pw_360 = ((Number(props.borma[0].rcv_pw_360)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_w_360 = ((Number(props.borma[0].rcv_w_360)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_ww_360 = ((Number(props.borma[0].rcv_ww_360)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_pw_400 = ((Number(props.borma[0].rcv_pw_400)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_w_400 = ((Number(props.borma[0].rcv_w_400)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_ww_400 = ((Number(props.borma[0].rcv_ww_400)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_jb_mayur = ((Number(props.borma[0].rcv_jb_mayur)||0) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
+            rows[index].rcv_jb_hamsa = ((Number(props.borma[0].rcv_jb_hamsa)||0 )* ((100 - Number(rows[index].issue_add_3)) / 100)).toString();
 
 
         }
