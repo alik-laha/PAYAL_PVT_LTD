@@ -61,7 +61,7 @@ import RejectionReCreateForm from "./RejectionReissue";
 
 
 
-const RejectionTable = () => {
+const RejectionTable = (props:any) => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -109,333 +109,434 @@ const RejectionTable = () => {
             return prev
         })
     }, [page])
-    const exportToExcel = async () => { 
+    // const exportToExcel = async () => { 
 
-         if (searchType === 'LOT') {
-        const response = await axios.put('/api/rejection/rejectionprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
-            type:'LOT'
-        })
-        const data1 = await response.data
+    //      if (searchType === 'LOT') {
+    //     const response = await axios.put('/api/rejection/rejectionprimarysearch', {
+    //         searchitem: blConNo,
+    //         fromDate: fromdate,
+    //         toDate: todate,
+    //         origin: origin,
+    //         type:'LOT'
+    //     })
+    //     const data1 = await response.data
 
-        let ws
-        let transformed: any[] = [];
-        if (EditData.length > 0) {
-            transformed = EditData.map((item: RejectionData, idx: number) => ({
-            Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            Rejection_Entry_Date: handletimezone(item.date),
-                Mixing_Lot: item.mixingLot,   
-                Opening_Peeling: formatNumber(item.rcv_peeling),
-                Borma_Peeling: formatNumber(item.issue_add_7),
-                Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                Opening_Mayur: formatNumber(item.rcv_mayur),
-                Borma_Mayur: formatNumber(item.issue_add_8),
-                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                issue_packing: formatNumber(item.issue_packing),
-                issue_village: formatNumber(item.issue_village),
-                issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                issue_shell: formatNumber(item.issue_shell),
-                issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                Labour: item.noOfdayOperators,
-                Superisor: item.noOfnightOperators,
+    //     let ws
+    //     let transformed: any[] = [];
+    //     if (EditData.length > 0) {
+    //         transformed = EditData.map((item: RejectionData, idx: number) => ({
+    //         Sl_No: idx + 1, 
+    //         Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+    //         Item_Lot_No: item.LotNo,
+    //         Origin: item.origin,
+    //         Issue_No: item.altid,
+    //         Rejection_Entry_Date: handletimezone(item.date),
+    //             Mixing_Lot: item.mixingLot,   
+    //             Opening_Peeling: formatNumber(item.rcv_peeling),
+    //             Borma_Peeling: formatNumber(item.issue_add_7),
+    //             Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //             Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //             Opening_Mayur: formatNumber(item.rcv_mayur),
+    //             Borma_Mayur: formatNumber(item.issue_add_8),
+    //             Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+    //             Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+    //             Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+    //             Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+    //             Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+    //             Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+    //             Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+    //             Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
+    //             Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+    //             +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+    //             +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+    //             +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+    //             issue_packing: formatNumber(item.issue_packing),
+    //             issue_village: formatNumber(item.issue_village),
+    //             issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
+    //             issue_shell: formatNumber(item.issue_shell),
+    //             issue_catelfeed: formatNumber(item.issue_catelfeed),         
+    //             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+    //             Labour: item.noOfdayOperators,
+    //             Superisor: item.noOfnightOperators,
                
            
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
+    //         Edit_Status: item.editStatus,
+    //         Created_By: item.CreatedBy,
+    //         Modified_By: item.modifiedBy 
 
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        else {
-            transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
-                Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                Rejection_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,   
-                    Opening_Peeling: formatNumber(item.rcv_peeling),
-                    Borma_Peeling: formatNumber(item.issue_add_7),
-                    Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Opening_Mayur: formatNumber(item.rcv_mayur),
-                    Borma_Mayur: formatNumber(item.issue_add_8),
-                    Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                    Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                    Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                    Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                    Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                    Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                    Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                    +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                    +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                    +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                    issue_packing: formatNumber(item.issue_packing),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                    issue_shell: formatNumber(item.issue_shell),
-                    issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                    Labour: item.noOfdayOperators,
-                    Superisor: item.noOfnightOperators,
+    //         }));
+    //         //setTransformedData(transformed);
+    //         ws = XLSX.utils.json_to_sheet(transformed);
+    //     }
+    //     else {
+    //         transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
+    //             Sl_No: idx + 1, 
+    //             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+    //             Item_Lot_No: item.LotNo,
+    //             Origin: item.origin,
+    //             Issue_No: item.altid,
+    //             Rejection_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,   
+    //                 Opening_Peeling: formatNumber(item.rcv_peeling),
+    //                 Borma_Peeling: formatNumber(item.issue_add_7),
+    //                 Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Opening_Mayur: formatNumber(item.rcv_mayur),
+    //                 Borma_Mayur: formatNumber(item.issue_add_8),
+    //                 Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+    //                 Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+    //                 Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+    //                 Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+    //                 Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+    //                 Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+    //                 Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
+    //                 Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+    //                 +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+    //                 +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+    //                 +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+    //                 issue_packing: formatNumber(item.issue_packing),
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
+    //                 issue_shell: formatNumber(item.issue_shell),
+    //                 issue_catelfeed: formatNumber(item.issue_catelfeed),         
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+    //                 Labour: item.noOfdayOperators,
+    //                 Superisor: item.noOfnightOperators,
                    
                
-                Edit_Status: item.editStatus,
-                Created_By: item.CreatedBy,
-                Modified_By: item.modifiedBy 
+    //             Edit_Status: item.editStatus,
+    //             Created_By: item.CreatedBy,
+    //             Modified_By: item.modifiedBy 
 
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
-    }
-        else if (searchType === 'R-LOT') {
-        const response = await axios.put('/api/rejection/rejectionprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
-            type:'RLOT'
-        })
-        const data1 = await response.data
+    //         }));
+    //         // setTransformedData(transformed);
+    //         ws = XLSX.utils.json_to_sheet(transformed);
+    //     }
+    //     const wb = XLSX.utils.book_new();
+    //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //     const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //     saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
+    // }
+    //     else if (searchType === 'R-LOT') {
+    //     const response = await axios.put('/api/rejection/rejectionprimarysearch', {
+    //         searchitem: blConNo,
+    //         fromDate: fromdate,
+    //         toDate: todate,
+    //         origin: origin,
+    //         type:'RLOT'
+    //     })
+    //     const data1 = await response.data
 
-        let ws
-        let transformed: any[] = [];
-        if (EditData.length > 0) {
-            transformed = EditData.map((item: RejectionData, idx: number) => ({
-            Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            Rejection_Entry_Date: handletimezone(item.date),
-                Mixing_Lot: item.mixingLot,   
-                Opening_Peeling: formatNumber(item.rcv_peeling),
-                Borma_Peeling: formatNumber(item.issue_add_7),
-                Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                Opening_Mayur: formatNumber(item.rcv_mayur),
-                Borma_Mayur: formatNumber(item.issue_add_8),
-                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                issue_packing: formatNumber(item.issue_packing),
-                issue_village: formatNumber(item.issue_village),
-                issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                issue_shell: formatNumber(item.issue_shell),
-                issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                Labour: item.noOfdayOperators,
-                Superisor: item.noOfnightOperators,
+    //     let ws
+    //     let transformed: any[] = [];
+    //     if (EditData.length > 0) {
+    //         transformed = EditData.map((item: RejectionData, idx: number) => ({
+    //         Sl_No: idx + 1, 
+    //         Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+    //         Item_Lot_No: item.LotNo,
+    //         Origin: item.origin,
+    //         Issue_No: item.altid,
+    //         Rejection_Entry_Date: handletimezone(item.date),
+    //             Mixing_Lot: item.mixingLot,   
+    //             Opening_Peeling: formatNumber(item.rcv_peeling),
+    //             Borma_Peeling: formatNumber(item.issue_add_7),
+    //             Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //             Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //             Opening_Mayur: formatNumber(item.rcv_mayur),
+    //             Borma_Mayur: formatNumber(item.issue_add_8),
+    //             Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+    //             Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+    //             Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+    //             Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+    //             Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+    //             Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+    //             Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+    //             Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
+    //             Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+    //             +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+    //             +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+    //             +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+    //             issue_packing: formatNumber(item.issue_packing),
+    //             issue_village: formatNumber(item.issue_village),
+    //             issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
+    //             issue_shell: formatNumber(item.issue_shell),
+    //             issue_catelfeed: formatNumber(item.issue_catelfeed),         
+    //             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+    //             Labour: item.noOfdayOperators,
+    //             Superisor: item.noOfnightOperators,
                
            
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
+    //         Edit_Status: item.editStatus,
+    //         Created_By: item.CreatedBy,
+    //         Modified_By: item.modifiedBy 
 
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        else {
-            transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
-                Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                Rejection_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,   
-                    Opening_Peeling: formatNumber(item.rcv_peeling),
-                    Borma_Peeling: formatNumber(item.issue_add_7),
-                    Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Opening_Mayur: formatNumber(item.rcv_mayur),
-                    Borma_Mayur: formatNumber(item.issue_add_8),
-                    Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                    Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                    Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                    Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                    Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                    Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                    Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                    +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                    +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                    +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                    issue_packing: formatNumber(item.issue_packing),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                    issue_shell: formatNumber(item.issue_shell),
-                    issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                    Labour: item.noOfdayOperators,
-                    Superisor: item.noOfnightOperators,
+    //         }));
+    //         //setTransformedData(transformed);
+    //         ws = XLSX.utils.json_to_sheet(transformed);
+    //     }
+    //     else {
+    //         transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
+    //             Sl_No: idx + 1, 
+    //             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+    //             Item_Lot_No: item.LotNo,
+    //             Origin: item.origin,
+    //             Issue_No: item.altid,
+    //             Rejection_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,   
+    //                 Opening_Peeling: formatNumber(item.rcv_peeling),
+    //                 Borma_Peeling: formatNumber(item.issue_add_7),
+    //                 Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Opening_Mayur: formatNumber(item.rcv_mayur),
+    //                 Borma_Mayur: formatNumber(item.issue_add_8),
+    //                 Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+    //                 Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+    //                 Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+    //                 Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+    //                 Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+    //                 Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+    //                 Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
+    //                 Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+    //                 +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+    //                 +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+    //                 +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+    //                 issue_packing: formatNumber(item.issue_packing),
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
+    //                 issue_shell: formatNumber(item.issue_shell),
+    //                 issue_catelfeed: formatNumber(item.issue_catelfeed),         
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+    //                 Labour: item.noOfdayOperators,
+    //                 Superisor: item.noOfnightOperators,
                    
                
-                Edit_Status: item.editStatus,
-                Created_By: item.CreatedBy,
-                Modified_By: item.modifiedBy 
+    //             Edit_Status: item.editStatus,
+    //             Created_By: item.CreatedBy,
+    //             Modified_By: item.modifiedBy 
 
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
-    }
-    else{
-        const response = await axios.put('/api/rejection/rejectionprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
-            type:'VLOT'
-        })
-        const data1 = await response.data
+    //         }));
+    //         // setTransformedData(transformed);
+    //         ws = XLSX.utils.json_to_sheet(transformed);
+    //     }
+    //     const wb = XLSX.utils.book_new();
+    //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //     const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //     saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
+    // }
+    // else{
+    //     const response = await axios.put('/api/rejection/rejectionprimarysearch', {
+    //         searchitem: blConNo,
+    //         fromDate: fromdate,
+    //         toDate: todate,
+    //         origin: origin,
+    //         type:'VLOT'
+    //     })
+    //     const data1 = await response.data
 
-        let ws
-        let transformed: any[] = [];
-        if (EditData.length > 0) {
-            transformed = EditData.map((item: RejectionData, idx: number) => ({
-            Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            Rejection_Entry_Date: handletimezone(item.date),
-                Mixing_Lot: item.mixingLot,   
-                Opening_Peeling: formatNumber(item.rcv_peeling),
-                Borma_Peeling: formatNumber(item.issue_add_7),
-                Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                Opening_Mayur: formatNumber(item.rcv_mayur),
-                Borma_Mayur: formatNumber(item.issue_add_8),
-                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                issue_packing: formatNumber(item.issue_packing),
-                issue_village: formatNumber(item.issue_village),
-                issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                issue_shell: formatNumber(item.issue_shell),
-                issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                Labour: item.noOfdayOperators,
-                Superisor: item.noOfnightOperators,
+    //     let ws
+    //     let transformed: any[] = [];
+    //     if (EditData.length > 0) {
+    //         transformed = EditData.map((item: RejectionData, idx: number) => ({
+    //         Sl_No: idx + 1, 
+    //         Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+    //         Item_Lot_No: item.LotNo,
+    //         Origin: item.origin,
+    //         Issue_No: item.altid,
+    //         Rejection_Entry_Date: handletimezone(item.date),
+    //             Mixing_Lot: item.mixingLot,   
+    //             Opening_Peeling: formatNumber(item.rcv_peeling),
+    //             Borma_Peeling: formatNumber(item.issue_add_7),
+    //             Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //             Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //             Opening_Mayur: formatNumber(item.rcv_mayur),
+    //             Borma_Mayur: formatNumber(item.issue_add_8),
+    //             Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+    //             Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+    //             Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+    //             Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+    //             Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+    //             Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+    //             Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+    //             Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
+    //             Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+    //             +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+    //             +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+    //             +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+    //             issue_packing: formatNumber(item.issue_packing),
+    //             issue_village: formatNumber(item.issue_village),
+    //             issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
+    //             issue_shell: formatNumber(item.issue_shell),
+    //             issue_catelfeed: formatNumber(item.issue_catelfeed),         
+    //             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+    //             Labour: item.noOfdayOperators,
+    //             Superisor: item.noOfnightOperators,
                
            
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
+    //         Edit_Status: item.editStatus,
+    //         Created_By: item.CreatedBy,
+    //         Modified_By: item.modifiedBy 
 
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        else {
-            transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
-                Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                Rejection_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,   
-                    Opening_Peeling: formatNumber(item.rcv_peeling),
-                    Borma_Peeling: formatNumber(item.issue_add_7),
-                    Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Opening_Mayur: formatNumber(item.rcv_mayur),
-                    Borma_Mayur: formatNumber(item.issue_add_8),
-                    Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                    Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                    Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                    Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                    Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                    Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                    Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                    +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                    +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                    +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                    issue_packing: formatNumber(item.issue_packing),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                    issue_shell: formatNumber(item.issue_shell),
-                    issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                    Labour: item.noOfdayOperators,
-                    Superisor: item.noOfnightOperators,
+    //         }));
+    //         //setTransformedData(transformed);
+    //         ws = XLSX.utils.json_to_sheet(transformed);
+    //     }
+    //     else {
+    //         transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
+    //             Sl_No: idx + 1, 
+    //             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+    //             Item_Lot_No: item.LotNo,
+    //             Origin: item.origin,
+    //             Issue_No: item.altid,
+    //             Rejection_Entry_Date: handletimezone(item.date),
+    //                 Mixing_Lot: item.mixingLot,   
+    //                 Opening_Peeling: formatNumber(item.rcv_peeling),
+    //                 Borma_Peeling: formatNumber(item.issue_add_7),
+    //                 Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+    //                 Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+    //                 Opening_Mayur: formatNumber(item.rcv_mayur),
+    //                 Borma_Mayur: formatNumber(item.issue_add_8),
+    //                 Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+    //                 Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+    //                 Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+    //                 Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+    //                 Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+    //                 Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+    //                 Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+    //                 Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
+    //                 Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+    //                 +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+    //                 +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+    //                 +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+    //                 issue_packing: formatNumber(item.issue_packing),
+    //                 issue_village: formatNumber(item.issue_village),
+    //                 issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
+    //                 issue_shell: formatNumber(item.issue_shell),
+    //                 issue_catelfeed: formatNumber(item.issue_catelfeed),         
+    //                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+    //                 Labour: item.noOfdayOperators,
+    //                 Superisor: item.noOfnightOperators,
                    
                
-                Edit_Status: item.editStatus,
-                Created_By: item.CreatedBy,
-                Modified_By: item.modifiedBy 
+    //             Edit_Status: item.editStatus,
+    //             Created_By: item.CreatedBy,
+    //             Modified_By: item.modifiedBy 
 
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
-    }
-    }
+    //         }));
+    //         // setTransformedData(transformed);
+    //         ws = XLSX.utils.json_to_sheet(transformed);
+    //     }
+    //     const wb = XLSX.utils.book_new();
+    //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    //     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //     const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    //     saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
+    // }
+    // }
+    const exportToExcel = async () => {
+  try {
+    const typeMap: any = {
+      LOT: "LOT",
+      "R-LOT": "RLOT",
+      VLOT: "VLOT"
+    };
+
+    const response = await axios.put('/api/rejection/rejectionprimarysearch', {
+      searchitem: blConNo,
+      fromDate: fromdate,
+      toDate: todate,
+      origin: origin,
+      type: typeMap[searchType] || "VLOT"
+    });
+
+    const data1 = response.data;
+
+    const sourceData =
+      EditData.length > 0 ? EditData : data1.rcnEntries || [];
+
+    // 🔹 Safe number parser
+    const num = (val: any) => Number(val) || 0;
+
+    const transformed = sourceData.map((item: RejectionData, idx: number) => ({
+      Sl_No: idx + 1,
+      Issue_Type: item.altid == 1 ? "Fresh Issue" : "Re-Issue",
+      Item_Lot_No: item.LotNo,
+      Origin: item.origin,
+      Issue_No: item.altid,
+      Rejection_Entry_Date: handletimezone(item.date),
+      Mixing_Lot: item.mixingLot,
+
+      // 🔹 PEELING
+      Opening_Peeling: num(item.rcv_peeling),
+      Borma_Peeling: num(item.issue_add_7),
+      Peeling_Borma_Loss_Kg: num(item.issue_add_2),
+      Peeling_Borma_Loss_Percentage: num(item.issue_add_3),
+
+      // 🔹 MAYUR
+      Opening_Mayur: num(item.rcv_mayur),
+      Borma_Mayur: num(item.issue_add_8),
+      Mayur_Borma_Loss_Kg: num(item.issue_add_5),
+      Mayur_Borma_Loss_Percentage: num(item.issue_add_6),
+
+      // 🔹 OPENINGS
+      Opening_Wholes: num(item.rcv_wholes),
+      Opening_LW: num(item.rcv_lw),
+      Opening_DPDS: num(item.rcv_dpds),
+      Opening_Sorting: num(item.rcv_sorting),
+      Opening_BigTaiho: num(item.rcv_bigTaiho),
+      Opening_Village: num(item.rcv_village),
+
+      // 🔥 CORRECT TOTAL (fixed logic)
+      Receive_Total:
+        num(item.issue_add_7) +
+        num(item.issue_add_8) +
+        num(item.rcv_wholes) +
+        num(item.rcv_lw) +
+        num(item.rcv_dpds) +
+        num(item.rcv_sorting) +
+        num(item.rcv_bigTaiho) +
+        num(item.rcv_village),
+
+      // 🔹 ISSUES
+      issue_packing: num(item.issue_packing),
+      issue_village: num(item.issue_village),
+      issue_uncut_unscoop: num(item.issue_uncut_unscoop),
+      issue_shell: num(item.issue_shell),
+      issue_catelfeed: num(item.issue_catelfeed),
+
+      // 🔹 EXTRA
+      Current_Backlog: num(item.current_backlog),
+      Labour: num(item.noOfdayOperators),
+      Superisor: num(item.noOfnightOperators),
+
+      Edit_Status: item.editStatus,
+      Created_By: item.CreatedBy,
+      Modified_By: item.modifiedBy
+    }));
+
+    // 🔹 Excel
+    const ws = XLSX.utils.json_to_sheet(transformed);
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    const wbout = XLSX.write(wb, {
+      bookType: "xlsx",
+      type: "array"
+    });
+
+    const blob = new Blob([wbout], {
+      type: "application/octet-stream"
+    });
+
+    saveAs(blob, `Rejection_Entry_${currDate}.xlsx`);
+  } catch (err) {
+    console.error("Export failed:", err);
+  }
+};
     const handleSearch = async () => {
 
         setEditData([])
@@ -573,75 +674,130 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
         }
     }
 
-    const formatNumberWithSign = (number: number) => {
-        if (number > 0) {
-            return `+${number}`;
-        } else {
-            return `${number}`;
-        }
-    };
+    // const formatNumberWithSign = (number: number) => {
+    //     if (number > 0) {
+    //         return `+${number}`;
+    //     } else {
+    //         return `${number}`;
+    //     }
+    // };
+
+     const thClass = `text-center ${props.props === 'edit' ? 'bg-gray-100 text-gray-700' : ''}`;
    
     return (
         <>
 
-        <div className="ml-5 mt-5 ">
-            <div className="w-full">
-                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+        <div className="mx-2 mt-5 ">
+             {props.props === 'non-edit' && <div className="w-full bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-4 items-end">
 
-                        {dropdown.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            <div className="flex flexbox-search">
+                        {/* Type */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot Type
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none bg-yellow-100"
+                                onChange={(e) => setsearchType(e.target.value)}
+                                value={searchType}
+                            >
 
-                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                                {dropdown.map((data, index) => (
+                                    <option key={index} value={data} className="bg-white">
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-<option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
+                        {/* Lot No. / Line Name */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Lot No
+                        </label> */}
+                            <Input
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                placeholder="Lot No."
+                                value={blConNo}
+                                onChange={(e) => setBlConNo(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Origin */}
+                        <div className="flex flex-col gap-1">
+                            {/* <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                            Origin
+                        </label> */}
+                            <select
+                                className="select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 bg-white dark:text-gray-200 appearance-none"
+                                onChange={(e) => setOrigin(e.target.value)}
+                                value={origin}
+                            >
+                                <option value="">Origin (All)</option>
+                                {Origin.map((data, index) => (
+                                    <option key={index} value={data}>
+                                        {data}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
+                        {/* From Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center ">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                From
+                            </label>
+                            <Input
+                                type="date"
+                                className="text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={fromdate}
+                                onChange={(e) => setfromDate(e.target.value)}
+                            />
+                        </div>
 
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/7 flexbox-search-width-calender"
-                    type="date"
-                    // value={hidetodate}
-                    // onChange={handleTodate}
-                     value={todate}
-                    onChange={(e) => settoDate(e.target.value)}
-                    placeholder="To Date"
+                        {/* To Date */}
+                        <div className="flex flex-col md:flex-row gap-1 md:items-center">
+                            <label className="font-semibold text-[13px] text-gray-600 dark:text-gray-400">
+                                To
+                            </label>
+                            <Input
+                                type="date"
+                                className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 focus:ring-blue-500 rounded-lg h-10 px-3 transition duration-150 dark:text-gray-200"
+                                value={todate}
+                                onChange={(e) => settoDate(e.target.value)}
+                            />
+                        </div>
 
-                />
-
-               
 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
-            </div>
-            {checkpending('Rejection') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                        {/* Search & Export Buttons */}
+                        <div className="flex flex-wrap justify-end md:justify-between gap-3 mt-2 md:mt-0">
+                            <Button
+                                className="flex w-36 items-center justify-center gap-2 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleSearch}
+                            >
+                                <FaSearch size={14} />
+                                Search
+                            </Button>
+
+                            {checkpending('Rejection') && (
+                                <Button
+                                    className="flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                    onClick={exportToExcel}
+                                >
+                                    <LuDownload size={16} />
+
+                                </Button>
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>}
+          
+           {props.props==='edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
