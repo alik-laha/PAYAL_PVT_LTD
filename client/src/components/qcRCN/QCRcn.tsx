@@ -3,7 +3,7 @@ import DashboardHeader from "../dashboard/DashboardHeader"
 import DashboardSidebar from "../dashboard/DashboardSidebar"
 import UseQueryData from '../common/dataFetcher';
 import QCRcnTable from "./QCRcnTable"
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import Context from "../context/context";
 import { FY } from "../common/exportData";
 import DashboardFooter from "../dashboard/DashboardFooter";
@@ -13,15 +13,20 @@ import DashboardFooter from "../dashboard/DashboardFooter";
 const QCRcn = () => {
     const { data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'getTotalQcCount')
     const { setpendingqcCount,setpendingreportCount } = useContext(Context);
-    if (isLoading) {
+
+      useEffect(() => {
+        if (data) {
+            setpendingqcCount(data.pendingQC);
+            setpendingreportCount(data.pendingReport);
+        }
+    }, [data]);
+
+
+        if (isLoading) {
         return <Loader/>
     }
     if (error) {
         return <div>Error</div>
-    }
-    if(data){
-        setpendingqcCount(data.pendingQC)
-        setpendingreportCount(data.pendingReport)
     }
    
     return (
@@ -29,7 +34,7 @@ const QCRcn = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
-                <div className="flexbox-header">
+                <div className="flexbox-header mx-2">
                 <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                        <p>Initial QC Approved</p><br /><p>{data.approvedQC}</p>
                     </div>
