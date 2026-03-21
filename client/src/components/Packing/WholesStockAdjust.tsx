@@ -50,7 +50,7 @@ const WholesStockAdjust = () => {
     }
   };
 
-  if (loading) return <div>Loading Taiho data...</div>;
+  if (loading) return <div>Loading Wholes data...</div>;
 
   const fields = [
     "issue_pw_150", "issue_w_150", "issue_ww_150", "issue_s_150", "issue_aw_150", "issue_lw_150",

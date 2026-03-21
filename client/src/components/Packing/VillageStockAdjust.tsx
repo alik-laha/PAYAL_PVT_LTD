@@ -50,7 +50,7 @@ const VillageStockAdjust = () => {
     }
   };
 
-  if (loading) return <div>Loading Taiho data...</div>;
+  if (loading) return <div>Loading Village data...</div>;
 
   const fields = [
     "issue_packing"

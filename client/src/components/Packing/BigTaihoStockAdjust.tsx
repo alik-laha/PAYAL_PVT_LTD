@@ -50,7 +50,7 @@ const BigTaihoStockAdjust = () => {
     }
   };
 
-  if (loading) return <div>Loading Taiho data...</div>;
+  if (loading) return <div>Loading Big-Taiho data...</div>;
 
   const fields = [
     "issue_ssp","issue_ssp_small","issue_swp_1","issue_wsp","issue_bits",

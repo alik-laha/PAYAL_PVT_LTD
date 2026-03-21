@@ -28,7 +28,7 @@ function formatNumber(num:any) {
     return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
 }
 const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
-const dummyYear = DUMMY_LOT.split('-')[0]; // '2025'
+const MIN_YEAR = Number(process.env.MIN_YEAR || 2026);
 
 export const getActvOrderCount = async (req: Request, res: Response) => {
     try {
@@ -1237,9 +1237,18 @@ export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) =
       where: {
             Status: { [Op.notLike]: 0 },
             [grade]: { [Op.ne]: 0 },      // ✅ dynamic column
-             [Op.or]: [
-      { LotNo: { [Op.notLike]: `${dummyYear}-%` } }, // exclude that year
-      { LotNo: DUMMY_LOT }                          // allow only this one
+     [Op.or]: [
+      // ✅ Condition 1: Lot year >= MIN_YEAR
+      sequelize.where(
+        sequelize.cast(
+          sequelize.fn('SUBSTRING_INDEX', sequelize.col('LotNo'), '-', 1),
+          'UNSIGNED'
+        ),
+        { [Op.gte]: MIN_YEAR }
+      ),
+
+      // ✅ Condition 2: Always allow dummy lot
+      { LotNo: DUMMY_LOT }
     ]
           },
       raw: true,
