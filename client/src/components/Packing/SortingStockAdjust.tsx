@@ -75,7 +75,7 @@ const SortingStockAdjust = () => {
           <div key={key} className="flex items-center gap-2">
 
             {/* Label */}
-            <div className="w-32 text-xs font-bold text-gray-700 bg-green-50 text-center shadow-md h-7 pt-1">
+            <div className="w-32 text-xs font-bold text-white rounded bg-gradient-to-r from-blue-500 to-red-500 text-center shadow-md h-7 items-center pt-1">
               {key.replace("issue_", "").replace(/_/g, " ").toUpperCase()}
             </div>
 
@@ -85,7 +85,7 @@ const SortingStockAdjust = () => {
               step="0.01"
               value={formData[key] ?? ""}
               onChange={(e) => handleChange(key, e.target.value)}
-              className={`flex-1 border p-1.5 rounded border-gray-300 text-center focus:outline-none focus:ring-2 focus:ring-blue-400
+              className={`flex-1 border p-1.5 rounded border-gray-300 font-semibold text-center focus:outline-none focus:ring-2 focus:ring-blue-400
                 ${
                   Number(originalData[key]) !== Number(formData[key])
                     ? "bg-yellow-100 border-yellow-400"

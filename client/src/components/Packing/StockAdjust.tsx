@@ -10,6 +10,7 @@ import {
 import { Stock_Match_Section } from "../common/exportData";
 import DPDSStockAdjust from "./DPDSStockAdjust";
 import SortingStockAdjust from "./SortingStockAdjust";
+import BigTaihoStockAdjust from "./BigTaihoStockAdjust";
 const StockAdjust = () => {
     const [tablesection, setTablesection] = useState<string>("WHOLES");
 
@@ -38,6 +39,7 @@ const StockAdjust = () => {
 
              {tablesection === "DPDS" && <DPDSStockAdjust />}
               {tablesection === "SORTING" && <SortingStockAdjust />}
+              {tablesection === "TAIHO" && <BigTaihoStockAdjust />}
         </>
     )
 
