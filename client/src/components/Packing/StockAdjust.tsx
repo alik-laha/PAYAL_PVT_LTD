@@ -9,6 +9,7 @@ import {
 } from "../ui/select";
 import { Stock_Match_Section } from "../common/exportData";
 import DPDSStockAdjust from "./DPDSStockAdjust";
+import SortingStockAdjust from "./SortingStockAdjust";
 const StockAdjust = () => {
     const [tablesection, setTablesection] = useState<string>("WHOLES");
 
@@ -36,6 +37,7 @@ const StockAdjust = () => {
             </Select>
 
              {tablesection === "DPDS" && <DPDSStockAdjust />}
+              {tablesection === "SORTING" && <SortingStockAdjust />}
         </>
     )
 

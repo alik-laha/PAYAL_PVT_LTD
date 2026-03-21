@@ -177,7 +177,7 @@ const Packing = () => {
 
                        {checkpending('StockMatch') && <Dialog>
                             <DialogTrigger>   <Button className="md:w-40 w-28 bg-gradient-to-r from-pink-500 to-lime-500 hover:from-pink-600 hover:to-lime-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" >+ Adjust</Button></DialogTrigger>
-                            <DialogContent className='max-w-full' style={{ display: 'block' }}>
+                            <DialogContent className='max-w-5xl' style={{ display: 'block' }}>
                                 <DialogHeader>
                                     <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>STOCK ADJUST FORM</p></DialogTitle>
 

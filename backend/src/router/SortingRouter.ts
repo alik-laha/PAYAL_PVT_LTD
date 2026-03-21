@@ -8,8 +8,9 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 
-import { approveSorting, CreateEntireSorting, CreateMixSorting, CreateReissueSorting, EditRejectSorting, findEditSortingAll, getSortingBylotorigin, 
+import { approveSorting, CreateEntireSorting, CreateMixSorting, CreateReissueSorting, EditRejectSorting, findEditSortingAll, getDummyLot, getSortingBylotorigin, 
        getSortingLot, SearchRCNSorting, SearchRCNSortingMix, sumOfallSorting, 
+       updateDummyLot, 
        updateEntireSorting} from "../controller/SortingController/SortingApi";
 const router = express()
 
@@ -40,5 +41,8 @@ router.post('/createMixSorting', jwtVerify, CreateMixSorting);
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
 router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+
+router.get('/dummy-lot-data', jwtVerify, getDummyLot);
+router.put('/update-dummy-lot', jwtVerify, updateDummyLot);
 
 export default router

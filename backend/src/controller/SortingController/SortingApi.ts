@@ -16,6 +16,8 @@ import villageProduction from "../../model/villageProductionModel";
 import VLotNo from "../../model/vlotNomodel";
 
 
+const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
+
 // //Sorting.tsx
 export const findEditSortingAll = async (req: Request, res: Response) => {
     try {
@@ -2442,6 +2444,33 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
     }
 
 }
+
+export const getDummyLot = async (req: Request, res: Response) => {
+  try {
+    const data = await SortingModel.findOne({
+      where: { LotNo: DUMMY_LOT },
+      raw: true,
+    });
+
+    res.status(200).json({message: 'Dummy Entry found',data});
+  } catch (err) {
+    console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+  }
+};
+
+export const updateDummyLot = async (req: Request, res: Response) => {
+  try {
+    await SortingModel.update(req.body, {
+      where: { LotNo: DUMMY_LOT },
+    });
+
+   res.status(200).json({message: 'Updated Successfully'});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Update failed" });
+  }
+};
 
 
 
