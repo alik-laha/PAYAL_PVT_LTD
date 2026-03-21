@@ -13,8 +13,9 @@ import rejectionModel from "../../model/rejectionModel";
 import LWModel from "../../model/lowerGradeModel";
 import villageProduction from "../../model/villageProductionModel";
 import VLotNo from "../../model/vlotNomodel";
+import dummyLotGradeAdjust from "../../model/dummyLotGradeAdjust";
 
-
+const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
 // //Wholes.tsx
 export const findEditWholesAll = async (req: Request, res: Response) => {
     try {
@@ -3277,6 +3278,45 @@ export const CreateMixWholes = async (req: Request, res: Response) => {
     }
 
 }
+
+export const getDummyLot = async (req: Request, res: Response) => {
+  try {
+    const data = await WholesModel.findOne({
+      where: { LotNo: DUMMY_LOT },
+      raw: true,
+    });
+
+    res.status(200).json({message: 'Dummy Entry found',data});
+  } catch (err) {
+    console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+  }
+};
+
+export const updateDummyLot = async (req: Request, res: Response) => {
+  try {
+
+        const user = req.cookies?.user || "UNKNOWN";
+    const section = "WHOLES"; // 🔥 change dynamically if needed
+
+    const now = new Date();
+    await WholesModel.update(req.body, {
+      where: { LotNo: DUMMY_LOT },
+    });
+
+        await dummyLotGradeAdjust.create({
+          section: section,
+          createdBy: user,
+          date: now,
+          time: now,
+        });
+
+   res.status(200).json({message: 'Updated Successfully'});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Update failed" });
+  }
+};
 
 
 

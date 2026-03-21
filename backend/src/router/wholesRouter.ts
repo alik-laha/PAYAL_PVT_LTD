@@ -7,7 +7,7 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveWholes, CreateEntireWholes, CreateMixWholes, CreateReissueWholes, EditRejectWholes, findEditWholesAll, getWholesBylotorigin, getWholesLot, SearchRCNWholes, SearchRCNWholesMix, sumOfallWholes, updateEntireWholes } from "../controller/WholesController/WholesApi";
+import { approveWholes, CreateEntireWholes, CreateMixWholes, CreateReissueWholes, EditRejectWholes, findEditWholesAll, getDummyLot, getWholesBylotorigin, getWholesLot, SearchRCNWholes, SearchRCNWholesMix, sumOfallWholes, updateDummyLot, updateEntireWholes } from "../controller/WholesController/WholesApi";
 const router = express()
 
 // //Wholes.tsx
@@ -37,5 +37,9 @@ router.post('/createMixWholes', jwtVerify, CreateMixWholes);
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
 router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+
+
+router.get('/dummy-lot-data', jwtVerify, getDummyLot);
+router.put('/update-dummy-lot', jwtVerify, updateDummyLot);
 
 export default router

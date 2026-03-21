@@ -11,35 +11,55 @@ import { Stock_Match_Section } from "../common/exportData";
 import DPDSStockAdjust from "./DPDSStockAdjust";
 import SortingStockAdjust from "./SortingStockAdjust";
 import BigTaihoStockAdjust from "./BigTaihoStockAdjust";
+import LowerGradeAdjust from "./LowerGradeAdjust";
+import VillageStockAdjust from "./VillageStockAdjust";
+import WholesStockAdjust from "./WholesStockAdjust";
 const StockAdjust = () => {
-    const [tablesection, setTablesection] = useState<string>("WHOLES");
+    const [tablesection, setTablesection] = useState<string>("");
 
     return(
         <>
+        <div className="w-full flex justify-center mt-4">
 
-        <Select
-              value={tablesection}
-              onValueChange={(value) => setTablesection(value)}
-              required={true}>
-              <SelectTrigger className="w-28 md:w-40 justify-center h-10 bg-yellow-100 font-bold border-2 border-gray-300 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md">
-                <SelectValue placeholder="Section Name" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {Stock_Match_Section.map((item: any, indx) => {
-                    return (
-                      <SelectItem key={indx} value={item}>
-                        {item}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+  <div className="flex items-center gap-4 bg-white px-6 py-3 rounded-xl shadow-md border">
+
+    {/* Label */}
+    <div className="text-sm font-semibold text-gray-700 whitespace-nowrap">
+      Section
+    </div>
+
+    {/* Select */}
+    <Select
+      value={tablesection}
+      onValueChange={(value) => setTablesection(value)}
+    >
+      <SelectTrigger className="w-36 h-9 text-center font-semibold border bg-yellow-100 border-gray-300 focus:ring-2 focus:ring-blue-400">
+        <SelectValue placeholder="Select Section" />
+      </SelectTrigger>
+
+      <SelectContent>
+        <SelectGroup>
+          {Stock_Match_Section.map((item: any, indx) => (
+            <SelectItem key={indx} value={item}>
+              {item}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+
+  </div>
+
+</div>
+        
 
              {tablesection === "DPDS" && <DPDSStockAdjust />}
               {tablesection === "SORTING" && <SortingStockAdjust />}
               {tablesection === "TAIHO" && <BigTaihoStockAdjust />}
+              {tablesection === "LW" && <LowerGradeAdjust />}
+              {tablesection === "VILLAGE" && <VillageStockAdjust />}
+
+                {tablesection === "WHOLES" && <WholesStockAdjust />}
         </>
     )
 

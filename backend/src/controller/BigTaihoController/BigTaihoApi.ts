@@ -13,6 +13,7 @@ import SortingModel from "../../model/sortingModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import VLotNo from "../../model/vlotNomodel";
+import dummyLotGradeAdjust from "../../model/dummyLotGradeAdjust";
 const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
 
 // //BigTaiho.tsx
@@ -2386,9 +2387,23 @@ export const getDummyLot = async (req: Request, res: Response) => {
 
 export const updateDummyLot = async (req: Request, res: Response) => {
   try {
+
+         const user = req.cookies?.user || "UNKNOWN";
+    const section = "BIG-TAIHO"; // 🔥 change dynamically if needed
+
+    const now = new Date();
     await bigTaihoModel.update(req.body, {
       where: { LotNo: DUMMY_LOT },
     });
+
+        await dummyLotGradeAdjust.create({
+          section: section,
+          createdBy: user,
+          date: now,
+          time: now,
+        });
+
+ 
 
    res.status(200).json({message: 'Updated Successfully'});
   } catch (err) {

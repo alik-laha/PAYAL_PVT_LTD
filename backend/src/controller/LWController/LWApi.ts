@@ -12,6 +12,7 @@ import villageProduction from "../../model/villageProductionModel";
 import lotoriginmodel from "../../model/lotoriginModel";
 //import WhatsappMsg from "../../helper/WhatsappMsg";
 import mixingModel from "../../model/mixingModel";
+import dummyLotGradeAdjust from "../../model/dummyLotGradeAdjust";
 
 const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
 
@@ -2164,9 +2165,21 @@ export const getDummyLot = async (req: Request, res: Response) => {
 
 export const updateDummyLot = async (req: Request, res: Response) => {
   try {
+
+        const user = req.cookies?.user || "UNKNOWN";
+    const section = "LW"; // 🔥 change dynamically if needed
+
+    const now = new Date();
     await LWModel.update(req.body, {
       where: { LotNo: DUMMY_LOT },
     });
+
+        await dummyLotGradeAdjust.create({
+          section: section,
+          createdBy: user,
+          date: now,
+          time: now,
+        });
 
    res.status(200).json({message: 'Updated Successfully'});
   } catch (err) {

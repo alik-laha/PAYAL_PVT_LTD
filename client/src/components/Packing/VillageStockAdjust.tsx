@@ -1,20 +1,20 @@
-// LowerGradeAdjust.tsx
+// BigTaihoStockAdjust.tsx
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const LowerGradeAdjust = () => {
+const VillageStockAdjust = () => {
   const [formData, setFormData] = useState<any>({});
   const [originalData, setOriginalData] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // Fetch Lower Grade dummy lot data
+  // Fetch Taiho dummy lot data
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/lw/dummy-lot-data");
+        const res = await axios.get("/api/villageout/dummy-lot-data");
         setFormData(res.data.data || {});
         setOriginalData(res.data.data || {});
       } catch (err) {
@@ -39,7 +39,7 @@ const LowerGradeAdjust = () => {
   const handleSubmit = async () => {
     try {
       setSaving(true);
-      await axios.put("/api/lw/update-dummy-lot", formData);
+      await axios.put("/api/villageout/update-dummy-lot", formData);
       alert("✅ Updated successfully");
     } catch (err) {
       console.error(err);
@@ -50,21 +50,10 @@ const LowerGradeAdjust = () => {
     }
   };
 
-  if (loading) return <div>Loading Lower Grade data...</div>;
+  if (loading) return <div>Loading Taiho data...</div>;
 
   const fields = [
-    "issue_kw","issue_kw_1","issue_kw_2","issue_kn","issue_dw",
-    "issue_dw_1","issue_dw_2","issue_ow","issue_ow_1","issue_ow_2",
-    "issue_jw","issue_pw","issue_row","issue_rej_1",
-    "issue_lw3_180","issue_lw3_210","issue_lw3_240","issue_lw3_280","issue_lw3_360",
-    "issue_lw2","issue_lw4","issue_lw5","issue_lw6","issue_lw7",
-    "issue_rej_3","issue_rej_4","issue_jb2","issue_sjb",
-    "issue_k_240","issue_k_280","issue_k_360",
-    "issue_pkw","issue_bw","issue_rw","issue_rrw","issue_fw","issue_lw",
-    "issue_ext_grade_1","issue_ext_grade_2","issue_ext_grade_3",
-    "issue_ext_grade_4","issue_ext_grade_5","issue_ext_grade_6",
-    "issue_ext_grade_7","issue_ext_grade_8","issue_ext_grade_9",
-    "issue_ext_grade_10"
+    "issue_packing"
   ];
 
   return (
@@ -104,7 +93,7 @@ const LowerGradeAdjust = () => {
         <button
           onClick={handleSubmit}
           disabled={saving}
-          className="mt-6 px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded shadow"
+          className="mt-6 px-6 py-2 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded shadow"
         >
           {saving ? "Saving..." : "Submit"}
         </button>
@@ -113,4 +102,4 @@ const LowerGradeAdjust = () => {
   );
 };
 
-export default LowerGradeAdjust;
+export default VillageStockAdjust;

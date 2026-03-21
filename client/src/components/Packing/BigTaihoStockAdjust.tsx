@@ -57,10 +57,7 @@ const BigTaihoStockAdjust = () => {
     "issue_swp","issue_bb","issue_w_bb","issue_bb_A","issue_bb1",
     "issue_bb1_A","issue_bb_2","issue_ssp_1","issue_ssp_1_small",
     "issue_ssp_2","issue_ssp_2_small","issue_sdp",
-    "issue_ext_grade_1","issue_ext_grade_2","issue_ext_grade_3",
-    "issue_ext_grade_4","issue_ext_grade_5","issue_ext_grade_6",
-    "issue_ext_grade_7","issue_ext_grade_8","issue_ext_grade_9",
-    "issue_ext_grade_10"
+    
   ];
 
   return (

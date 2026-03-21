@@ -1,20 +1,20 @@
-// SortingStockAdjust.tsx
+// BigTaihoStockAdjust.tsx
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const SortingStockAdjust = () => {
+const WholesStockAdjust = () => {
   const [formData, setFormData] = useState<any>({});
   const [originalData, setOriginalData] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // Fetch Sorting dummy lot data
+  // Fetch Taiho dummy lot data
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/sorting/dummy-lot-data");
+        const res = await axios.get("/api/wholes/dummy-lot-data");
         setFormData(res.data.data || {});
         setOriginalData(res.data.data || {});
       } catch (err) {
@@ -39,7 +39,7 @@ const SortingStockAdjust = () => {
   const handleSubmit = async () => {
     try {
       setSaving(true);
-      await axios.put("/api/sorting/update-dummy-lot", formData);
+      await axios.put("/api/wholes/update-dummy-lot", formData);
       alert("✅ Updated successfully");
     } catch (err) {
       console.error(err);
@@ -50,15 +50,27 @@ const SortingStockAdjust = () => {
     }
   };
 
-  if (loading) return <div>Loading Sorting data...</div>;
+  if (loading) return <div>Loading Taiho data...</div>;
 
   const fields = [
-    "issue_jjh","issue_jjh1","issue_sjh","issue_jk","issue_jk1",
-    "issue_k","issue_k1","issue_lwp1","issue_lwp","issue_s",
-    "issue_ss","issue_yk","issue_sp2","issue_kp","issue_in_k",
-    "issue_in_jh","issue_V_sjh","issue_V_k","issue_V_k1","issue_V_lwp",
-    "issue_V_lwp1","issue_V_jk","issue_V_jk1","issue_V_ss","issue_V_sp",
-    "issue_V_sp2","issue_V_jh1","issue_V_yk","issue_V_m_jk1",
+    "issue_pw_150", "issue_w_150", "issue_ww_150", "issue_s_150", "issue_aw_150", "issue_lw_150",
+        "issue_pw_180", "issue_w_180", "issue_ww_180", "issue_s_180", "issue_aw_180", "issue_lw_180",
+        "issue_pw_210", "issue_w_210", "issue_ww_210", "issue_s_210", "issue_aw_210", "issue_lw_210",
+        "issue_pw_240", "issue_w_240", "issue_ww_240", "issue_ww_240_A", "issue_aw_240", "issue_lw_240",
+        "issue_pw_280", "issue_w_280", "issue_ww_280", "issue_ww_280_A", "issue_aw_280", "issue_lw_280",
+        "wholes_double", "issue_pw_320", "issue_w_320", "issue_ww_320", "issue_ww_320_A", "issue_aw_320", "issue_lw_320",
+        "issue_pw_360", "issue_w_360", "issue_ww_360", "issue_ww_360_A", "issue_aw_360", "issue_lw_360",
+        "issue_pw_400", "issue_w_400", "issue_ww_400", "issue_ww_400_A", "issue_aw_400", "issue_lw_400",
+        "issue_jjb", "issue_jjb1", "issue_payal_240", "issue_payal_400",
+        "issue_e_320_lot", "issue_e_400_lot", "issue_in_w_240", "issue_in_w_320", "issue_in_w_400",
+        "issue_a_150", "issue_c_150", "issue_e_150", "issue_sw_150", "issue_ssw_150", "issue_k_150",
+        "issue_a_180", "issue_c_180", "issue_e_180", "issue_sw_180", "issue_ssw_180", "issue_k_180",
+        "issue_a_210", "issue_c_210", "issue_e_210", "issue_sw_210", "issue_ssw_210", "issue_k_210",
+        "issue_a_240", "issue_c_240", "issue_e_240", "issue_sw_240", "issue_ssw_240", "issue_k_240",
+        "issue_a_280", "issue_c_280", "issue_e_280", "issue_sw_280", "issue_ssw_280", "issue_k_280",
+        "issue_a_320", "issue_c_320", "issue_e_320", "issue_sw_320", "issue_ssw_320", "issue_k_320",
+        "issue_a_360", "issue_c_360", "issue_e_360", "issue_sw_360", "issue_ssw_360", "issue_k_360",
+        "issue_a_400", "issue_c_400", "issue_e_400", "issue_sw_400", "issue_ssw_400", "issue_k_400"
     
   ];
 
@@ -82,7 +94,7 @@ const SortingStockAdjust = () => {
               step="0.01"
               value={formData[key] ?? ""}
               onChange={(e) => handleChange(key, e.target.value)}
-              className={`flex-1 border p-1.5 rounded border-gray-300 font-semibold text-center focus:outline-none focus:ring-2 focus:ring-blue-400
+              className={`flex-1 border p-1.5 rounded font-semibold border-gray-300 text-center focus:outline-none focus:ring-2 focus:ring-blue-400
                 ${
                   Number(originalData[key]) !== Number(formData[key])
                     ? "bg-yellow-100 border-yellow-400"
@@ -99,7 +111,7 @@ const SortingStockAdjust = () => {
         <button
           onClick={handleSubmit}
           disabled={saving}
-          className="mt-6 px-6 py-2 bg-green-600 hover:bg-green-500 text-white font-semibold rounded shadow"
+          className="mt-6 px-6 py-2 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded shadow"
         >
           {saving ? "Saving..." : "Submit"}
         </button>
@@ -108,4 +120,4 @@ const SortingStockAdjust = () => {
   );
 };
 
-export default SortingStockAdjust;
+export default WholesStockAdjust;
