@@ -7,7 +7,7 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, getDummyLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
 const router = express()
 
 // //DPDS.tsx
@@ -37,5 +37,6 @@ router.post('/createMixDPDS', jwtVerify, CreateMixDPDS);
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
 router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+router.get('/dummy-lot-data', jwtVerify, getDummyLot);
 
 export default router

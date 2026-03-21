@@ -16,7 +16,7 @@ import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import VLotNo from "../../model/vlotNomodel";
 
-
+const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
 // //DPDS.tsx
 export const findEditDPDSAll = async (req: Request, res: Response) => {
     try {
@@ -2348,7 +2348,19 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
     }
 
 }
+export const getDummyLot = async (req: Request, res: Response) => {
+  try {
+    const data = await DPDS.findOne({
+      where: { LotNo: DUMMY_LOT },
+      raw: true,
+    });
 
+    res.status(200).json({message: 'Dummy Entry found',data});
+  } catch (err) {
+    console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+  }
+};
 
 
 

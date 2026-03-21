@@ -21,6 +21,7 @@ import UseQueryData from "../common/dataFetcher";
 import Loader from "../common/Loader";
 import { FaHistory } from "react-icons/fa";
 import DashboardFooter from "../dashboard/DashboardFooter";
+import StockAdjust from "./StockAdjust";
 
 
 const Packing = () => {
@@ -173,6 +174,18 @@ const Packing = () => {
 
                             <Button className="w-28 md:w-40 bg-gradient-to-r from-stone-500 to-black-500 hover:from-stone-600 hover:to-black-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md" onClick={handleTransferFetch}> {stocktable === 'block' ? 'Order History ' : ' Stock History'}<FaHistory size={16} className='ml-2'/></Button>
                         </div>}
+
+                       {checkpending('StockMatch') && <Dialog>
+                            <DialogTrigger>   <Button className="md:w-40 w-28 bg-gradient-to-r from-pink-500 to-lime-500 hover:from-pink-600 hover:to-lime-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md" >+ Adjust</Button></DialogTrigger>
+                            <DialogContent className='max-w-full' style={{ display: 'block' }}>
+                                <DialogHeader>
+                                    <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>STOCK ADJUST FORM</p></DialogTitle>
+
+                                </DialogHeader>
+
+                                <StockAdjust />
+                            </DialogContent>
+                        </Dialog>}
                     </div>
 
 

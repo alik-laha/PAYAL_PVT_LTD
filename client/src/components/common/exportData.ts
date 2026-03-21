@@ -90,6 +90,7 @@ export const pendingCheckRole = {
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager','DispatchManager'],
     OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
     StockUpdate: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
+    StockMatch: ['Director', 'FactoryManager'],
     OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
     ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
 
@@ -138,6 +139,7 @@ export const FY=['2025-26']
 export const FY_Array=['2024-25','2025-26']
 export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','MIXED(WHOLES+PIECE)','BW/HW','OTHERS']
 export const QC_Online_Section=['BOILER','GRADING','BOILING','SCOOPING','BORMA','HUMIDIFIER','PEELING','TAIHO','NANOPIX','HAND_GRADE','POUCH','BUCKET']
+export const Stock_Match_Section=['TAIHO','WHOLES','LW','VILLAGE','DPDS','SORTING']
 export const QC_Online_Status=['OK','NOT OK','N/A']
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati','CreditNote'],

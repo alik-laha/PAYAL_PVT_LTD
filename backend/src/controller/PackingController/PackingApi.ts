@@ -27,6 +27,8 @@ const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
 function formatNumber(num:any) {
     return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
 }
+const DUMMY_LOT = process.env.DUMMY_LOT ?process.env.DUMMY_LOT:'2025-999'; // '2025-999'
+const dummyYear = DUMMY_LOT.split('-')[0]; // '2025'
 
 export const getActvOrderCount = async (req: Request, res: Response) => {
     try {
@@ -1235,6 +1237,10 @@ export const lotQtydataFindAllOriginWise = async (req: Request, res: Response) =
       where: {
             Status: { [Op.notLike]: 0 },
             [grade]: { [Op.ne]: 0 },      // ✅ dynamic column
+             [Op.or]: [
+      { LotNo: { [Op.notLike]: `${dummyYear}-%` } }, // exclude that year
+      { LotNo: DUMMY_LOT }                          // allow only this one
+    ]
           },
       raw: true,
     });
