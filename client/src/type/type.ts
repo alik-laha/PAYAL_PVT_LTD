@@ -60,6 +60,8 @@ export interface pendingCheckRoles {
     OrderCreate:string[];
     OrderMapping:string[];
     ProdStockExcel:string[];
+    StockMatch:string[];
+    StockUpdate:string[];
     
 }
 export interface rcvCheckRoles {

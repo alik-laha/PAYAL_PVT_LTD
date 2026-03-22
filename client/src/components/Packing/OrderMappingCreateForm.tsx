@@ -492,7 +492,7 @@ const OrderMappingCreateForm = (props:Props) => {
                         </div>
                                     </div>
 
-                    <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
+                    <button type="button" className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                         onClick={addRow2}>+</button>
                     <div className="max-h-60 overflow-y-scroll">
                         <Table className="mt-1 ">
@@ -566,7 +566,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                                                 }
                                                             }}>
                                                                 <DialogTrigger> 
-                                                                    <button className="flex flex-row justify-center w-full text-center" onClick={() => handleOpenLotNo(index)}>
+                                                                    <button 
+                                                                     type="button"
+                                                                    className="flex flex-row justify-center w-full text-center" onClick={() => handleOpenLotNo(index)}>
                                                                         
                                                                         
                                                                         <FaEye size={20} className="text-center px-auto flex flex-row w-full justify-center"/></button>
@@ -658,7 +660,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                                 </TableCell>
 
                                                 <TableCell className="text-center">
-                                                    <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
+                                                    <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center" type="button"
                                                         onClick={(e) => deleteRow(index,e)}><MdDelete size={20} /></button>
                                                 </TableCell>
 

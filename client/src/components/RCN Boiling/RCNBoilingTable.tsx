@@ -740,26 +740,9 @@ const RCNBoilingTable = (props:any) => {
                                 </TableRow>
                             );
                         })) : (<TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center text-red-500  pt-3 pb-6">No Result </p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                         
+                            <TableCell colSpan={20}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">No Result Found</p></TableCell>
+                          
 
 
 
@@ -821,26 +804,9 @@ const RCNBoilingTable = (props:any) => {
                                 </TableRow>
                             );
                         })) : (<TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center text-red-500  pt-3 pb-6">No Result </p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            
+                            <TableCell colSpan={8}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">No Result Found </p></TableCell>
+                           
 
 
 

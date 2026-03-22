@@ -309,14 +309,12 @@ const VendorSKUTable = () => {
 
                             )
                         })) : (<TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                          
 
                      
-                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No SKU Found</p></TableCell>
+                            <TableCell colSpan={6}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">No SKU Found</p></TableCell>
 
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                          
                     
 
                         </TableRow>)
@@ -387,14 +385,10 @@ const VendorSKUTable = () => {
 
                             )
                         })) : (<TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No Vendor Found</p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                           
+                           
+                            <TableCell colSpan={7}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">No Vendor Found</p></TableCell>
+                            
                             
 
                         </TableRow>)

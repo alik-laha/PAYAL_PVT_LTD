@@ -8,7 +8,8 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 import { approveBigTaiho, CreateEntireBigTaiho, CreateMixBigTaiho, CreateReissueBigTaiho, EditRejectBigTaiho, findEditBigTaihoSAll, getBigTaihoBylotorigin,
-       getBigTaihoLot, SearchRCNBigTaiho, SearchRCNBigTaihoMix, sumOfallBigTaiho, 
+       getBigTaihoLot, getDummyLot, SearchRCNBigTaiho, SearchRCNBigTaihoMix, sumOfallBigTaiho, 
+       updateDummyLot, 
        updateEntireBigTaiho} from "../controller/BigTaihoController/BigTaihoApi";
 const router = express()
 
@@ -39,5 +40,7 @@ router.post('/createMixBigTaiho', jwtVerify, CreateMixBigTaiho);
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
 router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+router.get('/dummy-lot-data', jwtVerify, getDummyLot);
+router.put('/update-dummy-lot', jwtVerify, updateDummyLot);
 
 export default router

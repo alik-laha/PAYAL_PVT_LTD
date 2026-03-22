@@ -105,8 +105,8 @@ const WholesInitial = (props: any) => {
          
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Sl⠀No</TableHead>
+                        <TableHead className="text-center" >Current⠀Lot⠀No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Current⠀Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>

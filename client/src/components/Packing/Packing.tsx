@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { RxUpdate } from "react-icons/rx";
+//import { RxUpdate } from "react-icons/rx";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import DashboardSidebar from "../dashboard/DashboardSidebar";
 import ProdStockTable from "./prodStockTable";
@@ -21,6 +21,7 @@ import UseQueryData from "../common/dataFetcher";
 import Loader from "../common/Loader";
 import { FaHistory } from "react-icons/fa";
 import DashboardFooter from "../dashboard/DashboardFooter";
+import StockAdjust from "./StockAdjust";
 
 
 const Packing = () => {
@@ -40,21 +41,7 @@ const Packing = () => {
 
     }
 
-    const handleProdStockUpdateFetch = async () => {
-
-        setLoading(true);
-        try {
-            const response = await fetch('/api/packing/update-prodstock', {
-                method: 'POST',
-            });
-            const data = await response.json();
-            alert(data.message);
-        } catch (error) {
-            alert('Failed to update production stock.');
-        } finally {
-            setLoading(false);
-        }
-    }
+  
 
     const handleOpenMapping = async () => {
         axios.get('/api/packing/getUnMappingEntry/0').then(res => {
@@ -75,7 +62,7 @@ const Packing = () => {
             setTransacTable('none')
         }
     }
-    const [loading, setLoading] = useState(false);
+    //const [loading, setLoading] = useState(false);
 
     const { data, error, isLoading } = UseQueryData('/api/packing/activeordercount', 'GET', 'getTtotalActvOrder')
     if (isLoading) {
@@ -141,7 +128,7 @@ const Packing = () => {
                             <DialogTrigger>
 
                                 <Button
-                                    className="w-28 md:w-40 bg-gradient-to-r from-purple-500 to-lime-500 hover:from-purple-600 hover:to-lime-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                    className="w-28 md:w-40 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
                                     /* FIX 1: Use ?? 0 for the disabled prop */
 
                                     onClick={handleOpenMapping}
@@ -161,18 +148,24 @@ const Packing = () => {
                         </Dialog></div>
                         }
 
-                        {checkpending('StockUpdate') && <div className="relative inline-block ml-4 responsive-button-adjust">
+                      {checkpending('StockMatch') && <Dialog>
+                            <DialogTrigger>   <Button className="md:w-40 w-28 bg-gradient-to-r from-red-500 to-lime-500 hover:from-red-600 hover:to-lime-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md" >+ Adjust</Button></DialogTrigger>
+                            <DialogContent className='max-w-5xl' style={{ display: 'block' }}>
+                                <DialogHeader>
+                                    <DialogTitle><p className='text-lg text-gray-600 text-center mt-3 tracking-wider drop-shadow-xl font-bold'>STOCK ADJUST FORM</p></DialogTitle>
 
-                            <Button className="w-28 md:w-40 bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-600 hover:to-red-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md"
-                                disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2" /></Button>
-                        </div>
+                                </DialogHeader>
 
-                        }
+                                <StockAdjust />
+                            </DialogContent>
+                        </Dialog>}
 
                         {checkpending('StockUpdate') && <div className="relative inline-block ml-4 responsive-button-adjust">
 
                             <Button className="w-28 md:w-40 bg-gradient-to-r from-stone-500 to-black-500 hover:from-stone-600 hover:to-black-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md" onClick={handleTransferFetch}> {stocktable === 'block' ? 'Order History ' : ' Stock History'}<FaHistory size={16} className='ml-2'/></Button>
                         </div>}
+
+                       
                     </div>
 
 

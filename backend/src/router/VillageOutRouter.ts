@@ -7,7 +7,7 @@ import {
       } from "../controller/mayurController/mayurapi";
 
 import { approveVillage, CreateEntireVillage, CreateMixVillage, CreateReissueVillage, EditRejectVillage,
-       findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, SearchRCNVillageMix, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
+       findEditVillageAll, GatedataFind, getDummyLot, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, SearchRCNVillageMix, sumOfallVillage, updateDummyLot, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
 
 
 const router = express()
@@ -41,5 +41,9 @@ router.put("/approveeditVillage/:id/:LotNo/:origin", jwtVerify, approveVillage);
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
 router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+
+
+router.get('/dummy-lot-data', jwtVerify, getDummyLot);
+router.put('/update-dummy-lot', jwtVerify, updateDummyLot);
 
 export default router

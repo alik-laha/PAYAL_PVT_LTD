@@ -98,11 +98,7 @@ const GeneralStoreInitial = (props: any) => {
                                 );
                             })
                         ) : <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell className="text-right  text-red-500 font-semibold">No Pending Entry</TableCell>
-                            <TableCell></TableCell>
-                        
-                            <TableCell></TableCell>
+                             <TableCell colSpan={5} className="text-center py-3 text-md text-red-500 font-semibold">No Pending Entry</TableCell>
                          
                             </TableRow>}
                     </TableBody>

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { format, toZonedTime } from 'date-fns-tz'
 import { useEffect, useState } from "react";
-import { OrderStatusAll, Origin, pagelimit, pageNo, pendingCheckRole, } from "../common/exportData";
+import { FY, OrderStatusAll, Origin, pagelimit, pageNo, pendingCheckRole, } from "../common/exportData";
 import axios from "axios";
 import {
     Dialog,
@@ -434,9 +434,9 @@ const ProdTransacTable = () => {
         })
 
     }
-    const handleOrderCancel = (id: number) => {
+    const handleOrderCancel = (item:any) => {
        
-        axios.post('/api/packing/cancelPurchaseOrder', {id}).then((res) => {
+        axios.post('/api/packing/cancelPurchaseOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {
@@ -455,7 +455,7 @@ const ProdTransacTable = () => {
     }
     const handleOrderApprove = (item: any) => {
        
-        axios.post('/api/packing/approvePurchaseOrder', {item}).then((res) => {
+        axios.post('/api/packing/approvePurchaseOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {
@@ -493,7 +493,7 @@ const ProdTransacTable = () => {
     }
     const handleUnpack = (item: any) => {
        
-        axios.post('/api/packing/unPackOrder', {item}).then((res) => {
+        axios.post('/api/packing/unPackOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {
@@ -510,18 +510,16 @@ const ProdTransacTable = () => {
         })
 
     }
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
 
-    
-                    const checkpending = (tab: string) => {
-                        //console.log(Role)
-                        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-                            return true
-                        }
-                        else {
-                            return false;
-                        }
-                
-                    }
+    }
 
     
 
@@ -680,7 +678,7 @@ const ProdTransacTable = () => {
                             <TableHead className="text-center">Generated⠀Sales⠀Order⠀ID</TableHead>
                             <TableHead className="text-center">Order⠀Origin</TableHead>
                             <TableHead className="text-center">Final⠀GradeName</TableHead>
-                            <TableHead className="text-center">Approval⠀Status</TableHead>
+                            <TableHead className="text-center">Order⠀Status</TableHead>
                             <TableHead className="text-center">Order⠀Receive⠀Date</TableHead>
                             <TableHead className="text-center">Order⠀Entry⠀Date</TableHead>
                             <TableHead className="text-center">Sales⠀Vendor⠀Name</TableHead>
@@ -713,7 +711,7 @@ const ProdTransacTable = () => {
                                                     <PopoverTrigger>
                                                         <button className={`p-2 w-20 border font-bold rounded-lg ${
                                                             item.ordApproveStatus === 'Rejected'
-                                                         ? 'bg-red-50 text-red-500 border-red-300 ' : 'bg-blue-50 text-blue-500 border-blue-300 '}`} disabled={
+                                                         ? 'bg-red-50 text-red-500 border-red-300 hidden' : 'bg-blue-50 text-blue-500 border-blue-300 '}`} disabled={
                                                             item.ordApproveStatus === 'Rejected' ? true : false}>Action</button>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
@@ -838,7 +836,7 @@ const ProdTransacTable = () => {
 
                                                                 <AlertDialogFooter>
                                                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                    <AlertDialogAction onClick={() => handleOrderCancel(item.id)}>Continue</AlertDialogAction>
+                                                                    <AlertDialogAction onClick={() => handleOrderCancel(item)}>Continue</AlertDialogAction>
                                                                 </AlertDialogFooter>
                                                             </AlertDialogContent>
 
@@ -854,7 +852,7 @@ const ProdTransacTable = () => {
                                         <TableCell className="text-center text-cyan-500  font-bold">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-yellow-700">{item.gradeName}</TableCell>
                                         <TableCell className="text-center">
-                                            {item.ordApproveStatus === 'Pending' ? (
+                                            {/* {item.ordApproveStatus === 'Pending' ? (
                                                 <p className="flex flex-row justify-center">
                                           <MdOutlinePendingActions
                                             color="red"
@@ -870,7 +868,22 @@ const ProdTransacTable = () => {
                                                     item.ordApproveStatus!=='Closed'? <p className="text-red-500 font-bold drop-shadow-lg tracking-wide uppercase">{ item.ordApproveStatus}</p>
                                                     :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
                                                 )
-                                            )}
+                                            )} */}
+
+
+                                            <button
+                                            className={`p-2 h-8  rounded-md  w-28 font-semibold transition duration-300 tracking-wider 
+      ${item.ordApproveStatus === "Pending" ? "bg-gradient-to-br text-white from-red-700 via-rose-600 to-red-500 animate-pulse" : ""}
+     
+      ${item.ordApproveStatus === "Closed" ? "bg-gradient-to-tl text-white from-orange-600  to-lime-500 " : ""}
+      ${item.ordApproveStatus === "Cancelled" ? "bg-white p-2 text-red-500 border border-red-500 font-bold rounded" : ""}
+      ${item.ordApproveStatus==='Approved' ? "bg-gradient-to-tr text-white from-green-600  to-lime-500 animate-pulse [animation-duration:2s]" : ""}
+
+      ${item.ordApproveStatus==='Rejected' ? "bg-gradient-to-tl text-white from-red-800 via-rose-500 to-red-800 animate-pulse [animation-duration:2s]" : ""}
+    `}
+                                        >
+                                             {item.ordApproveStatus}
+                                        </button>
                                         </TableCell>
                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>

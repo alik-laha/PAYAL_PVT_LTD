@@ -9,7 +9,9 @@ import {
 import { approveLW, CreateEntireLW, EditRejectLW, findEditLWAll, getLWBylotorigin, 
        getLWLot,  SearchRCNLW,  sumOfallLW,
        updateEntireLW, SearchRCNLWMix,CreateMixLW,
-       CreateReissueLW
+       CreateReissueLW,
+       getDummyLot,
+       updateDummyLot
        } from "../controller/LWController/LWApi";
 const router = express()
 
@@ -40,5 +42,8 @@ router.post('/createMixLW', jwtVerify, CreateMixLW);
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
 router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+
+router.get('/dummy-lot-data', jwtVerify, getDummyLot);
+router.put('/update-dummy-lot', jwtVerify, updateDummyLot);
 
 export default router

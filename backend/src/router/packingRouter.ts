@@ -1,6 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, createPacking, createunPacking, deleteOrderMapping, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, lotQtydataFindAll, lotQtydataFindAllOriginWise, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
+import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, createPacking, createunPacking, deleteOrderMapping, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, getProductionBacklog, lotdataFind, lotQtydataFind, lotQtydataFindAll, lotQtydataFindAllOriginWise, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
     ordStockSearch, packingSearch, prodStockSearch, 
     rejectPurchaseOrder,
     updateMappingOrder,
@@ -9,7 +9,7 @@ import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOr
 const router = express.Router();
 
 router.post("/update-prodstock",jwtVerify, manualProdStockUpdate)
-router.put("/prodStockSearch",jwtVerify, prodStockSearch)
+router.put("/prodStockSearch",jwtVerify, getProductionBacklog)
 router.put("/ordStockSearch",jwtVerify, ordStockSearch)
 router.put("/orderSearch",jwtVerify, orderSearch)
 router.put("/packingSearch",jwtVerify, packingSearch)
