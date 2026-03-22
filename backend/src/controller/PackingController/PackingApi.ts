@@ -278,8 +278,8 @@ export const getProductionBacklog = async (req: Request, res: Response) => {
   try {
     const { FY, origin, section, grade } = req.body;
 
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 50;
+    const page = parseInt(req.query.page as string) || 0;
+    const limit = parseInt(req.query.limit as string) || 0;
     const offset = (page - 1) * limit;
 
     const fyPrefix = FY.split("-")[0];
@@ -303,7 +303,7 @@ export const getProductionBacklog = async (req: Request, res: Response) => {
 
     sectionConfig.forEach((sec) => {
       sec.columns.forEach((col) => {
-        const gradeName = col.replace("issue_", "").toUpperCase();
+        //const gradeName = col.replace("issue_", "").toUpperCase();
 
         unionQueries.push(`
           SELECT 
@@ -321,7 +321,51 @@ export const getProductionBacklog = async (req: Request, res: Response) => {
     const finalUnion = unionQueries.join(" UNION ALL ");
 
     // 🚀 FINAL QUERY
-    const query = `
+    let query
+    if (limit === 0 && offset === 0) {
+       
+        query = `
+      SELECT 
+        ROW_NUMBER() OVER() as slNo,
+        t.section,
+        t.origin,
+        t.grade,
+        CONCAT(ROUND(SUM(t.productionQty),2),' Kg') as productionQty,
+        CONCAT(ROUND(SUM(IFNULL(m.dispatchQty,0)),2),' Kg') as dispatchQty,
+        CONCAT(ROUND(SUM(t.productionQty - IFNULL(m.dispatchQty,0)),2),' Kg') as backlog
+
+      FROM (
+        ${finalUnion}
+      ) t
+
+      LEFT JOIN (
+        SELECT 
+          productionOrigin,
+          productionSection,
+          productionGrade,
+          SUM(mappedQuantity) as dispatchQty
+        FROM ordermappings
+        WHERE 
+          mappingStatus = 1
+          AND ${lotFilter}
+        GROUP BY productionOrigin, productionSection, productionGrade
+      ) m
+      ON 
+        m.productionOrigin = t.origin
+        AND m.productionSection = t.section
+        AND m.productionGrade = t.grade
+
+      WHERE 1=1
+      ${section ? `AND t.section = '${section}'` : ""}
+      ${grade ? `AND t.grade = '${grade}'` : ""}
+      ${origin ? `AND t.origin = '${origin}'` : ""}
+      GROUP BY t.section, t.origin, t.grade
+
+     
+    `;
+    }
+    else{
+        query = `
       SELECT 
         ROW_NUMBER() OVER() as slNo,
         t.section,
@@ -360,6 +404,8 @@ export const getProductionBacklog = async (req: Request, res: Response) => {
 
       LIMIT ${limit} OFFSET ${offset}
     `;
+    }
+   
 
     const data = await sequelize.query<any>(query, {
       type: QueryTypes.SELECT,

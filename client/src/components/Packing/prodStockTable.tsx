@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { FY, GradeOnSection, Origin, pagelimit, pageNo, pendingCheckRole, prodStockSection } from "../common/exportData";
+import { FY, Origin, pagelimit, pageNo, pendingCheckRole, ProdGradeOnSection, prodStockSection } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -144,10 +144,9 @@ const ProdStockTable = () => {
                                         Production_Section: item.section,
                                         Production_Origin: item.origin,
                                         Production_Grade: item.grade,
-                                        Production_Qty: formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString()),
-                                        Dispatched_Qty:formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString()),
-                                        Backlog:formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
-                                        -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())
+                                        Production_Qty: formatNumber(item.productionQty)||0,
+                                        Dispatched_Qty:formatNumber(item.dispatchQty)||0,
+                                        Backlog:formatNumber(item.backlog)||0,
                                        
                                     }));
                                     //setTransformedData(transformed);
@@ -281,7 +280,7 @@ const ProdStockTable = () => {
                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
                         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Production Grade (All)</option>
                             {prodsectiontype ? (
-                              GradeOnSection[prodsectiontype as keyof typeof GradeOnSection].map((item) => (
+                              ProdGradeOnSection[prodsectiontype as keyof typeof ProdGradeOnSection].map((item) => (
                                 <option key={item} value={item}>{item}</option>
                               ))
                             ) : null}
@@ -347,7 +346,7 @@ const ProdStockTable = () => {
                         <TableHead className="text-center" >Production Origin</TableHead>
                         <TableHead className="text-center" >Production Grade</TableHead>
                         <TableHead className="text-center" >Prodution Qty</TableHead>
-                        <TableHead className="text-center" >Despacthed Qty</TableHead>
+                        <TableHead className="text-center" >Mapped Qty</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>
 
                        
