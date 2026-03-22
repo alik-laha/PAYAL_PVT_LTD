@@ -362,10 +362,9 @@ const ProdStockTable = () => {
                                      <TableCell className="text-center  "> <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{item.section}</button></TableCell>                                 
                                      <TableCell className="text-center font-semibold  ">{item.origin}</TableCell>
                                      <TableCell className="text-center font-bold text-cyan-500">{item.grade}</TableCell>
-                                     <TableCell className="text-center font-semibold ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
-                                     <TableCell className="text-center font-semibold">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
-                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
-                                     -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold ">{formatNumber(item.productionQty)} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber(item.dispatchQty)} Kg</TableCell>
+                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.backlog)} Kg</TableCell>
                                  </TableRow>
                              );
                          })) : (<TableRow>

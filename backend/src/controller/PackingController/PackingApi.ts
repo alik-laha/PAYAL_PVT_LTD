@@ -25,6 +25,83 @@ import orderMappingModelAll from "../../model/orderMappingAllModel";
 import qcOutgoingModel from "../../model/outgoingQcModel";
 import SkuModel from "../../model/SkuModel";
 import orderStockGrade from "../../model/orderStockGrade";
+import { QueryTypes } from "sequelize";
+
+const sectionConfig = [
+  {
+    section: "Wholes",
+    table: "wholesgrades",
+    columns: [
+      "issue_pw_150", "issue_w_150", "issue_ww_150", "issue_s_150", "issue_aw_150", "issue_lw_150",
+        "issue_pw_180", "issue_w_180", "issue_ww_180", "issue_s_180", "issue_aw_180", "issue_lw_180",
+        "issue_pw_210", "issue_w_210", "issue_ww_210", "issue_s_210", "issue_aw_210", "issue_lw_210",
+        "issue_pw_240", "issue_w_240", "issue_ww_240", "issue_ww_240_A", "issue_aw_240", "issue_lw_240",
+        "issue_pw_280", "issue_w_280", "issue_ww_280", "issue_ww_280_A", "issue_aw_280", "issue_lw_280",
+        "wholes_double", "issue_pw_320", "issue_w_320", "issue_ww_320", "issue_ww_320_A", "issue_aw_320", "issue_lw_320",
+        "issue_pw_360", "issue_w_360", "issue_ww_360", "issue_ww_360_A", "issue_aw_360", "issue_lw_360",
+        "issue_pw_400", "issue_w_400", "issue_ww_400", "issue_ww_400_A", "issue_aw_400", "issue_lw_400",
+        "issue_jjb", "issue_jjb1", "issue_payal_240", "issue_payal_400",
+        "issue_e_320_lot", "issue_e_400_lot", "issue_in_w_240", "issue_in_w_320", "issue_in_w_400",
+        "issue_a_150", "issue_c_150", "issue_e_150", "issue_sw_150", "issue_ssw_150", "issue_k_150",
+        "issue_a_180", "issue_c_180", "issue_e_180", "issue_sw_180", "issue_ssw_180", "issue_k_180",
+        "issue_a_210", "issue_c_210", "issue_e_210", "issue_sw_210", "issue_ssw_210", "issue_k_210",
+        "issue_a_240", "issue_c_240", "issue_e_240", "issue_sw_240", "issue_ssw_240", "issue_k_240",
+        "issue_a_280", "issue_c_280", "issue_e_280", "issue_sw_280", "issue_ssw_280", "issue_k_280",
+        "issue_a_320", "issue_c_320", "issue_e_320", "issue_sw_320", "issue_ssw_320", "issue_k_320",
+        "issue_a_360", "issue_c_360", "issue_e_360", "issue_sw_360", "issue_ssw_360", "issue_k_360",
+        "issue_a_400", "issue_c_400", "issue_e_400", "issue_sw_400", "issue_ssw_400", "issue_k_400"
+      // 👉 add all remaining here ONCE
+    ],
+  },
+  {
+    section: "DPDS",
+    table: "dpds",
+    columns: [
+     "issue_m_ds", "issue_m_dp", "issue_k_dp", "issue_ds_1", "issue_ds_2", "issue_sp_2", "issue_yjh",
+        "issue_yk", "issue_kp", "issue_wp", "issue_rs", "issue_dp_2", "issue_dp_3", "issue_dp_4", "issue_dp_3l",
+        "issue_ss", "issue_os", "issue_os1", "issue_V_ds", "issue_V_m_ds", "issue_V_dp", "issue_V_m_dp",
+        "issue_V_lp", "issue_V_lp_2", "issue_V_k_dp", "issue_V_ss", "issue_V_yjh", "issue_V_yk", "issue_V_sp_2",
+        "issue_V_kp", "issue_V_dp_2", "issue_V_dp_3", "issue_V_dp_4", "issue_V_os", "issue_V_os_1",
+        "issue_V_wp", "issue_V_rs"
+      // 👉 all dpds columns
+    ],
+  },
+  {
+    section: "Sorting",
+    table: "sortings",
+    columns: [
+      "issue_jjh", "issue_jjh1", "issue_sjh", "issue_jk", "issue_jk1", "issue_k", "issue_k1",
+        "issue_lwp1", "issue_lwp", "issue_s", "issue_ss", "issue_yk", "issue_sp2", "issue_kp",
+        "issue_in_k", "issue_in_jh", "issue_V_sjh", "issue_V_k", "issue_V_k1", "issue_V_lwp",
+        "issue_V_lwp1", "issue_V_jk", "issue_V_jk1", "issue_V_ss", "issue_V_sp", "issue_V_sp2",
+        "issue_V_jh1", "issue_V_yk", "issue_V_m_jk1"
+      // 👉 all sorting columns
+    ],
+  },
+  {
+    section: "LW",
+    table: "lowergrades",
+    columns: [
+      'issue_kw', 'issue_kw_1', 'issue_kw_2', 'issue_kn', 'issue_dw', 'issue_dw_1', 'issue_dw_2', 
+        'issue_ow', 'issue_ow_1', 'issue_ow_2', 'issue_jw', 'issue_pw', 'issue_row', 'issue_rej_1', 
+        'issue_lw3_180', 'issue_lw3_210', 'issue_lw3_240', 'issue_lw3_280', 'issue_lw3_360', 'issue_lw2', 
+        'issue_lw4', 'issue_lw5', 'issue_lw6', 'issue_lw7', 'issue_rej_3', 'issue_rej_4', 'issue_jb2', 
+        'issue_sjb', 'issue_k_240', 'issue_k_280', 'issue_k_360', 'issue_pkw', 'issue_bw', 'issue_rw', 
+        'issue_rrw', 'issue_fw', 'issue_lw'
+      // 👉 all LW columns
+    ],
+  },
+  {
+    section: "BigTaiho",
+    table: "bigtaihos",
+    columns: [
+       'issue_ssp', 'issue_ssp_small', 'issue_swp_1', 'issue_wsp', 'issue_bits', 'issue_swp', 'issue_bb',
+        'issue_w_bb', 'issue_bb_A', 'issue_bb1', 'issue_bb1_A', 'issue_bb_2', 'issue_ssp_1', 'issue_ssp_1_small',
+        'issue_ssp_2', 'issue_ssp_2_small', 'issue_sdp'
+      // 👉 all BigTaiho columns
+    ],
+  },
+];
 
 const CY_FY = process.env.CY_FY ? process.env.CY_FY : "2025-26";
 function formatNumber(num: any) {
@@ -194,6 +271,110 @@ export const prodStockSearch = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ message: "Internal server error", error: err });
+  }
+};
+
+export const getProductionBacklog = async (req: Request, res: Response) => {
+  try {
+    const { FY, origin, section, grade } = req.body;
+
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 50;
+    const offset = (page - 1) * limit;
+
+    const fyPrefix = FY.split("-")[0];
+
+    const lotFilter = `
+      (lotNo LIKE '${fyPrefix}-%' OR lotNo = '${DUMMY_LOT}')
+    `;
+
+  
+
+    // 🔥 COMMON FILTER
+    const commonFilter = `
+      Status = 1 OR Status = 2
+      AND editStatus NOT LIKE 'Pending'
+      AND ${lotFilter}
+      ${origin ? `AND origin = '${origin}'` : ""} 
+    `;
+
+    // 🚀 🔥 DYNAMIC UNION BUILDER
+    let unionQueries: string[] = [];
+
+    sectionConfig.forEach((sec) => {
+      sec.columns.forEach((col) => {
+        const gradeName = col.replace("issue_", "").toUpperCase();
+
+        unionQueries.push(`
+          SELECT 
+            '${sec.section}' as section,
+            origin,
+            '${col}' as grade,
+            SUM(${col}) as productionQty
+          FROM ${sec.table}
+          WHERE ${commonFilter}
+          GROUP BY origin
+        `);
+      });
+    });
+
+    const finalUnion = unionQueries.join(" UNION ALL ");
+
+    // 🚀 FINAL QUERY
+    const query = `
+      SELECT 
+        ROW_NUMBER() OVER() as slNo,
+        t.section,
+        t.origin,
+        t.grade,
+        CONCAT(ROUND(SUM(t.productionQty),2),' Kg') as productionQty,
+        CONCAT(ROUND(SUM(IFNULL(m.dispatchQty,0)),2),' Kg') as dispatchQty,
+        CONCAT(ROUND(SUM(t.productionQty - IFNULL(m.dispatchQty,0)),2),' Kg') as backlog
+
+      FROM (
+        ${finalUnion}
+      ) t
+
+      LEFT JOIN (
+        SELECT 
+          productionOrigin,
+          productionSection,
+          productionGrade,
+          SUM(mappedQuantity) as dispatchQty
+        FROM ordermappings
+        WHERE 
+          mappingStatus = 1
+          AND ${lotFilter}
+        GROUP BY productionOrigin, productionSection, productionGrade
+      ) m
+      ON 
+        m.productionOrigin = t.origin
+        AND m.productionSection = t.section
+        AND m.productionGrade = t.grade
+
+      WHERE 1=1
+      ${section ? `AND t.section = '${section}'` : ""}
+      ${grade ? `AND t.grade = '${grade}'` : ""}
+      ${origin ? `AND t.origin = '${origin}'` : ""}
+      GROUP BY t.section, t.origin, t.grade
+
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+
+    const data = await sequelize.query<any>(query, {
+      type: QueryTypes.SELECT,
+    });
+
+    res.json({
+      page,
+      limit,
+      total: data.length,
+      rcnEntries:data,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching backlog data" });
   }
 };
 export const ordStockSearch = async (req: Request, res: Response) => {
@@ -486,7 +667,7 @@ export const mappingSearch = async (req: Request, res: Response) => {
 
     if (origin) {
       whereClause.push({
-        origin: origin,
+        productionOrigin: origin,
       });
     }
 
@@ -518,7 +699,7 @@ export const mappingSearch = async (req: Request, res: Response) => {
         where,
         order: [
           ["orderID", "DESC"],
-          ["origin", "ASC"],
+          ["productionOrigin", "ASC"],
           ["finalgradeName", "ASC"],
           ["altid", "ASC"],
           ["productionSection", "ASC"],

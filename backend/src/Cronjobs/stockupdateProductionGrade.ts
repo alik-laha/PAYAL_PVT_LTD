@@ -1634,15 +1634,15 @@ const updateProductionGradeStock2526 = async () => {
 };
 
 // Schedule the job to run at 6 PM and 12 AM
-cron.schedule("0 21 * * *", () => {
-  console.log("Running scheduled stock update job...");
-  if (CY_FY === "2024-25") {
-    updateProductionGradeStock2425();
-  } else if (CY_FY === "2025-26") {
-    updateProductionGradeStock2526();
-  } else {
-    console.log("FY Not Found or Other Error Occured...");
-  }
-});
+// cron.schedule("0 21 * * *", () => {
+//   console.log("Running scheduled stock update job...");
+//   if (CY_FY === "2024-25") {
+//     updateProductionGradeStock2425();
+//   } else if (CY_FY === "2025-26") {
+//     updateProductionGradeStock2526();
+//   } else {
+//     console.log("FY Not Found or Other Error Occured...");
+//   }
+// });
 
 export { updateProductionGradeStock2425, updateProductionGradeStock2526 };

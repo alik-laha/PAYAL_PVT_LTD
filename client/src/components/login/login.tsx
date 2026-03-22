@@ -75,54 +75,60 @@ export const Login = () => {
   }, [navigate])
 
   return (
-    <div className="login-container bg-fixed bg-center bg-cover flex items-center justify-center md:justify-start pl-4 md:pl-[12vw] min-h-[125vh]  to-orange-100 p-4">
-      <div className="relative w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-gray-200 transition-all hover:shadow-gray-100/40">
+    <div className="login-container bg-fixed bg-center bg-cover flex items-center justify-center md:justify-start pl-4 md:pl-[12vw] min-h-[125vh] px-4 "
+    
+    >
+     {/* Card */}
+      <div className="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8">
         {/* Logo + Header */}
+         {/* Header */}
         <div className="flex flex-col items-center mb-6">
           <img
             src={img}
             alt="Logo"
-            className="w-16 h-16 rounded-full border border-gray-300 shadow-md mb-3"
+            className="w-20 h-20 rounded-full shadow-md border"
           />
-          <h1 className="text-xl font-bold text-gray-800 tracking-wide">
+          <h1 className="mt-3 text-lg sm:text-xl font-bold text-gray-800 text-center">
             PAYAL DEALERS PVT. LTD
           </h1>
-          <p className="text-sm text-orange-600 font-semibold mt-2">KOLKATA UNIT</p>
+          <p className="text-xs text-orange-600 font-semibold tracking-wide">
+            KOLKATA UNIT
+          </p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+           {/* Username */}
           <div>
-            <Label htmlFor="username" className="text-sm font-bold text-gray-700">
+            <Label className="text-xs font-semibold text-gray-600">
               Username
             </Label>
             <Input
-              id="username"
               ref={usernameRef}
               type="text"
-              className="mt-1 bg-white border-gray-300 focus:border-orange-400 focus:ring-orange-300"
-              placeholder="Username"
+              placeholder="Enter username"
+              className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400"
+            />
+          </div>
+
+            <div>
+            <Label className="text-xs font-semibold text-gray-600">
+              Password
+            </Label>
+            <Input
+              ref={passwordRef}
+              type="password"
+              placeholder="Enter password"
+              className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400"
             />
           </div>
 
           <div>
-            <Label htmlFor="password" className="text-sm  text-gray-700 font-bold">
-              Password
-            </Label>
-            <Input
-              id="password"
-              ref={passwordRef}
-              type="password"
-              className="mt-1 bg-white border-gray-300 focus:border-orange-400 focus:ring-orange-300"
-              placeholder="Password"
-            />
-          </div>
-
-          <div className="pt-2">
-            <Label className="text-sm font-medium text-gray-700">
+            <Label className="text-xs font-semibold text-gray-700">
               Captcha Verification
             </Label>
-            <Captcha />
+            <div className="mt-1"> <Captcha /></div>
+            
           </div>
 
           {errMsg && (
@@ -131,16 +137,16 @@ export const Login = () => {
             </p>
           )}
 
-          <div className="flex items-center justify-between text-xs mt-1">
+          <div className="flex justify-between text-xs mt-1">
             <NavLink
               to="/forgotpass"
-              className="text-blue-600 hover:text-blue-800 font-semibold transition"
+              className="text-blue-600 hover:underline"
             >
               Forgot Password?
             </NavLink>
 
             <Dialog>
-              <DialogTrigger className="text-gray-600 hover:text-gray-900 underline">
+              <DialogTrigger className="text-gray-500 hover:text-gray-800 underline">
                 Terms of Use
               </DialogTrigger>
               <DialogContent className="max-w-3xl">
@@ -177,9 +183,7 @@ export const Login = () => {
           <Button
             disabled={loading}
             type="submit"
-            className={`w-full mt-4 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all ${
-              loading ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            className='w-full h-11 rounded-md bg-orange-500 hover:bg-orange-600 text-white font-semibold transition'
           >
             {loading ? "Logging in..." : "Login"}
           </Button>

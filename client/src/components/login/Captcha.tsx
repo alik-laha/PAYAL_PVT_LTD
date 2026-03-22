@@ -1,70 +1,56 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from "react";
 import { HiRefresh } from "react-icons/hi";
-import { Input } from "@/components/ui/input"
-import { useContext } from 'react';
-import Context from '../context/context';
+import { Input } from "@/components/ui/input";
+import Context from "../context/context";
 
 const Captcha: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { setGenerateCaptcha, typedCaptcha, setTypedCaptcha } = useContext(Context);
-
+  const { setGenerateCaptcha, typedCaptcha, setTypedCaptcha } =
+    useContext(Context);
 
   const generateCaptcha = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    //const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const characters = '0123456789';
-    let generatedText = '';
+    const characters = "0123456789";
+    let generatedText = "";
 
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Generate random background color
-    ///ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    //ctx.fillStyle='white';
+    // White background
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Generate random CAPTCHA text
+    // Generate random CAPTCHA
     for (let i = 0; i < 5; i++) {
-      generatedText += characters.charAt(Math.floor(Math.random() * characters.length));
+      generatedText += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
 
-    // Set CAPTCHA text properties
-    ctx.font = '16px cursive';
-    if (ctx.fillStyle === "#000000") {
-      ctx.fillStyle = 'white';
-    } else {
-      ctx.fillStyle = 'black';
-    }
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    // 👇 Better font for iPhone + readability
+    ctx.font = "bold 22px Arial, Helvetica, sans-serif";
+    ctx.fillStyle = "#111"; // high contrast
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
 
-    // Draw CAPTCHA text with some random transformations
+    // Draw text with slight rotation
     for (let i = 0; i < generatedText.length; i++) {
       const x = (i + 1) * (canvas.width / 6);
       const y = canvas.height / 2;
-      const rotation = (Math.random() - 0.5) * 0.4;
+      const rotation = (Math.random() - 0.5) * 0.3;
 
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(rotation);
-      ctx.fillText(generatedText.charAt(i), 0, 0);
+      ctx.fillText(generatedText[i], 0, 0);
       ctx.restore();
     }
 
-    // Draw some random lines for added security
-    // for (let i = 0; i < 5; i++) {
-    //   ctx.strokeStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    //   ctx.beginPath();
-    //   ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-    //   ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-    //   ctx.stroke();
-    // }
-
-    // Store the CAPTCHA text for validation (you would need to implement the validation logic)
     setGenerateCaptcha(generatedText);
   };
 
@@ -73,13 +59,33 @@ const Captcha: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row',marginTop:'3px' }} >
+    <div className="flex items-center gap-2 mt-2">
 
-      <canvas id="captchaCanvas"  ref={canvasRef} width="100" height="24" style={{ border: '1px solid #ccc' }} className='h-7 rounded text-center mr-2 justify-center drop-shadow-md '></canvas>
+      {/* CAPTCHA Canvas */}
+      <canvas
+        ref={canvasRef}
+        width="140"
+        height="40"
+        className="border border-gray-300 rounded-md shadow-sm"
+      />
 
-      <button type="button" onClick={generateCaptcha}><HiRefresh /></button>
-      <Input height={40} type="text" placeholder="Captcha Text" className=' h-7 ml-2 text-center rounded-sm border-gray-400 tracking-wider' value={typedCaptcha} onChange={(e) => setTypedCaptcha(e.target.value)} />
-      {/* <p>CAPTCHA Text: {captchaText}</p> */}
+      {/* Refresh Button */}
+      <button
+        type="button"
+        onClick={generateCaptcha}
+        className="p-2 bg-gray-100 hover:bg-gray-200 rounded-md transition"
+      >
+        <HiRefresh size={20} />
+      </button>
+
+      {/* Input */}
+      <Input
+        type="text"
+        placeholder="Enter Captcha"
+        className="h-10 text-center tracking-widest border-gray-400 rounded-md"
+        value={typedCaptcha}
+        onChange={(e) => setTypedCaptcha(e.target.value)}
+      />
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import img from '../../assets/Static_Images/Company Logo.jpeg'
 import { Button } from "../ui/button";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png';
+import { Label } from "../ui/label";
 
 
 const EmailEntryforResetpassword = () => {
@@ -48,28 +49,45 @@ const EmailEntryforResetpassword = () => {
     return (
         <>
             <div className="login-container bg-fixed bg-center bg-cover flex items-center justify-center md:justify-start pl-4 md:pl-[12vw] min-h-[125vh]  to-orange-100 p-4">
-                <div className="relative w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-gray-200 transition-all hover:shadow-gray-100/40">
+                <div className="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8">
                     <div className="flex flex-col items-center mb-6">
                         <img
                             src={img}
                             alt="Logo"
-                            className="w-16 h-16 rounded-full border border-gray-300 shadow-md mb-3"
+                            className="w-20 h-20 rounded-full shadow-md border"
                         />
-                        <h1 className="text-xl font-bold text-gray-800 tracking-wide">
+                        <h1 className="mt-3 text-lg sm:text-xl font-bold text-gray-800 text-center">
                             PAYAL DEALERS PVT. LTD
                         </h1>
-                        <p className="text-sm text-orange-600 font-semibold mt-2">KOLKATA UNIT</p>
+                        <p className="text-xs text-orange-600 font-semibold tracking-wide">
+                            KOLKATA UNIT
+                        </p>
                     </div>
 
-                    <h3 className="text-sm font-sans mb-8 font-semibold pb-1 pt-2 text-cyan-700">Enter Email ID to Reset your Password</h3>
-                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                   
+                    <form className="space-y-4" onSubmit={handleSubmit}>
 
+                        <div className="my-20">
 
+                             <Label className="text-xs font-semibold text-cyan-700">
+              Enter Email ID to Reset your Password
+            </Label>
+              <Input type="email" placeholder="Enter Email" ref={emailRef} className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400"/>
+
+              <div className="flex justify-end text-xs mt-5">
+                          <NavLink
+                            to="/login"
+                            className="text-blue-600 hover:underline"
+                          >
+                            Back to login
+                          </NavLink>
+                          </div>
+                        </div>
          
 
-                        <Input type="email" placeholder="Enter your Email" ref={emailRef} className="mt-1 bg-white border-gray-300 focus:border-orange-400 focus:ring-orange-300"/>
+                      
                         <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                        <Button className="bg-orange-500  mt-7 mb-4" type="submit" disabled={btnDisable}>Submit</Button>
+                        <Button className="w-full h-11 rounded-md bg-orange-500 hover:bg-orange-600 text-white font-semibold transition" type="submit" disabled={btnDisable}>Submit</Button>
 
                     </form>
                 </div>
