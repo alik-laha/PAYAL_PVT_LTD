@@ -62,7 +62,7 @@ const Packing = () => {
             setTransacTable('none')
         }
     }
-    const [loading, setLoading] = useState(false);
+    //const [loading, setLoading] = useState(false);
 
     const { data, error, isLoading } = UseQueryData('/api/packing/activeordercount', 'GET', 'getTtotalActvOrder')
     if (isLoading) {
