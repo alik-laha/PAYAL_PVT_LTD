@@ -1,11 +1,15 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const orderStockGrade2425 = sequelize.define('orderStockGrade2425', {
+const orderStockGrade = sequelize.define('orderStockGrade', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement:true
+    },
+    fy: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
 
     origin: {
@@ -41,4 +45,4 @@ const orderStockGrade2425 = sequelize.define('orderStockGrade2425', {
       }
     ]
   });
-export default orderStockGrade2425;
+export default orderStockGrade;
