@@ -678,7 +678,7 @@ const ProdTransacTable = () => {
                             <TableHead className="text-center">Generated⠀Sales⠀Order⠀ID</TableHead>
                             <TableHead className="text-center">Order⠀Origin</TableHead>
                             <TableHead className="text-center">Final⠀GradeName</TableHead>
-                            <TableHead className="text-center">Approval⠀Status</TableHead>
+                            <TableHead className="text-center">Order⠀Status</TableHead>
                             <TableHead className="text-center">Order⠀Receive⠀Date</TableHead>
                             <TableHead className="text-center">Order⠀Entry⠀Date</TableHead>
                             <TableHead className="text-center">Sales⠀Vendor⠀Name</TableHead>
@@ -711,7 +711,7 @@ const ProdTransacTable = () => {
                                                     <PopoverTrigger>
                                                         <button className={`p-2 w-20 border font-bold rounded-lg ${
                                                             item.ordApproveStatus === 'Rejected'
-                                                         ? 'bg-red-50 text-red-500 border-red-300 ' : 'bg-blue-50 text-blue-500 border-blue-300 '}`} disabled={
+                                                         ? 'bg-red-50 text-red-500 border-red-300 hidden' : 'bg-blue-50 text-blue-500 border-blue-300 '}`} disabled={
                                                             item.ordApproveStatus === 'Rejected' ? true : false}>Action</button>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
@@ -872,17 +872,17 @@ const ProdTransacTable = () => {
 
 
                                             <button
-                                            className={`p-2 h-8  rounded-md  w-40 font-semibold transition duration-300 tracking-wider 
+                                            className={`p-2 h-8  rounded-md  w-28 font-semibold transition duration-300 tracking-wider 
       ${item.ordApproveStatus === "Pending" ? "bg-gradient-to-br text-white from-red-700 via-rose-600 to-red-500 animate-pulse" : ""}
      
       ${item.ordApproveStatus === "Closed" ? "bg-gradient-to-tl text-white from-orange-600  to-lime-500 " : ""}
-      ${item.ordApproveStatus === "Cancelled" ? "bg-white p-2 text-red-500 border border-red-500 font-bold rounded w-40" : ""}
+      ${item.ordApproveStatus === "Cancelled" ? "bg-white p-2 text-red-500 border border-red-500 font-bold rounded" : ""}
       ${item.ordApproveStatus==='Approved' ? "bg-gradient-to-tr text-white from-green-600  to-lime-500 animate-pulse [animation-duration:2s]" : ""}
 
-      ${item.ordApproveStatus==='Rejected' ? "bg-gradient-to-tl text-white from-red-800 via-rose-500 to-red-800 w-40 animate-pulse [animation-duration:2s]" : ""}
+      ${item.ordApproveStatus==='Rejected' ? "bg-gradient-to-tl text-white from-red-800 via-rose-500 to-red-800 animate-pulse [animation-duration:2s]" : ""}
     `}
                                         >
-                                            {item.ordApproveStatus}
+                                             {item.ordApproveStatus}
                                         </button>
                                         </TableCell>
                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
