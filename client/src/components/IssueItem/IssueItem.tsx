@@ -170,7 +170,7 @@ const IssueItem = () => {
                         <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-10 md:-ml-5">
 
                             {checkreceiving('StorePrimaryEntry') && <Dialog>
-                                <DialogTrigger disabled={data.EditData > 0 ? true : false}>   <Button className="md:w-40 bg-gradient-to-r from-yellow-500 to-red-500 hover:from-yellow-400 hover:to-red-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md" disabled={data.EditData > 0 ? true : false}>+ Add New</Button></DialogTrigger>
+                                <DialogTrigger disabled={data.EditData > 0 ? true : false}>   <Button className="md:w-40 bg-gradient-to-r from-yellow-500 to-red-500 hover:from-yellow-400 hover:to-red-400 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 drop-shadow-md ml-2" disabled={data.EditData > 0 ? true : false}>+ Add New</Button></DialogTrigger>
                                 <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                     <DialogHeader>
                                         <DialogTitle><p className='text-lg text-gray-600 text-center py-5 tracking-wider drop-shadow-xl font-bold'>Item Issue Form</p></DialogTitle>
@@ -187,9 +187,9 @@ const IssueItem = () => {
 
                                 <Drawer>
                                     <DrawerTrigger asChild >
-                                        <div className="relative inline-block  ml-1.5 top-5 ">
+                                        <div className="relative inline-block top-5 ">
                                             <Button
-                                                className="md:w-40 bg-gradient-to-r from-blue-500 to-green-400 hover:from-blue-400 hover:to-green-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
+                                                className="md:w-40 bg-gradient-to-r ml-2 from-blue-500 to-green-400 hover:from-blue-400 hover:to-green-300 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 drop-shadow-md "
                                                 /* FIX 1: Use ?? 0 for the disabled prop */
                                                 disabled={data.EditData === 0}
                                                 onClick={handleEditFetch}

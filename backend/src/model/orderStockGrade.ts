@@ -41,7 +41,7 @@ const orderStockGrade = sequelize.define('orderStockGrade', {
     indexes: [
       {
         unique: true,
-        fields: ['origin', 'grade'], // Unique constraint on origin + grade
+        fields: ['origin', 'grade','fy'], // Unique constraint on origin + grade
       }
     ]
   });

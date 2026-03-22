@@ -41,7 +41,7 @@ const ProdStockTable = () => {
         const [Data, setData] = useState<any[]>([])
         const [origin, setOrigin] = useState<string>("")
         const [grade, setGrade] = useState<string>("")
-        const [fy, setFy] = useState<string>("2025-26")
+        const [fy, setFy] = useState<string>(FY[0])
         const [sku, setsku] = useState<findskutypeData[]>([])
         const currDate = new Date().toLocaleDateString();
         const dropdown=['Production Stock','Order Stock']

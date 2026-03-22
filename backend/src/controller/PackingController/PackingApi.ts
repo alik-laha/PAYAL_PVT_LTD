@@ -239,6 +239,16 @@ export const ordStockSearch = async (req: Request, res: Response) => {
         });
     
       }
+      else{
+         rcnEntries = await orderStockGrade.findAll({
+          where,
+          order: [
+            ["origin", "ASC"],
+            ["grade", "ASC"],
+          ], // Order by ASClimit: limit,
+          offset: offset,  limit: limit,
+        });
+      }
 
       return res
         .status(200)
@@ -774,7 +784,7 @@ export const closePurchaseOrder = async (req: Request, res: Response) => {
 
 export const cancelPurchaseOrder = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const { item,fy } = req.body;
     const actionedBy = req.cookies.user;
     await sequelize.transaction(async (transaction: any) => {
       const orderupdate = await orderPrimaryModel.update(
@@ -788,7 +798,7 @@ export const cancelPurchaseOrder = async (req: Request, res: Response) => {
         },
         {
           where: {
-            id,
+            id:item.id,
           },
           transaction,
         },
@@ -797,29 +807,47 @@ export const cancelPurchaseOrder = async (req: Request, res: Response) => {
       if (orderupdate) {
         const mappingdelete = await orderMappingModel.destroy({
           where: {
-            orderpk: id,
+            orderpk: item.id,
           },
           transaction,
         });
 
         const mappingAlldelete = await orderMappingModelAll.destroy({
           where: {
-            orderpk: id,
+            orderpk: item.id,
           },
           transaction,
         });
 
         const packingdelete = await orderPackingModel.destroy({
           where: {
-            orderpk: id,
+            orderpk: item.id,
           },
           transaction,
         });
-        if (mappingdelete && mappingAlldelete && packingdelete) {
-          res
+
+        const existing = await orderStockGrade.findOne({
+            where: {
+              origin: item.origin,
+              grade: item.gradeName,
+              fy,
+            },
+        });
+        if (existing){
+            await existing.update({
+              openquantity:
+                Number(existing.dataValues.openquantity || 0) -
+                Number(item.quantity || 0),
+            });
+
+            if (mappingdelete && mappingAlldelete && packingdelete) {
+          return res
             .status(200)
             .json({ message: "Sales Order Cancelled Successfully" });
         }
+
+        }
+        
       }
     });
   } catch (err) {
@@ -831,8 +859,8 @@ export const cancelPurchaseOrder = async (req: Request, res: Response) => {
 };
 export const approvePurchaseOrder = async (req: Request, res: Response) => {
   try {
-    const { item } = req.body;
-
+    const { item,fy } = req.body;
+    
     const actionedBy = req.cookies.user;
 
     await sequelize.transaction(async (transaction) => {
@@ -893,6 +921,32 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
           transaction,
         },
       );
+
+      const existing = await orderStockGrade.findOne({
+      where: {
+        origin:item.origin,
+        grade:item.gradeName,
+        fy,
+      },
+    });
+
+
+
+    if (existing) {
+      // 2️⃣ Update: openquantity = openquantity + quantity
+      await existing.update({
+        openquantity: Number(existing.dataValues.openquantity || 0) + Number(item.quantity||0),
+      });
+
+    } else {
+      // 3️⃣ Create new row with openquantity = 0
+      await orderStockGrade.create({
+        origin:item.origin,
+        grade:item.gradeName,
+        fy,
+        openquantity: Number(item.quantity||0),
+      });
+    }
 
       if (mappingEntry && packingEntry && mappingAllEntry && orderupdate) {
         res.status(200).json({ message: "Sales Order Approved Successfully" });
@@ -1857,7 +1911,7 @@ export const modifyOrder = async (req: Request, res: Response) => {
       gst,
       totalBill,
       unitRate,
-      remarks,
+      remarks,fy,changeqty,
       mappingStatus,
     } = req.body;
     const id = req.params.id;
@@ -1943,6 +1997,24 @@ export const modifyOrder = async (req: Request, res: Response) => {
             transaction,
           },
         );
+
+         const existing = await orderStockGrade.findOne({
+            where: {
+              origin: origin,
+              grade: gradeName,
+              fy,
+            },
+        });
+        if (existing){
+            await existing.update({
+              openquantity:
+                Number(existing.dataValues.openquantity || 0) -
+                Number(changeqty || 0),
+            });
+
+      
+
+        }
       } else {
         packingEntry = await orderPackingModel.update(
           {

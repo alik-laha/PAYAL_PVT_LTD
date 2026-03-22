@@ -15,7 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Origin } from "../common/exportData";
+import { FY, Origin } from "../common/exportData";
 
 interface Props {
     mapping: any[]       
@@ -46,6 +46,7 @@ const OrderModify = (props:Props) => {
    const [gradeview, setGradeView] = useState("none")
    const [gradeData, setGradeData] = useState<any[]>([])
     const [errText, setErrText] = useState("")
+    const fy=FY[0]?FY[0]:'2025-26'
     
     const [isdisable,setisdisable]=useState<boolean>(false)
     useEffect(() => {
@@ -98,7 +99,10 @@ const OrderModify = (props:Props) => {
         setisdisable(true)
         console.log("submit")
         axios.put(`/api/packing/modifyOrder/${id}`, { 
-           origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks,mappingStatus:props.mapping[0].ordMappingStatus})
+           origin,gradeName,orderDate,invDate,vendor,
+           broker,quantity,gst,totalBill,
+           unitRate,remarks,fy,changeqty:(Number(props.mapping[0].quantity||0)-Number(quantity)),
+           mappingStatus:props.mapping[0].ordMappingStatus})
             .then((res) => {
                 if (res.status === 200) {
                     setErrText(res.data.message)
@@ -206,7 +210,7 @@ const OrderModify = (props:Props) => {
                        {props.mapping[0].ordMappingStatus===0 ?
                        <div className="flex"><Label className="w-2/4  pt-1">Demand Quantity</Label>
                         <Input className="w-2/4 text-center " placeholder="Quantity" value={quantity} onChange={(e)=> setQuantity(e.target.value)} required/> </div> :
-                         <div className="flex"><Label className="w-2/4  pt-1">Demand Quantity</Label>
+                         <div className="flex"><Label className="w-2/4  pt-1">Demand Quantity <p className="font-bold text-red-700"> (Order Mapping is Done Already, It can't be Changed, Delete Order Mapping First)</p></Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="Quantity" value={quantity} readOnly required/> </div>} 
                         
 
