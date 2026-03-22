@@ -264,7 +264,7 @@ const EmployeeTable = () => {
 
                         <TableRow>
                            
-                            <TableCell colSpan={17}><p className="tracking-wider font-bold capitalize text-red-500 text-center py-3">{Error}</p></TableCell>
+                            <TableCell colSpan={18}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">{Error}</p></TableCell>
                           
                         </TableRow>
                         : null}

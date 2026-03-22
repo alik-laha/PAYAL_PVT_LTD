@@ -222,7 +222,7 @@ const DashboardTable = () => {
                         <TableRow>
                             
 
-                            <TableCell colSpan={8}><p className="font-bold tracking-wider capitalize text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
+                            <TableCell colSpan={8}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">{Error}</p></TableCell>
                         
 
 

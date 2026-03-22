@@ -810,24 +810,13 @@ const CreditNoteTable = (props:any) => {
                 })
               ) : (
                 <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell>
-                    <p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">
-                      No Result{" "}
+                
+                  <TableCell colSpan={21}>
+                    <p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">
+                      No Result Found
                     </p>
                   </TableCell>
-                  <TableCell></TableCell>
-
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
+                
                 </TableRow>
               )}
             </TableBody>
@@ -882,20 +871,14 @@ const CreditNoteTable = (props:any) => {
                 })
               ) : (
                 <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
+                 
 
-                  <TableCell>
-                    <p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">
-                      No Result
+                  <TableCell colSpan={8}>
+                    <p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">
+                      No Result Found
                     </p>
                   </TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
+                  
                 </TableRow>
               )}
             </TableBody>

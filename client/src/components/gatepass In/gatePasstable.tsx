@@ -1632,7 +1632,7 @@ const GatePassTable = () => {
 
             })) : (<TableRow>
           
-              <TableCell colSpan={29}><p className="font-bold capitalize tracking-wider text-red-500 text-center pt-3 pb-10">No Result Found</p></TableCell>
+              <TableCell colSpan={29}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">No GatePass Found</p></TableCell>
               
 
             </TableRow>)}

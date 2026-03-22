@@ -53,12 +53,10 @@ const IssueDayWiseTable = ({ DayWise, page }: { DayWise: IssueItemDaywiseData[],
                         </TableRow>
                     );
                 })) : (<TableRow>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    
                    
-                    <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell colSpan={6}><p className="font-bold tracking-widest uppercase text-center text-red-500 py-4 text-lg">No Result FOUND</p></TableCell>
+                  
                  
                 </TableRow>)
                 }
