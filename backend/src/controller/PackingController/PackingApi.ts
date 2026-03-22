@@ -2304,6 +2304,7 @@ export const deleteOrderMapping = async (req: Request, res: Response) => {
 };
 
 export const createPacking = async (req: Request, res: Response) => {
+    
   try {
     const {
       mfgDate,
