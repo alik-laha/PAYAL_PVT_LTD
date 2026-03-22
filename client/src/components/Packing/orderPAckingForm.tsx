@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import axios from "axios";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
+import { FY } from "../common/exportData";
 
 const PackingCreateForm = (props: any) => {
 
@@ -46,7 +47,7 @@ const PackingCreateForm = (props: any) => {
         e.preventDefault();
           setisdisable(true)
                 axios.post(`/api/packing/createPacking/${id}`, { mfgDate, noOfBags, batchID, orderpk, noOfSystemBags,remarks,
-                    orderID:props.data.orderID,origin:props.data.origin,gradeName:props.data.gradeName ,fulfillquantity:props.data.fulfillquantity})
+                    orderID:props.data.orderID,origin:props.data.origin,gradeName:props.data.gradeName ,fy:FY[0]?FY[0]:'2025-26',fulfillquantity:props.data.fulfillquantity})
                     .then((res) => {
                         console.log(res)
                         setErrorText(res.data.message)

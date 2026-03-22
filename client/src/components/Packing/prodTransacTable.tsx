@@ -493,7 +493,7 @@ const ProdTransacTable = () => {
     }
     const handleUnpack = (item: any) => {
        
-        axios.post('/api/packing/unPackOrder', {item}).then((res) => {
+        axios.post('/api/packing/unPackOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {

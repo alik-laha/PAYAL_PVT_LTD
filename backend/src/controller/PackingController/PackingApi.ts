@@ -945,7 +945,7 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
         grade:item.gradeName,
         fy,
         openquantity: Number(item.quantity||0),
-      });
+      },{transaction});
     }
 
       if (mappingEntry && packingEntry && mappingAllEntry && orderupdate) {
@@ -2315,7 +2315,7 @@ export const createPacking = async (req: Request, res: Response) => {
       orderID,
       gradeName,
       origin,
-      fulfillquantity,
+      fulfillquantity,fy,
     } = req.body;
     const id = req.params.id;
     const actionedBy = req.cookies.user;
@@ -2364,6 +2364,26 @@ export const createPacking = async (req: Request, res: Response) => {
             transaction,
           },
         );
+
+           const existing = await orderStockGrade.findOne({
+             where: {
+               origin: origin,
+               grade: gradeName,
+               fy,
+             },
+           });
+
+
+
+    if (existing) {
+      // 2️⃣ Update: openquantity = openquantity + quantity
+      await existing.update({
+        consumequantity: Number(existing.dataValues.consumequantity || 0) + Number(fulfillquantity||0),
+      },{transaction});
+
+    }
+
+        
         if (qcoutEntry && orderupdate) {
           res.status(200).json({ message: "Sales Order Packed Successfully" });
         } else {
@@ -2383,8 +2403,8 @@ export const createPacking = async (req: Request, res: Response) => {
 
 export const createunPacking = async (req: Request, res: Response) => {
   try {
-    const { id, orderpk, fulfillquantity } = req.body.item;
-
+    const { id, orderpk, fulfillquantity,gradeName,origin } = req.body.item;
+    const { fy } = req.body;
     const actionedBy = req.cookies.user;
 
     await sequelize.transaction(async (transaction) => {
@@ -2420,6 +2440,24 @@ export const createunPacking = async (req: Request, res: Response) => {
           },
         );
         if (orderupdate) {
+
+            const existing = await orderStockGrade.findOne({
+             where: {
+               origin: origin,
+               grade: gradeName,
+               fy,
+             },
+           });
+
+
+
+    if (existing) {
+      // 2️⃣ Update: openquantity = openquantity + quantity
+      await existing.update({
+        consumequantity: Number(existing.dataValues.consumequantity || 0) - Number(fulfillquantity||0),
+      },{transaction});
+
+    }
           res
             .status(200)
             .json({ message: "Sales Order unPacked Successfully" });
