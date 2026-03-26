@@ -26,11 +26,12 @@ import qcOutgoingModel from "../../model/outgoingQcModel";
 import SkuModel from "../../model/SkuModel";
 import orderStockGrade from "../../model/orderStockGrade";
 import { QueryTypes } from "sequelize";
+import villageProduction from "../../model/villageProductionModel";
 
 const sectionConfig = [
   {
     section: "Wholes",
-    table: "wholesgrades",
+    table: WholesModel.getTableName()||"wholesGrades",
     columns: [
       "issue_pw_150", "issue_w_150", "issue_ww_150", "issue_s_150", "issue_aw_150", "issue_lw_150",
         "issue_pw_180", "issue_w_180", "issue_ww_180", "issue_s_180", "issue_aw_180", "issue_lw_180",
@@ -55,7 +56,7 @@ const sectionConfig = [
   },
   {
     section: "DPDS",
-    table: "dpds",
+    table: DPDS.getTableName()||"dpds",
     columns: [
      "issue_m_ds", "issue_m_dp", "issue_k_dp", "issue_ds_1", "issue_ds_2", "issue_sp_2", "issue_yjh",
         "issue_yk", "issue_kp", "issue_wp", "issue_rs", "issue_dp_2", "issue_dp_3", "issue_dp_4", "issue_dp_3l",
@@ -68,7 +69,7 @@ const sectionConfig = [
   },
   {
     section: "Sorting",
-    table: "sortings",
+    table: SortingModel.getTableName()||"sortings",
     columns: [
       "issue_jjh", "issue_jjh1", "issue_sjh", "issue_jk", "issue_jk1", "issue_k", "issue_k1",
         "issue_lwp1", "issue_lwp", "issue_s", "issue_ss", "issue_yk", "issue_sp2", "issue_kp",
@@ -80,7 +81,7 @@ const sectionConfig = [
   },
   {
     section: "LW",
-    table: "lowergrades",
+    table: LWModel.getTableName()||"lowerGrades",
     columns: [
       'issue_kw', 'issue_kw_1', 'issue_kw_2', 'issue_kn', 'issue_dw', 'issue_dw_1', 'issue_dw_2', 
         'issue_ow', 'issue_ow_1', 'issue_ow_2', 'issue_jw', 'issue_pw', 'issue_row', 'issue_rej_1', 
@@ -93,12 +94,26 @@ const sectionConfig = [
   },
   {
     section: "BigTaiho",
-    table: "bigtaihos",
+    table: bigTaihoModel.getTableName()||"bigTaihos",
     columns: [
        'issue_ssp', 'issue_ssp_small', 'issue_swp_1', 'issue_wsp', 'issue_bits', 'issue_swp', 'issue_bb',
         'issue_w_bb', 'issue_bb_A', 'issue_bb1', 'issue_bb1_A', 'issue_bb_2', 'issue_ssp_1', 'issue_ssp_1_small',
         'issue_ssp_2', 'issue_ssp_2_small', 'issue_sdp'
       // 👉 all BigTaiho columns
+    ],
+  },
+  {
+    section: "Village",
+    table: villageProduction.getTableName()||"villageProductions",
+    columns: [
+       'issue_packing'
+    ],
+  },
+  {
+    section: "Rejection",
+    table: rejectionModel.getTableName()||"rejections",
+    columns: [
+       'issue_packing'
     ],
   },
 ];
@@ -319,7 +334,7 @@ export const getProductionBacklog = async (req: Request, res: Response) => {
     });
 
     const finalUnion = unionQueries.join(" UNION ALL ");
-
+    const orderMappingTable=orderMappingModel.getTableName()||'orderMappings';
     // 🚀 FINAL QUERY
     let query
     if (limit === 0 && offset === 0) {
@@ -385,7 +400,7 @@ export const getProductionBacklog = async (req: Request, res: Response) => {
           productionSection,
           productionGrade,
           SUM(mappedQuantity) as dispatchQty
-        FROM ordermappings
+        FROM  ${orderMappingTable}
         WHERE 
           mappingStatus = 1
           AND ${lotFilter}

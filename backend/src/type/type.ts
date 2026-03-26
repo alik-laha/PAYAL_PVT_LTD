@@ -654,7 +654,7 @@ export interface AbhayMcCleanData {
 
 }
 
-interface MergeNextOpeningData {
+export interface MergeNextOpeningData {
     LotNo: string;
     Scooping_Line_Mc: string;
     Uncut: number;

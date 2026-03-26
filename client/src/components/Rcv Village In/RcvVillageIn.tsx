@@ -87,7 +87,7 @@ const RcvVillageIn = () => {
                 </DialogContent>
             </Dialog>}
 
-             {checkreceiving('RCNPrimaryEntry') && <Dialog>
+             {checkreceiving('VillagePrimaryEntry') && <Dialog>
             <DialogTrigger>   <Button className="w-28 md:w-40 bg-gradient-to-r from-purple-500 to-gray-500 hover:from-purple-600 hover:to-gray-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left drop-shadow-md"
               onClick={handleOpenVLotNo}>+ V-LOT</Button></DialogTrigger>
             <DialogContent className='max-w-3xl'>

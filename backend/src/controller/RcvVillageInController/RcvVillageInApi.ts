@@ -786,7 +786,7 @@ export const rejectVillageInPrimaryEdit = async (req: Request, res: Response) =>
 export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) => {
 
     try {
-
+        const table = VLotNo.getTableName();
         const vlotsum = await RcvVillageInModel.findAll({
             attributes: [
                 'recevingDate',
@@ -798,7 +798,7 @@ export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) 
                     [Op.notLike]: 'Pending'
                 },
                 recevingDate: {
-                    [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM vlotNos)`)
+                    [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM ${table})`)
                 }
             },
             group: ['recevingDate']
