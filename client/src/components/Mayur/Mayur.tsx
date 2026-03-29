@@ -123,7 +123,7 @@ const Mayur = () => {
                     <div className="flexbox-tile bg-purple-500 hover:bg-purple-400">
                     <p>Issue Rejection</p> <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400 hidden">
+                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                     <p>Current Backlog</p> <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
                     </div>
                   

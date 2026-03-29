@@ -189,8 +189,8 @@ const Sorting = () => {
                     <p>Issue Rejection</p> <br /><p>{data.data[0].issue_rejection? formatNumber(parseFloat(data.data[0].issue_rejection))  : 0}  Kg</p>
                     </div>
                     
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400 hidden">
-                    Current Backlog <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
+                    <p>Current Backlog</p> <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
                     </div>
                   
 
