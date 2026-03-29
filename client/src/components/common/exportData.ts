@@ -1,4 +1,32 @@
+export const pageNo = 1
+export const pagelimit = 13
+export const timerLogout = 43200
+export const Session_LogoutTime_Hr = 12
+export const FY='2025-26'
+export const FY_Array=['2024-25','2025-26','2026-27']
+export const SelectGatePassType = ["IN","OUT"]
+export const SelectTypeSKUVendor = ["SKU","Vendor"]
+export const SelectType = ["LineWise","LotWise"]
+export const SelectTypeIssue = ["ItemWise","DayWise"]
+export const MachineStatus = ['Active', 'Inactive', 'Discarded']
+export const QC_Online_Status=['OK','NOT OK','N/A']
+export const IssueStatus = ['N/A', 'Yes', 'No']
+export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+export const QC_Boiler = ['Boiler-1 (Old)','Boiler-2 (New)']
+export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
 
+
+export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
+export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
+export const OrderStatusAll = ['Pending Approval','Pending Mapping', 'Pending Packing','Closed','Cancelled']
+export const Qualification: string[] = ['8th+','10th+', '12th+', 'Diploma', 'Graduate','Masters']
+export const Stock_Match_Section=['TAIHO','WHOLES','LW','VILLAGE','DPDS','SORTING']
+export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo", "Guinea-Bissau", "Senegal","Guinea-Conkary","Burkina-Faso"]
+export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Village','Wholes','LW','Packing']
+export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati','Issue','OilMill','Packing','CreditNote']
+export const SectionStatusAll = ['Pending_Receiving', 'Pending_NetWeight' ,'Pending_Verification','Pending_Release','Closed','Cancelled']
+export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','MIXED(WHOLES+PIECE)','BW/HW','OTHERS']
+export const QC_Online_Section=['BOILER','GRADING','BOILING','SCOOPING','BORMA','HUMIDIFIER','PEELING','TAIHO','NANOPIX','HAND_GRADE','POUCH','BUCKET']
 
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production','GatePass']
 export const Role: string[] = ['Director', 'FactoryManager', 
@@ -120,40 +148,14 @@ export const roleDataonDept = {
         'MayurSupervisor','VillageSupervisor','SortingSupervisor','WholesSupervisor','PackingSupervisor'],
     GatePass:['Security','GatePassManager']
 }
-export const pageNo = 1
-export const pagelimit = 13
-export const timerLogout = 43200
-export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Village','Wholes','LW','Packing']
-export const MachineStatus = ['Active', 'Inactive', 'Discarded']
-export const IssueStatus = ['N/A', 'Yes', 'No']
-export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-export const QC_Boiler = ['Boiler-1 (Old)','Boiler-2 (New)']
-export const Session_LogoutTime_Hr = 12
-export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
-export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo", "Guinea-Bissau", "Senegal","Guinea-Conkary","Burkina-Faso"]
-export const SelectType = ["LineWise","LotWise"]
-export const Qualification: string[] = ['8th+','10th+', '12th+', 'Diploma', 'Graduate','Masters']
-export const SelectTypeIssue = ["ItemWise","DayWise"]
-export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
-export const FY=['2025-26']
-export const FY_Array=['2024-25','2025-26']
-export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','MIXED(WHOLES+PIECE)','BW/HW','OTHERS']
-export const QC_Online_Section=['BOILER','GRADING','BOILING','SCOOPING','BORMA','HUMIDIFIER','PEELING','TAIHO','NANOPIX','HAND_GRADE','POUCH','BUCKET']
-export const Stock_Match_Section=['TAIHO','WHOLES','LW','VILLAGE','DPDS','SORTING']
-export const QC_Online_Status=['OK','NOT OK','N/A']
+
+
+
+
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati','CreditNote'],
     OUT: ["Store",'General','Almond','Village','Agarbati','OilMill','FinishedCashew'],
 }
-export const SelectGatePassType = ["IN","OUT"]
-export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati','Issue','OilMill','Packing','CreditNote']
-export const SectionStatusAll = ['Pending_Receiving', 'Pending_NetWeight' ,'Pending_Verification','Pending_Release','Closed','Cancelled']
-export const OrderStatusAll = ['Pending Approval','Pending Mapping', 'Pending Packing','Closed','Cancelled']
-
-
-export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
-export const SelectTypeSKUVendor = ["SKU","Vendor"]
-
 export const TypeOnSection = {
     PackagingMaterial: ['Pouch','Bucket','Tin','Can','Jar','Cartoon','Tape','Foil','Stickers','PlasticBag','PP','Label','Lid'],
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
@@ -166,8 +168,6 @@ export const TypeOnSection = {
     Packing:['Final Grade'],
     CreditNote:['Item Type'],
 }
-
-
 export const GradeOnSection = {
     Wholes: [
         "PW_150", "W_150", "WW_150", "S_150", "AW_150", "LW_150",
@@ -217,8 +217,6 @@ export const GradeOnSection = {
     Village:['Village']
     
 }
-
-
 export const ProdGradeOnSection = {
     Wholes: [
         "issue_pw_150", "issue_w_150", "issue_ww_150", "issue_s_150", "issue_aw_150", "issue_lw_150",

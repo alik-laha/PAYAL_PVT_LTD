@@ -46,7 +46,7 @@ const OrderModify = (props:Props) => {
    const [gradeview, setGradeView] = useState("none")
    const [gradeData, setGradeData] = useState<any[]>([])
     const [errText, setErrText] = useState("")
-    const fy=FY[0]?FY[0]:'2025-26'
+    const fy=FY?FY:'2026-27'
     
     const [isdisable,setisdisable]=useState<boolean>(false)
     useEffect(() => {

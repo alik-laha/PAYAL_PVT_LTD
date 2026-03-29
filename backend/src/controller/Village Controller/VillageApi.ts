@@ -245,7 +245,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                 );
                 if (VilUpdate) {
 
-                1.// Mayur Out//
+                //1. Mayur Out//
                 const mayur_backlog = await Mayur.findOne({
                         attributes: ['current_backlog', 'rcv_village'],
                         where: {
@@ -310,7 +310,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                         throw new Error('Transaction Aborted')
                     }
 
-                2.// Rejection Out//
+                //2. Rejection Out//
 
                 const rejection_backlog = await rejectionModel.findOne({
                     attributes: ['current_backlog','rcv_village'],
@@ -377,7 +377,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                 } 
 
 
-                3. // BigTaiho Out//
+                //3. BigTaiho Out//
 
                 const bigT_backlog = await bigTaihoModel.findOne({
                         attributes: ['current_backlog', 'rcv_village'],
@@ -444,7 +444,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                     }
 
 
-                4.// Hamsa Out//
+                //4. Hamsa Out//
 
                     const hamsa_backlog = await hamsaModel.findOne({
                     attributes: ['current_backlog','rcv_village'],
@@ -1704,7 +1704,7 @@ export const CreateReissueVillage = async (req: Request, res: Response) => {
                         }
 
 
-                        3.// Hamsa Out//
+                        //3. Hamsa Out//
 
                         const hamsa_backlog = await hamsaModel.findOne({
                             attributes: ['current_backlog', 'rcv_village'],

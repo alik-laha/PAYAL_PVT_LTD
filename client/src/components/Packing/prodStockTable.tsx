@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { FY, Origin, pagelimit, pageNo, pendingCheckRole, ProdGradeOnSection, prodStockSection } from "../common/exportData";
+import { FY, FY_Array, Origin, pagelimit, pageNo, pendingCheckRole, ProdGradeOnSection, prodStockSection } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -41,7 +41,7 @@ const ProdStockTable = () => {
         const [Data, setData] = useState<any[]>([])
         const [origin, setOrigin] = useState<string>("")
         const [grade, setGrade] = useState<string>("")
-        const [fy, setFy] = useState<string>(FY[0])
+        const [fy, setFy] = useState<string>(FY||'2026-27')
         const [sku, setsku] = useState<findskutypeData[]>([])
         const currDate = new Date().toLocaleDateString();
         const dropdown=['Production Stock','Order Stock']
@@ -233,7 +233,7 @@ const ProdStockTable = () => {
                  <select className='select-with-icon w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg px-3 py-2.5 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150  dark:text-gray-200 appearance-none'
                                         onChange={(e) => setFy(e.target.value)} value={fy}>
                   
-                                        {FY.map((data, index) => (
+                                        {FY_Array.map((data, index) => (
                                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
                 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                                                 {data}
