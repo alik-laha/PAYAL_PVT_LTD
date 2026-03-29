@@ -65,9 +65,7 @@ export const sumOfallLW = async (req: Request, res: Response) => {
       ],
       where: {
         [Op.or]: [{ editStatus: "Approved" }, { editStatus: "NA" }],
-        date: {
-          [Op.between]: [targetDate, today],
-        },
+        
         latest: 1,
       },
     });

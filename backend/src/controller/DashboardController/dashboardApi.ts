@@ -31,25 +31,7 @@ import Employee from "../../model/employeeModel";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import qcKOR from "../../model/qcKorModel";
 
-const IST_OFFSET_MIN = 5 * 60 + 30;
 
-const toIST = (date: Date) => {
-  const d = new Date(date);
-  d.setMinutes(d.getMinutes() + IST_OFFSET_MIN);
-  return d;
-};
-
-const startOfDay = (date: Date) => {
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
-
-const endOfDay = (date: Date) => {
-  const d = new Date(date);
-  d.setHours(23, 59, 59, 999);
-  return d;
-};
 
 
 export const infoOfallSection = async (req: Request, res: Response) => {

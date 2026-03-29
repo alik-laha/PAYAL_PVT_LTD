@@ -156,7 +156,7 @@ const BigTaiho = () => {
                     <div className="flexbox-tile bg-violet-500 hover:bg-violet-400">
                     <p>Issue Husk</p> <br /><p>{data.data[0].issue_husk  ?  formatNumber(parseFloat(data.data[0].issue_husk)): 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400 hidden">
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
                     Current Backlog <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
                     </div>
                   
