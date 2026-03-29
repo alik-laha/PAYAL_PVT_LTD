@@ -4,7 +4,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FY_Array, Origin } from "../common/exportData";
+import { FY, FY_Array, Origin } from "../common/exportData";
 import { Input } from "../ui/input";
 
 import { FaSearch } from "react-icons/fa";
@@ -16,7 +16,7 @@ const FactoryManager: React.FC = () => {
 
 
 
-    const [fy, setFy] = useState<string>("2025-26")
+    const [fy, setFy] = useState<string>(FY||'2026-27')
     const [data, setData] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [fromdate, setfromDate] = useState<string>('');
