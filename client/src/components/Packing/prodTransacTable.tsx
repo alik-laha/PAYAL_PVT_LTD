@@ -436,7 +436,7 @@ const ProdTransacTable = () => {
     }
     const handleOrderCancel = (item:any) => {
        
-        axios.post('/api/packing/cancelPurchaseOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
+        axios.post('/api/packing/cancelPurchaseOrder', {item,fy:FY?FY:'2026-27'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {
@@ -455,7 +455,7 @@ const ProdTransacTable = () => {
     }
     const handleOrderApprove = (item: any) => {
        
-        axios.post('/api/packing/approvePurchaseOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
+        axios.post('/api/packing/approvePurchaseOrder', {item,fy:FY?FY:'2026-27'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {
@@ -493,7 +493,7 @@ const ProdTransacTable = () => {
     }
     const handleUnpack = (item: any) => {
        
-        axios.post('/api/packing/unPackOrder', {item,fy:FY[0]?FY[0]:'2025-26'}).then((res) => {
+        axios.post('/api/packing/unPackOrder', {item,fy:FY?FY:'2026-27'}).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if (successdialog != null) {

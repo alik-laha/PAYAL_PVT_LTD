@@ -47,7 +47,7 @@ const PackingCreateForm = (props: any) => {
         e.preventDefault();
           setisdisable(true)
                 axios.post(`/api/packing/createPacking/${id}`, { mfgDate, noOfBags, batchID, orderpk, noOfSystemBags,remarks,
-                    orderID:props.data.orderID,origin:props.data.origin,gradeName:props.data.gradeName ,fy:FY[0]?FY[0]:'2025-26',fulfillquantity:props.data.fulfillquantity})
+                    orderID:props.data.orderID,origin:props.data.origin,gradeName:props.data.gradeName ,fy:FY?FY:'2025-26',fulfillquantity:props.data.fulfillquantity})
                     .then((res) => {
                         console.log(res)
                         setErrorText(res.data.message)
