@@ -133,7 +133,7 @@ const Village = () => {
                     </div>
 
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
-                        Current Backlog <br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
+                          <p>Current Backlog</p><br /><p>{data.Sumdata[0].current_backlog  ?  formatNumber(parseFloat(data.Sumdata[0].current_backlog)): 0} Kg</p>
                     </div>
 
 
