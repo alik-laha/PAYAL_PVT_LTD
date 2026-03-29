@@ -1323,26 +1323,25 @@ const LWTable = (props:any) => {
                                  
                                         {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
-                                        <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                           <TableCell className="text-center font-semibold">{item.rcv_mayur ?formatNumber(item.rcv_mayur):0}</TableCell>
+                                        <TableCell className="text-center font-semibold  text-red-500">{item.issue_add_2 ?formatNumber(item.issue_add_2):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_mayur)!==0 ?formatNumber(((Number(item.issue_add_2)/Number(item.rcv_mayur))*100).toString()):0} %</TableCell>
 
 
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_hamsa)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.rcv_hamsa ?formatNumber(item.rcv_hamsa):0}</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_hamsa)!==0 ?formatNumber(((Number(item.issue_add_5)/Number(item.rcv_hamsa))*100).toString()):0} %</TableCell>
-                                        <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                        <TableCell className="text-center  bg-yellow-100 font-semibold">
                                             {formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)).toString())}
                                         </TableCell>
-                                        <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                            {formatNumber((parseFloat(item.rcv_hamsa)-parseFloat(item.issue_add_5)).toString())}
+                                        <TableCell className="text-center  bg-yellow-100 font-semibold">
+                                            {formatNumber(((parseFloat(item.rcv_hamsa)||0)-parseFloat(item.issue_add_5)).toString())}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
 
-                                        <TableCell className="text-center font-semibold bg-green-500 text-white">{formatNumber(((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)) + (parseFloat(item.rcv_hamsa)-parseFloat(item.issue_add_5))
+                                        <TableCell className="text-center font-semibold bg-green-500 text-white">{formatNumber((((parseFloat(item.rcv_mayur)||0)-parseFloat(item.issue_add_2)) + ((parseFloat(item.rcv_hamsa)||0)-parseFloat(item.issue_add_5))
                                             + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toString())
                                         } Kg</TableCell>
-
 
 
                                     <TableCell className="text-center  ">{formatNumber(item.issue_kw)}</TableCell>
@@ -1508,23 +1507,23 @@ const LWTable = (props:any) => {
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                         {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
  
-                                       <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
-                                        <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                       <TableCell className="text-center font-semibold">{item.rcv_mayur ?formatNumber(item.rcv_mayur):0}</TableCell>
+                                        <TableCell className="text-center font-semibold  text-red-500">{item.issue_add_2 ?formatNumber(item.issue_add_2):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_mayur)!==0 ?formatNumber(((Number(item.issue_add_2)/Number(item.rcv_mayur))*100).toString()):0} %</TableCell>
 
 
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_hamsa)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.rcv_hamsa ?formatNumber(item.rcv_hamsa):0}</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_hamsa)!==0 ?formatNumber(((Number(item.issue_add_5)/Number(item.rcv_hamsa))*100).toString()):0} %</TableCell>
                                         <TableCell className="text-center text-center bg-yellow-100 font-semibold">
                                             {formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)).toString())}
                                         </TableCell>
                                         <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                            {formatNumber((parseFloat(item.rcv_hamsa)-parseFloat(item.issue_add_5)).toString())}
+                                            {formatNumber(((parseFloat(item.rcv_hamsa)||0)-parseFloat(item.issue_add_5)).toString())}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
 
-                                        <TableCell className="text-center font-semibold bg-green-500 text-white">{formatNumber(((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)) + (parseFloat(item.rcv_hamsa)-parseFloat(item.issue_add_5))
+                                        <TableCell className="text-center font-semibold bg-green-500 text-white">{formatNumber((((parseFloat(item.rcv_mayur)||0)-parseFloat(item.issue_add_2)) + ((parseFloat(item.rcv_hamsa)||0)-parseFloat(item.issue_add_5))
                                             + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toString())
                                         } Kg</TableCell>
 
