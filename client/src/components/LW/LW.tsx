@@ -27,7 +27,8 @@ import { FaHistory } from 'react-icons/fa';
 import PendingBacklog from '../common/PendingBacklog';
 import { MdPendingActions } from 'react-icons/md';
 import DashboardFooter from '../dashboard/DashboardFooter';
-
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 const LW = () => {
 
@@ -92,15 +93,72 @@ const LW = () => {
     function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
+
+     const getIssueGrades = () => {
+                const row = data?.data?.[0] || {};
+            
+                const excludeKeys = [
+                    "issue_hamsa",
+                    "issue_village",
+                    "issue_bigTaiho",
+                    "issue_rejection",
+                  
+                    ...Array.from({ length: 10 }, (_, i) => `issue_ext_grade_${i + 1}`),
+                    ...Array.from({ length: 10 }, (_, i) => `issue_add_${i + 1}`)
+                ];
+            
+                return Object.entries(row)
+                    .filter(([key]) =>
+                        key.startsWith("issue_") && !excludeKeys.includes(key)
+                    )
+                    .map(([key, value]) => ({
+                        name: key,
+                        value: parseFloat(value as string) || 0
+                    }));
+            };
+            const downloadExcel = () => {
+                const grades = getIssueGrades();
+            
+                const formattedData = grades.map(g => ({
+                    Grade: g.name.replace("issue_", "").replace("_", " ").toUpperCase(),
+                    Value: g.value
+                }));
+            
+                // Create worksheet
+                const worksheet = XLSX.utils.json_to_sheet(formattedData);
+            
+                // Create workbook
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Issue Grades");
+            
+                // Generate Excel file
+                const excelBuffer = XLSX.write(workbook, {
+                    bookType: "xlsx",
+                    type: "array",
+                });
+            
+                const blob = new Blob([excelBuffer], {
+                    type: "application/octet-stream",
+                });
+            
+                saveAs(blob, "issue_grades.xlsx");
+            };
     return (
         <div>
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header mx-2">
-                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
-                        <p>Issue Packing </p><br />
-                        <p>
+                    
+
+                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400 cursor-pointer">
+                    
+                    
+                                                        <p >Issue Packing</p> <br />
+
+                                                       <p className='underline'>
                             {
                                 data.data[0].issue_kw && data.data[0].issue_kw_1 && data.data[0].issue_kw_2 && data.data[0].issue_kn
                                     && data.data[0].issue_dw && data.data[0].issue_dw_1 && data.data[0].issue_dw_2 && data.data[0].issue_ow
@@ -141,9 +199,48 @@ const LW = () => {
                                     ) : 0
                             } Kg
                         </p>
-
-
-                    </div>
+                    
+                                                    </div>
+                                                </DialogTrigger>
+                    
+                                                <DialogContent className="max-w-3xl">
+                                                    <DialogHeader>
+                                                        <DialogTitle className="text-center font-semibold mb-3">
+                                                            Issue Packing Breakdown
+                                                        </DialogTitle>
+                                                    </DialogHeader>
+                    
+                                                    {/* Table */}
+                                                    <div className="max-h-[400px] overflow-y-auto">
+                                                        <table className="w-full border">
+                                                            <thead>
+                                                                <tr className="bg-gray-200">
+                                                                    <th className="border p-2">Grade</th>
+                                                                    <th className="border p-2">Value (Kg)</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {getIssueGrades().map((g, i) => (
+                                                                    <tr key={i}>
+                                                                        <td className="border p-2">{i+1}. {g.name}</td>
+                                                                        <td className="border p-2">{g.value}</td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                    
+                                                    {/* Download Button */}
+                                                    <div className="flex justify-end mt-4">
+                                                        <Button
+                                                            onClick={downloadExcel}
+                                                            className="bg-green-500 hover:bg-green-600"
+                                                        >
+                                                            Download Excel
+                                                        </Button>
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog> 
 
 
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
