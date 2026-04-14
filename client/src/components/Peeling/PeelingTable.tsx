@@ -355,20 +355,20 @@ const PeelingTable = (props:any) => {
                   UnPeel_Prcnt:formatNumber(item.unpeelp),
                Broken_Prcnt:formatNumber(item.brokenp),
                Chura_Prcnt:formatNumber(item.churap),
-                Unpeel_Piece:Number(item.UnpeelPiece) ||0,
+                // Unpeel_Piece:Number(item.UnpeelPiece) ||0,
                 WholesPeel_Or_WholesJB: Number(item.WholesPeel)||0,
                 WholesUnpeel_Or_LW:Number(item.WholesUnpeel)||0,
-                DP: Number(item.DP)||0,
-                DS: Number(item.DS)||0,
-                DP1:Number(item.DP1)||0,
-                JJH: Number(item.JJH)||0,
-                SJH: Number(item.SJH)||0,
-                SJH1:Number(item.SJH1)||0,
-                JK_K:Number(item.JK_K)||0,
-                SP1:Number(item.SP1)||0,
-               JH1:Number(item.JH1)||0,
+            //     DP: Number(item.DP)||0,
+            //     DS: Number(item.DS)||0,
+            //     DP1:Number(item.DP1)||0,
+            //     JJH: Number(item.JJH)||0,
+            //     SJH: Number(item.SJH)||0,
+            //     SJH1:Number(item.SJH1)||0,
+            //     JK_K:Number(item.JK_K)||0,
+            //     SP1:Number(item.SP1)||0,
+            //    JH1:Number(item.JH1)||0,
                Husk:Number(item.Husk)||0,
-               Rejection: Number(item.Rejection)||0,
+            //    Rejection: Number(item.Rejection)||0,
                Big_Taiho: Number(item.Big_Taiho)||0,
                 Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
                 Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
@@ -401,20 +401,20 @@ const PeelingTable = (props:any) => {
                   UnPeel_Prcnt:formatNumber(item.unpeelp),
                Broken_Prcnt:formatNumber(item.brokenp),
                Chura_Prcnt:formatNumber(item.churap),
-                Unpeel_Piece:Number(item.UnpeelPiece) ||0,
+                // Unpeel_Piece:Number(item.UnpeelPiece) ||0,
                 WholesPeel_Or_WholesJB: Number(item.WholesPeel)||0,
                 WholesUnpeel_Or_LW:Number(item.WholesUnpeel)||0,
-                DP: Number(item.DP)||0,
-                DS: Number(item.DS)||0,
-                DP1:Number(item.DP1)||0,
-                JJH: Number(item.JJH)||0,
-                SJH: Number(item.SJH)||0,
-                SJH1:Number(item.SJH1)||0,
-                JK_K:Number(item.JK_K)||0,
-                SP1:Number(item.SP1)||0,
-               JH1:Number(item.JH1)||0,
+            //     DP: Number(item.DP)||0,
+            //     DS: Number(item.DS)||0,
+            //     DP1:Number(item.DP1)||0,
+            //     JJH: Number(item.JJH)||0,
+            //     SJH: Number(item.SJH)||0,
+            //     SJH1:Number(item.SJH1)||0,
+            //     JK_K:Number(item.JK_K)||0,
+            //     SP1:Number(item.SP1)||0,
+            //    JH1:Number(item.JH1)||0,
                Husk:Number(item.Husk)||0,
-               Rejection: Number(item.Rejection)||0,
+            //    Rejection: Number(item.Rejection)||0,
                Big_Taiho: Number(item.Big_Taiho)||0,
                 Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
                 Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
@@ -738,11 +738,11 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Broken (%)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Chura (%)</TableHead>
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead>
+                        {/* <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead> */}
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
                        
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DP (DP&DS)</TableHead>
+                        {/* <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DP (DP&DS)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >DS (DP&DS)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>DP1 (DP&DS)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >JJH (Sorting)</TableHead>
@@ -750,9 +750,9 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >SJH1 (Sorting)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >JK/K (Sorting)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>SP1 (Sorting)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>JH1 (Sorting)</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >RCN⠀Husk</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Rejection</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>JH1 (Sorting)</TableHead> */}
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Husk</TableHead>
+                        {/* <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Rejection</TableHead> */}
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Big⠀Taiho</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Issue(Kg)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Backlog</TableHead>
@@ -860,11 +860,11 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.brokenp)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.churap)}</TableCell>
 
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
+                                        {/* <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> */}
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
+                                        {/* <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.DS)}</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP1)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.JJH)}</TableCell>
@@ -872,9 +872,9 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH1)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.JK_K)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell> */}
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
+                                        {/* <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell> */}
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
                                         <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.TotalInput)-parseFloat(item.difference)).toString())} Kg</TableCell>
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.difference)} Kg</TableCell>
@@ -951,11 +951,11 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center font-semibold">{item.brokenp ?`${formatNumber(item.brokenp)} %`:''}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.churap ?`${formatNumber(item.churap)} %`:''}</TableCell>
 
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
+                                        {/* <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> */}
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
+                                        {/* <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.DS)}</TableCell>
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP1)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.JJH)}</TableCell>
@@ -963,9 +963,9 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH1)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.JK_K)}</TableCell>
                                         <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell> */}
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center bg-blue-200">{formatNumber(item.Rejection)}</TableCell>
+                                        {/* <TableCell className="text-center bg-blue-200">{formatNumber(item.Rejection)}</TableCell> */}
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
                                         <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.TotalInput)-parseFloat(item.difference)).toString())} </TableCell>
 

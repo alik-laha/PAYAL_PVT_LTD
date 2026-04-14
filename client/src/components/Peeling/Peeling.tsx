@@ -96,17 +96,17 @@ const Peeling = () => {
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-400">
                     <p>Issue Mayur</p> <br /><p>{data.data[0].WholesPeel && data.data[0].WholesUnpeel? formatNumber(parseFloat(data.data[0].WholesPeel)+parseFloat(data.data[0].WholesUnpeel))  : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    {/* <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
                     <p>Issue DPDS </p><br /><p>{data.data[0].DP && data.data[0].DS && data.data[0].DP1? formatNumber(parseFloat(data.data[0].DP)+parseFloat(data.data[0].DS)+parseFloat(data.data[0].DP1))  : 0}  Kg</p>
-                    </div>
-                    <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
+                    </div> */}
+                    {/* <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
                     <p>Issue Sorting</p> <br /><p>{data.data[0].SJH && data.data[0].JJH && data.data[0].SJH1 &&
                         data.data[0].SP1 && data.data[0].JK_K && data.data[0].JH1? formatNumber(parseFloat(data.data[0].SJH)+parseFloat(data.data[0].SJH1)+parseFloat(data.data[0].JJH)
                         +parseFloat(data.data[0].JK_K)+parseFloat(data.data[0].SP1)+parseFloat(data.data[0].JH1))  : 0}  Kg</p>
-                    </div>
-                    <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
+                    </div> */}
+                    {/* <div className="flexbox-tile bg-sky-500 hover:bg-sky-400">
                     <p>Issue Village</p> <br /><p>{data.data[0].UnpeelPiece ? formatNumber(parseFloat(data.data[0].UnpeelPiece)) : 0} Kg</p>
-                    </div>
+                    </div> */}
                     <div className="flexbox-tile bg-green-500 hover:bg-green-400">
                     <p>Issue Husk</p> <br /><p>{data.data[0].Husk  ? formatNumber(parseFloat(data.data[0].Husk)) : 0} Kg</p>
                     </div>

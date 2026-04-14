@@ -28,7 +28,8 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, Dr
 import { FaHistory } from 'react-icons/fa';
 import PendingBacklog from '../common/PendingBacklog';
 import DashboardFooter from '../dashboard/DashboardFooter';
-
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 
 const DPDS = () => {
@@ -91,6 +92,55 @@ const DPDS = () => {
 
     }
 
+const getIssueGrades = () => {
+    const row = data?.data?.[0] || {};
+
+    const excludeKeys = [
+        "issue_rejection",
+        "issue_village",
+        "issue_bigTaiho",
+        "issue_mayur",
+        ...Array.from({ length: 10 }, (_, i) => `issue_ext_grade_${i + 1}`),
+        ...Array.from({ length: 10 }, (_, i) => `issue_add_${i + 1}`)
+    ];
+
+    return Object.entries(row)
+        .filter(([key]) =>
+            key.startsWith("issue_") && !excludeKeys.includes(key)
+        )
+        .map(([key, value]) => ({
+            name: key,
+            value: parseFloat(value as string) || 0
+        }));
+};
+const downloadExcel = () => {
+    const grades = getIssueGrades();
+
+    const formattedData = grades.map(g => ({
+        Grade: g.name.replace("issue_", "").replace("_", " ").toUpperCase(),
+        Value: g.value
+    }));
+
+    // Create worksheet
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+    // Create workbook
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Issue Grades");
+
+    // Generate Excel file
+    const excelBuffer = XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+    });
+
+    const blob = new Blob([excelBuffer], {
+        type: "application/octet-stream",
+    });
+
+    saveAs(blob, "issue_grades.xlsx");
+};
+
     function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
@@ -100,65 +150,110 @@ const DPDS = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header mx-2">
-                <div className="flexbox-tile bg-blue-500 hover:bg-blue-400">
-                        <p>Issue Packing</p> <br /><p>{data.data[0].issue_m_ds && data.data[0].issue_m_dp && data.data[0].issue_k_dp 
-                        && data.data[0].issue_ds_1 && data.data[0].issue_ds_2 && data.data[0].issue_sp_2 && data.data[0].issue_yjh 
-                        && data.data[0].issue_yk && data.data[0].issue_kp && data.data[0].issue_wp && data.data[0].issue_rs && data.data[0].issue_dp_2
-                        && data.data[0].issue_dp_3 && data.data[0].issue_dp_4 && data.data[0].issue_dp_3l
-                        && data.data[0].issue_ss && data.data[0].issue_os && data.data[0].issue_os1
+                
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <div className="flexbox-tile bg-blue-500 hover:bg-blue-400 cursor-pointer">
 
-                        && data.data[0].issue_V_ds && data.data[0].issue_V_m_ds && data.data[0].issue_V_dp &&
-        data.data[0].issue_V_m_dp && data.data[0].issue_V_lp && data.data[0].issue_V_lp_2 &&
-        data.data[0].issue_V_k_dp && data.data[0].issue_V_ss && data.data[0].issue_V_yjh &&
-        data.data[0].issue_V_yk && data.data[0].issue_V_sp_2 && data.data[0].issue_V_kp &&
-        data.data[0].issue_V_dp_2 && data.data[0].issue_V_dp_3 && data.data[0].issue_V_dp_4 &&
-        data.data[0].issue_V_os && data.data[0].issue_V_os_1 && data.data[0].issue_V_wp &&
-        data.data[0].issue_V_rs && data.data[0].issue_ext_grade_1 && data.data[0].issue_ext_grade_2 &&
-        data.data[0].issue_ext_grade_3 && data.data[0].issue_ext_grade_4 && data.data[0].issue_ext_grade_5 &&
-        data.data[0].issue_ext_grade_6 && data.data[0].issue_ext_grade_7 && data.data[0].issue_ext_grade_8 &&
-        data.data[0].issue_ext_grade_9 && data.data[0].issue_ext_grade_10                
-                        && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
-                        && data.data[0].issue_add_10 
-                        ? formatNumber(parseFloat(data.data[0].issue_m_ds)+parseFloat(data.data[0].issue_m_dp)+parseFloat(data.data[0].issue_k_dp)
-                        +parseFloat(data.data[0].issue_ds_1)+parseFloat(data.data[0].issue_ds_2)+parseFloat(data.data[0].issue_sp_2)+
-                        parseFloat(data.data[0].issue_yjh)+parseFloat(data.data[0].issue_yk)+parseFloat(data.data[0].issue_kp)
-                        + parseFloat(data.data[0].issue_wp)+parseFloat(data.data[0].issue_rs)+parseFloat(data.data[0].issue_dp_2)
-                        +parseFloat(data.data[0].issue_dp_3)+parseFloat(data.data[0].issue_dp_4)+parseFloat(data.data[0].issue_dp_3l)
-                        +parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_os)+parseFloat(data.data[0].issue_os1)
-                        +parseFloat(data.data[0].issue_V_ds) +
-                        parseFloat(data.data[0].issue_V_m_ds) +
-                        parseFloat(data.data[0].issue_V_dp) +
-                        parseFloat(data.data[0].issue_V_m_dp) +
-                        parseFloat(data.data[0].issue_V_lp) +
-                        parseFloat(data.data[0].issue_V_lp_2) +
-                        parseFloat(data.data[0].issue_V_k_dp) +
-                        parseFloat(data.data[0].issue_V_ss) +
-                        parseFloat(data.data[0].issue_V_yjh) +
-                        parseFloat(data.data[0].issue_V_yk) +
-                        parseFloat(data.data[0].issue_V_sp_2) +
-                        parseFloat(data.data[0].issue_V_kp) +
-                        parseFloat(data.data[0].issue_V_dp_2) +
-                        parseFloat(data.data[0].issue_V_dp_3) +
-                        parseFloat(data.data[0].issue_V_dp_4) +
-                        parseFloat(data.data[0].issue_V_os) +
-                        parseFloat(data.data[0].issue_V_os_1) +
-                        parseFloat(data.data[0].issue_V_wp) +
-                        parseFloat(data.data[0].issue_V_rs) +
-                        parseFloat(data.data[0].issue_ext_grade_1) +
-                        parseFloat(data.data[0].issue_ext_grade_2) +
-                        parseFloat(data.data[0].issue_ext_grade_3) +
-                        parseFloat(data.data[0].issue_ext_grade_4) +
-                        parseFloat(data.data[0].issue_ext_grade_5) +
-                        parseFloat(data.data[0].issue_ext_grade_6) +
-                        parseFloat(data.data[0].issue_ext_grade_7) +
-                        parseFloat(data.data[0].issue_ext_grade_8) +
-                        parseFloat(data.data[0].issue_ext_grade_9) +
-                        parseFloat(data.data[0].issue_ext_grade_10) +
-                            +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
-                            +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>
-                  
-                        
-                    </div>
+
+                                    <p>Issue Packing</p> <br /><p className='underline'>{data.data[0].issue_m_ds && data.data[0].issue_m_dp && data.data[0].issue_k_dp
+                                        && data.data[0].issue_ds_1 && data.data[0].issue_ds_2 && data.data[0].issue_sp_2 && data.data[0].issue_yjh
+                                        && data.data[0].issue_yk && data.data[0].issue_kp && data.data[0].issue_wp && data.data[0].issue_rs && data.data[0].issue_dp_2
+                                        && data.data[0].issue_dp_3 && data.data[0].issue_dp_4 && data.data[0].issue_dp_3l
+                                        && data.data[0].issue_ss && data.data[0].issue_os && data.data[0].issue_os1
+
+                                        && data.data[0].issue_V_ds && data.data[0].issue_V_m_ds && data.data[0].issue_V_dp &&
+                                        data.data[0].issue_V_m_dp && data.data[0].issue_V_lp && data.data[0].issue_V_lp_2 &&
+                                        data.data[0].issue_V_k_dp && data.data[0].issue_V_ss && data.data[0].issue_V_yjh &&
+                                        data.data[0].issue_V_yk && data.data[0].issue_V_sp_2 && data.data[0].issue_V_kp &&
+                                        data.data[0].issue_V_dp_2 && data.data[0].issue_V_dp_3 && data.data[0].issue_V_dp_4 &&
+                                        data.data[0].issue_V_os && data.data[0].issue_V_os_1 && data.data[0].issue_V_wp &&
+                                        data.data[0].issue_V_rs && data.data[0].issue_ext_grade_1 && data.data[0].issue_ext_grade_2 &&
+                                        data.data[0].issue_ext_grade_3 && data.data[0].issue_ext_grade_4 && data.data[0].issue_ext_grade_5 &&
+                                        data.data[0].issue_ext_grade_6 && data.data[0].issue_ext_grade_7 && data.data[0].issue_ext_grade_8 &&
+                                        data.data[0].issue_ext_grade_9 && data.data[0].issue_ext_grade_10
+                                        && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
+                                        && data.data[0].issue_add_10
+                                        ? formatNumber(parseFloat(data.data[0].issue_m_ds) + parseFloat(data.data[0].issue_m_dp) + parseFloat(data.data[0].issue_k_dp)
+                                            + parseFloat(data.data[0].issue_ds_1) + parseFloat(data.data[0].issue_ds_2) + parseFloat(data.data[0].issue_sp_2) +
+                                            parseFloat(data.data[0].issue_yjh) + parseFloat(data.data[0].issue_yk) + parseFloat(data.data[0].issue_kp)
+                                            + parseFloat(data.data[0].issue_wp) + parseFloat(data.data[0].issue_rs) + parseFloat(data.data[0].issue_dp_2)
+                                            + parseFloat(data.data[0].issue_dp_3) + parseFloat(data.data[0].issue_dp_4) + parseFloat(data.data[0].issue_dp_3l)
+                                            + parseFloat(data.data[0].issue_ss) + parseFloat(data.data[0].issue_os) + parseFloat(data.data[0].issue_os1)
+                                            + parseFloat(data.data[0].issue_V_ds) +
+                                            parseFloat(data.data[0].issue_V_m_ds) +
+                                            parseFloat(data.data[0].issue_V_dp) +
+                                            parseFloat(data.data[0].issue_V_m_dp) +
+                                            parseFloat(data.data[0].issue_V_lp) +
+                                            parseFloat(data.data[0].issue_V_lp_2) +
+                                            parseFloat(data.data[0].issue_V_k_dp) +
+                                            parseFloat(data.data[0].issue_V_ss) +
+                                            parseFloat(data.data[0].issue_V_yjh) +
+                                            parseFloat(data.data[0].issue_V_yk) +
+                                            parseFloat(data.data[0].issue_V_sp_2) +
+                                            parseFloat(data.data[0].issue_V_kp) +
+                                            parseFloat(data.data[0].issue_V_dp_2) +
+                                            parseFloat(data.data[0].issue_V_dp_3) +
+                                            parseFloat(data.data[0].issue_V_dp_4) +
+                                            parseFloat(data.data[0].issue_V_os) +
+                                            parseFloat(data.data[0].issue_V_os_1) +
+                                            parseFloat(data.data[0].issue_V_wp) +
+                                            parseFloat(data.data[0].issue_V_rs) +
+                                            parseFloat(data.data[0].issue_ext_grade_1) +
+                                            parseFloat(data.data[0].issue_ext_grade_2) +
+                                            parseFloat(data.data[0].issue_ext_grade_3) +
+                                            parseFloat(data.data[0].issue_ext_grade_4) +
+                                            parseFloat(data.data[0].issue_ext_grade_5) +
+                                            parseFloat(data.data[0].issue_ext_grade_6) +
+                                            parseFloat(data.data[0].issue_ext_grade_7) +
+                                            parseFloat(data.data[0].issue_ext_grade_8) +
+                                            parseFloat(data.data[0].issue_ext_grade_9) +
+                                            parseFloat(data.data[0].issue_ext_grade_10) +
+                                            +parseFloat(data.data[0].issue_add_7) + parseFloat(data.data[0].issue_add_8) + parseFloat(data.data[0].issue_add_9)
+                                            + parseFloat(data.data[0].issue_add_10)) : 0} Kg</p>
+
+                                </div>
+                            </DialogTrigger>
+
+                            <DialogContent className="max-w-3xl">
+                                <DialogHeader>
+                                    <DialogTitle className="text-center font-semibold mb-3">
+                                        Issue Packing Breakdown
+                                    </DialogTitle>
+                                </DialogHeader>
+
+                                {/* Table */}
+                                <div className="max-h-[400px] overflow-y-auto">
+                                    <table className="w-full border">
+                                        <thead>
+                                            <tr className="bg-gray-200">
+                                                <th className="border p-2">Grade</th>
+                                                <th className="border p-2">Value (Kg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {getIssueGrades().map((g, i) => (
+                                                <tr key={i}>
+                                                    <td className="border p-2">{i+1}. {g.name}</td>
+                                                    <td className="border p-2">{g.value}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {/* Download Button */}
+                                <div className="flex justify-end mt-4">
+                                    <Button
+                                        onClick={downloadExcel}
+                                        className="bg-green-500 hover:bg-green-600"
+                                    >
+                                        Download Excel
+                                    </Button>
+                                </div>
+                            </DialogContent>
+                        </Dialog>                       
+                   
                
                     <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                    <p>Issue Big Taiho </p> <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
