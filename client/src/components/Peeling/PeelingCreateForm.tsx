@@ -336,16 +336,14 @@ console.log(vilLot)
                          { !LotNo.includes('V')? <TableHead className="text-center" >Breakdown Duration</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >Other Duration</TableHead>:''}
 
-                        <TableHead className="text-center" >Unpeel (%)</TableHead>
-                        <TableHead className="text-center" >Broken (%)</TableHead>
-                        <TableHead className="text-center" >Chura (%)</TableHead>
-
-
-                        <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>
-                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'}</TableHead>
-                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes_UnPeel (Mayur)'):'Wholes_UnPeel (Mayur)'}</TableHead>
                        
-                        { !LotNo.includes('V')?  <TableHead className="text-center" >DP (DP&DS)</TableHead>:''}
+
+
+                        {/* <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead> */}
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes⠀&⠀JB (Mayur)':'Wholes⠀Peel (Mayur)'):'Wholes⠀Peel (Mayur)'}</TableHead>
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes⠀UnPeel (Mayur)'):'Wholes⠀UnPeel (Mayur)'}</TableHead>
+                       
+                        {/* { !LotNo.includes('V')?  <TableHead className="text-center" >DP (DP&DS)</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >DP1 (DP&DS)</TableHead>:''}
                        { !LotNo.includes('V')?   <TableHead className="text-center" >DS (DP&DS)</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >JJH (Sorting)</TableHead>:''}
@@ -353,10 +351,13 @@ console.log(vilLot)
                         { !LotNo.includes('V')?  <TableHead className="text-center" >SJH1 (Sorting)</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >JH1 (Sorting)</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >JK/K (Sorting)</TableHead>:''}
-                       { !LotNo.includes('V')?   <TableHead className="text-center" >SP1 (Sorting)</TableHead>:''}
+                       { !LotNo.includes('V')?   <TableHead className="text-center" >SP1 (Sorting)</TableHead>:''} */}
                         <TableHead className="text-center" >Big⠀Taiho</TableHead>
-                        <TableHead className="text-center" >Husk</TableHead>
-                        <TableHead className="text-center" >Rejection</TableHead>
+                        <TableHead className="text-center" >Peeling⠀Husk</TableHead>
+                         <TableHead className="text-center" >Unpeel (%)</TableHead>
+                        <TableHead className="text-center" >Broken (%)</TableHead>
+                        <TableHead className="text-center" >Chura (%)</TableHead>
+                        {/* <TableHead className="text-center" >Rejection</TableHead> */}
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
@@ -382,17 +383,15 @@ console.log(vilLot)
                                       { !LotNo.includes('V')?    <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>:''}
 
 
-                                         <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.unpeelp} placeholder="%" onChange={(e) => handleRowChange(idx,'unpeelp',e.target.value)} required /></TableCell>
-                                          <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.brokenp} placeholder="%" onChange={(e) => handleRowChange(idx,'brokenp',e.target.value)} required /></TableCell>
-                                           <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.churap} placeholder="%" onChange={(e) => handleRowChange(idx,'churap',e.target.value)} required /></TableCell>
+                                   
 
 
 
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.UnpeelPiece} placeholder="Pr." onChange={(e) => handleRowChange(idx,'UnpeelPiece',e.target.value)} required /></TableCell>
+                                        {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.UnpeelPiece} placeholder="Pr." onChange={(e) => handleRowChange(idx,'UnpeelPiece',e.target.value)} required /></TableCell> */}
 
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.WholesPeel} placeholder="Pr." onChange={(e) => handleRowChange(idx,'WholesPeel',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.WholesUnpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx,'WholesUnpeel',e.target.value)} required /></TableCell>
-                                      { !LotNo.includes('V')? <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.DP} placeholder="Pr." onChange={(e) => handleRowChange(idx,'DP',e.target.value)} required /></TableCell>:''}
+                                      {/* { !LotNo.includes('V')? <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.DP} placeholder="Pr." onChange={(e) => handleRowChange(idx,'DP',e.target.value)} required /></TableCell>:''}
                                         { !LotNo.includes('V')?  <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.DP1} placeholder="Pr." onChange={(e) => handleRowChange(idx,'DP1',e.target.value)} required /></TableCell>:''}
                                         { !LotNo.includes('V')?  <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.DS} placeholder="Pr." onChange={(e) => handleRowChange(idx,'DS',e.target.value)} required /></TableCell>:''}
                                        { !LotNo.includes('V')?   <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.JJH} placeholder="Pr." onChange={(e) => handleRowChange(idx,'JJH',e.target.value)} required /></TableCell>:''}
@@ -400,12 +399,16 @@ console.log(vilLot)
                                        { !LotNo.includes('V')?   <TableCell className="text-center"> <Input className='bg-green-100'type="number" value={row.SJH1} placeholder="Pr." onChange={(e) => handleRowChange(idx,'SJH1',e.target.value)} required /></TableCell>:''}
                                        { !LotNo.includes('V')?   <TableCell className="text-center"> <Input className='bg-green-100'type="number" value={row.JH1} placeholder="Pr." onChange={(e) => handleRowChange(idx,'JH1',e.target.value)} required /></TableCell>:''}
                                        { !LotNo.includes('V')?   <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.JK_K} placeholder="Pr." onChange={(e) => handleRowChange(idx,'JK_K',e.target.value)} required /></TableCell>:''}
-                                       { !LotNo.includes('V')?   <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.SP1} placeholder="Pr." onChange={(e) => handleRowChange(idx,'SP1',e.target.value)} required /></TableCell>:''}
+                                       { !LotNo.includes('V')?   <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.SP1} placeholder="Pr." onChange={(e) => handleRowChange(idx,'SP1',e.target.value)} required /></TableCell>:''} */}
 
-                                        <TableCell className="text-center"> <Input className='bg-cyan-100' type="number" value={row.Big_Taiho} placeholder="Pr." onChange={(e) => handleRowChange(idx,'Big_Taiho',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-orange-100' type="number" value={row.Husk} placeholder="Pr." onChange={(e) => handleRowChange(idx,'Husk',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-violet-100' type="number" value={row.Rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell>
-
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.Big_Taiho} placeholder="Pr." onChange={(e) => handleRowChange(idx,'Big_Taiho',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.Husk} placeholder="Pr." onChange={(e) => handleRowChange(idx,'Husk',e.target.value)} required /></TableCell>
+                                        {/* <TableCell className="text-center"> <Input className='bg-violet-100' type="number" value={row.Rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell> */}
+                                              
+                                              
+                                              <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.unpeelp} placeholder="%" onChange={(e) => handleRowChange(idx,'unpeelp',e.target.value)} required /></TableCell>
+                                          <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.brokenp} placeholder="%" onChange={(e) => handleRowChange(idx,'brokenp',e.target.value)} required /></TableCell>
+                                           <TableCell className="text-center"> <Input className='bg-green-300' type="number" value={row.churap} placeholder="%" onChange={(e) => handleRowChange(idx,'churap',e.target.value)} required /></TableCell>
                                     </TableRow>
                                 );
                             })

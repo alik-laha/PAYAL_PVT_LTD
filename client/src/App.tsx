@@ -91,7 +91,7 @@ function App() {
         transform: 'scale(0.8)',
         transformOrigin: 'top left',
         width: '125vw',
-        height: '75vh',
+        height: '125vh',
       }}>
       <Routes>
         <Route path='/forgotpass' element={<EmailEntryforResetpassword />} />

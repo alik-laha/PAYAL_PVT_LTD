@@ -1011,11 +1011,7 @@ export const directorDashboard = async (req: Request, res: Response) => {
 
       const employeecount = await Employee.count({ where: { status: true } });
 
-      const Issued = await gatePassMaster.count({ col:'gatePassNo'
-        ,where: { status: { [Op.notLike]: 'Cancelled' } }} );
-      const completed  = await gatePassMaster.count({ col:'gatePassNo',
-                where: { status: 'Closed' } });
-      const pendingGatepass:number=Issued>0 && completed>0 ? Issued-completed:0 
+    
 
 
       /* ===============================
@@ -1378,6 +1374,12 @@ export const directorDashboard = async (req: Request, res: Response) => {
                 recevingDate: { [Op.between]: [fyStart, nowIST] }
             }
         });
+          const Issued = await gatePassMaster.count({ col:'gatePassNo'
+        ,where: { status: { [Op.notLike]: 'Cancelled' } ,
+     date: { [Op.between]: [fyStart, nowIST] }}} );
+      const completed  = await gatePassMaster.count({ col:'gatePassNo',
+                where: { status: 'Closed', date: { [Op.between]: [fyStart, nowIST] } } });
+      const pendingGatepass:number=Issued>0 && completed>0 ? Issued-completed:0 
 
         const village_out_prod = Number(Ville_Outside_Production?.dataValues.Production_Village_Out) || 0;
         const village_out_gate = Number(Ville_Outside_Gatepass?.dataValues.Final_Village_Out) || 0;
