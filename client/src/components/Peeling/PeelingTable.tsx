@@ -728,17 +728,17 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Date</TableHead>
                           <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
                        
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pressure</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Moisture⠀(Min⠀:⠀Max)⠀%</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>
+                         {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pressure</TableHead>}
+                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Moisture⠀(Min⠀:⠀Max)⠀%</TableHead>}
+                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>}
+                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>}
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Unpeel (%)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Broken (%)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Chura (%)</TableHead>
 
-                        {/* <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead> */}
+                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead> }
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
                        
@@ -849,7 +849,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                             {item.editStatus}
                                         </button></TableCell>
                                        
-                                        <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
+                                      <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
                                         <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
@@ -860,7 +860,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.brokenp)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.churap)}</TableCell>
 
-                                        {/* <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> */}
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         
@@ -940,18 +940,18 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                             {item.editStatus}
                                         </button></TableCell>
                                        
-                                           <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>
-                                           <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
-                                        <TableCell className="text-center  ">{item.peelingTime} </TableCell>
+                                          {searchType==='LOT' &&  <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>}
+                                            {searchType==='LOT' &&  <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>}
+                                         {searchType==='LOT' &&  <TableCell className="text-center  ">{item.peelingTime} </TableCell>}
                                       
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                         {searchType==='LOT' &&  <TableCell className="text-center">{item.NoOfTrolley} </TableCell>}
                                         <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.TotalInput)} </TableCell>
 
                                         <TableCell className="text-center font-semibold">{item.unpeelp ?`${formatNumber(item.unpeelp)} %`:''} </TableCell>
                                         <TableCell className="text-center font-semibold">{item.brokenp ?`${formatNumber(item.brokenp)} %`:''}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.churap ?`${formatNumber(item.churap)} %`:''}</TableCell>
 
-                                        {/* <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> */}
+                                          {searchType==='LOT' &&  <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> }
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         

@@ -339,7 +339,7 @@ console.log(vilLot)
                        
 
 
-                        {/* <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead> */}
+                        {LotNo.includes('V') && <TableHead className="text-center" >Pieces⠀Unpeel (Village)</TableHead> }
                         <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes⠀&⠀JB (Mayur)':'Wholes⠀Peel (Mayur)'):'Wholes⠀Peel (Mayur)'}</TableHead>
                         <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes⠀UnPeel (Mayur)'):'Wholes⠀UnPeel (Mayur)'}</TableHead>
                        
@@ -387,7 +387,7 @@ console.log(vilLot)
 
 
 
-                                        {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.UnpeelPiece} placeholder="Pr." onChange={(e) => handleRowChange(idx,'UnpeelPiece',e.target.value)} required /></TableCell> */}
+                                        {LotNo.includes('V') && <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.UnpeelPiece} placeholder="Pr." onChange={(e) => handleRowChange(idx,'UnpeelPiece',e.target.value)} required /></TableCell>}
 
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.WholesPeel} placeholder="Pr." onChange={(e) => handleRowChange(idx,'WholesPeel',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.WholesUnpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx,'WholesUnpeel',e.target.value)} required /></TableCell>
