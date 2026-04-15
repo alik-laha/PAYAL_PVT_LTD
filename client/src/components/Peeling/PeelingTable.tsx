@@ -951,7 +951,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                         <TableCell className="text-center font-semibold">{item.brokenp ?`${formatNumber(item.brokenp)} %`:''}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.churap ?`${formatNumber(item.churap)} %`:''}</TableCell>
 
-                                          {searchType==='LOT' &&  <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> }
+                                          {searchType==='V-LOT' &&  <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> }
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         
