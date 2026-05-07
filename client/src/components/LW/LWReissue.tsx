@@ -261,9 +261,9 @@ const LWReCreateForm = (props: Props) => {
 
 
         if (
-            Number(props.borma[0].issue_add_7) < Number(rows[0].rcv_mayur) ||
-            Number(props.borma[0].issue_add_8) < Number(rows[0].rcv_hamsa) ||
-            Number(props.borma[0].rcv_wholes) < Number(rows[0].rcv_wholes)
+            (Number(props.borma[0].issue_add_7)||0) < Number(rows[0].rcv_mayur) ||
+            (Number(props.borma[0].issue_add_8)||0) < Number(rows[0].rcv_hamsa) ||
+            (Number(props.borma[0].rcv_wholes)||0) < Number(rows[0].rcv_wholes)
         ) {
             setErrortext('Current Receiving should not Exceed Previous Receiving Value');
 
@@ -581,7 +581,7 @@ const LWReCreateForm = (props: Props) => {
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required />
                                           </TableCell>
 
-                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_wholes)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold">{props.borma[0].rcv_wholes ?formatNumber(props.borma[0].rcv_wholes):0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required />
                                           </TableCell>

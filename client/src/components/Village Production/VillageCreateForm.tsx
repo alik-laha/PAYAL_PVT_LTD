@@ -425,10 +425,10 @@ const VillageCreateForm = (props: Props) => {
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_8.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_9.toString())} %</TableCell>
                                             
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_wholes)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_lw)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_sorting)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_dpds)} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_wholes ?formatNumber(row.rcv_wholes):0} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_lw ?formatNumber(row.rcv_lw):0} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_sorting ?formatNumber(row.rcv_sorting):0} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_dpds ?formatNumber(row.rcv_dpds):0} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{row.rcv_bigTaiho ?formatNumber(row.rcv_bigTaiho):0} </TableCell>
                                            
 
