@@ -130,7 +130,7 @@ const PeelingInitial = (props: any) => {
                             })
                         ) : <TableRow>
                            
-                            <TableCell colSpan={4} className="text-center  text-red-500 font-semibold">No Pending Peeling</TableCell>
+                            <TableCell colSpan={4} className="text-center py-3 text-md text-red-500 font-semibold">No Pending Peeling</TableCell>
                            
                             </TableRow>}
                     </TableBody>

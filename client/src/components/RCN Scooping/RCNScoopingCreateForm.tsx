@@ -115,10 +115,9 @@ const RCNScoopingCreateForm = (props: any) => {
                                 );
                             })
                         ) : <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Scooping</TableCell>
-                            <TableCell></TableCell>
+                          
+                            <TableCell colSpan={4} className="text-center py-3 text-md text-red-500 font-semibold">No Pending Scooping</TableCell>
+                            
                             </TableRow>}
                     </TableBody>
                 </Table>

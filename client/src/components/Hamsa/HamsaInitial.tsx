@@ -137,11 +137,9 @@ const HamsaInitial = (props: any) => {
                                 
                             })
                         ) : <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Hamsa</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                        
+                            <TableCell colSpan={5} className="text-center py-3 text-md text-red-500 font-semibold">No Pending Hamsa</TableCell>
+                     
                             </TableRow>}
                     </TableBody>
                 </Table>
