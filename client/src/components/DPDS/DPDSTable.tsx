@@ -1613,7 +1613,7 @@ const DPDSTable = (props:any) => {
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-screen">
+                                                    <DialogContent className="max-w-screen max-h-screen overflow-y-scroll">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-lg text-gray-600 text-center my-3 tracking-wider drop-shadow-xl font-bold'>DPDS Entry Reissue</p>

@@ -74,6 +74,7 @@ const PeelingTable = (props:any) => {
     const [Data, setData] = useState<PeelingData[]>([])
      const dropdown = ['LOT', 'V-LOT','R-LOT']
             const [searchType, setsearchType] = useState('LOT')
+             const [searchtableType, setsearchTableType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -468,6 +469,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
 
         }
         setData(data.rcnEntries)
+        setsearchTableType('LOT')
         }
         else if (searchType === 'R-LOT') {
             const response = await axios.put('/api/peeling/peelingprimarysearch', {
@@ -490,6 +492,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
 
         }
         setData(data.rcnEntries)
+        setsearchTableType('R-LOT')
         }
         else{
             const response = await axios.put('/api/peeling/peelingprimarysearch', {
@@ -512,6 +515,7 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
 
         }
         setData(data.rcnEntries)
+        setsearchTableType('V-LOT')
         }
         
 
@@ -716,29 +720,34 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                     </div>
 
                 </div>}
-                {props.props==='edit' && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {props.props==='edit' && 
+                <span className="w-1/8 ">
+                <Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Id</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Action</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>
+                        Id</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >
+                        Action</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Item⠀Lot⠀No</TableHead>
-                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Origin</TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >
+                        Origin</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Date</TableHead>
-                          <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
+                        <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Edit⠀Status </TableHead>
                        
-                         {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pressure</TableHead>}
-                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Moisture⠀(Min⠀:⠀Max)⠀%</TableHead>}
-                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>}
-                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>}
+                        {(searchtableType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pressure</TableHead>}
+                        {(searchtableType==='LOT' || props.props==='edit')  && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Moisture⠀(Min⠀:⠀Max)⠀%</TableHead>}
+                        {(searchtableType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Peeling⠀Time</TableHead>}
+                        {(searchtableType==='LOT' || props.props==='edit')  && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >No⠀Of⠀Trolley</TableHead>}
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`}>Total⠀Input⠀(Kg)</TableHead>
 
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Unpeel (%)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Broken (%)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Total⠀Chura (%)</TableHead>
 
-                        {(searchType==='LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead> }
+                        {(searchtableType==='V-LOT' || props.props==='edit') && <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Pieces⠀Unpeel (Village)</TableHead> }
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀Peel⠀/ Wholes+JB⠀(Mayur)</TableHead>
                         <TableHead className={`text-center ${props.props==='edit' ? 'bg-gray-100 text-gray-700':''}`} >Wholes⠀UnPeel⠀/ LW⠀(Mayur)</TableHead>
                        
@@ -849,18 +858,18 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                             {item.editStatus}
                                         </button></TableCell>
                                        
-                                      <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
-                                        <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
-                                        <TableCell className="text-center  ">{item.peelingTime} </TableCell>
+                                     {searchtableType==='LOT' &&  <TableCell className="text-center">{item.pressure ?formatNumber(item.pressure):''} </TableCell>}
+                                      {searchtableType==='LOT' &&   <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>}
+                                     {searchtableType==='LOT' &&    <TableCell className="text-center  ">{item.peelingTime} </TableCell>}
                                       
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                       {searchtableType==='LOT' &&  <TableCell className="text-center">{item.NoOfTrolley} </TableCell>}
                                         <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.TotalInput)}</TableCell>
                                         
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.unpeelp)}</TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.brokenp)}</TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.churap)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{item.unpeelp ?formatNumber(item.unpeelp):''}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{item.brokenp ?formatNumber(item.brokenp):''}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{item.churap ?formatNumber(item.churap):''}</TableCell>
 
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
+                                        {(searchtableType==='V-LOT' || props.props==='edit') && <TableCell className="text-center bg-green-100">{formatNumber(item.UnpeelPiece)}</TableCell>}
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         
@@ -940,18 +949,18 @@ const response = await axios.put('/api/peeling/peelingprimarysearch', {
                                             {item.editStatus}
                                         </button></TableCell>
                                        
-                                          {searchType==='LOT' &&  <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>}
-                                            {searchType==='LOT' &&  <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>}
-                                         {searchType==='LOT' &&  <TableCell className="text-center  ">{item.peelingTime} </TableCell>}
+                                          {searchtableType==='LOT' &&  <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>}
+                                            {searchtableType==='LOT' &&  <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>}
+                                         {searchtableType==='LOT' &&  <TableCell className="text-center  ">{item.peelingTime} </TableCell>}
                                       
-                                         {searchType==='LOT' &&  <TableCell className="text-center">{item.NoOfTrolley} </TableCell>}
+                                         {searchtableType==='LOT' &&  <TableCell className="text-center">{item.NoOfTrolley} </TableCell>}
                                         <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.TotalInput)} </TableCell>
 
                                         <TableCell className="text-center font-semibold">{item.unpeelp ?`${formatNumber(item.unpeelp)} %`:''} </TableCell>
                                         <TableCell className="text-center font-semibold">{item.brokenp ?`${formatNumber(item.brokenp)} %`:''}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.churap ?`${formatNumber(item.churap)} %`:''}</TableCell>
 
-                                          {searchType==='V-LOT' &&  <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> }
+                                          {searchtableType==='V-LOT' &&  <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell> }
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
                                         

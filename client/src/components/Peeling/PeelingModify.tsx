@@ -257,20 +257,20 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Kg" value={iptot} readOnly /></div>
 
                         <div className="flex"><Label className="w-2/4 mt-2">Pressure</Label>
-                        <Input className="w-2/4 text-center" placeholder="Pressure" value={pres} onChange={(e) => setPres(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center" placeholder="Pressure" value={pres} onChange={(e) => setPres(e.target.value)} /> </div>
                         
                         
                         <div className="flex"><Label className="w-2/4 mt-2">Moisture(Min-Max) </Label>
-                        <Input className="w-2/4 text-center" placeholder="%" value={moist} onChange={(e) => setMoist(e.target.value)} required/> </div>  
+                        <Input className="w-2/4 text-center" placeholder="%" value={moist} onChange={(e) => setMoist(e.target.value)} /> </div>  
                 
                         <div className="flex"><Label className="w-2/4 mt-2">Peeling-Time(Min-Max) </Label>
-                        <Input className="w-2/4 text-center" placeholder="%" value={peeltime} onChange={(e) => setPeelTime(e.target.value)} required/> </div> 
+                        <Input className="w-2/4 text-center" placeholder="%" value={peeltime} onChange={(e) => setPeelTime(e.target.value)} /> </div> 
 
 
     
                  
                     <div className="flex"><Label className="w-2/4 mt-2">No of Trolley</Label>
-                        <Input className="w-2/4 text-center" placeholder="Trolley" value={trolley} onChange={(e) => settrolley(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center" placeholder="Trolley" value={trolley} onChange={(e) => settrolley(e.target.value)} /> </div>
                     <div className="flex"><Label className="w-2/4 mt-2">No Of Operator</Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="Operator" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} readOnly/> </div>
 
@@ -282,11 +282,11 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <Input className="w-2/4 text-center " placeholder="Operator" value={huskOp} onChange={(e) => sethuskOp(e.target.value)} /> </div>
 
                         <div className="flex"><Label className="w-2/4 mt-2"> Unpeel (%)</Label>
-                        <Input className="w-2/4 text-center " placeholder="%" value={unpeelp} onChange={(e) => setUnpeelp(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center " placeholder="%" value={unpeelp} onChange={(e) => setUnpeelp(e.target.value)} /> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Broken (%)</Label>
-                        <Input className="w-2/4 text-center " placeholder="%" value={brokenp} onChange={(e) => setBrokenp(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center " placeholder="%" value={brokenp} onChange={(e) => setBrokenp(e.target.value)} /> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Chura (Village)</Label>
-                        <Input className="w-2/4 text-center " placeholder="%" value={churap} onChange={(e) => setChuraP(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center " placeholder="%" value={churap} onChange={(e) => setChuraP(e.target.value)} /> </div>
 
                     <div className="flex"><Label className="w-2/4 mt-2">{lotNo ? (lotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'} </Label>
                         <Input className="w-2/4 text-center " placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} required/> </div>
