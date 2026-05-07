@@ -191,13 +191,13 @@ const RejectionReCreateForm = (props: Props) => {
 
         if (
             Number(props.borma[0].issue_add_7) < Number(rows[0].rcv_peeling) ||
-            Number(props.borma[0].issue_add_8) < Number(rows[0].rcv_mayur) ||
-            Number(props.borma[0].rcv_village) < Number(rows[0].rcv_village) ||
-            Number(props.borma[0].rcv_wholes) < Number(rows[0].rcv_wholes) ||
-            Number(props.borma[0].rcv_lw) < Number(rows[0].rcv_lw) ||
-            Number(props.borma[0].rcv_dpds) < Number(rows[0].rcv_dpds) ||
-            Number(props.borma[0].rcv_sorting) < Number(rows[0].rcv_sorting) ||
-            Number(props.borma[0].rcv_bigTaiho) < Number(rows[0].rcv_bigTaiho) 
+            (Number(props.borma[0].issue_add_8)||0) < Number(rows[0].rcv_mayur) ||
+            (Number(props.borma[0].rcv_village)||0) < Number(rows[0].rcv_village) ||
+            (Number(props.borma[0].rcv_wholes)||0) < Number(rows[0].rcv_wholes) ||
+            (Number(props.borma[0].rcv_lw)||0) < Number(rows[0].rcv_lw) ||
+            (Number(props.borma[0].rcv_dpds)||0) < Number(rows[0].rcv_dpds) ||
+            (Number(props.borma[0].rcv_sorting)||0) < Number(rows[0].rcv_sorting) ||
+            (Number(props.borma[0].rcv_bigTaiho)||0) < Number(rows[0].rcv_bigTaiho) 
         ) {
             setErrortext('Current Receiving should not Exceed Previous Receiving Value');
 
@@ -435,27 +435,27 @@ const RejectionReCreateForm = (props: Props) => {
                                                 <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                           
-                                          <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)||0} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
                                                 
                                                
 
 
-                                        <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_dpds)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_dpds)||0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required />
                                           </TableCell>
 
-                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_sorting)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_sorting)||0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required />
                                           </TableCell>
 
-                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_wholes)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_wholes)||0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required />
                                           </TableCell>
-                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_lw)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_lw)||0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-cyan-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required />
                                           </TableCell>
