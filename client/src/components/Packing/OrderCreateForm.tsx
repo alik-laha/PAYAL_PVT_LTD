@@ -142,6 +142,7 @@ const OrderCreateForm = () => {
             if (successdialog) {
                 (successdialog as any).showModal();
             }
+            window.location.reload()
 
         }
         catch (err) {

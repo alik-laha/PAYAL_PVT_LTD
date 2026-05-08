@@ -1172,7 +1172,7 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
       },
     });
 
-
+    console.log(existing)
 
     if (existing) {
       // 2️⃣ Update: openquantity = openquantity + quantity

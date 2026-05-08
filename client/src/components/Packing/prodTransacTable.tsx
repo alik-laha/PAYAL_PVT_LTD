@@ -48,7 +48,7 @@ import {
 } from "@/components/ui/alert-dialog"
 
 import { Button } from "../ui/button";
-import { FaSearch } from "react-icons/fa";
+import { FaHistory, FaSearch } from "react-icons/fa";
 import { Input } from "../ui/input";
 import { FcApproval, FcApprove, FcCancel, FcDeleteDatabase, FcDisapprove, FcEditImage } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -218,6 +218,63 @@ const ProdTransacTable = () => {
             setsearchtableType('Packing')
         }
     }
+
+     const handlePendingSearch = async () => {
+        setblockpagen('none')
+       const response = await axios.put('/api/packing/orderSearch', {
+                orderStatus: 'Pending Approval'
+            })
+            const data = await response.data
+            setData(data.rcnEntries)
+            setsearchtableType('Order')
+    }
+
+    const handlePackingSearch = async () => {
+        setsearchType('Packing')
+        setblockpagen('flex')
+        const response = await axios.put('/api/packing/packingSearch', {
+            
+
+            }, {
+                params: {
+                    page: page,
+                    limit: limit
+                }
+            })
+            const data = await response.data
+            if (data.rcnEntries.length === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+
+            }
+            setData(data.rcnEntries)
+            setsearchtableType('Packing')
+    }
+
+    const handleOrderSearch = async () => {
+        setsearchType('Order')
+        setblockpagen('flex')
+        const response = await axios.put('/api/packing/orderSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                orderStatus: sectionstatus
+            }, {
+                params: {
+                    page: page,
+                    limit: limit
+                }
+            })
+            const data = await response.data
+            if (data.rcnEntries.length === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+
+            }
+            setData(data.rcnEntries)
+            setsearchtableType('Order')
+    }
+
+
     const handleTransactionSearchExcel = async () => {
         let ws
         let transformed: any[] = [];
@@ -405,7 +462,7 @@ const ProdTransacTable = () => {
                 (successdialog as any).showModal();
             }
 
-            //window.location.reload()
+            window.location.reload()
         }).catch((err) => {
             console.log(err)
             setErrorText(err.response.data.message)
@@ -462,7 +519,7 @@ const ProdTransacTable = () => {
                 (successdialog as any).showModal();
             }
 
-            //window.location.reload()
+            window.location.reload()
         }).catch((err) => {
             console.log(err)
             setErrorText(err.response.data.message)
@@ -668,6 +725,41 @@ const ProdTransacTable = () => {
                 </div>
                    
                 </div>
+                
+
+                <div className="w-full bg-gray-50 dark:bg-gray-800  p-1 md:p-2 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-9 gap-4 items-end">
+                                  {searchType === 'Order' && searchTableType === 'Order' && <Button
+                                className="flex w-48 items-center justify-center  bg-orange-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handlePendingSearch}
+                            >
+                                <FaHistory size={14} />
+                                Pending
+                            </Button>}
+
+                            
+
+                                {searchType === 'Order' && searchTableType === 'Order' && <Button
+                                className="flex w-48 items-center justify-center bg-purple-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handlePackingSearch}
+                            >
+                                <FaSearch size={14} />
+                                Packing
+                            </Button>}
+
+                            
+                                {searchType === 'Packing' && searchTableType === 'Packing' && <Button
+                                className="flex w-48 items-center justify-center  bg-purple-500 hover:bg-slate-600 text-white font-semibold rounded-md h-9 px-4 transition-all duration-200 shadow-sm"
+                                onClick={handleOrderSearch}
+                            >
+                                <FaSearch size={14} />
+                                Order
+                            </Button>}
+
+                            
+                </div>
+                </div>
+                  
                       
                
                 {searchTableType === 'Order' ?
