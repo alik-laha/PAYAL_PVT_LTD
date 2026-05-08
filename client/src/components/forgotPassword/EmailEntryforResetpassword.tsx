@@ -10,22 +10,19 @@ import { Label } from "../ui/label";
 
 const EmailEntryforResetpassword = () => {
     const emailRef = useRef<HTMLInputElement>(null);
+    const dialogRef = useRef<HTMLDialogElement>(null);
     const navigate = useNavigate();
     const [errView, setErrView] = useState<string>("none");
     const [errMsg, setErrMsg] = useState<string>('');
     const [btnDisable, setBtnDisable] = useState<boolean>(false);
-    const successdialog = document.getElementById('userscs') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('userscsbtn') as HTMLInputElement;
+   
+      const handleCloseDialog = () => {
+        dialogRef.current?.close();
 
-    if (closeDialogButton) {
-        closeDialogButton.addEventListener('click', () => {
-            if (successdialog != null) {
-                (successdialog as any).close();
-                navigate('/changePassword')
-                localStorage.setItem('autherized', 'true')
-            }
-        });
-    }
+        navigate("/changePassword");
+
+        localStorage.setItem("autherized", "true");
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,13 +33,17 @@ const EmailEntryforResetpassword = () => {
 
         axios.post('/api/resetPassword/forgotPassword', { email }).then(res => {
             console.log(res.data);
-            (successdialog as any).showModal();
+            dialogRef.current?.showModal();
+        
 
         }).catch(err => {
-            console.log(err)
-            setBtnDisable(false)
-            setErrView('block');
-            setErrMsg(err.response.data.error)
+            console.log(err);
+
+                setBtnDisable(false);
+
+                setErrView("block");
+
+                setErrMsg(err.response?.data?.error || "Something went wrong");
 
         })
     }
@@ -60,7 +61,7 @@ const EmailEntryforResetpassword = () => {
                             PAYAL DEALERS PVT. LTD
                         </h1>
                         <p className="text-xs text-orange-600 font-semibold tracking-wide">
-                            KOLKATA UNIT
+                             AFRICA UNIT (QUALITY MANAGEMENT)
                         </p>
                     </div>
 
@@ -69,19 +70,19 @@ const EmailEntryforResetpassword = () => {
 
                         <div className="my-20">
 
-                             <Label className="text-xs font-semibold text-cyan-700">
-              Enter Email ID to Reset your Password
-            </Label>
-              <Input type="email" placeholder="Enter Email" ref={emailRef} className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400"/>
+                            <Label className="text-xs font-semibold text-cyan-700">
+                                Enter Email ID to Reset your Password
+                            </Label>
+                            <Input type="email" placeholder="Enter Email" ref={emailRef} className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400" />
 
-              <div className="flex justify-end text-xs mt-5">
-                          <NavLink
-                            to="/login"
-                            className="text-blue-600 hover:underline"
-                          >
-                            Back to login
-                          </NavLink>
-                          </div>
+                            <div className="flex justify-end text-xs mt-5">
+                                <NavLink
+                                    to="/login"
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    Back to login
+                                </NavLink>
+                            </div>
                         </div>
          
 
@@ -93,11 +94,28 @@ const EmailEntryforResetpassword = () => {
                 </div>
             </div>
 
-            <dialog id="userscs" className="dashboard-modal">
-                <button id="userscsbtn" className="dashboard-modal-close-btn">X</button>
-                <span className="flex">
-                    <img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Verification Code has been sent to Email</p>
+            <dialog
+                ref={dialogRef}
+                className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center"
+            >
+                <button
+                    onClick={handleCloseDialog}
+                    className="dashboard-modal-close-btn"
+                >
+                    X
+                </button>
+
+                <span className="flex items-center">
+                    <img
+                        src={tick}
+                        height={35}
+                        width={35}
+                        alt="tick_image"
+                    />
+
+                    <p className="pl-3 mt-1 text-base font-medium text-green-500">
+                        Verification Code has been sent to Email
+                    </p>
                 </span>
             </dialog>
 

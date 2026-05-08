@@ -120,14 +120,14 @@ const DashboardPanel1: React.FC = () => {
             {
               id: 1,
               title: "Boiling ",
-              value1: `${latestLotboil} `,
+              value1: `🛒 ${latestLotboil} `,
               value2: "N/A",
               value3: "",
             },
             {
               id: 2,
               title: "Scooping ",
-              value1: `${latestLotscoop} `,
+              value1: `🛒 ${latestLotscoop} `,
               value2: "N/A",
               value3: ` ${formatNumber(
                 String(Number(scoopbacklog1) + Number(scoopbacklog2))
@@ -136,7 +136,7 @@ const DashboardPanel1: React.FC = () => {
             {
               id: 3,
               title: "Borma ",
-              value1: `${latestvLotborma} `,
+              value1: `🛒 ${latestvLotborma} `,
               value2: "N/A",
               value3: ` ${formatNumber(
                 String(Number(bormabacklog1) + Number(bormabacklog2))
@@ -145,22 +145,22 @@ const DashboardPanel1: React.FC = () => {
             {
               id: 4,
               title: "Humidifier ",
-              value1: `${latestLothumid} `,
+              value1: `🛒 ${latestLothumid} `,
               value2: "N/A",
               value3: ` ${formatNumber(humidbacklog)} `,
             },
             {
               id: 5,
               title: "Peeling ",
-              value1: `${latestLotpeel} `,
-              value2: ` ${latestvLotpeel} `,
+              value1: `🛒 ${latestLotpeel} `,
+              value2: `🛒 ${latestvLotpeel} `,
               value3: ` ${formatNumber(peelbacklog)} `,
             },
             {
               id: 6,
               title: "Mayur ",
-              value1: `${latestLotmayur} `,
-              value2: ` ${latestvLotmayur} `,
+              value1: `🛒 ${latestLotmayur} `,
+              value2: `🛒 ${latestvLotmayur} `,
               value3: ` ${formatNumber(mayurbacklog)} 
               
               
@@ -169,57 +169,57 @@ const DashboardPanel1: React.FC = () => {
             {
               id: 7,
               title: "Hamsa",
-              value1: `${latestLothamsa} `,
-              value2: ` ${latestvLothamsa} `,
-              value3: ` ${formatNumber(hamsabacklog)} `,
+              value1: `🛒 ${latestLothamsa} `,
+              value2: `🛒 ${latestvLothamsa} `,
+              value3: `🛒 ${formatNumber(hamsabacklog)} `,
             },
             {
               id: 8,
               title: "Wholes",
-              value1: `${latestLotwholes} `,
-              value2: ` ${latestvLotwholes} `,
+              value1: `🛒 ${latestLotwholes} `,
+              value2: `🛒  ${latestvLotwholes} `,
               value3: ` ${formatNumber(wholesbacklog)} `,
             },
             {
               id: 9,
               title: "LW",
-              value1: `${latestLotlw} `,
-              value2: ` ${latestvLotlw} `,
+              value1: `🛒 ${latestLotlw} `,
+              value2: `🛒 ${latestvLotlw} `,
               value3: ` ${formatNumber(lwbacklog)} `,
             },
             {
               id: 10,
               title: "DPDS",
-              value1: `${latestLotdpds} `,
-              value2: ` ${latestvLotdpds} `,
+              value1: `🛒 ${latestLotdpds} `,
+              value2: `🛒  ${latestvLotdpds} `,
               value3: ` ${formatNumber(dpdsbacklog)} `,
             },
             {
               id: 11,
               title: "Sorting",
-              value1: `${latestLotsort} `,
-              value2: ` ${latestvLotsort} `,
+              value1: `🛒 ${latestLotsort} `,
+              value2: `🛒 ${latestvLotsort} `,
               value3: ` ${formatNumber(sortbacklog)} `,
             },
             {
               id: 12,
               title: "Taiho",
-              value1: `${latestLotbig} `,
-              value2: ` ${latestvLotbig} `,
+              value1: `🛒 ${latestLotbig} `,
+              value2: `🛒 ${latestvLotbig} `,
               value3: ` ${formatNumber(bigbacklog)} `,
             },
             {
               id: 13,
               title: "Village",
-              value1: `${latestLotvil} `,
-              value2: ` ${latestvLotvil} `,
+              value1: `🛒 ${latestLotvil} `,
+              value2: `🛒 ${latestvLotvil} `,
               value3: ` ${formatNumber(vilbacklog)} `,
             },
             {
               id: 14,
               title: "Rejection",
-              value1: `${latestLotrej} `,
-              value2: ` ${latestvLotrej} `,
+              value1: `🛒 ${latestLotrej} `,
+              value2: `🛒 ${latestvLotrej} `,
               value3: ` ${formatNumber(rejbacklog)} `,
             },
           ];
@@ -291,7 +291,7 @@ const DashboardPanel1: React.FC = () => {
           </div> */}
 
           <div className="text-center py-5">
-            <p className="text-xl tracking-wider bg-gray-50 drop-shadow-xl py-8 font-bold">Current Lot & Section Backlog</p>
+             <p className="md:text-lg md:mt-0 my-3 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md">CURRENT LOT AND BACKLOG</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-2">
