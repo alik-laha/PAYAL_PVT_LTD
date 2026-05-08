@@ -38,6 +38,24 @@ import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ViewLotDetailsMapping from "./ViewLotDetailsMapping";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+
+
+import { ChevronsUpDown, Check } from "lucide-react";
+
 interface Props {
     mapping: any[]       
 }
@@ -538,7 +556,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                                         </SelectContent>
                                                     </Select>
                                                 </TableCell>
-                                                <TableCell className="text-center" >
+                                                {/* <TableCell className="text-center" >
 
 
                                                     
@@ -552,6 +570,71 @@ const OrderMappingCreateForm = (props:Props) => {
                                                                 ))
                                                               ) : <option key={index} value=''>Grade</option>}
                                                             </select>
+                                                </TableCell> */}
+                                                
+
+                                                <TableCell className="text-center">
+
+                                                    <Popover>
+
+                                                        <PopoverTrigger asChild>
+                                                            <button
+
+                                                                role="combobox"
+                                                                className="flex w-40 justify-center items-center text-center
+          rounded-md border border-input bg-background px-3 py-1 text-xs 
+                                                      ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
+                                                            >
+                                                                {row.grade || "Select Grade"}
+
+                                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                                            </button>
+                                                        </PopoverTrigger>
+
+                                                        <PopoverContent className="w-48 p-0">
+
+                                                            <Command>
+
+                                                                <CommandInput placeholder=" Search grade..." />
+
+                                                                <CommandList className="max-h-60 overflow-y-auto">
+
+                                                                    <CommandEmpty>
+                                                                        No grade found.
+                                                                    </CommandEmpty>
+
+                                                                    <CommandGroup>
+
+                                                                        {row.section &&
+                                                                            ProdGradeOnSection[
+                                                                                row.section as keyof typeof ProdGradeOnSection
+                                                                            ]?.map((item) => (
+
+                                                                                <CommandItem
+                                                                                    key={item}
+                                                                                    value={item}
+                                                                                    onSelect={() =>
+                                                                                        handleRowChange(index, "grade", item)
+                                                                                    }
+                                                                                    className="cursor-pointer"
+                                                                                >
+                                                                                    <Check
+                                                                                        className={`mr-2 h-4 w-4 ${row.grade === item
+                                                                                                ? "opacity-100"
+                                                                                                : "opacity-0"
+                                                                                            }`}
+                                                                                    />
+
+                                                                                    {item}
+                                                                                </CommandItem>
+
+                                                                            ))}
+
+                                                                    </CommandGroup>
+                                                                </CommandList>
+                                                            </Command>
+                                                        </PopoverContent>
+                                                    </Popover>
                                                 </TableCell>
                                                  <TableCell className="text-center">
                                                     {
