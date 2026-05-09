@@ -325,18 +325,18 @@ const OrderMappingCreateForm = (props:Props) => {
     const handlePrcntgChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         
-        rows[index].mixquantity=Number((rows[index].actual_stockquantity*(Number(e.target.value)/100)).toFixed(2))
-        handleRowChange(index,'prcntg',e.target.value)
-       
+        rows[index].prcntg=Number((((Number(e.target.value)/rows[index].actual_stockquantity)*100)).toFixed(2))
+        handleRowChange(index,'mixquantity',e.target.value)
+  
      }
 
-     const handleActualQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault()
-        handleRowChange(index,'actual_stockquantity',e.target.value)
-        rows[index].mixquantity=Number((Number(e.target.value)*(rows[index].prcntg/100)).toFixed(2))
-        handleRowChange(index,'actual_stockquantity',e.target.value)
+    //  const handleActualQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    //     e.preventDefault()
+    //     handleRowChange(index,'actual_stockquantity',e.target.value)
+    //     rows[index].mixquantity=Number((Number(e.target.value)*(rows[index].prcntg/100)).toFixed(2))
+    //     handleRowChange(index,'actual_stockquantity',e.target.value)
        
-     }
+    //  }
 
      const handleSubmit2 = async (e: React.FormEvent) => {
          e.preventDefault()
@@ -483,6 +483,10 @@ const OrderMappingCreateForm = (props:Props) => {
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200 ' onSubmit={handleSubmit2}>
 
                      <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
+                                  <div>
+                            <Label className="text-xs text-gray-500 font-bold">Order Mapping date (*)</Label>
+                            <Input type='date' className="mt-1  font-semibold text-center border-gray-500 items-center justify-between" ref={dateIssueref} required />
+                        </div>
                                     <div>
                             <Label className="text-xs text-gray-500 font-bold">Order ID</Label>
                             <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="order ID" value={orderID} readOnly /> </div>
@@ -498,17 +502,32 @@ const OrderMappingCreateForm = (props:Props) => {
                                      <div>
                             <Label className="text-xs text-gray-500 font-bold">Final Grade</Label>
                             <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
-                                     <div>
+                                     {/* <div>
                             <Label className="text-xs text-gray-500 font-bold">Demand Quantity</Label>
-                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
-                                     <div>
+                            <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div> */}
+                                     {/* <div>
                             <Label className="text-xs text-gray-500 font-bold">Total Mix Quantity</Label>
-                            <Input className="mt-1 bg-pink-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
-                                    <div>
-                            <Label className="text-xs text-gray-500 font-bold">Order Mapping date (*)</Label>
-                            <Input type='date' className="mt-1  font-semibold text-center border-gray-500 items-center justify-between" ref={dateIssueref} required />
-                        </div>
+                            <Input className="mt-1 bg-pink-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div> */}
+                          
+
+                        
                                     </div>
+                                    <div className="flex flex-col justify-end">
+                                                    <div className="w-full ">
+                                                         <Label className="font-semibold ">Total Demand : </Label>
+                                                 <Label className=" font-semibold text-green-500">{demandQty} Kg</Label> 
+                                                        
+                                                    </div>
+                                                    <div className="w-full ">
+                                                         <Label className="font-semibold ">Total Mix Quantity : </Label>
+                                                 <Label className=" font-semibold text-green-500">{mixQuantitySum.toFixed(2)} Kg</Label> 
+                                                        
+                                                    </div>
+                                                   
+                                                
+                                              
+                        
+                                                </div>
 
                     <button type="button" className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                         onClick={addRow2}>+</button>
@@ -523,9 +542,10 @@ const OrderMappingCreateForm = (props:Props) => {
                             
                                 <TableHead className="text-center" >Production⠀Lot⠀No</TableHead>
                                 <TableHead className="text-center" >Stock⠀Quantity⠀(Kg)</TableHead>
-                                <TableHead className="text-center" >Actual⠀Stock⠀(Kg)</TableHead>
-                                <TableHead className="text-center" >Percentage⠀Mix(%)</TableHead>
+                                {/* <TableHead className="text-center" >Actual⠀Stock⠀(Kg)</TableHead> */}
+                                
                                 <TableHead className="text-center" >Mixed⠀Quantity⠀(Kg)</TableHead>
+                                <TableHead className="text-center" >Percentage⠀Mix(%)</TableHead>
                                 <TableHead className="text-center" >Mapping⠀Remarks(Any)</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
 
@@ -719,21 +739,23 @@ const OrderMappingCreateForm = (props:Props) => {
                                                     <Input className="bg-red-100" placeholder="Lot No" value={row.stockquantity} readOnly />
                                                 </TableCell>
 
-                                                <TableCell className="text-center">
+                                                {/* <TableCell className="text-center">
                                                     <Input  placeholder="Lot No" value={row.actual_stockquantity} onChange={(e) => {
                                                             handleActualQtyChange(index, e)
                                                         }} required />
-                                                </TableCell>
-                                                <TableCell className="text-center" >
-                                                    <Input value={row.prcntg} placeholder="%" type="number"
-                                                        onChange={(e) => {
-                                                            handlePrcntgChange(index, e)
-                                                        }} />
-                                                </TableCell>
+                                                </TableCell> */}
+                                                
                                                 <TableCell className="text-center">
                                                     <Input placeholder="Mix Qty" value={row.mixquantity} 
-                                                    
-                                                      readOnly />
+                                                    onChange={(e) => {
+                                                            handlePrcntgChange(index, e)
+                                                        }}
+                                                       />
+                                                </TableCell>
+
+                                                <TableCell className="text-center " >
+                                                    <Input className='bg-yellow-100' value={row.prcntg} placeholder="%" type="number"
+                                                       readOnly />
                                                 </TableCell>
                                                 <TableCell className="text-center w-30" >
 

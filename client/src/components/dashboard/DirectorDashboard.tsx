@@ -529,7 +529,7 @@ const DirectorDashboard: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
-              <div className="bg-white border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-orange-500 shadow-sm">
+              <div className="bg-yellow-100/80 border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-orange-500 shadow-sm">
                 <p className="text-xs uppercase font-semibold tracking-wider text-gray-500">
                   GATEPASS
                 </p>
@@ -581,7 +581,7 @@ const DirectorDashboard: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
-              <div className="bg-white border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-green-500 shadow-sm">
+              <div className="bg-yellow-100/80 border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-green-500 shadow-sm">
                 <p className="text-xs uppercase font-semibold tracking-wider text-gray-500">
                   BOILING
                 </p>
@@ -638,7 +638,7 @@ const DirectorDashboard: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
-               <div className="bg-white border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-purple-500 shadow-sm">
+               <div className="bg-yellow-100/80 border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-purple-500 shadow-sm">
                 <p className="text-xs uppercase font-semibold tracking-wider text-gray-500">
                   SCOOPING
                 </p>
@@ -967,7 +967,7 @@ const DirectorDashboard: React.FC = () => {
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
-    <div className="bg-white border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-blue-500 shadow-sm">
+    <div className="bg-yellow-100/80 border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-blue-500 shadow-sm">
       
       <p className="text-xs uppercase font-semibold tracking-wider text-gray-500">
         BORMA
@@ -1028,7 +1028,7 @@ const DirectorDashboard: React.FC = () => {
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
-    <div className="bg-white border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-red-500 shadow-sm">
+    <div className="bg-yellow-100/80 border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-red-500 shadow-sm">
       
       <p className="text-xs uppercase font-semibold tracking-wider text-gray-500">
         HUMIDIFIER
@@ -1081,7 +1081,7 @@ const DirectorDashboard: React.FC = () => {
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
 
-    <div className="bg-white border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-gray-500 shadow-sm">
+    <div className="bg-yellow-100/80 border border-gray-100 rounded-xl p-4 border-l-[5px] border-l-gray-500 shadow-sm">
 
       <p className="text-xs uppercase font-semibold tracking-wider text-gray-500">
         PEELING
