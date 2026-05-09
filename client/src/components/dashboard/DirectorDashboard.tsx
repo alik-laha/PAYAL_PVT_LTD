@@ -8,6 +8,7 @@ import { StatCard } from "../common/StatCard";
 import { DateRangeForm } from "../common/DateRangeForm";
 import { StatCardBig } from "../common/StatCardBig";
 import { FY } from "../common/exportData";
+import ProdAllExcel from "../common/ProdAllExcel";
 
 
 
@@ -231,6 +232,8 @@ const DirectorDashboard: React.FC = () => {
 
           </div> */}
           <p className="md:text-lg md:mt-0 mt-5 mb-3 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md">CURRENT FY {FY} OVERALL REPORT</p>
+
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-5">
 
             {/* Total Users */}
@@ -518,6 +521,7 @@ const DirectorDashboard: React.FC = () => {
           {/* ================= GATEPASS ================= */}
 
            <p className="md:text-lg md:mt-0 my-3 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md">SECTION REPORT (DAY, WEEK, MONTH)</p>
+           <ProdAllExcel/>
 
           <div className="bg-white shadow-sm border border-gray-100 py-3 mt-2">
 

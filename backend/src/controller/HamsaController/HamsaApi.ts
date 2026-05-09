@@ -750,7 +750,7 @@ export const SearchRCNHamsa = async (req: Request, res: Response) => {
              [Op.like]: "%R%",
            },
          });
-       } else {
+       } else if (type === "VLOT"){
          whereClause.push({
            LotNo: {
              [Op.like]: "%V%",
