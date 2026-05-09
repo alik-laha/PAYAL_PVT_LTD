@@ -146,6 +146,7 @@ const QCOnline = () => {
 
   const exportAllToExcel = async () => {
     try {
+      setLoading(true)
       const commonPayload = {
         fromDate: fromdate,
         toDate: todate,
@@ -475,9 +476,13 @@ const QCOnline = () => {
       });
 
       saveAs(blob, `QC_All_Report_${currDate}.xlsx`);
+     
     } catch (error) {
       console.error("Excel Export Error:", error);
     }
+     finally {
+                setLoading(false);
+            }
   };
   return (
     <>
