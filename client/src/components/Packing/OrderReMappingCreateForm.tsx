@@ -37,6 +37,23 @@ import { ScrollArea } from "../ui/scroll-area";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ViewLotDetailsMapping from "./ViewLotDetailsMapping";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+
+
+import { ChevronsUpDown, Check } from "lucide-react";
 
 interface Props {
     mapping: any[]       
@@ -294,21 +311,21 @@ const OrderReMappingCreateForm = (props:Props) => {
 
     };
 
-      const handlePrcntgChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-          e.preventDefault()
-          
-          rows[index].mixquantity=Number((rows[index].actual_stockquantity*(Number(e.target.value)/100)).toFixed(2))
-          handleRowChange(index,'prcntg',e.target.value)
-         
-       }
+       const handlePrcntgChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+             e.preventDefault()
+             
+             rows[index].prcntg=Number((((Number(e.target.value)/rows[index].actual_stockquantity)*100)).toFixed(2))
+             handleRowChange(index,'mixquantity',e.target.value)
+       
+          }
 
-          const handleActualQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-               e.preventDefault()
-               handleRowChange(index,'actual_stockquantity',e.target.value)
-               rows[index].mixquantity=Number((Number(e.target.value)*(rows[index].prcntg/100)).toFixed(2))
-               handleRowChange(index,'actual_stockquantity',e.target.value)
+        //   const handleActualQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        //        e.preventDefault()
+        //        handleRowChange(index,'actual_stockquantity',e.target.value)
+        //        rows[index].mixquantity=Number((Number(e.target.value)*(rows[index].prcntg/100)).toFixed(2))
+        //        handleRowChange(index,'actual_stockquantity',e.target.value)
               
-            }
+        //     }
 
      const handleSubmit2 = async (e: React.FormEvent) => {
          e.preventDefault()
@@ -436,6 +453,10 @@ const OrderReMappingCreateForm = (props:Props) => {
                 <form className='flex flex-col gap-4 bg-white shadow-md rounded-2xl p-6 border border-gray-200' onSubmit={handleSubmit2}>
 
                       <div className="grid grid-cols-2 md:grid-cols-6 gap-3"> 
+                                   <div>
+                            <Label className="text-xs text-gray-500 font-bold">Order Re-Mapping Date (*)</Label>
+                            <Input type='date' className="mt-1  font-semibold text-center border-gray-300" placeholder="Vehicle No" ref={dateIssueref} required />
+                        </div>
                                     <div><Label className="text-xs text-gray-500 font-bold">Order ID</Label>
                                     <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="order ID" value={orderID} readOnly /> </div>
                                     <div><Label className="text-xs text-gray-500 font-bold">Order Entry Date</Label>
@@ -446,15 +467,28 @@ const OrderReMappingCreateForm = (props:Props) => {
                                     <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Origin" value={origin}  readOnly /> </div> 
                                     <div><Label className="text-xs text-gray-500 font-bold">Final Grade</Label>
                                     <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
-                                    <div><Label className="text-xs text-gray-500 font-bold">Demand Quantity</Label>
-                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
-                                    <div><Label className="text-xs text-gray-500 font-bold">Total Mix Quantity</Label>
-                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
-                                    <div>
-                            <Label className="text-xs text-gray-500 font-bold">Order Re-Mapping Date (*)</Label>
-                            <Input type='date' className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300" placeholder="Vehicle No" ref={dateIssueref} required />
-                        </div>
+                                    {/* <div><Label className="text-xs text-gray-500 font-bold">Demand Quantity</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div> */}
+                                    {/* <div><Label className="text-xs text-gray-500 font-bold">Total Mix Quantity</Label>
+                                    <Input className="mt-1 bg-yellow-50 font-semibold text-center border-gray-300"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div> */}
+                         
                                     </div>
+                    <div className="flex flex-col justify-end">
+                        <div className="w-full ">
+                            <Label className="font-semibold ">Pending Mapping : </Label>
+                            <Label className=" font-semibold text-green-500">{demandQty} Kg</Label>
+
+                        </div>
+                        <div className="w-full ">
+                            <Label className="font-semibold ">Total Mix Quantity : </Label>
+                            <Label className=" font-semibold text-green-500">{mixQuantitySum.toFixed(2)} Kg</Label>
+
+                        </div>
+
+
+
+
+                    </div>
 
                     <button type="button" className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                         onClick={addRow2}>+</button>
@@ -468,10 +502,11 @@ const OrderReMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Origin</TableHead>
                                 <TableHead className="text-center" >Production⠀Lot⠀No</TableHead>
                                 <TableHead className="text-center" >Stock⠀Quantity (Kg)</TableHead>
-                                <TableHead className="text-center" >Actual⠀Stock⠀Quantity (Kg)</TableHead>
-                                <TableHead className="text-center" >Percentage⠀Mix(%)</TableHead>
+                                {/* <TableHead className="text-center" >Actual⠀Stock⠀Quantity (Kg)</TableHead> */}
+                               
                                 <TableHead className="text-center" >Mixed⠀Quantity⠀(Kg)</TableHead>
-                                <TableHead className="text-center w-30" >Mapping⠀Remarks(Any)</TableHead>
+                                 <TableHead className="text-center" >Percentage⠀Mix(%)</TableHead>
+                                <TableHead className="text-center w-40" >Remarks</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
 
                             </TableHeader>
@@ -501,7 +536,7 @@ const OrderReMappingCreateForm = (props:Props) => {
                                                         </SelectContent>
                                                     </Select>
                                                 </TableCell>
-                                                <TableCell className="text-center" >
+                                                {/* <TableCell className="text-center" >
 
 
                                                     
@@ -515,6 +550,70 @@ const OrderReMappingCreateForm = (props:Props) => {
                                                                 ))
                                                               ) : <option key={index} value=''>Grade</option>}
                                                             </select>
+                                                </TableCell> */}
+
+                                                <TableCell className="text-center">
+
+                                                    <Popover>
+
+                                                        <PopoverTrigger asChild>
+                                                            <button
+
+                                                                role="combobox"
+                                                                className="flex w-40 justify-center items-center text-center
+                                                          rounded-md border border-input bg-background px-3 py-1 text-xs 
+                                                                                                      ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
+                                                            >
+                                                                {row.grade || "Select Grade"}
+
+                                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                                            </button>
+                                                        </PopoverTrigger>
+
+                                                        <PopoverContent className="w-48 p-0">
+
+                                                            <Command>
+
+                                                                <CommandInput placeholder=" Search grade..." />
+
+                                                                <CommandList className="max-h-60 overflow-y-auto">
+
+                                                                    <CommandEmpty>
+                                                                        No grade found.
+                                                                    </CommandEmpty>
+
+                                                                    <CommandGroup>
+
+                                                                        {row.section &&
+                                                                            ProdGradeOnSection[
+                                                                                row.section as keyof typeof ProdGradeOnSection
+                                                                            ]?.map((item) => (
+
+                                                                                <CommandItem
+                                                                                    key={item}
+                                                                                    value={item}
+                                                                                    onSelect={() =>
+                                                                                        handleRowChange(index, "grade", item)
+                                                                                    }
+                                                                                    className="cursor-pointer"
+                                                                                >
+                                                                                    <Check
+                                                                                        className={`mr-2 h-4 w-4 ${row.grade === item
+                                                                                            ? "opacity-100"
+                                                                                            : "opacity-0"
+                                                                                            }`}
+                                                                                    />
+
+                                                                                    {item}
+                                                                                </CommandItem>
+
+                                                                            ))}
+
+                                                                    </CommandGroup>
+                                                                </CommandList>
+                                                            </Command>
+                                                        </PopoverContent>
+                                                    </Popover>
                                                 </TableCell>
                                                 <TableCell className="text-center">
                                                     {
@@ -594,21 +693,22 @@ const OrderReMappingCreateForm = (props:Props) => {
                                                 <TableCell className="text-center">
                                                     <Input className="bg-red-100" placeholder="Lot No" value={row.stockquantity} readOnly />
                                                 </TableCell>
-                                                <TableCell className="text-center">
+                                                {/* <TableCell className="text-center">
                                                     <Input placeholder="Lot No" value={row.actual_stockquantity} onChange={(e) => {
                                                         handleActualQtyChange(index, e)
                                                     }} required />
-                                                </TableCell>
-                                                <TableCell className="text-center" >
-                                                    <Input value={row.prcntg} placeholder="%" type="number"
+                                                </TableCell> */}
+                                                <TableCell className="text-center">
+                                                    <Input placeholder="Mix Qty" value={row.mixquantity}
                                                         onChange={(e) => {
                                                             handlePrcntgChange(index, e)
-                                                        }} />
+                                                        }}
+                                                    />
                                                 </TableCell>
-                                                <TableCell className="text-center">
-                                                    <Input placeholder="Mix Qty" value={row.mixquantity} 
-                                                    
-                                                      readOnly />
+
+                                                <TableCell className="text-center " >
+                                                    <Input className='bg-yellow-100' value={row.prcntg} placeholder="%" type="number"
+                                                        readOnly />
                                                 </TableCell>
                                                 <TableCell className="text-center w-30" >
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
 import axios from "axios";
 import img from '../../assets/Static_Images/Company Logo.jpeg'
 import { Button } from "../ui/button";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png';
 import cross from '../../assets/Static_Images/error_img.png';
+import { Label } from "../ui/label";
 
 const VerifyCodeAndResetPassword = () => {
     const [code, setCode] = useState('');
@@ -16,10 +17,11 @@ const VerifyCodeAndResetPassword = () => {
     const [errMsg, setErrMsg] = useState<string>('');
     const navigate = useNavigate();
     const [errortext, setErrorText] = useState<string>("");
-    const successdialog = document.getElementById('userscs') as HTMLInputElement;
-    const errordialog = document.getElementById('usererror') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('userscsbtn') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('usererrorbtn') as HTMLInputElement;
+    const successdialog = document.getElementById('userscsverify') as HTMLInputElement;
+    const errordialog = document.getElementById('usererrorverify') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('userscsbtnverify') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('usererrorbtnverify') as HTMLInputElement;
+    const [btnDisable, setBtnDisable] = useState<boolean>(false);
     useEffect(() => {
         if (closeDialogButton) {
             closeDialogButton.addEventListener('click', () => {
@@ -41,13 +43,19 @@ const VerifyCodeAndResetPassword = () => {
 
     const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+         if (!btnDisable) {
+            setBtnDisable(true)
+        }
         try {
             const res = await axios.post('/api/resetPassword/verifyCode', { verificationCode: code });
             console.log(res.data);
             setIsVerified(true);
+            setBtnDisable(false)
         } catch (err:any) {
             console.error(err);
             setErrView('block');
+            setBtnDisable(false)
             setErrMsg(err.response.data.error)
            
 
@@ -56,6 +64,8 @@ const VerifyCodeAndResetPassword = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+       
+        
         try {
             const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
             if (newPassword !== confirmPassword) {
@@ -74,6 +84,10 @@ const VerifyCodeAndResetPassword = () => {
                 return
     
             }
+
+            if (!btnDisable) {
+                setBtnDisable(true)
+            }
             await axios.post('/api/resetPassword/passwordupdate', { password: newPassword })
             .then((res) => {
 
@@ -84,6 +98,7 @@ const VerifyCodeAndResetPassword = () => {
             })
             .catch((err) => {
                 console.log(err.response.data.message);
+                setBtnDisable(false)
                 setErrorText(err.response.data.message);
                 if (errordialog != null) {
                     (errordialog as any).showModal();
@@ -100,58 +115,115 @@ const VerifyCodeAndResetPassword = () => {
         <div>
             {!isVerified ? (
                 <>
-                    <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
-                        <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
-                            <img src={img} width={"60"} height={100}></img>
-                            <h1 className="text-2xl font-bold mb-3 pb-2 mt-5 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
-                            <h3 className="text-sm font-sans mb-8 font-semibold pb-1 pt-2 text-cyan-700">Enter the Code Received in Email</h3>
+                    <div className="login-container bg-fixed bg-center bg-cover flex items-center justify-center md:justify-start pl-4 md:pl-[12vw] min-h-[125vh]  to-orange-100 p-4">
+                        <div className="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8">
+
+                            <div className="flex flex-col items-center mb-6">
+                                <img
+                                    src={img}
+                                    alt="Logo"
+                                    className="w-20 h-20 rounded-full shadow-md border"
+                                />
+                                <h1 className="mt-3 text-lg sm:text-xl font-bold text-gray-800 text-center">
+                                    PAYAL DEALERS PVT. LTD
+                                </h1>
+                                <p className="text-xs text-orange-600 font-semibold tracking-wide">
+                                    AFRICA UNIT (QUALITY MANAGEMENT)
+                                </p>
+                            </div>
+
+                            <form className="space-y-4" onSubmit={handleVerify}>
+
+                                <div className="my-20">
+
+                                    <Label className="text-xs font-semibold text-cyan-700">
+                                        Enter the Code Received in Email
+                                    </Label>
+                                    <Input type="text" placeholder="OTP Code" className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400" value={code}
+                                        onChange={(e) => setCode(e.target.value)} required />
 
 
-                            <form className="flex flex-col gap-4 w-64" onSubmit={handleVerify}>
-                                <Input type="text" className='text-center' placeholder="Code" value={code} onChange={(e) => setCode(e.target.value)} required/>
+
+                                    <div className="flex justify-end text-xs mt-5">
+                                        <NavLink
+                                            to="/login"
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            Back to login
+                                        </NavLink>
+                                    </div>
+                                </div>
                                 <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                                
-                                <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit">Verify</Button>
-                            </form>
+                                <Button className="w-full h-11 rounded-md bg-orange-500 hover:bg-orange-600 text-white font-semibold transition" type="submit" disabled={btnDisable}>Verify</Button>
+
+                            </form> 
+                            
                         </div>
                     </div>
 
                 </>
-               
-                   
-             
             ) : (
-
-
                 <>
-                <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
-                    <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
-                        <img src={img} width={"60"} height={100}></img>
-                        <h1 className="text-2xl font-bold mb-3 pb-2 mt-5 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
-                        <h3 className="text-sm font-sans mb-8 font-semibold pb-1 pt-2 text-cyan-700">Update Password</h3>
+                <div className="login-container bg-fixed bg-center bg-cover flex items-center justify-center md:justify-start pl-4 md:pl-[12vw] min-h-[125vh]  to-orange-100 p-4">
+                    <div className="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8">
+                         <div className="flex flex-col items-center mb-6">
+                                <img
+                                    src={img}
+                                    alt="Logo"
+                                    className="w-20 h-20 rounded-full shadow-md border"
+                                />
+                                <h1 className="mt-3 text-lg sm:text-xl font-bold text-gray-800 text-center">
+                                    PAYAL DEALERS PVT. LTD
+                                </h1>
+                                <p className="text-xs text-orange-600 font-semibold tracking-wide">
+                                    AFRICA UNIT (QUALITY MANAGEMENT)
+                                </p>
+                        </div>
+
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                                    <div className="my-20">
+
+                                        <Label className="text-xs font-semibold text-cyan-700">
+                                            Update Password
+                                        </Label>
+                                        <Input type="password" placeholder="Create Password" className="mt-1 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400" value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)} required />
 
 
-                        <form className="flex flex-col gap-4 w-64"onSubmit={handleSubmit}>
-                        <Input type="password" placeholder="Create New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                        <Input type="password" placeholder="Confirm New Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                        <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit">Submit</Button>
-                    </form>
+                                        <Input type="password" placeholder="Confirm Password" className="mt-5 h-10 rounded-md border-gray-300 focus:ring-2 focus:ring-orange-400" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+
+
+                                        <div className="flex justify-end text-xs mt-5">
+                                            <NavLink
+                                                to="/login"
+                                                className="text-blue-600 hover:underline"
+                                            >
+                                                Back to login
+                                            </NavLink>
+                                        </div>
+                                    </div>
+                                <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
+                                <Button className="w-full h-11 rounded-md bg-orange-500 hover:bg-orange-600 text-white font-semibold transition" type="submit" disabled={btnDisable}>Submit</Button>
+
+                            </form> 
                     </div>
                 </div>
-                <dialog id="userscs" className="dashboard-modal">
-                <button id="userscsbtn" className="dashboard-modal-close-btn">X</button>
-                <span className="flex">
-                    <img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Password Has Been Reset Successfully</p>
-                </span>
-            </dialog>
-            <dialog id="usererror" className="dashboard-modal">
-                <button id="usererrorbtn" className="dashboard-modal-close-btn">X</button>
-                <span className="flex">
-                    <img src={cross} height={25} width={25} alt='cross_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
-                </span>
-            </dialog>
+                
+                
+                        <dialog id="userscsverify" className="rounded-lg p-6 shadow-xl bg-white border border-green-300 text-center">
+                            <button id="userscsbtnverify" className="dashboard-modal-close-btn">X</button>
+                            <span className="flex">
+                                <img src={tick} height={2} width={35} alt='tick_image' />
+                                <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-green-500">Password Has Been Reset Successfully</p>
+                            </span>
+                        </dialog>
+                        <dialog id="usererrorverify" className="rounded-lg p-6 shadow-xl bg-white border border-red-300 text-center">
+                            <button id="usererrorbtnverify" className="dashboard-modal-close-btn">X</button>
+                            <span className="flex">
+                                <img src={cross} height={25} width={25} alt='cross_image' />
+                                <p id="modal-text" className="pl-3 mt-1 text-base font-medium text-red-500">{errortext}</p>
+                            </span>
+                        </dialog>
 
             </>
                 

@@ -14,7 +14,7 @@ interface Props {
 export const StatCardBig = ({ title, value1,value2, value3,
     value4,value5, value6,value7,subtitle,color}: Props) => {
   return (
-    <div className={color ?`rounded-2xl p-5 shadow-sm border border-gray-100 bg-${color}-100`:'rounded-2xl p-5 shadow-sm border border-gray-100 bg-yellow-50/80'}>
+    <div className={color ?`rounded-2xl p-5 shadow-sm border border-gray-100 bg-${color}-100`:'rounded-2xl p-5 shadow-sm border border-gray-100 bg-gray-100/70'}>
       <p className={`text-md font-semibold text-${color}-700`}>{title}</p>
 
       {value1 && <h2 className={color ?`mt-2 text-xl font-semibold text-${color}-500 `:
