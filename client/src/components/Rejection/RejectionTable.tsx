@@ -1063,10 +1063,10 @@ const response = await axios.put('/api/rejection/rejectionprimarysearch', {
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
                                 <TableCell className="text-center  bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_7)}
+                                    {formatNumber((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)).toString())}
                                 </TableCell>
                                 <TableCell className="text-center  bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_8)}
+                                   {formatNumber(((parseFloat(item.rcv_mayur)||0)-(parseFloat(item.issue_add_5)||0)).toString())}
                                 </TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
