@@ -523,6 +523,12 @@ const OrderMappingCreateForm = (props:Props) => {
                                                  <Label className=" font-semibold text-green-500">{mixQuantitySum.toFixed(2)} Kg</Label> 
                                                         
                                                     </div>
+
+                                                    <div className="w-full ">
+                                                         <Label className="font-semibold ">Remaining Quantity : </Label>
+                                                 <Label className=" font-semibold text-red-500">{(Number(demandQty)-Number(mixQuantitySum)).toFixed(2)} Kg</Label> 
+                                                        
+                                                    </div>
                                                    
                                                 
                                               
