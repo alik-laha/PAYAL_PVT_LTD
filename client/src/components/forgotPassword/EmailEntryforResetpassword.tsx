@@ -61,7 +61,7 @@ const EmailEntryforResetpassword = () => {
                             PAYAL DEALERS PVT. LTD
                         </h1>
                         <p className="text-xs text-orange-600 font-semibold tracking-wide">
-                             AFRICA UNIT (QUALITY MANAGEMENT)
+                             KOLKATA UNIT 
                         </p>
                     </div>
 
