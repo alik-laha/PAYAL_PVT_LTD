@@ -190,8 +190,8 @@ const RejectionReCreateForm = (props: Props) => {
 
 
         if (
-            Number(props.borma[0].issue_add_7) < Number(rows[0].rcv_peeling) ||
-            (Number(props.borma[0].issue_add_8)||0) < Number(rows[0].rcv_mayur) ||
+            ((Number(props.borma[0].rcv_peeling)||0)-(Number(props.borma[0].issue_add_2)||0)) < Number(rows[0].rcv_peeling) ||
+            ((Number(props.borma[0].rcv_mayur)||0)-(Number(props.borma[0].issue_add_5)||0)) < Number(rows[0].rcv_mayur) ||
             (Number(props.borma[0].rcv_village)||0) < Number(rows[0].rcv_village) ||
             (Number(props.borma[0].rcv_wholes)||0) < Number(rows[0].rcv_wholes) ||
             (Number(props.borma[0].rcv_lw)||0) < Number(rows[0].rcv_lw) ||
@@ -432,10 +432,10 @@ const RejectionReCreateForm = (props: Props) => {
                                           <TableCell className="text-center text-red-500 font-semibold">{formatNumber((Number(row.rcv_opening)-row.rcv_openingN).toString())} Kg</TableCell>
                                           <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                           
-                                                <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
+                                                <TableCell className="text-center font-semibold ">{formatNumber(((parseFloat(props.borma[0].rcv_peeling)||0)-(parseFloat(props.borma[0].issue_add_2)||0)).toString())} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                           
-                                          <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)||0} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold ">{formatNumber(((parseFloat(props.borma[0].rcv_mayur)||0)-(parseFloat(props.borma[0].issue_add_5)||0)).toString())} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-cyan-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
                                                 
                                                
