@@ -14,8 +14,8 @@ export const IssueStatus = ['N/A', 'Yes', 'No']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 export const QC_Boiler = ['Boiler-1 (Old)','Boiler-2 (New)']
 export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
-
-
+export const QRDispatchStatusAll=['GENERATED','IN-STOCK','DISPATCHED', 'RE-PACKED']
+export const Repack_Sections = ["Wholes","LW","Sorting","DPDS","Big-Taiho","Rejection","Village"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
 export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
 export const OrderStatusAll = ['Pending Approval','Pending Mapping', 'Pending Packing','Closed','Cancelled']
@@ -45,14 +45,14 @@ export const PermissionRol = {
         'RCN Incoming QC', 
         'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes','LW','Rejection','Village',
         'Cleaning',
-        'Gatepass','Packing'],
+        'Gatepass','Packing','QRDispatch'],
     FactoryManager: ['Employee', 'Asset','VendorSKU', 'Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry','Cashew Exit',
         'RCN Incoming QC', 
         'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes','LW','Rejection','Village',
         'Cleaning',
-        'Gatepass','Packing'],
+        'Gatepass','Packing','QRDispatch'],
     ReceivingSupervisor: ['RCN Primary Entry','Cashew Exit'],
     ReceivingPMSupervisor: ['Receiving Packaging Entry'],
     ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
@@ -68,7 +68,7 @@ export const PermissionRol = {
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
     ProductionManager:['Grading','Boiling','Scooping','Borma','Humidifier','Peeling','Mayur','Wholes','LW','Rejection',
-        'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry','Packing','Village'],
+        'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry','Packing','Village','QRDispatch'],
     DeputyProductionManager : ['Borma','Humidifier','Peeling','Mayur','Wholes','LW','Rejection',
         'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry','Village'], 
     MaintainanceManager:['Cleaning'],
@@ -82,18 +82,19 @@ export const PermissionRol = {
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry'],
-    PackingSupervisor:['Packing'],
+    PackingSupervisor:['Packing','QRDispatch'],
     DispatchManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry','Packing'],
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry','Packing','QRDispatch'],
 }
 
 export const PermissionDep = {
-    Admin: ['HR & Admin', 'GatePass','Receiving', 'Quality', 'Maintainance', 'Production','Dashboard'],
-    Receiving: ['GatePass','Receiving','Production'],
+    Admin: ['HR & Admin', 'GatePass','Receiving', 'Quality', 'Maintainance', 'Production','Dashboard','QR'],
+    Receiving: ['GatePass','Receiving','Production','QR'],
     Maintainance: ['Maintainance'],
-    Production: ['Production'],
+    Production: ['Production','QR'],
     QualityControl: ['Quality'],
-    GatePass:['GatePass','Receiving','Production']
+    GatePass:['GatePass','Receiving','Production'],
+    QR: ['QR'],
   
 }
 //they are only eligible to download excel and pending edit button will appear to check pending
@@ -121,7 +122,8 @@ export const pendingCheckRole = {
     StockMatch: ['Director', 'FactoryManager'],
     OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
     ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
-
+    QRDispatch:['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor'],
+    QRScan:['Director', 'FactoryManager', 'ProductionManager','DispatchManager']
 
    
 }

@@ -21,7 +21,7 @@ import {
     MdDashboard,
     
 } from "react-icons/md";
-import { IoIosNavigate, IoMdSettings   } from "react-icons/io";
+import { IoIosNavigate, IoIosQrScanner, IoMdSettings   } from "react-icons/io";
 import { LuDonut, LuBadgeCheck  } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
@@ -34,7 +34,7 @@ import { CiCreditCard1, CiPill } from "react-icons/ci";
 import { GrEject } from "react-icons/gr";
 
 import { CgSmartHomeBoiler } from "react-icons/cg";
-import { BsMoisture } from "react-icons/bs";
+import { BsMoisture, BsUpcScan } from "react-icons/bs";
 import { GiChopsticks } from "react-icons/gi";
 import { IoArrowRedoOutline } from "react-icons/io5";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
@@ -278,6 +278,38 @@ const toggleSection = (sectionKey: string) => {
                         <p className="flex">
                           <TbSitemap size={20} className="text-blue-600" />{" "}
                           <p className="pl-3">Asset</p>
+                        </p>
+                      </NavLink>
+                    </CollapsibleContent>
+                  )}
+                </Collapsible>
+              )}
+
+              {rendersection("QR") && (
+                <Collapsible
+                  open={openSection === "qr"}
+                  onOpenChange={() => toggleSection("qr")}>
+                  <CollapsibleTrigger
+                    className={`flex flex-row items-center justify-center mb-4 user-pvt ${
+                      openSection === "qr" ? "trigger-open" : ""
+                    }`}>
+                    <BsUpcScan  size={16} className="text-violet-700 mb-1" />
+                    <p className="ml-2 text-violet-700 italic font-extrabold drop-shadow-sm">SCAN</p>
+                    <span className="ml-auto">
+                      {openSection === "qr" ? (
+                        <FiChevronDown size={18} />
+                      ) : (
+                        <FiChevronRight size={18} />
+                      )}
+                    </span>
+                  </CollapsibleTrigger>
+                  {renderlink("QRDispatch") && (
+                    <CollapsibleContent className="Items-pvt">
+                      
+                      <NavLink to="/dashboard/qrDispatch">
+                        <p className="flex">
+                          <IoIosQrScanner  size={22} className="text-red-500" />{" "}
+                          <p className="pl-3">Dispatch Scan</p>
                         </p>
                       </NavLink>
                     </CollapsibleContent>

@@ -53,6 +53,7 @@ import QCOnline from './components/QCOnline/QCOnline'
 import CreditNote from './components/Credit Note/CreditNote'
 import QCOutgoing from './components/QCOutgoing/QCOutgoing'
 import DirectorDashboard from './components/dashboard/DirectorDashboard'
+import QRDispatch from './components/QR Dispatch/QRDispatch'
 
 
 
@@ -352,6 +353,15 @@ function App() {
         <Route element={<Private allowedRoles={['Director'
           ]} />}>
           <Route path="/dashboard/dashboard1/director" element={<DirectorDashboard />} />
+        </Route>
+
+         {/* QRDispatch */}
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+         'DispatchManager',
+        'GradingSupervisor', 'ProductionManager','DeputyProductionManager', 'PackingSupervisor']} />}>
+
+          <Route path="/dashboard/qrDispatch" element={<QRDispatch />} />
         </Route>
 
        

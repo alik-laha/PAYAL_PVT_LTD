@@ -45,6 +45,7 @@ import dashboardRouter from "./router/dashboardRouter";
 import QCOnlineRouter from "./router/QCOnlineRouter";
 import creditNoteRouter from "./router/creditNoteRouter";
 import qcRcnOutRouter from "./router/qcRcnOutRouter";
+import qrRouter from "./router/qrRouter";
 
 
 
@@ -100,4 +101,5 @@ app.use("/api/villageout", VillageOutRouter)
 app.use("/api/dashboard", dashboardRouter)
 app.use("/api/qconline", QCOnlineRouter)
 app.use("/api/creditNote", creditNoteRouter)
+app.use('/api/qrOperation', qrRouter)
 export default app
