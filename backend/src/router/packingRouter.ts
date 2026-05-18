@@ -1,7 +1,7 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, createPacking, createunPacking, deleteOrderMapping, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, getProductionBacklog, lotdataFind, lotQtydataFind, lotQtydataFindAll, lotQtydataFindAllOriginWise, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
-    ordStockSearch, packingSearch, prodStockSearch, 
+    ordStockSearch, packingSearch, 
     rejectPurchaseOrder,
     updateMappingOrder,
     updateMappingOrderEntire,

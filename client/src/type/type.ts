@@ -37,6 +37,7 @@ export interface PermissionDept {
     Production: string[];
     QualityControl: string[];
     GatePass:string[];
+    QR:string[];
 }
 export interface pendingCheckRoles {
     RCNPrimary: string[];
@@ -62,6 +63,9 @@ export interface pendingCheckRoles {
     ProdStockExcel:string[];
     StockMatch:string[];
     StockUpdate:string[];
+    QRDispatch:string[];
+    QRScan:string[];
+
     
 }
 export interface rcvCheckRoles {

@@ -661,3 +661,8 @@ export interface MergeNextOpeningData {
     Unscoop: number;
     NonCut: number;
 }
+
+export interface qrIDData {
+    id: number;
+    qr_id: string;
+}
