@@ -17,16 +17,20 @@ import {
     AlertDialog,
     AlertDialogAction,
 
+
     AlertDialogContent,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
+
 
 } from "@/components/ui/alert-dialog"
 import { Textarea } from "../ui/textarea"
 import { Repack_Sections } from "../common/exportData"
 import axios from "axios"
 import QRScanner2 from "./QRScanner2"
+
+
 
 
 
@@ -43,13 +47,16 @@ const QRPostScanForm2 = () => {
     const [time, setTime] = useState("")
     const [isScanning, setIsScanning] = useState(false)
     const [scannedList, setScannedList] = useState<string[]>([])
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
+    const [processing, setProcessing] = useState(false)
     const [errortext, setErrorText] = useState<string>("")
+
 
     useEffect(() => {
         setDate(new Date().toISOString().slice(0, 10))
         setTime(new Date().toTimeString().slice(0, 5))
     }, [])
+
 
     /* ---------- Start Scan ---------- */
     const startScan = () => {
@@ -58,6 +65,7 @@ const QRPostScanForm2 = () => {
             setErrorText('Vehicle and Party Are Mandatory For Dispatch-Scan');
             setErrorOpen(true);
             return
+
 
         }
         if (operation === "repacking" && !place) {
@@ -69,20 +77,23 @@ const QRPostScanForm2 = () => {
         setIsScanning(true)
     }
 
-    /* ---------- Handle Scan ---------- */
-    const handleScan = (code: string) => {
-        setScannedList(prev => {
-            if (prev.includes(code)) return prev
-            return [...prev, code]
-        })
-    }
 
-    /* ---------- Bulk Submit ---------- */
-    const handleBulkSubmit = async () => {
-        if (scannedList.length === 0) return
-        setLoading(true)
+    /* ---------- Handle Scan ---------- */
+    // const handleScan = (code: string) => {
+    //     setScannedList(prev => {
+    //         if (prev.includes(code)) return prev
+    //         return [...prev, code]
+    //     })
+    // }
+
+    const handleScan = async (code: string) => {
+
+        if (processing) return;
+
+        setProcessing(true);
 
         try {
+
             const res = await axios.put('/api/qrOperation/updateStatusBulk', {
                 operation,
                 vehicleNo,
@@ -91,38 +102,84 @@ const QRPostScanForm2 = () => {
                 place,
                 date,
                 time,
-                qr_ids: scannedList
-            })
+                qr_ids: [code]   // ✅ single scan
+            });
 
-            setIsScanning(false)
-            //alert("Bulk update success")
+            if (!scannedList.includes(code)) {
+                let updatedScanList = [...scannedList,code];
+                setScannedList(updatedScanList);
+            }
+
             setErrorText(res.data.message);
-            setSuccessOpen(true);   // ✅ only open success dialog
-            setScannedList([])
-            setOperation("");
-            setVehicleNo("");
-            setPartyName("");
-            setPlace("");
-            setRemarks("");
-        } catch (error: any) {
-            //alert("Bulk update failed")
-            setErrorText(error.response.data.message || "Error while updating status");
-            //setisdisable(false);
-            setErrorOpen(true);     // ✅ only open error dialog
-        }
+            setSuccessOpen(true);
 
-        setLoading(false)
-    }
+        } catch (error: any) {
+
+            setErrorText(
+                error.response?.data?.message ||
+                "Error while updating status"
+            );
+
+            setErrorOpen(true);
+
+        } finally {
+            setProcessing(false);  // ✅ resume scanner
+        }
+    };
+
+
+    /* ---------- Bulk Submit ---------- */
+    // const handleBulkSubmit = async () => {
+    //     if (scannedList.length === 0) return
+    //     setLoading(true)
+
+
+    //     try {
+    //         const res = await axios.put('/api/qrOperation/updateStatusBulk', {
+    //             operation,
+    //             vehicleNo,
+    //             partyName,
+    //             remarks,
+    //             place,
+    //             date,
+    //             time,
+    //             qr_ids: scannedList
+    //         })
+
+
+    //         setIsScanning(false)
+    //         //alert("Bulk update success")
+    //         setErrorText(res.data.message);
+    //         setSuccessOpen(true);   // ✅ only open success dialog
+    //         setScannedList([])
+    //         setOperation("");
+    //         setVehicleNo("");
+    //         setPartyName("");
+    //         setPlace("");
+    //         setRemarks("");
+    //     } catch (error: any) {
+    //         //alert("Bulk update failed")
+    //         setErrorText(error.response.data.message || "Error while updating status");
+    //         //setisdisable(false);
+    //         setErrorOpen(true);     // ✅ only open error dialog
+    //     }
+
+
+    //     setLoading(false)
+    // }
+
 
     return (
         <>
             {!isScanning && (
                 <div className="p-6 flex flex-col gap-4">
 
+
                     <div className="flex justify-between text-sm font-bold">
                         <span>⏱ {time}</span>
                         <span>📅 {date}</span>
                     </div>
+
 
                     <Select value={operation} onValueChange={(v: any) => setOperation(v)}>
                         <SelectTrigger>
@@ -134,12 +191,14 @@ const QRPostScanForm2 = () => {
                         </SelectContent>
                     </Select>
 
+
                     {operation === "dispatch" && (
                         <>
                             <Input placeholder="Vehicle No" value={vehicleNo} onChange={e => setVehicleNo(e.target.value)} />
                             <Input placeholder="Party Name" value={partyName} onChange={e => setPartyName(e.target.value)} />
                         </>
                     )}
+
 
                     {operation === "repacking" && (
                         <Select value={place} onValueChange={setPlace}>
@@ -156,7 +215,9 @@ const QRPostScanForm2 = () => {
                         </Select>
                     )}
 
+
                     <Textarea placeholder="Remarks" value={remarks} onChange={e => setRemarks(e.target.value)} />
+
 
                     <Button
                         className="bg-green-600 text-white"
@@ -168,8 +229,10 @@ const QRPostScanForm2 = () => {
                 </div>
             )}
 
+
             {isScanning && (
                 <div className="flex flex-col items-center gap-4 p-4">
+
 
                     {/* <QRScannerFinal
                         onResult={handleScan}
@@ -177,6 +240,7 @@ const QRPostScanForm2 = () => {
                             setIsScanning(false)
                             // Reset counter
                             setScannedList([]);
+
 
                             // Reset form fields (optional)
                             setOperation("");
@@ -187,21 +251,26 @@ const QRPostScanForm2 = () => {
                         }
 
 
+
+
                         }
                     /> */}
-                        {/* <QRScanner onScan={handleScan} className=""/> */}
-                        <QRScanner2 onScan={handleScan} />
+                    {/* <QRScanner onScan={handleScan} className=""/> */}
+                    {!(errorOpen || successOpen) && <QRScanner2
+                        onScan={handleScan}
+                        paused={processing}
+                    />}
                     <div className="text-center mt-4">
                         <p className="text-xl font-bold text-green-600">
                             Scanned: {scannedList.length}
                         </p>
 
+
                         <Button
                             className="mt-3 bg-blue-600 text-white"
-                            onClick={handleBulkSubmit}
-                            disabled={loading || scannedList.length === 0}
+                            onClick={() => window.location.reload()}
                         >
-                            {loading ? "Submitting..." : "Submit All"}
+                            Close Scan
                         </Button>
                     </div>
                 </div>
@@ -215,14 +284,16 @@ const QRPostScanForm2 = () => {
                         </AlertDialogTitle>
                     </AlertDialogHeader>
 
+
                     <p className="text-sm text-gray-600">{errortext}</p>
+
 
                     <AlertDialogFooter>
                         <AlertDialogAction
                             onClick={() => {
                                 setSuccessOpen(false);
                                 //setPaused(false);      // ✅ resume scanning
-                                setIsScanning(false)
+                                // setIsScanning(false)
                             }}
                         >
                             Continue Scan
@@ -230,6 +301,7 @@ const QRPostScanForm2 = () => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+
 
             <AlertDialog open={errorOpen} onOpenChange={setErrorOpen}>
                 <AlertDialogContent>
@@ -240,7 +312,9 @@ const QRPostScanForm2 = () => {
                         </AlertDialogTitle>
                     </AlertDialogHeader>
 
+
                     <p className="text-sm text-gray-600">{errortext}</p>
+
 
                     <AlertDialogFooter>
                         <AlertDialogAction
@@ -248,7 +322,7 @@ const QRPostScanForm2 = () => {
                             onClick={() => {
                                 setErrorOpen(false);
                                 //setPaused(false);   // ✅ retry scan
-                                setIsScanning(false)
+                                // setIsScanning(false)
                             }}
                         >
                             Retry Scan
@@ -260,4 +334,6 @@ const QRPostScanForm2 = () => {
     )
 }
 
+
 export default QRPostScanForm2
+

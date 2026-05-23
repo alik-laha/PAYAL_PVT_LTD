@@ -118,6 +118,7 @@ Failed: ${response.data.failedCount}`
         );
 
         //handleSearch();
+        window.location.reload();
 
     } catch (error: any) {
         console.error(error);
@@ -339,7 +340,7 @@ Failed: ${response.data.failedCount}`
 
                                     
 
-                                    <Button className='w-1/4 mt-2 bg-orange-500' onClick={(e) => printMarkAll(e, fromRangeRef.current?.value, toRangeRef.current?.value)} disabled={isdisable}>Print</Button>
+                                    <Button className='w-1/4 mt-2 bg-orange-500' onClick={(e) => printMarkAll(e, fromRangeRef.current?.value, toRangeRef.current?.value)} disabled={isdisable}>Mark All</Button>
                                 </div>
                                 {/* <SKUCreateForm/> */}
                             </DialogContent>

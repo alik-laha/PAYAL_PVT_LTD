@@ -202,16 +202,16 @@ const DashboardTable = () => {
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className=" text-center" >SL⠀No</TableHead>
+                    <TableHead className=" text-center whitespace-nowrap" >SL⠀No</TableHead>
                    
-                    <TableHead className=" text-center" >Emp ID </TableHead>
-                    <TableHead className="text-center uppercase" >Employee⠀FullName</TableHead>
+                    <TableHead className=" text-center whitespace-nowrap" >Emp ID </TableHead>
+                    <TableHead className="text-center uppercase whitespace-nowrap" >Employee⠀FullName</TableHead>
                     
-                    <TableHead className=" text-center" >UserName </TableHead>
-                    <TableHead className="text-center" >Department </TableHead>
+                    <TableHead className=" text-center whitespace-nowrap" >UserName </TableHead>
+                    <TableHead className="text-center whitespace-nowrap" >Department </TableHead>
                     <TableHead className=" text-center" >Role </TableHead>
 
-                    <TableHead className="text-center" >Created⠀By </TableHead>
+                    <TableHead className="text-center whitespace-nowrap" >Created⠀By </TableHead>
                       <TableHead className="text-center" >Action</TableHead>
                    
 
