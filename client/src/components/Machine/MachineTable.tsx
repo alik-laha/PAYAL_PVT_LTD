@@ -205,15 +205,15 @@ const MachineTable = () => {
 
                 <Table className="mt-1">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        <TableHead className="text-center" >Sl⠀No</TableHead>
-                        <TableHead className="text-center " >Asset⠀ID</TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Sl⠀No</TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Asset⠀ID</TableHead>
 
-                        <TableHead className="text-center" >Active⠀Status </TableHead>
-                        <TableHead className="text-center" >Asset⠀Name </TableHead>
-                        <TableHead className="text-center" >Production </TableHead>
-                        <TableHead className="text-center" >Section </TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Active⠀Status </TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Asset⠀Name </TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Production </TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Section </TableHead>
 
-                        <TableHead className="text-center" >Description </TableHead>
+                        <TableHead className="text-center whitespace-nowrap" >Description </TableHead>
 
 
                         <TableHead className="text-center" >Action</TableHead>
