@@ -1896,6 +1896,7 @@ export interface SumofpackageMetrialReceving {
 export interface sumofStorePrimary {
     sumofStorePrimary: number;
     storePrimary: number;
+    itemPrimary:number;
 }
 export interface sumofRcvVillagePrimary {
     sumofRcvVillagePrimary: number;

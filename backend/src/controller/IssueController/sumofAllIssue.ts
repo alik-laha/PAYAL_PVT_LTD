@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import ItemIssueEdit from "../../model/itemIssueEdit";
 import ItemIssue from "../../model/itemissueModel";
+import storePrimaryEditModel from "../../model/storePrimaryEditModel";
 
 const sumOfallIssue = async (req: Request, res: Response) => {
 
@@ -49,8 +50,9 @@ const sumOfallIssue = async (req: Request, res: Response) => {
 
 
         const EditData = await ItemIssueEdit.count()
+        const EditDataIn = await storePrimaryEditModel.count()
         if (data) {
-            return res.status(200).json({ data, EditData });
+            return res.status(200).json({ data, EditData,EditDataIn });
         }
     }
     catch (err) {

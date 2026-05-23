@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 //import sequelize from "../../config/databaseConfig";
 
 import storePrimaryModel from "../../model/storePrimaryModel";
+import ItemIssueEdit from "../../model/itemIssueEdit";
 
 const getUnEntriedStorePrimary = async (req: Request, res: Response) => {
 
@@ -12,6 +13,7 @@ const getUnEntriedStorePrimary = async (req: Request, res: Response) => {
     where: { status },
     group: ['gatePassNo', 'gateType']
   });
+
         if(rcnLot){
             res.status(200).json({ message: "UnEntried Store Primary Items Found", rcnLot });
         }

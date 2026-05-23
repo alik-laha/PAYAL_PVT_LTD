@@ -58,9 +58,9 @@ const StorePrimary = () => {
                 <p className='md:text-lg md:mt-0 mt-2 text-gray-600 text-center pt-1 tracking-wider drop-shadow-xl font-bold text-md '>OUTSIDE STORE TRANSACTION </p>
 
 
-                {checkreceiving('StorePrimaryEntry') && <Dialog>
-                <DialogTrigger>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
-                onClick={handleOpenLotNo}>+ Add Entry</Button></DialogTrigger>
+                {checkreceiving('StorePrimaryEntry')  && <Dialog>
+                <DialogTrigger disabled={((StorePrimaryOverView?.storePrimary ||0 )>0) || ((StorePrimaryOverView?.itemPrimary ||0 ) > 0)}>   <Button className="w-40 bg-gradient-to-r from-blue-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 mb-2 mt-5 ml-2 responsive-button-adjust no-margin-left drop-shadow-md"
+                onClick={handleOpenLotNo} disabled={((StorePrimaryOverView?.storePrimary ||0 )>0) || ((StorePrimaryOverView?.itemPrimary ||0 ) > 0)}>+ Add Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-3xl'>
                     <DialogHeader>
                         <DialogTitle><p className='text-lg text-gray-600 text-center pt-2 tracking-wider drop-shadow-xl font-bold'>Pending List</p></DialogTitle>
