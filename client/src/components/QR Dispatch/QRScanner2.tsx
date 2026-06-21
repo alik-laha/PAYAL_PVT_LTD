@@ -179,14 +179,14 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
                             };
                         },
                         aspectRatio: 1.777778,
-                        videoConstraints: {
-                            width: {
-                                ideal: 1280,
-                            },
-                            height: {
-                                ideal: 720,
-                            },
-                        },
+                        // videoConstraints: {
+                        //     width: {
+                        //         ideal: 1280,
+                        //     },
+                        //     height: {
+                        //         ideal: 720,
+                        //     },
+                        // },
                     } as any,
 
                     // SUCCESS CALLBACK
