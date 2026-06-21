@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 //import sequelize from "../../config/databaseConfig";
 
 import storePrimaryModel from "../../model/storePrimaryModel";
-import ItemIssueEdit from "../../model/itemIssueEdit";
+//import ItemIssueEdit from "../../model/itemIssueEdit";
 
 const getUnEntriedStorePrimary = async (req: Request, res: Response) => {
 

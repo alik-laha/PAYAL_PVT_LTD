@@ -150,8 +150,8 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
                 await scanner.start(
                     {
                         facingMode: "environment",
-                        width: 1280,
-                        height: 720,
+                        // width: 1280,
+                        // height: 720,
                     },
                     {
                         fps: 30,
@@ -179,6 +179,14 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
                             };
                         },
                         aspectRatio: 1.777778,
+                        videoConstraints: {
+                            width: {
+                                ideal: 1280,
+                            },
+                            height: {
+                                ideal: 720,
+                            },
+                        },
                     } as any,
 
                     // SUCCESS CALLBACK
