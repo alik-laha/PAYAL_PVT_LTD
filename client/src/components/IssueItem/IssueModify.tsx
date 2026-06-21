@@ -372,7 +372,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 </div>
                 <div className="flex">
                     <Label className="w-1/4 mt-2">Issue Quantity</Label>
-                    <Label className="w-1/4 mt-2 text-red-500">Left Quantity :{leftqty}</Label> 
+                    <Label className="w-1/4 mt-2 text-red-500">Prev Stock :{leftqty}</Label> 
                     <Input className="w-2/4 text-center justify-center" placeholder="Qty" value={quantity } onChange={(e)=> handlequantity(e)}/>
                 </div>
 

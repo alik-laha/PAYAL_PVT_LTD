@@ -130,6 +130,17 @@ const IssueCreateForm = () => {
 
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
+
+         const materials = rows.map((row) => row.material)
+
+        const hasduplicate = materials.some((item, index) => materials.indexOf(item) !== index);
+        if (hasduplicate) {
+            setErrortext('Duplicate Materials Found Between Rows!')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
         const dateissue = dateIssueref.current?.value
         const username = usernameRef.current?.value
 

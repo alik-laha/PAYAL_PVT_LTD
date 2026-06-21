@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Html5Qrcode } from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode";
 import { Button } from "@/components/ui/button";
 
 
@@ -13,37 +13,36 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
 
 
     const scannerRef = useRef<Html5Qrcode | null>(null);
-
-
+    const beepRef = useRef<HTMLAudioElement | null>(null);
     const [isTorch, setIsTorch] = useState(false);
     const [torchSupported, setTorchSupported] = useState(false);
-
-
     const torchOn = useRef(false);
-
-
     // Prevent duplicate scans
     const scanLockRef = useRef(false);
-
-
     // Store last scanned value
     const lastScanRef = useRef("");
-
 
     // -----------------------------------
     // Beep Sound
     // -----------------------------------
+    useEffect(() => {
+        beepRef.current = new Audio("/beep.mp3");
+        beepRef.current.volume = 1;
+    }, []);
+    // const playBeep = () => {
+    //     try {
+    //         const audio = new Audio("/beep.mp3");
+    //         audio.volume = 1;
+    //         audio.play().catch(() => { });
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
     const playBeep = () => {
         try {
-            const audio = new Audio("/beep.mp3");
-
-
-            audio.volume = 1;
-
-
-            audio.play().catch(() => { });
-
-
+            if (!beepRef.current) return;
+            beepRef.current.currentTime = 0;
+            beepRef.current.play().catch(() => { });
         } catch (err) {
             console.log(err);
         }
@@ -83,8 +82,6 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
             console.log(err);
         }
     };
-
-
     // -----------------------------------
     // Toggle Torch
     // -----------------------------------
@@ -138,48 +135,47 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
     // Initialize Scanner
     // -----------------------------------
     useEffect(() => {
-
-
-        const scanner = new Html5Qrcode("reader");
-
-
+     const scanner = new Html5Qrcode(
+    "reader",
+    {
+        verbose: false,
+        formatsToSupport: [
+            Html5QrcodeSupportedFormats.CODE_128,
+        ],
+    }
+);
         scannerRef.current = scanner;
-
-
         const startScanner = async () => {
-
-
             try {
-
-
                 await scanner.start(
                     {
                         facingMode: "environment",
+                        width: 1280,
+                        height: 720,
                     },
-
-
                     {
-                        fps: 10,
+                        fps: 30,
                         qrbox: (
-                            viewfinderWidth: number,
-                            viewfinderHeight: number
+                            // viewfinderWidth: number,
+                            // viewfinderHeight: number
                         ) => {
 
 
-                            const minEdge = Math.min(
-                                viewfinderWidth,
-                                viewfinderHeight
-                            );
+                            // const minEdge = Math.min(
+                            //     viewfinderWidth,
+                            //     viewfinderHeight
+                            // );
 
 
-                            const width = Math.floor(minEdge * 0.9);
-                            const height = Math.floor(minEdge * 0.7);
-
-
-
+                            //const width = Math.floor(minEdge * 0.9);
+                            //const height = Math.floor(minEdge * 0.7);
+                            // return {
+                            //     width: width,
+                            //     height: height,
+                            // };
                             return {
-                                width: width,
-                                height: height,
+                                width: 320,
+                                height: 120,
                             };
                         },
                         aspectRatio: 1.777778,
@@ -187,8 +183,6 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
 
                     // SUCCESS CALLBACK
                     async (decodedText: string) => {
-
-
                         // -----------------------------------
                         // HARD LOCK
                         // prevents duplicate scan in Android
@@ -196,46 +190,27 @@ const QRScanner2 = ({ onScan, paused = false }: QRScannerProps) => {
                         if (scanLockRef.current || paused) {
                             return;
                         }
-
                         // Same barcode protection
                         if (decodedText === lastScanRef.current) {
                             return;
                         }
-
-
                         scanLockRef.current = true;
-
-
                         lastScanRef.current = decodedText;
-
-
                         playBeep();
-
-
                         onScan(decodedText);
-
-
                         // -----------------------------------
                         // iPhone torch auto-off fix
                         // -----------------------------------
                         setTimeout(() => {
                             syncTorchState();
                         }, 300);
-
-
                         // -----------------------------------
                         // Unlock after delay
                         // -----------------------------------
                         setTimeout(() => {
-
-
                             scanLockRef.current = false;
-
-
                             lastScanRef.current = "";
-
-
-                        }, 2000);
+                        }, 200);
                     },
 
 

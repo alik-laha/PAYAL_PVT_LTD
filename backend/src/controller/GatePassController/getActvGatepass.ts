@@ -24,7 +24,10 @@ const getActvGatepass = async (req: Request, res: Response) => {
             today.setMinutes(today.getMinutes()+30);
         }
     try {
-        const Issued = await gatePassMaster.count({ col:'gatePassNo'});
+        const Issued = await gatePassMaster.count({ col:'gatePassNo',
+            where:{date: {
+                                    [Op.between]: [targetDate, today]
+                                }}});
             const completed  = await gatePassMaster.count({ col:'gatePassNo',
                 where: { status: 'Closed',date: {
                                     [Op.between]: [targetDate, today]

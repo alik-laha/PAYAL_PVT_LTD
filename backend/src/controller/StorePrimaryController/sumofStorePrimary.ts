@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import storePrimaryEditModel from "../../model/storePrimaryEditModel";
+import ItemIssueEdit from "../../model/itemIssueEdit";
+
 
 const sumofStorePrimary = async (req: Request, res: Response) => {
     try {
@@ -37,7 +39,9 @@ const sumofStorePrimary = async (req: Request, res: Response) => {
         });
     
         const storePrimary = await storePrimaryEditModel.count();
-        return res.status(200).json({ sumofStorePrimary, storePrimary });
+        const itemPrimary = await ItemIssueEdit.count();
+        
+        return res.status(200).json({ sumofStorePrimary, storePrimary ,itemPrimary});
     }
     catch (err) {
         console.log(err)

@@ -113,6 +113,17 @@ const StorePrimaryEntry = (props:Props) => {
 
 const handleSubmit2 = async (e: React.FormEvent) => {
     e.preventDefault()
+
+     const skus = rows.map((row) => row.sku)
+
+        const hasduplicate = skus.some((item, index) => skus.indexOf(item) !== index);
+        if (hasduplicate) {
+            setErrortext('Duplicate SKU Values Found Between Rows!')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
     setisdisable(true)
     //const quantity = quantityRef.current?.value
     const invoicedate=invoicedateRef.current?.value
