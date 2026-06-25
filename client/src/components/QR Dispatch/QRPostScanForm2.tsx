@@ -29,6 +29,7 @@ import { Textarea } from "../ui/textarea"
 import { Repack_Sections } from "../common/exportData"
 import axios from "axios"
 import QRScanner2 from "./QRScanner2"
+import BarcodeScannerDesktop from "./qr_component/LaserScanner"
 
 
 
@@ -50,7 +51,10 @@ const QRPostScanForm2 = () => {
     // const [loading, setLoading] = useState(false)
     const [processing, setProcessing] = useState(false)
     const [errortext, setErrorText] = useState<string>("")
-
+    const isDesktop =
+    !/Android|iPhone|iPad|iPod/i.test(
+        navigator.userAgent
+    );
 
     useEffect(() => {
         setDate(new Date().toISOString().slice(0, 10))
@@ -256,10 +260,35 @@ const QRPostScanForm2 = () => {
                         }
                     /> */}
                     {/* <QRScanner onScan={handleScan} className=""/> */}
-                    {!(errorOpen || successOpen) && <QRScanner2
+                    {/* {!(errorOpen || successOpen) && <QRScanner2
                         onScan={handleScan}
                         paused={processing}
-                    />}
+                    />} */}
+
+                    {!(errorOpen || successOpen) && (
+    isDesktop ? (
+        <BarcodeScannerDesktop
+            onScan={handleScan}
+            paused={processing}
+        />
+    ) : (
+        <QRScanner2
+            onScan={handleScan}
+            paused={processing}
+        />
+    ))}
+
+    {isDesktop && (
+    <div className="border rounded-lg p-6 text-center">
+        <h3 className="font-bold text-lg">
+            Barcode Scanner Ready
+        </h3>
+
+        <p className="text-sm text-gray-500">
+            Scan a Code128 barcode using the USB scanner
+        </p>
+    </div>
+)}
                     <div className="text-center mt-4">
                         <p className="text-xl font-bold text-green-600">
                             Scanned: {scannedList.length}
